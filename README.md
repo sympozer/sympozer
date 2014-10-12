@@ -16,7 +16,7 @@ This project is under the Creative Common license CC-BY-NC-SA.
 Installation instruction
 -------
     
-[Read the installation guide for master](https://github.com/BenoitDdlp/Sympozer-event-manager-app/install.md)
+[Read the installation guide for master](https://github.com/BenoitDdlp/Sympozer-event-manager-app/blob/master/install.md)
 	
 #USER MANUAL
 
