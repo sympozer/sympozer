@@ -70,4 +70,4 @@ Start your Apache server and go to :
 One of the most common issue is that folders app/cache and app/logs don't have write access by Symfony. To fix this, do a chmod or [refer here](http://symfony.com/doc/current/book/installation.html#configuration-and-setup) for more informations,
 or run the "chcache.sh" script (linux chmod)
 
-        <code>./chcache.sh</code>
+    ./chcache.sh
