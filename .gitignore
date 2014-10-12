@@ -1,0 +1,24 @@
+#mobile app
+src/fibe/MobileAppBundle/Resources/public/mobileApp/*
+
+# Symfony directories
+web/uploads/*
+*/logs/*
+*/cache/*
+vendor/*
+web/bundles/*
+web/js/compiled/*
+web/css/compiled/*
+
+# Symfony files
+app/config/parameters.yml
+app/bootstrap.php.cache
+composer.lock
+
+# intellij files
+*.iml
+.idea
+
+# gedit temp file
+*~
+bin

@@ -1,0 +1,7 @@
+<div ng-include="GLOBAL_CONFIG.app.modules.papers.urls.partials+'papers-actions.html'" ng-controller="papersMainCtrl"></div>
+<form name="paperEditForm" class="form" role="form" ng-submit="update(paperEditForm)">
+    <div ng-include="GLOBAL_CONFIG.app.modules.papers.urls.partials+'papers-form.html'"></div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-success">Save</button>
+    </div>
+</form>

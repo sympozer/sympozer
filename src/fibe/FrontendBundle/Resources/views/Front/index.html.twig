@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="en" ng-app="sympozerApp">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>Sympozer</title>
+
+  {% stylesheets 'bundles/frontend/app/css/bootstrap.min.css'
+  'bundles/frontend/app/css/bootstrap-theme.min.css'
+  'bundles/frontend/app/css/loading-bar.css'
+  'bundles/frontend/app/css/app.css'
+  'bundles/frontend/app/css/animations.css'
+  'bundles/frontend/app/css/leaflet.css'
+  'bundles/frontend/app/css/datetimepicker.css'
+  'bundles/frontend/app/css/select.css'
+  'bundles/frontend/app/css/select2.css'
+  'bundles/frontend/app/css/colorpicker.css'
+  'bundles/frontend/app/css/bootstrap-tag.css'
+  'bundles/frontend/app/css/bootstrap-social.css'
+  output='css/compiled/vendors.css' %}
+  <link rel="stylesheet" href="{{ asset_url }}"/>
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+  {% endstylesheets %}
+
+
+  <!-- included vendors -->
+  {% javascripts 'bundles/frontend/vendors/jquery.min.js'
+  'bundles/frontend/vendors/angular.js'
+  'bundles/frontend/vendors/angular-resource.js'
+  'bundles/frontend/vendors/angular-translate.js'
+  'bundles/frontend/vendors/angular-route.js'
+  'bundles/frontend/vendors/angular-animate.min.js'
+  'bundles/frontend/vendors/bootstrap.min.js'
+  'bundles/frontend/vendors/angular-ui-router.min.js'
+  'bundles/frontend/vendors/select.js'
+  'bundles/frontend/vendors/angular-sanitize.js'
+  'bundles/frontend/vendors/draganddrop.js'
+  'bundles/frontend/vendors/loading-bar.js'
+  'bundles/frontend/vendors/angular-cached-resource.min.js'
+  'bundles/frontend/vendors/angular-cookies.js'
+  'bundles/frontend/vendors/moment.js'
+  'bundles/frontend/vendors/angular-leaflet-directive.min.js'
+  'bundles/frontend/vendors/createDialog.js'
+  'bundles/frontend/vendors/angular-moment.js'
+  'bundles/frontend/vendors/loadingBarModule.js'
+  'bundles/frontend/vendors/datetimepicker.js'
+  'bundles/frontend/vendors/leaflet.js'
+  'bundles/frontend/vendors/bootstrap-colopicker-module.js'
+  'bundles/frontend/vendors/bootstrap-colorpicker.js'
+  output='js/compiled/main.js' %}
+  <script src="{{ asset_url }}" type="text/javascript"></script>
+  {% endjavascripts %}
+
+  <!-- common client app assets -->
+  {% javascripts
+  'bundles/frontend/app/js/app.js'
+  'bundles/frontend/app/js/controllers.js'
+  'bundles/frontend/app/js/routes.js'
+  'bundles/frontend/app/js/directives.js'
+  'bundles/frontend/app/js/services.js'
+  'bundles/frontend/app/js/filters.js'
+
+  'bundles/frontend/app/modules/contextualization/js/app.js'
+  'bundles/frontend/app/modules/contextualization/js/services.js'
+  'bundles/frontend/app/modules/contextualization/js/controllers.js'
+  'bundles/frontend/app/modules/contextualization/js/routes.js'
+
+  'bundles/frontend/app/modules/organizations/js/services.js'
+  'bundles/frontend/app/modules/organizations/js/controllers.js'
+  'bundles/frontend/app/modules/organizations/js/routes.js'
+
+  'bundles/frontend/app/modules/papers/js/services.js'
+  'bundles/frontend/app/modules/papers/js/controllers.js'
+  'bundles/frontend/app/modules/papers/js/routes.js'
+
+  'bundles/frontend/app/modules/topics/js/services.js'
+  'bundles/frontend/app/modules/topics/js/controllers.js'
+  'bundles/frontend/app/modules/topics/js/routes.js'
+
+  'bundles/frontend/app/modules/categories/js/services.js'
+  'bundles/frontend/app/modules/categories/js/controllers.js'
+  'bundles/frontend/app/modules/categories/js/routes.js'
+
+  'bundles/frontend/app/modules/persons/js/services.js'
+  'bundles/frontend/app/modules/persons/js/controllers.js'
+  'bundles/frontend/app/modules/persons/js/routes.js'
+
+  'bundles/frontend/app/modules/equipments/js/services.js'
+  'bundles/frontend/app/modules/equipments/js/controllers.js'
+  'bundles/frontend/app/modules/equipments/js/routes.js'
+
+  'bundles/frontend/app/modules/locations/js/services.js'
+  'bundles/frontend/app/modules/locations/js/controllers.js'
+  'bundles/frontend/app/modules/locations/js/routes.js'
+
+  'bundles/frontend/app/modules/events/js/services.js'
+  'bundles/frontend/app/modules/events/js/controllers.js'
+  'bundles/frontend/app/modules/events/js/routes.js'
+
+  'bundles/frontend/app/modules/conferences/js/services.js'
+  'bundles/frontend/app/modules/conferences/js/controllers.js'
+  'bundles/frontend/app/modules/conferences/js/routes.js'
+
+  'bundles/frontend/app/modules/roles/js/services.js'
+  'bundles/frontend/app/modules/roles/js/controllers.js'
+  'bundles/frontend/app/modules/roles/js/routes.js'
+
+  'bundles/frontend/app/modules/authentication/js/services.js'
+  'bundles/frontend/app/modules/authentication/js/controllers.js'
+  'bundles/frontend/app/modules/authentication/js/routes.js'
+  'bundles/frontend/app/modules/authentication/js/app.js'
+
+  output='js/compiled/app.js' %}
+  <script src="{{ asset_url }}" type="text/javascript"></script>
+
+
+  <!-- <script src="{{ asset('bundles/frontend/app/js/animations.js') }}"></script> -->
+  {% if app.user %}
+    <script>
+      localStorage.setItem('currentUser', {{ user | json_encode | raw() }});
+    </script>
+  {% endif %}
+
+  <!-- basic client app context definition -->
+  <script>
+    //@TODO to put in serchService
+    var queryNb = 0,
+        firstQueryNb = 0
+        ;
+
+    var globalConfig = {
+      api: {
+        urls: {
+          get_organizations: "{{ path('community_organization_versions_post') }}",
+          get_persons: "{{ path('community_persons_post') }}",
+          get_locations: "{{ path('content_locations_post') }}",
+          get_equipments: "{{ path('content_equipments_post') }}",
+          get_events: "{{ path('schedule_events_post') }}",
+
+          get_roles: "{{ path('content_roles_post') }}",
+          get_roleLabel_verions: "{{ path('content_roleLabel_versions_post') }}",
+          get_roleLabels: "{{ path('content_roleLabels_post') }}",
+
+            get_papers: "{{ path('content_papers_post') }}",
+          get_topics: "{{ path('content_topics_post') }}",
+          get_categories: "{{ path('schedule_category_versions_post') }}",
+          get_conferences: "{{ path('schedule_conferences_post') }}",
+          login: "{{ path('login_check', {_format: 'json'}) }}",
+          logout: "{{ path('logout') }}",
+          registration: "{{ path('security_signup') }}",
+          confirm: "{{ path('security_confirm') }}",
+          changepwd: "{{ path('security_changepwd') }}",
+          reset_pwd_request: "{{ path('security_resetpwdrequest') }}",
+          reset_pwd: "{{ path('security_resetpwd') }}",
+          socialnetworks:[
+            {% for owner in hwi_oauth_resource_owners() %}{% if loop.first %}{% else %},{% endif %}
+            {
+              name : "{{ owner }}",
+              urls: {
+                login: "{{ hwi_oauth_login_url(owner) }}",
+                enrich: "{{ path('enrich_account', { 'socialService': owner }) }}"
+              },
+              {# can't register with twitter as long as they chose to not return user's mail :( #}
+              can_register: {% if owner == 'twitter' %}false{% else %}true{% endif %}
+            }
+            {% endfor %}
+          ]
+        }
+      },
+      app: {
+        options: {
+          shouldLogin: {% if shouldLogin %}true{% else %}false{% endif %}
+        },
+        urls: {
+          base: "{{ asset('bundles/frontend/app/') }}",
+          partials: "{{ asset('bundles/frontend/app/partials/') }}",
+          img: "{{ asset('bundles/frontend/app/img/') }}"
+        },
+        modules: {
+          organizations: {
+            urls: {
+              base: "{{ asset('bundles/frontend/app/modules/organizations/') }}",
+              partials: "{{ asset('bundles/frontend/app/modules/organizations/partials/') }}",
+              img: "{{ asset('bundles/frontend/app/modules/organizations/img') }}"
+            }
+          },
+          locations: {
+            urls: {
+              base: "{{ asset('bundles/frontend/app/modules/locations/') }}",
+              partials: "{{ asset('bundles/frontend/app/modules/locations/partials/') }}",
+              img: "{{ asset('bundles/frontend/app/modules/locations/img') }}"
+            }
+          },
+          equipments: {
+            urls: {
+              base: "{{ asset('bundles/frontend/app/modules/equipments/') }}",
+              partials: "{{ asset('bundles/frontend/app/modules/equipments/partials/') }}",
+              img: "{{ asset('bundles/frontend/app/modules/equipments/img') }}"
+                        }
+          },
+          events: {
+            urls: {
+              base: "{{ asset('bundles/frontend/app/modules/events/') }}",
+              partials: "{{ asset('bundles/frontend/app/modules/events/partials/') }}",
+              img: "{{ asset('bundles/frontend/app/modules/events/img') }}"
+            }
+          },
+          papers: {
+            urls: {
+              base: "{{ asset('bundles/frontend/app/modules/papers/') }}",
+              partials: "{{ asset('bundles/frontend/app/modules/papers/partials/') }}",
+              img: "{{ asset('bundles/frontend/app/modules/papers/img') }}"
+            }
+          },
+          categories: {
+            urls: {
+              base: "{{ asset('bundles/frontend/app/modules/categories/') }}",
+              partials: "{{ asset('bundles/frontend/app/modules/categories/partials/') }}",
+              img: "{{ asset('bundles/frontend/app/modules/categories/img') }}"
+            }
+          },
+          conferences: {
+            urls: {
+              base: "{{ asset('bundles/frontend/app/modules/conferences/') }}",
+              partials: "{{ asset('bundles/frontend/app/modules/conferences/partials/') }}",
+              img: "{{ asset('bundles/frontend/app/modules/conferences/img') }}"
+            }
+          },
+          persons: {
+            urls: {
+              base: "{{ asset('bundles/frontend/app/modules/persons/') }}",
+              partials: "{{ asset('bundles/frontend/app/modules/persons/partials/') }}",
+              img: "{{ asset('bundles/frontend/app/modules/persons/img') }}"
+            }
+          },
+          roles: {
+            urls: {
+                base: "{{ asset('bundles/frontend/app/modules/roles/') }}",
+                partials: "{{ asset('bundles/frontend/app/modules/roles/partials/') }}",
+                img: "{{ asset('bundles/frontend/app/modules/roles/img') }}"
+            }
+          },
+          roleLabels: {
+                urls: {
+                    base: "{{ asset('bundles/frontend/app/modules/roles/') }}",
+                    partials: "{{ asset('bundles/frontend/app/modules/roles/partials/') }}",
+                    img: "{{ asset('bundles/frontend/app/modules/roles/img') }}"
+                }
+          },
+          topics: {
+            urls: {
+              base: "{{ asset('bundles/frontend/app/modules/topics/') }}",
+              partials: "{{ asset('bundles/frontend/app/modules/topics/partials/') }}",
+              img: "{{ asset('bundles/frontend/app/modules/topics/img') }}"
+            }
+          },
+          authentication: {
+            urls: {
+              base: "{{ asset('bundles/frontend/app/modules/authentication/') }}",
+              partials: "{{ asset('bundles/frontend/app/modules/authentication/partials/') }}",
+              img: "{{ asset('bundles/frontend/app/modules/authentication/img') }}"
+            }
+          }
+        }
+      },
+      language: 'EN',
+      severTime: "{{ 'now'|date('m/d/Y') }}"
+    };
+    angular.module('sympozerApp').value('GLOBAL_CONFIG', globalConfig);
+  </script>
+  {% endjavascripts %}
+</head>
+
+<!-- Main View -->
+<body ng-controller="mainCtrl">
+
+<div class="navTop" ng-include="GLOBAL_CONFIG.app.urls.partials+'layout/nav-top.html'"
+     ng-controller="navTopCtrl">
+</div>
+
+<div id="alertBox" ng-include="GLOBAL_CONFIG.app.urls.partials+'layout/alert-box.html'"
+     ng-controller="AlertCtrl"></div>
+
+<div id="wrapper">
+
+  <div class="navLeft" ng-include="GLOBAL_CONFIG.app.urls.partials+'layout/nav-left.html'"
+       ng-controller="navLeftCtrl"></div>
+
+  <!-- Page content -->
+  <div id="page-content-wrapper">
+
+    <div class="page-content inset view-container">
+
+      <div class="row view-frame" ng-class="view-frame" data-ng-view="">
+      </div>
+
+    </div>
+    <div id="scrollTopBtn">
+      <button class="btn btn-default" ng-click="scrollTop()" role="button"><i class="fa  fa-arrows-v fa-3x"></i>
+      </button>
+    </div>
+  </div>
+
+</div>
+<div ng-controller="contextCtrl"></div>
+</body>
+
+</html>

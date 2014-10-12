@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:bibo="http://purl.org/ontology/bibo/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:dctype="http://purl.org/dc/dcmitype/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:ical="http://www.w3.org/2002/12/cal/ical#"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:swc="http://data.semanticweb.org/ns/swc/ontology#"
+	xmlns:swrc="http://swrc.ontoware.org/ontology#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema#">  
+
+
+<rdf:Description rdf:about="http://data.semanticweb.org/conference/iswc/2013">
+	<rdf:type rdf:resource="http://data.semanticweb.org/ns/swc/ontology#ConferenceEvent"/>
+	<rdfs:label>The 12th International Semantic Web Conference</rdfs:label>
+	<swc:hasAcronym>ISWC2013</swc:hasAcronym>  
+</rdf:Description> 
+
+
+
+<rdf:Description rdf:about="http://data.semanticweb.org/conference/iswc/2013/track/default">
+	<rdf:type rdf:resource="http://data.semanticweb.org/ns/swc/ontology#TrackEvent"/>
+	<rdfs:label>Track 1</rdfs:label>
+	<ical:dtend rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2013-10-24T15:30:00</ical:dtend>
+	<ical:dtstart rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2013-10-24T14:20:00</ical:dtstart> 
+	<swc:isSubEventOf rdf:resource="http://data.semanticweb.org/conference/iswc/2013"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://data.semanticweb.org/conference/iswc/2013/track/track-1">
+	<rdf:type rdf:resource="http://data.semanticweb.org/ns/swc/ontology#TrackEvent"/>
+	<rdfs:label>Default Track</rdfs:label>
+	<ical:dtend rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2013-10-24T15:30:00</ical:dtend>
+	<ical:dtstart rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2013-10-24T14:20:00</ical:dtstart> 
+	<swc:isSubEventOf rdf:resource="http://data.semanticweb.org/conference/iswc/2013"/>
+</rdf:Description>  
+
+
+<rdf:Description rdf:about="http://data.semanticweb.org/conference/iswc/2013/session/session-1">
+	<rdf:type rdf:resource="http://data.semanticweb.org/ns/swc/ontology#SessionEvent"/>
+	<rdfs:label>Session 1</rdfs:label>
+	<ical:dtend rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2013-10-24T15:30:00</ical:dtend>
+	<ical:dtstart rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2013-10-24T14:20:00</ical:dtstart> 
+	<swc:isSubEventOf rdf:resource="http://data.semanticweb.org/conference/iswc/2013/track/default"/>  
+</rdf:Description>
+
+<rdf:Description rdf:about="http://data.semanticweb.org/conference/iswc/2013/session/session-2">
+	<rdf:type rdf:resource="http://data.semanticweb.org/ns/swc/ontology#TalkEvent"/>
+	<rdfs:label>Session 2</rdfs:label>
+	<ical:dtend rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2013-10-24T15:30:00</ical:dtend>
+	<ical:dtstart rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2013-10-24T14:20:00</ical:dtstart> 
+	<swc:isSubEventOf rdf:resource="http://data.semanticweb.org/conference/iswc/2013/track/track-1"/>  
+</rdf:Description>
+
+<rdf:Description rdf:about="http://data.semanticweb.org/conference/iswc/2013/session/session-3">
+	<rdf:type rdf:resource="http://data.semanticweb.org/ns/swc/ontology#TalkEvent"/>
+	<rdfs:label>Session 3</rdfs:label>
+	<ical:dtend rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2013-10-24T15:30:00</ical:dtend>
+	<ical:dtstart rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2013-10-24T14:20:00</ical:dtstart> 
+	<swc:isSubEventOf rdf:resource="http://data.semanticweb.org/conference/iswc/2013/track/track-1"/>  
+</rdf:Description>
+
+
+
+<rdf:Description rdf:about="http://data.semanticweb.org/conference/iswc/2013/session/default/default">
+	<rdf:type rdf:resource="http://data.semanticweb.org/ns/swc/ontology#TalkEvent"/>
+	<rdfs:label>Default Talk</rdfs:label>
+	<swc:isSubEventOf rdf:resource="http://data.semanticweb.org/conference/iswc/2013/session/session-3"/>
+	<ical:dtend rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2013-10-24T15:30:00</ical:dtend>
+	<ical:dtstart rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2013-10-24T14:20:00</ical:dtstart> 
+</rdf:Description> 
+
+<rdf:Description rdf:about="http://data.semanticweb.org/conference/iswc/2013/session/session-1/talk-3">
+	<rdf:type rdf:resource="http://data.semanticweb.org/ns/swc/ontology#TalkEvent"/>
+	<rdfs:label>Talk 3</rdfs:label>
+	<swc:isSubEventOf rdf:resource="http://data.semanticweb.org/conference/iswc/2013/session/session-1"/>
+	<ical:dtend rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2013-10-24T15:30:00</ical:dtend>
+	<ical:dtstart rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2013-10-24T14:20:00</ical:dtstart> 
+</rdf:Description>
+
+<rdf:Description rdf:about="http://data.semanticweb.org/conference/iswc/2013/session/session-2/talk-4">
+	<rdf:type rdf:resource="http://data.semanticweb.org/ns/swc/ontology#TalkEvent"/>
+	<rdfs:label>Talk 4</rdfs:label>
+	<swc:isSubEventOf rdf:resource="http://data.semanticweb.org/conference/iswc/2013/session/session-2"/>
+	<ical:dtend rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2013-10-24T15:30:00</ical:dtend>
+	<ical:dtstart rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2013-10-24T14:20:00</ical:dtstart> 
+</rdf:Description>
+
+<rdf:Description rdf:about="http://data.semanticweb.org/conference/iswc/2013/session/session-2/talk-5">
+	<rdf:type rdf:resource="http://data.semanticweb.org/ns/swc/ontology#TalkEvent"/>
+	<rdfs:label>Talk 5</rdfs:label>
+	<swc:isSubEventOf rdf:resource="http://data.semanticweb.org/conference/iswc/2013/session/session-2"/>
+	<ical:dtend rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2013-10-24T15:30:00</ical:dtend>
+	<ical:dtstart rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2013-10-24T14:20:00</ical:dtstart> 
+</rdf:Description>
+
+<rdf:Description rdf:about="http://data.semanticweb.org/conference/iswc/2013/session/session-3/talk-6">
+	<rdf:type rdf:resource="http://data.semanticweb.org/ns/swc/ontology#TalkEvent"/>
+	<rdfs:label>Talk 6</rdfs:label>
+	<swc:isSubEventOf rdf:resource="http://data.semanticweb.org/conference/iswc/2013/session/session-3"/>
+	<ical:dtend rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2013-10-24T15:30:00</ical:dtend>
+	<ical:dtstart rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2013-10-24T14:20:00</ical:dtstart> 
+</rdf:Description>
+
+<rdf:Description rdf:about="http://data.semanticweb.org/conference/iswc/2013/session/session-3/talk-7">
+	<rdf:type rdf:resource="http://data.semanticweb.org/ns/swc/ontology#TalkEvent"/>
+	<rdfs:label>Talk 7</rdfs:label>
+	<swc:isSubEventOf rdf:resource="http://data.semanticweb.org/conference/iswc/2013/session/session-3"/>
+	<ical:dtend rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2013-10-24T15:30:00</ical:dtend>
+	<ical:dtstart rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2013-10-24T14:20:00</ical:dtstart> 
+</rdf:Description>
+</rdf:RDF>

@@ -1,0 +1,43 @@
+parameters: 
+
+
+    routing_dev_file:  routing_dev.yml
+
+    locale:            en
+    secret:            ThisTokenIsNotSoSecretChangeIt
+
+    bootstrap_source:  http://twitter.github.com/bootstrap/assets/bootstrap.zip
+    max_per_page:      20
+
+    path_to_node:      /usr/local/bin/node
+
+    session.storage.filesystem.class: fibe\RestBundle\Session\Storage
+
+
+    # social account
+    twitter.client_id:      lPRWT7tKPwkmiFlu3Y8RC69vs
+    twitter.client_secret:  FlbL682NCbFBNcgHPkk5W2NTL1QTqs82lqO4ZWRas0yjQrm87Z
+    twitter.access_token:   2566837897-7BQDoyNx2OV0I8lFfMkzQfkeF6ZbuC0N8ekHoD6
+    twitter.access_token_secret:    WPON6RSScVrc6riEuHE96al7NUI8QVDENli4N3ICBkUfM
+
+    social_networks:
+        google:
+            type:                google
+            client_id:           381296840409-ajut55prn2ahl0n8hakpufia7pbc5ovd.apps.googleusercontent.com
+            client_secret:       EHb_tRcleAqL5siGjovNuKPy
+            scope:               "https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile"
+            # options:
+            #     access_type:     offline
+        twitter:
+            type:                twitter
+            client_id:           %twitter.client_id%
+            client_secret:       %twitter.client_secret%
+        facebook:
+            type:                facebook
+            client_id:           302138773286062
+            client_secret:       2ff19b48db1508de43e56be63525d0e4 
+            scope:               "email"
+        linkedin:
+            type:                linkedin
+            client_id:           77t2v9vcniqt0s
+            client_secret:       MvFQtxReXq2eS7pB 

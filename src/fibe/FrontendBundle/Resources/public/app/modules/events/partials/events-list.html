@@ -1,0 +1,36 @@
+<div entity-list-handler="events">
+  <div ng-include="GLOBAL_CONFIG.app.modules.events.urls.partials+'events-actions.html'"></div>
+  <div ng-include="GLOBAL_CONFIG.app.modules.categories.urls.partials+'categories-filter.html'"></div>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>Label<i class="fa fa-sort-asc" ng-click="order('label','ASC')"></i><i class="fa fa-sort-desc" ng-click="order('label','DESC')"></i>
+      </th>
+      <th>Start at
+        <i class="fa fa-sort-asc" ng-click="order('website','ASC')"></i><i class="fa fa-sort-desc" ng-click="order('website','DESC')"></i>
+      </th>
+      <th>End at
+        <i class="fa fa-sort-asc" ng-click="order('country','ASC')"></i><i class="fa fa-sort-desc" ng-click="order('country','DESC')"></i>
+      </th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody offset="-20" limit="20" orderBy="label" orderSide="ASC" query="" infinite-scroll='load()' infinite-scroll-disabled='busy' infinite-scroll-distance='0.5'>
+    <tr ng-repeat="event in entities  track by $index">
+      <td>{{ event.label }}</td>
+      <td>{{ event.startAt }}</td>
+      <td>{{ event.endAt }}</td>
+      <td>
+        <a class="btn btn-warning" href="#conference/{{ event.mainEvent.id }}/events/edit/{{ event.id }}" role="button"><i class="fa fa-edit fa-1x"></i></a>
+        <a class="btn btn-default" href="#conference/{{ event.mainEvent.id }}/events/show/{{ event.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>
+        <a class="btn btn-primary" href="" data-ng-click="clone(event, $index)" role="button"><i class="fa fa-files-o fa-1x"></i></a>
+        <button class="btn btn-danger" data-ng-click="deleteModal($index, event)" role="button">
+          <i class="fa fa-trash-o fa-1x"></i></button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+
+

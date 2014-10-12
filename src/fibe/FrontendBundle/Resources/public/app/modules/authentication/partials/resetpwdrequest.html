@@ -1,0 +1,9 @@
+<form name="resetPwdRequestForm" class="form" role="form" ng-submit="resetPwdRequestAction(resetPwdRequestForm)" novalidate="">
+  <div class="form-group">
+    <label for="inputUsername">Username or Email</label>
+    <input required="" type="text" name="username" class="form-control" id="inputUsername" placeholder="Username or Email" ng-model="user.username"/>
+  </div>
+    <div class="form-group">
+        <button ng-disabled="signinForm.$invalid" type="submit" class="btn btn-default">Reset my password</button>
+    </div>
+</form>

@@ -1,0 +1,18 @@
+<label>Role labels</label>
+<div ng-if="resource[parentField].label">
+  <span class="tag label label-info">
+    <span>{{resource[parentField].label }}</span>
+  </span>
+</div>
+
+<ui-select ng-model="addedEntity" on-select="change($model)" ng-keyup="keyup($event)" style="width: 100%;">
+  <ui-select-match>Add a role type...</ui-select-match>
+  <div ng-if="!entity.id ">
+    Add a new role type ...
+  </div>
+  <ui-select-choices repeat="entity in entities">
+    <i class="fa fa-sitemap fa-2x"></i>
+    <b ng-bind-html="entity.label | highlight: $select.search"></b>
+  </ui-select-choices>
+</ui-select>
+<br/>

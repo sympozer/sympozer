@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<conference>
+    <name>International Workshop on Emotion Representations and Modelling for HCI Systems</name>
+    <acronym>ERM4HCI2013</acronym>
+    <description>This workshop complements the ICMI 2013 by offering a platform that focuses on emotion representations and modelling for Human-Computer Interaction (HCI) systems. Emotion representations and models are often both modality and discipline specific and hence hardly interoperable. The workshop encourages the discussion of both technical and theoretical approaches to emotion modelling and representations in order to aid in the development of efficient, verifiable and implementable emotion models for affective systems. &#xD;
+URL of homepage: http://erm4hci.kognitivesysteme.de/&#xD;
+</description>
+    <homepage>http://senldogo0039.springer-sbm.com</homepage>
+    <pc-chairs>
+        <pc-chair-id>person-32701425</pc-chair-id>
+        <pc-chair-id>person-32863611</pc-chair-id>
+        <pc-chair-id>person-32911671</pc-chair-id>
+        <pc-chair-id>person-32913454</pc-chair-id>
+        <pc-chair-id>person-32913567</pc-chair-id>
+        <pc-chair-id>person-32931198</pc-chair-id>
+    </pc-chairs>
+    <pc-members>
+        <pc-member-id>person-32630921</pc-member-id>
+        <pc-member-id>person-32704045</pc-member-id>
+        <pc-member-id>person-32712997</pc-member-id>
+        <pc-member-id>person-32911621</pc-member-id>
+        <pc-member-id>person-32911641</pc-member-id>
+        <pc-member-id>person-32911677</pc-member-id>
+        <pc-member-id>person-32911974</pc-member-id>
+        <pc-member-id>person-32913488</pc-member-id>
+        <pc-member-id>person-32913496</pc-member-id>
+        <pc-member-id>person-32915628</pc-member-id>
+        <pc-member-id>person-32917472</pc-member-id>
+        <pc-member-id>person-32927093</pc-member-id>
+        <pc-member-id>person-32927488</pc-member-id>
+        <pc-member-id>person-32927585</pc-member-id>
+        <pc-member-id>person-32929162</pc-member-id>
+        <pc-member-id>person-32929261</pc-member-id>
+        <pc-member-id>person-33059808</pc-member-id>
+    </pc-members>
+    <proceedings-list>
+        <proceedings id="proceedings-0">
+            <title>no-proceedings-present</title>
+            <series>no-proceedings-present</series>
+        </proceedings>
+    </proceedings-list>
+    <sessions>
+        <session id="session-0" inProceedings="proceedings-0">
+            <name>no-session-present</name>
+            <papers>
+                <paper-id>paper-0</paper-id>
+            </papers>
+            <pc-chairs>
+                <pc-chair-id>person-32701425</pc-chair-id>
+                <pc-chair-id>person-32863611</pc-chair-id>
+                <pc-chair-id>person-32911671</pc-chair-id>
+                <pc-chair-id>person-32913454</pc-chair-id>
+                <pc-chair-id>person-32913567</pc-chair-id>
+                <pc-chair-id>person-32931198</pc-chair-id>
+            </pc-chairs>
+            <pc-members>
+                <pc-member-id>person-32630921</pc-member-id>
+                <pc-member-id>person-32704045</pc-member-id>
+                <pc-member-id>person-32712997</pc-member-id>
+                <pc-member-id>person-32911621</pc-member-id>
+                <pc-member-id>person-32911641</pc-member-id>
+                <pc-member-id>person-32911677</pc-member-id>
+                <pc-member-id>person-32911974</pc-member-id>
+                <pc-member-id>person-32913488</pc-member-id>
+                <pc-member-id>person-32913496</pc-member-id>
+                <pc-member-id>person-32915628</pc-member-id>
+                <pc-member-id>person-32917472</pc-member-id>
+                <pc-member-id>person-32927093</pc-member-id>
+                <pc-member-id>person-32927488</pc-member-id>
+                <pc-member-id>person-32927585</pc-member-id>
+                <pc-member-id>person-32929162</pc-member-id>
+                <pc-member-id>person-32929261</pc-member-id>
+                <pc-member-id>person-33059808</pc-member-id>
+            </pc-members>
+        </session>
+    </sessions>
+    <persons>
+        <person id="person-32701425">
+            <firstname>Christian</firstname>
+            <lastname>Becker-Asano</lastname>
+            <country>Germany</country>
+            <organization-id>organisation-1126351405</organization-id>
+            <email>basano@informatik.uni-freiburg.de</email>
+        </person>
+        <person id="person-32863611">
+            <firstname>Kim</firstname>
+            <lastname>Hartmann</lastname>
+            <country>Germany</country>
+            <organization-id>organisation-1131269827</organization-id>
+            <email>kim.hartmann@ovgu.de</email>
+        </person>
+        <person id="person-32911671">
+            <firstname>Jonathan</firstname>
+            <lastname>Gratch</lastname>
+            <country>United States</country>
+            <organization-id>organisation-1688659916</organization-id>
+            <email>gratch@ict.usc.edu</email>
+        </person>
+        <person id="person-32913454">
+            <firstname>Björn</firstname>
+            <lastname>Schuller</lastname>
+            <country>Germany</country>
+            <organization-id>organisation-3772194885</organization-id>
+            <email>schuller@tum.de</email>
+        </person>
+        <person id="person-32913567">
+            <firstname>Ronald</firstname>
+            <lastname>Böck</lastname>
+            <organization-id>no-organization-present</organization-id>
+            <email>ronald.boeck@ovgu.de</email>
+        </person>
+        <person id="person-32931198">
+            <firstname>Klaus</firstname>
+            <lastname>Scherer</lastname>
+            <organization-id>no-organization-present</organization-id>
+            <email>klaus.scherer@unige.ch</email>
+        </person>
+        <person id="person-32630921">
+            <firstname>Jonas</firstname>
+            <lastname>Beskow</lastname>
+            <country>Sweden</country>
+            <organization-id>organisation-2147558398</organization-id>
+            <email>beskow@kth.se</email>
+        </person>
+        <person id="person-32704045">
+            <firstname>Jens</firstname>
+            <lastname>Edlund</lastname>
+            <country>Sweden</country>
+            <organization-id>no-organization-present</organization-id>
+            <email>edlund@speech.kth.se</email>
+        </person>
+        <person id="person-32712997">
+            <firstname>Matthieu</firstname>
+            <lastname>Courgeon</lastname>
+            <organization-id>organisation-1917362183</organization-id>
+            <email>courgeon@gmail.com</email>
+            <email>courgeon@limsi.fr</email>
+        </person>
+        <person id="person-32911621">
+            <firstname>Nadia</firstname>
+            <lastname>Berthouze</lastname>
+            <organization-id>organisation-2147567485</organization-id>
+            <email>nadia.berthouze@ucl.ac.uk</email>
+        </person>
+        <person id="person-32911641">
+            <firstname>Sidney</firstname>
+            <lastname>DMello</lastname>
+            <country>United States</country>
+            <organization-id>no-organization-present</organization-id>
+            <email>sdmello@nd.edu</email>
+        </person>
+        <person id="person-32911677">
+            <firstname>Dirk</firstname>
+            <lastname>Reichardt</lastname>
+            <country>Germany</country>
+            <organization-id>organisation-3496831656</organization-id>
+            <email>reichardt@dhbw-stuttgart.de</email>
+        </person>
+        <person id="person-32911974">
+            <firstname>Jianhua</firstname>
+            <lastname>Tao</lastname>
+            <country>China</country>
+            <organization-id>organisation-3847237552</organization-id>
+            <email>jhtao@nlpr.ia.ac.cn</email>
+        </person>
+        <person id="person-32913488">
+            <firstname>Khiet</firstname>
+            <lastname>Truong</lastname>
+            <organization-id>organisation-683272563</organization-id>
+            <email>K.P.Truong@utwente.nl</email>
+        </person>
+        <person id="person-32913496">
+            <firstname>Michel</firstname>
+            <lastname>Valstar</lastname>
+            <organization-id>no-organization-present</organization-id>
+            <email>michel.valstar@nottingham.ac.uk</email>
+        </person>
+        <person id="person-32915628">
+            <firstname>Hazim Kemal</firstname>
+            <lastname>Ekenel</lastname>
+            <organization-id>no-organization-present</organization-id>
+            <email>ekenel@kit.edu</email>
+        </person>
+        <person id="person-32917472">
+            <firstname>Gary</firstname>
+            <lastname>McKeown</lastname>
+            <organization-id>organisation-2084356988</organization-id>
+            <email>g.mckeown@qub.ac.uk</email>
+        </person>
+        <person id="person-32927093">
+            <firstname>Andreas</firstname>
+            <lastname>Wendemuth</lastname>
+            <organization-id>organisation-1639127604</organization-id>
+            <email>andreas.wendemuth@ovgu.de</email>
+        </person>
+        <person id="person-32927488">
+            <firstname>Roland</firstname>
+            <lastname>Goecke</lastname>
+            <country>Australia</country>
+            <organization-id>organisation-2127837956</organization-id>
+            <email>roland.goecke@anu.edu.au</email>
+        </person>
+        <person id="person-32927585">
+            <firstname>Karla</firstname>
+            <lastname>Welch</lastname>
+            <country>United States</country>
+            <organization-id>organisation-781240556</organization-id>
+            <email>karla.welch@louisville.edu</email>
+        </person>
+        <person id="person-32929162">
+            <firstname>Marcello</firstname>
+            <lastname>Mortillaro</lastname>
+            <organization-id>no-organization-present</organization-id>
+            <email>marcello.mortillaro@unige.ch</email>
+        </person>
+        <person id="person-32929261">
+            <firstname>Carlos</firstname>
+            <lastname>Busso</lastname>
+            <country>United States</country>
+            <organization-id>organisation-1815102030</organization-id>
+            <email>busso@utdallas.edu</email>
+        </person>
+        <person id="person-33059808">
+            <firstname>Marc</firstname>
+            <lastname>Cavazza</lastname>
+            <country>United Kingdom</country>
+            <organization-id>organisation-92266551</organization-id>
+            <email>M.O.Cavazza@tees.ac.uk</email>
+        </person>
+        <person id="person-0">
+            <firstname>no-person-present</firstname>
+            <lastname>no-person-present</lastname>
+            <organization-id>no-organization-present</organization-id>
+        </person>
+    </persons>
+    <papers>
+        <paper id="paper-0">
+            <title>no-paper-present</title>
+            <abstract>no-paper-present</abstract>
+            <keywords>
+                <keyword></keyword>
+            </keywords>
+            <authors>
+                <author-id>person-0</author-id>
+            </authors>
+        </paper>
+    </papers>
+    <organizations>
+        <organization id="organisation-1126351405">
+            <name>Albert-Ludwigs-Universität Freiburg</name>
+            <country>Germany</country>
+        </organization>
+        <organization id="organisation-1131269827">
+            <name>Institute for Information Technology and Communications</name>
+            <country>Germany</country>
+        </organization>
+        <organization id="organisation-1688659916">
+            <name>University of Southern California</name>
+            <country>United States</country>
+        </organization>
+        <organization id="organisation-3772194885">
+            <name>Technische Universität München</name>
+            <country>Germany</country>
+        </organization>
+        <organization id="no-organization-present">
+            <name>no-organization-present</name>
+        </organization>
+        <organization id="organisation-2147558398">
+            <name>KTH</name>
+            <country>Sweden</country>
+        </organization>
+        <organization id="organisation-1917362183">
+            <name>Lab-STICC</name>
+        </organization>
+        <organization id="organisation-2147567485">
+            <name>UCL</name>
+        </organization>
+        <organization id="organisation-3496831656">
+            <name>DHBW Stuttgart</name>
+            <country>Germany</country>
+        </organization>
+        <organization id="organisation-3847237552">
+            <name>Chinese Academy of Sciences</name>
+            <country>China</country>
+        </organization>
+        <organization id="organisation-683272563">
+            <name>University of Twente</name>
+        </organization>
+        <organization id="organisation-2084356988">
+            <name>Queen's University Belfast</name>
+        </organization>
+        <organization id="organisation-1639127604">
+            <name>OvGU FEIT</name>
+        </organization>
+        <organization id="organisation-2127837956">
+            <name>University of Canberra</name>
+            <country>Australia</country>
+        </organization>
+        <organization id="organisation-781240556">
+            <name>University of Louisville</name>
+            <country>United States</country>
+        </organization>
+        <organization id="organisation-1815102030">
+            <name>The University of Texas at Dallas</name>
+            <country>United States</country>
+        </organization>
+        <organization id="organisation-92266551">
+            <name>Teesside University</name>
+            <country>United Kingdom</country>
+        </organization>
+    </organizations>
+</conference>

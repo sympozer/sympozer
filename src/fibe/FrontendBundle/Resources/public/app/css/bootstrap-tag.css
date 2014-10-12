@@ -1,0 +1,26 @@
+/* adapted from http://maxwells.github.io/bootstrap-tags.html */
+.tag {
+    font-size: inherit;
+    padding: .3em .4em .4em;
+    margin: 0.5em;
+    display: inline-block;
+}
+.tag a {
+    color: #fff;
+    opacity: 0.6;
+}
+.tag a:hover {
+    opacity: 1.0
+}
+.tag .remove {
+    vertical-align: bottom;
+    top: 0;
+}
+.tag a {
+    margin: 0 0 0 .3em;
+    cursor: pointer;
+}
+
+form .tag {
+    margin: 0em 0.5em 0.5em;
+}

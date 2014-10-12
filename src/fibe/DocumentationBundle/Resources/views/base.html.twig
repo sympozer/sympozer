@@ -1,0 +1,23 @@
+{% extends "::base.html.twig" %}    
+
+     
+{% block stylesheets %}
+  {{ parent() }}
+{% endblock %}
+      
+{% block javascripts %}
+  {{ parent() }}
+{% endblock %}
+
+{% block body %}
+
+  {% block navBar %}
+    {% include "DocumentationBundle::mainNavBar.html.twig" %}
+  {% endblock navBar %}
+  {% block centerPanel %}
+  {% endblock centerPanel %}
+
+{% endblock body %}
+
+
+ 

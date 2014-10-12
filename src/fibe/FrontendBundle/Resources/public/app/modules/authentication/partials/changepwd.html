@@ -1,0 +1,25 @@
+<form ng-controller="changePwdCtrl" name="changePwdForm" class="form" role="form" ng-submit="changePwdAction(changePwd)" novalidate="">
+    <div ng-show="!currentUser.random_pwd">
+        <div class="form-group">
+            <label for="inputPassword">Current password</label>
+            <input type="password" ng-model="changePwd.current_password" id="inputPassword" name="current_password" placeholder="Current password" class="form-control"
+                   required="">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="input_new_password_first">New password</label>
+        <input type="password" ng-model="changePwd.new_password_first" id="input_new_password_first" name="inputNewPasswordFirst" placeholder="New password" class="form-control"
+               required="" ng-minlength="3" ng-maxlength="20"/>
+        <div class="alert alert-danger" role="alert" ng-show="signupForm.password.$error.minlength">Your password is required to be at least 3 characters</div>
+        <div class="alert alert-danger" role="alert" ng-show="signupForm.password.$error.maxlength">Your password cannot be longer than 20 characters</div>
+    </div>
+    <div class="form-group">
+        <label for="input_new_password_second">Verification</label>
+        <input type="password" ng-model="changePwd.new_password_second" id="input_new_password_second" name="inputNewPasswordSecond" placeholder="Password check" class="form-control"
+               required="" />
+        <div class="alert alert-danger" role="alert" ng-show="signupForm.confirmpassword.$dirty && changePwd.password != changePwd.confirmpassword">Passwords must match</div>
+    </div>
+    <div>
+        <button type="submit" class="btn btn-success">Save</button>
+    </div>
+</form>

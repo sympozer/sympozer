@@ -1,0 +1,3 @@
+# override third party entities serialisation
+FOS\UserBundle\Model\User:
+    exclusion_policy: ALL

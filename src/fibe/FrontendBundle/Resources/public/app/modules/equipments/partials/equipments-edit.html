@@ -1,0 +1,18 @@
+<div ng-include="GLOBAL_CONFIG.app.modules.equipments.urls.partials+'equipments-actions.html'" ng-controller="equipmentsMainCtrl"></div>
+<form name="equipmentEditForm" class="form" role="form" ng-submit="update(equipmentEditForm)">
+  <div>
+    <label for="inputLabel">Label</label>
+    <input type="text" class="form-control" id="inputLabel" required placeholder="{{equipment.label}}" ng-model="equipment.label">
+  </div>
+  <div>
+    <label for="inputDescription">Description</label>
+    <input type="text" class="form-control" id="inputDescription" placeholder="{{equipment.description}}" ng-model="equipment.description">
+  </div>
+  <div>
+    <label for="inputIcon">Icon</label>
+    <input type="text" class="form-control" id="inputIcon" placeholder="{{equipment.icon}}" ng-model="equipment.icon">
+  </div>
+  <div>
+    <button type="submit" class="btn btn-success">Save</button>
+  </div>
+</form>

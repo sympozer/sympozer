@@ -1,0 +1,52 @@
+<label>Person</label>
+<ui-select ng-model="addedEntity" on-select="change($model)" ng-keyup="keyup($event)"  style="width: 100%;">
+  <ui-select-match>Associate a Person...</ui-select-match>
+  <ui-select-choices repeat="entity in entities">
+    <!--<ui-select-choices repeat="entity.email as entity in people | propsFilter: {label: $select.search, age: $select.search}">-->
+    <div ng-if="!entity.id ">
+      Add a new person...
+    </div>
+    <img class="img-circle" data-src="holder.js/140x140" alt="140x140" src="http://blog.getjobber.com/wp-content/uploads/2013/01/Users-Image.png" style="width: 70px; height: 70px;"/>
+    <b ng-bind-html="entity.label | highlight: $select.search"></b>
+
+    <div ng-bind-html="entity.email | highlight: $select.search"></div>
+    <div ng-bind-html="entity.description | highlight: $select.search"></div>
+    <div ng-bind-html="entity.website | highlight: $select.search"></div>
+  </ui-select-choices>
+</ui-select>
+</br>
+<div class="row">
+  <div ng-if="!singleChoice">
+    <div ng-repeat="entity in resource[parentField]  track by $index">
+      <div class="col-sm-3">
+        <div class="panel panel-success" style="margin-top: 10px;">
+          <div class="panel-heading perso clearfix text-center">
+            <h3 class="panel-title pull-left text-center">{{ entity.label }}</h3>
+
+            <div class="btn-group pull-right">
+              <!-- @TODO: collapse of panel-body <a ng-click="deleteEntity($index,entity)" class="btn btn-default btn-xs fa fa-chevron-up"></a>-->
+              <a ng-click="deleteEntity($index,entity)" class="btn btn-danger btn-xs fa fa-times"></a>
+            </div>
+          </div>
+          <div class="panel-body">
+            <img class="img-circle" src="http://blog.getjobber.com/wp-content/uploads/2013/01/Users-Image.png" alt="{{ entity.label }} picture" style="width: 50px; height: 50px;">
+            <a href="mailto:{{ entity.email }}">{{ entity.email }}</a>
+
+            {{ entity.website }}
+
+            {{ entity.country }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div ng-if="singleChoice && resource[parentField].label">
+    <img class="img-circle" ng-src="{{ resource[parentField].url || 'data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=='}}" alt="Generic placeholder image" style="width: 140px; height: 140px;">
+    <!--<a ng-click="deleteEntity($index,resource[parentField])" class="btn btn-danger"><span class="fa fa-times"></span></a>-->
+    <h2>{{ resource[parentField].label }}</h2>
+
+    <p>{{ resource[parentField].country }}</p>
+  </div>
+</div>
+

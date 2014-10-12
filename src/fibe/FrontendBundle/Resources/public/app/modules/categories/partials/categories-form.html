@@ -1,0 +1,16 @@
+<div>
+    <label for="inputLabel">Label</label>
+    <input type="text" class="form-control" id="inputLabel" required placeholder="Label" ng-model="category.label">
+</div>
+<div>
+    <label for="inputDescription">Description</label>
+    <textarea class="form-control" id="inputDescription" placeholder="Description" ng-model="category.description"/>
+</div>
+<div>
+    <label for="inputColor">Color</label>
+    <input colorpicker="hex" class="form-control" style="background-color:{{category.color}}"class="span2" value="" type="text" id="inputColor" placeholder="Color" ng-model="category.color" />
+</div>
+<div>
+    <label for="inputLevel"></label>
+    <input type="hidden" class="form-control" id="inputLevel" placeholder="3" ng-model="category.level">
+</div>

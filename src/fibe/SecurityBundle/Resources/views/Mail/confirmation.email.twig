@@ -1,0 +1,27 @@
+{% block subject %}Welcome {{ user.username }}{% endblock %}
+
+
+{% block body_text %}
+  {% autoescape false %}
+  Hello {{ user.username }} !
+
+  To finish activating your account - please visit {{ confirmationUrl }}
+
+  Regards,
+  the Symposer team
+  {% endautoescape %}
+{% endblock %}
+{% block body_html %}
+<html>
+  <body>
+    <img src="{{ asset('img/sympozer.png') }}"/>
+
+    <h3>Hello {{ user.username }} !</h3>
+
+    <p>To finish activating your account - please visit {{ confirmationUrl }}</p>
+
+    <p>Regards,</p>
+    <p><i>the Symposer team</i></p>
+  </body>
+</html>
+  {# include a html template #}{% endblock %}

@@ -1,0 +1,749 @@
+
+
+<!DOCTYPE rdf:RDF [
+    <!ENTITY dcterms "http://purl.org/dc/terms/" >
+    <!ENTITY foaf "http://xmlns.com/foaf/0.1/" >
+    <!ENTITY dbpedia "http://dbpedia.org/property/" >
+    <!ENTITY bibo "http://purl.org/ontology/bibo/" >
+    <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
+    <!ENTITY dc "http://purl.org/dc/elements/1.1/" >
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY swrc "http://swrc.ontoware.org/ontology#" >
+    <!ENTITY vcard "http://www.w3.org/2001/vcard-rdf/3.0#" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY ical "http://www.w3.org/2002/12/cal/icaltzd#" >
+    <!ENTITY geo "http://www.w3.org/2003/01/geo/wgs84_pos#" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+    <!ENTITY swc "http://data.semanticweb.org/ns/swc/ontology#" >
+]>
+
+
+<rdf:RDF xmlns="http://www.w3.org/2002/07/owl#"
+     xml:base="http://www.w3.org/2002/07/owl"
+     xmlns:dc="http://purl.org/dc/elements/1.1/"
+     xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#"
+     xmlns:foaf="http://xmlns.com/foaf/0.1/"
+     xmlns:vcard="http://www.w3.org/2001/vcard-rdf/3.0#"
+     xmlns:dcterms="http://purl.org/dc/terms/"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:bibo="http://purl.org/ontology/bibo/"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:dbpedia="http://dbpedia.org/property/"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:swrc="http://swrc.ontoware.org/ontology#"
+     xmlns:ical="http://www.w3.org/2002/12/cal/icaltzd#"
+     xmlns:swc="http://data.semanticweb.org/ns/swc/ontology#">
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Annotation properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+    <!-- TEST -->
+    <AnnotationProperty>lol</AnnotationProperty>  
+    <AnnotationProperty>lol</AnnotationProperty>  
+
+
+    <!-- http://data.semanticweb.org/ns/swc/ontology#completeGraph -->
+
+    <AnnotationProperty rdf:about="&swc;completeGraph"/>
+    
+
+
+    <!-- http://data.semanticweb.org/ns/swc/ontology#hasAcronym -->
+
+    <AnnotationProperty rdf:about="&swc;hasAcronym"/>
+    
+
+
+    <!-- http://data.semanticweb.org/ns/swc/ontology#hasLogo -->
+
+    <AnnotationProperty rdf:about="&swc;hasLogo"/>
+    
+
+
+    <!-- http://purl.org/dc/elements/1.1/creator -->
+
+    <AnnotationProperty rdf:about="&dc;creator"/>
+    
+
+
+    <!-- http://purl.org/dc/elements/1.1/subject -->
+
+    <AnnotationProperty rdf:about="&dc;subject"/>
+    
+
+
+    <!-- http://purl.org/dc/elements/1.1/title -->
+
+    <AnnotationProperty rdf:about="&dc;title"/>
+    
+
+
+    <!-- http://purl.org/ontology/bibo/authorList -->
+
+    <AnnotationProperty rdf:about="&bibo;authorList"/>
+    
+
+
+    <!-- http://purl.org/ontology/bibo/editorList -->
+
+    <AnnotationProperty rdf:about="&bibo;editorList"/>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#abstract -->
+
+    <AnnotationProperty rdf:about="&swrc;abstract"/>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#affiliation -->
+
+    <AnnotationProperty rdf:about="&swrc;affiliation"/>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#booktitle -->
+
+    <AnnotationProperty rdf:about="&swrc;booktitle"/>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#editor -->
+
+    <AnnotationProperty rdf:about="&swrc;editor"/>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#month -->
+
+    <AnnotationProperty rdf:about="&swrc;month"/>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#series -->
+
+    <AnnotationProperty rdf:about="&swrc;series"/>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#year -->
+
+    <AnnotationProperty rdf:about="&swrc;year"/>
+    
+
+
+    <!-- http://www.w3.org/2002/12/cal/icaltzd#description -->
+
+    <AnnotationProperty rdf:about="&ical;description"/>
+    
+
+
+    <!-- http://www.w3.org/2002/12/cal/icaltzd#dtend -->
+
+    <AnnotationProperty rdf:about="&ical;dtend"/>
+    
+
+
+    <!-- http://www.w3.org/2002/12/cal/icaltzd#dtstart -->
+
+    <AnnotationProperty rdf:about="&ical;dtstart"/>
+    
+
+
+    <!-- http://www.w3.org/2002/12/cal/icaltzd#summary -->
+
+    <AnnotationProperty rdf:about="&ical;summary"/>
+    
+
+
+    <!-- http://xmlns.com/foaf/0.1/based_near -->
+
+    <AnnotationProperty rdf:about="&foaf;based_near"/>
+    
+
+
+    <!-- http://xmlns.com/foaf/0.1/firstName -->
+
+    <AnnotationProperty rdf:about="&foaf;firstName"/>
+    
+
+
+    <!-- http://xmlns.com/foaf/0.1/homepage -->
+
+    <AnnotationProperty rdf:about="&foaf;homepage"/>
+    
+
+
+    <!-- http://xmlns.com/foaf/0.1/lastName -->
+
+    <AnnotationProperty rdf:about="&foaf;lastName"/>
+    
+
+
+    <!-- http://xmlns.com/foaf/0.1/made -->
+
+    <AnnotationProperty rdf:about="&foaf;made"/>
+    
+
+
+    <!-- http://xmlns.com/foaf/0.1/maker -->
+
+    <AnnotationProperty rdf:about="&foaf;maker"/>
+    
+
+
+    <!-- http://xmlns.com/foaf/0.1/mbox_sha1sum -->
+
+    <AnnotationProperty rdf:about="&foaf;mbox_sha1sum"/>
+    
+
+
+    <!-- http://xmlns.com/foaf/0.1/member -->
+
+    <AnnotationProperty rdf:about="&foaf;member"/>
+    
+
+
+    <!-- http://xmlns.com/foaf/0.1/name -->
+
+    <AnnotationProperty rdf:about="&foaf;name"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Datatypes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.w3.org/2001/XMLSchema#date -->
+
+    <rdfs:Datatype rdf:about="&xsd;date"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+    
+
+
+    <!-- http://data.semanticweb.org/ns/swc/ontology#hasLocation -->
+
+    <ObjectProperty rdf:about="&swc;hasLocation"/>
+    
+
+
+    <!-- http://data.semanticweb.org/ns/swc/ontology#hasPart -->
+
+    <ObjectProperty rdf:about="&swc;hasPart"/>
+    
+
+
+    <!-- http://data.semanticweb.org/ns/swc/ontology#hasRelatedDocument 
+    A changer
+    -->
+
+    <ObjectProperty rdf:about="&swc;hasRelatedDocument">
+        <inverseOf rdf:resource="&swc;relatedToEvent"/>
+        <rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
+    </ObjectProperty>
+    
+
+
+    <!-- http://data.semanticweb.org/ns/swc/ontology#hasRole -->
+
+    <ObjectProperty rdf:about="&swc;hasRole">
+        <inverseOf rdf:resource="&swc;isRoleAt"/>
+        <rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
+    </ObjectProperty>
+    
+
+
+    <!-- http://data.semanticweb.org/ns/swc/ontology#heldBy -->
+
+    <ObjectProperty rdf:about="&swc;heldBy">
+        <inverseOf rdf:resource="&swc;holdsRole"/>
+    </ObjectProperty>
+    
+
+
+    <!-- http://data.semanticweb.org/ns/swc/ontology#holdsRole 
+    
+    A changer
+    -->
+
+    <ObjectProperty rdf:about="&swc;holdsRole">
+        <inverseOf rdf:resource="&swc;heldBy"/>
+    </ObjectProperty>
+    
+
+
+    <!-- http://data.semanticweb.org/ns/swc/ontology#isPartOf -->
+
+    <ObjectProperty rdf:about="&swc;isPartOf"/>
+    
+
+
+    <!-- http://data.semanticweb.org/ns/swc/ontology#isRoleAt -->
+
+    <ObjectProperty rdf:about="&swc;isRoleAt">
+        <inverseOf rdf:resource="&swc;hasRole"/>
+        <rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
+    </ObjectProperty>
+
+    
+
+
+    <!-- http://data.semanticweb.org/ns/swc/ontology#isSubEventOf 
+    
+    A changer
+    -->
+
+    <TransitiveProperty rdf:about="&swc;isSubEventOf">
+        <inverseOf rdf:resource="&swc;isSuperEventOf"/>
+    </TransitiveProperty>
+    
+
+
+    <!-- http://data.semanticweb.org/ns/swc/ontology#isSuperEventOf 
+    
+    A changer
+    -->
+
+    <TransitiveProperty rdf:about="&swc;isSuperEventOf">
+        <inverseOf rdf:resource="&swc;isSubEventOf"/>
+        <rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
+    </TransitiveProperty>
+    
+
+
+    <!-- http://data.semanticweb.org/ns/swc/ontology#relatedToEvent 
+    
+    A changer
+    -->
+
+    <ObjectProperty rdf:about="&swc;relatedToEvent">
+        <inverseOf rdf:resource="&swc;hasRelatedDocument"/>
+    </ObjectProperty>
+    
+
+
+    <!-- http://data.semanticweb.org/ns/swc/ontology#isSubPropertyOf -->
+
+    <ObjectProperty rdf:about="&swc;isSubPropertyOf"/>
+    
+
+
+    <!-- http://data.semanticweb.org/ns/swc/ontology#isSuperPropertyOf -->
+
+    <ObjectProperty rdf:about="&swc;isSuperPropertyOf">
+        <inverseOf rdf:resource="&swc;isSubPropertyOf"/>
+    </ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://data.semanticweb.org/ns/swc/ontology#AcademicEvent -->
+
+    <Class rdf:about="&swc;AcademicEvent"/>
+    
+
+
+    <!-- http://data.semanticweb.org/ns/swc/ontology#BreakEvent -->
+
+    <Class rdf:about="&swc;BreakEvent">
+        <rdfs:subClassOf rdf:resource="&swc;NonAcademicEvent"/>
+    </Class>
+    
+
+
+    <!-- http://data.semanticweb.org/ns/swc/ontology#Chair -->
+
+    <Class rdf:about="&swc;Chair">
+        <rdfs:subClassOf rdf:resource="&swc;Role"/>
+    </Class>
+    
+
+
+    <!-- http://data.semanticweb.org/ns/swc/ontology#ConferenceEvent -->
+
+    <Class rdf:about="&swc;ConferenceEvent">
+        <rdfs:subClassOf rdf:resource="&swc;AcademicEvent"/>
+    </Class>
+    
+
+
+    <!-- http://data.semanticweb.org/ns/swc/ontology#KeynoteTalk -->
+
+    <Class rdf:about="&swc;KeynoteTalk">
+        <rdfs:subClassOf rdf:resource="&swc;TalkEvent"/>
+    </Class>
+    
+
+
+    <!-- http://data.semanticweb.org/ns/swc/ontology#NonAcademicEvent -->
+
+    <Class rdf:about="&swc;NonAcademicEvent"/>
+    
+
+
+    <!-- http://data.semanticweb.org/ns/swc/ontology#PanelEvent -->
+
+    <Class rdf:about="&swc;PanelEvent">
+        <rdfs:subClassOf rdf:resource="&swc;AcademicEvent"/>
+    </Class>
+    
+
+
+    <!-- http://data.semanticweb.org/ns/swc/ontology#Poster -->
+
+    <Class rdf:about="&swc;Poster"/>
+    
+
+
+    <!-- http://data.semanticweb.org/ns/swc/ontology#Presenter -->
+
+    <Class rdf:about="&swc;Presenter">
+        <rdfs:subClassOf rdf:resource="&swc;Role"/>
+    </Class>
+    
+
+
+    <!-- http://data.semanticweb.org/ns/swc/ontology#ProgrammeCommitteeMember -->
+
+    <Class rdf:about="&swc;ProgrammeCommitteeMember">
+        <rdfs:subClassOf rdf:resource="&swc;Role"/>
+    </Class>
+    
+
+
+    <!-- http://data.semanticweb.org/ns/swc/ontology#Role -->
+
+    <Class rdf:about="&swc;Role"/>
+    
+
+
+    <!-- http://data.semanticweb.org/ns/swc/ontology#SessionEvent -->
+
+    <Class rdf:about="&swc;SessionEvent">
+        <rdfs:subClassOf rdf:resource="&swc;AcademicEvent"/>
+    </Class>
+    
+
+
+    <!-- http://data.semanticweb.org/ns/swc/ontology#SocialEvent -->
+
+    <Class rdf:about="&swc;SocialEvent">
+        <rdfs:subClassOf rdf:resource="&swc;NonAcademicEvent"/>
+    </Class>
+    
+
+
+    <!-- http://data.semanticweb.org/ns/swc/ontology#TalkEvent -->
+
+    <Class rdf:about="&swc;TalkEvent">
+        <rdfs:subClassOf rdf:resource="&swc;AcademicEvent"/>
+    </Class>
+    
+
+
+    <!-- http://data.semanticweb.org/ns/swc/ontology#TrackEvent -->
+
+    <Class rdf:about="&swc;TrackEvent">
+        <rdfs:subClassOf rdf:resource="&swc;AcademicEvent"/>
+    </Class>
+    
+
+
+    <!-- http://data.semanticweb.org/ns/swc/ontology#TutorialEvent -->
+
+    <Class rdf:about="&swc;TutorialEvent">
+        <rdfs:subClassOf rdf:resource="&swc;AcademicEvent"/>
+    </Class>
+    
+
+
+    <!-- http://data.semanticweb.org/ns/swc/ontology#WorkshopEvent -->
+
+    <Class rdf:about="&swc;WorkshopEvent">
+        <rdfs:subClassOf rdf:resource="&swc;AcademicEvent"/>
+    </Class>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#InProceedings -->
+
+    <Class rdf:about="&swrc;InProceedings"/>
+    
+
+
+    <!-- http://swrc.ontoware.org/ontology#Proceedings -->
+
+    <Class rdf:about="&swrc;Proceedings"/>
+    
+
+
+    <!-- http://xmlns.com/foaf/0.1/Organization -->
+
+    <Class rdf:about="&foaf;Organization"/>
+    
+
+
+    <!-- http://xmlns.com/foaf/0.1/Person -->
+
+    <Class rdf:about="&foaf;Person"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+    
+	<!--  LOCATIONS  -->
+	<NamedIndividual rdf:about="http://www.blendconference.com/rooms/auditorium-lumiere">
+		<rdf:type rdf:resource="&swc;MeetingRoomplace"/>
+		<rdfs:label>Auditorium Lumière</rdfs:label>
+        <rdfs:comment>Amphithéatre de 800 places</rdfs:comment>
+    </NamedIndividual>
+	
+	<NamedIndividual rdf:about="http://www.blendconference.com/rooms/rhone-1">
+		<rdf:type rdf:resource="&swc;MeetingRoomplace"/>
+		<rdfs:label>Rhône 1</rdfs:label>
+        <rdfs:comment>Salle de 80 places</rdfs:comment>
+    </NamedIndividual>
+	
+	<NamedIndividual rdf:about="http://www.blendconference.com/rooms/rhone-2">
+		<rdf:type rdf:resource="&swc;MeetingRoomplace"/>
+		<rdfs:label>Rhône 2</rdfs:label>
+        <rdfs:comment>Salle de 80 places</rdfs:comment>
+    </NamedIndividual>
+	
+	<NamedIndividual rdf:about="http://www.blendconference.com/rooms/rhone-3">
+		<rdf:type rdf:resource="&swc;MeetingRoomplace"/>
+		<rdfs:label>Rhône 3</rdfs:label>
+        <rdfs:comment>Salle de 180 places</rdfs:comment>
+    </NamedIndividual>
+	
+	<NamedIndividual rdf:about="http://www.blendconference.com/rooms/rhone-4">
+		<rdf:type rdf:resource="&swc;MeetingRoomplace"/>
+		<rdfs:label>Rhône 4</rdfs:label>
+        <rdfs:comment>Salle de 50 places</rdfs:comment>
+    </NamedIndividual>
+	
+	<NamedIndividual rdf:about="http://www.blendconference.com/rooms/salon-pasteur">
+		<rdf:type rdf:resource="&swc;MeetingRoomplace"/>
+		<rdfs:label>Salon Pasteur</rdfs:label>
+        <rdfs:comment>Salle de 280 places</rdfs:comment>
+    </NamedIndividual>
+	
+	<NamedIndividual rdf:about="http://www.blendconference.com/rooms/forum">
+		<rdf:type rdf:resource="&swc;MeetingRoomplace"/>
+		<rdfs:label>Forum</rdfs:label>
+        <rdfs:comment></rdfs:comment>
+    </NamedIndividual>
+	
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // CONFERENCE
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     --> 
+     <NamedIndividual rdf:about="http://www.blendconference.com">
+        <rdf:type rdf:resource="&swc;ConferenceEvent"/>
+        <rdfs:label>Blend</rdfs:label>
+        <ical:dtstart rdf:datatype="&xsd;date">2013-10-01</ical:dtstart>
+        <ical:dtend rdf:datatype="&xsd;date">2013-10-02</ical:dtend>
+        <swc:hasAcronym>Blend</swc:hasAcronym>
+        <foaf:homepage rdf:resource="http://www.blendconference.com"/>
+        <swc:hasLogo rdf:resource="https://sphotos-b-ord.xx.fbcdn.net/hphotos-ash3/p480x480/11451_385071141616439_937835407_n.png"/>
+        <swc:completeGraph rdf:resource=""/>
+    </NamedIndividual>
+    
+    
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // JOUR 1 
+    // 
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+	<NamedIndividual rdf:about="http://www.blendconference.com/non-academic-event/accueil-1">
+        <rdf:type rdf:resource="&swc;NonAcademicEvent"/>
+        <rdfs:label>Accueil</rdfs:label>
+        <ical:dtstart>2013-10-01T08:00:00+02:00</ical:dtstart>
+        <ical:dtend>2013-10-01T09:00:00+02:00</ical:dtend>
+        <ical:description>Accueil des participants et résumé de la journée</ical:description>
+        <swc:isSubEventOf rdf:resource="http://www.blendconference.com"/>
+        <swc:hasLocation rdf:resource="http://www.blendconference.com/rooms/auditorium-lumiere"/>
+    </NamedIndividual>
+	
+	<NamedIndividual rdf:about="http://www.blendconference.com/non-academic-event/inconnu-1">
+        <rdf:type rdf:resource="&swc;NonAcademicEvent"/>
+        <rdfs:label>Accueil</rdfs:label>
+        <ical:dtstart>2013-10-01T09:00:00+02:00</ical:dtstart>
+        <ical:dtend>2013-10-01T10:00:00+02:00</ical:dtend>
+        <ical:description>Grand lyon W3C mairie</ical:description>
+        <swc:isSubEventOf rdf:resource="http://www.blendconference.com"/>
+        <swc:hasLocation rdf:resource="http://www.blendconference.com/rooms/auditorium-lumiere"/>
+    </NamedIndividual>
+	
+	
+	<NamedIndividual rdf:about="http://www.blendconference.com/break-event/break-1">
+        <rdf:type rdf:resource="&swc;BreakEvent"/>
+        <rdfs:label>Un petit café ?</rdfs:label>
+        <ical:dtstart>2013-10-01T10:00:00+02:00</ical:dtstart>
+        <ical:dtend>2013-10-01T10:30:00+02:00</ical:dtend>
+        <ical:description>Un petit café ?</ical:description>
+        <swc:isSubEventOf rdf:resource="http://www.blendconference.com"/>
+        <swc:hasLocation rdf:resource="http://www.blendconference.com/rooms/forum"/>
+    </NamedIndividual>
+	
+	<NamedIndividual rdf:about="http://www.blendconference.com/panel-event/panel-1">
+        <rdf:type rdf:resource="&swc;PanelEvent"/>
+        <rdfs:label>Money is king!</rdfs:label>
+        <ical:dtstart>2013-10-01T10:30:00+02:00</ical:dtstart>
+        <ical:dtend>2013-10-01T11:30:00+02:00</ical:dtend>
+        <ical:description>Comme dans toute activité, le financement est un aspect clé du développement de chaque structure. Sur le web également, cette partie est un enjeu crucial en particulier pour les startups en quête de fond pour se développer. Plusieurs investisseurs seront donc réunis sur scène pour aborder la thématique du financement.
+		Les investisseurs présents sur scène :
+		Jean-David Chamboredon (ISAI)
+		Nicolas Debock (Xange Private Equity)
+		Jérôme Masurel (50 partners)
+		Martin Mignot (Index)
+		Jeremy Uzan (Alven Capita)</ical:description>
+		<dc:subject>Business</dc:subject>
+        <swc:isSubEventOf rdf:resource="http://www.blendconference.com"/>
+        <swc:hasLocation rdf:resource="http://www.blendconference.com/rooms/forum"/>
+    </NamedIndividual>
+
+
+	<NamedIndividual rdf:about="http://www.blendconference.com/panel-event/panel-2">
+        <rdf:type rdf:resource="&swc;PanelEvent"/>
+        <rdfs:label>Money is king!</rdfs:label>
+        <ical:dtstart>2013-10-01T11:30:00+02:00</ical:dtstart>
+        <ical:dtend>2013-10-01T12:30:00+02:00</ical:dtend>
+        <ical:description>"Eric Dupin, Renaud Visage, Clubic.com  Les grandes tendances qui vont impacter votre business"</ical:description>
+		<dc:subject>Business</dc:subject>
+        <swc:isSubEventOf rdf:resource="http://www.blendconference.com"/>
+        <swc:hasLocation rdf:resource="http://www.blendconference.com/rooms/forum"/>
+    </NamedIndividual>
+	
+	
+	<NamedIndividual rdf:about="http://www.blendconference.com/break-event/break-2">
+        <rdf:type rdf:resource="&swc;BreakEvent"/>
+        <rdfs:label>Lunch tiiiime!</rdfs:label>
+        <ical:dtstart>2013-10-01T12:30:00+02:00</ical:dtstart>
+        <ical:dtend>2013-10-01T13:30:00+02:00</ical:dtend>
+        <ical:description>Un petit buffet, plein de bonnes choses à manger, faites vous plaisir!</ical:description>
+		<dc:subject>Business</dc:subject>
+        <swc:isSubEventOf rdf:resource="http://www.blendconference.com"/>
+        <swc:hasLocation rdf:resource="http://www.blendconference.com/rooms/forum"/>
+    </NamedIndividual>
+	
+	
+	<NamedIndividual rdf:about="http://www.blendconference.com/talk-event/talk-1">
+        <rdf:type rdf:resource="&swc;TalkEvent"/>
+        <rdfs:label>L’art de Bricoler : l’expérience mobile ultime</rdfs:label>
+        <ical:dtstart>2013-10-01T13:30:00+02:00</ical:dtstart>
+        <ical:dtend>2013-10-01T14:30:00+02:00</ical:dtend>
+        <ical:description>« Pour explorer le champ des possibles, le bricolage est la méthode la plus efficace« . Hubert Reeves, astrophysicien.
+Sylvain présentera comment à partir d’une intuition et d’un peu d’huile de coude, il est possible de créer une expérimentation innovante. De fil en aiguille, ces bricolages réunissent plusieurs centaines de développeurs chaque mois à Paris où chacun est invité à partager ses trouvailles. Pour cette édition exceptionnelle, une expérience mobile inédite sera proposée aux 800 participants à la conférence qui tenteront tous ensemble de relever un record du monde !</ical:description>
+		<dc:subject>Business</dc:subject>
+		<dc:subject>Tech</dc:subject>
+		<dc:subject>Design</dc:subject>
+		<dc:subject>Recherche</dc:subject>
+		<dc:subject>Marketing</dc:subject>
+        <swc:isSubEventOf rdf:resource="http://www.blendconference.com"/>
+        <swc:hasLocation rdf:resource="http://www.blendconference.com/rooms/forum"/>
+    </NamedIndividual>
+	
+	
+	<NamedIndividual rdf:about="http://www.blendconference.com/talk-event/talk-2">
+        <rdf:type rdf:resource="&swc;TalkEvent"/>
+        <rdfs:label>Podcast par The Walking Web</rdfs:label>
+        <ical:dtstart>2013-10-01T14:30:00+02:00</ical:dtstart>
+        <ical:dtend>2013-10-01T15:30:00+02:00</ical:dtend>
+        <ical:description>Les membres de The Walking Web aborderont également d’autres questions telles que :
+		Comment le webdesign peut aider à développer son entreprise ?
+		Les start up et le web : Une histoire d’amour ?
+		L’UI et l’UX : amener ses clients à agir (en gros à adhérer à ses produits).
+		Doit-on forcément suivre la tendance pour avoir du succès ?
+		Casser les codes pour se faire remarquer.
+		Cette conférence se déroulera comme un épisode classique de The Walking Web et reprendra les rubriques habituelles. Cependant ces dernières seront adapter pour permettre une davantage d’interactions avec le public.</ical:description>
+		<dc:subject>Design</dc:subject>
+        <swc:isSubEventOf rdf:resource="http://www.blendconference.com"/>
+        <swc:hasLocation rdf:resource="http://www.blendconference.com/rooms/forum"/>
+    </NamedIndividual>
+	
+	<NamedIndividual rdf:about="http://www.blendconference.com/break-event/break-3">
+        <rdf:type rdf:resource="&swc;BreakEvent"/>
+        <rdfs:label>Lunch tiiiime!</rdfs:label>
+        <ical:dtstart>2013-10-01T15:30:00+02:00</ical:dtstart>
+        <ical:dtend>2013-10-01T16:00:00+02:00</ical:dtend>
+        <ical:description>Un petit creux?</ical:description>
+        <swc:isSubEventOf rdf:resource="http://www.blendconference.com"/>
+        <swc:hasLocation rdf:resource="http://www.blendconference.com/rooms/forum"/>
+    </NamedIndividual>
+	
+	
+	<NamedIndividual rdf:about="http://www.blendconference.com/panel-event/panel-3">
+        <rdf:type rdf:resource="&swc;PanelEvent"/>
+        <rdfs:label>Grandir à l'international : ils l'ont fait!</rdfs:label>
+        <ical:dtstart>2013-10-01T16:00:00+02:00</ical:dtstart>
+        <ical:dtend>2013-10-01T17:30:00+02:00</ical:dtend>
+        <ical:description>En cloture de la journée, nous vous proposons une conférence avec ces entrepreneurs français qui ont connu le succès au-delà de l’hexagone. Leurs expériences les ont amenés à travailler avec des personnes et des cultures différentes, nous vous proposons un retour sur les expériences des conférenciers.
+		Au programme :
+		Introduction d’Olivier Mathiot – La success-story d’un e-commerçant français racheté par un grand groupe japonais.
+		Suivi de
+		Thibaud Elzière, fondateur de Photolia (1ère banque d’images en Europe)
+		Renaud Visage, co-fondateur d’Evenbrite (Plus de 100 millions de billets vendus dans le monde)
+		Céline Lazorthes, fondatrice de Leetchi (1ère cagnotte en ligne utilisée en Europe)
+		Mathieu Hug, co-fondateur de RunMyProcess (Solutions de Cloud racheté par Fujitsu)
+		</ical:description>
+		<dc:subject>Business</dc:subject>
+		<dc:subject>Marketing</dc:subject>
+        <swc:isSubEventOf rdf:resource="http://www.blendconference.com"/>
+        <swc:hasLocation rdf:resource="http://www.blendconference.com/rooms/forum"/>
+    </NamedIndividual>
+	
+	
+	     
+</rdf:RDF>
+

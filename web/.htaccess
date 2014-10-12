@@ -1,0 +1,8 @@
+RedirectMatch permanent ^/app\.php/(.*) /$1
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteCond %{THE_REQUEST} ^(GET|HEAD)\ /web/
+    RewriteRule ^(.*)$ /$1 [L,R=301]
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^(.*) app.php [QSA,L] 
+</IfModule>

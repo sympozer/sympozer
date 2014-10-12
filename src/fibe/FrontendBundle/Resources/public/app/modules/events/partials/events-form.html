@@ -1,0 +1,90 @@
+<h2>General informations</h2>
+
+<div class="well">
+    <div>
+        <label for="inputName">Label</label>
+        <input type="text" class="form-control" id="label" required placeholder="{{event.label}}" ng-model="event.label">
+    </div>
+    <div>
+        <label for="inputDescription">Description</label>
+        <input type="text " class="form-control" id="inputDescription" placeholder="{{event.description}}" ng-model="event.description">
+    </div>
+    <div>
+        <label for="inputUrl">Url</label>
+        <input type="text " class="form-control" id="inputUrl" placeholder="{{event.url}}" ng-model="event.url">
+    </div>
+    <div get-or-create="topic" parent-entity="event"></div>
+    <div get-or-create="category" parent-entity="event" new-politic="modal" singlechoice="true" uniq-field="label"></div>
+    
+</div>
+
+<h2>Time & localization</h2>
+
+<div class="well">
+    <div>
+        <label for="inputEnd">Start at</label>
+
+        <div class="dropdown">
+            <a class="dropdown-toggle" id="dropdownStart" role="button" data-toggle="dropdown" data-target="#" href="javascript:void(0)">
+                <input type="text" class="form-control" id="inputStart" name="inputStart" placeholder="Start at" ng-model="event.startAt">
+            </a>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                <datetimepicker data-ng-model="event.startAt" data-datetimepicker-config="{ dropdownSelector: '#dropdown2' }"/>
+            </ul>
+        </div>
+        <div class="alert alert-danger" role="alert" ng-show="eventNewForm.eventStart.$dirty && eventNewForm.eventStart > eventNewForm.eventEnd">
+            The start date must be before the end date
+        </div>
+    </div>
+    <div>
+        <label for="inputEnd">End at</label>
+
+        <div class="dropdown">
+            <a class="dropdown-toggle" id="dropdownEnd" role="button" data-toggle="dropdown" data-target="#" href="javascript:void(0)">
+                <input type="text" class="form-control" id="inputEnd" name="inputEnd" placeholder="End at" ng-model="event.endAt">
+            </a>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                <datetimepicker data-ng-model="event.endAt" data-datetimepicker-config="{ dropdownSelector: '#dropdown2' }"/>
+            </ul>
+        </div>
+        <div class="alert alert-danger" role="alert" ng-show="eventNewForm.eventStart.$dirty && eventNewForm.eventEnd < eventNewForm.eventStart ">
+            The end date must be after the start date
+        </div>
+    </div>
+
+    <div get-or-create="location" parent-entity="event" new-politic="modal" single-choice="true" single-choice-child="true"></div>
+
+</div>
+
+
+<h2>Content</h2>
+
+<div class="well">
+
+    <div get-or-create="paper" parent-entity="event"  new-politic="modal"></div>  
+
+    <div ng-repeat="role in event.roles">
+     <div class="col-sm-3">
+        <div class="panel panel-primary" style="margin-top: 10px;">
+          <div class="panel-heading clearfix">
+            <div class="panel-title pull-left text-center">{{ role.person.label }}</div>
+            <a ng-click="deleteEntity($index,entity)" class="btn btn-danger btn-xs fa fa-times pull-right"></a>
+          </div>
+          <div class="panel-body">
+            <img class="img-circle" src="http://blog.getjobber.com/wp-content/uploads/2013/01/Users-Image.png" alt="{{ role.person.label }} picture" style="width: 50px; height: 50px;">
+            {{ role.roleLabel.label }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div get-or-create="role" child-field="event" single-choice-child="true" parent-entity="event" new-politic="modal"></div>
+
+
+<div>
+
+</div>
+
+<!--<div class="well">-->
+    <!--<div get-or-create="person" parent-entity="event" parent-field="person" uniq-field="email" new-politic="modal"></div>-->
+<!--</div>-->

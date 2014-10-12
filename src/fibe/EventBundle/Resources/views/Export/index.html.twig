@@ -1,0 +1,23 @@
+{% extends 'fibeEventBundle::base.html.twig' %}
+
+{% block title %}Exporter {% endblock title %}
+
+{% block centerPanel %}
+  {{ parent() }}
+  <div class="row page-top-header ">
+    <div class="page-title  col-xs-5  col-sm-4 col-md-3 col-lg-2">
+      <span>Exporter</span>
+    </div>
+  </div>
+  <div class="row page-content">
+
+    <form action="{{ path('externalization_export_process') }}" method="post" {{ form_enctype(export_form) }}>
+      {{ form_widget(export_form) }}
+      {{ form_errors(export_form) }}
+      <button type="submit" class="btn btn-block btn-success">
+        <i class="fa fa-check"></i>
+      </button>
+    </form>
+  </div>
+
+{% endblock %}

@@ -1,0 +1,88 @@
+fos_user_registration:
+    resource: "@FOSUserBundle/Resources/config/routing/registration.xml"
+    prefix: user/register
+
+fos_user_profile:
+    resource: "@FOSUserBundle/Resources/config/routing/profile.xml"
+    prefix: user/
+
+fos_user_resetting:
+    resource: "@FOSUserBundle/Resources/config/routing/resetting.xml"
+    prefix: /resetting
+
+fos_user_change_password:
+    resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
+    prefix: user/profile
+
+
+fibe_community:
+    resource: "@fibeCommunityBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+fibe_organization:
+    resource: fibe\CommunityBundle\Controller\OrganizationRESTController
+    prefix:   /
+
+fibe_person:
+    resource: fibe\CommunityBundle\Controller\PersonRESTController
+    prefix:   /
+
+fibe_content:
+    resource: "@fibeContentBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+fibe_event:
+    resource: "@fibeEventBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+frontend:
+    resource: "@FrontendBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+documentation:
+    resource: "@DocumentationBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+fibe_security_www_conf:
+    resource: "@fibeSecurityBundle/Controller/"
+    type:     annotation
+
+login:
+    pattern:   /login
+    defaults:  { _controller: FrontendBundle:Front:login }
+
+login_check:
+     pattern:   /login/login_check
+
+logout:
+    pattern:   /logout
+
+#HWIOAuthBundle routes
+hwi_oauth_security:
+    resource: "@HWIOAuthBundle/Resources/config/routing/login.xml"
+    prefix: /login
+
+hwi_oauth_connect:
+    resource: "@HWIOAuthBundle/Resources/config/routing/connect.xml"
+    prefix: /login
+
+hwi_oauth_redirect:
+    resource: "@HWIOAuthBundle/Resources/config/routing/redirect.xml"
+    prefix:   /connect
+
+google_login:
+    pattern: /login/check-google
+
+twitter_login:
+    pattern: /login/check-twitter
+
+facebook_login:
+    pattern: /login/check-facebook
+
+linkedin_login:
+    pattern: /login/check-linkedin

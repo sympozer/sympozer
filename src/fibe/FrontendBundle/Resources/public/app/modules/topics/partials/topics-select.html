@@ -1,0 +1,16 @@
+<label>Topics</label>
+<div>
+  <span ng-repeat="entity in resource[parentField]  track by $index" class="tag label label-info">
+    <span>{{ entity.label }}</span>
+    <a ng-click="deleteEntity($index,entity)"><span class="fa fa-times"></span></a>
+  </span>
+</div>
+
+<ui-select ng-model="addedEntity" on-select="change($model)" ng-keyup="keyup($event)" style="width: 100%;" class="form-group">
+  <ui-select-match>Add a topics...</ui-select-match>
+  <ui-select-choices repeat="entity in entities">
+    <!--<ui-select-choices repeat="entity.email as entity in people | propsFilter: {label: $select.search, age: $select.search}">-->
+    <div ng-bind-html="entity.label | highlight: $select.search"></div>
+  </ui-select-choices>
+</ui-select>
+<br/>

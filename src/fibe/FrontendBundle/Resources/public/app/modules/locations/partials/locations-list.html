@@ -1,0 +1,32 @@
+<div ng-include="GLOBAL_CONFIG.app.modules.locations.urls.partials+'locations-actions.html'" ></div>
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th>Label<i class="fa fa-sort-asc" ng-click="order('label','ASC')"></i><i class="fa fa-sort-desc" ng-click="order('label','DESC')"></i>
+    <th>Capacity</th>
+    <th>Description</th>
+    <th>Latitude</th>
+    <th>Longitude</th>
+  </tr>
+  </thead>
+  <tbody entity-list-handler="locations" infinite-scroll='load()' infinite-scroll-disabled='busy' infinite-scroll-distance='0.5'>
+  <tr ng-repeat="location in entities  track by $index">
+    <td>{{ location.label }}</td>
+    <td>{{ location.capacity }}</td>
+    <td>{{ location.description }}</td>
+    <td>{{ location.latitude }}</td>
+    <td>{{ location.longitude }}</td>
+    <td>
+      <a class="btn btn-warning" href="#conference/{{currentConference.id}}/locations/edit/{{ location.id }}" role="button"><i class="fa fa-edit fa-1x"></i></a>
+      <a class="btn btn-default" href="#conference/{{currentConference.id}}/locations/show/{{ location.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>
+      <a class="btn btn-primary" href="" data-ng-click="clone(location)" role="button"><i class="fa fa-files-o fa-1x"></i></a>
+      <button class="btn btn-danger" data-ng-click="deleteModal($index, location)" role="button">
+        <i class="fa fa-trash-o fa-1x"></i></button>
+    </td>
+  </tr>
+  </tbody>
+</table>
+
+
+
+

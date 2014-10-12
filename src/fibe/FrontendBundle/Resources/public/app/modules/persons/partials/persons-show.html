@@ -1,0 +1,23 @@
+<!--<div ng-include="GLOBAL_CONFIG.app.modules.persons.urls.partials+'persons-actions.html'" ng-controller="personsMainCtrl"></div>-->
+<div class="well">
+  <img class="img-circle" data-src="holder.js/140x140" alt="140x140"
+       src="{{ person.img ? person.img : 'http://blog.getjobber.com/wp-content/uploads/2013/01/Users-Image.png' }}" style="width: 70px; height: 70px;"/>
+  <a ng-if="currentUser.person.id === person.id" class="btn btn-info" href="#profile" role="button">
+    <i class="fa fa-edit fa-1x"></i> Edit my account
+  </a>
+
+  <h3>{{person.label}}</h3>
+
+  <p ng-if="person.country">{{person.country}}</p>
+
+  <p ng-if="person.email">{{person.email}}</p>
+
+  <p ng-if="person.website">{{person.website}}</p>
+
+  <p ng-if="person.papers">
+
+  <div ng-repeat="paper in person.papers">
+    {{paper.label}}
+  </div>
+  </p>
+</div>

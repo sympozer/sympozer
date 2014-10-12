@@ -1,0 +1,21 @@
+<div ng-include="GLOBAL_CONFIG.app.modules.locations.urls.partials+'locations-actions.html'" ng-controller="locationsMainCtrl"></div>
+<div class="well">
+  <img class="img-circle" data-src="holder.js/140x140" alt="140x140" src="http://blog.getjobber.com/wp-content/uploads/2013/01/Users-Image.png" style="width: 70px; height: 70px;"/>
+
+  <h3>{{location.label}}</h3>
+
+  <h2 ng-if="location.description">{{ location.description }}</h2>
+
+  <p ng-if="location.capacity">{{ location.capacity }}</p>
+
+  <p ng-if="location.latitude">{{ location.latitude }}</p>
+
+  <p ng-if="location.longitude">{{ location.longitude }}</p>
+
+  <p ng-if="location.equipments">
+
+  <div ng-repeat="equipment in location.equipments">
+    {{ equipment.label }}{{ equipment.icon }}
+  </div>
+  </p>
+</div>

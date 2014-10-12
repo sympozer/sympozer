@@ -1,0 +1,113 @@
+
+
+parameters:
+    security.acl.dbal.provider.class: fibe\SecurityBundle\Services\AclProvider
+    fos_user.registration.confirmation.enabled: true
+    my_user_provider.class: fibe\SecurityBundle\Services\FOSUBUserProvider
+    twitter.api_url: "https://api.twitter.com/1.1/"
+
+    fibe_security.mailer.random_pwd_email_message.subject:    "Sympozer : upgrade your conference"
+    fibe_security.mailer.random_pwd_email_message.html_body:  >
+        <html>
+          <body>
+            <img src="{{ asset('img/sympozer.png') }}"/>
+
+            <h3>Welcome !</h3>
+
+            <p>We're glad you have linked your #serviceName# account with sympozer</p>
+
+            <br/>All the sympozer's team welcomes you and wishes you will enjoy using our service.
+
+            <p>Regards,</p>
+            <p><i>the Symposer team</i></p>
+          </body>
+        </html>
+    fibe_security.mailer.random_pwd_email_message.text_body:  >
+        Welcome !
+        We're glad you have linked your #serviceName# account with sympozer
+        All the sympozer's team welcomes you and wishes you will enjoy using our service.
+        Regards,
+        the Symposer team
+services:
+    my_user_provider:
+        class: "%my_user_provider.class%"
+        #this is the place where the properties are passed to the UserProvider - see config.yml
+        arguments: 
+            - @fos_user.user_manager
+            - 
+                google:         google_id
+                twitter:        twitter_id
+                facebook:       facebook_id
+                linkedin:       linkedin_id
+            - @session
+            - @fibe_security.mailer
+            - @fibe.UserService
+
+    fibe.UserService:
+        class:  fibe\SecurityBundle\Services\UserService
+        arguments: ["@doctrine.orm.entity_manager"]
+
+    fibe_user.registration.form.type:
+        class: fibe\SecurityBundle\Form\RegistrationFormType
+        arguments: [%fos_user.model.user.class%]
+        tags:
+            - { name: form.type, alias: fibe_user_registration }
+
+    fibe_user.profile.form.type:
+        class: fibe\SecurityBundle\Form\ProfileFormType
+        arguments: [%fos_user.model.user.class%]
+        tags:
+            - { name: form.type, alias: fibe_user_profile }
+
+    fibe_security.acl_entity_helper:
+        class: fibe\SecurityBundle\Services\ACLEntityHelper
+        arguments: ["@security.context","@doctrine.orm.entity_manager","@security.acl.provider"]
+
+    fibe_security.acl_user_permission_helper:
+        class: fibe\SecurityBundle\Services\ACLUserPermissionHelper
+        arguments: ["@security.context","@doctrine.orm.entity_manager","@security.acl.provider","@fibe_user.user_conf_permissions.form.type"]
+
+    fibe_user.user_conf_permissions.form.type:
+        class: fibe\SecurityBundle\Form\UserConfPermissionType
+        arguments: ["@fibe_security.acl_entity_helper"]
+        tags: 
+            - { name: form.type, alias: user_conf_permissions }
+
+    entityAddACL:
+        class: fibe\SecurityBundle\Listener\AddACL
+        arguments: ["@service_container"]
+        tags:
+            - { name: doctrine.event_listener, event: postPersist }
+    # TODO POST DELETE
+    # TODO POST DELETE
+
+    security.access.acl_inheritance_voter:
+        class:      fibe\SecurityBundle\Voter\ACLInheritanceVoter
+        public:     false
+        tags:
+            - { name: security.voter }
+            - { name: security.voter , priority: 1 }
+            - { name: monolog.logger , channel: security }
+        arguments: 
+            - '@security.acl.provider'
+            - '@security.acl.object_identity_retrieval_strategy'
+            - '@security.acl.security_identity_retrieval_strategy'
+            - '@security.acl.permission.map' 
+            - '@?logger'
+
+    fibe_security.mailer:
+        class:  fibe\SecurityBundle\Services\Mailer
+        public: false
+        arguments:
+            - "@mailer"
+            - "@router" 
+            -
+                random_pwd_email_message:
+                    from_email  : "%fos_user.registration.confirmation.from_email%"
+                    subject     : "%fibe_security.mailer.random_pwd_email_message.subject%"
+                    html_body   : "%fibe_security.mailer.random_pwd_email_message.html_body%"
+                    text_body   : "%fibe_security.mailer.random_pwd_email_message.text_body%"  
+
+    fibe_security.twitter:
+        class: fibe\SecurityBundle\Services\TwitterAPI
+        arguments: [ %twitter.client_id%, %twitter.client_secret%, %twitter.access_token%, %twitter.access_token_secret%, %twitter.api_url% ]

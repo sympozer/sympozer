@@ -1,0 +1,48 @@
+imports:
+    - { resource: config.yml }
+
+framework:
+    router:   { resource: %kernel.root_dir%/config/%routing_dev_file% }
+    profiler: { only_exceptions: false }
+
+web_profiler:
+    toolbar: true
+    intercept_redirects: false
+
+monolog:
+    handlers:
+        main:
+            type:  stream
+            path:  %kernel.logs_dir%/%kernel.environment%.log
+            level: debug
+        firephp:
+            type:  firephp
+            level: info
+        chromephp:
+            type:  chromephp
+            level: info
+
+assetic:
+    use_controller: true
+
+swiftmailer:
+    transport:  %mailer_transport%
+    host:       %mailer_host%
+    auth_mode:  %mailer_auth_mode% 
+    encryption: %mailer_encryption%
+    username:   %mailer_username%
+    password:   %mailer_password%
+
+# Assetic Configuration
+assetic:
+    debug:          %kernel.debug%
+    use_controller: false
+    bundles:        [ FrontendBundle]
+    #java: /usr/bin/java
+    filters:
+        cssrewrite: ~
+        uglifyjs2:
+            # the path to the uglifyjs executable
+            bin: /usr/local/bin/uglifyjs
+        uglifycss:
+            bin: /usr/local/bin/uglifycss

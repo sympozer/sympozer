@@ -1,0 +1,7 @@
+<div ng-include="GLOBAL_CONFIG.app.modules.events.urls.partials+'events-actions.html'" ng-controller="eventsMainCtrl"></div>
+<form name="eventEditForm" class="form" role="form" ng-submit="update(eventEditForm)">
+    <div ng-include="GLOBAL_CONFIG.app.modules.events.urls.partials+'events-form.html'"></div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-success">Save</button>
+    </div>
+</form>
