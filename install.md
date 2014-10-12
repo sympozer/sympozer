@@ -26,8 +26,6 @@ Sympozer is an Angular/Symfony web application allowing event organizers to mana
 ##create app/config/parameters.yml
 Next, create a parameters.yml file with this text :
 
-<code>
-
     parameters:
         database_driver:   pdo_mysql
         database_host:     localhost
@@ -43,8 +41,6 @@ Next, create a parameters.yml file with this text :
         mailer_host:       smtp.gmail.com
         mailer_user:       john.doe@gmail.com
         mailer_password:   password
-</code>	
-
 
 
 For  "database_user" put your mysql user name, and "database_password" , and use your mysql password.
