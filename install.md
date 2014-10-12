@@ -27,7 +27,6 @@ Sympozer is an Angular/Symfony web application allowing event organizers to mana
 Next, create a parameters.yml file with this text :
 
 <code>
-
     parameters:
         database_driver:   pdo_mysql
         database_host:     localhost
