@@ -27,21 +27,22 @@ Sympozer is an Angular/Symfony web application allowing event organizers to mana
 Next, create a parameters.yml file with this text :
 
 <code>
-parameters:
-    database_driver:   pdo_mysql
-    database_host:     localhost
-    database_port:     ~
-    database_name:     wwwConference
-    database_user:     root
-    database_password: ""
-    
-    mailer_transport:  smtp
-    mailer_encryption: ssl
-    mailer_auth_mode:  login
-    mailer_host:       127.0.0.1
-    mailer_host:       smtp.gmail.com
-    mailer_user:       john.doe@gmail.com
-    mailer_password:   password
+
+    parameters:
+        database_driver:   pdo_mysql
+        database_host:     localhost
+        database_port:     ~
+        database_name:     wwwConference
+        database_user:     root
+        database_password: ""
+        
+        mailer_transport:  smtp
+        mailer_encryption: ssl
+        mailer_auth_mode:  login
+        mailer_host:       127.0.0.1
+        mailer_host:       smtp.gmail.com
+        mailer_user:       john.doe@gmail.com
+        mailer_password:   password
 </code>	
 
 
