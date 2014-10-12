@@ -51,22 +51,23 @@ After that, save and add this file to : app/config
 ##Step-by-step initialize
 ####Initialize db, generate assets
 
-		php app/console doctrine:database:create
-		php app/console doctrine:schema:update --force
-		php app/console assets:install web
+    php app/console doctrine:database:create
+    php app/console doctrine:schema:update --force
+    php app/console assets:install web
 
 ####create an admin
 
-        php app/console sympozer:admin:create admin admin@admin.fr admin
+    php app/console sympozer:admin:create admin admin@admin.fr admin
 
 ####populate database
 
-    	php app/console wwwconf:database:init
+    php app/console wwwconf:database:init
 
 Start your Apache server and go to :
 
-    - localhost/sympozer/web/app_dev.php/
+    localhost/sympozer/web/app_dev.php/
 
 One of the most common issue is that folders app/cache and app/logs don't have write access by Symfony. To fix this, do a chmod or [refer here](http://symfony.com/doc/current/book/installation.html#configuration-and-setup) for more informations,
 or run the "chcache.sh" script (linux chmod)
-    ./chcache.sh 
+
+        <code>./chcache.sh</code>
