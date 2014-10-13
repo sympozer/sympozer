@@ -257,7 +257,7 @@ angular.module('rolesApp').controller('rolesListCtrl', [
  * @type {controller}
  */
 angular.module('rolesApp').controller('rolesNewCtrl',
-    [ '$scope', '$routeParams', '$rootScope', '$location', 'rolesFact', function ($scope, $routeParams, $rootScope, $location, rolesFact)
+    [ '$scope', '$window', '$routeParams', '$rootScope', '$location', 'rolesFact', function ($scope, $window, $routeParams, $rootScope, $location, rolesFact)
     {
         $scope.role = new rolesFact;
 
@@ -269,7 +269,7 @@ angular.module('rolesApp').controller('rolesNewCtrl',
         var success = function (response, args)
         {
             $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'role created', type: 'success'});
-            $location.path('/conference/' + $routeParams.confId + '/roles/list');
+            $window.history.back();
         };
 
         $scope.create = function (form)
@@ -288,7 +288,7 @@ angular.module('rolesApp').controller('rolesNewCtrl',
  * @type {controller}
  */
 angular.module('rolesApp').controller('rolesEditCtrl',
-    [ '$scope', '$rootScope', '$routeParams', '$location', 'rolesFact', function ($scope, $rootScope, $routeParams, $location, rolesFact)
+    [ '$scope', '$window', '$rootScope', '$routeParams', '$location', 'rolesFact', function ($scope, $window, $rootScope, $routeParams, $location, rolesFact)
     {
         $scope.role = rolesFact.get({id: $routeParams.roleId});
 
@@ -300,7 +300,7 @@ angular.module('rolesApp').controller('rolesEditCtrl',
         var success = function (response, args)
         {
             $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'role saved', type: 'success'});
-            $location.path('/roles/list');
+            $window.history.back();
         };
 
         $scope.update = function (form)

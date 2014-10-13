@@ -116,7 +116,15 @@ angular.module('sympozerApp').factory('searchService', [
                     }
                     for (var i in searchConfig.filters)
                     {
-                        searchConfig["filters[" + i + "]"] = searchConfig.filters[i];
+                        var currentFilter = searchConfig.filters[i];
+                        if(currentFilter instanceof Array){
+                            searchConfig["filters[" + i + "]"] = [];
+                            for (var value in currentFilter) {
+                                searchConfig["filters[" + i + "]"].push(currentFilter[value]);
+                            }
+                        }else{
+                            searchConfig["filters[" + i + "]"] = searchConfig.filters[i];
+                        }
                     }
 
                     queryNb++;

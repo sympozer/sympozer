@@ -13,21 +13,7 @@ use Doctrine\ORM\QueryBuilder;
  */
 class RoleRepository extends EntityRepository
 {
-    /**
-     * filtering by main event
-     * @param QueryBuilder $qb : query builder to add the filter to
-     * @param $MainEventId : the main event to filter on
-     * @return QueryBuilder $qb : modified query builder
-     */
-    public function findAllByMainEventId(QueryBuilder $qb, $MainEventId)
-    {
-        if (isset($MainEventId))
-        {
-            $qb->andWhere('qb.mainEvent = (:MainEventId)');
-            $qb->setParameter('MainEventId', $MainEventId);
-        }
-        return $qb;
-    }
+
 
     /**
      * filtering with all parameters difned
@@ -49,6 +35,23 @@ class RoleRepository extends EntityRepository
                 ->andWhere('qb.id = :id')
                 ->setParameter('id', $params['id']);
         }
+
+
+        if(isset($params['ids'])) {
+
+            $qb
+                ->andWhere($qb->expr()->in('qb.id', $params['ids']))
+            ;
+        }
+
+        if(isset($params['roleLabelVersionIds'])) {
+
+            $qb
+                ->leftJoin('qb.roleLabelVersion', 'rol')
+                ->andWhere($qb->expr()->in('rol.id', $params['roleLabelVersionIds']));
+
+        }
+
 
 
         if (isset($params['personId']))

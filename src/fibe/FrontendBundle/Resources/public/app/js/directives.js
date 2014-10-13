@@ -623,13 +623,23 @@ angular.module('sympozerApp').directive('filter',
 
                 if (!scopeOfFilters.filters)
                 {
-                    scopeOfFilters.filters = {};
+                    scopeOfFilters.filters = [];
                 }
 
                 scope.addFilter = function (value)
                 {
-                    scopeOfFilters.filters[attrs.filter] = value;
+
                     scopeOfFilters.initialize();
+                    if(!scopeOfFilters.filters[attrs.filter]){
+                        scopeOfFilters.filters[attrs.filter] = [];
+                    }
+                    var valueIdx = scopeOfFilters.filters[attrs.filter].indexOf(value)
+                    if(valueIdx != -1){
+                        scopeOfFilters.filters[attrs.filter].splice(valueIdx,1);
+                    }else{
+                        scopeOfFilters.filters[attrs.filter].push(value);
+                    }
+
                     scopeOfFilters.load(true);
                 };
             }
