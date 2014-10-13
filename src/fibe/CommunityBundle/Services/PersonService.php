@@ -5,6 +5,7 @@ namespace fibe\CommunityBundle\Services;
 use Doctrine\ORM\EntityManager;
 use fibe\CommunityBundle\Entity\Person;
 use fibe\RestBundle\Services\AbstractBusinessService;
+use FOS\UserBundle\Model\UserInterface;
 use FOS\UserBundle\Model\UserManagerInterface;
 use FOS\UserBundle\Util\TokenGeneratorInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
@@ -69,7 +70,8 @@ class PersonService extends AbstractBusinessService
     $user = $person->getUser();
 
     //nobody but the user himself can change his profile while his account is enabled
-    if ($user->isEnabled() && $user->getId() !== $this->securityContext->getToken()->getUser()->getId())
+    //!== $this->securityContext->getToken()->getUser()->getId()
+    if ($user->isEnabled() && $person->getId() && ($this->securityContext->getToken()->getUser() instanceof  UserInterface))
     {
       throw new AccessDeniedException('This person is linked to a real user account');
     }

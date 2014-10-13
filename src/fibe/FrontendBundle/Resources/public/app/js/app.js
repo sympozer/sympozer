@@ -20,7 +20,7 @@ angular.module('equipmentsApp', ['fundoo.services']);
 angular.module('eventsApp', ['fundoo.services', 'categoriesApp']);
 angular.module('conferencesApp', ['fundoo.services']);
 angular.module('angularTranslateApp', ['pascalprecht.translate']);
-angular.module('authenticationApp', ['ngCookies']);
+angular.module('authenticationApp', ['ngCookies', 'personsApp']);
 angular.module('contextualizationApp', ['conferencesApp']);
 
 /**

@@ -93,6 +93,7 @@ class Person extends AdditionalInformations
      * organization
      *
      * @ORM\OneToMany(targetEntity="fibe\CommunityBundle\Entity\OrganizationVersion", mappedBy="organizationVersionOwner", cascade={"all"})
+     * @Expose
      */
     private $organizations;
 

@@ -259,14 +259,35 @@ angular.module('authenticationApp').controller('resetPwdCtrl',
  * @type {controller}
  */
 angular.module('authenticationApp').controller('profileCtrl',
-    [ '$scope', '$routeParams', 'usersFact', '$location', function ($scope, $routeParams, usersFact, $location)
+    [ '$scope', '$rootScope', '$routeParams', 'usersFact', '$location', 'personsFact', function ($scope, $rootScope, $routeParams, usersFact, $location, personsFact)
     {
         if (!$scope.$root.currentUser)
         {
             $location.path('/');
         }
+        debugger;
 
-        $scope.person = $scope.$root.currentUser.person;
+        $scope.person = new personsFact($scope.$root.currentUser.person);
+
+        var error = function (response, args)
+        {
+            $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'the person has not been saved', type: 'danger'});
+        }
+
+        var success = function (response, args)
+        {
+            $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'person saved', type: 'success'});
+            $scope.$root.currentUser.person = response;
+        }
+
+        $scope.update = function (form)
+        {
+            if (form.$valid)
+            {
+                $scope.person.$update({}, success, error);
+            }
+        }
+
     }]);
 
 /**

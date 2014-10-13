@@ -26,6 +26,13 @@ class RoleLabelVersionRepository extends EntityRepository
             $qb->setParameter('mainEventId', $params['mainEventId']);
         }
 
+
+        if(isset($params['ids'])) {
+            $qb
+                ->andWhere($qb->expr()->in('qb.id', $params['ids']))
+            ;
+        }
+
         return $qb;
     }
 }
