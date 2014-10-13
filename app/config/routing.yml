@@ -43,11 +43,6 @@ frontend:
     type:     annotation
     prefix:   /
 
-documentation:
-    resource: "@DocumentationBundle/Controller/"
-    type:     annotation
-    prefix:   /
-
 fibe_security_www_conf:
     resource: "@fibeSecurityBundle/Controller/"
     type:     annotation

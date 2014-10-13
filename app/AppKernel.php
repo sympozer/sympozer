@@ -24,7 +24,6 @@ class AppKernel extends Kernel
 
       new fibe\SecurityBundle\fibeSecurityBundle(),
       new fibe\RestBundle\fibeRestBundle(),
-      new fibe\DocumentationBundle\DocumentationBundle(),
       new FOS\UserBundle\FOSUserBundle(),
       new Lexik\Bundle\FormFilterBundle\LexikFormFilterBundle(),
       new HWI\Bundle\OAuthBundle\HWIOAuthBundle(),
