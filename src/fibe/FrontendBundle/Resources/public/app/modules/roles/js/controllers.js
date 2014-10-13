@@ -35,18 +35,13 @@ angular.module('roleLabelsApp').controller('roleLabelsListCtrl', [
 
         $scope.entities = [];
 
-        $scope.fetch = function (filters, success, error)
+        var baseFilters;
+        if ($routeParams.confId)
         {
-            if ($routeParams.confId)
-            {
-                filters.confId = $routeParams.confId;
-                roleLabelsFact.allByConference(filters, success, error);
-            }
-            else
-            {
-                roleLabelsFact.all(filters, success, error);
-            }
-        };
+            $scope.filters = baseFilters = {
+                mainEventId: $routeParams.confId
+            };
+        }
 
         $scope.reload = function ()
         {

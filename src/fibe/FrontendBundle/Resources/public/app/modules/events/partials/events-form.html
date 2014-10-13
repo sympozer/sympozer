@@ -14,7 +14,7 @@
         <input type="text " class="form-control" id="inputUrl" placeholder="{{event.url}}" ng-model="event.url">
     </div>
     <div get-or-create="topic" parent-entity="event"></div>
-    <div get-or-create="category" parent-entity="event" new-politic="modal" singlechoice="true" uniq-field="label"></div>
+    <div get-or-create="category" parent-entity="event" new-politic="modal" singlechoice="true" uniq-field="label" filters='{"mainEventId": {{currentConference.id}}}' main-event-id="{{currentConference.id}}"></div>
     
 </div>
 
@@ -52,7 +52,7 @@
         </div>
     </div>
 
-    <div get-or-create="location" parent-entity="event" new-politic="modal" single-choice="true" single-choice-child="true"></div>
+    <div get-or-create="location" parent-entity="event" new-politic="modal" single-choice="true" single-choice-child="true" filters='{"mainEventId": {{currentConference.id}}}' main-event-id="{{currentConference.id}}"></div>
 
 </div>
 
@@ -61,7 +61,7 @@
 
 <div class="well">
 
-    <div get-or-create="paper" parent-entity="event"  new-politic="modal"></div>  
+    <div get-or-create="paper" parent-entity="event"  new-politic="modal" filters='{"mainEventId": {{currentConference.id}}}' main-event-id="{{currentConference.id}}"></div>
 
     <div ng-repeat="role in event.roles">
      <div class="col-sm-3">

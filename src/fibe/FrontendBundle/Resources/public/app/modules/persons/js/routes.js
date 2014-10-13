@@ -23,6 +23,11 @@ angular.module('personsApp')
                     controller : 'personsListCtrl'
                 })
 
+                .when('/persons/:personId/events', {
+                    templateUrl: globalConfig.app.modules.persons.urls.partials + 'persons-events.html',
+                    controller : 'personsEventListCtrl'
+                })
+
                 .when('/persons/thumbnail', {
                     templateUrl: globalConfig.app.modules.persons.urls.partials + 'persons-thumbnail.html',
                     controller : 'personsListCtrl'

@@ -31,14 +31,21 @@ class MainEventType extends VEventType
             ->add('endAt', 'datetime', array(
                 'widget' => 'single_text',
             ))
-            ->add('description')
-            ->add('comment')
-            ->add('url')
             ->add('categoryVersions', 'entity', array(
                 'class' => 'fibeEventBundle:CategoryVersion',
                 'required' => 'false',
                 'multiple' => true,
-            ));;
+            ))
+            ->add('papers', 'entity', array(
+                'class' => 'fibeContentBundle:Paper',
+                'required' => 'false',
+                'multiple' => true,
+            ))
+            ->add('persons', 'entity', array(
+                'class' => 'fibeCommunityBundle:Person',
+                'required' => 'false',
+                'multiple' => true,
+            ));
 //        ->add('logo', 'file', array('required' => false,
 //          'label'    => 'Logo (jpeg - png - 2MO)',
 //          'attr'     => array('placeholder' => 'logoPath')))

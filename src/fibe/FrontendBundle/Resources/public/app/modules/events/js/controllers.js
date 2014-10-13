@@ -26,7 +26,7 @@ angular.module('eventsApp').controller('eventsListCtrl', ['$scope', 'categoriesF
     //$rootScope.$broadcast('contextCtrl:changeContext', {confId:$routeParams.confId});
 
     $scope.entities = [];
-    $scope.categories = categoriesFact.all({'filters["mainEventId"]': $routeParams.confId});
+    $scope.categories = categoriesFact.all({'filters[mainEventId]': $routeParams.confId});
 
     var baseFilters;
     if ($routeParams.confId)

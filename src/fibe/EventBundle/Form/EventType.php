@@ -17,7 +17,6 @@ class EventType extends VEventType
 
     public function __construct()
     {
-//        $this->categoriesLevels = $cat;
     }
 
     /**
@@ -54,6 +53,7 @@ class EventType extends VEventType
                 'required' => 'false',
                 'multiple' => true,
             ));
+
     }
 
     /**

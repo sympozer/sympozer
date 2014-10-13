@@ -143,6 +143,7 @@ angular.module('sympozerApp').directive('getOrCreate', [
                     newPolitic = attrs.newPolitic || "create",
                     required = attrs.required,
 
+
                     childEntitiesLbl = getPlural(childEntityLbl),
                     childEntityLblCamelCase = childEntityLbl.charAt(0).toUpperCase() + childEntityLbl.slice(1),
                     entityFact = $injector.get(childEntitiesLbl + 'Fact'),
@@ -162,6 +163,8 @@ angular.module('sympozerApp').directive('getOrCreate', [
                 scope.mainEventId = mainEventId;
                 scope.parentField = parentField;
                 scope.required = required;
+
+                scope.filters =  attrs.filters ? JSON.parse(attrs.filters) :'' ;
 
                 //resolve the parent resource given by attrs.entity. The second test is for an embedded modal
                 scope.resource = scope.$parent[parentEntityLbl] || scope.$parent.$parent.$parent.$entity;
@@ -359,6 +362,7 @@ angular.module('sympozerApp').directive('getOrCreate', [
                         query    : query,
                         limit    : limit,
                         offset   : -(limit),
+                        filters  : scope.filters,
                         orderBy  : uniqField,
                         orderSide: "ASC"
                     });

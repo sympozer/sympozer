@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use fibe\ContentBundle\Entity\Paper;
 use fibe\ContentBundle\Entity\Location;
 use fibe\ContentBundle\Util\StringTools;
+use JMS\Serializer\Annotation\MaxDepth;
 use JMS\Serializer\Annotation\SerializedName;
 
 use JMS\Serializer\Annotation\ExclusionPolicy;
@@ -66,6 +67,8 @@ class Event extends VEvent
      * @ORM\JoinTable(name="event_paper",
      *     joinColumns={@ORM\JoinColumn(name="event_id", referencedColumnName="id")},
      *     inverseJoinColumns={@ORM\JoinColumn(name="paper_id", referencedColumnName="id")})
+     * @Expose
+     * @MaxDepth(1)
      */
     private $papers;
 

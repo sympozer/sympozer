@@ -1,3 +1,3 @@
 <div get-or-create="person" parent-entity="role" parent-field="person" singlechoice="true" uniq-field="email" new-politic="modal"></div>
-<div get-or-create="event" parent-entity="role" parent-field="event" singlechoice="true" uniq-field="label" new-politic="modal"></div>
-<div get-or-create="roleLabel" parent-entity="role" parent-field="roleLabelVersion" singlechoice="true" uniq-field="label" main-event-id="{{currentConference.id}}"></div>
+<div get-or-create="event" parent-entity="role" parent-field="event" singlechoice="true" uniq-field="label" new-politic="modal" filters='{"mainEventId": {{currentConference.id}}}' main-event-id="{{currentConference.id}}"></div>
+<div get-or-create="roleLabel" parent-entity="role" parent-field="roleLabelVersion" singlechoice="true" uniq-field="label" filters='{"mainEventId": {{currentConference.id}}}' main-event-id="{{currentConference.id}}"></div>
