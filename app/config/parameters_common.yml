@@ -23,8 +23,8 @@ parameters:
     social_networks:
         google:
             type:                google
-            client_id:           381296840409-ajut55prn2ahl0n8hakpufia7pbc5ovd.apps.googleusercontent.com
-            client_secret:       EHb_tRcleAqL5siGjovNuKPy
+            client_id:           7291802335-siqu12kucgd89889v5g5u0mpnd4nf2ff.apps.googleusercontent.com
+            client_secret:       go7GBtGXWM8B1csxPOhC_Gbk
             scope:               "https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile"
             # options:
             #     access_type:     offline
