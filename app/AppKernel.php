@@ -45,16 +45,17 @@ class AppKernel extends Kernel
       $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
       $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
       $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
-    }
 
-    if (self::ENABLE_ADMIN)
-    {
-      $bundles[] = new Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle();
-      $bundles[] = new Sonata\CoreBundle\SonataCoreBundle();
-      $bundles[] = new Sonata\BlockBundle\SonataBlockBundle();
-      $bundles[] = new Knp\Bundle\MenuBundle\KnpMenuBundle();
-      $bundles[] = new Sonata\AdminBundle\SonataAdminBundle();
-      $bundles[] = new fibe\AdminBundle\AdminBundle();
+      // SONATA ADMIN BUNDLE
+      if (self::ENABLE_ADMIN)
+      {
+        $bundles[] = new Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle();
+        $bundles[] = new Sonata\CoreBundle\SonataCoreBundle();
+        $bundles[] = new Sonata\BlockBundle\SonataBlockBundle();
+        $bundles[] = new Knp\Bundle\MenuBundle\KnpMenuBundle();
+        $bundles[] = new Sonata\AdminBundle\SonataAdminBundle();
+        $bundles[] = new fibe\AdminBundle\AdminBundle();
+      }
     }
 
     return $bundles;
