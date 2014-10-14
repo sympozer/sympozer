@@ -37,8 +37,7 @@ class AppKernel extends Kernel
       new fibe\FrontendBundle\FrontendBundle(),
       new fibe\EventBundle\fibeEventBundle(),
       new fibe\ContentBundle\fibeContentBundle(),
-      new fibe\CommunityBundle\fibeCommunityBundle(),
-
+      new fibe\CommunityBundle\fibeCommunityBundle()
     );
 
     if (in_array($this->getEnvironment(), array('dev', 'test')))
@@ -55,6 +54,7 @@ class AppKernel extends Kernel
       $bundles[] = new Sonata\BlockBundle\SonataBlockBundle();
       $bundles[] = new Knp\Bundle\MenuBundle\KnpMenuBundle();
       $bundles[] = new Sonata\AdminBundle\SonataAdminBundle();
+      $bundles[] = new fibe\AdminBundle\AdminBundle();
     }
 
     return $bundles;
