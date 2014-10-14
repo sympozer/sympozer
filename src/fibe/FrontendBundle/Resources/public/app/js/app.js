@@ -57,6 +57,7 @@ var sympozerApp = angular.module('sympozerApp', [
     'ui.bootstrap.datetimepicker',
     'ngSanitize',
     'ui.select',
+    'xeditable',
     'colorpicker.module'
 ]);
 
@@ -120,9 +121,10 @@ sympozerApp.config(['$translateProvider', function ($translateProvider)
  *
  * (execute after injection)
  */
-sympozerApp.run(function (amMoment)
+sympozerApp.run(function (amMoment,editableOptions)
 {
     amMoment.changeLanguage('de');
+    editableOptions.theme = 'bs3';
 });
 
 /**

@@ -42,7 +42,7 @@ class MainEventService
       $mainEvent = new MainEvent();
       $mainEvent->setLabel("Sympozer New Conference");
     }
-    $mainEvent->setLogoPath("sympozer-logo.png");
+    //$mainEvent->setLogoPath("sympozer-logo.png");
     $mainEvent->setStartAt(new \DateTime('now'));
     $mainEvent->setEndAt(clone $mainEvent->getStartAt()->add(new \DateInterval('P2D')));
     $this->entityManager->persist($mainEvent);
@@ -53,7 +53,7 @@ class MainEventService
     $mainEventLocation->setLabel("Conference's location");
     $mainEventLocation->setMainEvent($mainEvent);
     $this->entityManager->persist($mainEventLocation);
-    $mainEvent->addLocation($mainEventLocation);
+    //$mainEvent->addLocation($mainEventLocation);
     $this->entityManager->persist($mainEvent);
 
     //conference categories

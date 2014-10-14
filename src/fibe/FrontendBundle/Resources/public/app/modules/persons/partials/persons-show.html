@@ -7,7 +7,7 @@
         </div>
         <div class="col-lg-8">
             <h3>{{person.label}}</h3>
-            <p ng-if="person.description">{{person.description}}</p>
+            <p ng-if="person.description" editable-text="person.description">{{person.description || 'empty'}}</p>
             <a ng-if="currentUser.person.id === person.id" class="btn btn-info" href="#profile" role="button">
                 <i class="fa fa-edit fa-1x"></i> Edit my account
             </a>
