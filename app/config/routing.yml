@@ -81,3 +81,13 @@ facebook_login:
 
 linkedin_login:
     pattern: /login/check-linkedin
+
+#SONATA ADMIN BUNDLE ROUTES:
+admin:
+    resource: '@SonataAdminBundle/Resources/config/routing/sonata_admin.xml'
+    prefix: /sonata_admin
+
+_sonata_admin:
+    resource: .
+    type: sonata_admin
+    prefix: /sonata_admin

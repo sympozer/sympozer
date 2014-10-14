@@ -5,6 +5,11 @@ use Symfony\Component\Config\Loader\LoaderInterface;
 
 class AppKernel extends Kernel
 {
+  /**
+   * Constant which activate the admin mode
+   */
+  const ENABLE_ADMIN = true;
+
   public function registerBundles()
   {
     $bundles = array(
@@ -41,6 +46,15 @@ class AppKernel extends Kernel
       $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
       $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
       $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
+    }
+
+    if (self::ENABLE_ADMIN)
+    {
+      $bundles[] = new Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle();
+      $bundles[] = new Sonata\CoreBundle\SonataCoreBundle();
+      $bundles[] = new Sonata\BlockBundle\SonataBlockBundle();
+      $bundles[] = new Knp\Bundle\MenuBundle\KnpMenuBundle();
+      $bundles[] = new Sonata\AdminBundle\SonataAdminBundle();
     }
 
     return $bundles;
