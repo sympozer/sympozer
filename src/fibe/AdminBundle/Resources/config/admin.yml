@@ -64,10 +64,10 @@ services:
     sonata.admin.company:
         class: fibe\AdminBundle\Admin\GenericAdmin
         tags:
-            - { name: sonata.admin, manager_type: orm, group: "CommunityBundle", label: "Company" }
+            - { name: sonata.admin, manager_type: orm, group: "CommunityBundle", label: "Organization" }
         arguments:
             - ~
-            - fibe\CommunityBundle\Entity\Company
+            - fibe\CommunityBundle\Entity\Organization
             - ~
         calls:
             - [ setTranslationDomain, [CommunityBundle]]
