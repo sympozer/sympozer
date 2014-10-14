@@ -3,6 +3,7 @@ imports:
     - { resource: parameters_common.yml }
     - { resource: security.yml }
     - { resource: @fibeEventBundle/Resources/config/services.yml}
+    - { resource: @AdminBundle/Resources/config/admin.yml }
 
 hwi_oauth:
     #this is my custom user provider, created from FOSUBUserProvider - will manage the 
@@ -152,3 +153,7 @@ sonata_block:
         # Enable the SonataAdminBundle block
         sonata.admin.block.admin_list:
             contexts:   [admin]
+sonata_admin:
+    title:      Sympozer Admin
+    #@TODO : select the logo
+#    title_logo: bundles/acmedemo/img/fancy_acme_logo.png

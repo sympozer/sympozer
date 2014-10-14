@@ -1,0 +1,175 @@
+services:
+# EventBundle :
+    sonata.admin.mainEvent:
+        class: fibe\AdminBundle\Admin\GenericAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "EventBundle", label: "MainEvent" }
+        arguments:
+            - ~
+            - fibe\EventBundle\Entity\MainEvent
+            - ~
+        calls:
+            - [ setTranslationDomain, [EventBundle]]
+    sonata.admin.mainEventSettings:
+        class: fibe\AdminBundle\Admin\GenericAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "EventBundle", label: "MainEventSettings" }
+        arguments:
+            - ~
+            - fibe\EventBundle\Entity\MainEventSettings
+            - ~
+        calls:
+            - [ setTranslationDomain, [EventBundle]]
+    sonata.admin.vEvent:
+        class: fibe\AdminBundle\Admin\VEventAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "EventBundle", label: "VEvent" }
+        arguments:
+            - ~
+            - fibe\EventBundle\Entity\VEvent
+            - ~
+        calls:
+            - [ setTranslationDomain, [EventBundle]]
+    sonata.admin.event:
+        class: fibe\AdminBundle\Admin\GenericAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "EventBundle", label: "Event" }
+        arguments:
+            - ~
+            - fibe\EventBundle\Entity\Event
+            - ~
+        calls:
+            - [ setTranslationDomain, [EventBundle]]
+    sonata.admin.category:
+        class: fibe\AdminBundle\Admin\GenericAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "EventBundle", label: "Category" }
+        arguments:
+            - ~
+            - fibe\EventBundle\Entity\Category
+            - ~
+        calls:
+            - [ setTranslationDomain, [EventBundle]]
+#Community Bundle
+    sonata.admin.additionalInformations:
+        class: fibe\AdminBundle\Admin\GenericAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "CommunityBundle", label: "AdditionalInformations" }
+        arguments:
+            - ~
+            - fibe\CommunityBundle\Entity\AdditionalInformations
+            - ~
+        calls:
+            - [ setTranslationDomain, [CommunityBundle]]
+    sonata.admin.company:
+        class: fibe\AdminBundle\Admin\GenericAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "CommunityBundle", label: "Company" }
+        arguments:
+            - ~
+            - fibe\CommunityBundle\Entity\Company
+            - ~
+        calls:
+            - [ setTranslationDomain, [CommunityBundle]]
+    sonata.admin.person:
+            class: fibe\AdminBundle\Admin\GenericAdmin
+            tags:
+                - { name: sonata.admin, manager_type: orm, group: "CommunityBundle", label: "Person" }
+            arguments:
+                - ~
+                - fibe\CommunityBundle\Entity\Person
+                - ~
+            calls:
+                - [ setTranslationDomain, [CommunityBundle]]
+    sonata.admin.socialService:
+        class: fibe\AdminBundle\Admin\GenericAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "CommunityBundle", label: "SocialService" }
+        arguments:
+            - ~
+            - fibe\CommunityBundle\Entity\SocialService
+            - ~
+        calls:
+            - [ setTranslationDomain, [CommunityBundle]]
+    sonata.admin.socialServiceAccount:
+        class: fibe\AdminBundle\Admin\GenericAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "CommunityBundle", label: "SocialServiceAccount" }
+        arguments:
+            - ~
+            - fibe\CommunityBundle\Entity\SocialServiceAccount
+            - ~
+        calls:
+            - [ setTranslationDomain, [CommunityBundle]]
+#Content Bundle
+    sonata.admin.equipment:
+        class: fibe\AdminBundle\Admin\GenericAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "ContentBundle", label: "Equipment" }
+        arguments:
+            - ~
+            - fibe\ContentBundle\Entity\Equipment
+            - ~
+        calls:
+            - [ setTranslationDomain, [ContentBundle]]
+    sonata.admin.location:
+        class: fibe\AdminBundle\Admin\GenericAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "ContentBundle", label: "Location" }
+        arguments:
+            - ~
+            - fibe\ContentBundle\Entity\Location
+            - ~
+        calls:
+            - [ setTranslationDomain, [ContentBundle]]
+    sonata.admin.paper:
+        class: fibe\AdminBundle\Admin\GenericAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "ContentBundle", label: "Paper" }
+        arguments:
+            - ~
+            - fibe\ContentBundle\Entity\Paper
+            - ~
+        calls:
+            - [ setTranslationDomain, [ContentBundle]]
+    sonata.admin.Role:
+        class: fibe\AdminBundle\Admin\GenericAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "ContentBundle", label: "Role" }
+        arguments:
+            - ~
+            - fibe\ContentBundle\Entity\Role
+            - ~
+        calls:
+            - [ setTranslationDomain, [ContentBundle]]
+    sonata.admin.rolelabel:
+        class: fibe\AdminBundle\Admin\GenericAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "ContentBundle", label: "RoleLabel" }
+        arguments:
+            - ~
+            - fibe\ContentBundle\Entity\RoleLabel
+            - ~
+        calls:
+            - [ setTranslationDomain, [ContentBundle]]
+    sonata.admin.sponsor:
+        class: fibe\AdminBundle\Admin\GenericAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "ContentBundle", label: "Sponsor" }
+        arguments:
+            - ~
+            - fibe\ContentBundle\Entity\Sponsor
+            - ~
+        calls:
+            - [ setTranslationDomain, [ContentBundle]]
+    sonata.admin.topic:
+        class: fibe\AdminBundle\Admin\GenericAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "ContentBundle", label: "Topic" }
+        arguments:
+            - ~
+            - fibe\ContentBundle\Entity\Topic
+            - ~
+        calls:
+            - [ setTranslationDomain, [ContentBundle]]
+
