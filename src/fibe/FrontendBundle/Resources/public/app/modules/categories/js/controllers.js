@@ -25,10 +25,10 @@ angular.module('categoriesApp').controller('categoriesListCtrl', ['$scope', '$ro
     $scope.entities = [];
 
     var baseFilters;
-    if ($routeParams.confId)
+    if ($routeParams.mainEventId)
     {
         $scope.filters = baseFilters = {
-            mainEventId: $routeParams.confId
+            mainEventId: $routeParams.mainEventId
         };
     }
 
@@ -94,11 +94,11 @@ angular.module('categoriesApp').controller('categoriesNewCtrl', [ '$scope', '$wi
     var success = function(response, args){
         $rootScope.$broadcast('AlertCtrl:addAlert', {code:'category created', type:'success'});
         $window.history.back();
-        //$location.path('/conference/'+$routeParams.confId+'/categories/list');
+        //$location.path('/conference/'+$routeParams.mainEventId+'/categories/list');
     };
 
     $scope.create = function(form){
-        $scope.category.mainEvent = $routeParams.confId;
+        $scope.category.mainEvent = $routeParams.mainEventId;
         if ( form.$valid ) {
             $scope.category.$create({}, success, error);
         }

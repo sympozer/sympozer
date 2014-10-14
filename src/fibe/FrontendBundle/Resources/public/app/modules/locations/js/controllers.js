@@ -24,10 +24,10 @@ angular.module('locationsApp').controller('locationsListCtrl', ['$scope', '$rout
     $scope.entities = [];
 
     var baseFilters;
-    if ($routeParams.confId)
+    if ($routeParams.mainEventId)
     {
         $scope.filters = baseFilters = {
-            mainEventId: $routeParams.confId
+            mainEventId: $routeParams.mainEventId
         };
     }
 
@@ -99,14 +99,14 @@ angular.module('locationsApp').controller('locationsNewCtrl', [ '$scope', '$rout
     var success = function (response, args)
     {
         $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'location created', type: 'success'});
-        $location.path('/conference/'+$routeParams.confId+'/locations/list');
+        $location.path('/conference/'+$routeParams.mainEventId+'/locations/list');
     }
 
     $scope.create = function (form)
     {
         if (form.$valid)
         {
-            $scope.location.mainEvent = $routeParams.confId;
+            $scope.location.mainEvent = $routeParams.mainEventId;
             $scope.location.$create({}, success, error);
         }
     }
@@ -156,7 +156,7 @@ angular.module('locationsApp').controller('locationsEditCtrl', [ '$scope', '$roo
     var success = function (response, args)
     {
         $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'location saved', type: 'success'});
-        $location.path('/conference/'+$rootScope.currentConference.id+'/locations/list');
+        $location.path('/conference/'+$rootScope.currentMainEvent.id+'/locations/list');
     }
 
     $scope.update = function (form)

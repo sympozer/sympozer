@@ -24,10 +24,10 @@ angular.module('papersApp').controller('papersListCtrl', ['$scope', '$routeParam
     $scope.entities = [];
 
     var baseFilters;
-    if ($routeParams.confId)
+    if ($routeParams.mainEventId)
     {
         $scope.filters = baseFilters = {
-            mainEventId: $routeParams.confId
+            mainEventId: $routeParams.mainEventId
         };
     }
 
@@ -97,13 +97,13 @@ angular.module('papersApp').controller('papersNewCtrl', [ '$scope', '$rootScope'
     var success = function (response, args)
     {
         $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'paper created', type: 'success'});
-        $location.path('/conference/' + $rootScope.currentConference.id + '/papers/list');
+        $location.path('/conference/' + $rootScope.currentMainEvent.id + '/papers/list');
 
     };
 
     $scope.create = function (form)
     {
-        $scope.paper.mainEvent = $rootScope.currentConference.id;
+        $scope.paper.mainEvent = $rootScope.currentMainEvent.id;
         if (form.$valid)
         {
             $scope.paper.$create({}, success, error);
@@ -128,7 +128,7 @@ angular.module('papersApp').controller('papersEditCtrl', [ '$scope', '$rootScope
     var success = function (response, args)
     {
         $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'paper saved', type: 'success'});
-        $location.path('/conference/' + $rootScope.currentConference.id + '/papers/list');
+        $location.path('/conference/' + $rootScope.currentMainEvent.id + '/papers/list');
     };
 
     $scope.update = function (form)

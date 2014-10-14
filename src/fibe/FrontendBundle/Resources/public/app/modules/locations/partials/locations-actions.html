@@ -1,20 +1,20 @@
 <div class="row well visible-on">
     <div class="col-xs-3 col-sm-5 col-md-3 col-lg-2">
-        <a class="btn btn-info" href="#conference/{{currentConference.id}}/locations/new/" title="Add an location">
+        <a class="btn btn-info" href="#conference/{{currentMainEvent.id}}/locations/new/" title="Add an location">
             <i class="fa fa-plus"></i><span class="visible-sm-inline visible-lg-inline visible-md-inline"> New location</span>
         </a>
     </div>
     <div class="col-xs-3 col-sm-5 col-md-3 col-lg-2">
-        <a class="btn btn-info" href="#conference/{{currentConference.id}}/locations/import/" title="Import locations" disabled="disabled">
+        <a class="btn btn-info" href="#conference/{{currentMainEvent.id}}/locations/import/" title="Import locations" disabled="disabled">
             <i class="fa fa-caret-square-o-down"></i>
             <span class="visible-sm-inline visible-lg-inline visible-md-inline"> Import locations</span> </a>
     </div>
     <div class="col-xs-3 col-sm-5 col-md-3 col-lg-2">
-        <a class="btn btn-info" href="#conference/{{currentConference.id}}/locations/export/" title="Export locations" disabled="disabled">
+        <a class="btn btn-info" href="#conference/{{currentMainEvent.id}}/locations/export/" title="Export locations" disabled="disabled">
             <i class="fa fa-caret-square-o-up"></i><span class="visible-sm-inline visible-lg-inline  visible-md-inline "> Export locations </span></a>
     </div>
     <div class="col-xs-3 col-sm-5 col-md-3 col-lg-2">
-        <a class="btn btn-info" href="#conference/{{currentConference.id}}/locations/print/" title="Print locations" disabled="disabled">
+        <a class="btn btn-info" href="#conference/{{currentMainEvent.id}}/locations/print/" title="Print locations" disabled="disabled">
             <i class="fa fa-print"></i>
             <span class="visible-sm-inline visible-lg-inline visible-md-inline "> Print locations </span></a>
     </div>
@@ -27,8 +27,8 @@
         <input type="text" class="form-control" placeholder="Search" ng-change="sendQuery(query)" ng-model="query">
     </div>
     <div class="col-xs-7 col-sm-5 col-md-4 col-lg-2">
-        <a class="btn btn-default" href="#conference/{{currentConference.id}}/locations/list/" role="button"><i class="fa fa-list fa-1x"></i></a>
-        <a class="btn btn-default" href="#conference/{{currentConference.id}}/locations/thumbnail/" role="button"><i class="fa fa-th fa-1x"></i></a>
+        <a class="btn btn-default" href="#conference/{{currentMainEvent.id}}/locations/list/" role="button"><i class="fa fa-list fa-1x"></i></a>
+        <a class="btn btn-default" href="#conference/{{currentMainEvent.id}}/locations/thumbnail/" role="button"><i class="fa fa-th fa-1x"></i></a>
     </div>
 </div>
 

@@ -99,9 +99,9 @@
   'bundles/frontend/app/modules/events/js/controllers.js'
   'bundles/frontend/app/modules/events/js/routes.js'
 
-  'bundles/frontend/app/modules/conferences/js/services.js'
-  'bundles/frontend/app/modules/conferences/js/controllers.js'
-  'bundles/frontend/app/modules/conferences/js/routes.js'
+  'bundles/frontend/app/modules/mainEvents/js/services.js'
+  'bundles/frontend/app/modules/mainEvents/js/controllers.js'
+  'bundles/frontend/app/modules/mainEvents/js/routes.js'
 
   'bundles/frontend/app/modules/roles/js/services.js'
   'bundles/frontend/app/modules/roles/js/controllers.js'
@@ -146,7 +146,7 @@
             get_papers: "{{ path('content_papers_post') }}",
           get_topics: "{{ path('content_topics_post') }}",
           get_categories: "{{ path('schedule_category_versions_post') }}",
-          get_conferences: "{{ path('schedule_conferences_post') }}",
+          get_mainEvents: "{{ path('schedule_mainEvents_post') }}",
           login: "{{ path('login_check', {_format: 'json'}) }}",
           logout: "{{ path('logout') }}",
           registration: "{{ path('security_signup') }}",
@@ -221,11 +221,11 @@
               img: "{{ asset('bundles/frontend/app/modules/categories/img') }}"
             }
           },
-          conferences: {
+          mainEvents: {
             urls: {
-              base: "{{ asset('bundles/frontend/app/modules/conferences/') }}",
-              partials: "{{ asset('bundles/frontend/app/modules/conferences/partials/') }}",
-              img: "{{ asset('bundles/frontend/app/modules/conferences/img') }}"
+              base: "{{ asset('bundles/frontend/app/modules/mainEvents/') }}",
+              partials: "{{ asset('bundles/frontend/app/modules/mainEvents/partials/') }}",
+              img: "{{ asset('bundles/frontend/app/modules/mainEvents/img') }}"
             }
           },
           persons: {

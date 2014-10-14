@@ -19,12 +19,12 @@
           <table class="table table-striped">
 
             <tbody>
-            <tr ng-repeat="conference in conferences  track by $index">
+            <tr ng-repeat="conference in mainEvents  track by $index">
               <td>{{ conference.label }}</td>
               <td>{{ conference.start_at }}</td>
               <td>{{ conference.end_at }}</td>
               <td>
-                <a class="btn btn-default" href="#conferences/show/{{ conference.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>
+                <a class="btn btn-default" href="#mainEvents/show/{{ conference.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>
               </td>
             </tr>
             </tbody>

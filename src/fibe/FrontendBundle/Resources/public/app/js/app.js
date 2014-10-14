@@ -18,10 +18,10 @@ angular.module('personsApp', ['fundoo.services']);
 angular.module('locationsApp', ['fundoo.services', 'equipmentsApp']);
 angular.module('equipmentsApp', ['fundoo.services']);
 angular.module('eventsApp', ['fundoo.services', 'categoriesApp']);
-angular.module('conferencesApp', ['fundoo.services']);
+angular.module('mainEventsApp', ['fundoo.services']);
 angular.module('angularTranslateApp', ['pascalprecht.translate']);
 angular.module('authenticationApp', ['ngCookies', 'personsApp']);
-angular.module('contextualizationApp', ['conferencesApp']);
+angular.module('contextualizationApp', ['mainEventsApp']);
 
 /**
  * Main App Module
@@ -50,7 +50,7 @@ var sympozerApp = angular.module('sympozerApp', [
     'rolesApp',
     'roleLabelsApp',
     'categoriesApp',
-    'conferencesApp',
+    'mainEventsApp',
     'contextualizationApp',
     'papersApp',
     'angularMoment',

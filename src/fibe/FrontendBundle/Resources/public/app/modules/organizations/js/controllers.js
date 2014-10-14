@@ -23,10 +23,10 @@ angular.module('organizationsApp').controller('organizationsListCtrl', ['$scope'
     $scope.entities = [];
 
     var baseFilters;
-    if ($routeParams.confId)
+    if ($routeParams.mainEventId)
     {
         $scope.filters = baseFilters = {
-            mainEventId: $routeParams.confId
+            mainEventId: $routeParams.mainEventId
         };
     }
 

@@ -18,23 +18,23 @@ angular.module('eventsApp')
                     templateUrl: globalConfig.app.modules.events.urls.partials + 'events-thumbnail.html',
                     controller : 'eventsListCtrl'
                 })
-                .when('/conference/:confId/events/list', {
+                .when('/conference/:mainEventId/events/list', {
                     templateUrl: globalConfig.app.modules.events.urls.partials + 'events-list.html',
                     controller : 'eventsListCtrl'
                 })
-                .when('/conference/:confId/events/thumbnail', {
+                .when('/conference/:mainEventId/events/thumbnail', {
                     templateUrl: globalConfig.app.modules.events.urls.partials + 'events-thumbnail.html',
                     controller : 'eventsListCtrl'
                 })
-                .when('/conference/:confId/events/new', {
+                .when('/conference/:mainEventId/events/new', {
                     templateUrl: globalConfig.app.modules.events.urls.partials + 'events-new.html',
                     controller : 'eventsNewCtrl'
                 })
-                .when('/conference/:confId/events/edit/:eventId', {
+                .when('/conference/:mainEventId/events/edit/:eventId', {
                     templateUrl: globalConfig.app.modules.events.urls.partials + 'events-edit.html',
                     controller : 'eventsEditCtrl'
                 })
-                .when('/conference/:confId/events/show/:eventId', {
+                .when('/conference/:mainEventId/events/show/:eventId', {
                     templateUrl: globalConfig.app.modules.events.urls.partials + 'events-show.html',
                     controller : 'eventsShowCtrl'
                 })

@@ -23,16 +23,16 @@ angular.module('eventsApp').controller('eventsListCtrl', ['$scope', 'categoriesF
 {
 
     //Context change
-    //$rootScope.$broadcast('contextCtrl:changeContext', {confId:$routeParams.confId});
+    //$rootScope.$broadcast('contextCtrl:changeContext', {mainEventId:$routeParams.mainEventId});
 
     $scope.entities = [];
-    $scope.categories = categoriesFact.all({'filters[mainEventId]': $routeParams.confId});
+    $scope.categories = categoriesFact.all({'filters[mainEventId]': $routeParams.mainEventId});
 
     var baseFilters;
-    if ($routeParams.confId)
+    if ($routeParams.mainEventId)
     {
         $scope.filters = baseFilters = {
-            mainEventId: $routeParams.confId
+            mainEventId: $routeParams.mainEventId
         };
     }
 
@@ -104,12 +104,12 @@ angular.module('eventsApp').controller('eventsNewCtrl', [ '$scope', '$routeParam
     var success = function (response, args)
     {
         $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'event created', type: 'success'});
-        $location.path('/conference/' + $routeParams.confId + '/events/list');
+        $location.path('/conference/' + $routeParams.mainEventId + '/events/list');
     }
 
     $scope.create = function (form)
     {
-        $scope.event.mainEvent = $routeParams.confId;
+        $scope.event.mainEvent = $routeParams.mainEventId;
         if (form.$valid)
         {
             $scope.event.$create({}, success, error);
@@ -135,12 +135,12 @@ angular.module('eventsApp').controller('eventsEditCtrl', [ '$scope', '$rootScope
     var success = function (response, args)
     {
         $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'event saved', type: 'success'});
-        $location.path('/conference/' + $rootScope.currentConference.id + '/events/list');
+        $location.path('/conference/' + $rootScope.currentMainEvent.id + '/events/list');
     }
 
     $scope.update = function (form)
     {
-        //$scope.event.mainEvent = $rootScope.currentConference;
+        //$scope.event.mainEvent = $rootScope.currentMainEvent;
         if (form.$valid)
         {
             $scope.event.$update({}, success, error);

@@ -18,23 +18,23 @@ angular.module('categoriesApp')
                     templateUrl: globalConfig.app.modules.categories.urls.partials + 'categories-thumbnail.html',
                     controller : 'categoriesListCtrl'
                 })
-                .when('/conference/:confId/categories/list', {
+                .when('/conference/:mainEventId/categories/list', {
                     templateUrl: globalConfig.app.modules.categories.urls.partials + 'categories-list.html',
                     controller : 'categoriesListCtrl'
                 })
-                .when('/conference/:confId/categories/thumbnail', {
+                .when('/conference/:mainEventId/categories/thumbnail', {
                     templateUrl: globalConfig.app.modules.categories.urls.partials + 'categories-thumbnail.html',
                     controller : 'categoriesListCtrl'
                 })
-                .when('/conference/:confId/categories/new', {
+                .when('/conference/:mainEventId/categories/new', {
                     templateUrl: globalConfig.app.modules.categories.urls.partials + 'categories-new.html',
                     controller : 'categoriesNewCtrl'
                 })
-                .when('/conference/:confId/categories/edit/:categoryId', {
+                .when('/conference/:mainEventId/categories/edit/:categoryId', {
                     templateUrl: globalConfig.app.modules.categories.urls.partials + 'categories-edit.html',
                     controller : 'categoriesEditCtrl'
                 })
-                .when('/conference/:confId/categories/show/:categoryId', {
+                .when('/conference/:mainEventId/categories/show/:categoryId', {
                     templateUrl: globalConfig.app.modules.categories.urls.partials + 'categories-show.html',
                     controller : 'categoriesShowCtrl'
                 })

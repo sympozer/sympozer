@@ -21,7 +21,7 @@ class MainEventRESTController extends FOSRestController
 
   /**
    * Lists all MainEvent entities.
-   * @Rest\Get("/mainEvents", name="schedule_conferences_all")
+   * @Rest\Get("/mainEvents", name="schedule_mainEvents_all")
    * @Rest\View
    * @Rest\QueryParam(name="offset", requirements="\d+", nullable=true, description="Offset from which to start listing pages.")
    * @Rest\QueryParam(name="limit", requirements="\d+", default="10", description="How many entity to return.")
@@ -39,7 +39,7 @@ class MainEventRESTController extends FOSRestController
   }
 
   /**
-   * @Rest\Get("/mainEvents/{id}", name="schedule_conferences_get")
+   * @Rest\Get("/mainEvents/{id}", name="schedule_mainEvents_get")
    **/
   public function getMainEventAction($id)
   {
@@ -54,7 +54,7 @@ class MainEventRESTController extends FOSRestController
   /**
    * Creates a new MainEvent from the submitted data.
    *
-   * @Rest\Post("/mainEvents", name="schedule_conferences_post")
+   * @Rest\Post("/mainEvents", name="schedule_mainEvents_post")
    *
    * @param Request $request the request object
    *
@@ -75,7 +75,7 @@ class MainEventRESTController extends FOSRestController
 
   /**
    * Put action
-   * @Rest\Put("/mainEvents/{id}", name="schedule_conferences_put")
+   * @Rest\Put("/mainEvents/{id}", name="schedule_mainEvents_put")
    * @var Request $request
    * @var integer $id Id of the entity
    * @return mixed
@@ -95,7 +95,7 @@ class MainEventRESTController extends FOSRestController
 
   /**
    * Patch action
-   * @Rest\Patch("/mainEvents/{id}", name="schedule_conferences_patch")
+   * @Rest\Patch("/mainEvents/{id}", name="schedule_mainEvents_patch")
    * @var Request $request
    * @var integer $id Id of the entity
    * @return mixed
@@ -113,7 +113,7 @@ class MainEventRESTController extends FOSRestController
 
   /**
    * Delete action
-   * @Rest\Delete("/mainEvents/{id}", name="schedule_conferences_delete")
+   * @Rest\Delete("/mainEvents/{id}", name="schedule_mainEvents_delete")
    *
    * @var integer $id Id of the entity
    */

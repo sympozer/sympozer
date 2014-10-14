@@ -1,20 +1,20 @@
 <div class="row well visible-on">
     <div class="col-xs-3 col-sm-5 col-md-3 col-lg-2">
-        <a class="btn btn-info" href="#conference/{{currentConference.id}}/categories/new/" title="Add an category">
+        <a class="btn btn-info" href="#conference/{{currentMainEvent.id}}/categories/new/" title="Add an category">
             <i class="fa fa-plus"></i><span class="visible-sm-inline visible-lg-inline visible-md-inline"> New category</span>
         </a>
     </div>
     <div class="col-xs-3 col-sm-5 col-md-3 col-lg-2">
-        <a class="btn btn-info" href="#conference/{{currentConference.id}}/categories/import/" title="Import categories" disabled="disabled">
+        <a class="btn btn-info" href="#conference/{{currentMainEvent.id}}/categories/import/" title="Import categories" disabled="disabled">
             <i class="fa fa-caret-square-o-down"></i>
             <span class="visible-sm-inline visible-lg-inline visible-md-inline"> Import categories</span> </a>
     </div>
     <div class="col-xs-3 col-sm-5 col-md-3 col-lg-2">
-        <a class="btn btn-info" href="#conference/{{currentConference.id}}/categories/export/" title="Export categories" disabled="disabled">
+        <a class="btn btn-info" href="#conference/{{currentMainEvent.id}}/categories/export/" title="Export categories" disabled="disabled">
             <i class="fa fa-caret-square-o-up"></i><span class="visible-sm-inline visible-lg-inline  visible-md-inline "> Export categories </span></a>
     </div>
     <div class="col-xs-3 col-sm-5 col-md-3 col-lg-2">
-        <a class="btn btn-info" href="#conference/{{currentConference.id}}/categories/print/" title="Print categories" disabled="disabled">
+        <a class="btn btn-info" href="#conference/{{currentMainEvent.id}}/categories/print/" title="Print categories" disabled="disabled">
             <i class="fa fa-print"></i>
             <span class="visible-sm-inline visible-lg-inline visible-md-inline "> Print categories </span></a>
     </div>
@@ -27,8 +27,8 @@
         <input type="text" class="form-control" placeholder="Search" ng-change="sendQuery(query)" ng-model="query">
     </div>
     <div class="col-xs-7 col-sm-5 col-md-4 col-lg-2">
-        <a class="btn btn-default" href="#conference/{{currentConference.id}}/categories/list/" role="button"><i class="fa fa-list fa-1x"></i></a>
-        <a class="btn btn-default" href="#conference/{{currentConference.id}}/categories/thumbnail/" role="button"><i class="fa fa-th fa-1x"></i></a>
+        <a class="btn btn-default" href="#conference/{{currentMainEvent.id}}/categories/list/" role="button"><i class="fa fa-list fa-1x"></i></a>
+        <a class="btn btn-default" href="#conference/{{currentMainEvent.id}}/categories/thumbnail/" role="button"><i class="fa fa-th fa-1x"></i></a>
     </div>
 </div>
 

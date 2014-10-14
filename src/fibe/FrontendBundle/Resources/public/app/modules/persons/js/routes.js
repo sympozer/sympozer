@@ -10,11 +10,11 @@ angular.module('personsApp')
         function ($routeProvider)
         {
             $routeProvider
-                .when('/conference/:confId/persons/list', {
+                .when('/conference/:mainEventId/persons/list', {
                     templateUrl: globalConfig.app.modules.persons.urls.partials + 'persons-list.html',
                     controller : 'personsListCtrl'
                 })
-                .when('/conference/:confId/persons/thumbnail', {
+                .when('/conference/:mainEventId/persons/thumbnail', {
                     templateUrl: globalConfig.app.modules.persons.urls.partials + 'persons-thumbnail.html',
                     controller : 'personsListCtrl'
                 })

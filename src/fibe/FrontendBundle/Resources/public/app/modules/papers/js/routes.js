@@ -18,28 +18,28 @@ angular.module('papersApp')
                     templateUrl: globalConfig.app.modules.papers.urls.partials + 'papers-thumbnail.html',
                     controller : 'papersListCtrl'
                 })
-                .when('/conference/:confId/papers/list', {
+                .when('/conference/:mainEventId/papers/list', {
                     templateUrl: globalConfig.app.modules.papers.urls.partials + 'papers-list.html',
                     controller : 'papersListCtrl'
                 })
-                .when('/conference/:confId/papers/thumbnail', {
+                .when('/conference/:mainEventId/papers/thumbnail', {
                     templateUrl: globalConfig.app.modules.papers.urls.partials + 'papers-thumbnail.html',
                     controller : 'papersListCtrl'
                 })
-                .when('/conference/:confId/papers/new', {
+                .when('/conference/:mainEventId/papers/new', {
                     templateUrl: globalConfig.app.modules.papers.urls.partials + 'papers-new.html',
                     controller : 'papersNewCtrl'
                 })
-                .when('/conference/:confId/papers/edit/:paperId', {
+                .when('/conference/:mainEventId/papers/edit/:paperId', {
                     templateUrl: globalConfig.app.modules.papers.urls.partials + 'papers-edit.html',
                     controller : 'papersEditCtrl'
                 })
-                .when('/conference/:confId/papers/show/:paperId', {
+                .when('/conference/:mainEventId/papers/show/:paperId', {
                     templateUrl: globalConfig.app.modules.papers.urls.partials + 'papers-show.html',
                     controller : 'papersShowCtrl'
                 })
                 .otherwise({
-                    redirectTo: '/conference/:confId/papers/list'
+                    redirectTo: '/conference/:mainEventId/papers/list'
                 });
         }
     ]);

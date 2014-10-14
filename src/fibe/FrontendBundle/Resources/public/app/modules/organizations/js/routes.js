@@ -18,11 +18,11 @@ angular.module('organizationsApp')
                     templateUrl: globalConfig.app.modules.organizations.urls.partials + 'organizations-thumbnail.html',
                     controller : 'organizationsListCtrl'
                 })
-                .when('/conference/:confId/organizations/list', {
+                .when('/conference/:mainEventId/organizations/list', {
                     templateUrl: globalConfig.app.modules.organizations.urls.partials + 'organizations-list.html',
                     controller : 'organizationsListCtrl'
                 })
-                .when('/conference/:confId/organizations/thumbnail', {
+                .when('/conference/:mainEventId/organizations/thumbnail', {
                     templateUrl: globalConfig.app.modules.organizations.urls.partials + 'organizations-thumbnail.html',
                     controller : 'organizationsListCtrl'
                 })

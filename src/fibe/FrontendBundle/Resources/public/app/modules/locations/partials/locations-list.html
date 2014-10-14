@@ -17,8 +17,8 @@
     <td>{{ location.latitude }}</td>
     <td>{{ location.longitude }}</td>
     <td>
-      <a class="btn btn-warning" href="#conference/{{currentConference.id}}/locations/edit/{{ location.id }}" role="button"><i class="fa fa-edit fa-1x"></i></a>
-      <a class="btn btn-default" href="#conference/{{currentConference.id}}/locations/show/{{ location.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>
+      <a class="btn btn-warning" href="#conference/{{currentMainEvent.id}}/locations/edit/{{ location.id }}" role="button"><i class="fa fa-edit fa-1x"></i></a>
+      <a class="btn btn-default" href="#conference/{{currentMainEvent.id}}/locations/show/{{ location.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>
       <a class="btn btn-primary" href="" data-ng-click="clone(location)" role="button"><i class="fa fa-files-o fa-1x"></i></a>
       <button class="btn btn-danger" data-ng-click="deleteModal($index, location)" role="button">
         <i class="fa fa-trash-o fa-1x"></i></button>

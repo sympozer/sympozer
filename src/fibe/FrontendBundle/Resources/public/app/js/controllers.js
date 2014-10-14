@@ -148,10 +148,10 @@ sympozerControllers.controller('dashboardCtrl',
  * Main event controller (conference controller)
  */
 sympozerControllers.controller('conferenceCtrl',
-    ['$scope', '$rootScope', '$routeParams', 'GLOBAL_CONFIG', 'conferencesFact',
-     function ($scope, $rootScope, $routeParams, GLOBAL_CONFIG, conferencesFact)
+    ['$scope', '$rootScope', '$routeParams', 'GLOBAL_CONFIG', 'mainEventsFact',
+     function ($scope, $rootScope, $routeParams, GLOBAL_CONFIG, mainEventsFact)
      {
-         $scope.conferences = conferencesFact.all({offset: 0, limit: 20});
+         $scope.mainEvents = mainEventsFact.all({offset: 0, limit: 20});
 
      }]);
 

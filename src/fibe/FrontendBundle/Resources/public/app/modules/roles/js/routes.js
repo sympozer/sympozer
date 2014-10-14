@@ -18,28 +18,28 @@ angular.module('rolesApp')
                     templateUrl: globalConfig.app.modules.roles.urls.partials + 'roles-thumbnail.html',
                     controller : 'rolesListCtrl'
                 })
-                .when('/conference/:confId/roles/list', {
+                .when('/conference/:mainEventId/roles/list', {
                     templateUrl: globalConfig.app.modules.roles.urls.partials + 'roles-list.html',
                     controller : 'rolesListCtrl'
                 })
-                .when('/conference/:confId/roles/thumbnail', {
+                .when('/conference/:mainEventId/roles/thumbnail', {
                     templateUrl: globalConfig.app.modules.roles.urls.partials + 'roles-thumbnail.html',
                     controller : 'rolesListCtrl'
                 })
-                .when('/conference/:confId/roles/new', {
+                .when('/conference/:mainEventId/roles/new', {
                     templateUrl: globalConfig.app.modules.roles.urls.partials + 'roles-new.html',
                     controller : 'rolesNewCtrl'
                 })
-                .when('/conference/:confId/roles/edit/:roleId', {
+                .when('/conference/:mainEventId/roles/edit/:roleId', {
                     templateUrl: globalConfig.app.modules.roles.urls.partials + 'roles-edit.html',
                     controller : 'rolesEditCtrl'
                 })
-                .when('/conference/:confId/roles/show/:roleId', {
+                .when('/conference/:mainEventId/roles/show/:roleId', {
                     templateUrl: globalConfig.app.modules.roles.urls.partials + 'roles-show.html',
                     controller : 'rolesShowCtrl'
                 })
                 .otherwise({
-                    redirectTo: '/conference/:confId/roles/list'
+                    redirectTo: '/conference/:mainEventId/roles/list'
                 });
         }
     ]);
@@ -50,11 +50,11 @@ angular.module('roleLabelsApp')
         function ($routeProvider)
         {
             $routeProvider
-                .when('/conference/:confId/roleLabels/list', {
+                .when('/conference/:mainEventId/roleLabels/list', {
                     templateUrl: globalConfig.app.modules.roleLabels.urls.partials + 'roleLabels-list.html',
                     controller : 'roleLabelsListCtrl'
                 })
-                .when('/conference/:confId/roleLabels/thumbnail', {
+                .when('/conference/:mainEventId/roleLabels/thumbnail', {
                     templateUrl: globalConfig.app.modules.roleLabels.urls.partials + 'roleLabels-thumbnail.html',
                     controller : 'roleLabelsListCtrl'
                 })
@@ -66,7 +66,7 @@ angular.module('roleLabelsApp')
                     templateUrl: globalConfig.app.modules.roleLabels.urls.partials + 'roleLabels-thumbnail.html',
                     controller : 'roleLabelsListCtrl'
                 })
-                .when('/conference/:confId/roleLabels/new', {
+                .when('/conference/:mainEventId/roleLabels/new', {
                     templateUrl: globalConfig.app.modules.roleLabels.urls.partials + 'roleLabels-new.html',
                     controller : 'roleLabelsNewCtrl'
                 })

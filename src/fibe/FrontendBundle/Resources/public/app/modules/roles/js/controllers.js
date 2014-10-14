@@ -36,10 +36,10 @@ angular.module('roleLabelsApp').controller('roleLabelsListCtrl', [
         $scope.entities = [];
 
         var baseFilters;
-        if ($routeParams.confId)
+        if ($routeParams.mainEventId)
         {
             $scope.filters = baseFilters = {
-                mainEventId: $routeParams.confId
+                mainEventId: $routeParams.mainEventId
             };
         }
 
@@ -116,7 +116,7 @@ angular.module('roleLabelsApp').controller('roleLabelsNewCtrl',
 
         $scope.create = function (form)
         {
-            $scope.roleLabel.mainEvent = $routeParams.confId;
+            $scope.roleLabel.mainEvent = $routeParams.mainEventId;
             if (form.$valid)
             {
                 $scope.roleLabel.$create({}, success, error);
@@ -191,14 +191,14 @@ angular.module('rolesApp').controller('rolesListCtrl', [
         $scope.entities = [];
 
 
-        $scope.roleLabelVersions = roleLabelsFact.all({'filters[mainEventId]' : $routeParams.confId});
+        $scope.roleLabelVersions = roleLabelsFact.all({'filters[mainEventId]' : $routeParams.mainEventId});
 
 
         var baseFilters;
-        if ($routeParams.confId)
+        if ($routeParams.mainEventId)
         {
             $scope.filters = baseFilters = {
-                mainEventId: $routeParams.confId
+                mainEventId: $routeParams.mainEventId
             };
         }
 
@@ -276,7 +276,7 @@ angular.module('rolesApp').controller('rolesNewCtrl',
         {
             if (form.$valid)
             {
-                $scope.role.mainEvent = $routeParams.confId;
+                $scope.role.mainEvent = $routeParams.mainEventId;
                 $scope.role.$create({}, success, error);
             }
         }

@@ -7,7 +7,7 @@
  *
  * @type {controller}
  */
-angular.module('conferencesApp').controller('conferencesMainCtrl', [function ($scope)
+angular.module('mainEventsApp').controller('mainEventsMainCtrl', [function ($scope)
 {
 
 }]);
@@ -17,14 +17,14 @@ angular.module('conferencesApp').controller('conferencesMainCtrl', [function ($s
  *
  * @type {controller}
  */
-angular.module('conferencesApp').controller('conferencesListCtrl', ['$scope', '$routeParams', 'GLOBAL_CONFIG', 'createDialog', '$rootScope', 'conferencesFact', '$cachedResource', function ($scope, $routeParams, GLOBAL_CONFIG, createDialogService, $rootScope, conferencesFact, $cachedResource)
+angular.module('mainEventsApp').controller('mainEventsListCtrl', ['$scope', '$routeParams', 'GLOBAL_CONFIG', 'createDialog', '$rootScope', 'mainEventsFact', '$cachedResource', function ($scope, $routeParams, GLOBAL_CONFIG, createDialogService, $rootScope, mainEventsFact, $cachedResource)
 {
     $scope.GLOBAL_CONFIG = GLOBAL_CONFIG;
 
     $scope.entities = [];
 
     $scope.fetch = function(filters, success, error){
-        conferencesFact.all(filters, success, error);
+        mainEventsFact.all(filters, success, error);
     };
 
     $scope.clone = function (conference, index)
@@ -52,14 +52,14 @@ angular.module('conferencesApp').controller('conferencesListCtrl', ['$scope', '$
     {
         $scope.index = index;
 
-        createDialogService(GLOBAL_CONFIG.app.modules.conferences.urls.partials + 'conferences-delete.html', {
+        createDialogService(GLOBAL_CONFIG.app.modules.mainEvents.urls.partials + 'mainEvents-delete.html', {
             id: 'complexDialog',
             title: 'Conference deletion',
             backdrop: true,
-            controller: 'conferencesDeleteCtrl',
+            controller: 'mainEventsDeleteCtrl',
             success: {label: 'Ok', fn: function ()
             {
-                conferencesFact.delete({id: conference.id});
+                mainEventsFact.delete({id: conference.id});
                 $scope.entities.splice(index, 1);
             }}
         }, {
@@ -73,9 +73,9 @@ angular.module('conferencesApp').controller('conferencesListCtrl', ['$scope', '$
  *
  * @type {controller}
  */
-angular.module('conferencesApp').controller('conferencesNewCtrl', [ '$scope', '$rootScope', '$location', 'conferencesFact', function ($scope, $rootScope, $location, conferencesFact)
+angular.module('mainEventsApp').controller('mainEventsNewCtrl', [ '$scope', '$rootScope', '$location', 'mainEventsFact', function ($scope, $rootScope, $location, mainEventsFact)
 {
-    $scope.conference = new conferencesFact;
+    $scope.conference = new mainEventsFact;
 
     var error = function (response, args)
     {
@@ -85,7 +85,7 @@ angular.module('conferencesApp').controller('conferencesNewCtrl', [ '$scope', '$
     var success = function (response, args)
     {
         $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'conference created', type: 'success'});
-        $location.path('/conferences/list');
+        $location.path('/mainEvents/list');
     };
 
     $scope.create = function (form)
@@ -102,9 +102,9 @@ angular.module('conferencesApp').controller('conferencesNewCtrl', [ '$scope', '$
  *
  * @type {controller}
  */
-angular.module('conferencesApp').controller('conferencesEditCtrl', [ '$scope', '$rootScope', '$routeParams', '$location', 'conferencesFact', function ($scope, $rootScope, $routeParams, $location, conferencesFact)
+angular.module('mainEventsApp').controller('mainEventsEditCtrl', [ '$scope', '$rootScope', '$routeParams', '$location', 'mainEventsFact', function ($scope, $rootScope, $routeParams, $location, mainEventsFact)
 {
-    $scope.conference = conferencesFact.get({id: $routeParams.confId});
+    $scope.conference = mainEventsFact.get({id: $routeParams.mainEventId});
 
     var error = function (response, args)
     {
@@ -124,7 +124,7 @@ angular.module('conferencesApp').controller('conferencesEditCtrl', [ '$scope', '
     var success = function (response, args)
     {
         $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'conference saved', type: 'success'});
-        $location.path('/conferences/list');
+        $location.path('/mainEvents/list');
     };
 
     $scope.update = function (form)
@@ -138,7 +138,7 @@ angular.module('conferencesApp').controller('conferencesEditCtrl', [ '$scope', '
 
 
     //Context change
-    $rootScope.$broadcast('contextCtrl:changeContext', {confId: $routeParams.confId});
+    $rootScope.$broadcast('contextCtrl:changeContext', {mainEventId: $routeParams.mainEventId});
 
 
 }]);
@@ -148,12 +148,12 @@ angular.module('conferencesApp').controller('conferencesEditCtrl', [ '$scope', '
  *
  * @type {controller}
  */
-angular.module('conferencesApp').controller('conferencesShowCtrl', [ '$scope', '$rootScope', '$routeParams', 'conferencesFact', function ($scope, $rootScope, $routeParams, conferencesFact)
+angular.module('mainEventsApp').controller('mainEventsShowCtrl', [ '$scope', '$rootScope', '$routeParams', 'mainEventsFact', function ($scope, $rootScope, $routeParams, mainEventsFact)
 {
-    $scope.conference = conferencesFact.get({id: $routeParams.confId});
+    $scope.conference = mainEventsFact.get({id: $routeParams.mainEventId});
 
     //Context change
-    $rootScope.$broadcast('contextCtrl:changeContext', {confId: $routeParams.confId});
+    $rootScope.$broadcast('contextCtrl:changeContext', {mainEventId: $routeParams.mainEventId});
 
 }]);
 
@@ -162,7 +162,7 @@ angular.module('conferencesApp').controller('conferencesShowCtrl', [ '$scope', '
  *
  * @type {controller}
  */
-angular.module('conferencesApp').controller('conferencesDeleteCtrl', [ '$scope', '$rootScope', 'conferenceModel', function ($scope, $rootScope, conferenceModel)
+angular.module('mainEventsApp').controller('mainEventsDeleteCtrl', [ '$scope', '$rootScope', 'conferenceModel', function ($scope, $rootScope, conferenceModel)
 {
     $scope.conference = conferenceModel;
 }]);

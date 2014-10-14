@@ -47,10 +47,10 @@ angular.module('personsApp').controller('personsListCtrl', ['$scope', '$routePar
     $scope.entities = [];
 
     var baseFilters;
-    if ($routeParams.confId)
+    if ($routeParams.mainEventId)
     {
         $scope.filters = baseFilters = {
-            mainEventId: $routeParams.confId
+            mainEventId: $routeParams.mainEventId
         };
     }
 

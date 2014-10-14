@@ -5,23 +5,23 @@
  *
  * @type {controller}
  */
-angular.module('contextualizationApp').controller('contextCtrl', ['$scope', '$rootScope', '$routeParams', 'GLOBAL_CONFIG', 'conferencesFact', '$location',
-  function ($scope, $rootScope, $routeParams, GLOBAL_CONFIG, conferencesFact, $location)
+angular.module('contextualizationApp').controller('contextCtrl', ['$scope', '$rootScope', '$routeParams', 'GLOBAL_CONFIG', 'mainEventsFact', '$location',
+  function ($scope, $rootScope, $routeParams, GLOBAL_CONFIG, mainEventsFact, $location)
   {
 
     $scope.GLOBAL_CONFIG = GLOBAL_CONFIG;
-    $rootScope.currentConference = JSON.parse(localStorage.getItem('currentConference')) || "";
+    $rootScope.currentMainEvent = JSON.parse(localStorage.getItem('currentMainEvent')) || "";
 
-    var changeContext = function (conference)
+    var changeContext = function (mainEventId)
     {
 
-      if (conference.confId != $rootScope.currentConference.id)
+      if (mainEventId != $rootScope.currentMainEvent.id)
       {
-        conferencesFact.get({id: conference.confId}, function (conference)
+        mainEventsFact.get({id: mainEventId}, function (mainEvent)
         {
-          localStorage.setItem('currentConference', JSON.stringify(conference));
-          $rootScope.currentConference = conference;
-          $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'Welcome to ' + $rootScope.currentConference.label, type: 'success'});
+          localStorage.setItem('currentMainEvent', JSON.stringify(mainEvent));
+          $rootScope.currentMainEvent = mainEvent;
+          $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'Welcome to ' + $rootScope.currentMainEvent.label, type: 'success'});
           $('#collapseMySpace').collapse('hide');
           $('#collapseCommunity').collapse('hide');
           $('#collapseConference').collapse('show');
@@ -30,9 +30,9 @@ angular.module('contextualizationApp').controller('contextCtrl', ['$scope', '$ro
 
     }
 
-    $scope.$on('contextCtrl:changeContext', function (event, conferenceId)
+    $scope.$on('contextCtrl:changeContext', function (event, params)
     {
-      changeContext(conferenceId)
+      changeContext(params.mainEventId)
     });
 
   }]);

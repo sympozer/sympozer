@@ -2,7 +2,7 @@
 
 <div class="sidebar-nav">
 <!-- @button : New conference button -->
-<a class="btn btn-primary btn-lg noBorder" style="width:100%" href="#conferences/new">New conference</a>
+<a class="btn btn-primary btn-lg noBorder" style="width:100%" href="#mainEvents/new">New conference</a>
 
 <!-- @panel Community / Home panel -->
 <div class="panel-group" id="communityAccordion">
@@ -20,7 +20,7 @@
                 <ul class="sidebar-nav-list">
                     <li>
                         <!-- @hlink : Search a conference -->
-                        <a href="#conferences/list"><i class="fa fa-calendar fa-2x"></i> {{ 'Search_conference' | translate }}</a>
+                        <a href="#mainEvents/list"><i class="fa fa-calendar fa-2x"></i> {{ 'Search_conference' | translate }}</a>
                     </li>
                     <li>
                         <!-- @hlink : Search an organization -->
@@ -82,14 +82,14 @@
 </div>
 
 <!-- @panel Group panel of Current conference -->
-<div class="panel-group" id="conferenceAccordion" ng-if="currentConference.id">
+<div class="panel-group" id="conferenceAccordion" ng-if="currentMainEvent.id">
 
     <div class="panel panel-default">
         <div class="panel-heading noPadding">
             <!-- @button : collapse panel Current conference -->
             <a data-toggle="collapse" data-parent="#conferenceAccordion" href="#dashboard/overview#collapseConference" class="panel-heading-href btn btn-default noBorder">
                 <h4 class="panel-title">
-                    <i class="fa fa-th fa-3x"></i> {{currentConference.label}}
+                    <i class="fa fa-th fa-3x"></i> {{currentMainEvent.label}}
                 </h4>
             </a>
         </div>
@@ -112,27 +112,27 @@
                                 <ul class="sidebar-nav-list">
                                     <li>
                                         <!-- @hlink : Settings -->
-                                        <a href="#conferences/edit/{{currentConference.id}}"><i class="fa fa-cogs fa-2x"></i> Settings</a>
+                                        <a href="#mainEvents/edit/{{currentMainEvent.id}}"><i class="fa fa-cogs fa-2x"></i> Settings</a>
                                     </li>
                                     <li>
                                         <!-- @hlink : Publications -->
-                                        <a href="#conference/{{currentConference.id}}/papers/list"><i class="fa fa-book fa-2x"></i> Publications</a>
+                                        <a href="#conference/{{currentMainEvent.id}}/papers/list"><i class="fa fa-book fa-2x"></i> Publications</a>
                                     </li>
                                     <li>
                                         <!-- @hlink : Organizations -->
-                                        <a href="#conference/{{currentConference.id}}/organizations/list"><i class="fa fa-users fa-2x"></i> Organizations</a>
+                                        <a href="#conference/{{currentMainEvent.id}}/organizations/list"><i class="fa fa-users fa-2x"></i> Organizations</a>
                                     </li>
                                     <li>
                                         <!-- @hlink : Persons -->
-                                        <a href="#conference/{{currentConference.id}}/roles/list"><i class="fa fa-user fa-2x"></i> Persons</a>
+                                        <a href="#conference/{{currentMainEvent.id}}/roles/list"><i class="fa fa-user fa-2x"></i> Persons</a>
                                     </li>
                                     <!--<li>-->
                                         <!--&lt;!&ndash; @hlink : Roles Labels &ndash;&gt;-->
-                                        <!--<a href="#conference/{{currentConference.id}}/roleLabels/list"><i class="fa fa-sitemap fa-2x"></i> Role labels</a>-->
+                                        <!--<a href="#conference/{{currentMainEvent.id}}/roleLabels/list"><i class="fa fa-sitemap fa-2x"></i> Role labels</a>-->
                                     <!--</li>-->
                                     <!--<li>-->
                                         <!--&lt;!&ndash; @hlink : Roles &ndash;&gt;-->
-                                        <!--<a href="#conference/{{currentConference.id}}/roles/list"><i class="fa fa-sitemap fa-2x"></i> Roles</a>-->
+                                        <!--<a href="#conference/{{currentMainEvent.id}}/roles/list"><i class="fa fa-sitemap fa-2x"></i> Roles</a>-->
                                     <!--</li>-->
                                     <li>
                                         <!-- @hlink : Resources -->
@@ -157,15 +157,15 @@
                                 <ul class="sidebar-nav-list">
                                     <li>
                                         <!-- @hlink : Calendar -->
-                                        <a href="#conference/{{currentConference.id}}/events/list"><i class="fa fa-clock-o fa-2x"></i> Calendar</a>
+                                        <a href="#conference/{{currentMainEvent.id}}/events/list"><i class="fa fa-clock-o fa-2x"></i> Calendar</a>
                                     </li>
                                     <li>
                                         <!-- @hlink : Locations -->
-                                        <a href="#conference/{{currentConference.id}}/locations/list"><i class="fa fa-map-marker fa-2x"></i> Locations</a>
+                                        <a href="#conference/{{currentMainEvent.id}}/locations/list"><i class="fa fa-map-marker fa-2x"></i> Locations</a>
                                     </li>
                                     <li>
                                         <!-- @hlink : Categories -->
-                                        <a href="#conference/{{currentConference.id}}/categories/list"><i class="fa fa-tag fa-2x"></i> Categories</a>
+                                        <a href="#conference/{{currentMainEvent.id}}/categories/list"><i class="fa fa-tag fa-2x"></i> Categories</a>
                                     </li>
                                 </ul>
                             </div>
