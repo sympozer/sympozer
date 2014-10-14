@@ -265,7 +265,6 @@ angular.module('authenticationApp').controller('profileCtrl',
         {
             $location.path('/');
         }
-        debugger;
 
         $scope.person = new personsFact($scope.$root.currentUser.person);
 

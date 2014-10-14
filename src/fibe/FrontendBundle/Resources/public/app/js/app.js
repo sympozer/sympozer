@@ -23,6 +23,7 @@ angular.module('angularTranslateApp', ['pascalprecht.translate']);
 angular.module('authenticationApp', ['ngCookies', 'personsApp']);
 angular.module('contextualizationApp', ['mainEventsApp']);
 
+
 /**
  * Main App Module
  *
@@ -36,9 +37,7 @@ var sympozerApp = angular.module('sympozerApp', [
     'ngDragDrop',
     'angular-loading-bar',
     'ngCachedResource',
-    'sympozerControllers',
     'sympozerFilters',
-    'sympozerServices',
     'pascalprecht.translate',
     'authenticationApp',
     'organizationsApp',

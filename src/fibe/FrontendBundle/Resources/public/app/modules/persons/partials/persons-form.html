@@ -10,18 +10,27 @@
     <label for="inputEmail">Email</label>
     <input type="email" class="form-control" id="inputEmail" name="mail" placeholder="Email" ng-model="person.email" required ng-pattern=/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/>
   </div>
+
+  <div>
+      <label for="inputDesc">Descrption</label>
+      <textarea class="form-control" id="inputDesc" name="description" placeholder="Description" ng-model="person.description"/>
+  </div>
+
+  <div class="form-group">
+      <label for="inputCountry">Country</label>
+      <input type="text" class="form-control" id="inputCountry" placeholder="Country" ng-model="person.country">
+  </div>
+
   <div>
     <label for="inputWebsite">Website</label>
     <input type="text" class="form-control" id="inputWebsite" placeholder="Website" ng-model="person.website">
   </div>
-  <div class="form-group">
-    <label for="inputCountry">Country</label>
-    <input type="text" class="form-control" id="inputCountry" placeholder="Country" ng-model="person.country">
-  </div>
+
   <div class="form-group">
     <label for="inputImg">Image</label>
     <input type="text" class="form-control" id="inputImg" placeholder="Image link" ng-model="person.img">
   </div>
+
   <div get-or-create="organization" child-field="members" parent-entity="person" new-politic="modal"></div>
   <div get-or-create="paper" child-field="authors" parent-entity="person" parent-field="papers" uniq-field="label" new-politic="modal"></div>
   <!--<div get-or-create="role" child-field="person" parent-entity="person" parent-field="role" singlechoice="true" uniq-field="email" new-politic="modal"></div>-->

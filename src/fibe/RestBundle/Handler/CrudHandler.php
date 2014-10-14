@@ -72,7 +72,7 @@ class CrudHandler
             $entity = $this->em->getRepository($entityClassName)->find($id);
         }
         $form = $this->container->get('form.factory')->create(new $formClassName(), $entity, array('method' => $method));
-        unset($formData['id']);//remove id to avoid form validation error with this unnecessary id
+        //unset($formData['id']);//remove id to avoid form validation error with this unnecessary id
         //unset($formData['dtype']);
         $form->submit($formData, 'PATCH' !== $method);
         if ($form->isValid())

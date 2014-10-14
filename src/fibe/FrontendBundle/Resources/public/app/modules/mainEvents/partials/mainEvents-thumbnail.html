@@ -2,7 +2,7 @@
 
 <div class="row" entity-list-handler="mainEvents" infinite-scroll='load()' infinite-scroll-disabled='busy' infinite-scroll-distance='0.5'>
   <div ng-repeat="conference in entities  track by $index" class="col-sm-6 col-md-6 col-lg-4 well">
-    <img class="img-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" style="width: 140px; height: 140px;">
+     <div class="img-container-md"><img class="scale-img img-circle" src="{{ conference.logo }}"/></div>
 
     <h2>{{conference.label}}</h2>
 

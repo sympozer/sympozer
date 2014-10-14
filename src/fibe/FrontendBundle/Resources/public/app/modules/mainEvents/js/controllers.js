@@ -125,6 +125,8 @@ angular.module('mainEventsApp').controller('mainEventsEditCtrl', [ '$scope', '$r
     {
         $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'conference saved', type: 'success'});
         $location.path('/mainEvents/list');
+        $rootScope.$broadcast('contextCtrl:changeContext', {mainEventId: $routeParams.mainEventId});
+
     };
 
     $scope.update = function (form)

@@ -14,9 +14,6 @@ angular.module('contextualizationApp').controller('contextCtrl', ['$scope', '$ro
 
     var changeContext = function (mainEventId)
     {
-
-      if (mainEventId != $rootScope.currentMainEvent.id)
-      {
         mainEventsFact.get({id: mainEventId}, function (mainEvent)
         {
           localStorage.setItem('currentMainEvent', JSON.stringify(mainEvent));
@@ -26,8 +23,6 @@ angular.module('contextualizationApp').controller('contextCtrl', ['$scope', '$ro
           $('#collapseCommunity').collapse('hide');
           $('#collapseConference').collapse('show');
         });
-      }
-
     }
 
     $scope.$on('contextCtrl:changeContext', function (event, params)

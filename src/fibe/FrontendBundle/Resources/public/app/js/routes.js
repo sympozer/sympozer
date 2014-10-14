@@ -28,7 +28,7 @@ sympozerApp.config(['$routeProvider',
             }).
             when('/', {
                 templateUrl: globalConfig.app.urls.partials + 'home/home.html',
-                controller: 'conferenceCtrl'
+                controller: 'homeCtrl'
             }).
             otherwise({
                 redirectTo: '/'

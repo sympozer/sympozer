@@ -56,10 +56,27 @@
   <!-- common client app assets -->
   {% javascripts
   'bundles/frontend/app/js/app.js'
-  'bundles/frontend/app/js/controllers.js'
+
+  'bundles/frontend/app/js/controllers/alert.ctrl.js'
+  'bundles/frontend/app/js/controllers/dashboard.ctrl.js'
+  'bundles/frontend/app/js/controllers/generic-dialog.ctrl.js'
+  'bundles/frontend/app/js/controllers/main.ctrl.js'
+  'bundles/frontend/app/js/controllers/nav-left.ctrl.js'
+  'bundles/frontend/app/js/controllers/nav-right.ctrl.js'
+  'bundles/frontend/app/js/controllers/nav-top.ctrl.js'
+
   'bundles/frontend/app/js/routes.js'
-  'bundles/frontend/app/js/directives.js'
-  'bundles/frontend/app/js/services.js'
+
+  'bundles/frontend/app/js/directives/entity-list-handler.drv.js'
+  'bundles/frontend/app/js/directives/filter.drv.js'
+  'bundles/frontend/app/js/directives/get-or-create.drv.js'
+  'bundles/frontend/app/js/directives/infinite-scroll.drv.js'
+
+  'bundles/frontend/app/js/services/global-http-interceptor.srv.js'
+  'bundles/frontend/app/js/services/search.srv.js'
+  'bundles/frontend/app/js/services/template-loader.srv.js'
+
+
   'bundles/frontend/app/js/filters.js'
 
   'bundles/frontend/app/modules/contextualization/js/app.js'

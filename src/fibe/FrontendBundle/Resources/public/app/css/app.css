@@ -1,7 +1,10 @@
+/************************ GLOBAL ***********************/
+
 body
 {
   padding-top: 50px;
 }
+
 
 #wrapper
 {
@@ -239,6 +242,17 @@ ul
   border-radius: 0px !important;
 }
 
+
+.sidebar-nav .img-container{
+    height: 40px;
+    width: 40px;
+}
+
+.sidebar-nav .scale-img{
+    height: 100%;
+    width:auto;
+}
+
 /******************************** nav right ****************************/
 #sidebar-right-wrapper
 {
@@ -374,3 +388,28 @@ input.ng-dirty.ng-valid
 }
 
 /*********************  ng-hide**********************/
+
+
+
+
+/*************** IMAGES *****************/
+.img-container-sm{
+    height: 30px;
+    width: 30px;
+}
+
+.img-container-md{
+    height: 60px;
+    width: 60px;
+}
+
+.img-container-lg{
+    height: 130px;
+    width: 130px;
+}
+
+.scale-img{
+    height: 100%;
+    width:auto;
+}
+

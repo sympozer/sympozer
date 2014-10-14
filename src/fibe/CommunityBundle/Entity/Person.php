@@ -109,7 +109,7 @@ class Person extends AdditionalInformations
      *
      * @ORM\OneToMany(targetEntity="fibe\ContentBundle\Entity\Role",  mappedBy="person",cascade={"persist","remove"})
      * @ORM\JoinColumn(onDelete="CASCADE")
-     *
+     * @Expose
      */
     protected $roles;
 

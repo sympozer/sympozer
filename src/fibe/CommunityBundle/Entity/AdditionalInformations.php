@@ -63,7 +63,7 @@ class AdditionalInformations
 
     /**
      * img
-     * @ORM\Column(type="string", nullable=true,  name="img")
+     * @ORM\Column(type="text", nullable=true, length=2056, name="img")
      * @Expose
      */
     protected $img;
@@ -76,10 +76,10 @@ class AdditionalInformations
     protected $email;
 
     /**
-     * @ORM\Column(type="text", nullable=true)
+     * @ORM\Column(type="text", length=2056, nullable=true)
      * @Expose
      */
-    private $description;
+    protected $description;
 
     /**
      * fix an issue with jms-serializer and form validation when applied to a doctrine InheritanceType("SINGLE_TABLE")

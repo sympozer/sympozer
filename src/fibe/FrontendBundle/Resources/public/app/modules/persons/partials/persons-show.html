@@ -1,23 +1,67 @@
 <!--<div ng-include="GLOBAL_CONFIG.app.modules.persons.urls.partials+'persons-actions.html'" ng-controller="personsMainCtrl"></div>-->
 <div class="well">
-  <img class="img-circle" data-src="holder.js/140x140" alt="140x140"
-       src="{{ person.img ? person.img : 'http://blog.getjobber.com/wp-content/uploads/2013/01/Users-Image.png' }}" style="width: 70px; height: 70px;"/>
-  <a ng-if="currentUser.person.id === person.id" class="btn btn-info" href="#profile" role="button">
-    <i class="fa fa-edit fa-1x"></i> Edit my account
-  </a>
+    <div class="row">
+        <div class="col-lg-3">
+            <div class="img-container-lg"><img class="scale-img img-circle" src="{{ person.img }}"/></div>
+            <p ng-if="person.country">{{person.country}}</p>
+        </div>
+        <div class="col-lg-8">
+            <h3>{{person.label}}</h3>
+            <p ng-if="person.description">{{person.description}}</p>
+            <a ng-if="currentUser.person.id === person.id" class="btn btn-info" href="#profile" role="button">
+                <i class="fa fa-edit fa-1x"></i> Edit my account
+            </a>
+        </div>
 
-  <h3>{{person.label}}</h3>
+    </div>
+</div>
 
-  <p ng-if="person.country">{{person.country}}</p>
+<div class="row">
 
-  <p ng-if="person.email">{{person.email}}</p>
+    <div class="col-md-6 col-lg-6">
+        <h1>Contact</h1>
+        <p><i class="fa fa-envelope fa-3x"></i> <a href="mailto:{{person.email}}">{{person.email}}</a></p>
+        <p><i class="fa fa-home fa-3x"></i><a href="{{person.website}}">{{person.website}}</a></p>
+    </div>
+    <div class="col-md-6 col-lg-6">
+        <h1>Social</h1>
+        <p><i class="fa fa-twitter fa-3x"></i> <a  href="{{person.twitter}}">{{person.twitter}}</a></p>
+        <p><i class="fa fa-linkedin fa-3x"></i><a  href="{{person.linkedIn}}">{{person.linkedIn}}</a></p>
+        <p><i class="fa fa-facebook fa-3x"></i><a  href="{{person.facebook}}">{{person.facebook}}</a></p>
 
-  <p ng-if="person.website">{{person.website}}</p>
+    </div>
+</div>
 
-  <p ng-if="person.papers">
+<div class="row">
 
-  <div ng-repeat="paper in person.papers">
-    {{paper.label}}
-  </div>
-  </p>
+    <div class=" col-md-6 col-lg-6">
+        <h1>Organizations</h1>
+        <div ng-repeat="organization in person.organizations  track by $index">
+            <div class="img-container-sm"><img class="scale-img img-circle" src="{{ organization.img }}"/></div>
+        </div>
+    </div>
+    <div class="col-md-6 col-lg-6">
+        <h1>Publications</h1>
+        <div ng-repeat="paper in person.papers  track by $index" class="col-sm-6 col-md-6 col-lg-4  well" ng-if="person.roles">
+            <i class="fa fa-book fa-3x"></i>
+            <h2>{{ paper.label }}</h2>
+            <a class="btn btn-primary" href="#papers/show/{{ paper.id }}" role="button"><i class="fa fa-edit fa-1x"></i></a>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+
+
+    <div class="col-lg-6">
+        <h1>Events</h1>
+
+        <div ng-repeat="role in person.roles  track by $index" class="col-sm-6 col-md-6 col-lg-4  well" ng-if="person.roles">
+            <h2>{{ role.roleLabelVersion.label }} @ </h2>
+            <div class="img-container-sm"><img  class="scale-img img-circle" src="{{ role.mainEvent.logo }}"/></div>
+            <a class="btn  btn-primary" href="#mainEvents/show/{{ role.mainEvent.id }}" role="button"><i class="fa fa-edit fa-1x"></i></a>
+        </div>
+    </div>
+
 </div>

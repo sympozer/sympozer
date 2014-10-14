@@ -20,7 +20,7 @@ class AdditionalInformationsType extends AbstractType
             ->add('label')
             ->add('website')
             ->add('country')
-            ->add('country')
+            ->add('description')
             ->add('img')
             ->add('description');
     }

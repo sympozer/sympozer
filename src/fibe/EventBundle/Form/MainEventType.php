@@ -25,6 +25,7 @@ class MainEventType extends VEventType
         $builder
             ->add('acronym')
             ->add('label')
+            ->add('logo')
             ->add('startAt', 'datetime', array(
                 'widget' => 'single_text',
             ))

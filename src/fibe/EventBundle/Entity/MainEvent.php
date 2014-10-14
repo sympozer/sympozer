@@ -61,7 +61,6 @@ class MainEvent extends VEvent
 
     /**
      * Categories
-     *
      * @ORM\OneToMany(targetEntity="CategoryVersion", mappedBy="mainEvent",cascade={"persist", "remove"})
      */
     private $categoryVersions;
@@ -84,25 +83,17 @@ class MainEvent extends VEvent
 
     /**
      * mappingFiles
-     *
+
      * @ORM\OneToOne(targetEntity="fibe\EventBundle\Entity\MainEventSettings", mappedBy="mainEvent", cascade={"all"})
      */
     private $setting;
 
     /**
-     * @var UploadedFile
-     * @Assert\File(maxSize="2M",
-     *   mimeTypes = {"image/jpeg", "image/png", "image/gif", "image/jpg"},
-     *   mimeTypesMessage = "The file must be an image"
-     * )
+     * @ORM\Column(type="string", length=256, nullable=true)
+     * @Expose
      */
     private $logo;
 
-    /**
-     * @var String
-     * @ORM\Column(name="logoPath", type="string", length=255,nullable=true)
-     */
-    private $logoPath;
 
     /**
      * @ORM\Column(type="string", length=256, nullable=true)
@@ -161,11 +152,11 @@ class MainEvent extends VEvent
     /**
      * Sets file.
      *
-     * @param \Symfony\Component\HttpFoundation\File\UploadedFile $logo
+     * @param String $logo
      *
      * @return $this
      */
-    public function setLogo(UploadedFile $logo = null)
+    public function setLogo($logo)
     {
         $this->logo = $logo;
 
@@ -175,36 +166,14 @@ class MainEvent extends VEvent
     /**
      * Get file.
      *
-     * @return UploadedFile
+     * @return String
      */
     public function getLogo()
     {
         return $this->logo;
     }
 
-    /**
-     * Set the path of the confgerence's logo
-     *
-     * @param $logoPath
-     *
-     * @return $this
-     */
-    public function setLogoPath($logoPath)
-    {
-        $this->logoPath = $logoPath;
 
-        return $this;
-    }
-
-    /**
-     * Return the path of the confgerence's logo
-     *
-     * @return String
-     */
-    public function LogoPath()
-    {
-        return $this->logoPath;
-    }
 
     /**
      * Constructor
@@ -223,29 +192,6 @@ class MainEvent extends VEvent
         $this->organizations = new ArrayCollection();
     }
 
-    /**
-     * Add locations
-     *
-     * @param Location $locations
-     *
-     * @return $this
-     */
-    public function addLocation(Location $locations)
-    {
-        $this->locations[] = $locations;
-
-        return $this;
-    }
-
-    /**
-     * Remove locations
-     *
-     * @param Location $locations
-     */
-    public function removeLocation(Location $locations)
-    {
-        $this->locations->removeElement($locations);
-    }
 
     /**
      * Get locations
@@ -257,29 +203,6 @@ class MainEvent extends VEvent
         return $this->locations;
     }
 
-    /**
-     * Add papers
-     *
-     * @param Paper $papers
-     *
-     * @return $this
-     */
-    public function addPaper(Paper $papers)
-    {
-        $this->papers[] = $papers;
-
-        return $this;
-    }
-
-    /**
-     * Remove papers
-     *
-     * @param Paper $papers
-     */
-    public function removePaper(Paper $papers)
-    {
-        $this->papers->removeElement($papers);
-    }
 
     /**
      * Get papers
@@ -291,29 +214,7 @@ class MainEvent extends VEvent
         return $this->papers;
     }
 
-    /**
-     * Add role
-     *
-     * @param Role $role
-     *
-     * @return $this
-     */
-    public function addRole(Role $role)
-    {
-        $this->roles[] = $role;
 
-        return $this;
-    }
-
-    /**
-     * Remove role
-     *
-     * @param Role $role
-     */
-    public function removeRole(Role $role)
-    {
-        $this->roles->removeElement($role);
-    }
 
     /**
      * Get papers
@@ -325,29 +226,7 @@ class MainEvent extends VEvent
         return $this->roles;
     }
 
-    /**
-     * Add persons
-     *
-     * @param Person $persons
-     *
-     * @return $this
-     */
-    public function addPerson(Person $persons)
-    {
-        $this->persons[] = $persons;
 
-        return $this;
-    }
-
-    /**
-     * Remove persons
-     *
-     * @param Person $persons
-     */
-    public function removePerson(Person $persons)
-    {
-        $this->persons->removeElement($persons);
-    }
 
     /**
      * Get persons
@@ -381,31 +260,6 @@ class MainEvent extends VEvent
         return $this->team;
     }
 
-    /**
-     * Add sponsors
-     *
-     * @param Sponsor $sponsor
-     *
-     * @internal param \fibe\EventBundle\Entity\Sponsor $sponsors
-     *
-     * @return $this
-     */
-    public function addSponsor(Sponsor $sponsor)
-    {
-        $this->sponsors[] = $sponsor;
-
-        return $this;
-    }
-
-    /**
-     * Remove sponsors
-     *
-     * @param \fibe\ContentBundle\Entity\Sponsor $sponsor
-     */
-    public function removeSponsor(Sponsor $sponsor)
-    {
-        $this->sponsors->removeElement($sponsor);
-    }
 
     /**
      * Get sponsors
@@ -417,29 +271,6 @@ class MainEvent extends VEvent
         return $this->sponsors;
     }
 
-    /**
-     * Add organizations
-     *
-     * @param Organization $organizations
-     *
-     * @return $this
-     */
-    public function addOrganization(Organization $organizations)
-    {
-        $this->organizations[] = $organizations;
-
-        return $this;
-    }
-
-    /**
-     * Remove organizations
-     *
-     * @param Organization $organizations
-     */
-    public function removeOrganization(Organization $organizations)
-    {
-        $this->organizations->removeElement($organizations);
-    }
 
     /**
      * Get organizations
@@ -465,15 +296,6 @@ class MainEvent extends VEvent
         return $this;
     }
 
-    /**
-     * Remove events
-     *
-     * @param VEvent $events
-     */
-    public function removeEvent(VEvent $events)
-    {
-        $this->events->removeElement($events);
-    }
 
     /**
      * Get events
@@ -483,80 +305,6 @@ class MainEvent extends VEvent
     public function getEvents()
     {
         return $this->events;
-    }
-
-
-
-
-    /**
-     * Get sub-events
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getSubEvents()
-    {
-        return $this->events;
-//	  $sub_events[] = $this->events;
-//	  $sub_events->removeElement($this->mainEvent);
-//	  return $sub_events;
-    }
-
-    /**
-     * Upload method for the logo of the main event
-     */
-    public function uploadLogo()
-    {
-        // the file property can be empty if the field is not required
-        if (null === $this->getLogo())
-        {
-            return;
-        }
-
-
-        // générer un nom aléatoire et essayer de deviner l'extension (plus sécurisé)
-        $extension = $this->getLogo()->guessExtension();
-        if (!$extension)
-        {
-            // l'extension n'a pas été trouvée
-            $extension = 'bin';
-        }
-        $name = $this->getId() . '.' . $extension;
-        $this->getLogo()->move($this->getUploadRootDir(), $name);
-        $this->setLogoPath($name);
-    }
-
-    /**
-     * @TODO comment
-     *
-     * @return string
-     */
-    protected function getUploadRootDir()
-    {
-        // the absolute directory path where uploaded
-        // documents should be saved
-        return __DIR__ . '/../../../../../web/' . $this->getUploadDir();
-    }
-
-    /**
-     * @TODO comment
-     *
-     * @return string
-     */
-    protected function getUploadDir()
-    {
-        // get rid of the __DIR__ so it doesn't screw up
-        // when displaying uploaded doc/image in the view.
-        return 'uploads/';
-    }
-
-    /**
-     * Get logoPath
-     *
-     * @return string
-     */
-    public function getLogoPath()
-    {
-        return $this->logoPath;
     }
 
     /**
