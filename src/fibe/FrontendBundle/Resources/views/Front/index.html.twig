@@ -17,6 +17,7 @@
   'bundles/frontend/app/css/select.css'
   'bundles/frontend/app/css/select2.css'
   'bundles/frontend/app/css/colorpicker.css'
+  'bundles/frontend/app/css/xeditable.css'
   'bundles/frontend/app/css/bootstrap-tag.css'
   'bundles/frontend/app/css/bootstrap-social.css'
   output='css/compiled/vendors.css' %}
@@ -65,6 +66,7 @@
   'bundles/frontend/app/js/controllers/nav-left.ctrl.js'
   'bundles/frontend/app/js/controllers/nav-right.ctrl.js'
   'bundles/frontend/app/js/controllers/nav-top.ctrl.js'
+  'bundles/frontend/app/js/controllers/home.ctrl.js'
 
   'bundles/frontend/app/js/routes.js'
 
@@ -73,62 +75,132 @@
   'bundles/frontend/app/js/directives/get-or-create.drv.js'
   'bundles/frontend/app/js/directives/infinite-scroll.drv.js'
 
-  'bundles/frontend/app/js/services/global-http-interceptor.srv.js'
-  'bundles/frontend/app/js/services/search.srv.js'
-  'bundles/frontend/app/js/services/template-loader.srv.js'
+  'bundles/frontend/app/js/services/global-http-interceptor.fact.js'
+  'bundles/frontend/app/js/services/search.fact.js'
+  'bundles/frontend/app/js/services/template-loader.fact.js'
 
 
-  'bundles/frontend/app/js/filters.js'
+  'bundles/frontend/app/js/filters/sympozer-checkmark.fltr.js'
 
-  'bundles/frontend/app/modules/contextualization/js/app.js'
-  'bundles/frontend/app/modules/contextualization/js/services.js'
-  'bundles/frontend/app/modules/contextualization/js/controllers.js'
   'bundles/frontend/app/modules/contextualization/js/routes.js'
+  'bundles/frontend/app/modules/contextualization/js/controllers/context.ctrl.js'
 
-  'bundles/frontend/app/modules/organizations/js/services.js'
-  'bundles/frontend/app/modules/organizations/js/controllers.js'
   'bundles/frontend/app/modules/organizations/js/routes.js'
+  'bundles/frontend/app/modules/organizations/js/controllers/organizations-delete.ctrl.js'
+  'bundles/frontend/app/modules/organizations/js/controllers/organizations-edit.ctrl.js'
+  'bundles/frontend/app/modules/organizations/js/controllers/organizations-list.ctrl.js'
+  'bundles/frontend/app/modules/organizations/js/controllers/organizations-main.ctrl.js'
+  'bundles/frontend/app/modules/organizations/js/controllers/organizations-new.ctrl.js'
+  'bundles/frontend/app/modules/organizations/js/controllers/organizations-show.ctrl.js'
+  'bundles/frontend/app/modules/organizations/js/services/organizations.fact.js'
 
-  'bundles/frontend/app/modules/papers/js/services.js'
-  'bundles/frontend/app/modules/papers/js/controllers.js'
+
   'bundles/frontend/app/modules/papers/js/routes.js'
+  'bundles/frontend/app/modules/papers/js/controllers/papers-delete.ctrl.js'
+  'bundles/frontend/app/modules/papers/js/controllers/papers-edit.ctrl.js'
+  'bundles/frontend/app/modules/papers/js/controllers/papers-list.ctrl.js'
+  'bundles/frontend/app/modules/papers/js/controllers/papers-main.ctrl.js'
+  'bundles/frontend/app/modules/papers/js/controllers/papers-new.ctrl.js'
+  'bundles/frontend/app/modules/papers/js/controllers/papers-show.ctrl.js'
+  'bundles/frontend/app/modules/papers/js/services/papers.fact.js'
 
-  'bundles/frontend/app/modules/topics/js/services.js'
-  'bundles/frontend/app/modules/topics/js/controllers.js'
+
   'bundles/frontend/app/modules/topics/js/routes.js'
+  'bundles/frontend/app/modules/topics/js/controllers/topics-delete.ctrl.js'
+  'bundles/frontend/app/modules/topics/js/controllers/topics-edit.ctrl.js'
+  'bundles/frontend/app/modules/topics/js/controllers/topics-list.ctrl.js'
+  'bundles/frontend/app/modules/topics/js/controllers/topics-main.ctrl.js'
+  'bundles/frontend/app/modules/topics/js/controllers/topics-new.ctrl.js'
+  'bundles/frontend/app/modules/topics/js/controllers/topics-show.ctrl.js'
+  'bundles/frontend/app/modules/topics/js/controllers/topics-list-by-event.ctrl.js'
+  'bundles/frontend/app/modules/topics/js/services/topics.fact.js'
 
-  'bundles/frontend/app/modules/categories/js/services.js'
-  'bundles/frontend/app/modules/categories/js/controllers.js'
   'bundles/frontend/app/modules/categories/js/routes.js'
+  'bundles/frontend/app/modules/categories/js/controllers/categories-delete.ctrl.js'
+  'bundles/frontend/app/modules/categories/js/controllers/categories-edit.ctrl.js'
+  'bundles/frontend/app/modules/categories/js/controllers/categories-list.ctrl.js'
+  'bundles/frontend/app/modules/categories/js/controllers/categories-main.ctrl.js'
+  'bundles/frontend/app/modules/categories/js/controllers/categories-new.ctrl.js'
+  'bundles/frontend/app/modules/categories/js/controllers/categories-show.ctrl.js'
+  'bundles/frontend/app/modules/categories/js/services/categories.fact.js'
 
-  'bundles/frontend/app/modules/persons/js/services.js'
-  'bundles/frontend/app/modules/persons/js/controllers.js'
   'bundles/frontend/app/modules/persons/js/routes.js'
+  'bundles/frontend/app/modules/persons/js/controllers/persons-delete.ctrl.js'
+  'bundles/frontend/app/modules/persons/js/controllers/persons-edit.ctrl.js'
+  'bundles/frontend/app/modules/persons/js/controllers/persons-list.ctrl.js'
+  'bundles/frontend/app/modules/persons/js/controllers/persons-main.ctrl.js'
+  'bundles/frontend/app/modules/persons/js/controllers/persons-new.ctrl.js'
+  'bundles/frontend/app/modules/persons/js/controllers/persons-event-list.ctrl.js'
+  'bundles/frontend/app/modules/persons/js/controllers/persons-list-by-event.ctrl.js'
+  'bundles/frontend/app/modules/persons/js/controllers/persons-show.ctrl.js'
+  'bundles/frontend/app/modules/persons/js/services/persons.fact.js'
 
-  'bundles/frontend/app/modules/equipments/js/services.js'
-  'bundles/frontend/app/modules/equipments/js/controllers.js'
   'bundles/frontend/app/modules/equipments/js/routes.js'
+  'bundles/frontend/app/modules/equipments/js/controllers/equipments-delete.ctrl.js'
+  'bundles/frontend/app/modules/equipments/js/controllers/equipments-edit.ctrl.js'
+  'bundles/frontend/app/modules/equipments/js/controllers/equipments-list.ctrl.js'
+  'bundles/frontend/app/modules/equipments/js/controllers/equipments-main.ctrl.js'
+  'bundles/frontend/app/modules/equipments/js/controllers/equipments-new.ctrl.js'
+  'bundles/frontend/app/modules/equipments/js/controllers/equipments-show.ctrl.js'
+  'bundles/frontend/app/modules/equipments/js/services/equipments.fact.js'
 
-  'bundles/frontend/app/modules/locations/js/services.js'
-  'bundles/frontend/app/modules/locations/js/controllers.js'
   'bundles/frontend/app/modules/locations/js/routes.js'
+  'bundles/frontend/app/modules/locations/js/controllers/locations-delete.ctrl.js'
+  'bundles/frontend/app/modules/locations/js/controllers/locations-edit.ctrl.js'
+  'bundles/frontend/app/modules/locations/js/controllers/locations-list.ctrl.js'
+  'bundles/frontend/app/modules/locations/js/controllers/locations-main.ctrl.js'
+  'bundles/frontend/app/modules/locations/js/controllers/locations-new.ctrl.js'
+  'bundles/frontend/app/modules/locations/js/controllers/locations-show.ctrl.js'
+  'bundles/frontend/app/modules/locations/js/services/locations.fact.js'
 
-  'bundles/frontend/app/modules/events/js/services.js'
-  'bundles/frontend/app/modules/events/js/controllers.js'
   'bundles/frontend/app/modules/events/js/routes.js'
+  'bundles/frontend/app/modules/events/js/controllers/events-delete.ctrl.js'
+  'bundles/frontend/app/modules/events/js/controllers/events-edit.ctrl.js'
+  'bundles/frontend/app/modules/events/js/controllers/events-list.ctrl.js'
+  'bundles/frontend/app/modules/events/js/controllers/events-main.ctrl.js'
+  'bundles/frontend/app/modules/events/js/controllers/events-new.ctrl.js'
+  'bundles/frontend/app/modules/events/js/controllers/events-show.ctrl.js'
+  'bundles/frontend/app/modules/events/js/services/events.fact.js'
 
-  'bundles/frontend/app/modules/mainEvents/js/services.js'
-  'bundles/frontend/app/modules/mainEvents/js/controllers.js'
-  'bundles/frontend/app/modules/mainEvents/js/routes.js'
+  'bundles/frontend/app/modules/main-events/js/routes.js'
+  'bundles/frontend/app/modules/main-events/js/controllers/main-events-delete.ctrl.js'
+  'bundles/frontend/app/modules/main-events/js/controllers/main-events-edit.ctrl.js'
+  'bundles/frontend/app/modules/main-events/js/controllers/main-events-list.ctrl.js'
+  'bundles/frontend/app/modules/main-events/js/controllers/main-events-main.ctrl.js'
+  'bundles/frontend/app/modules/main-events/js/controllers/main-events-new.ctrl.js'
+  'bundles/frontend/app/modules/main-events/js/controllers/main-events-show.ctrl.js'
+  'bundles/frontend/app/modules/main-events/js/services/main-events.fact.js'
 
-  'bundles/frontend/app/modules/roles/js/services.js'
-  'bundles/frontend/app/modules/roles/js/controllers.js'
   'bundles/frontend/app/modules/roles/js/routes.js'
+  'bundles/frontend/app/modules/roles/js/controllers/roles/roles-delete.ctrl.js'
+  'bundles/frontend/app/modules/roles/js/controllers/roles/roles-edit.ctrl.js'
+  'bundles/frontend/app/modules/roles/js/controllers/roles/roles-list.ctrl.js'
+  'bundles/frontend/app/modules/roles/js/controllers/roles/roles-main.ctrl.js'
+  'bundles/frontend/app/modules/roles/js/controllers/roles/roles-new.ctrl.js'
+  'bundles/frontend/app/modules/roles/js/controllers/roles/roles-show.ctrl.js'
+  'bundles/frontend/app/modules/roles/js/services/roles.fact.js'
 
-  'bundles/frontend/app/modules/authentication/js/services.js'
-  'bundles/frontend/app/modules/authentication/js/controllers.js'
+  'bundles/frontend/app/modules/roles/js/controllers/role-labels/role-labels-delete.ctrl.js'
+  'bundles/frontend/app/modules/roles/js/controllers/role-labels/role-labels-edit.ctrl.js'
+  'bundles/frontend/app/modules/roles/js/controllers/role-labels/role-labels-list.ctrl.js'
+  'bundles/frontend/app/modules/roles/js/controllers/role-labels/role-labels-main.ctrl.js'
+  'bundles/frontend/app/modules/roles/js/controllers/role-labels/role-labels-new.ctrl.js'
+  'bundles/frontend/app/modules/roles/js/controllers/role-labels/role-labels-show.ctrl.js'
+  'bundles/frontend/app/modules/roles/js/services/role-labels.fact.js'
+
+
   'bundles/frontend/app/modules/authentication/js/routes.js'
-  'bundles/frontend/app/modules/authentication/js/app.js'
+  'bundles/frontend/app/modules/authentication/js/controllers/change-pwd.ctrl.js'
+  'bundles/frontend/app/modules/authentication/js/controllers/confirm.ctrl.js'
+  'bundles/frontend/app/modules/authentication/js/controllers/global-auth.ctrl.js'
+  'bundles/frontend/app/modules/authentication/js/controllers/profile.ctrl.js'
+  'bundles/frontend/app/modules/authentication/js/controllers/reset-pwd.ctrl.js'
+  'bundles/frontend/app/modules/authentication/js/controllers/reset-pwd-request.ctrl.js'
+  'bundles/frontend/app/modules/authentication/js/controllers/sign-in.ctrl.js'
+  'bundles/frontend/app/modules/authentication/js/controllers/sign-out.ctrl.js'
+  'bundles/frontend/app/modules/authentication/js/controllers/sign-up.ctrl.js'
+  'bundles/frontend/app/modules/authentication/js/services/users.fact.js'
+
 
   output='js/compiled/app.js' %}
   <script src="{{ asset_url }}" type="text/javascript"></script>
@@ -240,9 +312,9 @@
           },
           mainEvents: {
             urls: {
-              base: "{{ asset('bundles/frontend/app/modules/mainEvents/') }}",
-              partials: "{{ asset('bundles/frontend/app/modules/mainEvents/partials/') }}",
-              img: "{{ asset('bundles/frontend/app/modules/mainEvents/img') }}"
+              base: "{{ asset('bundles/frontend/app/modules/main-events/') }}",
+              partials: "{{ asset('bundles/frontend/app/modules/main-events/partials/') }}",
+              img: "{{ asset('bundles/frontend/app/modules/main-events/img') }}"
             }
           },
           persons: {
@@ -298,7 +370,7 @@
 </div>
 
 <div id="alertBox" ng-include="GLOBAL_CONFIG.app.urls.partials+'layout/alert-box.html'"
-     ng-controller="AlertCtrl"></div>
+     ng-controller="alertCtrl"></div>
 
 <div id="wrapper">
 

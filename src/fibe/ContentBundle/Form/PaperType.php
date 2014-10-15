@@ -21,6 +21,7 @@ class PaperType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('id')
             ->add('label')
             ->add('abstract', 'textarea', array('required' => true))
             ->add('publisher', 'text', array('label' => 'Publisheur', 'required' => false))

@@ -3,7 +3,7 @@
  *
  * @type {controller}
  */
-angular.module('sympozerApp').controller('AlertCtrl',
+angular.module('sympozerApp').controller('alertCtrl',
     ['$scope', '$routeParams', 'GLOBAL_CONFIG', '$timeout',
         function ($scope, $routeParams, GLOBAL_CONFIG, $timeout)
         {
