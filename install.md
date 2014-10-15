@@ -46,6 +46,7 @@ After that, save and add this file to : app/config
 ##Quick initialize (linux)
 
     ./reset.sh
+    php ./vendor/sensio/distribution-bundle/Sensio/Bundle/DistributionBundle/Resources/bin/build_bootstrap.php
     ./cache.sh
 
 ##Step-by-step initialize
@@ -62,6 +63,10 @@ After that, save and add this file to : app/config
 ####populate database
 
     php app/console wwwconf:database:init
+
+####generate bootstrap.php.cache
+
+    php ./vendor/sensio/distribution-bundle/Sensio/Bundle/DistributionBundle/Resources/bin/build_bootstrap.php
 
 Start your Apache server and go to :
 
