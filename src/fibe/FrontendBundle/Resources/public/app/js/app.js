@@ -121,10 +121,13 @@ sympozerApp.config(['$translateProvider', function ($translateProvider)
  *
  * (execute after injection)
  */
-sympozerApp.run(function (amMoment,editableOptions)
+sympozerApp.run(function (amMoment,editableOptions, editableThemes)
 {
     amMoment.changeLanguage('de');
     editableOptions.theme = 'bs3';
+    // overwrite submit button template
+    editableThemes['bs3'].submitTpl = '<button type="submit" class="btn btn-primary"><i class="fa fa-check"></i></button>';
+    editableThemes['bs3'].cancelTpl =  '<button type="button" class="btn btn-default" ng-click="$form.$cancel()"><i class="fa fa-times"></i></button>';
 });
 
 /**
