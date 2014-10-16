@@ -33,16 +33,20 @@ class CrudHandler
     /**
      * @param string $entityClassName
      * @param ParamFetcherInterface $paramFetcher
+     * @param array $routeParams parameters from the route url
      * @return array of Entities
      */
-    public function getAll($entityClassName, ParamFetcherInterface $paramFetcher)
+    public function getAll($entityClassName, ParamFetcherInterface $paramFetcher, $routeParams = null)
     {
         $offset = $paramFetcher->get('offset');
         $limit = $paramFetcher->get('limit');
         $order = $paramFetcher->get('order');
         $query = $paramFetcher->get('query');
-        $filters = $paramFetcher->get('filters');
+        $filters = $paramFetcher->get('filters', array());
 
+        if($routeParams != null) {
+            $filters = array_merge($filters, $routeParams);
+        }
         return $this->container->get('fibe.rest.searchservice')->doSearch($entityClassName, $limit, $offset, $query, $order, $filters);
     }
 

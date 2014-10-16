@@ -140,4 +140,5 @@ function ($provide, $httpProvider)
 {
     $httpProvider.interceptors.push('globalHttpInterceptor');
 
+
 }]);

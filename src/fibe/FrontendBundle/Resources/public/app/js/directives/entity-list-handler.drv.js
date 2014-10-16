@@ -57,6 +57,11 @@ angular.module('sympozerApp').directive('entityListHandler', ['GLOBAL_CONFIG', '
                 scope.orderSide = orderSide;
                 search(true);
             };
+
+            scope.filter = function(){
+                search(true);
+            }
+
             function search(resetResults)
             {
                 reset = resetResults;
@@ -66,8 +71,8 @@ angular.module('sympozerApp').directive('entityListHandler', ['GLOBAL_CONFIG', '
                     entitiesLbl: childEntityLbl,
                     entities   : scope.entities,
                     callback   : callback
-//                    busy       : scope.busy
                 }, {
+                    request  : scope.request,
                     query    : scope.query,
                     offset   : scope.offset,
                     limit    : scope.limit,
@@ -100,20 +105,6 @@ angular.module('sympozerApp').directive('entityListHandler', ['GLOBAL_CONFIG', '
                 {
                     scope.busy = false;
                 }
-            }
-
-            function getPlural(childEntityLbl)
-            {
-
-                if (childEntityLbl.slice(-1) === 'y')
-                {
-                    return childEntityLbl.substring(0, childEntityLbl.length - 1) + "ies";
-                }
-                else
-                {
-                    return childEntityLbl + "s";
-                }
-
             }
         }
     };

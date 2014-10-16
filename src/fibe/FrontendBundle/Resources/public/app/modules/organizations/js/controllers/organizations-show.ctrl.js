@@ -1,13 +1,11 @@
 /**
- * Show conference controller
+ * Show organization controller
  *
  * @type {controller}
  */
-angular.module('mainEventsApp').controller('mainEventsShowCtrl', [ '$scope', '$rootScope', '$routeParams', 'mainEventsFact', function ($scope, $rootScope, $routeParams, mainEventsFact)
+angular.module('organizationsApp').controller('organizationsShowCtrl', [ '$scope', '$routeParams', 'organizationsFact', function ($scope, $routeParams, organizationsFact)
 {
-    $scope.conference = mainEventsFact.get({id: $routeParams.mainEventId});
+    $scope.organization = organizationsFact.get({id: $routeParams.organizationId});
 
-    //Context change
-    $rootScope.$broadcast('contextCtrl:changeContext', {mainEventId: $routeParams.mainEventId});
-
+    console.log($scope.organization);
 }]);

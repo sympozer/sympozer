@@ -6,8 +6,8 @@
  * @type {factory}
  */
 angular.module('rolesApp').factory('rolesFact',
-    ['$resource', '$cachedResource',
-        function ($resource, $cachedResource)
+    ['$resource', '$cachedResource', '$routeParams',
+        function ($resource, $cachedResource, $routeParams)
         {
             return $resource(
                 globalConfig.api.urls.get_roles,
@@ -17,7 +17,9 @@ angular.module('rolesApp').factory('rolesFact',
                     create: {method: 'POST', params: {}, isArray: false},
                     update: {method: 'PUT', url: globalConfig.api.urls.get_roles + '/:id', params: {id: '@id'}, isArray: false},
                     delete: {method: 'DELETE', url: globalConfig.api.urls.get_roles + '/:id', params: {id: '@id'}, isArray: false},
-                    all   : {method: 'GET', params: {}, isArray: true}
+                    all   : {method: 'GET', params: {}, isArray: true},
+                    allByConference: {method: 'GET', url: globalConfig.api.urls.get_mainEvents + '/:mainEventId/roles', params: {'mainEventId': $routeParams.mainEventId}, isArray: true}
+
                 }
             );
         }]);

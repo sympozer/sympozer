@@ -9,17 +9,22 @@ angular.module('rolesApp').controller('rolesListCtrl', [
         $scope.GLOBAL_CONFIG = GLOBAL_CONFIG;
         $scope.entities = [];
 
+        $scope.filters = {};
 
-        $scope.roleLabelVersions = roleLabelsFact.all({'filters[mainEventId]' : $routeParams.mainEventId});
+        $scope.roleLabelVersions = roleLabelsFact.allByConference();
+        $scope.request = rolesFact.allByConference;
+        $scope.filters.roleLabelVersionIds = [];
 
-
-        var baseFilters;
-        if ($routeParams.mainEventId)
-        {
-            $scope.filters = baseFilters = {
-                mainEventId: $routeParams.mainEventId
-            };
+        $scope.addRoleLabelsFilter= function(roleLabelVersionId){
+            var roleLabelVersionIndex = $scope.filters.roleLabelVersionIds.indexOf(roleLabelVersionId)
+            if( roleLabelVersionIndex == -1){
+                $scope.filters.roleLabelVersionIds.push(roleLabelVersionId);
+            }else{
+                $scope.filters.roleLabelVersionIds.splice(roleLabelVersionIndex, 1);
+            }
+            $scope.filter();
         }
+
 
         $scope.reload = function ()
         {

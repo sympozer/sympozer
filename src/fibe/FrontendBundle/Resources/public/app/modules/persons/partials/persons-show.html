@@ -29,7 +29,6 @@
         <p><i class="fa fa-twitter fa-3x"></i> <span  editable-text="person.twitter" onbeforesave="updatePerson('twitter', $data)">{{person.twitter || ' Add an twitter'}}</span></p>
         <p><i class="fa fa-linkedin fa-3x"></i><span  editable-text="person.linkedIn" onbeforesave="updatePerson('linkedIn', $data)">{{person.linkedIn || ' Add an linked in'}}</span></p>
         <p><i class="fa fa-facebook fa-3x"></i><span  editable-text="person.facebook" onbeforesave="updatePerson('facebook', $data)">{{person.facebook || ' Add an facebook'}}</span></p>
-
     </div>
 </div>
 
@@ -41,14 +40,14 @@
                 <h1>Organizations</h1>
             </div>
             <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                <a class="btn btn-primary btn-inline" href="javascript:void(0)" ng-click="addOrganization = !addOrganization"><i class="fa fa-plus"></i></a>
+                <a class="btn btn-primary btn-inline" href="javascript:void(0)"><i class="fa fa-plus"></i></a>
             </div>
-            <div class="col-lg-12">
-                <div ng-show="addOrganization" get-or-create="organization" child-field="members" parent-entity="person" new-politic="modal"></div>
-            </div>
+            <div sympozer-autocomplete="organizations" on-select="addOrganization" on-keyup="searchOrganizations"></div>
         </div>
         <div ng-repeat="organization in person.organizations  track by $index">
-            <div class="img-container-sm"><img class="scale-img img-circle" src="{{ organization.img }}"/></div>
+            <i class="fa fa-users fa-3x"></i>
+            <h2>{{ organization.label }}</h2>
+            <a class="btn btn-default" href="#organizations/show/{{ organization.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>
         </div>
     </div>
     <div class="col-md-6 col-lg-6">
@@ -70,8 +69,6 @@
 
 
 <div class="row">
-
-
     <div class="col-lg-6">
         <h1>Events</h1>
         <div ng-repeat="role in person.roles  track by $index" class="col-sm-6 col-md-6 col-lg-4  well" ng-if="person.roles">
@@ -80,5 +77,4 @@
             <a class="btn  btn-default" href="#mainEvents/show/{{ role.mainEvent.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>
         </div>
     </div>
-
 </div>

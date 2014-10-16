@@ -6,8 +6,8 @@
  * @type {factory}
  */
 angular.module('roleLabelsApp').factory('roleLabelsFact',
-    ['$resource', '$cachedResource',
-        function ($resource, $cachedResource)
+    ['$resource', '$cachedResource', '$routeParams',
+        function ($resource, $cachedResource, $routeParams)
         {
             return $resource(
                 globalConfig.api.urls.get_roleLabel_verions,
@@ -17,7 +17,8 @@ angular.module('roleLabelsApp').factory('roleLabelsFact',
                     create: {method: 'POST', params: {}, isArray: false},
                     update: {method: 'PUT', url: globalConfig.api.urls.get_roleLabel_verions + '/:id', params: {id: '@id'}, isArray: false},
                     delete: {method: 'DELETE', url: globalConfig.api.urls.get_roleLabel_verions + '/:id', params: {id: '@id'}, isArray: false},
-                    all   : {method: 'GET', url: globalConfig.api.urls.get_roleLabel_verions, params: {}, isArray: true}
+                    all   : {method: 'GET', url: globalConfig.api.urls.get_roleLabel_verions, params: {}, isArray: true},
+                    allByConference: {method: 'GET', url: globalConfig.api.urls.get_mainEvents + '/:mainEventId/roleLabelVersions', params: {'mainEventId': $routeParams.mainEventId}, isArray: true}
                 }
             );
         }]);
