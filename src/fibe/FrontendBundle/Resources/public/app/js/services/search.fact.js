@@ -1,5 +1,6 @@
 
 
+//mandatory args for searchService.doSearch() : entitiesLbl, callback
 
 angular.module('sympozerApp').factory('searchService', [
     '$injector', '$timeout', function ($injector, $timeout)
@@ -7,17 +8,14 @@ angular.module('sympozerApp').factory('searchService', [
         var searchTimeout;
         return {
 
-//        mandatory args : entitiesLbl, entities, callback
             doSearch: function (arg, searchConfig)
             {
+                //avoid too many query
                 $timeout.cancel(searchTimeout);
                 searchTimeout = $timeout(doSearch, 500);
+
                 function doSearch()
                 {
-                    //var entityFact = $injector.get(arg.entitiesLbl + 'Fact'),
-                    //    queryDone = queryNb,
-                    //    firstQueryNb = queryNb;
-//                    arg.busy = true;
                     var requestParams = {};
                     if (searchConfig.orderBy)
                     {

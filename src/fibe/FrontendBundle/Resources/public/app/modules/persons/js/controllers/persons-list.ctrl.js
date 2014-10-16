@@ -8,6 +8,7 @@ angular.module('personsApp').controller('personsListCtrl', ['$scope', '$routePar
     $scope.GLOBAL_CONFIG = GLOBAL_CONFIG;
 
     $scope.entities = [];
+    $scope.request = $routeParams.mainEventId ? personsFact.allByConference : personsFact.all;
 
     var baseFilters;
     if ($routeParams.mainEventId)
@@ -23,26 +24,26 @@ angular.module('personsApp').controller('personsListCtrl', ['$scope', '$routePar
         {
             console.log('From cache:', $scope.persons);
         });
-    }
+    };
 
     $scope.clone = function (person)
     {
-        clonePerson = angular.copy(person);
+        var clonePerson = angular.copy(person);
         clonePerson.id = null;
 
         var error = function (response, args)
         {
             $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'Clone not completed', type: 'danger'});
-        }
+        };
 
         var success = function (response, args)
         {
             $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'Person saved', type: 'success'});
             $scope.entities.push(response);
-        }
+        };
 
         clonePerson.$create({}, success, error);
-    }
+    };
 
 
     $scope.deleteModal = function (index, person)

@@ -31,6 +31,6 @@
     <input type="text" class="form-control" id="inputImg" placeholder="Image link" ng-model="person.img">
   </div>
 
-  <div get-or-create="organization" child-field="members" parent-entity="person" new-politic="modal"></div>
-  <div get-or-create="paper" child-field="authors" parent-entity="person" parent-field="papers" uniq-field="label" new-politic="modal"></div>
-  <!--<div get-or-create="role" child-field="person" parent-entity="person" parent-field="role" singlechoice="true" uniq-field="email" new-politic="modal"></div>-->
+  <div get-or-create="organization" child-field="members" parent-entity="person"></div>
+  <div get-or-create="paper" child-field="authors" parent-entity="person" parent-field="papers"></div>
+  <!--<div get-or-create="role" child-field="person" parent-entity="person" parent-field="role" singlechoice="true" uniq-field="email"></div>-->

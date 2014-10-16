@@ -18,5 +18,5 @@
     <label for="inputPublishDate">Publish Date</label>
     <input type="text" class="form-control" id="inputPublishDate" placeholder="publish Date" ng-model="paper.publishDate">
 </div>
-<div get-or-create="person" child-field="papers" parent-entity="paper" parent-field="authors" uniq-field="email" new-politic="modal"></div>
-<div get-or-create="topic" parent-entity="paper"></div>
+<div get-or-create="person" child-field="papers" parent-entity="paper" parent-field="authors" uniq-field="email"></div>
+<div get-or-create="topic" parent-entity="paper" new-politic="create"></div>

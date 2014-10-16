@@ -1,9 +1,9 @@
 <div>
-    <label for="inputName">Organization name</label>
-    <input type="text" class="form-control" id="label" required placeholder="{{organization.label}}" ng-model="organization.label">
+    <label for="inputLabel">Organization name</label>
+    <input type="text" class="form-control" id="inputLabel" required placeholder="{{organization.label}}" ng-model="organization.label">
 </div>
 <div>
-    <label for="inputHomepage">Website</label>
+    <label for="inputWebsite">Website</label>
     <input type="text" class="form-control" id="inputWebsite" placeholder="{{organization.website}}" ng-model="organization.website">
 </div>
 <div class="form-group">
@@ -12,13 +12,13 @@
 </div>
 <div class="form-group">
     <label for="inputImg">Image</label>
-    <input type="text" class="form-control" id="inputCountry" placeholder="{{organization.img}}" ng-model="organization.img">
+    <input type="text" class="form-control" id="inputImg" placeholder="{{organization.img}}" ng-model="organization.img">
 </div>
 <div>
     <label for="inputDescription">Description</label>
-    <textarea class="form-control" id="inputDescription" placeholder="{{organization.description}}" ng-model="organization.description"/>
+    <textarea class="form-control" id="inputDescription" placeholder="{{organization.description}}" ng-model="organization.description"></textarea>
 </div>
 
 <!--Owning side of person - organization is person, impossible to add a person to an organization form organization-->
-<!--<div get-or-create="person" parent-entity="organization" parent-field="member" uniq-field="email" new-politic="modal"></div>-->
-<!--<div get-or-create="sponsor" parent-entity="organization" parent-field="sponsor" uniq-field="email" new-politic="modal"></div>-->
+<!--<div get-or-create="person" parent-entity="organization" parent-field="member" uniq-field="email"></div>-->
+<!--<div get-or-create="sponsor" parent-entity="organization" parent-field="sponsor" uniq-field="email"></div>-->

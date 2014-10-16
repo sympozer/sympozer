@@ -34,31 +34,39 @@ angular.module('sympozerApp').directive('entityListHandler', ['GLOBAL_CONFIG', '
             scope.offset = parseInt(attrs.offset) || -20;
             scope.limit = parseInt(attrs.limit) || 20;
             scope.busy = false;
-            scope.load = search;
 
-            scope.initialize = function ()
+            scope.load = search;
+            scope.initialize = initialize;
+            scope.sendQuery = sendQuery;
+            scope.order = order;
+            scope.filter = filter;
+
+
+            //first fetch
+            scope.sendQuery();
+            function initialize()
             {
                 scope.offset = -(scope.limit);
-            };
+            }
 
             //Called when a query is type
-            scope.sendQuery = function (query)
+            function sendQuery(query)
             {
                 scope.initialize();
                 scope.query = query;
                 search(true);
-            };
+            }
 
             //Called when an order parameters is changed
-            scope.order = function (orderBy, orderSide)
+            function order(orderBy, orderSide)
             {
                 scope.initialize();
                 scope.orderBy = orderBy;
                 scope.orderSide = orderSide;
                 search(true);
-            };
+            }
 
-            scope.filter = function(){
+            function filter(){
                 search(true);
             }
 
@@ -69,7 +77,6 @@ angular.module('sympozerApp').directive('entityListHandler', ['GLOBAL_CONFIG', '
                 scope.offset = scope.offset + scope.limit;
                 searchService.doSearch({
                     entitiesLbl: childEntityLbl,
-                    entities   : scope.entities,
                     callback   : callback
                 }, {
                     request  : scope.request,

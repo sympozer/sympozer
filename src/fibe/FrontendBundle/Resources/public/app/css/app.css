@@ -356,9 +356,13 @@ input.ng-dirty.ng-valid
   margin-bottom: 15px;
 }
 
-[get-or-create] .ng-hide
+[ui-select-bootstrap] .ng-hide,
 {
   display: none;
+}
+
+.ui-select-bootstrap > .ui-select-match > .caret {
+   top: auto !important;
 }
 
 /*************** MODAL *******************/

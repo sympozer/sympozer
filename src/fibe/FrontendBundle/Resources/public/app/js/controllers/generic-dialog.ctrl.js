@@ -6,6 +6,7 @@ angular.module('sympozerApp').controller('genericDialogCtrl',
     ['$scope', '$rootScope', 'scope', 'formDialogTemplateUrl', '$timeout', '$location', '$injector',
         function ($scope, $rootScope, scope, $formDialogTemplateUrl, $timeout, $location, $injector)
         {
+
             $scope = $.extend($scope, scope);
 
             $scope.formDialogTemplateUrl = $formDialogTemplateUrl;

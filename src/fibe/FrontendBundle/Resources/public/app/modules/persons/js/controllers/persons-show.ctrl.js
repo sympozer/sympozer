@@ -26,22 +26,22 @@ angular.module('personsApp').controller('personsShowCtrl', [ '$scope', '$rootSco
     $scope.searchOrganizations = organizationsFact.all;
 
     $scope.addOrganization = function(organizationModel){
+
+        function successFn(){
+            organizationsFact.create(newOrganization, function (data) {
+                $scope.person.organizations.push(data);
+                $scope.updatePerson("organizations", $scope.person.organizations);
+
+//                        personsFact.patch($scope.person.organization, success, error);
+            });
+        }
+
         if(!organizationModel.id) {
             var newOrganization = new organizationsFact();
             createDialogService(GLOBAL_CONFIG.app.modules.organizations.urls.partials + 'organizations-form.html', {
-                id: 'complexDialog',
                 title: 'Organization creation',
-                backdrop: true,
                 controller: 'organizationsDeleteCtrl',
-                success: {label: 'Ok', fn: function () {
-                    organizationsFact.create(newOrganization, function (data) {
-                        $scope.person.organizations.push(data);
-                        $scope.updatePerson("organizations", $scope.person.organizations);
-//
-//                        personsFact.patch($scope.person.organization, success, error);
-
-                    });
-                }}
+                success: {label: 'Ok', fn: successFn}
             }, {
                 organizationModel: newOrganization
             });

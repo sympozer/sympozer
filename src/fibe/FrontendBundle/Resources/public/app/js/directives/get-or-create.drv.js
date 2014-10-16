@@ -5,16 +5,16 @@
  * use it like :
  *  <div get-or-create="person" parent-entity="paper" parent-field="author" uniq-field="email" new-politic="modal"></div>
  *
- *  the template is loaded dynamicaly like :
+ *  the template is loaded dynamically like :
  *  GLOBAL_CONFIG.app.modules[entity].urls.partials + entity + '-select.html';
  *
  *
- *    @param get-or-create        : the name of the entity that belongs to its parent
- *    @param parent-entity        : the name of the parent entity that owns entities
+ *    @param get-or-create        : name of the entity that belongs to its parent
+ *    @param parent-entity        : name of the parent entity that owns entities
  *
  *    @param uniq-field           : (default='label') a unique field identifying the object
  *                                            (mustn't be the id because it's not known til persisted server-side)
- *    @param new-politic          : (default='create') none|modal|create the politic when an unknown entity is added
+ *    @param new-politic          : (default='modal') none|modal|create the politic when an unknown entity is added
  *    @param parent-field         : (default=%entity%) the key of the parent entity refering to the entity
  *    @param child-field          : (default=%entity%) the name of the child entity relation to the parent entity
  *    @param single-choice        : (default=false) Does the parent own only one child ?
@@ -48,7 +48,7 @@ angular.module('sympozerApp').directive('getOrCreate', [
                     parentField = attrs.parentField || (!singleChoice ? getPlural(childEntityLbl) : childEntityLbl),
                     childField = attrs.childField || (!singleChoiceChild ? getPlural(parentEntityLbl) : parentEntityLbl),
 
-                    newPolitic = attrs.newPolitic || "create",
+                    newPolitic = attrs.newPolitic || "modal",
                     required = attrs.required,
 
 
@@ -57,22 +57,8 @@ angular.module('sympozerApp').directive('getOrCreate', [
                     entityFact = $injector.get(childEntitiesLbl + 'Fact'),
                     formDialogTemplateUrl = GLOBAL_CONFIG.app.modules[childEntitiesLbl].urls.partials + childEntitiesLbl + '-form.html',
 
-                    limit = 10,
-                    resetChoices = true
+                    limit = 10
                     ;
-
-                scope.templateUrl = GLOBAL_CONFIG.app.modules[childEntitiesLbl].urls.partials + childEntitiesLbl + '-select.html';
-                //the entity binded with ng-model to the input
-                scope.addedEntity = {};
-                scope.addedEntity[uniqField] = "";
-                //available entities in the choice list
-                scope.entities = [];
-                scope.singleChoice = singleChoice;
-                scope.mainEventId = mainEventId;
-                scope.parentField = parentField;
-                scope.required = required;
-
-                scope.filters =  attrs.filters ? JSON.parse(attrs.filters) :'' ;
 
                 //resolve the parent resource given by attrs.entity. The second test is for an embedded modal
                 scope.resource = scope.$parent[parentEntityLbl] || scope.$parent.$parent.$parent.$entity;
@@ -80,19 +66,25 @@ angular.module('sympozerApp').directive('getOrCreate', [
                 {
                     return console.error('Could not have resolved scope of entity' + parentEntityLbl);
                 }
+                scope.templateUrl = GLOBAL_CONFIG.app.modules[childEntitiesLbl].urls.partials + childEntitiesLbl + '-select.html';
 
+                //the entity binded with ng-model to the input
+                scope.addedEntity = {};
+                scope.addedEntity[uniqField] = "";
 
-//                if (!scope.resource[parentField])
-//                {
-//                    if (!singleChoice)
-//                    {
-//                        scope.resource[parentField] = [];
-//                    }
-//                    else
-//                    {
-//                        scope.resource[parentField] = {};
-//                    }
-//                }
+                //available entities in the choice list
+                scope.entities = [];
+
+                scope.deleteEntity = deleteEntity;
+                scope.change = deleteEntity;
+
+                scope.singleChoice = singleChoice;
+                scope.mainEventId = mainEventId;
+                scope.parentField = parentField;
+
+                scope.required = required;
+
+                scope.filters =  attrs.filters ? JSON.parse(attrs.filters) :'' ;
 
                 /**
                  * fired when the keyboard is hit
@@ -171,7 +163,7 @@ angular.module('sympozerApp').directive('getOrCreate', [
                     scope.entities = [];
                 };
 
-                scope.deleteEntity = function (index, entity)
+                function deleteEntity(index)
                 {
                     if (!singleChoice)
                     {
@@ -181,7 +173,7 @@ angular.module('sympozerApp').directive('getOrCreate', [
                     {
                         scope.resource[parentField] = {};
                     }
-                };
+                }
                 /**
                  * show a modal if the entity doesn't exists
                  * @param newEntity
@@ -198,7 +190,7 @@ angular.module('sympozerApp').directive('getOrCreate', [
                         formDialogTemplateUrl: formDialogTemplateUrl
                     };
                     dialogCtrlArgs.scope[childEntityLbl] = newEntity;
-                    var dialogOptions = {
+                    createDialogService(GLOBAL_CONFIG.app.urls.partials + 'layout/generic-dialog.html', {
                         id        : 'complexDialog',
                         title     : childEntityLblCamelCase + ' creation',
                         backdrop  : true,
@@ -208,8 +200,7 @@ angular.module('sympozerApp').directive('getOrCreate', [
                         {
                             console.log("cancelled", newEntity);
                         }}
-                    };
-                    createDialogService(GLOBAL_CONFIG.app.urls.partials + 'layout/generic-dialog.html', dialogOptions, dialogCtrlArgs);
+                    }, dialogCtrlArgs);
                 }
 
                 /**
@@ -226,7 +217,7 @@ angular.module('sympozerApp').directive('getOrCreate', [
                         addChildEntity(createdEntity)
                     };
 
-                    var error = function (response, args)
+                    var error = function ()
                     {
                         scope.busy = false;
                         scope.$root.$broadcast('AlertCtrl:addAlert', {code: 'the ' + childEntityLbl + ' has not been created', type: 'danger'});
@@ -263,9 +254,7 @@ angular.module('sympozerApp').directive('getOrCreate', [
                     scope.offset = scope.offset + scope.limit;
                     searchService.doSearch({
                         entitiesLbl: childEntitiesLbl,
-                        entities   : scope.entities,
-                        callback   : addChoices,
-                        busy       : scope.busy
+                        callback   : addChoices
                     }, {
                         query    : query,
                         limit    : limit,
@@ -276,37 +265,14 @@ angular.module('sympozerApp').directive('getOrCreate', [
                     });
                 }
 
-//                /**
-//                 * executes queries
-//                 * @param query
-//                 */
-//                function doSearch(query)
-//                {
-//                    scope.busy = true;
-//                    resetChoices = true;
-//                    //closure to copy by value
-//                    entityFact.all({limit: limit, query: query}, function (data)
-//                    {
-//                        addChoices(data, query);
-//                    });
-//
-//                    console.log("get by conference");
-//                    if (entityFact.allByConference)
-//                    {
-//                        entityFact.allByConference({limit: limit, query: query}, function (data)
-//                        {
-//                            addChoices(data, query);
-//                        });
-//                    }
-//                }
-
                 /**
                  * add fetch results to the select menu
                  * -  prevent duplicates thanks to uniqField
-                 * -  reset select list if resetChoices = true
+                 * -  reset select list
                  *
                  * @param data  results
-                 * @param q     the original query
+                 * @param isFirstRequest
+                 * @param isLastRequest
                  */
                 function addChoices(data, isFirstRequest, isLastRequest)
                 {
