@@ -34,6 +34,7 @@ class MainEvent extends VEvent
      * Events
      *
      * @ORM\OneToMany(targetEntity="fibe\EventBundle\Entity\Event", mappedBy="mainEvent",cascade={"persist", "remove"})
+     * @Expose
      */
     private $events;
 

@@ -85,14 +85,15 @@ class Person extends AdditionalInformations
      * Paper
      * Paper made by this person
      * @Expose
-     * @ORM\ManyToMany(targetEntity="fibe\ContentBundle\Entity\Paper",  mappedBy="authors", cascade={"remove","persist","merge"})
+     * @ORM\ManyToMany(targetEntity="fibe\ContentBundle\Entity\Paper",  mappedBy="authors", cascade={"persist","merge", "remove"})
      */
     protected $papers;
 
     /**
+     *
      * organization
      *
-     * @ORM\OneToMany(targetEntity="fibe\CommunityBundle\Entity\OrganizationVersion", mappedBy="organizationVersionOwner", cascade={"all"})
+     * @ORM\OneToMany(targetEntity="fibe\CommunityBundle\Entity\OrganizationVersion", mappedBy="organizationVersionOwner", cascade={"persist","merge", "remove"})
      * @Expose
      */
     private $organizations;
@@ -369,7 +370,7 @@ class Person extends AdditionalInformations
     public function addPaper(Paper $papers)
     {
         $this->papers[] = $papers;
-
+        $papers->addAuthor($this);
         return $this;
     }
 
@@ -396,23 +397,23 @@ class Person extends AdditionalInformations
     /**
      * Add organization
      *
-     * @param Organization $organization
+     * @param OrganizationVersion $organization
      *
      * @return $this
      */
-    public function addOrganization(Organization $organization)
+    public function addOrganization(OrganizationVersion $organization)
     {
         $this->organizations[] = $organization;
-
+        $organization->setOrganizationVersionOwner($this);
         return $this;
     }
 
     /**
      * Remove organization
      *
-     * @param Organization $organization
+     * @param OrganizationVersion $organization
      */
-    public function removeOrganization(Organization $organization)
+    public function removeOrganization(OrganizationVersion $organization)
     {
         $this->organizations->removeElement($organization);
     }

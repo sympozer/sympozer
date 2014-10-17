@@ -50,9 +50,13 @@
     <div class="panel panel-default">
         <div class="panel-heading noPadding">
             <!-- @button : collapse panel My space -->
-            <a data-toggle="collapse" data-parent="#collapseMySpace" href="#dashboard/myspace#collapseMySpace" class="panel-heading-href btn btn-default noBorder">
+            <a data-toggle="collapse" data-parent="#collapseMySpace" href="#persons/show/{{currentUser.id}}#collapseMySpace" class="panel-heading-href btn btn-default noBorder">
                 <h4 class="panel-title">
-                    <div class="img-container-md"><img class="scale-img img-circle" src="{{currentUser.person.img}}"/></div> {{currentUser.person.label}}
+                    <div class="img-container-md">
+                        <img class="scale-img" src="{{currentUser.person.img}}"/>
+                        <img ng-show="!currentUser.person.img" class="scale-img " src="{{GLOBAL_CONFIG.app.urls.img+'no-picture.jpg'}}"/>
+
+                    </div> {{currentUser.person.label}}
                 </h4>
             </a>
         </div>
@@ -87,7 +91,7 @@
     <div class="panel panel-default">
         <div class="panel-heading noPadding">
             <!-- @button : collapse panel Current conference -->
-            <a data-toggle="collapse" data-parent="#conferenceAccordion" href="#dashboard/overview#collapseConference" class="panel-heading-href btn btn-default noBorder">
+            <a data-toggle="collapse" data-parent="#conferenceAccordion" href="#mainEvents/show/{{currentMainEvent.id}}#collapseConference" class="panel-heading-href btn btn-default noBorder">
                 <h4 class="panel-title">
                     <div class="img-container-md"><img class="scale-img" src="{{currentMainEvent.logo}}"/></div> {{currentMainEvent.label}}
                 </h4>

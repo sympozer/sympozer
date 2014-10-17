@@ -39,20 +39,24 @@ class EventRESTController extends FOSRestController
 
   /**
    * Lists all Event entities filtered by conference.
-   * @Rest\Get("/mainEvents/{confId}/events", name="schedule_events_all_by_conference")
+   * @Rest\Get("/mainEvents/{mainEventId}/events", name="schedule_events_all_by_conference")
    * @Rest\View
    * @Rest\QueryParam(name="offset", requirements="\d+", nullable=true, description="Offset from which to start listing pages.")
    * @Rest\QueryParam(name="limit", requirements="\d+", default="10", description="How many entity to return.")
    * @Rest\QueryParam(name="query", requirements=".{1,128}", nullable=true, description="the query to search.")
    * @Rest\QueryParam(name="order", nullable=true, array=true, description="an array of order.")
+   * @Rest\QueryParam(name="filters", nullable=true, array=true, description="an array of filters.")
    */
-  public function getEventsByConferenceAction(Request $request, ParamFetcherInterface $paramFetcher, $confId)
+  public function getEventsByConferenceAction(Request $request, ParamFetcherInterface $paramFetcher, $mainEventId)
   {
-    return $this->get('fibe.rest.crudhandler')->getAll(
-      $this::ENTITY_CLASSNAME,
-      $paramFetcher,
-      $confId
-    );
+      $routeParams = [];
+      $routeParams["mainEventId"] = $mainEventId;
+
+      return $this->get('fibe.rest.crudhandler')->getAll(
+          $this::ENTITY_CLASSNAME,
+          $paramFetcher,
+          $routeParams
+      );
   }
 
   /**

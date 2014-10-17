@@ -10,9 +10,7 @@ angular.module('mainEventsApp').controller('mainEventsListCtrl', ['$scope', '$ro
 
     $scope.entities = [];
 
-    $scope.fetch = function(filters, success, error){
-        mainEventsFact.all(filters, success, error);
-    };
+    $scope.request = mainEventsFact.all;
 
     $scope.clone = function (conference, index)
     {

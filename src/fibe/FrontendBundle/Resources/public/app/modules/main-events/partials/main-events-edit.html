@@ -1,7 +1,73 @@
-<div ng-include="GLOBAL_CONFIG.app.modules.mainEvents.urls.partials+'main-events-actions.html'" ng-controller="mainEventsMainCtrl"></div>
-<form name="conferenceEditForm" class="form" role="form" ng-submit="update(conferenceEditForm)">
-    <div ng-include="GLOBAL_CONFIG.app.modules.mainEvents.urls.partials+'main-events-form.html'"></div>
-    <div class="form-group">
-        <button type="submit" class="btn btn-success">Save</button>
+<div class="well">
+    <div class="row">
+        <div class="col-sm-3 col-md-3 col-lg-3">
+            <div class="img-container-lg">
+                <div ng-click="showAddImg= !showAddImg">
+                    <img  class="scale-img" src="{{ mainEvent.img }}"/>
+                    <img ng-show="!mainEvent.img" class="scale-img " src="{{GLOBAL_CONFIG.app.urls.img+'no-picture.jpg'}}"/>
+                    <span ng-show="showAddImg" editable-text="mainEvent.img" onbeforesave="updateMainEvent('img', $data)">{{mainEvent.img || ' Add an image'}}</span>
+                </div>
+            </div>
+            <p ng-if="mainEvent.country">{{mainEvent.country}}</p>
+        </div>
+        <div class="col-sm-8 col-md-8 col-lg-8">
+            <h3 ><span editable-text="mainEvent.label" onbeforesave="updateMainEvent('label', $data)">{{mainEvent.label}}</span></h3>
+            <a href="#" e-placeholder="description" onbeforesave="updateMainEvent('description', $data)" editable-textarea="mainEvent.description" e-rows="7" e-cols="60">
+                <pre>{{mainEvent.description || 'add a descrption'}}</pre>
+            </a>
+            <a class="btn btn-info" href="#mainEvents/edit/{{mainEvent.id}}" role="button">
+                <i class="fa fa-edit fa-1x"></i> Edit my conference
+            </a>
+        </div>
     </div>
-</form>
+</div>
+
+<div class="row">
+    <div class=" col-md-6 col-lg-6">
+        <h1>From :  </h1>
+        <datetimepicker style="font-size:15px" data-ng-model="mainEvent.startAt"
+                        data-datetimepicker-config="{ minView:'day' }" />
+
+    </div>
+    <div class=" col-md-6 col-lg-6">
+        <leaflet  center="center" markers="markers" height="300px" width="100%"></leaflet>
+    </div>
+
+</div>
+
+
+<div class="row">
+    <div class=" col-md-6 col-lg-6">
+        <h1>To :</h1>
+        <datetimepicker style="font-size:15px" data-ng-model="mainEvent.enAt"
+                        data-datetimepicker-config="{ minView:'day' }" />
+    </div>
+    <div class=" col-md-6 col-lg-6">
+        <div class="row">
+            <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                <h1>{{mainEvent.events.length}} Events </h1>
+            </div>
+        </div>
+        <div ng-repeat="event in mainEvent.events | limitTo: 5  track by $index" class="col-sm-6 col-md-6 col-lg-4  well">
+            <i class="fa fa-calendar fa-3x"></i>
+            <h2>{{ event.label }}</h2>
+            <a class="btn btn-default" href="#conference/{{mainEvent.id}}/events/show/{{ event.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>
+        </div>
+    </div>
+
+</div>
+
+<div class="row">
+    <div class=" col-md-6 col-lg-6">
+        <div class="row">
+            <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                <h1>{{mainEvent.papers.length}} Papers </h1>
+            </div>
+        </div>
+        <div ng-repeat="paper in mainEvent.papers | limitTo: 5  track by $index" class="col-sm-6 col-md-6 col-lg-4  well">
+            <i class="fa fa-book fa-3x"></i>
+            <h2>{{ paper.label }}</h2>
+            <a class="btn btn-default" href="#conference/{{mainEvent.id}}/papers/show/{{paper.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>
+        </div>
+    </div>
+</div>

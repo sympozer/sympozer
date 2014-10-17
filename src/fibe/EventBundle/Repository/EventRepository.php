@@ -13,24 +13,9 @@ use Doctrine\ORM\EntityRepository;
 class EventRepository extends EntityRepository
 {
 
-  /**
-   * filtering by main event
-   * @param $qb , query builder to add the filter to
-   * @param $MainEventId , the main event to filter on
-   * @return $qb, modified query builder
-   */
-  public function findAllByMainEventId($qb, $MainEventId)
-  {
-    if (isset($MainEventId))
-    {
-      $qb->andWhere('qb.mainEvent = (:MainEventId)');
-      $qb->setParameter('MainEventId', $MainEventId);
-    }
-    return $qb;
-  }
 
   /**
-   * filtering with all parameters difned
+   * filtering with all parameters defined
    * @param $qb , query builder to add the filter to
    * @param $params , the field to filter on
    * @return $qb, modified query builder
@@ -50,7 +35,7 @@ class EventRepository extends EntityRepository
         ->setParameter('id', $params['id']);
     }
 
-    if (isset($params['categoryId']))
+    if (isset($params['categoryVersionId']))
     {
       $qb->leftJoin('qb.category', 'c')
         ->andWhere('c.id = :categoryId')

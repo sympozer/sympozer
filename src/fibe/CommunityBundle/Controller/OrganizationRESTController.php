@@ -21,7 +21,7 @@ class OrganizationRESTController extends FOSRestController
 
     /**
      * Lists all organization entities filtered by conference.
-     * @Rest\Get("/mainEvents/{confId}/organizations", name="schedule_organizations_all_by_conference")
+     * @Rest\Get("/mainEvents/{mainEventId}/organizations", name="schedule_organizations_all_by_conference")
      * @Rest\View
      * @Rest\QueryParam(name="offset", requirements="\d+", nullable=true, description="Offset from which to start listing pages.")
      * @Rest\QueryParam(name="limit", requirements="\d+", default="10", description="How many entity to return.")
@@ -29,12 +29,15 @@ class OrganizationRESTController extends FOSRestController
      * @Rest\QueryParam(name="order", nullable=true, array=true, description="an array of order.")
      * @Rest\QueryParam(name="filters", nullable=true, array=true, description="an array of filters.")
      */
-    public function getOrganizationsByConferenceAction(Request $request, ParamFetcherInterface $paramFetcher, $confId)
+    public function getOrganizationsByConferenceAction(Request $request, ParamFetcherInterface $paramFetcher, $mainEventId)
     {
+        $routeParams = [];
+        $routeParams["mainEventId"] = $mainEventId;
+
         return $this->get('fibe.rest.crudhandler')->getAll(
             $this::ENTITY_CLASSNAME,
             $paramFetcher,
-            $confId
+            $routeParams
         );
     }
 

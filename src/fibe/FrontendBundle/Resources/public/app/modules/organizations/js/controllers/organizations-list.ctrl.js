@@ -8,13 +8,7 @@ angular.module('organizationsApp').controller('organizationsListCtrl', ['$scope'
     $scope.GLOBAL_CONFIG = GLOBAL_CONFIG;
     $scope.entities = [];
 
-    var baseFilters;
-    if ($routeParams.mainEventId)
-    {
-        $scope.filters = baseFilters = {
-            mainEventId: $routeParams.mainEventId
-        };
-    }
+    $scope.request = organizationsFact.allByConference;
 
     $scope.reload = function ()
     {

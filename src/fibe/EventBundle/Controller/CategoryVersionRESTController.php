@@ -21,7 +21,7 @@ class CategoryVersionRESTController extends FOSRestController
 
     /**
      * Lists all Category Versions entities filtered by conference.
-     * @Rest\Get("/mainEvents/{confId}/categoryVersions", name="schedule_category_versions_all_by_conference")
+     * @Rest\Get("/mainEvents/{mainEventId}/categoryVersions", name="schedule_category_versions_all_by_conference")
      * @Rest\View
      * @Rest\QueryParam(name="offset", requirements="\d+", nullable=true, description="Offset from which to start listing pages.")
      * @Rest\QueryParam(name="limit", requirements="\d+", default="10", description="How many entity to return.")
@@ -29,12 +29,15 @@ class CategoryVersionRESTController extends FOSRestController
      * @Rest\QueryParam(name="order", nullable=true, array=true, description="an array of order.")
      * @Rest\QueryParam(name="filters", nullable=true, array=true, description="an array of filters.")
      */
-    public function getCategoryVersionsByConferenceAction(Request $request, ParamFetcherInterface $paramFetcher, $confId)
+    public function getCategoryVersionsByConferenceAction(Request $request, ParamFetcherInterface $paramFetcher, $mainEventId)
     {
+        $routeParams = [];
+        $routeParams["mainEventId"] = $mainEventId;
+
         return $this->get('fibe.rest.crudhandler')->getAll(
             $this::ENTITY_CLASSNAME,
             $paramFetcher,
-            $confId
+            $routeParams
         );
     }
 

@@ -7,9 +7,9 @@
  */
 angular.module('personsApp').factory('personsFact',
     ['$resource', '$cachedResource',
-        function ($cachedResource)
+        function ($resource)
         {
-            return $cachedResource(
+            return $resource(
                 globalConfig.api.urls.get_persons,
                 {},
                 {

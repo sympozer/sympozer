@@ -10,16 +10,24 @@ angular.module('eventsApp').controller('eventsListCtrl', ['$scope', 'categoriesF
     //$rootScope.$broadcast('contextCtrl:changeContext', {mainEventId:$routeParams.mainEventId});
 
     $scope.entities = [];
-    $scope.categories = categoriesFact.all({'filters[mainEventId]': $routeParams.mainEventId});
 
-    var baseFilters;
-    if ($routeParams.mainEventId)
-    {
-        $scope.filters = baseFilters = {
-            mainEventId: $routeParams.mainEventId
-        };
+    $scope.categories = categoriesFact.allByConference();
+
+    $scope.request = eventsFact.allByConference;
+
+    $scope.filters = {};
+    $scope.request = eventsFact.allByConference;
+    $scope.filters.categoryVersionIds = [];
+
+    $scope.addCategoriesFilter= function(categoryVersionId){
+        var categoryVersionIndex = $scope.filters.categoryVersionIds.indexOf(categoryVersionId)
+        if( categoryVersionIndex == -1){
+            $scope.filters.categoryVersionIds.push(categoryVersionId);
+        }else{
+            $scope.filters.categoryVersionIds.splice(categoryVersionIndex, 1);
+        }
+        $scope.filter();
     }
-
 
     $scope.reload = function ()
     {

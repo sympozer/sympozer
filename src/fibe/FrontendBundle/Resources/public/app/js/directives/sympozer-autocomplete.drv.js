@@ -1,29 +1,18 @@
-
 /**
- * angular directive used to show a form inside a parent form for a collection of global entities such as topics
- *
+ * Directive for autocompletion for entity links
  * use it like :
- *  <div get-or-create="person" parent-entity="paper" parent-field="author" uniq-field="email" new-politic="modal"></div>
+ *
+ *  <div sympozer-autocomplete="organizations" on-select="addOrganization" on-keyup="searchOrganizations"></div>
  *
  *  the template is loaded dynamicaly like :
- *  GLOBAL_CONFIG.app.modules[entity].urls.partials + entity + '-select.html';
+ *  GLOBAL_CONFIG.app.modules[sympozer-autocomplete].urls.partials + entity + '-select.html';
  *
- *
- *    @param get-or-create        : the name of the entity that belongs to its parent
- *    @param parent-entity        : the name of the parent entity that owns entities
- *
- *    @param uniq-field           : (default='label') a unique field identifying the object
- *                                            (mustn't be the id because it's not known til persisted server-side)
- *    @param new-politic          : (default='create') none|modal|create the politic when an unknown entity is added
- *    @param parent-field         : (default=%entity%) the key of the parent entity refering to the entity
- *    @param child-field          : (default=%entity%) the name of the child entity relation to the parent entity
- *    @param single-choice        : (default=false) Does the parent own only one child ?
- *    @param main-event-id        : (default=null) Define the main event id to add to created entity
- *    @param single-choice-child  : (default=false) Does the child own only one parent ?
- *    @param required             : (default=false) must this field be required ?
+ *    @param sympozer-autocomplete : plural name of the entity to propose in the autocomplete (used to get the "select" template dynamicaly)
+ *    @param on-select             : Function to trigger when a selection is done
+ *    @param on-keyup             : Function to trigger when the user type a research
  */
 angular.module('sympozerApp').directive('sympozerAutocomplete', [
-    'GLOBAL_CONFIG', 'createDialog', 'searchService', '$injector', function (GLOBAL_CONFIG, createDialogService, searchService, $injector)
+    'GLOBAL_CONFIG', function (GLOBAL_CONFIG)
     {
         return {
             template: '<div ng-include="templateUrl"></div>',
@@ -32,11 +21,11 @@ angular.module('sympozerApp').directive('sympozerAutocomplete', [
                 onKeyup: "="
             },
 
-            link    : function (scope, element, attrs)
+            link : function (scope, element, attrs)
             {
                 if (!attrs.sympozerAutocomplete)
                 {
-                    return console.error('missing mandatory field in "get-or-create" directive (see doc above)');
+                    return console.error('missing mandatory field in "sympozer-autocomplete" directive (see doc above)');
                 }
 
                 scope.searchedEntity = attrs.sympozerAutocomplete;
@@ -49,27 +38,20 @@ angular.module('sympozerApp').directive('sympozerAutocomplete', [
                  */
                 scope.keyup = function ($event)
                 {
-                    debugger;
-
                     if ($event.target.value === "")
                     {
                         return;
                     }
-
                     scope.onKeyup({query : $event.target.value}, function(data){
                         addResults(data);
                     });
                 };
 
                 /**
-                 * add fetch results to the select menu
-                 * -  prevent duplicates thanks to uniqField
-                 * -  reset select list if resetChoices = true
-                 *
+                 * add fetched results to the select menu
                  * @param data  results
-                 * @param q     the original query
                  */
-                function addResults(data, isFirstRequest, isLastRequest)
+                function addResults(data)
                 {
                     scope.entities = [];
                     scope.entities.push("new");

@@ -23,6 +23,11 @@ angular.module('sympozerApp').directive('entityListHandler', ['GLOBAL_CONFIG', '
                 return console.error('missing mandatory field in "entity-list-handler" directive (see doc above)');
             }
 
+            if (!scope.request)
+            {
+                return console.error('missing mandatory request parameter in the scope');
+            }
+
             var childEntityLbl = attrs.entityListHandler,
                 reset = false
                 ;
@@ -67,6 +72,7 @@ angular.module('sympozerApp').directive('entityListHandler', ['GLOBAL_CONFIG', '
             }
 
             function filter(){
+                scope.initialize();
                 search(true);
             }
 
@@ -89,16 +95,11 @@ angular.module('sympozerApp').directive('entityListHandler', ['GLOBAL_CONFIG', '
                 });
             }
 
-            function callback(data, isFirstQuery, isLastQuery)
+            function callback(data)
             {
-                if (isFirstQuery && reset)
+                if (reset)
                 {
                     scope.entities = [];
-                }
-
-                if (isLastQuery)
-                {
-                    scope.busy = false;
                 }
 
                 var items = data;

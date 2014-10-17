@@ -24,7 +24,7 @@ class LocationRESTController extends FOSRestController
 
     /**
      * Lists all Location entities filtered by conference.
-     * @Rest\Get("/mainEvents/{confId}/locations", name="content_locations_all_by_conference")
+     * @Rest\Get("/mainEvents/{mainEventId}/locations", name="content_locations_all_by_conference")
      * @Rest\View
      * @Rest\QueryParam(name="offset", requirements="\d+", nullable=true, description="Offset from which to start listing pages.")
      * @Rest\QueryParam(name="limit", requirements="\d+", default="10", description="How many entity to return.")
@@ -32,12 +32,15 @@ class LocationRESTController extends FOSRestController
      * @Rest\QueryParam(name="order", nullable=true, array=true, description="an array of order.")
      * @Rest\QueryParam(name="filters", nullable=true, array=true, description="an array of filters.")
      */
-    public function getLocationsByConferenceAction(Request $request, ParamFetcherInterface $paramFetcher, $confId)
+    public function getLocationsByConferenceAction(Request $request, ParamFetcherInterface $paramFetcher, $mainEventId)
     {
+        $routeParams = [];
+        $routeParams["mainEventId"] = $mainEventId;
+
         return $this->get('fibe.rest.crudhandler')->getAll(
             $this::ENTITY_CLASSNAME,
             $paramFetcher,
-            $confId
+            $routeParams
         );
     }
 

@@ -8,13 +8,8 @@ angular.module('papersApp').controller('papersListCtrl', ['$scope', '$routeParam
     $scope.GLOBAL_CONFIG = GLOBAL_CONFIG;
     $scope.entities = [];
 
-    var baseFilters;
-    if ($routeParams.mainEventId)
-    {
-        $scope.filters = baseFilters = {
-            mainEventId: $routeParams.mainEventId
-        };
-    }
+    $scope.request = papersFact.allByConference;
+
 
     $scope.reload = function ()
     {

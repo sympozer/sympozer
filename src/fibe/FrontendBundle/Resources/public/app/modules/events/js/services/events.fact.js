@@ -6,7 +6,7 @@
  * @type {factory}
  */
 angular.module('eventsApp').factory('eventsFact',
-    ['$resource', '$cachedResource', '$rootScope', function ($resource, $cachedResource, $rootScope)
+    ['$resource', '$cachedResource', '$routeParams', function ($resource, $cachedResource, $routeParams)
     {
         return $resource(
             globalConfig.api.urls.get_events,
@@ -17,7 +17,7 @@ angular.module('eventsApp').factory('eventsFact',
                 update         : {method: 'PUT', url: globalConfig.api.urls.get_events + '/:id', params: {id: '@id'}, isArray: false},
                 delete         : {method: 'DELETE', url: globalConfig.api.urls.get_events + '/:id', params: {id: '@id'}, isArray: false},
                 all            : {method: 'GET', params: {}, isArray: true},
-                allByConference: {method: 'GET', url: globalConfig.api.urls.get_mainEvents + '/:mainEventId/events', params: {'mainEventId': '@mainEventId'}, isArray: true}
+                allByConference: {method: 'GET', url: globalConfig.api.urls.get_mainEvents + '/:mainEventId/events', params: {'mainEventId': $routeParams.mainEventId}, isArray: true}
             }
         );
     }]);

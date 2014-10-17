@@ -17,10 +17,12 @@ angular.module('sympozerApp').factory('searchService', [
                 function doSearch()
                 {
                     var requestParams = {};
-                    if (searchConfig.orderBy)
-                    {
-                        requestParams["order[" + searchConfig.orderBy + "]"] = searchConfig.orderSide;
-                    }
+
+                    requestParams["order[" + searchConfig.orderBy + "]"] = searchConfig.orderSide || null;
+                    requestParams["query"] = searchConfig.query || null;
+                    requestParams["offset"] = searchConfig.offset || null;
+                    requestParams["limit"] = searchConfig.limit || null;
+
 
                     for (var i in searchConfig.filters)
                     {
@@ -40,9 +42,9 @@ angular.module('sympozerApp').factory('searchService', [
 
                     function success(data)
                     {
-                        var isFirstQuery = firstQueryNb == queryDone;
-                        queryDone++;
-                        arg.callback(data, isFirstQuery, queryNb == queryDone);
+//                        var isFirstQuery = firstQueryNb == queryDone;
+//                        queryDone++;
+                        arg.callback(data);
                     }
                 }
             }
