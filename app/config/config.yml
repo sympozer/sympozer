@@ -3,6 +3,7 @@ imports:
     - { resource: parameters_common.yml }
     - { resource: security.yml }
     - { resource: @fibeEventBundle/Resources/config/services.yml}
+    - { resource: @AdminBundle/Resources/config/admin.yml }
 
 hwi_oauth:
     #this is my custom user provider, created from FOSUBUserProvider - will manage the 
@@ -47,8 +48,9 @@ twig:
     # strict_variables: %kernel.debug%
     form:
         resources:
-            - form_global_theme.html.twig
-            - 'fibeSecurityBundle:Form:fields.html.twig'
+            # @TODO : These lines prevent Sympozer Admin to work (deprecated lines ?)
+            # - form_global_theme.html.twig
+            # - 'fibeSecurityBundle:Form:fields.html.twig'
             - LexikFormFilterBundle:Form:form_div_layout.html.twig
 
 
@@ -144,3 +146,15 @@ jms_serializer:
             FOSUB:
                 namespace_prefix: "FOS\\UserBundle"
                 path: "%kernel.root_dir%/serializer/FOSUB"
+
+# SONATA ADMIN BUNDLE CONFIG:
+sonata_block:
+    default_contexts: [cms]
+    blocks:
+        # Enable the SonataAdminBundle block
+        sonata.admin.block.admin_list:
+            contexts:   [admin]
+sonata_admin:
+    title:      Sympozer Admin
+    #@TODO : select the logo
+#    title_logo: bundles/acmedemo/img/fancy_acme_logo.png
