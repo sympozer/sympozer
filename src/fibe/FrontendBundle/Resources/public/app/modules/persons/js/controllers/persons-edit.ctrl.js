@@ -3,10 +3,10 @@
  *
  * @type {controller}
  */
-angular.module('personsApp').controller('personsEditCtrl', [ '$scope', '$rootScope', '$routeParams', '$location', 'createDialog', 'personsFact', 'organizationsFact', 'papersFact', function ($scope, $rootScope, $routeParams, $location, createDialogService, personsFact, organizationsFact, papersFact)
+angular.module('personsApp').controller('personsEditCtrl', [ '$scope', '$rootScope', 'GLOBAL_CONFIG', '$routeParams', '$location', 'createDialog', 'personsFact', 'organizationsFact', 'papersFact', function ($scope, $rootScope, GLOBAL_CONFIG, $routeParams, $location, createDialogService, personsFact, organizationsFact, papersFact)
 {
     $scope.person = personsFact.get({id: $routeParams.personId});
-
+    $scope.GLOBAL_CONFIG = GLOBAL_CONFIG;
     var error = function (response, args)
     {
         $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'the field has not been saved', type: 'danger'});
