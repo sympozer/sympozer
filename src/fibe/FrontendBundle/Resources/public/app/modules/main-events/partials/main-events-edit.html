@@ -3,9 +3,9 @@
         <div class="col-sm-3 col-md-3 col-lg-3">
             <div class="img-container-lg">
                 <div ng-click="showAddImg= !showAddImg">
-                    <img  class="scale-img" src="{{ mainEvent.img }}"/>
-                    <img ng-show="!mainEvent.img" class="scale-img " src="{{GLOBAL_CONFIG.app.urls.img+'no-picture.jpg'}}"/>
-                    <span ng-show="showAddImg" editable-text="mainEvent.img" onbeforesave="updateMainEvent('img', $data)">{{mainEvent.img || ' Add an image'}}</span>
+                    <img  class="scale-img" src="{{ mainEvent.logo }}"/>
+                    <img ng-show="!mainEvent.logo" class="scale-img " src="{{GLOBAL_CONFIG.app.urls.img+'no-picture.jpg'}}"/>
+                    <span ng-show="showAddImg" editable-text="mainEvent.logo" onbeforesave="updateMainEvent('logo', $data)">{{mainEvent.logo || ' Add an image'}}</span>
                 </div>
             </div>
             <p ng-if="mainEvent.country">{{mainEvent.country}}</p>
@@ -15,19 +15,24 @@
             <a href="#" e-placeholder="description" onbeforesave="updateMainEvent('description', $data)" editable-textarea="mainEvent.description" e-rows="7" e-cols="60">
                 <pre>{{mainEvent.description || 'add a descrption'}}</pre>
             </a>
-            <a class="btn btn-info" href="#mainEvents/edit/{{mainEvent.id}}" role="button">
-                <i class="fa fa-edit fa-1x"></i> Edit my conference
-            </a>
         </div>
     </div>
 </div>
 
 <div class="row">
     <div class=" col-md-6 col-lg-6">
-        <h1>From :  </h1>
-        <datetimepicker style="font-size:15px" data-ng-model="mainEvent.startAt"
-                        data-datetimepicker-config="{ minView:'day' }" />
-
+        <div clas="row">
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                <h1>From :  </h1>
+                <datetimepicker style="font-size:15px" data-ng-model="mainEvent.startAt" on-set-time="onSelectStart"
+                                data-datetimepicker-config="{ minView:'day' }" />
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                <h1>To :</h1>
+                <datetimepicker style="font-size:15px" data-ng-model="mainEvent.enAt" on-set-time="onSelectEnd"
+                                data-datetimepicker-config="{ minView:'day' }" />
+            </div>
+        </div>
     </div>
     <div class=" col-md-6 col-lg-6">
         <leaflet  center="center" markers="markers" height="300px" width="100%"></leaflet>
@@ -37,11 +42,7 @@
 
 
 <div class="row">
-    <div class=" col-md-6 col-lg-6">
-        <h1>To :</h1>
-        <datetimepicker style="font-size:15px" data-ng-model="mainEvent.enAt"
-                        data-datetimepicker-config="{ minView:'day' }" />
-    </div>
+
     <div class=" col-md-6 col-lg-6">
         <div class="row">
             <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
@@ -55,9 +56,6 @@
         </div>
     </div>
 
-</div>
-
-<div class="row">
     <div class=" col-md-6 col-lg-6">
         <div class="row">
             <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
@@ -70,4 +68,9 @@
             <a class="btn btn-default" href="#conference/{{mainEvent.id}}/papers/show/{{paper.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>
         </div>
     </div>
+
+</div>
+
+<div class="row">
+
 </div>

@@ -24,6 +24,14 @@ angular.module('mainEventsApp').controller('mainEventsEditCtrl', [ '$scope', '$r
         return mainEventsFact.patch(updateMainEvent, success, error);
     }
 
+    $scope.onSelectStart = function(oldVal, newVal){
+        $scope.updateMainEvent('startAt', newVal);
+    }
+
+    $scope.onSelectEnd = function(oldVal, newVal){
+        $scope.updateMainEvent('endAt', newVal);
+    }
+
     //Context change
     $rootScope.$broadcast('contextCtrl:changeContext', {mainEventId: $routeParams.mainEventId});
 

@@ -119,17 +119,10 @@
                                         <a href="#mainEvents/edit/{{currentMainEvent.id}}"><i class="fa fa-cogs fa-2x"></i> Settings</a>
                                     </li>
                                     <li>
-                                        <!-- @hlink : Publications -->
-                                        <a href="#conference/{{currentMainEvent.id}}/papers/list"><i class="fa fa-book fa-2x"></i> Publications</a>
+                                        <!-- @hlink : Appearance -->
+                                        <a href="#mainEvents/edit/appearance/{{currentMainEvent.id}}"><i class="fa fa-paint-brush fa-2x"></i> Appearance</a>
                                     </li>
-                                    <li>
-                                        <!-- @hlink : Organizations -->
-                                        <a href="#conference/{{currentMainEvent.id}}/organizations/list"><i class="fa fa-users fa-2x"></i> Organizations</a>
-                                    </li>
-                                    <li>
-                                        <!-- @hlink : Persons -->
-                                        <a href="#conference/{{currentMainEvent.id}}/roles/list"><i class="fa fa-user fa-2x"></i> Persons</a>
-                                    </li>
+
                                     <!--<li>-->
                                         <!--&lt;!&ndash; @hlink : Roles Labels &ndash;&gt;-->
                                         <!--<a href="#conference/{{currentMainEvent.id}}/roleLabels/list"><i class="fa fa-sitemap fa-2x"></i> Role labels</a>-->
@@ -138,9 +131,61 @@
                                         <!--&lt;!&ndash; @hlink : Roles &ndash;&gt;-->
                                         <!--<a href="#conference/{{currentMainEvent.id}}/roles/list"><i class="fa fa-sitemap fa-2x"></i> Roles</a>-->
                                     <!--</li>-->
+                                    <!--<li>-->
+                                        <!--&lt;!&ndash; @hlink : Resources &ndash;&gt;-->
+                                        <!--<a href="#resource"><i class="fa fa-folder-open-o fa-2x"></i> Resources</a>-->
+                                    <!--</li>-->
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- @panel Resources -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading noPadding">
+                            <!-- @button : collapse panel Curent Conference : Resource -->
+                            <a data-toggle="collapse" data-parent="#accordion" href="#dashboard/schedule#collapseDirectory" class="panel-heading-href btn btn-default noBorder">
+                                <h4 class="panel-title">
+                                    <i class="fa fa-users fa-2x"></i> Directory
+                                </h4>
+                            </a>
+                        </div>
+                        <div id="collapseDirectory" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <ul class="sidebar-nav-list">
                                     <li>
-                                        <!-- @hlink : Resources -->
-                                        <a href="#resource"><i class="fa fa-folder-open-o fa-2x"></i> Resources</a>
+                                        <!-- @hlink : Organizations -->
+                                        <a href="#conference/{{currentMainEvent.id}}/organizations/list"><i class="fa fa-users fa-2x"></i> Organizations</a>
+                                    </li>
+                                    <li>
+                                        <!-- @hlink : Persons -->
+                                        <a href="#conference/{{currentMainEvent.id}}/roles/list"><i class="fa fa-user fa-2x"></i> Persons</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- @panel Directories -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading noPadding">
+                            <!-- @button : collapse panel Curent Conference : Schedule -->
+                            <a data-toggle="collapse" data-parent="#accordion" href="#dashboard/schedule#collapseResources" class="panel-heading-href btn btn-default noBorder">
+                                <h4 class="panel-title">
+                                    <i class="fa fa-folder-open-o fa-2x"></i> Resources
+                                </h4>
+                            </a>
+                        </div>
+                        <div id="collapseResources" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <ul class="sidebar-nav-list">
+                                    <li>
+                                        <!-- @hlink : Publications -->
+                                        <a href="#conference/{{currentMainEvent.id}}/papers/list"><i class="fa fa-book fa-2x"></i> Publications</a>
+                                    </li>
+                                </ul>
+                                <ul class="sidebar-nav-list">
+                                    <li>
+                                        <!-- @hlink : Slides -->
+                                        <a href="#conference/{{currentMainEvent.id}}/slides/list"><i class="fa fa-slideshare fa-2x"></i> Slides</a>
                                     </li>
                                 </ul>
                             </div>
