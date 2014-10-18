@@ -48,7 +48,7 @@ angular.module('personsApp').controller('personsEditCtrl', [ '$scope', '$rootSco
             $scope.person.organizations.push(organizationModel);
             $scope.updatePerson("organizations", $scope.person.organizations);
         }
-    }
+    };
 
 
     //Autocomplete and add organization workflow

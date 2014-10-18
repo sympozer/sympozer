@@ -71,8 +71,10 @@ class PersonService extends AbstractBusinessService
 
     //nobody but the user himself can change his profile while his account is enabled
     //!== $this->securityContext->getToken()->getUser()->getId()
-      //($this->securityContext->getToken()->getUser() instanceof  UserInterface)
-    if ($user->isEnabled() && $person->getId() && $user->getId() !== $this->securityContext->getToken()->getUser()->getId())
+      //()
+    if ($user->isEnabled()
+      && $this->securityContext->getToken()->getUser() instanceof  UserInterface
+      && $user->getId() !== $this->securityContext->getToken()->getUser()->getId())
     {
       throw new AccessDeniedException('This person is linked to a real user account');
     }
