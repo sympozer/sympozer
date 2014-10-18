@@ -11,8 +11,8 @@ angular.module('mainEventsApp')
     {
       $routeProvider
         .when('/mainEvents/list', {
-          templateUrl: globalConfig.app.modules.mainEvents.urls.partials + 'main-events-list.html',
-          controller: 'mainEventsListCtrl'
+          templateUrl: globalConfig.app.modules.mainEvents.urls.partialsCommunity + 'main-events-community-list.html',
+          controller: 'mainEventsCommunityListCtrl'
         })
         .when('/mainEvents/thumbnail', {
           templateUrl: globalConfig.app.modules.mainEvents.urls.partials + 'main-events-thumbnail.html',

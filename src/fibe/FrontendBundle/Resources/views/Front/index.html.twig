@@ -101,6 +101,7 @@
   'bundles/frontend/app/modules/papers/js/controllers/papers-delete.ctrl.js'
   'bundles/frontend/app/modules/papers/js/controllers/papers-edit.ctrl.js'
   'bundles/frontend/app/modules/papers/js/controllers/papers-list.ctrl.js'
+  'bundles/frontend/app/modules/papers/js/controllers/community/papers-community-list.ctrl.js'
   'bundles/frontend/app/modules/papers/js/controllers/papers-main.ctrl.js'
   'bundles/frontend/app/modules/papers/js/controllers/papers-new.ctrl.js'
   'bundles/frontend/app/modules/papers/js/controllers/papers-show.ctrl.js'
@@ -171,6 +172,7 @@
   'bundles/frontend/app/modules/main-events/js/controllers/main-events-main.ctrl.js'
   'bundles/frontend/app/modules/main-events/js/controllers/main-events-new.ctrl.js'
   'bundles/frontend/app/modules/main-events/js/controllers/main-events-show.ctrl.js'
+  'bundles/frontend/app/modules/main-events/js/controllers/community/main-events-community-list.ctrl.js'
   'bundles/frontend/app/modules/main-events/js/services/main-events.fact.js'
 
   'bundles/frontend/app/modules/roles/js/routes.js'
@@ -304,6 +306,7 @@
             urls: {
               base: "{{ asset('bundles/frontend/app/modules/papers/') }}",
               partials: "{{ asset('bundles/frontend/app/modules/papers/partials/') }}",
+              communityPartials: "{{ asset('bundles/frontend/app/modules/papers/partials/community/') }}",
               img: "{{ asset('bundles/frontend/app/modules/papers/img') }}"
             }
           },
@@ -318,6 +321,7 @@
             urls: {
               base: "{{ asset('bundles/frontend/app/modules/main-events/') }}",
               partials: "{{ asset('bundles/frontend/app/modules/main-events/partials/') }}",
+              partialsCommunity: "{{ asset('bundles/frontend/app/modules/main-events/partials/community/') }}",
               img: "{{ asset('bundles/frontend/app/modules/main-events/img') }}"
             }
           },

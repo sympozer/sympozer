@@ -1,4 +1,3 @@
-
 /**
  * angular directive used to show a form inside a parent form for a collection of global entities such as topics
  *

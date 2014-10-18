@@ -15,7 +15,7 @@ angular.module('mainEventsApp').controller('mainEventsNewCtrl', [ '$scope', '$ro
     var success = function (response, args)
     {
         $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'conference created', type: 'success'});
-        $location.path('/mainEvents/list');
+        $location.path('/mainEvents/edit/'+response.id);
     };
 
     $scope.create = function (form)
