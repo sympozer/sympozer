@@ -7,8 +7,10 @@ class AppKernel extends Kernel
 {
   /**
    * Constant which activate the admin mode
+   *
+   * Note deactiation required to remove sonata from config.yml
    */
-  const ENABLE_ADMIN = true;
+  const ENABLE_ADMIN = true; // CAREFULL WITH DEACTIVATION (see above note)
 
   public function registerBundles()
   {
@@ -40,22 +42,22 @@ class AppKernel extends Kernel
       new fibe\CommunityBundle\fibeCommunityBundle()
     );
 
+    // SONATA ADMIN BUNDLE
+    if (self::ENABLE_ADMIN)
+    {
+      $bundles[] = new Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle();
+      $bundles[] = new Sonata\CoreBundle\SonataCoreBundle();
+      $bundles[] = new Sonata\BlockBundle\SonataBlockBundle();
+      $bundles[] = new Knp\Bundle\MenuBundle\KnpMenuBundle();
+      $bundles[] = new Sonata\AdminBundle\SonataAdminBundle();
+      $bundles[] = new fibe\AdminBundle\AdminBundle();
+    }
+
     if (in_array($this->getEnvironment(), array('dev', 'test')))
     {
       $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
       $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
       $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
-
-      // SONATA ADMIN BUNDLE
-      if (self::ENABLE_ADMIN)
-      {
-        $bundles[] = new Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle();
-        $bundles[] = new Sonata\CoreBundle\SonataCoreBundle();
-        $bundles[] = new Sonata\BlockBundle\SonataBlockBundle();
-        $bundles[] = new Knp\Bundle\MenuBundle\KnpMenuBundle();
-        $bundles[] = new Sonata\AdminBundle\SonataAdminBundle();
-        $bundles[] = new fibe\AdminBundle\AdminBundle();
-      }
     }
 
     return $bundles;
