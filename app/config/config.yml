@@ -48,8 +48,9 @@ twig:
     # strict_variables: %kernel.debug%
     form:
         resources:
-            - form_global_theme.html.twig
-            - 'fibeSecurityBundle:Form:fields.html.twig'
+            # @TODO : These lines prevent Sympozer Admin to work (deprecated lines ?)
+            # - form_global_theme.html.twig
+            # - 'fibeSecurityBundle:Form:fields.html.twig'
             - LexikFormFilterBundle:Form:form_div_layout.html.twig
 
 
