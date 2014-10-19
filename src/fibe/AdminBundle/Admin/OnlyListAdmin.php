@@ -16,11 +16,13 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
 
-class VEventAdmin extends GenericAdmin
+class OnlyListAdmin extends GenericAdmin
 {
   /**
-   * For VEvent, we cannot instanciate a new VEvent
-   * (But we can see and edit his fields)
+   * For VEvent or additional information
+   *
+   * we cannot instanciate a new VEvent
+   * (But we can see his fields)
    *
    * @param RouteCollection $collection
    */

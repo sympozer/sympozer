@@ -23,6 +23,7 @@ use Sonata\AdminBundle\Form\FormMapper;
 abstract class AdminSympozerInherit extends Admin {
 
   protected $excluded;
+  protected $excludedList;
 
   /**
    * @return mixed
@@ -40,6 +41,23 @@ abstract class AdminSympozerInherit extends Admin {
    * Set the fields to exclude (on create and update)
    */
   abstract function setExcluded();
+
+  /**
+   * @return mixed
+   */
+  protected function getExcludedList()
+  {
+    if ($this->excludedList == null)
+    {
+      $this->setExcludedList();
+    }
+    return $this->excludedList;
+  }
+
+  /**
+   * Set the fields to exclude on list action
+   */
+  abstract function setExcludedList();
 
   // Fields to be shown on create/edit forms
   protected function configureFormFields(FormMapper $formMapper)
@@ -70,7 +88,10 @@ abstract class AdminSympozerInherit extends Admin {
     $eventVars = $this->getAllFields();
     foreach ($eventVars as $eventVar)
     {
-      $listMapper->add($eventVar);
+      if (!in_array($eventVar, $this->getExcludedList()))
+      {
+        $listMapper->add($eventVar);
+      }
     }
   }
 
