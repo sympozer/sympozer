@@ -357,6 +357,14 @@ class Paper
   }
 
   /**
+   * @param mixed $authors
+   */
+  public function setAuthors($authors)
+  {
+    $this->authors = $authors;
+  }
+
+  /**
    * Add topics
    *
    * @param Topic $topics

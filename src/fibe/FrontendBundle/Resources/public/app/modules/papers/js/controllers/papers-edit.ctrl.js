@@ -3,8 +3,10 @@
  *
  * @type {controller}
  */
+
 angular.module('papersApp').controller('papersEditCtrl', [ '$scope', 'GLOBAL_CONFIG', 'createDialog', '$rootScope', '$routeParams', '$location', 'papersFact', 'personsFact', 'topicsFact', function ($scope, GLOBAL_CONFIG, createDialogService, $rootScope, $routeParams, $location, papersFact, personsFact, topicsFact)
 {
+
     $scope.paper = papersFact.get({id: $routeParams.paperId});
 
     var error = function (response, args)
@@ -25,6 +27,15 @@ angular.module('papersApp').controller('papersEditCtrl', [ '$scope', 'GLOBAL_CON
             $scope.paper.$update({}, success, error);
         }
     }
+
+    $scope.updatePaper = function (field, data)
+    {
+        var updatePaperParam = {id: $scope.paper.id};
+        updatePaperParam[field] = data;
+        return papersFact.patch(updatePaperParam, success, error);
+    }
+
+
 
     //Autocomplete and add person workflow
     $scope.searchPersons = personsFact.all;

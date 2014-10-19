@@ -14,7 +14,13 @@
     <label for="inputAccesibility">Accesibility</label>
     <textarea class="form-control" id="inputAccesibility" placeholder="Accesibility" ng-model="location.accesibility"></textarea>
 </div>
-<div get-or-create="equipment" parent-entity="location" new-politic="create"></div>
+<div class="row">
+  <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+    <h1>Equipments</h1>
+    
+  </div>
+  <div sympozer-autocomplete="equipments" on-select="addEquipment" on-keyup="searchEquipments"></div>
+</div>
 
 <div>
     <br/>

@@ -1,10 +1,45 @@
 <div ng-include="GLOBAL_CONFIG.app.modules.organizations.urls.partials+'organizations-actions.html'" ng-controller="organizationsMainCtrl"></div>
+
 <div class="well">
-  <img class="img-circle" data-src="holder.js/140x140" alt="140x140" src="http://blog.getjobber.com/wp-content/uploads/2013/01/Users-Image.png" style="width: 70px; height: 70px;"/>
-
-  <h3>{{organization.label}}</h3>
-
-  <p ng-if="organization.country">{{organization.country}}</p>
-  <p ng-if="organization.website"><a href="{{organization.website}}">{{organization.website}}</a></p>
+    <div class="row">
+        <div class="col-sm-1 col-md-1 col-lg-1">
+            <div class="img-container-lg">
+                  <img class="scale-img " src="{{ organization.img  || GLOBAL_CONFIG.app.urls.img+'no-picture.jpg'}}" alt="Generic placeholder image" style="width: 70px; height: 80px;">
+            </div>
+        </div>
+        <div class="col-sm-4 col-md-4 col-lg-4">
+            <h3>{{organization.label || '???'}}</h3> <h5>{{organization.country || '???'}} {{organization.email || '???'}}</h5>
+            <pre>{{organization.description || 'add a description'}}</pre>
+            <a class="btn btn-info" href="#organization/edit/{{organization.id}}" role="button">
+                <i class="fa fa-edit fa-1x"></i> Edit the organization
+            </a>
+        </div>
+    </div>
 </div>
+
+<div class="row">
+    <div class="col-md-6 col-lg-6">
+        <h1>{{organization.organizationVersions.organizationVersionOwner.length}} Members</h1>
+       <div ng-repeat="person in organization.organizationVersions.organizationVersionOwner track by $index" class="col-sm-6 col-md-6 col-lg-4 well">
+       		 <img class="scale-img " src="{{ person.img  || GLOBAL_CONFIG.app.urls.img+'no-picture.jpg'}}" alt="Generic placeholder image" style="width: 70px; height: 70px;">
+        		<h3>{{ person.label }}</h3>
+
+        		<p>{{ person.email }}</p>
+
+       			<p>{{ person.country }}</p>
+       			<a class="btn btn-warning" href="#persons/edit/{{ person.id }}" role="button"><i class="fa fa-edit fa-1x"></i></a>
+       			<a class="btn btn-default" href="#persons/show/{{ person.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>
+      </div>
+    </div>
+    <div class="col-md-3 col-lg-3">
+        <h1>{{organization.sponsors.length}} Sponsors</h1>
+      <div ng-repeat="sponsor in organization.sponsors track by $index" class="col-sm-6 col-md-6 col-lg-4 well">
+       		 <img class="scale-img " src="{{ sponsor.logoPath  || GLOBAL_CONFIG.app.urls.img+'no-picture.jpg'}}" alt="Generic placeholder image" style="width: 70px; height: 70px;">
+        		<h3>{{ sponsor.label }}</h3>
+      </div>
+    </div>
+</div>
+   
+
+
 

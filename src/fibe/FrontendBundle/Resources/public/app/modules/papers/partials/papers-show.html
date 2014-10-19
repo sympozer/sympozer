@@ -1,12 +1,46 @@
 <div ng-include="GLOBAL_CONFIG.app.modules.papers.urls.partials+'papers-actions.html'" ng-controller="papersMainCtrl"></div>
 <div class="well">
-  <img class="img-circle" data-src="holder.js/140x140" alt="140x140" src="http://blog.getjobber.com/wp-content/uploads/2013/01/Users-Image.png" style="width: 70px; height: 70px;"/>
-
-  <h3>{{paper.label}}</h3>
-
-  <p>{{paper.abstract}}</p>
-
-  <p>{{paper.publishDate}}</p>
-
-  <p>{{paper.publisher}}</p>
+    <div class="row">
+        <div class="col-sm-1 col-md-1 col-lg-1">
+            <div class="img-container-lg">
+                <i class="fa fa-book fa-5x"></i>
+            </div>
+        </div>
+        <div class="col-sm-4 col-md-4 col-lg-4">
+            <h3>{{paper.label || '???'}}</h3> <h5>{{paper.publisher || '???'}} {{paper.publishDate || '???'}}</h5>
+            <p>{{ paper.url }}</p>
+            <pre>{{paper.abstract || 'add an abstract'}}</pre>
+            <a class="btn btn-info" href="#conference/{{paper.mainEvent.id}}/paper/edit/{{paper.id}}" role="button">
+                <i class="fa fa-edit fa-1x"></i> Edit the paper
+            </a>
+        </div>
+    </div>
 </div>
+
+<div class="row">
+    <div class="col-md-6 col-lg-6">
+        <h1>{{paper.authors.length}} Authors</h1>
+       <div ng-repeat="person in paper.authors track by $index" class="col-sm-6 col-md-6 col-lg-4 well">
+       		 <img class="scale-img " src="{{ person.img  || GLOBAL_CONFIG.app.urls.img+'no-picture.jpg'}}" alt="Generic placeholder image" style="width: 70px; height: 70px;">
+        		<h3>{{ person.label }}</h3>
+
+        		<p>{{ person.email }}</p>
+
+       			<p>{{ person.country }}</p>
+       			<a class="btn btn-warning" href="#persons/edit/{{ person.id }}" role="button"><i class="fa fa-edit fa-1x"></i></a>
+       			<a class="btn btn-default" href="#persons/show/{{ person.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>
+      </div>
+    </div>
+    <div class="col-md-3 col-lg-3">
+        <h1>{{paper.topics.length}} Topics</h1>
+      <ul class="nav nav-pills">
+        <li class="active" ng-repeat="topic in paper.topics track by $index">
+            <a href="javascript:void(0)" ng-click="#topic/show/{{ topic.id }}">
+                <span class="badge pull-right">{{topic.vEvents.length}}</span>
+                {{ topic.label }}
+            </a>
+        </li>
+      </ul>
+    </div>
+</div>
+   

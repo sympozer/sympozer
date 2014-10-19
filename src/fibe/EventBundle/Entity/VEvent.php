@@ -915,4 +915,20 @@ abstract class VEvent
   {
     $this->topics = $topics;
   }
+
+  /**
+   * @return mixed
+   */
+  public function getLocations()
+  {
+    return $this->locations;
+  }
+
+  /**
+   * @param mixed $locations
+   */
+  public function setLocations($locations)
+  {
+    $this->locations = $locations;
+  }
 }

@@ -4,7 +4,7 @@
  * @TODO implement a directive for the map handling to remove code duplication
  * @type {controller}
  */
-angular.module('locationsApp').controller('locationsEditCtrl', [ '$scope', '$rootScope', '$routeParams', '$location', 'locationsFact', function ($scope, $rootScope, $routeParams, $location, locationsFact)
+angular.module('locationsApp').controller('locationsEditCtrl', [ '$scope', '$rootScope', '$routeParams', '$location','equipmentsFact', 'locationsFact', function ($scope, $rootScope, $routeParams, $location, equipmentsFact, locationsFact)
 {
     //initialize map zoom
     $scope.center = { zoom: 2 }
@@ -37,6 +37,19 @@ angular.module('locationsApp').controller('locationsEditCtrl', [ '$scope', '$roo
         }
     }
 
+    //Autocomplete and add equipment workflow
+    $scope.searchEquipments = equipmentsFact.all;
+    $scope.addEquipment = function (equipmentModel)
+    {
+        function successFn()
+        {
+            $scope.location.equipments.push(equipmentModel);
+            $scope.updateLocation("equipments", $scope.location.equipments);
+        }
+
+            
+    }
+
 
 
     $scope.markers = new Array();
@@ -54,4 +67,5 @@ angular.module('locationsApp').controller('locationsEditCtrl', [ '$scope', '$roo
         $scope.location.longitude = leafEvent.latlng.lng;
 
     });
+
 }]);
