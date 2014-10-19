@@ -3,10 +3,10 @@
  *
  * @type {controller}
  */
-angular.module('topicsApp').controller('topicsNewCtrl', [ '$scope', '$rootScope', '$topic', 'topicsFact', function ($scope, $rootScope, $topic, topicsFact)
+angular.module('topicsApp').controller('topicsNewCtrl', [ '$scope', '$rootScope', 'topicsFact', '$modalInstance', function ($scope, $rootScope, topicsFact, $modalInstance)
 {
-    $scope.topic = new topicsFact;
 
+    $scope.topic = new topicsFact();
     var error = function (response, args)
     {
         $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'the topic has not been created', type: 'danger'});
@@ -15,7 +15,11 @@ angular.module('topicsApp').controller('topicsNewCtrl', [ '$scope', '$rootScope'
     var success = function (response, args)
     {
         $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'topic created', type: 'success'});
-        $topic.path('/topics/list');
+        if($modalInstance){
+            $modalInstance.close($scope.topic);
+        }else{
+            $topic.path('/topics/list');
+        }
     }
 
     $scope.create = function (form)
@@ -25,4 +29,9 @@ angular.module('topicsApp').controller('topicsNewCtrl', [ '$scope', '$rootScope'
             $scope.topic.$create({}, success, error);
         }
     }
+
+    $scope.cancel = function () {
+        $modalInstance.dismiss('cancel');
+    };
+
 }]);

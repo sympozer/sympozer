@@ -23,7 +23,14 @@ angular.module('sympozerApp').factory('searchService', [
                     requestParams["offset"] = searchConfig.offset || null;
                     requestParams["limit"] = searchConfig.limit || null;
 
+                    //Add route parameters to object for request
+                    for (var param in searchConfig.routeParams)
+                    {
+                        requestParams[param] = searchConfig.routeParams[param];
+                    }
 
+
+                    //Serialize filters
                     for (var i in searchConfig.filters)
                     {
                         var currentFilter = searchConfig.filters[i];

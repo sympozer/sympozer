@@ -3,13 +3,13 @@
  *
  * @type {controller}
  */
-angular.module('personsApp').controller('personsListCtrl', ['$scope', '$routeParams', 'GLOBAL_CONFIG', 'createDialog', '$rootScope', 'personsFact', '$cachedResource', function ($scope, $routeParams, GLOBAL_CONFIG, createDialogService, $rootScope, personsFact, $cachedResource)
+angular.module('personsApp').controller('personsCommunityListCtrl', ['$scope', '$routeParams', 'GLOBAL_CONFIG', 'createDialog', '$rootScope', 'personsFact', '$cachedResource', function ($scope, $routeParams, GLOBAL_CONFIG, createDialogService, $rootScope, personsFact, $cachedResource)
 {
     $scope.GLOBAL_CONFIG = GLOBAL_CONFIG;
 
     $scope.entities = [];
 
-    $scope.request = personsFact.allByConference;
+    $scope.request = personsFact.all;
 
 
     $scope.reload = function ()

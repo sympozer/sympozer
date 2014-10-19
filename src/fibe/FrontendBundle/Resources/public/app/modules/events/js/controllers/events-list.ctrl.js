@@ -11,12 +11,11 @@ angular.module('eventsApp').controller('eventsListCtrl', ['$scope', 'categoriesF
 
     $scope.entities = [];
 
-    $scope.categories = categoriesFact.allByConference();
+    $scope.categories = categoriesFact.allByConference({'mainEventId': $routeParams.mainEventId});
 
     $scope.request = eventsFact.allByConference;
 
     $scope.filters = {};
-    $scope.request = eventsFact.allByConference;
     $scope.filters.categoryVersionIds = [];
 
     $scope.addCategoriesFilter= function(categoryVersionId){

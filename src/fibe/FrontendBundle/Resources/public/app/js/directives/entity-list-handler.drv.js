@@ -12,7 +12,7 @@
  *    @param (default : "label") orderBy        : The side of the sort (ascendent : ASC | descendent : DESC
  *    @param (optional) query                   : A string filter
  */
-angular.module('sympozerApp').directive('entityListHandler', ['GLOBAL_CONFIG', '$injector', 'searchService', function (GLOBAL_CONFIG, $injector, searchService)
+angular.module('sympozerApp').directive('entityListHandler', ['GLOBAL_CONFIG', '$routeParams', 'searchService', function (GLOBAL_CONFIG, $routeParams, searchService)
 {
     return {
         restrict: 'A',
@@ -41,6 +41,7 @@ angular.module('sympozerApp').directive('entityListHandler', ['GLOBAL_CONFIG', '
             scope.busy = false;
 
             scope.load = search;
+
             scope.initialize = initialize;
             scope.sendQuery = sendQuery;
             scope.order = order;
@@ -91,6 +92,7 @@ angular.module('sympozerApp').directive('entityListHandler', ['GLOBAL_CONFIG', '
                     limit    : scope.limit,
                     orderBy  : scope.orderBy,
                     filters  : scope.filters,
+                    routeParams : $routeParams,
                     orderSide: scope.orderSide
                 });
             }

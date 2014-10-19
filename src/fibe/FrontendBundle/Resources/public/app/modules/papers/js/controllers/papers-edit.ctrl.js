@@ -3,7 +3,7 @@
  *
  * @type {controller}
  */
-angular.module('papersApp').controller('papersEditCtrl', [ '$scope', '$rootScope', '$routeParams', '$location', 'papersFact', function ($scope, $rootScope, $routeParams, $location, papersFact)
+angular.module('papersApp').controller('papersEditCtrl', [ '$scope', 'GLOBAL_CONFIG', 'createDialog', '$rootScope', '$routeParams', '$location', 'papersFact', 'personsFact', 'topicsFact', function ($scope, GLOBAL_CONFIG, createDialogService, $rootScope, $routeParams, $location, papersFact, personsFact, topicsFact)
 {
     $scope.paper = papersFact.get({id: $routeParams.paperId});
 
@@ -25,4 +25,55 @@ angular.module('papersApp').controller('papersEditCtrl', [ '$scope', '$rootScope
             $scope.paper.$update({}, success, error);
         }
     }
+
+    //Autocomplete and add person workflow
+    $scope.searchPersons = personsFact.all;
+    $scope.paper.authors = [];
+    $scope.addPerson = function(personModel){
+        function successFn(){
+            personsFact.create(newPerson, function (data) {
+
+                $scope.paper.authors.push(data);
+            });
+        }
+        if(!personModel.id) {
+            var newPerson = new personsFact();
+            createDialogService(GLOBAL_CONFIG.app.modules.persons.urls.partials + 'persons-form.html', {
+                title: 'Author creation',
+                controller: 'genericModalCtrl',
+                success: {label: 'Ok', fn: successFn}
+            }, {
+                model: newPerson,
+                modelName : "person"
+            });
+        }else{
+            $scope.paper.authors.push(personModel);
+        }
+    };
+
+
+    //Autocomplete and add person workflow
+    $scope.searchTopics = topicsFact.all;
+    $scope.paper.topics = [];
+
+    $scope.addTopic = function(topicModel){
+        function successFn(){
+            topicsFact.create(newTopic, function (data) {
+                $scope.paper.topics.push(data);
+            });
+        }
+        if(!topicModel.id) {
+            var newTopic = new topicsFact();
+            createDialogService(GLOBAL_CONFIG.app.modules.topics.urls.partials + 'topics-form.html', {
+                title: 'Topic creation',
+                controller: 'genericModalCtrl',
+                success: {label: 'Ok', fn: successFn}
+            }, {
+                model: newTopic,
+                modelName : "topic"
+            });
+        }else{
+            $scope.paper.topics.push(topicModel);
+        }
+    };
 }]);

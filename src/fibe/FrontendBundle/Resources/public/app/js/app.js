@@ -31,6 +31,8 @@ angular.module('contextualizationApp', ['mainEventsApp']);
  */
 var sympozerApp = angular.module('sympozerApp', [
     'ngRoute',
+    'ui.bootstrap',
+    'ui.bootstrap.modal',
     'ngAnimate',
     'ngResource',
     'ngCookies',

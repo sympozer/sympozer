@@ -6,7 +6,7 @@
  * @type {factory}
  */
 angular.module('categoriesApp').factory('categoriesFact',
-    ['$resource', '$cachedResource', '$routeParams', function ($resource, $cachedResource, $routeParams)
+    ['$resource', '$cachedResource', function ($resource, $cachedResource)
     {
         return $resource(
             globalConfig.api.urls.get_categories,
@@ -17,7 +17,7 @@ angular.module('categoriesApp').factory('categoriesFact',
                 update         : {method: 'PUT', url: globalConfig.api.urls.get_categories + '/:id', params: {id: '@id'}, isArray: false},
                 delete         : {method: 'DELETE', url: globalConfig.api.urls.get_categories + '/:id', params: {id: '@id'}, isArray: false},
                 all            : {method: 'GET', params: {}, isArray: true},
-                allByConference: {method: 'GET', url: globalConfig.api.urls.get_mainEvents + '/:mainEventId/categoryVersions', params: {'mainEventId': $routeParams.mainEventId}, isArray: true}
+                allByConference: {method: 'GET', url: globalConfig.api.urls.get_mainEvents + '/:mainEventId/categoryVersions', params: {'mainEventId': '@mainEventId'}, isArray: true}
             }
         );
     }]);

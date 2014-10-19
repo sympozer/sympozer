@@ -14,15 +14,14 @@ angular.module('personsApp')
                     templateUrl: globalConfig.app.modules.persons.urls.partials + 'persons-list.html',
                     controller : 'personsListCtrl'
                 })
+                .when('/persons/list', {
+                    templateUrl: globalConfig.app.modules.persons.urls.communityPartials + 'persons-community-thumbnail.html',
+                    controller : 'personsCommunityListCtrl'
+                })
                 .when('/conference/:mainEventId/persons/thumbnail', {
                     templateUrl: globalConfig.app.modules.persons.urls.partials + 'persons-thumbnail.html',
                     controller : 'personsListCtrl'
                 })
-                .when('/persons/list', {
-                    templateUrl: globalConfig.app.modules.persons.urls.partials + 'persons-list.html',
-                    controller : 'personsListCtrl'
-                })
-
                 .when('/persons/:personId/events', {
                     templateUrl: globalConfig.app.modules.persons.urls.partials + 'persons-events.html',
                     controller : 'personsEventListCtrl'
