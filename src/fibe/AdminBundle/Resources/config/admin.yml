@@ -204,22 +204,12 @@ services:
             - [ setTranslationDomain, [ContentBundle]]
 #Security Bundle (contains users, teams, ...)
     sonata.admin.user:
-        class: fibe\AdminBundle\Admin\GenericAdmin
+        class: fibe\AdminBundle\Admin\UserAdmin
         tags:
             - { name: sonata.admin, manager_type: orm, group: "SecurityBundle", label: "User" }
         arguments:
             - ~
             - fibe\SecurityBundle\Entity\User
-            - ~
-        calls:
-            - [ setTranslationDomain, [SecurityBundle]]
-    sonata.admin.team:
-        class: fibe\AdminBundle\Admin\GenericAdmin
-        tags:
-            - { name: sonata.admin, manager_type: orm, group: "SecurityBundle", label: "Team" }
-        arguments:
-            - ~
-            - fibe\SecurityBundle\Entity\Team
             - ~
         calls:
             - [ setTranslationDomain, [SecurityBundle]]

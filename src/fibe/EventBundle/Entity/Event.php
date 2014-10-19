@@ -29,110 +29,110 @@ use JMS\Serializer\Annotation\VirtualProperty;
  */
 class Event extends VEvent
 {
-    /**
-     * The parent of the event
-     *
-     * @ORM\ManyToOne(targetEntity="fibe\EventBundle\Entity\Event", inversedBy="children", cascade={"persist","detach"})
-     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id", onDelete="SET NULL", nullable=true)
-     * @Expose
-     */
-    private $parent;
+  /**
+   * The parent of the event
+   *
+   * @ORM\ManyToOne(targetEntity="fibe\EventBundle\Entity\Event", inversedBy="children", cascade={"persist","detach"})
+   * @ORM\JoinColumn(name="parent_id", referencedColumnName="id", onDelete="SET NULL", nullable=true)
+   * @Expose
+   */
+  private $parent;
 
-    /**
-     * The events who are children
-     *
-     * @ORM\OneToMany(targetEntity="fibe\EventBundle\Entity\Event", mappedBy="parent", cascade={"persist"})
-     */
-    private $children;
+  /**
+   * The events who are children
+   *
+   * @ORM\OneToMany(targetEntity="fibe\EventBundle\Entity\Event", mappedBy="parent", cascade={"persist"})
+   */
+  private $children;
 
-    /**
-     * Main Event
-     *
-     * @ORM\ManyToOne(targetEntity="fibe\EventBundle\Entity\MainEvent", inversedBy="events", cascade={"persist"})
-     * @ORM\JoinColumn(name="mainevent_id", referencedColumnName="id")
-     * @Expose
-     * @SerializedName("mainEvent")
-     */
-    private $mainEvent;
+  /**
+   * Main Event
+   *
+   * @ORM\ManyToOne(targetEntity="fibe\EventBundle\Entity\MainEvent", inversedBy="events", cascade={"persist"})
+   * @ORM\JoinColumn(name="mainevent_id", referencedColumnName="id")
+   * @Expose
+   * @SerializedName("mainEvent")
+   */
+  private $mainEvent;
 
-    /**
-     * @ORM\Column(type="string", length=128, nullable=true)
-     */
-    private $slug;
+  /**
+   * @ORM\Column(type="string", length=128, nullable=true)
+   */
+  private $slug;
 
-    /**
-     * Papers presented at an event
-     *
-     * @ORM\ManyToMany(targetEntity="fibe\ContentBundle\Entity\Paper", inversedBy="events", cascade={"persist"})
-     * @ORM\JoinTable(name="event_paper",
-     *     joinColumns={@ORM\JoinColumn(name="event_id", referencedColumnName="id")},
-     *     inverseJoinColumns={@ORM\JoinColumn(name="paper_id", referencedColumnName="id")})
-     * @Expose
-     * @MaxDepth(1)
-     */
-    private $papers;
+  /**
+   * Papers presented at an event
+   *
+   * @ORM\ManyToMany(targetEntity="fibe\ContentBundle\Entity\Paper", inversedBy="events", cascade={"persist"})
+   * @ORM\JoinTable(name="event_paper",
+   *     joinColumns={@ORM\JoinColumn(name="event_id", referencedColumnName="id")},
+   *     inverseJoinColumns={@ORM\JoinColumn(name="paper_id", referencedColumnName="id")})
+   * @Expose
+   * @MaxDepth(1)
+   */
+  private $papers;
 
-    /**
-     * Category
-     *
-     * @ORM\ManyToOne(targetEntity="CategoryVersion", inversedBy="events", cascade={"persist"})
-     * @ORM\JoinColumn(name="event_id", referencedColumnName="id")
-     * @Expose
-     */
-    protected  $category;
+  /**
+   * Category
+   *
+   * @ORM\ManyToOne(targetEntity="CategoryVersion", inversedBy="events", cascade={"persist"})
+   * @ORM\JoinColumn(name="event_id", referencedColumnName="id")
+   * @Expose
+   */
+  protected $category;
 
 
-    /**
-     * Roles for the event
-     *
-     * @ORM\ManyToMany(targetEntity="fibe\ContentBundle\Entity\Role", inversedBy="events", cascade={"persist"})
-     * @ORM\JoinTable(name="event_role",
-     *     joinColumns={@ORM\JoinColumn(name="event_id", referencedColumnName="id")},
-     *     inverseJoinColumns={@ORM\JoinColumn(name="role_id", referencedColumnName="id")})
-     *
-     */
-    private $roles;
+  /**
+   * Roles for the event
+   *
+   * @ORM\ManyToMany(targetEntity="fibe\ContentBundle\Entity\Role", inversedBy="events", cascade={"persist"})
+   * @ORM\JoinTable(name="event_role",
+   *     joinColumns={@ORM\JoinColumn(name="event_id", referencedColumnName="id")},
+   *     inverseJoinColumns={@ORM\JoinColumn(name="role_id", referencedColumnName="id")})
+   *
+   */
+  private $roles;
 
-    /**
-     * Constructor
-     */
-    public function __construct()
+  /**
+   * Constructor
+   */
+  public function __construct()
+  {
+    parent::__construct();
+    $this->papers = new ArrayCollection();
+    $this->children = new ArrayCollection();
+    $this->locations = new ArrayCollection();
+    $this->categories = new ArrayCollection();
+  }
+
+  /**
+   * Slugify
+   *
+   * @ORM\PrePersist()
+   */
+  public function slugify()
+  {
+    $this->setSlug(StringTools::slugify($this->getId() . $this->getLabel()));
+  }
+
+  /**
+   * onUpdateben
+   *
+   * @ORM\PrePersist()
+   * @ORM\PreUpdate()
+   */
+  public function onUpdate()
+  {
+    $this->slugify();
+    //$this->setIsInstant($this->getEndAt()->format('U') == $this->getStartAt()->format('U'));
+
+    //events that aren't leaf in the hierarchy can't have a location
+    if ($this->hasChildren() && $this->getLocations() != null)
     {
-        parent::__construct();
-        $this->papers = new ArrayCollection();
-        $this->children = new ArrayCollection();
-        $this->locations = new ArrayCollection();
-        $this->categories = new ArrayCollection();
+      $this->setLocations(null);
     }
 
-    /**
-     * Slugify
-     *
-     * @ORM\PrePersist()
-     */
-    public function slugify()
-    {
-        $this->setSlug(StringTools::slugify($this->getId() . $this->getLabel()));
-    }
-
-    /**
-     * onUpdateben
-     *
-     * @ORM\PrePersist()
-     * @ORM\PreUpdate()
-     */
-    public function onUpdate()
-    {
-        $this->slugify();
-        //$this->setIsInstant($this->getEndAt()->format('U') == $this->getStartAt()->format('U'));
-
-        //events that aren't leaf in the hierarchy can't have a location
-        if ($this->hasChildren() && $this->getLocations() != null)
-        {
-            $this->setLocations(null);
-        }
-
-        //ensure main conf has correct properties
+    //ensure main conf has correct properties
 //    if ($this->isMainVEvent) //@TODO EVENT
 //    {
 //      $this->fitChildrenDate(true);
@@ -143,159 +143,167 @@ class Event extends VEvent
 //      }
 //      $this->setIsInstant(false);
 //    }
-    }
+  }
 
-    /**
-     * auto persist of embedded data
-     * @ORM\PreFlush
-     */
-    public function updateSomething(PreFlushEventArgs $eventArgs)
+  /**
+   * auto persist of embedded data
+   * @ORM\PreFlush
+   */
+  public function updateSomething(PreFlushEventArgs $eventArgs)
+  {
+    if (!$this->getId() || !$this->getLocations()->first())
     {
-        if (!$this->getId() || !$this->getLocations()->first())
-        {
-            return;
-        }
-        $em = $eventArgs->getEntityManager();
-        $uow = $em->getUnitOfWork();
-        $uow->recomputeSingleEntityChangeSet(
-            $em->getClassMetadata(get_class($this->getLocations()->first())),
-            $this->getLocations()
-        );
+      return;
     }
+    $em = $eventArgs->getEntityManager();
+    $uow = $em->getUnitOfWork();
+    $uow->recomputeSingleEntityChangeSet(
+      $em->getClassMetadata(get_class($this->getLocations()->first())),
+      $this->getLocations()
+    );
+  }
 
-    /**
-     * Set slug
-     *
-     * @param string $slug
-     *
-     * @return Event
-     */
-    public function setSlug($slug)
-    {
-        $this->slug = $slug;
+  /**
+   * Set slug
+   *
+   * @param string $slug
+   *
+   * @return Event
+   */
+  public function setSlug($slug)
+  {
+    $this->slug = $slug;
 
-        return $this;
-    }
+    return $this;
+  }
 
-    /**
-     * Get slug
-     *
-     * @return string
-     */
-    public function getSlug()
-    {
-        $this->slugify();
+  /**
+   * Get slug
+   *
+   * @return string
+   */
+  public function getSlug()
+  {
+    $this->slugify();
 
-        return $this->slug;
-    }
+    return $this->slug;
+  }
 
-    /**
-     * Set url
-     *
-     * @param string $url
-     *
-     * @return Event
-     */
-    public function setUrl($url)
-    {
-        $this->url = $url;
+  /**
+   * Set url
+   *
+   * @param string $url
+   *
+   * @return Event
+   */
+  public function setUrl($url)
+  {
+    $this->url = $url;
 
-        return $this;
-    }
+    return $this;
+  }
 
-    /**
-     * Get url
-     *
-     * @return string
-     */
-    public function getUrl()
-    {
-        return $this->url;
-    }
+  /**
+   * Get url
+   *
+   * @return string
+   */
+  public function getUrl()
+  {
+    return $this->url;
+  }
 
-    /**
-     * Set conference
-     *
-     * @param MainEvent $mainEvent
-     *
-     * @internal param \fibe\EventBundle\Entity\MainEvent $conference
-     *
-     * @return Event
-     */
-    public function setMainEvent(MainEvent $mainEvent)
-    {
-        $this->mainEvent = $mainEvent;
+  /**
+   * Set conference
+   *
+   * @param MainEvent $mainEvent
+   *
+   * @internal param \fibe\EventBundle\Entity\MainEvent $conference
+   *
+   * @return Event
+   */
+  public function setMainEvent(MainEvent $mainEvent)
+  {
+    $this->mainEvent = $mainEvent;
 
-        return $this;
-    }
+    return $this;
+  }
 
-    /**
-     * Get conference
-     *
-     * @return MainEvent
-     */
-    public function getMainEvent()
-    {
-        return $this->mainEvent;
-    }
+  /**
+   * Get conference
+   *
+   * @return MainEvent
+   */
+  public function getMainEvent()
+  {
+    return $this->mainEvent;
+  }
 
-    /**
-     * Add papers
-     *
-     * @param Paper $papers
-     *
-     * @return Event
-     */
-    public function addPaper(Paper $papers)
-    {
-        $this->papers[] = $papers;
+  /**
+   * Add papers
+   *
+   * @param Paper $papers
+   *
+   * @return Event
+   */
+  public function addPaper(Paper $papers)
+  {
+    $this->papers[] = $papers;
 
-        return $this;
-    }
+    return $this;
+  }
 
-    /**
-     * Remove papers
-     *
-     * @param Paper $papers
-     */
-    public function removePaper(Paper $papers)
-    {
-        $this->papers->removeElement($papers);
-    }
+  /**
+   * Remove papers
+   *
+   * @param Paper $papers
+   */
+  public function removePaper(Paper $papers)
+  {
+    $this->papers->removeElement($papers);
+  }
 
-    /**
-     * Get papers
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getPapers()
-    {
-        return $this->papers;
-    }
+  /**
+   * Get papers
+   *
+   * @return \Doctrine\Common\Collections\Collection
+   */
+  public function getPapers()
+  {
+    return $this->papers;
+  }
 
-    /**
-     * Set parent
-     *
-     * @param VEvent $parent
-     *
-     * @return Event
-     */
-    public function setParent(VEvent $parent = null)
-    {
-        $this->parent = $parent;
+  /**
+   * @param mixed $papers
+   */
+  public function setPapers($papers)
+  {
+    $this->papers = $papers;
+  }
 
-        return $this;
-    }
+  /**
+   * Set parent
+   *
+   * @param VEvent $parent
+   *
+   * @return Event
+   */
+  public function setParent(VEvent $parent = null)
+  {
+    $this->parent = $parent;
 
-    /**
-     * Get parent
-     *
-     * @return Event
-     */
-    public function getParent()
-    {
-        return $this->parent;
-    }
+    return $this;
+  }
+
+  /**
+   * Get parent
+   *
+   * @return Event
+   */
+  public function getParent()
+  {
+    return $this->parent;
+  }
 
   /**
    * Add children
@@ -305,88 +313,96 @@ class Event extends VEvent
    * @return $this
    */
   public function addChildren(Event $children)
-    {
-        $this->children[] = $children;
+  {
+    $this->children[] = $children;
 
-        return $this;
-    }
+    return $this;
+  }
 
-    /**
-     * Remove children
-     *
-     * @param VEvent $children
-     */
-    public function removeChildren(VEvent $children)
-    {
-        $this->children->removeElement($children);
-    }
+  /**
+   * Remove children
+   *
+   * @param VEvent $children
+   */
+  public function removeChildren(VEvent $children)
+  {
+    $this->children->removeElement($children);
+  }
 
-    /**
-     * Get children
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getChildren()
-    {
-        return $this->children;
-    }
+  /**
+   * Get children
+   *
+   * @return \Doctrine\Common\Collections\Collection
+   */
+  public function getChildren()
+  {
+    return $this->children;
+  }
 
-    /**
-     * Has children
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function hasChildren()
-    {
-        return count($this->children) != 0;
-    }
+  /**
+   * @param mixed $children
+   */
+  public function setChildren($children)
+  {
+    $this->children = $children;
+  }
 
-    /**
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getLocations()
-    {
-        return $this->locations;
-    }
+  /**
+   * Has children
+   *
+   * @return \Doctrine\Common\Collections\Collection
+   */
+  public function hasChildren()
+  {
+    return count($this->children) != 0;
+  }
 
-    /**
-     * @param Location $locations
-     */
-    public function setLocations($locations)
-    {
-        $this->locations = $locations;
-    }
+  /**
+   * @return \Doctrine\Common\Collections\Collection
+   */
+  public function getLocations()
+  {
+    return $this->locations;
+  }
 
-    /**
-     * @return mixed
-     */
-    public function getRoles()
-    {
-        return $this->roles;
-    }
+  /**
+   * @param Location $locations
+   */
+  public function setLocations($locations)
+  {
+    $this->locations = $locations;
+  }
 
-    /**
-     * @param mixed $roles
-     */
-    public function setRoles($roles)
-    {
-        $this->roles = $roles;
-    }
+  /**
+   * @return mixed
+   */
+  public function getRoles()
+  {
+    return $this->roles;
+  }
 
-    /**
-     * @return mixed
-     */
-    public function getCategory()
-    {
-        return $this->category;
-    }
+  /**
+   * @param mixed $roles
+   */
+  public function setRoles($roles)
+  {
+    $this->roles = $roles;
+  }
 
-    /**
-     * @param mixed $category
-     */
-    public function setCategory($category)
-    {
-        $this->category = $category;
-    }
+  /**
+   * @return mixed
+   */
+  public function getCategory()
+  {
+    return $this->category;
+  }
+
+  /**
+   * @param mixed $category
+   */
+  public function setCategory($category)
+  {
+    $this->category = $category;
+  }
 
 }
