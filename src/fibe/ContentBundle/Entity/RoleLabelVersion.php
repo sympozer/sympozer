@@ -132,22 +132,6 @@ class RoleLabelVersion
     /**
      * @return mixed
      */
-    public function getContext()
-    {
-        return $this->context;
-    }
-
-    /**
-     * @param mixed $context
-     */
-    public function setContext($context)
-    {
-        $this->context = $context;
-    }
-
-    /**
-     * @return mixed
-     */
     public function getRoleLabel()
     {
         return $this->roleLabel;
