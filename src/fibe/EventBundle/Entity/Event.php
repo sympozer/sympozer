@@ -297,14 +297,14 @@ class Event extends VEvent
         return $this->parent;
     }
 
-    /**
-     * Add children
-     *
-     * @param VEvent $children
-     *
-     * @return Event
-     */
-    public function addChildren(Event $children)
+  /**
+   * Add children
+   *
+   * @param Event $children
+   *
+   * @return $this
+   */
+  public function addChildren(Event $children)
     {
         $this->children[] = $children;
 

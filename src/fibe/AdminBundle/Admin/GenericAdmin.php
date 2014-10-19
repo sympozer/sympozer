@@ -32,7 +32,23 @@ class GenericAdmin extends AdminSympozerInherit
    */
   function setExcluded()
   {
-    //@TODO : faire le lien avec securityBundle + typage logo
-    $this->excluded = array('id', 'mainEvent', 'person', 'logo');
+    //@TODO : faire le typage logo
+    $this->excluded = array(
+      'id',
+      'mainEvent',
+      'person',
+      'logo',
+      //@TODO Fields with types not defined
+      'googleId',
+      'googleAccessToken',
+      'twitterId',
+      'twitterScreenName',
+      'twitterAccessToken',
+      'facebookId',
+      'facebookAccessToken',
+      'linkedinId',
+      'linkedinAccessToken',
+      'plainPassword'
+    );
   }
 }
