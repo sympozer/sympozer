@@ -94,7 +94,7 @@ class Person extends AdditionalInformations
      *
      * organization
      *
-     * @ORM\OneToMany(targetEntity="fibe\CommunityBundle\Entity\OrganizationVersion", mappedBy="organizationVersionOwner", cascade={"all"})
+     * @ORM\OneToMany(targetEntity="fibe\CommunityBundle\Entity\OrganizationVersion", mappedBy="organizationVersionOwner", cascade={"persist", "merge", "remove"})
      * @Expose
      */
     private $organizations;
@@ -426,7 +426,23 @@ class Person extends AdditionalInformations
      */
     public function getOrganizations()
     {
-        return $this->organizations;
+      return $this->organizations;
+    }
+
+    /**
+     * Set organizations
+     *
+     * @param ArrayCollection $organizations
+     * @return $this
+     */
+    public function setOrganizations(ArrayCollection $organizations)
+    {
+      $this->organizations->clear();
+      foreach ($organizations as $organization) {
+        $this->addOrganization($organization);
+      }
+
+      return $this;
     }
 
     /**

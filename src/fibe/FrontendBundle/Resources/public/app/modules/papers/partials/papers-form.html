@@ -18,5 +18,16 @@
     <label for="inputPublishDate">Publish Date</label>
     <input type="text" class="form-control" id="inputPublishDate" placeholder="publish Date" ng-model="paper.publishDate">
 </div>
-<div get-or-create="person" child-field="papers" parent-entity="paper" parent-field="authors" uniq-field="email"></div>
-<div get-or-create="topic" parent-entity="paper" new-politic="create"></div>
+
+<div class="row">
+  <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+    <h1>Persons</h1>
+  </div>
+  <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+    <a class="btn btn-primary btn-inline" href="javascript:void(0)" ng-click="showAddPub = !showAddPub"><i class="fa fa-plus"></i></a>
+  </div>
+  <div sympozer-autocomplete="persons" on-select="addPerson" on-keyup="searchPersons"></div>
+</div>
+
+<!--<div get-or-create="person" child-field="papers" parent-entity="paper" parent-field="authors" uniq-field="email"></div>-->
+<!--<div get-or-create="topic" parent-entity="paper" new-politic="create"></div>-->
