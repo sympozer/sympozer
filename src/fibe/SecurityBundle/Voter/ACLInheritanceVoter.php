@@ -52,7 +52,6 @@
       // check if class of this object is supported by this voter
       if (!$this->supportsClass(get_class($entity))) {
         if (null !== $this->logger) {
-          $this->logger->info(sprintf('[ACLInheritanceVoter] abstain to vote. Not supported entity of type %s', get_class($entity)));
         }
         return self::ACCESS_ABSTAIN;
       }

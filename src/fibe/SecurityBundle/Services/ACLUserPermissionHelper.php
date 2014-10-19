@@ -45,9 +45,7 @@
      * get or create a UserConfPermission object to show or get a form
      *
      * @param    [User]  $manager       the manager to get permissions of. if null : current user
-     * @param bool $restrictForm
-     *
-     * @internal param bool $restrict if none : returns "view" as action  if no manager given to add teamate when the given user doesn't have the owner required permission to update others permission  on the object
+     * @param bool $restrictForm     if none : returns "view" as action  if no manager given to add teamate when the given user doesn't have the owner required permission to update others permission  on the object
      * @return \fibe\SecurityBundle\Entity\UserConfPermission [UserConfPermission]   object listing permission for an user used to show or build a form
      */
     public function getUserConfPermission($manager=null, $restrictForm = true)

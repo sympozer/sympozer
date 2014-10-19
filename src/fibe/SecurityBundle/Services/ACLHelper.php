@@ -1,13 +1,14 @@
 <?php
 namespace fibe\SecurityBundle\Services;
 
+use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Symfony\Component\Security\Core\SecurityContext;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\QueryBuilder;
 use Symfony\Component\Security\Acl\Dbal\MutableAclProvider;
 use Symfony\Component\Security\Acl\Permission\MaskBuilder;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Doctrine\ORM\EntityNotFoundException;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 class ACLHelper
 {
@@ -62,9 +63,13 @@ class ACLHelper
     {
       return $teamate = $this->entityManager->getRepository('fibeSecurityBundle:User')->find($id);
     }
+    else if(($user = $this->securityContext->getToken()->getUser()) instanceof UserInterface)
+    {
+      return $user;
+    }
     else
     {
-      return $this->securityContext->getToken()->getUser();
+      throw new UnauthorizedHttpException('negotiate', 'You must be logged in to create a new event');
     }
   }
 
