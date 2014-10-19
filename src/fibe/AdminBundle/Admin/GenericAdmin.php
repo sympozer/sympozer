@@ -54,7 +54,12 @@ class GenericAdmin extends AdminSympozerInherit
       'sponsors',
       'topics',
       'priority',
-      'isInstant'
+      'isInstant',
+      'organizations',
+      'mainEvents',
+      'accounts',
+      'openId',
+      'img'
     );
   }
 }

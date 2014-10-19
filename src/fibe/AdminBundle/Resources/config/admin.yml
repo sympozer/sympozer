@@ -31,7 +31,7 @@ services:
         calls:
             - [ setTranslationDomain, [EventBundle]]
     sonata.admin.vEvent:
-        class: fibe\AdminBundle\Admin\VEventAdmin
+        class: fibe\AdminBundle\Admin\OnlyListAdmin
         tags:
             - { name: sonata.admin, manager_type: orm, group: "EventBundle", label: "VEvent" }
         arguments:
@@ -61,16 +61,6 @@ services:
         calls:
             - [ setTranslationDomain, [EventBundle]]
 #Community Bundle
-    sonata.admin.additionalInformations:
-        class: fibe\AdminBundle\Admin\GenericAdmin
-        tags:
-            - { name: sonata.admin, manager_type: orm, group: "CommunityBundle", label: "AdditionalInformations" }
-        arguments:
-            - ~
-            - fibe\CommunityBundle\Entity\AdditionalInformations
-            - ~
-        calls:
-            - [ setTranslationDomain, [CommunityBundle]]
     sonata.admin.organization:
         class: fibe\AdminBundle\Admin\GenericAdmin
         tags:

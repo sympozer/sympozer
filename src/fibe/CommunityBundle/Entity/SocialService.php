@@ -145,6 +145,14 @@ class SocialService
   }
 
   /**
+   * @param mixed $accounts
+   */
+  public function setAccounts($accounts)
+  {
+    $this->accounts = $accounts;
+  }
+
+  /**
    * __toString method
    *
    * @return mixed
