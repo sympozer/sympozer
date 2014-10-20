@@ -90,7 +90,11 @@
             <!-- @button : collapse panel Current conference -->
             <a data-toggle="collapse" data-parent="#conferenceAccordion" href="#mainEvents/show/{{currentMainEvent.id}}#collapseConference" class="panel-heading-href btn btn-default noBorder">
                 <h4 class="panel-title">
-                    <div class="img-container-md"><img class="scale-img" src="{{currentMainEvent.logo}}"/></div> {{currentMainEvent.label}}
+                    <div class="img-container-md">
+                        <img class="scale-img" src="{{currentMainEvent.logo}}"/>
+                        <img ng-show="!currentMainEvent.logo" class="scale-img " src="{{GLOBAL_CONFIG.app.urls.img+'no-picture.jpg'}}"/>
+
+                    </div> {{currentMainEvent.label}}
                 </h4>
             </a>
         </div>

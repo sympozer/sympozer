@@ -3,8 +3,8 @@
  *
  * @type {controller}
  */
-    angular.module('papersApp').controller('papersNewCtrl', [ '$scope', '$window', '$modal', 'createDialog', '$rootScope', 'GLOBAL_CONFIG', '$location', 'papersFact', 'personsFact', 'topicsFact', '$modalInstance',
-    function ($scope, $window, $modal, createDialogService, $rootScope, GLOBAL_CONFIG, $location, papersFact, personsFact, topicsFact, $modalInstance)
+    angular.module('papersApp').controller('papersNewCtrl', [ '$scope', '$window', '$modal', 'createDialog', '$rootScope', 'GLOBAL_CONFIG', '$location', 'papersFact', 'personsFact', 'topicsFact',
+    function ($scope, $window, $modal, createDialogService, $rootScope, GLOBAL_CONFIG, $location, papersFact, personsFact, topicsFact)
 {
     $scope.paper = new papersFact();
     var error = function (response, args)

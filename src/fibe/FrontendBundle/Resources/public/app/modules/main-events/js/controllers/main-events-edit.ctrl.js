@@ -7,6 +7,8 @@ angular.module('mainEventsApp').controller('mainEventsEditCtrl', [ '$scope', '$r
 {
     $scope.mainEvent = mainEventsFact.get({id: $routeParams.mainEventId});
 
+    //initialize map zoom
+    $scope.center = { zoom: 2 }
 
     var error = function (response, args)
     {
