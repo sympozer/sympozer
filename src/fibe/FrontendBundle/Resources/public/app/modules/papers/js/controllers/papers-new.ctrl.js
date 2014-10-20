@@ -3,7 +3,8 @@
  *
  * @type {controller}
  */
-angular.module('papersApp').controller('papersNewCtrl', [ '$scope', '$window', 'createDialog', '$rootScope', 'GLOBAL_CONFIG', '$location', 'papersFact', 'personsFact', 'topicsFact', '$modalInstance', function ($scope, $window, createDialogService, $rootScope, GLOBAL_CONFIG, $location, papersFact, personsFact, topicsFact, $modalInstance)
+    angular.module('papersApp').controller('papersNewCtrl', [ '$scope', '$window', '$modal', 'createDialog', '$rootScope', 'GLOBAL_CONFIG', '$location', 'papersFact', 'personsFact', 'topicsFact', '$modalInstance',
+    function ($scope, $window, $modal, createDialogService, $rootScope, GLOBAL_CONFIG, $location, papersFact, personsFact, topicsFact, $modalInstance)
 {
     $scope.paper = new papersFact();
     var error = function (response, args)
@@ -14,8 +15,8 @@ angular.module('papersApp').controller('papersNewCtrl', [ '$scope', '$window', '
     var success = function (response, args)
     {
         $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'paper created', type: 'success'});
-        if($modalInstance){
-            $modalInstance.close($scope.paper);
+        if($scope.$close){
+            $scope.$close($scope.paper);
         }else{
             $window.history.back();
         }
@@ -32,58 +33,64 @@ angular.module('papersApp').controller('papersNewCtrl', [ '$scope', '$window', '
 
 
     $scope.cancel = function () {
-        $modalInstance.dismiss('cancel');
+        $scope.$dismiss('cancel');
     };
 
-
-    //Autocomplete and add person workflow
+    //Autocomplete and add authors workflow
     $scope.searchPersons = personsFact.all;
     $scope.paper.authors = [];
     $scope.addPerson = function(personModel){
-        function successFn(){
-            personsFact.create(newPerson, function (data) {
-
-                $scope.paper.authors.push(data);
-            });
-        }
         if(!personModel.id) {
-            var newPerson = new personsFact();
-            createDialogService(GLOBAL_CONFIG.app.modules.persons.urls.partials + 'persons-form.html', {
-                title: 'Author creation',
-                controller: 'genericModalCtrl',
-                success: {label: 'Ok', fn: successFn}
-            }, {
-                model: newPerson,
-                modelName : "person"
+            var modalPersonInstance = $modal.open({
+                templateUrl: GLOBAL_CONFIG.app.modules.persons.urls.partials + 'persons-modal-form.html',
+                controller: 'personsNewCtrl',
+                size: "large",
+                resolve: {
+                }
+            });
+            modalPersonInstance.result.then(function (newPerson) {
+                if(!$scope.paper.authors){
+                    $scope.paper.authors = [];
+                }
+                $scope.paper.authors.push(newPerson);
+            }, function () {
+                //$log.info('Modal dismissed at: ' + new Date());
             });
         }else{
+            if(!$scope.paper.authors){
+                $scope.paper.authors = [];
+            }
             $scope.paper.authors.push(personModel);
+
         }
-    };
+    }
 
 
-    //Autocomplete and add person workflow
+    //Autocomplete and add topic workflow
     $scope.searchTopics = topicsFact.all;
     $scope.paper.topics = [];
-
     $scope.addTopic = function(topicModel){
-        function successFn(){
-            topicsFact.create(newTopic, function (data) {
-                $scope.paper.topics.push(data);
-            });
-        }
         if(!topicModel.id) {
-            var newTopic = new topicsFact();
-            createDialogService(GLOBAL_CONFIG.app.modules.topics.urls.partials + 'topics-form.html', {
-                title: 'Topic creation',
-                controller: 'genericModalCtrl',
-                success: {label: 'Ok', fn: successFn}
-            }, {
-                model: newTopic,
-                modelName : "topic"
+            var modalInstance = $modal.open({
+                templateUrl: GLOBAL_CONFIG.app.modules.topics.urls.partials + 'topics-modal-form.html',
+                controller: 'topicsNewCtrl',
+                size: "large",
+                resolve: {
+                }
+            });
+            modalInstance.result.then(function (newTopic) {
+                if(!$scope.paper.topics){
+                    $scope.paper.topics = [];
+                }
+                $scope.paper.topics.push(newTopic);
+            }, function () {
+                //$log.info('Modal dismissed at: ' + new Date());
             });
         }else{
+            if(!$scope.paper.topics){
+                $scope.paper.topics = [];
+            }
             $scope.paper.topics.push(topicModel);
         }
-    };
+    }
 }]);

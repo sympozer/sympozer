@@ -229,57 +229,7 @@ output='js/compiled/app.js' %}
             ;
 
     var globalConfig = {
-      api: {
-        urls: {
-          {#get_organizations: "{{ path('community_organization_post') }}",#}
-          get_organization_versions: "{{ path('community_organization_versions_post') }}",
-
-          get_persons: "{{ path('community_persons_post') }}",
-          get_locations: "{{ path('content_locations_post') }}",
-          get_equipments: "{{ path('content_equipments_post') }}",
-          get_events: "{{ path('schedule_events_post') }}",
-
-          get_roles: "{{ path('content_roles_post') }}",
-          get_roleLabel_verions: "{{ path('content_roleLabel_versions_post') }}",
-          get_roleLabels: "{{ path('content_roleLabels_post') }}",
-
-          get_papers: "{{ path('content_papers_post') }}",
-          get_topics: "{{ path('content_topics_post') }}",
-          get_categories: "{{ path('schedule_category_versions_post') }}",
-          get_mainEvents: "{{ path('schedule_mainEvents_post') }}",
-          login: "{{ path('login_check', {_format: 'json'}) }}",
-          logout: "{{ path('logout') }}",
-          registration: "{{ path('security_signup') }}",
-          confirm: "{{ path('security_confirm') }}",
-          changepwd: "{{ path('security_changepwd') }}",
-          reset_pwd_request: "{{ path('security_resetpwdrequest') }}",
-          reset_pwd: "{{ path('security_resetpwd') }}",
-          socialnetworks:[
-            {% for owner in hwi_oauth_resource_owners() %}{% if loop.first %}{% else %},{% endif %}
-            {
-              name : "{{ owner }}",
-              urls: {
-                login: "{{ hwi_oauth_login_url(owner) }}",
-                enrich: "{{ path('enrich_account', { 'socialService': owner }) }}"
-              },
-              {# can't register with twitter as long as they chose to not return user's mail :( #}
-              can_register: {% if owner == 'twitter' %}false{% else %}true{% endif %}
-            }
-            {% endfor %}
-          ]
-        }
-      },
-      app: {
-        options: {
-          shouldLogin: {% if shouldLogin %}true{% else %}false{% endif %}
-        },
-        urls: {
-          base: "{{ asset('bundles/frontend/app/') }}",
-          partials: "{{ asset('bundles/frontend/app/partials/') }}",
-          img: "{{ asset('bundles/frontend/app/img/') }}"
-        },
-        modules: {
-          organizations: {
+        api: {
             urls: {
                 {#get_organizations: "{{ path('community_organization_post') }}",#}
                 get_organization_versions: "{{ path('community_organization_versions_post') }}",

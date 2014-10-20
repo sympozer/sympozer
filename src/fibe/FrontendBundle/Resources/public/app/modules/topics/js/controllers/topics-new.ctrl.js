@@ -3,7 +3,7 @@
  *
  * @type {controller}
  */
-angular.module('topicsApp').controller('topicsNewCtrl', [ '$scope', '$rootScope', 'topicsFact', '$modalInstance', function ($scope, $rootScope, topicsFact, $modalInstance)
+angular.module('topicsApp').controller('topicsNewCtrl', [ '$scope', '$rootScope', 'topicsFact', function ($scope, $rootScope, topicsFact)
 {
 
     $scope.topic = new topicsFact();
@@ -15,10 +15,10 @@ angular.module('topicsApp').controller('topicsNewCtrl', [ '$scope', '$rootScope'
     var success = function (response, args)
     {
         $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'topic created', type: 'success'});
-        if($modalInstance){
-            $modalInstance.close($scope.topic);
+        if($scope.$close){
+            $scope.$close($scope.topic);
         }else{
-            $topic.path('/topics/list');
+            $window.history.back();
         }
     }
 
@@ -31,7 +31,7 @@ angular.module('topicsApp').controller('topicsNewCtrl', [ '$scope', '$rootScope'
     }
 
     $scope.cancel = function () {
-        $modalInstance.dismiss('cancel');
+        $scope.$dismiss('cancel');
     };
 
 }]);

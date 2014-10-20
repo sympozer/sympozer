@@ -5,7 +5,7 @@
  */
 
 angular.module('eventsApp').controller('eventsNewCtrl', [ '$scope', '$window', 'GLOBAL_CONFIG', '$routeParams', '$rootScope', '$location', 'eventsFact', 'categoriesFact', 'topicsFact', 'locationsFact', 'papersFact', '$modal',
-    function ($scope, $window, GLOBAL_CONFIG, $routeParams, $rootScope, $location, eventsFact, categoriesFact, topicsFact, locationsFact, papersFact, $modal)
+    function ($scope, $window, GLOBAL_CONFIG, $routeParams, $rootScope, $location, eventsFact, categoriesFact, topicsFact, locationsFact, papersFact, $modal )
     {
         $scope.event = new eventsFact;
 
@@ -17,7 +17,11 @@ angular.module('eventsApp').controller('eventsNewCtrl', [ '$scope', '$window', '
         var success = function (response, args)
         {
             $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'event created', type: 'success'});
-            $window.history.back();
+            if($scope.$close){
+                $scope.$close($scope.event);
+            }else{
+                $window.history.back();
+            }
         }
 
         $scope.create = function (form)
@@ -28,6 +32,10 @@ angular.module('eventsApp').controller('eventsNewCtrl', [ '$scope', '$window', '
                 $scope.event.$create({}, success, error);
             }
         }
+
+        $scope.cancel = function () {
+            $scope.$dismiss('cancel');
+        };
 
         //Autocomplete and add paper workflow
         $scope.searchCategories = categoriesFact.allByConference;
@@ -50,7 +58,7 @@ angular.module('eventsApp').controller('eventsNewCtrl', [ '$scope', '$window', '
             }
         }
 
-        //Autocomplete and add paper workflow
+        //Autocomplete and add topic workflow
         $scope.searchTopics = topicsFact.all;
         $scope.event.topics = [];
         $scope.addTopic = function(topicModel){
@@ -73,7 +81,7 @@ angular.module('eventsApp').controller('eventsNewCtrl', [ '$scope', '$window', '
         }
 
 
-        //Autocomplete and add paper workflow
+        //Autocomplete and add location workflow
         $scope.searchLocations = locationsFact.allByConference;
         $scope.event.locations = [];
         $scope.addLocation = function(locationModel){
@@ -127,6 +135,7 @@ angular.module('eventsApp').controller('eventsNewCtrl', [ '$scope', '$window', '
                 controller: 'rolesNewCtrl',
                 size: "large",
                 resolve: {
+                    modalInstanceParent : modalInstance
                 }
             });
             modalInstance.result.then(function (newRole) {

@@ -4,8 +4,8 @@
  *
  * @type {controller}
  */
-angular.module('locationsApp').controller('locationsNewCtrl', [ '$scope', '$window', '$routeParams', '$rootScope', '$location', 'locationsFact', '$modalInstance',
-    function ($scope, $window, $routeParams, $rootScope, $location, locationsFact, $modalInstance)
+angular.module('locationsApp').controller('locationsNewCtrl', [ '$scope', '$window', '$routeParams', '$rootScope', '$location', 'locationsFact',
+    function ($scope, $window, $routeParams, $rootScope, $location, locationsFact)
     {
         $scope.location = new locationsFact;
 
@@ -19,8 +19,8 @@ angular.module('locationsApp').controller('locationsNewCtrl', [ '$scope', '$wind
         var success = function (response, args)
         {
             $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'location created', type: 'success'});
-            if($modalInstance){
-                $modalInstance.close($scope.category);
+            if($scope.$close){
+                $scope.$close($scope.person);
             }else{
                 $window.history.back();
             }
@@ -36,7 +36,7 @@ angular.module('locationsApp').controller('locationsNewCtrl', [ '$scope', '$wind
         }
 
         $scope.cancel = function () {
-            $modalInstance.dismiss('cancel');
+            $scope.$dismiss('cancel');
         };
 
         $scope.markers = new Array();

@@ -1,4 +1,4 @@
-angular.module('categoriesApp').controller('categoriesNewCtrl', [ '$scope', '$window', '$routeParams', '$rootScope', '$location', 'categoriesFact', '$modalInstance', function ($scope, $window, $routeParams, $rootScope, $location, categoriesFact, $modalInstance) {
+angular.module('categoriesApp').controller('categoriesNewCtrl', [ '$scope', '$window', '$routeParams', '$rootScope', '$location', 'categoriesFact', function ($scope, $window, $routeParams, $rootScope, $location, categoriesFact) {
 
     $scope.category = new categoriesFact;
 
@@ -8,17 +8,16 @@ angular.module('categoriesApp').controller('categoriesNewCtrl', [ '$scope', '$wi
 
     var success = function(response, args){
         $rootScope.$broadcast('AlertCtrl:addAlert', {code:'category created', type:'success'});
-        if($modalInstance){
-            $modalInstance.close($scope.category);
+        if($scope.$close){
+            $scope.$close($scope.person);
         }else{
             $window.history.back();
-
         }
         //$location.path('/conference/'+$routeParams.mainEventId+'/categories/list');
     };
 
     $scope.cancel = function () {
-        $modalInstance.dismiss('cancel');
+        $scope.$dismiss('cancel');
     };
 
     $scope.create = function(form){
