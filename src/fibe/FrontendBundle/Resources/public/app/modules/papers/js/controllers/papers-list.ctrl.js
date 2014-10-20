@@ -10,7 +10,6 @@ angular.module('papersApp').controller('papersListCtrl', ['$scope', '$routeParam
 
     $scope.request = papersFact.allByConference;
 
-
     $scope.reload = function ()
     {
 //        $scope.entities.$promise.then(function ()

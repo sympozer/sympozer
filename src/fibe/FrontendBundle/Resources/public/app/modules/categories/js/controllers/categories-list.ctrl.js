@@ -10,14 +10,8 @@ angular.module('categoriesApp').controller('categoriesListCtrl', ['$scope', '$ro
 
 
     $scope.entities = [];
+    $scope.request = categoriesFact.allByConference;
 
-    var baseFilters;
-    if ($routeParams.mainEventId)
-    {
-        $scope.filters = baseFilters = {
-            mainEventId: $routeParams.mainEventId
-        };
-    }
 
     $scope.reload = function ()
     {

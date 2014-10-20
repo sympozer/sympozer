@@ -4,7 +4,7 @@
  * @type {controller}
  */
 
-angular.module('organizationsApp').controller('organizationsNewCtrl', [ '$scope', '$routeParams', '$rootScope', '$location', 'organizationsFact', function ($scope, $routeParams, $rootScope, $location, organizationsFact)
+angular.module('organizationsApp').controller('organizationsNewCtrl', [ '$scope', '$window', '$routeParams', '$rootScope', '$location', 'organizationsFact', function ($scope, $window, $routeParams, $rootScope, $location, organizationsFact)
 {
     $scope.organization = new organizationsFact;
 
@@ -16,6 +16,11 @@ angular.module('organizationsApp').controller('organizationsNewCtrl', [ '$scope'
     var success = function (response, args)
     {
         $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'organization created', type: 'success'});
+        if($scope.$close){
+            $scope.$close($scope.organization);
+        }else{
+            $window.history.back();
+        }
     }
 
     $scope.create = function (form)
@@ -26,5 +31,9 @@ angular.module('organizationsApp').controller('organizationsNewCtrl', [ '$scope'
             $scope.organization.$create({}, success, error);
         }
     }
+
+    $scope.cancel = function () {
+        $scope.$dismiss('cancel');
+    };
 }
 ]);

@@ -11,13 +11,7 @@ angular.module('locationsApp').controller('locationsListCtrl', ['$scope', '$rout
 
     $scope.entities = [];
 
-    var baseFilters;
-    if ($routeParams.mainEventId)
-    {
-        $scope.filters = baseFilters = {
-            mainEventId: $routeParams.mainEventId
-        };
-    }
+    $scope.request = locationsFact.allByConference;
 
     $scope.reload = function ()
     {

@@ -10,7 +10,7 @@
             <h3>{{location.label || '???'}}</h3> <h5>{{location.capacity || '???'}} of capacity</h5>
             <pre>{{location.description || 'add a description'}}</pre>
             <pre>{{location.accesibility || 'add a accesibility description'}}</pre>
-            <a class="btn btn-info" href="#location/edit/{{location.id}}" role="button">
+            <a class="btn btn-info" href="#/conference/{{location.mainEvent.id}}/locations/edit/{{location.id}}" role="button">
                 <i class="fa fa-edit fa-1x"></i> Edit the location
             </a>
         </div>

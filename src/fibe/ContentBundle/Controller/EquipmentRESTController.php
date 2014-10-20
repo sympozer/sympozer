@@ -44,7 +44,7 @@ class EquipmentRESTController extends FOSRestController
     }
     /**
      * Lists all Equipment entities.
-     * @Rest\Get("/equipments")
+     * @Rest\Get("/equipments",name="content_equipments_all")
      * @Rest\View
      * @Rest\QueryParam(name="offset", requirements="\d+", nullable=true, description="Offset from which to start listing pages.")
      * @Rest\QueryParam(name="limit", requirements="\d+", default="10", description="How many entity to return.")
@@ -62,7 +62,7 @@ class EquipmentRESTController extends FOSRestController
     }
 
     /**
-     * @Rest\Get("/equipments/{id}")
+     * @Rest\Get("/equipments/{id}",name="content_equipments_get")
      **/
     public function getEquipmentAction($id)
     {

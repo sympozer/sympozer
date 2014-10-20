@@ -8,8 +8,16 @@ angular.module('categoriesApp').controller('categoriesNewCtrl', [ '$scope', '$wi
 
     var success = function(response, args){
         $rootScope.$broadcast('AlertCtrl:addAlert', {code:'category created', type:'success'});
-        $window.history.back();
+        if($scope.$close){
+            $scope.$close($scope.person);
+        }else{
+            $window.history.back();
+        }
         //$location.path('/conference/'+$routeParams.mainEventId+'/categories/list');
+    };
+
+    $scope.cancel = function () {
+        $scope.$dismiss('cancel');
     };
 
     $scope.create = function(form){

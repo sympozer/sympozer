@@ -11,7 +11,7 @@ angular.module('papersApp')
         {
             $routeProvider
                 .when('/papers/list', {
-                    templateUrl: globalConfig.app.modules.papers.urls.communityPartials + 'papers-community-list.html',
+                    templateUrl: globalConfig.app.modules.papers.urls.communityPartials + 'papers-community-thumb.html',
                     controller : 'papersCommunityListCtrl'
                 })
                 .when('/papers/thumbnail', {

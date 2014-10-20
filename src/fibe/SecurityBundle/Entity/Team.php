@@ -18,7 +18,6 @@ use JMS\Serializer\Annotation\Expose;
  */
 class Team
 {
-
   /**
    * @var integer
    *
@@ -27,7 +26,6 @@ class Team
    * @ORM\GeneratedValue(strategy="AUTO")
    */
   private $id;
-
 
   /**
    * Conference
@@ -106,5 +104,13 @@ class Team
   public function getTeammates()
   {
     return $this->teammates;
+  }
+
+  /**
+   * Return a representative string a the team
+   */
+  public function __toString()
+  {
+    return 'NO LABEL';
   }
 }

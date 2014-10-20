@@ -1,0 +1,15 @@
+<div class="row">
+    <input type="text" class="form-control" placeholder="Search" ng-change="sendQuery(query)" ng-model="query">
+</div>
+<hr/>
+<div class="row" entity-list-handler="papers" infinite-scroll='load()' infinite-scroll-disabled='busy' infinite-scroll-distance='0.5'>
+    <div ng-repeat="paper in entities  track by $index" class="col-sm-6 col-md-6 col-lg-4 well">
+        <i class="fa fa-book fa-3x"></i>
+        <h2>{{ paper.label }}</h2>
+
+        <a class="btn btn-default" href="#conference/{{ paper.mainEvent.id }}/papers/show/{{ paper.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>
+
+    </div>
+</div>
+
+

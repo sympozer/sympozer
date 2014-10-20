@@ -11,8 +11,8 @@ angular.module('organizationsApp')
         {
             $routeProvider
                 .when('/organizations/list', {
-                    templateUrl: globalConfig.app.modules.organizations.urls.partials + 'organizations-list.html',
-                    controller : 'organizationsListCtrl'
+                    templateUrl: globalConfig.app.modules.organizations.urls.communityPartials + 'organizations-community-thumbnail.html',
+                    controller : 'organizationsCommunityListCtrl'
                 })
                 .when('/organizations/thumbnail', {
                     templateUrl: globalConfig.app.modules.organizations.urls.partials + 'organizations-thumbnail.html',

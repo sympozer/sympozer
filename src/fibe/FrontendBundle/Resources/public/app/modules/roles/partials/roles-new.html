@@ -1,7 +1,8 @@
 <div ng-include="GLOBAL_CONFIG.app.modules.roleLabels.urls.partials+'roles-actions.html'" ng-controller="rolesMainCtrl"></div>
 <form name="roleNewForm" class="form" role="form" ng-submit="create(roleNewForm)">
     <div ng-include="GLOBAL_CONFIG.app.modules.roles.urls.partials+'roles-form.html'"></div>
+    <hr/>
     <div class="form-group">
-    <button type="submit" class="btn btn-success">Save</button>
-  </div>
+        <button type="submit" class="btn btn-success">Save</button>
+    </div>
 </form>

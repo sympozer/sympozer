@@ -1,0 +1,16 @@
+<div class="modal-header">
+    <h3 class="modal-title">New topic</h3>
+</div>
+<div class="modal-body">
+    <form name="topicEditForm" class="form" role="form">
+        <div>
+            <label for="inputLabel">Label</label>
+            <input type="text" class="form-control" id="inputLabel" placeholder="Label" ng-model="topic.label" required>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" ng-click="create(topicEditForm)">OK</button>
+    <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+</div>
+

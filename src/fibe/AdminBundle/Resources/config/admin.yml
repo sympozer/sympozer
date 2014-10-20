@@ -31,7 +31,7 @@ services:
         calls:
             - [ setTranslationDomain, [EventBundle]]
     sonata.admin.vEvent:
-        class: fibe\AdminBundle\Admin\VEventAdmin
+        class: fibe\AdminBundle\Admin\OnlyListAdmin
         tags:
             - { name: sonata.admin, manager_type: orm, group: "EventBundle", label: "VEvent" }
         arguments:
@@ -61,16 +61,6 @@ services:
         calls:
             - [ setTranslationDomain, [EventBundle]]
 #Community Bundle
-    sonata.admin.additionalInformations:
-        class: fibe\AdminBundle\Admin\GenericAdmin
-        tags:
-            - { name: sonata.admin, manager_type: orm, group: "CommunityBundle", label: "AdditionalInformations" }
-        arguments:
-            - ~
-            - fibe\CommunityBundle\Entity\AdditionalInformations
-            - ~
-        calls:
-            - [ setTranslationDomain, [CommunityBundle]]
     sonata.admin.organization:
         class: fibe\AdminBundle\Admin\GenericAdmin
         tags:
@@ -204,22 +194,12 @@ services:
             - [ setTranslationDomain, [ContentBundle]]
 #Security Bundle (contains users, teams, ...)
     sonata.admin.user:
-        class: fibe\AdminBundle\Admin\GenericAdmin
+        class: fibe\AdminBundle\Admin\UserAdmin
         tags:
             - { name: sonata.admin, manager_type: orm, group: "SecurityBundle", label: "User" }
         arguments:
             - ~
             - fibe\SecurityBundle\Entity\User
-            - ~
-        calls:
-            - [ setTranslationDomain, [SecurityBundle]]
-    sonata.admin.team:
-        class: fibe\AdminBundle\Admin\GenericAdmin
-        tags:
-            - { name: sonata.admin, manager_type: orm, group: "SecurityBundle", label: "Team" }
-        arguments:
-            - ~
-            - fibe\SecurityBundle\Entity\Team
             - ~
         calls:
             - [ setTranslationDomain, [SecurityBundle]]

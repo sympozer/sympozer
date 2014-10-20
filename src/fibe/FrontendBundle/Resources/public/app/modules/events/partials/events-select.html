@@ -1,27 +1,10 @@
-<label>Events</label>
-<div>
-  <!--case of multiple choices : select-->
-  <div ng-if="!singleChoice">
-      <span ng-repeat="entity in resource[parentField]  track by $index" class="tag label label-info">
-        <span>{{ entity.label }}</span>
-        <a ng-click="deleteEntity($index,entity)"><span class="fa fa-times"></span></a>
-      </span>
-  </div>
-  <div ng-if="singleChoice && resource[parentField].label ">
-      <span class="tag label label-info">
-        <span>{{ resource[parentField].label }}</span>
-      </span>
-  </div>
-</div>
-
-<ui-select ng-model="addedEntity" on-select="change($model)" ng-keyup="keyup($event)" style="width: 100%;">
-  <ui-select-match>Add an event...</ui-select-match>
-  <ui-select-choices repeat="entity in entities">
-    <div ng-if="!entity.id ">
-      Add a new event ...
-    </div>
-    <i class="fa fa-calendar fa-2x"></i>
-    <b ng-bind-html="entity.label | highlight: $select.search"></b>
-  </ui-select-choices>
+<ui-select ng-model="entities" on-select="onSelect($model)" ng-keyup="keyup($event)" style="width: 100%;">
+    <ui-select-match>Event...</ui-select-match>
+    <ui-select-choices repeat="entity in entities">
+        <div ng-if="!entity.id ">
+            <i class="fa fa-plus"></i> Add a new event...
+        </div>
+        <b ng-bind-html="entity.label | highlight: $select.search"></b>
+    </ui-select-choices>
 </ui-select>
 <br/>

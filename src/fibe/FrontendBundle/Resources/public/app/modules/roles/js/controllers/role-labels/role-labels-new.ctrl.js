@@ -16,7 +16,11 @@ angular.module('roleLabelsApp').controller('roleLabelsNewCtrl',
         var success = function (response, args)
         {
             $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'roleLabel created', type: 'success'});
-            $window.history.back();
+            if($scope.$close){
+                $scope.$close($scope.roleLabel);
+            }else{
+                $window.history.back();
+            }
 
         };
 
@@ -28,4 +32,8 @@ angular.module('roleLabelsApp').controller('roleLabelsNewCtrl',
                 $scope.roleLabel.$create({}, success, error);
             }
         }
+
+        $scope.cancel = function () {
+            $scope.$dismiss('cancel');
+        };
     }]);

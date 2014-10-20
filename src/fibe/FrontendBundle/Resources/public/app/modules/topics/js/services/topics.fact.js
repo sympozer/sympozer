@@ -16,7 +16,8 @@ angular.module('topicsApp').factory('topicsFact',
                 create: {method: 'POST', params: {}, isArray: false},
                 update: {method: 'PUT', url: globalConfig.api.urls.get_topics + '/:id', params: {id: '@id'}, isArray: false},
                 delete: {method: 'DELETE', url: globalConfig.api.urls.get_topics + '/:id', params: {id: '@id'}, isArray: false},
-                all   : {method: 'GET', params: {}, isArray: true}
+                all   : {method: 'GET', params: {}, isArray: true},
+                allByConference: {method: 'GET', url: globalConfig.api.urls.get_mainEvents + '/:mainEventId/topics', params: {'mainEventId': '@mainEventId'}, isArray: true}
             }
         );
     }]);

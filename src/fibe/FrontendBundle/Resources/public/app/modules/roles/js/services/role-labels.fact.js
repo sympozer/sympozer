@@ -18,7 +18,7 @@ angular.module('roleLabelsApp').factory('roleLabelsFact',
                     update: {method: 'PUT', url: globalConfig.api.urls.get_roleLabel_verions + '/:id', params: {id: '@id'}, isArray: false},
                     delete: {method: 'DELETE', url: globalConfig.api.urls.get_roleLabel_verions + '/:id', params: {id: '@id'}, isArray: false},
                     all   : {method: 'GET', url: globalConfig.api.urls.get_roleLabel_verions, params: {}, isArray: true},
-                    allByConference: {method: 'GET', url: globalConfig.api.urls.get_mainEvents + '/:mainEventId/roleLabelVersions', params: {'mainEventId': $routeParams.mainEventId}, isArray: true}
+                    allByConference: {method: 'GET', url: globalConfig.api.urls.get_mainEvents + '/:mainEventId/roleLabelVersions', params: {'mainEventId': '@mainEventId'}, isArray: true}
                 }
             );
         }]);

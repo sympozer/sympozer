@@ -8,8 +8,9 @@
         </div>
         <div class="col-sm-4 col-md-4 col-lg-4">
             <h3>{{paper.label || '???'}}</h3> <h5>{{paper.publisher || '???'}} {{paper.publishDate || '???'}}</h5>
+            <p>{{ paper.url }}</p>
             <pre>{{paper.abstract || 'add an abstract'}}</pre>
-            <a class="btn btn-info" href="#paper/edit/{{paper.id}}" role="button">
+            <a class="btn btn-info" href="#conference/{{paper.mainEvent.id}}/paper/edit/{{paper.id}}" role="button">
                 <i class="fa fa-edit fa-1x"></i> Edit the paper
             </a>
         </div>

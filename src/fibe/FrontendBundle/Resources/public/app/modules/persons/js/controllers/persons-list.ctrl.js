@@ -8,15 +8,9 @@ angular.module('personsApp').controller('personsListCtrl', ['$scope', '$routePar
     $scope.GLOBAL_CONFIG = GLOBAL_CONFIG;
 
     $scope.entities = [];
-    $scope.request = $routeParams.mainEventId ? personsFact.allByConference : personsFact.all;
 
-    var baseFilters;
-    if ($routeParams.mainEventId)
-    {
-        $scope.filters = baseFilters = {
-            mainEventId: $routeParams.mainEventId
-        };
-    }
+    $scope.request = personsFact.allByConference;
+
 
     $scope.reload = function ()
     {

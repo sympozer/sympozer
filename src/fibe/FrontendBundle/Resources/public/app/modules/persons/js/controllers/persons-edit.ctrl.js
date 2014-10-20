@@ -3,7 +3,7 @@
  *
  * @type {controller}
  */
-angular.module('personsApp').controller('personsEditCtrl', [ '$scope', '$rootScope', 'GLOBAL_CONFIG', '$routeParams', '$location', 'createDialog', 'personsFact', 'organizationsFact', 'papersFact', function ($scope, $rootScope, GLOBAL_CONFIG, $routeParams, $location, createDialogService, personsFact, organizationsFact, papersFact)
+angular.module('personsApp').controller('personsEditCtrl', [ '$scope', '$rootScope', '$modal', 'GLOBAL_CONFIG', '$routeParams', '$location', 'createDialog', 'personsFact', 'organizationsFact', 'papersFact', function ($scope, $rootScope, $modal, GLOBAL_CONFIG, $routeParams, $location, createDialogService, personsFact, organizationsFact, papersFact)
 {
     $scope.person = personsFact.get({id: $routeParams.personId});
     $scope.GLOBAL_CONFIG = GLOBAL_CONFIG;
@@ -25,55 +25,63 @@ angular.module('personsApp').controller('personsEditCtrl', [ '$scope', '$rootSco
 
     //Autocomplete and add organization workflow
     $scope.searchOrganizations = organizationsFact.all;
-
     $scope.addOrganization = function(organizationModel){
-        function successFn(){
-            organizationsFact.create(newOrganization, function (data) {
-                $scope.person.organizations.push(data);
-                $scope.updatePerson("organizations", $scope.person.organizations);
-            });
-        }
-
         if(!organizationModel.id) {
-            var newOrganization = new organizationsFact();
-            createDialogService(GLOBAL_CONFIG.app.modules.organizations.urls.partials + 'organizations-form.html', {
-                title: 'Organization creation',
-                controller: 'genericModalCtrl',
-                success: {label: 'Ok', fn: successFn}
-            }, {
-                model: newOrganization,
-                modelName : "organization"
+            var modalInstance = $modal.open({
+                templateUrl: GLOBAL_CONFIG.app.modules.organizations.urls.partials + 'organizations-modal-form.html',
+                controller: 'organizationsNewCtrl',
+                size: "large",
+                resolve: {
+                }
+            });
+            modalInstance.result.then(function (newOrganization) {
+                if(!$scope.person.organizations){
+                    $scope.person.organizations = [];
+                }
+                $scope.person.organizations.push(newOrganization);
+                $scope.updatePerson("organizations", $scope.person.organizations);
+            }, function () {
+                //$log.info('Modal dismissed at: ' + new Date());
             });
         }else{
+            if(!$scope.person.organizations){
+                $scope.person.organizations = [];
+            }
             $scope.person.organizations.push(organizationModel);
             $scope.updatePerson("organizations", $scope.person.organizations);
+
         }
-    };
+    }
 
 
-    //Autocomplete and add organization workflow
+
+    //Autocomplete and add paper workflow
     $scope.searchPapers = papersFact.all;
     $scope.addPaper = function(paperModel){
-        function successFn(){
-            papersFact.create(newPaper, function (data) {
-                $scope.person.papers.push(data);
-                $scope.updatePerson("papers", $scope.person.papers);
-            });
-        }
-
         if(!paperModel.id) {
-            var newPaper = new papersFact();
-            createDialogService(GLOBAL_CONFIG.app.modules.papers.urls.partials + 'papers-form.html', {
-                title: 'Paper creation',
-                controller: 'genericModalCtrl',
-                success: {label: 'Ok', fn: successFn}
-            }, {
-                model: newPaper,
-                modelName : "paper"
+            var modalInstance = $modal.open({
+                templateUrl: GLOBAL_CONFIG.app.modules.papers.urls.partials + 'papers-modal-form.html',
+                controller: 'papersNewCtrl',
+                size: "large",
+                resolve: {
+                }
+            });
+            modalInstance.result.then(function (newPaper) {
+                if(!$scope.person.papers){
+                    $scope.person.papers = [];
+                }
+                $scope.person.papers.push(newPaper);
+                $scope.updatePerson("papers", $scope.person.papers);
+            }, function () {
+                //$log.info('Modal dismissed at: ' + new Date());
             });
         }else{
+            if(!$scope.person.papers){
+                $scope.person.papers = [];
+            }
             $scope.person.papers.push(paperModel);
             $scope.updatePerson("papers", $scope.person.papers);
+
         }
     }
 }]);

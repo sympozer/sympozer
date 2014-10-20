@@ -12,7 +12,7 @@
  *    @param on-keyup             : Function to trigger when the user type a research
  */
 angular.module('sympozerApp').directive('sympozerAutocomplete', [
-    'GLOBAL_CONFIG', function (GLOBAL_CONFIG)
+    'GLOBAL_CONFIG','$routeParams', function (GLOBAL_CONFIG, $routeParams)
     {
         return {
             template: '<div ng-include="templateUrl"></div>',
@@ -28,9 +28,9 @@ angular.module('sympozerApp').directive('sympozerAutocomplete', [
                     return console.error('missing mandatory field in "sympozer-autocomplete" directive (see doc above)');
                 }
 
+                scope.GLOBAL_CONFIG = GLOBAL_CONFIG;
                 scope.searchedEntity = attrs.sympozerAutocomplete;
                 scope.templateUrl = GLOBAL_CONFIG.app.modules[scope.searchedEntity].urls.partials + scope.searchedEntity + '-select.html';
-
 
                 /**
                  * fired when the keyboard is hit
@@ -42,7 +42,17 @@ angular.module('sympozerApp').directive('sympozerAutocomplete', [
                     {
                         return;
                     }
-                    scope.onKeyup({query : $event.target.value}, function(data){
+
+                    var requestParams = {};
+                    requestParams.query = $event.target.value;
+
+                    //Add route parameters to object for request
+                    for (var param in $routeParams)
+                    {
+                        requestParams[param] = $routeParams[param];
+                    }
+
+                    scope.onKeyup(requestParams, function(data){
                         addResults(data);
                     });
                 };
