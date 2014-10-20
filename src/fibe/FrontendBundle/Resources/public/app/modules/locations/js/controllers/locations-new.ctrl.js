@@ -8,6 +8,7 @@ angular.module('locationsApp').controller('locationsNewCtrl', [ '$scope', '$wind
     function ($scope, $window, $routeParams, $rootScope, $location, locationsFact)
     {
         $scope.location = new locationsFact;
+        $scope.location.equipments = [];
 
         //initialize map zoom
         $scope.center = { zoom: 2 }
@@ -38,6 +39,13 @@ angular.module('locationsApp').controller('locationsNewCtrl', [ '$scope', '$wind
         $scope.cancel = function () {
             $scope.$dismiss('cancel');
         };
+
+        //Autocomplete and add equipment workflow
+        $scope.searchEquipments = equipmentsFact.all;
+        $scope.addEquipment = function (equipmentModel)
+        {
+            $scope.location.equipments.push(equipmentModel);            
+        }
 
         $scope.markers = new Array();
         $scope.$on("leafletDirectiveMap.click", function (event, args)

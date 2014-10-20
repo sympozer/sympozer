@@ -16,10 +16,18 @@
 </div>
 <div class="row">
   <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
-    <h1>Equipments</h1>
-    
+    <h1>{{location.equipments.length}} Equipments</h1>
+       <ul class="nav nav-pills" ng-show="location.equipments.length > 0">
+            <li ng-repeat="equipment in location.equipments track by $index"  class="active">
+                <a href="javascript:void(0)" ng-click="">
+                <span class="badge pull-right"><i class="fa fa-{{equipment.icon}} fa-1x"></i></span>
+                {{ equipment.label }}
+                </a>
+            </li>
+        </ul>
   </div>
-  <div sympozer-autocomplete="equipments" on-select="addEquipment" on-keyup="searchEquipments"></div>
+
+<div sympozer-autocomplete="equipments" on-select="addEquipment" on-keyup="searchEquipments"></div>
 </div>
 
 <div>
