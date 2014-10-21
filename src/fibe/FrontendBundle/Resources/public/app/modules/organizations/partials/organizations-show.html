@@ -4,7 +4,7 @@
     <div class="row">
         <div class="col-sm-1 col-md-1 col-lg-1">
             <div class="img-container-lg">
-                  <img class="scale-img " src="{{ organization.img  || GLOBAL_CONFIG.app.urls.img+'no-picture.jpg'}}" alt="Generic placeholder image" style="width: 70px; height: 80px;">
+                <img class="scale-img " no-image ng-src="{{ organization.img }}" alt="organization image">
             </div>
         </div>
         <div class="col-sm-4 col-md-4 col-lg-4">
@@ -20,23 +20,27 @@
 <div class="row">
     <div class="col-md-6 col-lg-6">
         <h1>{{organization.organizationVersions.organizationVersionOwner.length}} Members</h1>
-       <div ng-repeat="person in organization.organizationVersions.organizationVersionOwner track by $index" class="col-sm-6 col-md-6 col-lg-4 well">
-       		 <img class="scale-img " src="{{ person.img  || GLOBAL_CONFIG.app.urls.img+'no-picture.jpg'}}" alt="Generic placeholder image" style="width: 70px; height: 70px;">
-        		<h3>{{ person.label }}</h3>
+        <div ng-repeat="person in organization.organizationVersions.organizationVersionOwner track by $index" class="col-sm-6 col-md-6 col-lg-4 well">
+            <div class="img-container-lg">
+                <img class="scale-img " no-image ng-src="{{ person.img}}" alt="person img">
+            </div>
+            <h3>{{ person.label }}</h3>
 
-        		<p>{{ person.email }}</p>
+            <p>{{ person.email }}</p>
 
-       			<p>{{ person.country }}</p>
-       			<a class="btn btn-warning" href="#persons/edit/{{ person.id }}" role="button"><i class="fa fa-edit fa-1x"></i></a>
-       			<a class="btn btn-default" href="#persons/show/{{ person.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>
-      </div>
+            <p>{{ person.country }}</p>
+            <a class="btn btn-warning" href="#persons/edit/{{ person.id }}" role="button"><i class="fa fa-edit fa-1x"></i></a>
+            <a class="btn btn-default" href="#persons/show/{{ person.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>
+        </div>
     </div>
     <div class="col-md-3 col-lg-3">
         <h1>{{organization.sponsors.length}} Sponsors</h1>
-      <div ng-repeat="sponsor in organization.sponsors track by $index" class="col-sm-6 col-md-6 col-lg-4 well">
-       		 <img class="scale-img " src="{{ sponsor.logoPath  || GLOBAL_CONFIG.app.urls.img+'no-picture.jpg'}}" alt="Generic placeholder image" style="width: 70px; height: 70px;">
-        		<h3>{{ sponsor.label }}</h3>
-      </div>
+        <div ng-repeat="sponsor in organization.sponsors track by $index" class="col-sm-6 col-md-6 col-lg-4 well">
+            <div class="img-container-lg">
+                <img class="scale-img " no-image ng-src="{{sponsor.logoPath}}" alt="Sponsor image">
+            </div>
+            <h3>{{ sponsor.label }}</h3>
+        </div>
     </div>
 </div>
    

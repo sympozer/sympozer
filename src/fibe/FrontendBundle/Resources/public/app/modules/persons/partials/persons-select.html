@@ -5,8 +5,7 @@
             <i class="fa fa-plus"></i> Add a new person...
         </div>
         <div class="img-container-sm inline">
-            <img  class="scale-img" src="{{ entity.img }}"/>
-            <img ng-show="!entity.img && entity.id" class="scale-img" src="{{GLOBAL_CONFIG.app.urls.img+'no-picture.jpg'}}"/>
+            <img  ng-show="entity.id" class="scale-img" no-image ng-src="{{ entity.img }}"/>
         </div>
         <b ng-bind-html="entity.label | highlight: $select.search"></b>
     </ui-select-choices>

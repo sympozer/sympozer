@@ -1,11 +1,7 @@
-<!--<div get-or-create="person" parent-entity="role" parent-field="person" singlechoice="true" uniq-field="email"></div>-->
-<!--<div get-or-create="event" parent-entity="role" parent-field="event" singlechoice="true" filters='{"mainEventId": {{currentMainEvent.id}}}' main-event-id="{{currentMainEvent.id}}"></div>-->
-<!--<div get-or-create="roleLabel" parent-entity="role" parent-field="roleLabelVersion" singlechoice="true" new-politic="create" filters='{"mainEventId": {{currentMainEvent.id}}}' main-event-id="{{currentMainEvent.id}}"></div>-->
 <div sympozer-autocomplete="persons"  on-select="addPerson" on-keyup="searchPersons"></div>
 <div class="col-sm-6 col-md-6 col-lg-4  well" ng-show="role.person">
     <div class="img-container-lg">
-        <img  class="scale-img" src="{{ role.person.img }}"/>
-        <img ng-show="!role.person.img" class="scale-img " src="{{GLOBAL_CONFIG.app.urls.img+'no-picture.jpg'}}"/>
+        <img  class="scale-img" no-image ng-src="{{ role.person.img }}"/>
     </div>
     <h2>{{ role.person.label }}</h2>
     <h2>{{ role.person.email }}</h2>
