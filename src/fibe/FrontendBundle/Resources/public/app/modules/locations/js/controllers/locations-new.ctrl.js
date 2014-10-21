@@ -20,7 +20,7 @@ angular.module('locationsApp').controller('locationsNewCtrl', [ '$scope', '$wind
         {
             $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'location created', type: 'success'});
             if($scope.$close){
-                $scope.$close($scope.person);
+                $scope.$close($scope.location);
             }else{
                 $window.history.back();
             }

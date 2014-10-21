@@ -49,6 +49,7 @@ angular.module('eventsApp').controller('eventsNewCtrl', [ '$scope', '$window', '
                     }
                 });
                 modalInstance.result.then(function (newCategory) {
+                    debugger;
                     $scope.event.category = newCategory;
                 }, function () {
                     //$log.info('Modal dismissed at: ' + new Date());

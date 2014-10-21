@@ -9,7 +9,7 @@ angular.module('categoriesApp').controller('categoriesNewCtrl', [ '$scope', '$wi
     var success = function(response, args){
         $rootScope.$broadcast('AlertCtrl:addAlert', {code:'category created', type:'success'});
         if($scope.$close){
-            $scope.$close($scope.person);
+            $scope.$close($scope.category);
         }else{
             $window.history.back();
         }

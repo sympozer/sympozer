@@ -1,67 +1,67 @@
-  <div>
+<div>
     <label for="inputFirstname">First name</label>
     <input type="text" class="form-control" id="inputFirstname" placeholder="First name" ng-model="person.firstName" required>
-  </div>
-  <div>
+</div>
+<div>
     <label for="inputFamilyname">Family name</label>
     <input type="text" class="form-control" id="inputFamilyname" placeholder="Family name" ng-model="person.familyName" required>
-  </div>
-  <div>
+</div>
+<div>
     <label for="inputEmail">Email</label>
     <input type="email" class="form-control" id="inputEmail" name="mail" placeholder="Email" ng-model="person.email" required ng-pattern=/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/>
-  </div>
+</div>
 
-  <div>
-      <label for="inputDesc">Descrption</label>
-      <textarea class="form-control" id="inputDesc" name="description" placeholder="Description" ng-model="person.description"/>
-  </div>
+<div>
+    <label for="inputDesc">Descrption</label>
+    <textarea class="form-control" id="inputDesc" name="description" placeholder="Description" ng-model="person.description"/>
+</div>
 
-  <div class="form-group">
-      <label for="inputCountry">Country</label>
-      <input type="text" class="form-control" id="inputCountry" placeholder="Country" ng-model="person.country">
-  </div>
+<div class="form-group">
+    <label for="inputCountry">Country</label>
+    <input type="text" class="form-control" id="inputCountry" placeholder="Country" ng-model="person.country">
+</div>
 
-  <div>
+<div>
     <label for="inputWebsite">Website</label>
     <input type="text" class="form-control" id="inputWebsite" placeholder="Website" ng-model="person.website">
-  </div>
+</div>
 
-  <div class="form-group">
+<div class="form-group">
     <label for="inputImg">Image</label>
     <input type="text" class="form-control" id="inputImg" placeholder="Image link" ng-model="person.img">
-  </div>
-  <div class="row">
+</div>
+<div class="row">
 
-      <div class=" col-md-6 col-lg-6">
-          <div class="row">
-              <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
-                  <h1>Organizations</h1>
-              </div>
-              <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                  <a class="btn btn-primary btn-inline" href="javascript:void(0)" ng-click="showAddOrg = !showAddOrg"><i class="fa fa-plus"></i></a>
-              </div>
-              <div sympozer-autocomplete="organizations" ng-show="showAddOrg" on-select="addOrganization" on-keyup="searchOrganizations"></div>
-          </div>
-          <div ng-repeat="organization in person.organizations  track by $index" class="col-sm-6 col-md-6 col-lg-4  well">
-              <i class="fa fa-users fa-3x"></i>
-              <h2>{{ organization.label }}</h2>
-              <a class="btn btn-default" href="#organizations/show/{{ organization.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>
-          </div>
-      </div>
-      <div class="col-md-6 col-lg-6">
-          <div class="row">
-              <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
-                  <h1>Papers</h1>
-              </div>
-              <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                  <a class="btn btn-primary btn-inline" href="javascript:void(0)" ng-click="showAddPub = !showAddPub"><i class="fa fa-plus"></i></a>
-              </div>
-              <div sympozer-autocomplete="papers" ng-show="showAddPub" on-select="addPaper" on-keyup="searchPapers"></div>
-          </div>
-          <div ng-repeat="paper in person.papers  track by $index" class="col-sm-6 col-md-6 col-lg-4  well">
-              <i class="fa fa-book fa-3x"></i>
-              <h2>{{ paper.label }}</h2>
-              <a class="btn btn-default" href="#papers/show/{{ paper.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>
-          </div>
-      </div>
-  </div>
+    <div class=" col-md-6 col-lg-6">
+        <div class="row">
+            <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                <h1>Organizations</h1>
+            </div>
+            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                <a class="btn btn-primary btn-inline" href="javascript:void(0)" ng-click="showAddOrg = !showAddOrg"><i class="fa fa-plus"></i></a>
+            </div>
+            <div sympozer-autocomplete="organizations" ng-show="showAddOrg" on-select="addOrganization" on-keyup="searchOrganizations"></div>
+        </div>
+        <div ng-repeat="organization in person.organizations  track by $index" class="col-sm-6 col-md-6 col-lg-4  well">
+            <i class="fa fa-users fa-3x"></i>
+            <h2>{{ organization.label }}</h2>
+            <a class="btn btn-default" href="#organizations/show/{{ organization.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>
+        </div>
+    </div>
+    <div class="col-md-6 col-lg-6">
+        <div class="row">
+            <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                <h1>Papers</h1>
+            </div>
+            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                <a class="btn btn-primary btn-inline" href="javascript:void(0)" ng-click="showAddPub = !showAddPub"><i class="fa fa-plus"></i></a>
+            </div>
+            <div sympozer-autocomplete="papers" ng-show="showAddPub" on-select="addPaper" on-keyup="searchPapers"></div>
+        </div>
+        <div ng-repeat="paper in person.papers  track by $index" class="col-sm-6 col-md-6 col-lg-4  well">
+            <i class="fa fa-book fa-3x"></i>
+            <h2>{{ paper.label }}</h2>
+            <a class="btn btn-default" href="#papers/show/{{ paper.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>
+        </div>
+    </div>
+</div>
