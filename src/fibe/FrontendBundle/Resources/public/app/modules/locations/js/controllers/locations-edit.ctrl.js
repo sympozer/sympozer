@@ -7,8 +7,7 @@
 angular.module('locationsApp').controller('locationsEditCtrl', [ '$scope', '$rootScope', '$routeParams', '$location','equipmentsFact', 'locationsFact', function ($scope, $rootScope, $routeParams, $location, equipmentsFact, locationsFact)
 {
     //initialize map zoom
-    $scope.center = { zoom: 2 }
-
+    $scope.center = { zoom: 2 };
 
     $scope.location = locationsFact.get({id: $routeParams.locationId}, function(location){
         //initialize map with current location
@@ -17,6 +16,10 @@ angular.module('locationsApp').controller('locationsEditCtrl', [ '$scope', '$roo
         $scope.center.zoom = 4;
         $scope.markers.push($scope.center);
     });
+
+    if(!$scope.location.equipments){
+        $scope.location.equipments =[];
+    }
 
     var error = function (response, args)
     {
@@ -41,13 +44,7 @@ angular.module('locationsApp').controller('locationsEditCtrl', [ '$scope', '$roo
     $scope.searchEquipments = equipmentsFact.all;
     $scope.addEquipment = function (equipmentModel)
     {
-        function successFn()
-        {
-            $scope.location.equipments.push(equipmentModel);
-            $scope.updateLocation("equipments", $scope.location.equipments);
-        }
-
-            
+            $scope.location.equipments.push(equipmentModel);            
     }
 
 
