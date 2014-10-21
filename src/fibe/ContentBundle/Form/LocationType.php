@@ -18,6 +18,7 @@ class LocationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('id')
             ->add('label', 'text')
             ->add('capacity')
             ->add('description')

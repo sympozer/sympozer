@@ -3,8 +3,7 @@
 <div class="row" entity-list-handler="persons" infinite-scroll='load()' infinite-scroll-disabled='busy' infinite-scroll-distance='0.5'>
     <div ng-repeat="person in entities  track by $index" class="col-sm-6 col-md-6 col-lg-4 well">
         <div class="img-container-lg">
-            <img  class="scale-img" src="{{ person.img }}"/>
-            <img ng-show="!person.img" class="scale-img " src="{{GLOBAL_CONFIG.app.urls.img+'no-picture.jpg'}}"/>
+            <img  class="scale-img" no-image ng-src="{{ person.img }}"/>
         </div>
         <h2>{{ person.label }}</h2>
 

@@ -23,8 +23,8 @@
     <label>Topics</label>
     <div sympozer-autocomplete="topics"  on-select="addTopic" on-keyup="searchTopics"></div>
     <ul class="nav nav-pills" ng-show="paper.topics.length > 0">
-       <li ng-repeat="topic in paper.topics track by $index"  class="active">
-           <a href="javascript:void(0)" >{{topic.label}}</a>
+        <li ng-repeat="topic in paper.topics track by $index"  class="active">
+            <a href="javascript:void(0)" >{{topic.label}}</a>
         </li>
     </ul>
 </div>
@@ -34,8 +34,7 @@
     <div sympozer-autocomplete="persons"  on-select="addPerson" on-keyup="searchPersons"></div>
     <div ng-repeat="author in paper.authors track by $index" class="col-sm-6 col-md-6 col-lg-4  well" ng-show="paper.authors">
         <div class="img-container-lg">
-            <img  class="scale-img" src="{{ author.img }}"/>
-            <img ng-show="!author.img" class="scale-img " src="{{GLOBAL_CONFIG.app.urls.img+'no-picture.jpg'}}"/>
+            <img  class="scale-img" no-image ng-src="{{ author.img }}"/>
         </div>
         <h2>{{ author.label }}</h2>
         <h2>{{ author.email }}</h2>

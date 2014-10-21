@@ -3,7 +3,7 @@
 
 <div class="row" entity-list-handler="equipments" infinite-scroll='load()' infinite-scroll-disabled='busy' infinite-scroll-distance='0.5'>
     <div ng-repeat="equipment in entities  track by $index" class="col-sm-6 col-md-6 col-lg-4 well">
-        <img class="img-circle" src="{{equipment.icon}}" alt="Generic placeholder image" style="width: 140px; height: 140px;">
+        <img class="img-circle" no-image src="{{equipment.icon}}" alt="equipment icon" style="width: 140px; height: 140px;">
 
         <h2>{{ equipment.label }}</h2>
 

@@ -13,6 +13,7 @@ angular.module('locationsApp').controller('locationsShowCtrl', [ '$scope', '$rou
         $scope.center.lat = location.latitude || 48;
         $scope.center.long = location.longitude  || 8;
         $scope.center.zoom = 4;
+        $scope.markers = [];
         $scope.markers.push($scope.center);
     });
 

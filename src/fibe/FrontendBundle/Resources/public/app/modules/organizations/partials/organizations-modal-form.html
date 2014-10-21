@@ -3,27 +3,7 @@
 </div>
 <div class="modal-body">
     <form name="organizationEditForm" class="form" role="form">
-        <div>
-            <label for="inputLabel">Organization name</label>
-            <input type="text" class="form-control" id="inputLabel" required placeholder="{{organization.label}}" ng-model="organization.label">
-        </div>
-        <div>
-            <label for="inputWebsite">Website</label>
-            <input type="text" class="form-control" id="inputWebsite" placeholder="{{organization.website}}" ng-model="organization.website">
-        </div>
-        <div class="form-group">
-            <label for="inputCountry">Country</label>
-            <input type="text" class="form-control" id="inputCountry" placeholder="{{organization.country}}" ng-model="organization.country">
-        </div>
-        <div class="form-group">
-            <label for="inputImg">Image</label>
-            <input type="text" class="form-control" id="inputImg" placeholder="{{organization.img}}" ng-model="organization.img">
-        </div>
-        <div>
-            <label for="inputDescription">Description</label>
-            <textarea class="form-control" id="inputDescription" placeholder="{{organization.description}}" ng-model="organization.description"></textarea>
-        </div>
-
+        <div ng-include="GLOBAL_CONFIG.app.modules.organizations.urls.partials+'organizations-form.html'"></div>
     </form>
 </div>
 <div class="modal-footer">

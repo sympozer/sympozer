@@ -5,8 +5,7 @@
         <div class="col-sm-3 col-md-3 col-lg-3">
             <div class="img-container-lg">
                 <div ng-click="showAddImg= !showAddImg">
-                    <img  class="scale-img" src="{{ person.img }}"/>
-                    <img ng-show="!person.img" class="scale-img " src="{{GLOBAL_CONFIG.app.urls.img+'no-picture.jpg'}}"/>
+                    <img  class="scale-img" no-image ng-src="{{ person.img }}"/>
                     <span ng-show="showAddImg" editable-text="person.img" onbeforesave="updatePerson('img', $data)">{{person.img || ' Add an image'}}</span>
                 </div>
             </div>
@@ -83,7 +82,9 @@
         <h1>Events</h1>
         <div ng-repeat="role in person.roles  track by $index" class="col-sm-6 col-md-6 col-lg-4  well" ng-if="person.roles">
             <h2>{{ role.roleLabelVersion.label }} @ </h2>
-            <div class="img-container-sm"><img  class="scale-img img-circle" src="{{ role.mainEvent.logo }}"/></div>
+            <div class="img-container-sm">
+                <img  class="scale-img img-circle" no-image ng-src="{{ role.mainEvent.logo }}"/>
+            </div>
             <a class="btn  btn-default" href="#mainEvents/show/{{ role.mainEvent.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>
         </div>
     </div>

@@ -17,7 +17,11 @@
     </thead>
     <tbody entity-list-handler="mainEvents" infinite-scroll='load()' infinite-scroll-disabled='busy' infinite-scroll-distance='0.5'>
     <tr ng-repeat="conference in entities  track by $index">
-        <td><div class="img-container-sm"><img class="scale-img" src="{{ conference.logo }}"/></div></td>
+        <td>
+            <div class="img-container-sm">
+                <img class="scale-img" no-image ng-src="{{ conference.logo }}"/>
+            </div>
+        </td>
         <td>{{ conference.label }}</td>
         <td>{{ conference.start_at }}</td>
         <td>{{ conference.end_at }}</td>

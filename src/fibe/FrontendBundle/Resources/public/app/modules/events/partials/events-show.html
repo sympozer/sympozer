@@ -6,60 +6,63 @@
             <div class="img-container-lg">
                 <i class="fa fa-calendar fa-5x"></i>
             </div>
-            
+
         </div>
         <div class="col-sm-5 col-md-5 col-lg-5">
             <h2>{{event.label || '???'}}</h2> </br>
             <div style="width:28px;height:28px;border:1px solid #222;background:{{ category.color }}" title="{{ category.color }}">{{event.category.label || '???'}}</div>
             <h3>From : {{event.startAt}}</h3>
             <h3>To : {{event.endAt}}</h3>
-		     <i class="fa fa-map-marker fa-1x"></i> 
-		       <div ng-repeat="location in event.locations  track by $index" >
-			       <a href="#conference/{{ event.mainEvent.id }}/locations/show/{{location.id}}">
-			       				{{location.label}} 
-			       </a>  
-			  </div>
+            <i class="fa fa-map-marker fa-1x"></i>
+            <div ng-repeat="location in event.locations  track by $index" >
+                <a href="#conference/{{ event.mainEvent.id }}/locations/show/{{location.id}}">
+                    {{location.label}}
+                </a>
+            </div>
             <div>Is contains in <a href="#events/show/{{event.parent.id}}">{{event.parent.label}}</a></div>
             <pre>{{event.description || 'add a description'}}</pre>
             <pre>{{event.comment || 'add a comment'}}</pre>
             <a class="btn btn-info" href="#conference/{{event.mainEvent.id}}/events/edit/{{event.id}}" role="button">
                 <i class="fa fa-edit fa-1x"></i> Edit the event
-           </a>        
+            </a>
         </div>
-     </div>
+    </div>
 </div>
 
 <div class="row">
     <div class="col-md-3 col-lg-3">
         <h1>{{event.topics.length}} Topics</h1>
-      <ul class="nav nav-pills">
-        <li class="active" ng-repeat="topic in event.topics track by $index">
-            <a href="javascript:void(0)" ng-click="#topic/show/{{topic.id}}">
-                <span class="badge pull-right">{{topic.vEvents.length}}</span>
-                {{ topic.label }}
-            </a>
-        </li>
-      </ul>
+        <ul class="nav nav-pills">
+            <li class="active" ng-repeat="topic in event.topics track by $index">
+                <a href="javascript:void(0)" ng-click="#topic/show/{{topic.id}}">
+                    <span class="badge pull-right">{{topic.vEvents.length}}</span>
+                    {{ topic.label }}
+                </a>
+            </li>
+        </ul>
     </div>
     <div class="col-md-3 col-lg-3">
         <h1>{{event.roles.length}} Actors</h1>
-       <div ng-repeat="role in event.roles track by $index" class="col-sm-6 col-md-6 col-lg-4 well">
-       		 <img class="scale-img " src="{{ person.img  || GLOBAL_CONFIG.app.urls.img+'no-picture.jpg'}}" alt="Generic placeholder image" style="width: 70px; height: 70px;">
-        		<h3>{{ role.person.label }}</h3>
+        <div ng-repeat="role in event.roles track by $index" class="col-sm-6 col-md-6 col-lg-4 well">
 
-        		<h3><a href="#roleLabels/show/{{role.roleLabelVersion.roleLabel.id}}"> {{ role.roleLabelVersion.label}}</a></h3>
+            <div class="img-container-md">
+                <img class="scale-img "  no-image ng-src="{{ person.img}}" alt="person image" style="width: 70px; height: 70px;">
+            </div>
+            <h3>{{ role.person.label }}</h3>
 
-        		<p>{{ role.person.email }}</p>
+            <h3><a href="#roleLabels/show/{{role.roleLabelVersion.roleLabel.id}}"> {{ role.roleLabelVersion.label}}</a></h3>
 
-       			<p>{{ role.person.country }}</p>
-       		
-      </div>
+            <p>{{ role.person.email }}</p>
+
+            <p>{{ role.person.country }}</p>
+
+        </div>
     </div>
     <div class="col-md-6 col-lg-6">
         <h1>{{event.papers.length}} Papers</h1>
-       <div ng-repeat="paper in event.papers  track by $index" class="col-sm-6 col-md-6 col-lg-4 well">
-          
-           <i class="fa fa-book fa-2x"></i>
+        <div ng-repeat="paper in event.papers  track by $index" class="col-sm-6 col-md-6 col-lg-4 well">
+
+            <i class="fa fa-book fa-2x"></i>
 
             <h2>{{paper.label}}</h2>
             <pre>{{paper.abstract}}</pre>
@@ -69,14 +72,14 @@
         </div>
     </div>
 
-  </div>
+</div>
 
 <div class="row">
     <div class="col-md-6 col-lg-6">
         <h1>{{event.children.length}} Contains</h1>
-       <div ng-repeat="event in event.children  track by $index" class="col-sm-6 col-md-6 col-lg-4 well">
-          
-           <i class="fa fa-calendar fa-2x"></i>
+        <div ng-repeat="event in event.children  track by $index" class="col-sm-6 col-md-6 col-lg-4 well">
+
+            <i class="fa fa-calendar fa-2x"></i>
 
             <h2>{{event.label}}</h2>
 
@@ -88,7 +91,7 @@
             <a class="btn btn-default" href="#conference/{{event.mainEvent.id}}/events/show/{{event.id}}" role="button"><i class="fa fa-eye fa-1x"></i></a>
         </div>
     </div>
-  </div>
+</div>
 
    
 

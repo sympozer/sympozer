@@ -50,9 +50,7 @@
             <a data-toggle="collapse" data-parent="#collapseMySpace" href="#persons/show/{{currentUser.id}}#collapseMySpace" class="panel-heading-href btn btn-default noBorder">
                 <h4 class="panel-title">
                     <div class="img-container-md">
-                        <img class="scale-img" src="{{currentUser.person.img}}"/>
-                        <img ng-show="!currentUser.person.img" class="scale-img " src="{{GLOBAL_CONFIG.app.urls.img+'no-picture.jpg'}}"/>
-
+                        <img class="scale-img" no-image ng-src="{{currentUser.person.img}}"/>
                     </div> {{currentUser.person.label}}
                 </h4>
             </a>
@@ -91,9 +89,7 @@
             <a data-toggle="collapse" data-parent="#conferenceAccordion" href="#mainEvents/show/{{currentMainEvent.id}}#collapseConference" class="panel-heading-href btn btn-default noBorder">
                 <h4 class="panel-title">
                     <div class="img-container-md">
-                        <img class="scale-img" src="{{currentMainEvent.logo}}"/>
-                        <img ng-show="!currentMainEvent.logo" class="scale-img " src="{{GLOBAL_CONFIG.app.urls.img+'no-picture.jpg'}}"/>
-
+                        <img class="scale-img" no-image ng-src="{{currentMainEvent.logo}}"/>
                     </div> {{currentMainEvent.label}}
                 </h4>
             </a>
@@ -291,7 +287,7 @@
         <a href="#help"><i class="fa fa-magic fa-2x"></i> Help</a>
     </li>
     <li><p style="text-align:center;">Powered by sympozer.com</p>
-        <img src="{{sympozerLogoPath}}" style="margin-left:55px;height:30px;width:auto;"/>
+        <img no-image ng-src="{{sympozerLogoPath}}" style="margin-left:55px;height:30px;width:auto;"/>
     </li>
 </ul>
 </div>

@@ -96,36 +96,10 @@
         <a class="btn btn-primary btn-inline" href="javascript:void(0)" ng-click="addRole()"><i class="fa fa-plus"></i></a>
         <div ng-repeat="role in event.roles  track by $index" class="col-sm-3 col-md-3 col-lg-3  well">
             <div class="img-container-lg">
-                <img  class="scale-img" src="{{ role.person.img }}"/>
-                <img ng-show="!role.person.img" class="scale-img " src="{{GLOBAL_CONFIG.app.urls.img+'no-picture.jpg'}}"/>
+                <img  class="scale-img" no-image ng-src="{{ role.person.img }}"/>
             </div>
             <h2>{{ role.person.label }}</h2>
             <h2>{{ role.person.email }}</h2>
         </div>
     </div>
 </div>
-
-<!--<div get-or-create="paper" parent-entity="event"  filters='{"mainEventId": {{currentMainEvent.id}}}' main-event-id="{{currentMainEvent.id}}"></div>-->
-
-<!--<div ng-repeat="role in event.roles">-->
-<!--<div class="col-sm-3">-->
-<!--<div class="panel panel-primary" style="margin-top: 10px;">-->
-<!--<div class="panel-heading clearfix">-->
-<!--<div class="panel-title pull-left text-center">{{ role.person.label }}</div>-->
-<!--<a ng-click="deleteEntity($index,entity)" class="btn btn-danger btn-xs fa fa-times pull-right"></a>-->
-<!--</div>-->
-<!--<div class="panel-body">-->
-<!--<img class="img-circle" src="http://blog.getjobber.com/wp-content/uploads/2013/01/Users-Image.png" alt="{{ role.person.label }} picture" style="width: 50px; height: 50px;">-->
-<!--{{ role.roleLabel.label }}-->
-<!--</div>-->
-<!--</div>-->
-<!--</div>-->
-<!--</div>-->
-
-<!--<div get-or-create="role" child-field="event" single-choice-child="true" parent-entity="event"></div>-->
-
-
-
-<!--<div class="well">-->
-<!--<div get-or-create="person" parent-entity="event" parent-field="person" uniq-field="email"></div>-->
-<!--</div>-->

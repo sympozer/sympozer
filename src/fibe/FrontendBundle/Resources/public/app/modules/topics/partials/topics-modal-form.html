@@ -3,10 +3,7 @@
 </div>
 <div class="modal-body">
     <form name="topicEditForm" class="form" role="form">
-        <div>
-            <label for="inputLabel">Label</label>
-            <input type="text" class="form-control" id="inputLabel" placeholder="Label" ng-model="topic.label" required>
-        </div>
+        <div ng-include="GLOBAL_CONFIG.app.modules.topics.urls.partials+'topics-form.html'"></div>
     </form>
 </div>
 <div class="modal-footer">

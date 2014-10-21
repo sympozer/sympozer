@@ -20,27 +20,29 @@
 <div class="row">
     <div class="col-md-6 col-lg-6">
         <h1>{{paper.authors.length}} Authors</h1>
-       <div ng-repeat="person in paper.authors track by $index" class="col-sm-6 col-md-6 col-lg-4 well">
-       		 <img class="scale-img " src="{{ person.img  || GLOBAL_CONFIG.app.urls.img+'no-picture.jpg'}}" alt="Generic placeholder image" style="width: 70px; height: 70px;">
-        		<h3>{{ person.label }}</h3>
+        <div ng-repeat="person in paper.authors track by $index" class="col-sm-6 col-md-6 col-lg-4 well">
+            <div class="img-container-lg">
+                <img class="scale-img " no-image ng-src="{{ person.img}}"  alt="Auhtor image">
+            </div>
+            <h3>{{ person.label }}</h3>
 
-        		<p>{{ person.email }}</p>
+            <p>{{ person.email }}</p>
 
-       			<p>{{ person.country }}</p>
-       			<a class="btn btn-warning" href="#persons/edit/{{ person.id }}" role="button"><i class="fa fa-edit fa-1x"></i></a>
-       			<a class="btn btn-default" href="#persons/show/{{ person.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>
-      </div>
+            <p>{{ person.country }}</p>
+            <a class="btn btn-warning" href="#persons/edit/{{ person.id }}" role="button"><i class="fa fa-edit fa-1x"></i></a>
+            <a class="btn btn-default" href="#persons/show/{{ person.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>
+        </div>
     </div>
     <div class="col-md-3 col-lg-3">
         <h1>{{paper.topics.length}} Topics</h1>
-      <ul class="nav nav-pills">
-        <li class="active" ng-repeat="topic in paper.topics track by $index">
-            <a href="javascript:void(0)" ng-click="#topic/show/{{ topic.id }}">
-                <span class="badge pull-right">{{topic.vEvents.length}}</span>
-                {{ topic.label }}
-            </a>
-        </li>
-      </ul>
+        <ul class="nav nav-pills">
+            <li class="active" ng-repeat="topic in paper.topics track by $index">
+                <a href="javascript:void(0)" ng-click="#topic/show/{{ topic.id }}">
+                    <span class="badge pull-right">{{topic.vEvents.length}}</span>
+                    {{ topic.label }}
+                </a>
+            </li>
+        </ul>
     </div>
 </div>
    

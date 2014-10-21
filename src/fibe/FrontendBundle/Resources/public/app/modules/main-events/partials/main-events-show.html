@@ -2,8 +2,7 @@
     <div class="row">
         <div class="col-sm-3 col-md-3 col-lg-3">
             <div class="img-container-lg">
-                <img  class="scale-img" src="{{ mainEvent.logo }}"/>
-                <img ng-show="!mainEvent.logo" class="scale-img " src="{{GLOBAL_CONFIG.app.urls.img+'no-picture.jpg'}}"/>
+                <img  class="scale-img" no-image ng-src="{{ mainEvent.logo }}"/>
             </div>
             <p ng-if="mainEvent.country">{{mainEvent.country}}</p>
         </div>
