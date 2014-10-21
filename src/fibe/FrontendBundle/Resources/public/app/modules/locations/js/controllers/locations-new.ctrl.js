@@ -4,8 +4,8 @@
  *
  * @type {controller}
  */
-angular.module('locationsApp').controller('locationsNewCtrl', [ '$scope', '$window', '$routeParams', '$rootScope', '$location', 'locationsFact',
-    function ($scope, $window, $routeParams, $rootScope, $location, locationsFact)
+angular.module('locationsApp').controller('locationsNewCtrl', [ '$scope', '$window', '$routeParams', '$rootScope', '$location', 'locationsFact', 'equipmentsFact',
+    function ($scope, $window, $routeParams, $rootScope, $location, locationsFact, equipmentsFact)
     {
         $scope.location = new locationsFact;
         $scope.location.equipments = [];
