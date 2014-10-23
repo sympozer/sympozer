@@ -138,6 +138,18 @@ class Person extends AdditionalInformations
   protected $slug;
 
   /**
+  * @ORM\Column(type="string", length=256, nullable=true)
+  * @Expose
+  */
+  protected $twitterid;
+
+  /**
+  * @ORM\Column(type="string", length=25, nullable=true)
+  * @Expose
+  */
+  protected $chkTimeline;
+
+  /**
    * Constructor
    */
   public function __construct()
@@ -216,6 +228,52 @@ class Person extends AdditionalInformations
 
     return $this->slug;
   }
+
+    /**
+     * Set twitterid
+     *
+     * @param string $description
+     *
+     * @return $this
+     */
+    public function setTwitterid($twitterid)
+    {
+        $this->twitterid = $twitterid;
+
+        return $this;
+    }
+
+    /**
+     * Get twitterid
+     *
+     * @return string
+     */
+    public function getTwitterid()
+    {
+        return $this->twitterid;
+    }
+
+    /**
+     * @param int chkTimeline
+     *
+     * @return $this
+     */
+    public function setChkTimeline($chkTimeline)
+    {
+        $this->chkTimeline = $chkTimeline;
+
+        return $this;
+    }
+
+    /**
+     * Get chkTimeline
+     *
+     * @return string
+     */
+    public function getChkTimeline()
+    {
+        return $this->chkTimeline;
+    }
 
   /**
    * Set label

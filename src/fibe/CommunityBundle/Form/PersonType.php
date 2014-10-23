@@ -23,6 +23,8 @@ class PersonType extends AdditionalInformationsType
         $builder
             ->add('firstName')
             ->add('familyName')
+            ->add('twitterid')
+            ->add('chkTimeline')
             ->add('email', 'email')
             ->add('organizations', 'entity', array(
                 'class' => 'fibeCommunityBundle:OrganizationVersion',

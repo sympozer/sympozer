@@ -8,6 +8,7 @@
         </div>
         <div class="col-sm-8 col-md-8 col-lg-8">
             <h3 >{{mainEvent.label}}</span></h3>
+            <div style="text-align: right; margin-bottom: 5px;"><img src="https://g.twimg.com/twitter-bird-16x16.png" alt="">  {{mainEvent.twitterid }}</div>
             <pre>{{mainEvent.description}}</pre>
             <a class="btn btn-info" href="#mainEvents/edit/{{mainEvent.id}}" role="button">
                 <i class="fa fa-edit fa-1x"></i> Edit my conference
@@ -23,7 +24,6 @@
     </div>
     <div class=" col-md-6 col-lg-6">
         <leaflet  center="center" markers="markers" height="300px" width="100%"></leaflet>
-
     </div>
 </div>
 
@@ -56,3 +56,7 @@
 </div>
 
 
+<!-- Appel de la timeline correspondant a l'identifiant Twitter (# ou @) -->
+<div class="well" ng-if="mainEvent.chk_timeline && mainEvent.twitterid" ng-include="GLOBAL_CONFIG.app.urls.partials+'layout/twittertimeline.html'"
+    ng-controller="twitterTimelineCtrl"
+    ng-init="getTweets(mainEvent.twitterid)"></div>

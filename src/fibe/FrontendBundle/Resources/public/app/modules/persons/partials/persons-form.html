@@ -16,6 +16,15 @@
     <textarea class="form-control" id="inputDesc" name="description" placeholder="Description" ng-model="person.description"/>
 </div>
 
+<div>
+    <label for="inputTwitterid">Twitter id</label>
+    <input type="text" class="form-control" id="inputTwitterid" placeholder="Twitter id" ng-model="person.twitterid" required>
+</div>
+
+<div>
+    <input type="hidden" class="form-control" id="inputChkTimeline" placeholder="{{person.chkTimeline}}" ng-model="person.chkTimeline">
+</div>
+
 <div class="form-group">
     <label for="inputCountry">Country</label>
     <input type="text" class="form-control" id="inputCountry" placeholder="Country" ng-model="person.country">

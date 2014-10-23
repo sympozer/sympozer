@@ -4,7 +4,8 @@
     <div class="row">
         <div class="col-sm-3 col-md-3 col-lg-3">
             <div class="img-container-lg">
-                <img  class="scale-img" no-image ng-src="{{ person.img }}"/>
+                <img  class="scale-img" src="{{ person.img }}"/>
+                <img ng-show="!person.img" class="scale-img " src="{{GLOBAL_CONFIG.app.urls.img+'no-picture.jpg'}}"/>
             </div>
             <p>{{person.country}}</p>
 
@@ -30,7 +31,7 @@
     </div>
     <div class="col-md-6 col-lg-6">
         <h1>Social</h1>
-        <p><i class="fa fa-twitter fa-3x"></i>{{person.twitter || ''}}</p>
+        <p><i class="fa fa-twitter fa-3x"></i>{{person.twitterid || ''}}</p>
         <p><i class="fa fa-linkedin fa-3x"></i>{{person.linkedIn || ''}}</p>
         <p><i class="fa fa-facebook fa-3x"></i>{{person.facebook || ''}}</p>
     </div>
@@ -60,10 +61,14 @@
         <h1>{{person.roles.length}} Events</h1>
         <div ng-repeat="role in person.roles  track by $index" class="col-sm-6 col-md-6 col-lg-4  well" ng-if="person.roles">
             <h2>{{ role.roleLabelVersion.label }} @ </h2>
-            <div class="img-container-sm">
-                <img  class="scale-img img-circle" no-image ng-src="{{ role.mainEvent.logo }}"/>
-            </div>
+            <div class="img-container-sm"><img  class="scale-img img-circle" src="{{ role.mainEvent.logo }}"/></div>
             <a class="btn  btn-default" href="#mainEvents/show/{{ role.mainEvent.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>
         </div>
     </div>
 </div>
+
+
+<!-- Appel de la timeline correspondant a l'identifiant Twitter (# ou @) -->
+<div class="well" ng-if="person.chk_timeline && person.twitterid" ng-include="GLOBAL_CONFIG.app.urls.partials+'layout/twittertimeline.html'"
+     ng-controller="twitterTimelineCtrl"
+     ng-init="getTweets(person.twitterid)"></div>

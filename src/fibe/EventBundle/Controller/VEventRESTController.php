@@ -16,7 +16,7 @@ class VEventRESTController extends FOSRestController
 {
 
   const ENTITY_CLASSNAME = "fibe\\ContentBundle\\Entity\\VEvent";
-  const FORM_CLASSNAME = "fibe\\ContentBundle\\Form\\VEvent";
+  const FORM_CLASSNAME = "fibe\\ContentBundle\\Form\\VEventType";
 
 
   /**

@@ -1,19 +1,19 @@
 Model = {
-	
+
 
 	initialize : function(mapper){
 		Model.mapper = mapper;
 	},
 
 	"entities" : {
-		"Conference" : { 
+		"Conference" : {
 			attributes : {
 				required : {
 					"summary" : {
 						setter : "setLabel"
           }
 				},
-				optionnal : { 
+				optionnal : {
 					"homepage" : {
 						setter : "setUrl"
           },
@@ -28,7 +28,7 @@ Model = {
           },
 					// "contacts" : {
 					// 	setter : "setContacts",
-					// }, 
+					// },
 					"acronym" : {
 						setter : "setAcronym"
           },
@@ -39,16 +39,16 @@ Model = {
 					// 	setter : "setLocation"
      //      }
 				}
-			} 
-		}, 
-		"Event" : { 
+			}
+		},
+		"Event" : {
             array   :"events",
 			attributes : {
 				required : {
 					"summary" : {
     						setter : "setLabel"
               }},
-    				optionnal : {  
+    				optionnal : {
     					"description" : {
     						setter : "setStartAt"
               },
@@ -69,13 +69,13 @@ Model = {
               },
     					// "organizer" : {
     					// 	setter : "setOrganizer"
-         //      }, 
+         //      },
     					// "location" : {
     					// 	setter : "setLocation"
          //      }
 				}
-			} 
-		}, 
+			}
+		},
 		"Person" : {
             array   :"persons",
 			attributes : {
@@ -86,7 +86,7 @@ Model = {
 					"firstName" : {
 						setter : "setFirstName"
           }},
-				optionnal : { 
+				optionnal : {
 					"email" : {
 						setter : "setEmail"
           },
@@ -101,10 +101,10 @@ Model = {
           }
           // "organizations" : {
 					// 	setter : "setOrganizations",
-					// }, 
+					// },
 					// "accounts" : {
 					// 	setter : "setAccounts",
-					// }, 
+					// },
 					// "papers" : {
 					// 	setter : "setPapers",
 					// }
@@ -112,7 +112,7 @@ Model = {
 			}
 		},
 
-	 
+
 		"Publication" : {
             array   :"proceedings",
 			attributes : {
@@ -123,7 +123,7 @@ Model = {
 					"abstract" : {
 						setter : "setAbstract"
           }},
-				optionnal : { 
+				optionnal : {
 					"publishdate" : {
 						setter : "setPublishdate"
           },
@@ -135,13 +135,13 @@ Model = {
           }
           // "authors" : {
 					// 	setter : "setAuthors",
-					// }, 
+					// },
 					// "subjects" : {
 					// 	setter : "setSubjects",
-					// }, 
+					// },
 					// "topics" : {
 					// 	setter : "setTopics",
-					// }, 
+					// },
 					// "events" : {
 					// 	setter : "setEvents",
 					// }
@@ -156,7 +156,7 @@ Model = {
 					"name" : {
 						setter : "setName"
           }},
-				optionnal : { 
+				optionnal : {
 					"page" : {
 						setter : "setPage"
           },
@@ -165,8 +165,8 @@ Model = {
           }
           // "members" : {
 					// 	setter : "setMembers",
-					// }, 
-				} 
+					// },
+				}
 			}
 	  	},
 
@@ -176,8 +176,8 @@ Model = {
 		// 			"accountName" : {
 		// 				setter : "setAccountName",
 		// 		}},
-		// 		optionnal : { 
-		// 			"owner" : {  
+		// 		optionnal : {
+		// 			"owner" : {
 		// 				setter : "setOwner",
 		// 			},
 		// 			"socialService" : {
@@ -187,15 +187,15 @@ Model = {
 
 		// },
 
-	
+
 		"Location" : {
-            array   : "locations", 
+            array   : "locations",
 			attributes : {
 				required : {
 					"name" : {
 						setter : "setName"
           }},
-				optionnal : { 
+				optionnal : {
 					"capacity" : {
 						setter : "setCapacity"
           },
@@ -209,89 +209,89 @@ Model = {
 						setter : "setLatitude"
           }}
 			}
-					 
-		}, 
+
+		},
 		"Topic" : {
-            array : "topics", 
+            array : "topics",
 			attributes : {
 				required : {
 					"name" : {
 						setter : "setName"
           }},
 				optionnal : {}
-		
-			}		
+
+			}
 		}
 	},
 
 	modelToTab : function($el){
-        var mainPanel = Pager.getPanelHtml("Base model",{panelClass:"panel-primary"}); 
+        var mainPanel = Pager.getPanelHtml("Base model",{panelClass:"panel-primary"});
 		$el.append(mainPanel);
 		for(var i in Model.entities){
   			var entity = Model.entities[i];
         	modelPanel = Pager.getPanelHtml(i,{panelClass:"panel-danger",margin:true,"model-path":entity.array || i, collapsible:true,collapsed:true});
 
-       		$.each(entity.attributes.required, function(aIndex, attribute){ 
+       		$.each(entity.attributes.required, function(aIndex, attribute){
 	       		var newAttr = $(Model.generateAttributeNode(aIndex, {required:true,"model-path":entity.array+"/"+aIndex, "model-setter":attribute.setter}));
 	       		// newEntity.append(newAttr);
        			modelPanel.children("ul").append(newAttr);
 	       	})
 
-       		$.each(entity.attributes.optionnal, function(aIndex, attribute){ 
+       		$.each(entity.attributes.optionnal, function(aIndex, attribute){
        			var newAttr = $(Model.generateAttributeNode(aIndex, {required:false,"model-path":entity.array+"/"+aIndex, "model-setter":attribute.setter}));
        			modelPanel.children("ul").append(newAttr);
        			// newEntity.append(newAttr);
 	       	})
 	        mainPanel.append(modelPanel);
         };
-        
- 
+
+
 		$(".model-node").droppable({
 			accept: ".map-node" ,
             tolerance: "pointer" ,
-			over: function( event, ui ) { 
+			over: function( event, ui ) {
 		        	if($(this).hasClass("list-group-item-danger")){
 			        	$(this).data("oldStyle","danger")
 			        	$(this).removeClass("list-group-item-danger");
 			        }else if($(this).hasClass("list-group-item-success")){
-			        	$(this).data("oldStyle","success") 
+			        	$(this).data("oldStyle","success")
 			        }else{
 			        	$(this).data("oldStyle",false)
 			        }
-			        $(this).addClass("list-group-item-success") 
-			        var $this =$(this); 
+			        $(this).addClass("list-group-item-success")
+			        var $this =$(this);
 		        	validateParentPanel($this);
 			},
-			out: function( event, ui ) { 
+			out: function( event, ui ) {
 	        	$(this).removeClass("list-group-item-success")
 		        if($(this).data("oldStyle")) {
 		        	$(this).addClass("list-group-item-"+$(this).data("oldStyle")) ;
 		        }
-		        var $this =$(this); 
+		        var $this =$(this);
 	        	setTimeout(function() {
 	        		validateParentPanel($this);
-	        	},1); 
+	        	},1);
 			},
-			drop: function( event, ui ) {   
-        		mapper.addDataLink($(this).data("model-path"),ui.draggable.data("node-path")); 
+			drop: function( event, ui ) {
+        		mapper.addDataLink($(this).data("model-path"),ui.draggable.data("node-path"));
 
 		        var indicator = $("<a href='#' style='float:right' class='btn-danger btn btn-xs'><i class='fa fa-trash-o'></i> "+ui.draggable.data("node-path")+"</a>");
 		        indicator.click({target : $(this)}, function(ev){
 		        	mapper.removeDataLink[$(this).data("model-path")];
-		        	var parent = $(this).parent().removeClass("list-group-item-success"); 
+		        	var parent = $(this).parent().removeClass("list-group-item-success");
 		        	if(parent.data("required"))parent.addClass("list-group-item-danger")
 	        		validateParentPanel(parent);
 		        	$(this).remove();
 		        	return false;
 		        })
 		        $(this).find("> .btn").remove();
-		        $(this).append(indicator); 
+		        $(this).append(indicator);
 			}
 		});
 
 		function validateParentPanel($div){
 
-		        var panelDiv = $div.parent().parent(); 
+		        var panelDiv = $div.parent().parent();
 		        if($div.siblings(".list-group-item-danger").length==0 && !$div.hasClass("list-group-item-danger")){
 		        	panelDiv.addClass("panel-success")
 		        	panelDiv.removeClass("panel-danger")
@@ -300,15 +300,15 @@ Model = {
 		        	panelDiv.addClass("panel-danger")
 		        }
 		}
-	}, 
+	},
 
 	generateAttributeNode : function(attribute, options){
-        return '<li class="model-node list-group-item'+(options.required===true?" list-group-item-danger":"")+'" data-required="'+(options.required===true)+'" data-model-path="'+options["model-path"]+'" data-model-setter="'+options["model-setter"]+'" style="'+options.style+'">'+attribute+'</li>'; 
+        return '<li class="model-node list-group-item'+(options.required===true?" list-group-item-danger":"")+'" data-required="'+(options.required===true)+'" data-model-path="'+options["model-path"]+'" data-model-setter="'+options["model-setter"]+'" style="'+options.style+'">'+attribute+'</li>';
 
 	},
 
 	getSetter : function(entityName,attribute){
-        var modelMapping = Model.getModelMappingByArrayName(entityName.toLowerCase()); 
+        var modelMapping = Model.getModelMappingByArrayName(entityName.toLowerCase());
         if(modelMapping.attributes.required[attribute]){
             return modelMapping.attributes.required[attribute].setter;
         }else{

@@ -36,6 +36,9 @@ class VEventType extends AbstractType
             ->add('description')
             ->add('comment')
             ->add('url')
+            ->add('twitterid')
+            ->add('chkTimeline')
+            ->add('chkSocial')
             ->add('dtype')
             ->add('locations', 'entity', array(
                 'class' => 'fibeContentBundle:Location',

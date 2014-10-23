@@ -289,6 +289,32 @@ abstract class VEvent
    */
   public $dtype;
 
+
+    /**
+     * twitterid
+     *
+     * This property defines the event's hashtag twitter
+     * @ORM\Column(type="string", length=255)
+     * @Expose
+     */
+    protected $twitterid;
+
+    /**
+     * chkTimeline
+     *
+     * @ORM\Column(type="string", length=25)
+     * @Expose
+     */
+    protected $chkTimeline;
+
+    /**
+     * chkSocial
+     *
+     * @ORM\Column(type="string", length=25)
+     * @Expose
+     */
+    protected $chkSocial;
+
   /**
    * constructor
    */
@@ -681,6 +707,75 @@ abstract class VEvent
     return $this->url;
   }
 
+    /**
+     * Set twitterid
+     *
+     * @param string $description
+     *
+     * @return $this
+     */
+    public function setTwitterid($twitterid)
+    {
+        $this->twitterid = $twitterid;
+
+        return $this;
+    }
+
+    /**
+     * Get twitterid
+     *
+     * @return string
+     */
+    public function getTwitterid()
+    {
+        return $this->twitterid;
+    }
+
+    /**
+     * @param string chkTimeline
+     *
+     * @return $this
+     */
+    public function setChkTimeline($chkTimeline)
+    {
+        $this->chkTimeline = $chkTimeline;
+
+        return $this;
+    }
+
+    /**
+     * Get chkTimeline
+     *
+     * @return string
+     */
+    public function getChkTimeline()
+    {
+        return $this->chkTimeline;
+    }
+
+    /**
+     * @param string chkSocial
+     *
+     * @return $this
+     */
+    public function setChkSocial($chkSocial)
+    {
+        $this->chkSocial = $chkSocial;
+
+        return $this;
+    }
+
+    /**
+     * Get chkSocial
+     *
+     * @return string
+     */
+    public function getChkSocial()
+    {
+        return $this->chkSocial;
+    }
+
+
   /**
    * Set revisionSequence
    *
@@ -728,6 +823,7 @@ abstract class VEvent
   {
     return $this->status;
   }
+
 
 //  /**
 //   * Set location

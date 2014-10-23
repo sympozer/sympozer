@@ -123,13 +123,15 @@ sympozerApp.config(['$translateProvider', function ($translateProvider)
  *
  * (execute after injection)
  */
-sympozerApp.run(function (amMoment,editableOptions, editableThemes)
+sympozerApp.run(function (amMoment,editableOptions, editableThemes, $http)
 {
     amMoment.changeLanguage('de');
     editableOptions.theme = 'bs3';
     // overwrite submit button template
     editableThemes['bs3'].submitTpl = '<button type="submit" class="btn btn-primary"><i class="fa fa-check"></i></button>';
     editableThemes['bs3'].cancelTpl =  '<button type="button" class="btn btn-default" ng-click="$form.$cancel()"><i class="fa fa-times"></i></button>';
+
+    //$http.defaults.headers.common.Authorization = 'Bearer AAAAAAAAAAAAAAAAAAAAAC0tbAAAAAAAIJZl5zoJ%2BWAe1JJVTQtMjtgVrs0%3DQkEZO1cNGouPpIET1eeJTshdaPjP3rTrOMvINGP4lsQOIh6jAr';
 });
 
 /**
@@ -141,6 +143,4 @@ angular.module('sympozerApp').config(['$provide', '$httpProvider',
 function ($provide, $httpProvider)
 {
     $httpProvider.interceptors.push('globalHttpInterceptor');
-
-
 }]);

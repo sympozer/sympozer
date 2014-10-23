@@ -1,3 +1,7 @@
+fibe_tweets:
+    resource: "@fibeTweetsBundle/Resources/config/routing.yml"
+    prefix:   /tweets
+
 fos_user_registration:
     resource: "@FOSUserBundle/Resources/config/routing/registration.xml"
     prefix: user/register

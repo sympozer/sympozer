@@ -34,7 +34,12 @@
     </div>
     <div class="col-md-6 col-lg-6">
         <h1>Social</h1>
-        <p><i class="fa fa-twitter fa-3x"></i> <span  editable-text="person.twitter" onbeforesave="updatePerson('twitter', $data)">{{person.twitter || ' Add an twitter'}}</span></p>
+        <p><i class="fa fa-twitter fa-3x"></i> <span  editable-text="person.twitterid" onbeforesave="updatePerson('twitterid', $data)">{{person.twitterid || ' Add an twitter'}}</span></p>
+        <p>
+            <span editable-checkbox="person.chk_timeline" e-title="Afficher votre Timeline Twitter ?" onbeforesave="updatePerson('chkTimeline', $data)">
+                {{ person.chk_timeline && "(Timeline Twitter activée)" || "(Timeline Twitter désactivée)" }}
+            </span>
+        </p>
         <p><i class="fa fa-linkedin fa-3x"></i><span  editable-text="person.linkedIn" onbeforesave="updatePerson('linkedIn', $data)">{{person.linkedIn || ' Add an linked in'}}</span></p>
         <p><i class="fa fa-facebook fa-3x"></i><span  editable-text="person.facebook" onbeforesave="updatePerson('facebook', $data)">{{person.facebook || ' Add an facebook'}}</span></p>
     </div>

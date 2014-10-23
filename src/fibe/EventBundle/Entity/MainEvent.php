@@ -106,6 +106,7 @@ class MainEvent extends VEvent
    */
   private $acronym;
 
+
   /**
    * Slugify
    */
