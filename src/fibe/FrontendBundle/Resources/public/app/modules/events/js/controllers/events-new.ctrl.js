@@ -49,7 +49,6 @@ angular.module('eventsApp').controller('eventsNewCtrl', [ '$scope', '$window', '
                     }
                 });
                 modalInstance.result.then(function (newCategory) {
-                    debugger;
                     $scope.event.category = newCategory;
                 }, function () {
                     //$log.info('Modal dismissed at: ' + new Date());
@@ -84,7 +83,7 @@ angular.module('eventsApp').controller('eventsNewCtrl', [ '$scope', '$window', '
 
         //Autocomplete and add location workflow
         $scope.searchLocations = locationsFact.allByConference;
-        $scope.event.locations = [];
+        $scope.event.eventLocations = [];
         $scope.addLocation = function(locationModel){
             if(!locationModel.id) {
                 var modalInstance = $modal.open({
@@ -95,12 +94,12 @@ angular.module('eventsApp').controller('eventsNewCtrl', [ '$scope', '$window', '
                     }
                 });
                 modalInstance.result.then(function (newLocation) {
-                    $scope.event.locations.push(newLocation);
+                    $scope.event.eventLocations.push(newLocation);
                 }, function () {
                     //$log.info('Modal dismissed at: ' + new Date());
                 });
             }else{
-                $scope.event.locations.push(locationModel);
+                $scope.event.eventLocations.push(locationModel);
             }
         }
 

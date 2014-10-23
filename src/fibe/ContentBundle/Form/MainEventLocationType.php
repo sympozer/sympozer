@@ -10,31 +10,19 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
  * Class LocationType
  * @package fibe\ContentBundle\Form
  */
-class LocationType extends AbstractType
+class MainEventLocationType extends LocationType
 {
     /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        parent::buildForm($builder, $options);
         $builder
-            ->add('id')
-            ->add('dtype')
-            ->add('label', 'text')
-            ->add('capacity')
-            ->add('description')
-            ->add('latitude')
-            ->add('longitude')
-            ->add('accesibility')
             ->add('mainEvent', 'entity', array(
                 'class' => 'fibeEventBundle:MainEvent',
                 'required' => 'true',
                 'multiple' => false,
-            ))
-            ->add('equipments', 'entity', array(
-                'class' => 'fibeContentBundle:Equipment',
-                'required' => 'false',
-                'multiple' => true,
             ));
     }
 
