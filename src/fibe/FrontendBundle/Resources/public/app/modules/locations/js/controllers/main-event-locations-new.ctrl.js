@@ -4,8 +4,8 @@
  *
  * @type {controller}
  */
-angular.module('locationsApp').controller('mainEventLocationsNewCtrl', [ '$scope', '$window', '$routeParams', '$rootScope', 'mainEventLocationFact', '$modalInstance', 'locationModel',
-    function ($scope, $window, $routeParams, $rootScope, mainEventLocationFact, $modalInstance, locationModel)
+angular.module('locationsApp').controller('mainEventLocationsNewCtrl', [ '$scope', '$window', '$routeParams', '$rootScope', 'mainEventLocationFact', 'locationModel',
+    function ($scope, $window, $routeParams, $rootScope, mainEventLocationFact, locationModel)
     {
         if(locationModel){
             $scope.location = new mainEventLocationFact(locationModel);

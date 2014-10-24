@@ -24,6 +24,11 @@ class OrganizationVersionType extends AdditionalInformationsType
                 'required' => 'false',
                 'multiple' => true,
             ))
+            ->add('organizationVersionOwner', 'entity', array(
+                'class' => 'fibeCommunityBundle:Person',
+                'required' => 'true',
+                'multiple' => false,
+            ))
             ->add('organization', 'entity', array(
                 'class' => 'fibeCommunityBundle:Organization',
                 'required' => 'false',
