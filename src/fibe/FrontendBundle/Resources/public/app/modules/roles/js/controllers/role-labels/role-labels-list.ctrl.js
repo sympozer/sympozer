@@ -10,13 +10,7 @@ angular.module('roleLabelsApp').controller('roleLabelsListCtrl', [
 
         $scope.entities = [];
 
-        var baseFilters;
-        if ($routeParams.mainEventId)
-        {
-            $scope.filters = baseFilters = {
-                mainEventId: $routeParams.mainEventId
-            };
-        }
+        $scope.request = roleLabelsFact.allByConference;
 
         $scope.reload = function ()
         {
