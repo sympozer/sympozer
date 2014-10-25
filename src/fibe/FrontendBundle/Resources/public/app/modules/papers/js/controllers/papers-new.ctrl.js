@@ -65,6 +65,13 @@
         }
     }
 
+    $scope.deletePerson = function(personModel,index){
+      
+        
+            $scope.paper.authors.splice(index,personModel);
+        
+    }
+
 
     //Autocomplete and add topic workflow
     $scope.searchTopics = topicsFact.all;

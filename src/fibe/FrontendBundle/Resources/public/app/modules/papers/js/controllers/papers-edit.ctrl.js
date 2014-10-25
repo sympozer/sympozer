@@ -66,6 +66,13 @@ angular.module('papersApp').controller('papersEditCtrl', [ '$scope', 'GLOBAL_CON
         }
     }
 
+    $scope.deletePerson = function(personModel,index){
+        alert('coucou');
+      
+           // $scope.paper.authors.splice(index,personModel);
+       
+    }
+
 
     //Autocomplete and add topic workflow
     $scope.searchTopics = topicsFact.all;
