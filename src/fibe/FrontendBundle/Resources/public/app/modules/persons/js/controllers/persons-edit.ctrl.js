@@ -32,6 +32,9 @@ angular.module('personsApp').controller('personsEditCtrl', [ '$scope', '$rootSco
                 controller: 'organizationsNewCtrl',
                 size: "large",
                 resolve: {
+                    personModel : function(){
+                        return $scope.person;
+                    }
                 }
             });
             modalInstance.result.then(function (newOrganization) {

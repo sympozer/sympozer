@@ -19,6 +19,7 @@ class RoleLabelVersionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('id')
             ->add('label')
             ->add('description')
             ->add('roleLabel', 'entity', array(
@@ -28,6 +29,7 @@ class RoleLabelVersionType extends AbstractType
             ))
             ->add('roles', 'entity', array(
                 'class' => 'fibeContentBundle:Role',
+                'property' => 'label',
                 'required' => 'true',
                 'multiple' => true
             ))

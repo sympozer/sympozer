@@ -32,7 +32,12 @@
 <div class="row">
     <label>Authors</label>
     <div sympozer-autocomplete="persons"  on-select="addPerson" on-keyup="searchPersons"></div>
-    <div ng-repeat="author in paper.authors track by $index" class="col-sm-6 col-md-6 col-lg-4  well" ng-show="paper.authors">
+    <div ng-repeat="author in paper.authors track by $index" class="col-sm-4 col-md-4 col-lg-3  well" ng-show="paper.authors">
+        <div class="col-sm-4 col-md-4 col-lg-3">
+        <a ng-click="deletePerson" >
+        <i class="fa fa-close" ></i>
+        </a>
+        </div>
         <div class="img-container-lg">
             <img  class="scale-img" no-image ng-src="{{ author.img }}"/>
         </div>

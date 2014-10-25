@@ -160,7 +160,10 @@ output='js/compiled/main.js' %}
 'bundles/frontend/app/modules/locations/js/controllers/locations-main.ctrl.js'
 'bundles/frontend/app/modules/locations/js/controllers/locations-new.ctrl.js'
 'bundles/frontend/app/modules/locations/js/controllers/locations-show.ctrl.js'
+'bundles/frontend/app/modules/locations/js/controllers/main-event-locations-new.ctrl.js'
+'bundles/frontend/app/modules/locations/js/controllers/main-event-locations-edit.ctrl.js'
 'bundles/frontend/app/modules/locations/js/services/locations.fact.js'
+'bundles/frontend/app/modules/locations/js/services/main-event-locations.fact.js'
 
 'bundles/frontend/app/modules/events/js/routes.js'
 'bundles/frontend/app/modules/events/js/controllers/events-delete.ctrl.js'
@@ -211,6 +214,10 @@ output='js/compiled/main.js' %}
 'bundles/frontend/app/modules/authentication/js/controllers/sign-up.ctrl.js'
 'bundles/frontend/app/modules/authentication/js/services/users.fact.js'
 
+'bundles/frontend/app/modules/i18n/i18nApp.js'
+'bundles/frontend/app/modules/authentication/js/controllers/change-pwd.ctrl.js'
+'bundles/frontend/app/modules/authentication/js/controllers/confirm.ctrl.js'
+
 
 output='js/compiled/app.js' %}
 <script src="{{ asset_url }}" type="text/javascript"></script>
@@ -236,7 +243,8 @@ output='js/compiled/app.js' %}
                 get_organization_versions: "{{ path('community_organization_versions_post') }}",
 
                 get_persons: "{{ path('community_persons_post') }}",
-                get_locations: "{{ path('content_locations_post') }}",
+                get_locations: "{{ path('content_event_locations_post') }}",
+                get_mainEvent_locations: "{{ path('content_mainEvent_locations_post') }}",
                 get_equipments: "{{ path('content_equipments_post') }}",
                 get_events: "{{ path('schedule_events_post') }}",
 

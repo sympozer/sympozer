@@ -90,15 +90,6 @@ abstract class VEvent
    */
   protected $endAt;
 
-  /**
-   * Locations for the event
-   * @Expose
-   * @ORM\ManyToMany(targetEntity="fibe\ContentBundle\Entity\Location", inversedBy="events", cascade={"all"})
-   * @ORM\JoinTable(name="event_location",
-   *     joinColumns={@ORM\JoinColumn(name="event_id", referencedColumnName="id")},
-   *     inverseJoinColumns={@ORM\JoinColumn(name="location_id", referencedColumnName="id")})
-   */
-  protected $locations;
 
   /**
    * description
@@ -916,19 +907,4 @@ abstract class VEvent
     $this->topics = $topics;
   }
 
-  /**
-   * @return mixed
-   */
-  public function getLocations()
-  {
-    return $this->locations;
-  }
-
-  /**
-   * @param mixed $locations
-   */
-  public function setLocations($locations)
-  {
-    $this->locations = $locations;
-  }
 }

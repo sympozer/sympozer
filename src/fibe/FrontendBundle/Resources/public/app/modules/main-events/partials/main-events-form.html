@@ -50,8 +50,12 @@
         <div class="alert alert-danger" role="alert" ng-show="conferenceEditForm.eventStart.$dirty && conferenceEditForm.eventEnd < eventNewForm.eventStart ">The end date must be after the start date</div>
     </div>
 
-    <div get-or-create="location" parent-entity="conference" parent-field="locations"></div>
-
+    <div>
+        <label>Location </label>
+        <div class="caption well">
+            <leaflet  ng-click="addLocation()" center="center" markers="markers" height="300px" width="100%"></leaflet>
+        </div>
+    </div>
 </div>
 
 <h2>Team</h2>

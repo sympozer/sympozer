@@ -3,12 +3,50 @@
  *
  * @type {controller}
  */
-angular.module('mainEventsApp').controller('mainEventsEditCtrl', [ '$scope', '$rootScope', '$routeParams', '$location', 'mainEventsFact', function ($scope, $rootScope, $routeParams, $location, mainEventsFact)
+angular.module('mainEventsApp').controller('mainEventsEditCtrl', [ '$scope', '$rootScope', '$routeParams', '$location', 'mainEventsFact', '$modal', function ($scope, $rootScope, $routeParams, $location, mainEventsFact, $modal)
 {
     $scope.mainEvent = mainEventsFact.get({id: $routeParams.mainEventId});
 
     //initialize map zoom
     $scope.center = { zoom: 2 }
+
+    $scope.markers = [];
+    var updateMarkers = function(marker){
+        $scope.markers.splice(0, $scope.markers.length);
+        $scope.markers.push(marker);
+    }
+
+    if($scope.mainEvent.mainEventLocation){
+        updateMarkers({
+            lat: $scope.mainEvent.mainEventLocation.latitude,
+            lng: $scope.mainEvent.mainEventLocation.longitude,
+            message: "Your event"
+        })
+    }
+
+    $scope.editLocation = function()
+    {
+        var modalInstance = $modal.open({
+            templateUrl: $rootScope.GLOBAL_CONFIG.app.modules.locations.urls.partials + 'locations-modal-form.html',
+            controller: 'mainEventLocationsEditCtrl',
+            size: "large",
+            resolve: {
+                locationModel: function () {
+                    return $scope.mainEvent.mainEventLocation;
+                }
+            }
+        });
+        modalInstance.result.then(function (newLocation) {
+            $scope.mainEvent.mainEventlocation = newLocation;
+            if(newLocation.latitude){
+                updateMarkers({
+                    lat: newLocation.latitude,
+                    lng: newLocation.longitude,
+                    message: "Your event"
+                })
+            }
+        });
+    };
 
     var error = function (response, args)
     {

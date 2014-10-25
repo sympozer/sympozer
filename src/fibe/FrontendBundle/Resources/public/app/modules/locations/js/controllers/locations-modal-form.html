@@ -1,13 +1,13 @@
 <div class="modal-header">
-    <h3 class="modal-title">New location</h3>
+    <h3 class="modal-title">New role</h3>
 </div>
 <div class="modal-body">
-    <form name="locationEditForm" class="form" role="form">
+    <form name="eventEditForm" class="form" role="form">
         <div ng-include="GLOBAL_CONFIG.app.modules.locations.urls.partials+'locations-form.html'"></div>
     </form>
 </div>
 <div class="modal-footer">
-    <button class="btn btn-primary" ng-click="save(locationEditForm)">OK</button>
+    <button class="btn btn-primary" ng-click="save(eventEditForm)">OK</button>
     <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
 </div>
 

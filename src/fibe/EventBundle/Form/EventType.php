@@ -37,7 +37,11 @@ class EventType extends VEventType
                 'required' => 'true',
                 'multiple' => false,
             ))
-
+            ->add('eventLocations', 'entity', array(
+                'class' => 'fibeContentBundle:EventLocation',
+                'required' => 'false',
+                'multiple' => true,
+            ))
             ->add('mainEvent', 'entity', array(
                 'class' => 'fibeEventBundle:MainEvent',
                 'required' => 'true',

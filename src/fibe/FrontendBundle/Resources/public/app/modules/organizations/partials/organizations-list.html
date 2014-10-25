@@ -2,6 +2,7 @@
 <table class="table table-striped">
     <thead>
     <tr>
+        <th></th>
         <th>Label<i class="fa fa-sort-asc" ng-click="order('label','ASC')"></i><i class="fa fa-sort-desc" ng-click="order('label','DESC')"></i>
         </th>
         <th>website
@@ -15,6 +16,11 @@
     </thead>
     <tbody entity-list-handler="organizations" infinite-scroll='load()' infinite-scroll-disabled='busy' infinite-scroll-distance='0.5'>
     <tr ng-repeat="organization in entities  track by $index">
+        <td>
+            <div class="img-container-sm">
+                <img class="scale-img img-circle" no-image ng-src="{{ organization.img }}"/>
+            </div>
+        </td>
         <td>{{ organization.label }}</td>
         <td>{{ organization.website }}</td>
         <td>{{ organization.country }}</td>

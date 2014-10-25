@@ -10,7 +10,6 @@ angular.module('sympozerApp').controller('mainCtrl',
             $scope.GLOBAL_CONFIG = GLOBAL_CONFIG;
             $rootScope.GLOBAL_CONFIG = GLOBAL_CONFIG;
 
-            debugger;
             uiSelectConfig.theme = GLOBAL_CONFIG.app.urls.partials +'select2/';
 
             $scope.scrollTop = function ()

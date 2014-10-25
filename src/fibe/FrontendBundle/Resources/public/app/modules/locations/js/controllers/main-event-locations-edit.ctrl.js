@@ -1,21 +1,35 @@
 
 /**
- * Edit location controller
+ * Edit location of main event controller
  * @TODO implement a directive for the map handling to remove code duplication
  * @type {controller}
  */
-angular.module('locationsApp').controller('locationsEditCtrl', [ '$scope', '$rootScope', '$routeParams', '$location','equipmentsFact', 'locationsFact', function ($scope, $rootScope, $routeParams, $location, equipmentsFact, locationsFact)
+angular.module('locationsApp').controller('mainEventLocationsEditCtrl', [ '$scope', '$window', '$rootScope', '$routeParams', '$location','equipmentsFact', 'mainEventLocationFact',  'locationModel', function ($scope, $window, $rootScope, $routeParams, $location, equipmentsFact, mainEventLocationFact, locationModel)
 {
     //initialize map zoom
     $scope.center = { zoom: 2 };
 
-    $scope.location = locationsFact.get({id: $routeParams.locationId}, function(location){
+    $scope.markers = [];
+    var addMarkers = function(location){
         //initialize map with current location
         $scope.center.lat = location.latitude || 48;
         $scope.center.long = location.longitude  || 8;
         $scope.center.zoom = 4;
-        $scope.markers.push($scope.center);
-    });
+        $scope.markers.push({
+            lat: location.latitude,
+            lng: location.longitude,
+            message: "Your event"
+        });
+
+    }
+
+    if(locationModel){
+        $scope.location = new mainEventLocationFact(locationModel);
+        addMarkers(locationModel);
+    }else{
+        $scope.location = mainEventLocationFact.get({id: $routeParams.locationId}, addMarkers);
+    }
+
 
     if(!$scope.location.equipments){
         $scope.location.equipments =[];
@@ -29,7 +43,11 @@ angular.module('locationsApp').controller('locationsEditCtrl', [ '$scope', '$roo
     var success = function (response, args)
     {
         $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'location saved', type: 'success'});
-        $location.path('/conference/'+$rootScope.currentMainEvent.id+'/locations/list');
+        if($scope.$close){
+            $scope.$close($scope.location);
+        }else{
+            $window.history.back();
+        }
     }
 
     $scope.save = function (form)
@@ -37,8 +55,13 @@ angular.module('locationsApp').controller('locationsEditCtrl', [ '$scope', '$roo
         if (form.$valid)
         {
             $scope.location.$update({}, success, error);
+
         }
     }
+
+    $scope.cancel = function () {
+        $scope.$dismiss('cancel');
+    };
 
     //Autocomplete and add equipment workflow
     $scope.searchEquipments = equipmentsFact.all;
@@ -49,7 +72,7 @@ angular.module('locationsApp').controller('locationsEditCtrl', [ '$scope', '$roo
 
 
 
-    $scope.markers = new Array();
+    $scope.markers = [];
     $scope.$on("leafletDirectiveMap.click", function (event, args)
     {
         var leafEvent = args.leafletEvent;

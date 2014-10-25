@@ -5,6 +5,7 @@ namespace fibe\EventBundle\Services;
 use Doctrine\ORM\EntityManager;
 
 use fibe\ContentBundle\Entity\Location;
+use fibe\ContentBundle\Entity\MainEventLocation;
 use fibe\EventBundle\Entity\MainEvent;
 use fibe\SecurityBundle\Entity\Team;
 use fibe\SecurityBundle\Entity\User;
@@ -49,7 +50,7 @@ class MainEventService
 
 
     // conference location
-    $mainEventLocation = new Location();
+    $mainEventLocation = new MainEventLocation();
     $mainEventLocation->setLabel("Conference's location");
     $mainEventLocation->setMainEvent($mainEvent);
     $this->entityManager->persist($mainEventLocation);
@@ -252,7 +253,7 @@ class MainEventService
     }
 
     //  locations
-    $locations = $mainEvent->getLocations();
+    $locations = $mainEvent->getEventLocations();
     foreach ($locations as $location)
     {
       $mainEvent->removeLocation($location);

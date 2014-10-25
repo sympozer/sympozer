@@ -69,8 +69,8 @@
     <div class="row">
         <label>Location</label>
         <div sympozer-autocomplete="locations"  on-select="addLocation" on-keyup="searchLocations"></div>
-        <ul class="nav nav-pills" ng-show="event.locations.length > 0">
-            <li ng-repeat="location in event.locations track by $index"  class="active">
+        <ul class="nav nav-pills" ng-show="event.eventLocations.length > 0">
+            <li ng-repeat="location in event.eventLocations  track by $index"  class="active">
                 <a href="javascript:void(0)" > <i class="fa fa-map-marker"></i>  {{location.label}}</a>
             </li>
         </ul>

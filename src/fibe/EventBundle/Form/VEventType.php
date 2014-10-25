@@ -37,11 +37,6 @@ class VEventType extends AbstractType
             ->add('comment')
             ->add('url')
             ->add('dtype')
-            ->add('locations', 'entity', array(
-                'class' => 'fibeContentBundle:Location',
-                'required' => 'false',
-                'multiple' => true,
-            ))
             ->add('sponsors', 'entity', array(
                 'class' => 'fibeContentBundle:Sponsor',
                 'required' => 'false',

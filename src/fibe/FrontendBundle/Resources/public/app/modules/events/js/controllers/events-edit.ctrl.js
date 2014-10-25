@@ -43,14 +43,10 @@ angular.module('eventsApp').controller('eventsEditCtrl', [ '$scope', '$window', 
             });
         }
 
-        $scope.addLocation = function (index, location)
-        {
-            $scope.event.locations.push(location);
-        }
 
         $scope.deleteLocation = function (index)
         {
-            $scope.event.locations.slice(index, 1);
+            $scope.event.eventLocations.slice(index, 1);
         }
 
 
@@ -115,18 +111,18 @@ angular.module('eventsApp').controller('eventsEditCtrl', [ '$scope', '$window', 
                     }
                 });
                 modalInstance.result.then(function (newLocation) {
-                    if(!$scope.event.locations){
-                        $scope.event.locations = [];
+                    if(!$scope.event.eventLocations){
+                        $scope.event.eventLocations = [];
                     }
-                    $scope.event.locations.push(newLocation);
+                    $scope.event.eventLocations.push(newLocation);
                 }, function () {
                     //$log.info('Modal dismissed at: ' + new Date());
                 });
             }else{
-                if(!$scope.event.locations){
-                    $scope.event.locations = [];
+                if(!$scope.event.eventLocations){
+                    $scope.event.eventLocations = [];
                 }
-                $scope.event.locations.push(locationModel);
+                $scope.event.eventLocations.push(locationModel);
             }
         }
 
