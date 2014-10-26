@@ -421,3 +421,13 @@ input.ng-dirty.ng-valid
   width:auto;*/
 }
 
+
+/*************** datetimepicker *****************/
+
+.datetimepicker tbody td, .datetimepicker tbody td span{
+  border: #EDE 1px solid;
+}
+
+.datetimepicker table{
+  outline: #CCC 1px solid;
+}

@@ -1,12 +1,13 @@
 <?php
 namespace fibe\SecurityBundle\Services;
 
-use Doctrine\Entity;
 use FOS\UserBundle\Model\UserInterface;
 use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
 use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\Security\Acl\Exception\AclNotFoundException;
 use Symfony\Component\Security\Acl\Exception\NoAceFoundException;
+use Symfony\Component\Security\Acl\Model\MutableAclInterface;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
  * to be used with this class entity must :
@@ -21,73 +22,6 @@ class ACLEntityHelper extends ACLHelper
   const LINK_WITH = 'MainEvent';
   const DEFAULT_REPOSITORY_BUNDLE = 'ERREUR_DE_DEFINITION_ACL';
 
-  /** @const */
-  public static $ACLEntityNameArray = array(
-    'MainEvent'            => array(
-      'classpath'        => 'fibe\\EventBundle\\Entity',
-      'repositoryBundle' => 'fibeEventBundle'
-    ),
-    'Team'                 => array(
-      'classpath' => 'fibe\\SecurityBundle\\Entity',
-    ),
-    'MobileAppConfig'      => array(
-      'classpath' => 'fibe\\MobileAppBundle\\Entity',
-    ),
-    'Module'               => array(
-      'classpath' => 'fibe\\ContentBundle\\Entity',
-    ),
-    'Event'                => array(
-      'parent'    => 'getMainEvent',
-      'classpath' => 'fibe\\EventBundle\\Entity',
-      'repositoryBundle' => 'fibeEventBundle'
-    ),
-    'Location'             => array(
-      'parent'    => 'getMainEvent',
-      'classpath' => 'fibe\\ContentBundle\\Entity',
-    ),
-    'Paper'                => array(
-      'parent'    => 'getMainEvent',
-      'classpath' => 'fibe\\ContentBundle\\Entity',
-    ),
-    'Person'               => array(
-      'parent'    => 'getMainEvent',
-      'classpath' => 'fibe\\CommunityBundle\\Entity',
-    ),
-    'Role'                 => array(
-      'parent'    => 'getMainEvent',
-      'classpath' => 'fibe\\ContentBundle\\Entity',
-    ),
-    'Organization'         => array(
-      'parent'    => 'getMainEvent',
-      'classpath' => 'fibe\\CommunityBundle\\Entity',
-    ),
-    'Topic'                => array(
-      'parent'    => 'getMainEvent',
-      'classpath' => 'fibe\\ContentBundle\\Entity',
-      'repositoryBundle' => 'fibeContentBundle'
-    ),
-    'Sponsor'              => array(
-      'parent'    => 'getMainEvent',
-      'classpath' => 'fibe\\ContentBundle\\Entity',
-    ),
-    'SocialServiceAccount' => array(
-      'parent'    => 'getMainEvent',
-      'classpath' => 'fibe\\CommunityBundle\\Entity',
-    ),
-    'Category'             => array(
-      'parent'    => 'getMainEvent',
-      'classpath' => 'fibe\\EventBundle\\Entity',
-    ),
-    'Equipment'            => array(
-      'parent'    => 'getMainEvent',
-      'classpath' => 'fibe\\ContentBundle\\Entity',
-    ),
-    'RoleType'             => array(
-      'parent'    => 'MainEvent',
-      'classpath' => 'fibe\\ContentBundle\\Entity',
-    )
-  );
-
   /**
    * get an entity in the conf with permission check
    * i.e.
@@ -95,9 +29,9 @@ class ACLEntityHelper extends ACLHelper
    *   $entity = $this->get('fibe_security.acl_entity_helper')->getEntityACL('EDIT','Person',$id);
    *   $entity = $this->get('fibe_security.acl_entity_helper')->getEntityACL('EDIT','Person',$entity);
    *
-   * @param String $action         VIEW|EDIT|CREATE|DELETE|OPERATOR|OWNER|MASTER
+   * @param String $action VIEW|EDIT|CREATE|DELETE|OPERATOR|OWNER|MASTER
    * @param String $repositoryName the class name
-   * @param mixed  $entity         the entity to get
+   * @param mixed $entity the entity to get
    *
    * @return mixed the entity to get
    * @throws AccessDeniedException
@@ -131,7 +65,7 @@ class ACLEntityHelper extends ACLHelper
    * i.e.
    *  $entities = $this->get('fibe_security.acl_entity_helper')->getEntitiesACL('EDIT','Topic');
    *
-   * @param String $action         VIEW|EDIT|CREATE|DELETE|OPERATOR|OWNER|MASTER
+   * @param String $action VIEW|EDIT|CREATE|DELETE|OPERATOR|OWNER|MASTER
    * @param String $repositoryName the class name
    *
    * @return array(Entity) entities to get
@@ -147,13 +81,13 @@ class ACLEntityHelper extends ACLHelper
       'entity'
     );
 
-    if ($repositoryName != ACLEntityHelper::LINK_WITH)
+    if ($repositoryName != self::LINK_WITH)
     {
       $this->restrictQueryBuilderByConferenceId($queryBuilder);
     }
 
     $entities = $queryBuilder->getQuery()->getResult();
-    if ("VIEW" == $action && $repositoryName != ACLEntityHelper::LINK_WITH)
+    if ("VIEW" == $action && $repositoryName != self::LINK_WITH)
     {
       return $entities;
     }
@@ -190,10 +124,10 @@ class ACLEntityHelper extends ACLHelper
 
   /**get the allowed action
    *
-   * @param Object             $entity     the entity to get
-   * @param UserInterface|null $user       the current user if null
-   * @param String             $returnType all|mask|index|action (all | int binary mask | index of the ace in the acl | readable action i.e. VIEW)
-   * @param null               $acl        provide acl if you already got it
+   * @param Object $entity the entity to get
+   * @param UserInterface|null $user the current user if null
+   * @param String $returnType all|mask|index|action (all | int binary mask | index of the ace in the acl | readable action i.e. VIEW)
+   * @param null $acl provide acl if you already got it
    *
    * @throws \Symfony\Component\Security\Acl\Exception\NoAceFoundException
    * @return String VIEW|EDIT|CREATE|DELETE|OPERATOR|OWNER|MASTER
@@ -218,8 +152,8 @@ class ACLEntityHelper extends ACLHelper
         {
           case 'all':
             return array(
-              'mask'   => $ace->getMask(),
-              'index'  => $index,
+              'mask' => $ace->getMask(),
+              'index' => $index,
               'action' => $this->getMask($ace->getMask())
             );
           case 'mask':
@@ -243,38 +177,6 @@ class ACLEntityHelper extends ACLHelper
   }
 
   /**
-   * @param String $repositoryName registered in the ACLEntityHelper::$ACLEntityNameArray
-   *
-   * @return String  the full class path
-   * @throws EntityACLNotRegisteredException in case entity is not registered in the array
-   */
-  public function getClassNameByRepositoryName($repositoryName)
-  {
-    if (!isset(self::$ACLEntityNameArray[$repositoryName]))
-    {
-      throw new EntityACLNotRegisteredException(
-        "Can't get ACL for Entity [" . $repositoryName . "] as it's not registered in ACLEntityHelper::\$ACLEntityNameArray"
-      );
-    }
-
-    return self::$ACLEntityNameArray[$repositoryName]['classpath'] . '\\' . $repositoryName;
-  }
-
-  public static function getRepositoryNameByClassName($className)
-  {
-    $class = new \ReflectionClass($className);
-
-    if (!isset(self::$ACLEntityNameArray[$class->getShortName()]))
-    {
-      throw new EntityACLNotRegisteredException(
-        "Can't get ACL for Entity [" . $className . "] as it's not registered in ACLEntityHelper::\$ACLEntityNameArray"
-      );
-    }
-
-    return $class->getShortName();
-  }
-
-  /**
    * filter by conferenceId if the repository != this::LINK_WITH
    *
    * @param      $repositoryName
@@ -282,13 +184,13 @@ class ACLEntityHelper extends ACLHelper
    *
    * @return null|object
    */
-  private function getEntitiesInConf($repositoryName, $id = null)
+  protected function getEntitiesInConf($repositoryName, $id = null)
   {
     $entity = null;
     if ($id)
     {
       $findOneByArgs = array('id' => $id);
-      if ($repositoryName != ACLEntityHelper::LINK_WITH)
+      if ($repositoryName != self::LINK_WITH)
       {
         $findOneByArgs['mainEvent'] = $this->getCurrentMainEvent();
       }
@@ -308,9 +210,117 @@ class ACLEntityHelper extends ACLHelper
 
     return $entity;
   }
-}
 
 
-class EntityACLNotRegisteredException extends \RunTimeException
-{
+
+  /**
+   * update the teamate right by repository & id
+   * @param  [User] $teamate           the choosen teamate
+   * @param  [String] $action          [description]
+   * @param  [String] $repositoryName  [description]
+   * @param  [type] $id                if not set, update all objects of the repository given linked with the current conf
+   */
+  protected function updateUserACL($teamate, $action, $repositoryName, $id = null)
+  {
+    if (!$id)
+    {
+      $entities = $this->getEntitiesACL("VIEW", $repositoryName);
+      foreach ($entities as $entity)
+      {
+        $this->performUpdateUserACL($teamate, $action, $entity);
+      }
+    }
+    else
+    {
+      $entity = $this->getEntityACL("VIEW", $repositoryName, $id);
+      $this->performUpdateUserACL($teamate, $action, $entity);
+    }
+  }
+
+  /**
+   * update user acl by entity
+   *   /!\ doesn't check owner demoting and own permission change, see updateUserConfPermission for those requirment check
+   * @param  [User] $teamate [description]
+   * @param  [String] $action[description]
+   * @param  [type] $entity  [description]
+   */
+  protected function performUpdateUserACL($teamate, $action, $entity)
+  {
+    $entitySecurityIdentity = ObjectIdentity::fromDomainObject($entity);
+    $acl = $this->getOrCreateAcl($entitySecurityIdentity, $teamate);
+    $this->updateOrCreateAce($acl, $entity, $teamate, $action);
+  }
+
+  /**
+   * @param $entitySecurityIdentity
+   * @param $user
+   * @return \Symfony\Component\Security\Acl\Model\MutableAclInterface
+   */
+  protected function getOrCreateAcl($entitySecurityIdentity, $user)
+  {
+    $userSecurityIdentity = UserSecurityIdentity::fromAccount($user);
+    try
+    {
+      $acl = $this->aclProvider->findAcl(
+        $entitySecurityIdentity,
+        array($userSecurityIdentity)
+      );
+    } catch (AclNotFoundException $e)
+    {
+      $acl = $this->aclProvider->createAcl($entitySecurityIdentity);
+    }
+    return $acl;
+  }
+
+  /**
+   * process permission change
+   *
+   *  if the user is master : OK
+   *  else if he's OPERATOR and he wants to add a member ( catch (NoAceFoundException $e) )
+   *        => affect VIEW as default right
+   *  else : do nothing
+   * @param MutableAclInterface $acl
+   * @param $entity
+   * @param UserInterface $user
+   * @param $action
+   */
+  private function updateOrCreateAce(MutableAclInterface $acl, $entity, UserInterface $user, $action)
+  {
+    $currentUserRight = $this->getACEByEntity($entity);
+    try
+    {
+      //get the ace index
+      $ace = $this->getACEByEntity($entity, $user, "all", $acl);
+      //master permission required to update permissions
+      if ($ace['action'] != $action && ("MASTER" == $currentUserRight || "OWNER" == $currentUserRight))
+      {
+        $acl->updateObjectAce(
+          $ace['index'],
+          $this->getMask($action)
+        );
+        $this->aclProvider->updateAcl($acl);
+      }
+    } catch (NoAceFoundException $e)
+    {
+      //if it's a new manager or object thus the ace isn't found
+      $userSecurityIdentity = UserSecurityIdentity::fromAccount($user);
+      if ("MASTER" == $currentUserRight || "OWNER" == $currentUserRight)
+      {
+        $acl->insertObjectAce(
+          $userSecurityIdentity,
+          $this->getMask($action)
+        );
+      }
+      //if not master : set default right to view
+      else
+      {
+        $acl->insertObjectAce(
+          $userSecurityIdentity,
+          $this->getMask("VIEW")
+        );
+      }
+      $this->aclProvider->updateAcl($acl);
+    }
+  }
 }
+

@@ -33,7 +33,8 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
         'Register_error': 'Cannot register the user. Please contact the support.',
         'Register_email_in_use_error': 'Email already in use',
         'Register_username_in_use_error': 'Login already in use',
-        'Register_confirm_error': 'Invalid confirmation token.'
+        'Register_confirm_error': 'Invalid confirmation token.',
+        'EventFormValidation_start_is_after_end_error': 'the start date must not be after the end date.'
     });
 
     // Simply register translation table as object hash
@@ -56,7 +57,8 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
         'Register_error': 'L\'utilisateur n\'a pas pu etre enregistré. Veuillez contacter le support.',
         'Register_email_in_use_error': 'Adresse mail déjà utilisée',
         'Register_username_in_use_error': 'Login déjà utilisé',
-        'Register_confirm_error': 'Jeton de confirmation invalide.'
+        'Register_confirm_error': 'Jeton de confirmation invalide.',
+        'EventFormValidation_start_is_after_end_error': "La date de fin doit être postérieure à la date de commencement."
     });
 
     $translateProvider.preferredLanguage('en_US');

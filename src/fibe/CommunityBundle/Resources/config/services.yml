@@ -4,6 +4,7 @@ services:
     fibe.PersonService:
         class:  fibe\CommunityBundle\Services\PersonService
         arguments: ["@doctrine.orm.entity_manager", "@security.context", "@fos_user.user_manager", "@fos_user.util.token_generator", "@fibe.mail_manager"]
+
     fibe.mail_manager:
         class:  "%mail_manager.class%"
         parent: fos_user.mailer.twig_swift

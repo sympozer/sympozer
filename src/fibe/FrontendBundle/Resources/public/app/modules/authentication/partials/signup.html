@@ -7,7 +7,7 @@
     <div class="alert alert-danger" role="alert" ng-show="signupForm.username.$error.minlength">Your login is required to be at least 3 characters</div>
     <div class="alert alert-danger" role="alert" ng-show="signupForm.username.$error.maxlength">Your login cannot be longer than 20 characters</div>
   </div>
-    <div class="form-group">
+  <div class="form-group">
     <label for="inputEmail">Email</label>
     <input type="email" class="form-control" id="inputEmail" name="mail" placeholder="Email" ng-model="user.email" required ng-pattern=/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/>
   </div>

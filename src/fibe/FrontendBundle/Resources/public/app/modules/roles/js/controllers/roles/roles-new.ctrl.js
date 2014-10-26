@@ -9,7 +9,6 @@ angular.module('rolesApp').controller('rolesNewCtrl',
         {
             $scope.role = new rolesFact;
 
-            debugger;
             var error = function (response, args)
             {
                 $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'the role has not been created', type: 'danger'});

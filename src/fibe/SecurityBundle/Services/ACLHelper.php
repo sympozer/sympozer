@@ -1,13 +1,13 @@
 <?php
 namespace fibe\SecurityBundle\Services;
 
-use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
-use Symfony\Component\Security\Core\SecurityContext;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\QueryBuilder;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Symfony\Component\Security\Acl\Dbal\MutableAclProvider;
 use Symfony\Component\Security\Acl\Permission\MaskBuilder;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 class ACLHelper
@@ -35,35 +35,97 @@ class ACLHelper
   );
   /** @const */
   public static $MASK_LABELS = array(
-    'VIEW'     => '[View]',
-    'EDIT'     => '[Edit]',
+    'VIEW' => '[View]',
+    'EDIT' => '[Edit]',
     // 'CREATE' => 'CREATE',
     // 'DELETE' => 'DELETE',
     // 'UNDELETE' => 'UNDELETE',
     'OPERATOR' => '[OPERATOR] Edit/Create/Delete',
-    'MASTER'   => '[MASTER] Master can give those permissions to others',
-    'OWNER'    => '[OWNER] Owner can promote/demote the Master status'
+    'MASTER' => '[MASTER] Master can give those permissions to others',
+    'OWNER' => '[OWNER] Owner can promote/demote the Master status'
   );
 
 
+  /** @const */
+  public static $ACLEntityNameArray = array(
+    'MainEvent' => array(
+      'classpath' => 'fibe\\EventBundle\\Entity',
+      'repositoryBundle' => 'fibeEventBundle'
+    ),
+    'Team' => array(
+      'classpath' => 'fibe\\SecurityBundle\\Entity',
+    ),
+    'Event' => array(
+      'parent' => 'getMainEvent',
+      'classpath' => 'fibe\\EventBundle\\Entity',
+      'repositoryBundle' => 'fibeEventBundle'
+    ),
+    'Location' => array(
+      'parent' => 'getMainEvent',
+      'classpath' => 'fibe\\ContentBundle\\Entity',
+    ),
+    'Paper' => array(
+      'parent' => 'getMainEvent',
+      'classpath' => 'fibe\\ContentBundle\\Entity',
+    ),
+    'Person' => array(
+      'parent' => 'getMainEvent',
+      'classpath' => 'fibe\\CommunityBundle\\Entity',
+    ),
+    'Role' => array(
+      'parent' => 'getMainEvent',
+      'classpath' => 'fibe\\ContentBundle\\Entity',
+    ),
+    'Organization' => array(
+      'parent' => 'getMainEvent',
+      'classpath' => 'fibe\\CommunityBundle\\Entity',
+    ),
+    'Topic' => array(
+      'parent' => 'getMainEvent',
+      'classpath' => 'fibe\\ContentBundle\\Entity',
+      'repositoryBundle' => 'fibeContentBundle'
+    ),
+    'Sponsor' => array(
+      'parent' => 'getMainEvent',
+      'classpath' => 'fibe\\ContentBundle\\Entity',
+    ),
+    'SocialServiceAccount' => array(
+      'parent' => 'getMainEvent',
+      'classpath' => 'fibe\\CommunityBundle\\Entity',
+    ),
+    'Category' => array(
+      'parent' => 'getMainEvent',
+      'classpath' => 'fibe\\EventBundle\\Entity',
+    ),
+    'Equipment' => array(
+      'parent' => 'getMainEvent',
+      'classpath' => 'fibe\\ContentBundle\\Entity',
+    ),
+    'RoleType' => array(
+      'parent' => 'getMainEvent',
+      'classpath' => 'fibe\\ContentBundle\\Entity',
+    )
+  );
+
+  /** @var SecurityContext */
   protected $securityContext;
+  /** @var EntityManager */
   protected $entityManager;
+  /** @var MutableAclProvider $aclProvider */
   protected $aclProvider;
 
-  public function __construct(SecurityContext $securityContext, EntityManager $entityManager, MutableAclProvider $aclProvider)
-  {
-    $this->securityContext = $securityContext;
-    $this->entityManager = $entityManager;
-    $this->aclProvider = $aclProvider;
-  }
-
+  /**
+   * @param null $id
+   * @return \fibe\SecurityBundle\Entity\User|mixed
+   * @throws \Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException
+   */
   protected function getUser($id = null)
   {
     if ($id)
     {
       return $teamate = $this->entityManager->getRepository('fibeSecurityBundle:User')->find($id);
     }
-    else if(($user = $this->securityContext->getToken()->getUser()) instanceof UserInterface)
+    else if (($user = $this->securityContext->getToken()->getUser()) instanceof UserInterface)
     {
       return $user;
     }
@@ -73,6 +135,47 @@ class ACLHelper
     }
   }
 
+
+  /**
+   * @param String $repositoryName registered in the ACLHelper::$ACLEntityNameArray
+   *
+   * @return String  the full class path
+   * @throws EntityACLNotRegisteredException in case entity is not registered in the array
+   */
+  public function getClassNameByRepositoryName($repositoryName)
+  {
+    if (!isset(self::$ACLEntityNameArray[$repositoryName]))
+    {
+      throw new EntityACLNotRegisteredException(
+        "Can't get ACL for Entity [" . $repositoryName . "] as it's not registered in ACLEntityHelper::\$ACLEntityNameArray"
+      );
+    }
+
+    return self::$ACLEntityNameArray[$repositoryName]['classpath'] . '\\' . $repositoryName;
+  }
+
+  /**
+   * @param $className
+   * @return string
+   * @throws EntityACLNotRegisteredException
+   */
+  public static function getRepositoryNameByClassName($className)
+  {
+    $class = new \ReflectionClass($className);
+
+    if (!isset(self::$ACLEntityNameArray[$class->getShortName()]))
+    {
+      throw new EntityACLNotRegisteredException(
+        "Can't get ACL for Entity [" . $className . "] as it's not registered in ACLEntityHelper::\$ACLEntityNameArray"
+      );
+    }
+
+    return $class->getShortName();
+  }
+
+  /**
+   * @return \fibe\EventBundle\Entity\MainEvent
+   */
   protected function getCurrentMainEvent()
   {
     if (!$currentMainEvent = $this->getUser()->getCurrentMainEvent())
@@ -134,4 +237,33 @@ class ACLHelper
   {
     throw new NotFoundHttpException(sprintf(ACLHelper::CANNOT_FIND_ENTITY_LABEL, $repositoryName, $id ? '#' . $id : ''));
   }
+
+
+  /**
+   * @param mixed $aclProvider
+   */
+  public function setAclProvider(MutableAclProvider $aclProvider)
+  {
+    $this->aclProvider = $aclProvider;
+  }
+
+  /**
+   * @param mixed $entityManager
+   */
+  public function setEntityManager(EntityManager $entityManager)
+  {
+    $this->entityManager = $entityManager;
+  }
+
+  /**
+   * @param mixed $securityContext
+   */
+  public function setSecurityContext(SecurityContext $securityContext)
+  {
+    $this->securityContext = $securityContext;
+  }
+}
+
+class EntityACLNotRegisteredException extends \RunTimeException
+{
 }

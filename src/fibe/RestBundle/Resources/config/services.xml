@@ -53,6 +53,7 @@
         <service id="serialize_exception_listener" class="%serialize_exception_listener.class%">
             <tag name="kernel.event_listener" event="kernel.exception" method="onKernelException"/>
             <argument type="service" id="serializer" />
+            <argument type="service" id="logger" />
         </service>
 
 
