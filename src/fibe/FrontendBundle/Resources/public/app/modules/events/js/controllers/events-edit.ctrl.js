@@ -12,13 +12,13 @@ angular.module('eventsApp').controller('eventsEditCtrl', [ '$scope', '$window', 
         var error = function (response, args)
         {
             $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'the event has not been saved', type: 'danger'});
-        }
+        };
 
         var success = function (response, args)
         {
             $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'event saved', type: 'success'});
             $location.path('/conference/' + $rootScope.currentMainEvent.id + '/events/list');
-        }
+        };
 
         $scope.update = function (form)
         {
@@ -27,7 +27,7 @@ angular.module('eventsApp').controller('eventsEditCtrl', [ '$scope', '$window', 
             {
                 $scope.event.$update({}, success, error);
             }
-        }
+        };
 
         $scope.createLocationModal = function ()
         {

@@ -98,6 +98,7 @@ output='js/compiled/main.js' %}
 'bundles/frontend/app/js/directives/infinite-scroll.drv.js'
 'bundles/frontend/app/js/directives/sympozer-autocomplete.drv.js'
 'bundles/frontend/app/js/directives/no-image.drv.js'
+'bundles/frontend/app/js/directives/server-error.drv.js'
 
 'bundles/frontend/app/js/services/global-http-interceptor.fact.js'
 'bundles/frontend/app/js/services/search.fact.js'
@@ -374,7 +375,7 @@ output='js/compiled/app.js' %}
                         img: "{{ asset('bundles/frontend/app/modules/roles/img') }}"
                     }
                 },
-                roleLabels: {
+                roleLabelVersions: {
                     urls: {
                         base: "{{ asset('bundles/frontend/app/modules/roles/') }}",
                         partials: "{{ asset('bundles/frontend/app/modules/roles/partials/') }}",

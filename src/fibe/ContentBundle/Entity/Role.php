@@ -84,14 +84,11 @@ class Role
 
 
     /**
-     * computeEndAt
-     *
-     * @TODO EVENT : à corriger
      *
      * @ORM\PrePersist()
      * @ORM\PreUpdate()
      */
-    public function computeEndAt()
+    public function computeLabel()
     {
         $eventLabel = $this->getEvent() ? $this->getEvent()->getlabel(): $this->getMainEvent()->getlabel();
         $this->setLabel(sprintf("%s is %s at %s",

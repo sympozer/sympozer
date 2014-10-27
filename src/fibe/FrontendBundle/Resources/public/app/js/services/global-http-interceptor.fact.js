@@ -69,9 +69,13 @@ angular.module('sympozerApp').factory('globalHttpInterceptor', [
                     $rootScope.showLoginPopup();
                     $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'You need to signin to have access to this page', type: 'warning'});
                 }
+                else if (rejection.data.error)
+                {
+                    $rootScope.$broadcast('AlertCtrl:addAlert', {code: rejection.data.error, type: 'warning'});
+                }
                 else
                 {
-                    $rootScope.$broadcast('AlertCtrl:addAlert', {code: rejection.status + ' ' + rejection.statusText, type: 'danger'});
+//                    $rootScope.$broadcast('AlertCtrl:addAlert', {code: rejection.status + ' ' + rejection.statusText, type: 'danger'});
                 }
                 return $q.reject(rejection);
             }

@@ -357,7 +357,7 @@ input.ng-dirty.ng-valid
 }
 
 
-[ui-select-bootstrap] .ng-hide,
+.ui-select-bootstrap .ng-hide
 {
   display: none;
 }

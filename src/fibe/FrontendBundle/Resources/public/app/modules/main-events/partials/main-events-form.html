@@ -28,13 +28,13 @@
 
     <div class="dropdown">
       <a class="dropdown-toggle" id="dropdownStart" role="button" data-toggle="dropdown" data-target="#" href="javascript:void(0)">
-        <input type="text" class="form-control" id="inputStartAt" name="inputStartAt" placeholder="Start at" ng-model="conference.startAt">
+        <input type="text" class="form-control" id="inputStartAt" name="inputStartAt" placeholder="Start at" ng-model="conference.startAt" ng-class="{'ng-dirty': formServerErrors.startAt, 'ng-valid': !formServerErrors.startAt,  'ng-invalid': formServerErrors.startAt}">
       </a>
       <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
         <datetimepicker data-ng-model="conference.startAt" data-datetimepicker-config="{ dropdownSelector: '#dropdown2' }"/>
       </ul>
     </div>
-    <div class="alert alert-danger" role="alert" ng-show="conferenceEditForm.eventStart.$dirty && conferenceEditForm.eventStart > eventNewForm.eventEnd">The start date must be before the end date</div>
+    <div class="alert alert-danger" role="alert" ng-show="inputStartAt.startAt.$dirty && conferenceForm.startAt > conferenceForm.endAt" >The start date must be before the end date</div>
     <div ng-if="formServerErrors.startAt" ng-repeat="error in formServerErrors.startAt" class="alert alert-danger" role="alert">
       <p>{{ error | translate }}</p>
     </div>
@@ -50,7 +50,7 @@
         <datetimepicker data-ng-model="conference.endAt" data-datetimepicker-config="{ dropdownSelector: '#dropdown2' }"/>
       </ul>
     </div>
-    <div class="alert alert-danger" role="alert" ng-show="conferenceEditForm.eventStart.$dirty && conferenceEditForm.eventEnd < eventNewForm.eventStart ">The end date must be after the start date</div>
+    <div class="alert alert-danger" role="alert" ng-show="inputStartAtconferenceForm.inputStartAt.$dirty && conferenceForm.endAt < eventNewForm.startAt ">The end date must be after the start date</div>
   </div>
 
   <div>

@@ -55,7 +55,7 @@ angular.module('rolesApp').controller('rolesEditCtrl',
         $scope.addRoleLabel = function(roleLabelModel){
             if(!roleLabelModel.id) {
                 var modalInstance = $modal.open({
-                    templateUrl: GLOBAL_CONFIG.app.modules.roleLabels.urls.partials + 'roleLabels-modal-form.html',
+                    templateUrl: GLOBAL_CONFIG.app.modules.roleLabelVersions.urls.partials + 'roleLabelVersions-modal-form.html',
                     controller: 'roleLabelsNewCtrl',
                     size: "large",
                     resolve: {

@@ -6,13 +6,13 @@
 angular.module('mainEventsApp').controller('mainEventsNewCtrl', [ '$scope', '$rootScope', '$location', 'mainEventsFact', 'locationsFact', 'formValidation', '$modal', function ($scope, $rootScope, $location, mainEventsFact, locationsFact, formValidation, $modal)
 {
     $scope.conference = new mainEventsFact;
+    $scope.serverError = {};
 
     var error = function (response, args)
     {
         if("Validation Failed" == response.data.message)
         {
-            $scope.formServerErrors = formValidation.transformFromServer(response);
-            console.log(response,$scope.conferenceNewForm);
+            formValidation.transformFromServer(response, $scope.serverError);
         }
         else
         {

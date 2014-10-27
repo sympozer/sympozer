@@ -4,14 +4,24 @@
  * @type {controller}
  */
 
-angular.module('eventsApp').controller('eventsNewCtrl', [ '$scope', '$window', 'GLOBAL_CONFIG', '$routeParams', '$rootScope', '$location', 'eventsFact', 'categoriesFact', 'topicsFact', 'locationsFact', 'papersFact', '$modal',
-    function ($scope, $window, GLOBAL_CONFIG, $routeParams, $rootScope, $location, eventsFact, categoriesFact, topicsFact, locationsFact, papersFact, $modal )
+angular.module('eventsApp').controller('eventsNewCtrl', [ '$scope', '$window', 'GLOBAL_CONFIG', '$routeParams', '$rootScope', '$location', 'eventsFact', 'categoriesFact', 'topicsFact', 'locationsFact', 'papersFact', '$modal', 'formValidation',
+    function ($scope, $window, GLOBAL_CONFIG, $routeParams, $rootScope, $location, eventsFact, categoriesFact, topicsFact, locationsFact, papersFact, $modal, formValidation)
     {
         $scope.event = new eventsFact;
+        $scope.serverError = {};
 
         var error = function (response, args)
         {
-            $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'the event has not been created', type: 'danger'});
+            $scope.busy = false;
+
+            if ("Validation Failed" == response.data.message)
+            {
+                formValidation.transformFromServer(response, $scope.serverError);
+            }
+            else
+            {
+                $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'the event has not been saved', type: 'danger'});
+            }
         }
 
         var success = function (response, args)

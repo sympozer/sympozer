@@ -29,7 +29,7 @@ angular.module('sympozerApp').directive('sympozerAutocomplete', [
                 }
 
                 scope.GLOBAL_CONFIG = GLOBAL_CONFIG;
-                scope.searchedEntity = attrs.sympozerAutocomplete;
+                scope.searchedEntity = getPlural(attrs.sympozerAutocomplete);
                 scope.templateUrl = GLOBAL_CONFIG.app.modules[scope.searchedEntity].urls.partials + scope.searchedEntity + '-select.html';
 
                 /**
@@ -72,5 +72,21 @@ angular.module('sympozerApp').directive('sympozerAutocomplete', [
                 }
             }
         };
+
+        function getPlural(entityName)
+        {
+            if (entityName.slice(-1) === 's')
+            {
+                return entityName;
+            }
+            else if (entityName.slice(-1) === 'y')
+            {
+                return entityName.substring(0, entityName.length - 1) + "ies";
+            }
+            else
+            {
+                return entityName + "s";
+            }
+        }
     }]);
 

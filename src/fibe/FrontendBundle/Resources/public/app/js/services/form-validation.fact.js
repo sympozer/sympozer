@@ -5,7 +5,7 @@ angular.module('sympozerApp').factory('formValidation', [
         return {
             /**
              * Transform default Symfony2 "Validation Failed" rest response
-             * in an object like :
+             * in serverError like :
              *  {
              *      %field 1%: ['error 1', 'error 2'],
              *      %field 2%: ['error 1', 'error 2'],
@@ -13,30 +13,31 @@ angular.module('sympozerApp').factory('formValidation', [
              *
              *  to be called in the error ajax callback of a form submission
              *  use it like :
-             *  $scope.formServerErrors = formValidation.transformFromServer(response);
+             *  formValidation.transformFromServer(response, $scope.serverError);
              *
              * @param response
+             * @param serverError
              * @returns {{}}
              */
-            transformFromServer: function (response)
+            transformFromServer: function (response,serverError)
             {
 
-                var fieldError,
-                    formServerErrors = {};
+                var fieldError;
+                emptyServerError(serverError);
                 //loop over each field
                 for (var field in response.data.errors.children)
                 {
                     fieldError = response.data.errors.children[field];
                     if (!(fieldError instanceof Array))
                     {
-                        if (!formServerErrors[field])
+                        if (!serverError[field])
                         {
-                            formServerErrors[field] = [];
+                            serverError[field] = [];
                         }
                         //loop over each error in field
                         for (var i in fieldError.errors)
                         {
-                            formServerErrors[field].push(fieldError.errors[i]);
+                            serverError[field].push(fieldError.errors[i]);
                         }
                     }
                 }
@@ -44,13 +45,14 @@ angular.module('sympozerApp').factory('formValidation', [
                 for(var formError in response.data.errors.errors)
                 {
                     var error = JSON.parse(JSONize(response.data.errors.errors[formError]));
-                    if (!formServerErrors[error.field])
+                    if (!serverError[error.field])
                     {
-                        formServerErrors[error.field] = [];
+                        serverError[error.field] = [];
                     }
-                    formServerErrors[error.field].push(error.msg);
+                    serverError[error.field].push(error.msg);
                 }
-                return formServerErrors;
+
+                return serverError;
             }
         };
         /**
@@ -62,7 +64,7 @@ angular.module('sympozerApp').factory('formValidation', [
          * str = '{ "hello": "world", "places": ["Africa", "America", "Asia", "Australia"] }'
          *
          * @param str
-         * @returns {XML|string}
+         * @returns {string}
          * @constructor
          */
 
@@ -72,6 +74,14 @@ angular.module('sympozerApp').factory('formValidation', [
                 .replace(/([\$\w]+)\s*:/g, function(_, $1){return '"'+$1+'":'})
                 // replacing single quote wrapped ones to double quote
                 .replace(/'([^']+)'/g, function(_, $1){return '"'+$1+'"'})
+        }
+
+        function emptyServerError(serverError)
+        {
+            for(var i in serverError)
+            {
+                serverError[i] = [];
+            }
         }
     }
 ]);
