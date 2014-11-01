@@ -22,3 +22,6 @@ composer.lock
 # gedit temp file
 *~
 bin
+
+# smlink file (for dev environement)
+web/smlink
