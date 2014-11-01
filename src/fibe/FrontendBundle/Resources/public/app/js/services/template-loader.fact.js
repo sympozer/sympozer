@@ -11,18 +11,18 @@
  * }]);
  **/
 angular.module('sympozerApp').factory('DoNotReloadCurrentTemplate', [
-    '$route', function ($route)
+  '$route', function ($route)
+  {
+    return function (scope)
     {
-        return function (scope)
+      var lastRoute = $route.current;
+      scope.$on('$locationChangeSuccess', function ()
+      {
+        if (lastRoute.$$route.templateUrl === $route.current.$$route.templateUrl)
         {
-            var lastRoute = $route.current;
-            scope.$on('$locationChangeSuccess', function ()
-            {
-                if (lastRoute.$$route.templateUrl === $route.current.$$route.templateUrl)
-                {
-                    console.log('DoNotReloadCurrentTemplate not reloading template: ' + $route.current.$$route.templateUrl);
-                    $route.current = lastRoute;
-                }
-            });
-        };
-    }]);
+          console.log('DoNotReloadCurrentTemplate not reloading template: ' + $route.current.$$route.templateUrl);
+          $route.current = lastRoute;
+        }
+      });
+    };
+  }]);
