@@ -74,6 +74,7 @@ abstract class VEvent
    * This property specifies when the calendar component begins.
    *
    * @ORM\Column(type="datetime", name="start_at")
+   * @Assert\NotBlank()
    * @SerializedName("startAt")
    * @Expose
    */
@@ -86,6 +87,7 @@ abstract class VEvent
    * component ends.
    *
    * @ORM\Column(type="datetime", name="end_at")
+   * @Assert\NotBlank()
    * @SerializedName("endAt")
    * @Expose
    */
@@ -314,9 +316,12 @@ abstract class VEvent
    *
    * @return bool
    */
-  public function isDatesValid()
+  public function isDatesInValid()
   {
-    return ($this->startAt < $this->endAt);
+    echo $this->startAt->format( 'd-m-Y' );
+    echo " ";
+    echo $this->endAt->format( 'd-m-Y' );
+    return $this->startAt < $this->endAt;
   }
 
   /**

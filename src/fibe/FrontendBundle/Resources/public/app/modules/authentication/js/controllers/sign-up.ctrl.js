@@ -8,7 +8,6 @@ angular.module('authenticationApp').controller('signupCtrl',
     {
         $scope.GLOBAL_CONFIG = GLOBAL_CONFIG;
         $scope.user = {};
-        $scope.serverError = {};
 
         var error = function (response, args)
         {
@@ -16,7 +15,7 @@ angular.module('authenticationApp').controller('signupCtrl',
 
             if("Validation Failed" == response.data.message)
             {
-                formValidation.transformFromServer(response, $scope.serverError);
+                formValidation.transformFromServer(response);
             }
             else
             {

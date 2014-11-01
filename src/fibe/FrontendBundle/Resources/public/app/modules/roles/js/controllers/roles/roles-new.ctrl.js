@@ -8,7 +8,6 @@ angular.module('rolesApp').controller('rolesNewCtrl',
         function ($scope, $window, GLOBAL_CONFIG, $routeParams, $rootScope, $location, rolesFact, personsFact, roleLabelsFact, eventsFact, $modal, formValidation)
         {
             $scope.role = new rolesFact;
-            $scope.serverError = {};
 
             var error = function (response, args)
             {
@@ -18,7 +17,7 @@ angular.module('rolesApp').controller('rolesNewCtrl',
 
                 if ("Validation Failed" == response.data.message)
                 {
-                    formValidation.transformFromServer(response, $scope.serverError);
+                    formValidation.transformFromServer(response);
                 }
                 else
                 {

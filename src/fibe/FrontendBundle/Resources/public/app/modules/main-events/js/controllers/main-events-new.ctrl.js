@@ -6,13 +6,12 @@
 angular.module('mainEventsApp').controller('mainEventsNewCtrl', [ '$scope', '$rootScope', '$location', 'mainEventsFact', 'locationsFact', 'formValidation', '$modal', function ($scope, $rootScope, $location, mainEventsFact, locationsFact, formValidation, $modal)
 {
     $scope.conference = new mainEventsFact;
-    $scope.serverError = {};
 
     var error = function (response, args)
     {
         if("Validation Failed" == response.data.message)
         {
-            formValidation.transformFromServer(response, $scope.serverError);
+            formValidation.transformFromServer(response);
         }
         else
         {
@@ -30,6 +29,9 @@ angular.module('mainEventsApp').controller('mainEventsNewCtrl', [ '$scope', '$ro
     {
 //        if (form.$valid)
 //        {
+            //date format fix
+            $scope.conference.startAt = $scope.conference.startAt ? $scope.conference.startAt.toString() : undefined;
+            $scope.conference.endAt = $scope.conference.endAt ? $scope.conference.endAt.toString() : undefined;
             $scope.conference.$create({}, success, error);
 //        }
     }

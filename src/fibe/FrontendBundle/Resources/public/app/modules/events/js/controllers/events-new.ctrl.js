@@ -4,11 +4,10 @@
  * @type {controller}
  */
 
-angular.module('eventsApp').controller('eventsNewCtrl', [ '$scope', '$window', 'GLOBAL_CONFIG', '$routeParams', '$rootScope', '$location', 'eventsFact', 'categoriesFact', 'topicsFact', 'locationsFact', 'papersFact', '$modal', 'formValidation',
-    function ($scope, $window, GLOBAL_CONFIG, $routeParams, $rootScope, $location, eventsFact, categoriesFact, topicsFact, locationsFact, papersFact, $modal, formValidation)
+angular.module('eventsApp').controller('eventsNewCtrl', [ '$scope', '$window', 'GLOBAL_CONFIG', '$routeParams', '$rootScope', '$location', 'eventsFact', 'categoriesFact', 'topicsFact', 'locationsFact', 'papersFact', '$modal', 'formValidation', '$filter',
+    function ($scope, $window, GLOBAL_CONFIG, $routeParams, $rootScope, $location, eventsFact, categoriesFact, topicsFact, locationsFact, papersFact, $modal, formValidation, $filter)
     {
         $scope.event = new eventsFact;
-        $scope.serverError = {};
 
         var error = function (response, args)
         {
@@ -16,13 +15,13 @@ angular.module('eventsApp').controller('eventsNewCtrl', [ '$scope', '$window', '
 
             if ("Validation Failed" == response.data.message)
             {
-                formValidation.transformFromServer(response, $scope.serverError);
+                formValidation.transformFromServer(response);
             }
             else
             {
                 $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'the event has not been saved', type: 'danger'});
             }
-        }
+        };
 
         var success = function (response, args)
         {
@@ -32,16 +31,19 @@ angular.module('eventsApp').controller('eventsNewCtrl', [ '$scope', '$window', '
             }else{
                 $window.history.back();
             }
-        }
+        };
 
         $scope.create = function (form)
         {
             $scope.event.mainEvent = $routeParams.mainEventId;
+            //date format fix
+            $scope.event.startAt = $scope.event.startAt ? $scope.event.startAt.toString() : undefined;
+            $scope.event.endAt = $scope.event.endAt ? $scope.event.endAt.toString() : undefined;
             if (form.$valid)
             {
                 $scope.event.$create({}, success, error);
             }
-        }
+        };
 
         $scope.cancel = function () {
             $scope.$dismiss('cancel');
@@ -66,7 +68,7 @@ angular.module('eventsApp').controller('eventsNewCtrl', [ '$scope', '$window', '
             }else{
                 $scope.event.category = categoryModel;
             }
-        }
+        };
 
         //Autocomplete and add topic workflow
         $scope.searchTopics = topicsFact.all;
@@ -88,7 +90,7 @@ angular.module('eventsApp').controller('eventsNewCtrl', [ '$scope', '$window', '
             }else{
                 $scope.event.topics.push(topicModel);
             }
-        }
+        };
 
 
         //Autocomplete and add location workflow
@@ -111,7 +113,7 @@ angular.module('eventsApp').controller('eventsNewCtrl', [ '$scope', '$window', '
             }else{
                 $scope.event.eventLocations.push(locationModel);
             }
-        }
+        };
 
 
         //Autocomplete and add paper workflow
@@ -134,7 +136,7 @@ angular.module('eventsApp').controller('eventsNewCtrl', [ '$scope', '$window', '
             }else{
                 $scope.event.papers.push(paperModel);
             }
-        }
+        };
 
 
         //Autocomplete and add role workflow
