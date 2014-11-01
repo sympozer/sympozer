@@ -72,6 +72,10 @@
         
     }
 
+    $scope.deleteTopic = function(topicModel,index){
+            $scope.paper.topics.splice(index,topicModel);    
+    }
+
 
     //Autocomplete and add topic workflow
     $scope.searchTopics = topicsFact.all;

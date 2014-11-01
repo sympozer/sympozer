@@ -16,8 +16,14 @@
     <div class="row">
         <label>Category</label>
         <div sympozer-autocomplete="categories" on-select="addCategory" on-keyup="searchCategories"></div>
-        <div class="well" ng-show="event.category">
-            <h2>{{ event.category.label }}</h2>
+        <div  ng-show="event.category">
+            <ul class="nav nav-pills">
+                <li class="active" ng-show="role.roleLabelVersion">
+                    <a href="javascript:void(0)">
+                        {{ event.category.label }}
+                    </a>
+                </li>
+            </ul>
         </div>
     </div>
     <div class="row">

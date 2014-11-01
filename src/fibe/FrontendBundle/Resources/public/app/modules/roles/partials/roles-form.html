@@ -6,12 +6,15 @@
     <h2>{{ role.person.label }}</h2>
     <h2>{{ role.person.email }}</h2>
 </div>
-<div sympozer-autocomplete="roleLabelVersion" on-select="addRoleLabel" on-keyup="searchRoleLabels"></div>
-<div class="col-sm-6 col-md-6 col-lg-4  well" ng-show="role.roleLabelVersion">
-    <h2>{{ role.roleLabelVersion.label }}</h2>
-</div>
-
-<div sympozer-autocomplete="event" on-select="addEvent" on-keyup="searchEvents"></div>
+<div sympozer-autocomplete="roleLabels" on-select="addRoleLabel" on-keyup="searchRoleLabels"></div>
+<ul class="nav nav-pills">
+    <li class="active" ng-show="role.roleLabelVersion">
+        <a href="javascript:void(0)">
+           {{ role.roleLabelVersion.label }}
+        </a>
+    </li>
+</ul>
+<div sympozer-autocomplete="events" on-select="addEvent" on-keyup="searchEvents"></div>
 <div class="col-sm-6 col-md-6 col-lg-4  well" ng-show="role.event">
     <h2>{{ role.event.label }}</h2>
 </div>

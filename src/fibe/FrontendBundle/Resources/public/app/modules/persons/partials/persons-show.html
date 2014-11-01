@@ -11,7 +11,7 @@
         </div>
         <div class="col-sm-8 col-md-8 col-lg-8">
             <h3>{{person.firstName || '???'}} {{person.familyName || '???'}}</h3>
-            <pre>{{person.description || 'add a descrption'}}</pre>
+            <pre>{{person.description || 'add a description'}}</pre>
             <a ng-if="currentUser.person.id === person.id" class="btn btn-info" href="#profile" role="button">
                 <i class="fa fa-edit fa-1x"></i> Edit my account
             </a>
