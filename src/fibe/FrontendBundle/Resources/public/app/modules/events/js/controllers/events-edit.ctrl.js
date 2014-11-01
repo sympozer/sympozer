@@ -170,6 +170,7 @@ angular.module('eventsApp').controller('eventsEditCtrl', [ '$scope', '$window', 
                 }
             });
             modalInstance.result.then(function (newRole) {
+                $scope.newRole.event = event;
                 if(!$scope.event.roles){
                     $scope.event.roles = [];
                 }

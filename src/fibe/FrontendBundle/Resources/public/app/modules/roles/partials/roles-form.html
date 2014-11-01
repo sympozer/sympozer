@@ -1,12 +1,14 @@
+<h3>Person</h3>
 <div sympozer-autocomplete="person" on-select="addPerson" on-keyup="searchPersons"></div>
-<div class="col-sm-6 col-md-6 col-lg-4  well" ng-show="role.person">
+<div class="col-sm-1 col-md-1 col-lg-4  well" ng-show="role.person">
     <div class="img-container-lg">
         <img  class="scale-img" no-image ng-src="{{ role.person.img }}"/>
     </div>
-    <h2>{{ role.person.label }}</h2>
-    <h2>{{ role.person.email }}</h2>
+    <h5>{{ role.person.label }}</h5>
+    <h5>{{ role.person.email }}</h5>
 </div>
-<div sympozer-autocomplete="roleLabels" on-select="addRoleLabel" on-keyup="searchRoleLabels"></div>
+<h3>Role Type</h3>
+<div sympozer-autocomplete="roleLabelVersion" on-select="addRoleLabel" on-keyup="searchRoleLabels"></div>
 <ul class="nav nav-pills">
     <li class="active" ng-show="role.roleLabelVersion">
         <a href="javascript:void(0)">
@@ -14,7 +16,12 @@
         </a>
     </li>
 </ul>
+<h3>Event</h3>
 <div sympozer-autocomplete="events" on-select="addEvent" on-keyup="searchEvents"></div>
-<div class="col-sm-6 col-md-6 col-lg-4  well" ng-show="role.event">
-    <h2>{{ role.event.label }}</h2>
-</div>
+<ul class="nav nav-pills">
+    <li class="active" ng-show="role.event">
+        <a href="javascript:void(0)">
+           {{ role.event.label }}
+        </a>
+    </li>
+</ul>
