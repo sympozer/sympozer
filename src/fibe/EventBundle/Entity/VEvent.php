@@ -318,9 +318,12 @@ abstract class VEvent
    */
   public function isDatesInValid()
   {
-    echo $this->startAt->format( 'd-m-Y' );
-    echo " ";
-    echo $this->endAt->format( 'd-m-Y' );
+    if ($this->startAt != null)
+    {
+      echo $this->startAt->format( 'd-m-Y' );
+      echo " ";
+      echo $this->endAt->format( 'd-m-Y' );
+    }
     return $this->startAt < $this->endAt;
   }
 
