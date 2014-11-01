@@ -12,81 +12,82 @@
  *    @param on-keyup             : Function to trigger when the user type a research
  */
 angular.module('sympozerApp').directive('sympozerAutocomplete', [
-    'GLOBAL_CONFIG','$routeParams', function (GLOBAL_CONFIG, $routeParams)
-    {
-        return {
-            template: '<div ng-include="templateUrl"></div>',
-            scope   : {
-                onSelect: "=",
-                onKeyup: "="
-            },
+  'GLOBAL_CONFIG', '$routeParams', function (GLOBAL_CONFIG, $routeParams)
+  {
+    return {
+      template: '<div ng-include="templateUrl"></div>',
+      scope: {
+        onSelect: "=",
+        onKeyup: "="
+      },
 
-            link : function (scope, element, attrs)
-            {
-                if (!attrs.sympozerAutocomplete)
-                {
-                    return console.error('missing mandatory field in "sympozer-autocomplete" directive (see doc above)');
-                }
+      link: function (scope, element, attrs)
+      {
+        if (!attrs.sympozerAutocomplete)
+        {
+          return console.error('missing mandatory field in "sympozer-autocomplete" directive (see doc above)');
+        }
 
-                scope.GLOBAL_CONFIG = GLOBAL_CONFIG;
-                scope.searchedEntity = getPlural(attrs.sympozerAutocomplete);
-                scope.templateUrl = GLOBAL_CONFIG.app.modules[scope.searchedEntity].urls.partials + scope.searchedEntity + '-select.html';
+        scope.GLOBAL_CONFIG = GLOBAL_CONFIG;
+        scope.searchedEntity = getPlural(attrs.sympozerAutocomplete);
+        scope.templateUrl = GLOBAL_CONFIG.app.modules[scope.searchedEntity].urls.partials + scope.searchedEntity + '-select.html';
 
-                /**
-                 * fired when the keyboard is hit
-                 * @param $event
-                 */
-                scope.keyup = function ($event)
-                {
-                    if ($event.target.value === "")
-                    {
-                        return;
-                    }
+        /**
+         * fired when the keyboard is hit
+         * @param $event
+         */
+        scope.keyup = function ($event)
+        {
+          if ($event.target.value === "")
+          {
+            return;
+          }
 
-                    var requestParams = {};
-                    requestParams.query = $event.target.value;
+          var requestParams = {};
+          requestParams.query = $event.target.value;
 
-                    //Add route parameters to object for request
-                    for (var param in $routeParams)
-                    {
-                        requestParams[param] = $routeParams[param];
-                    }
+          //Add route parameters to object for request
+          for (var param in $routeParams)
+          {
+            requestParams[param] = $routeParams[param];
+          }
 
-                    scope.onKeyup(requestParams, function(data){
-                        addResults(data);
-                    });
-                };
-
-                /**
-                 * add fetched results to the select menu
-                 * @param data  results
-                 */
-                function addResults(data)
-                {
-                    scope.entities = [];
-                    scope.entities.push("new");
-                    for (var i = 0; i < data.length; i++)
-                    {
-                        scope.entities.push(data[i]);
-                    }
-                }
-            }
+          scope.onKeyup(requestParams, function (data)
+          {
+            addResults(data);
+          });
         };
 
-        function getPlural(entityName)
+        /**
+         * add fetched results to the select menu
+         * @param data  results
+         */
+        function addResults(data)
         {
-            if (entityName.slice(-1) === 's')
-            {
-                return entityName;
-            }
-            else if (entityName.slice(-1) === 'y')
-            {
-                return entityName.substring(0, entityName.length - 1) + "ies";
-            }
-            else
-            {
-                return entityName + "s";
-            }
+          scope.entities = [];
+          scope.entities.push("new");
+          for (var i = 0; i < data.length; i++)
+          {
+            scope.entities.push(data[i]);
+          }
         }
-    }]);
+      }
+    };
+
+    function getPlural(entityName)
+    {
+      if (entityName.slice(-1) === 's')
+      {
+        return entityName;
+      }
+      else if (entityName.slice(-1) === 'y')
+      {
+        return entityName.substring(0, entityName.length - 1) + "ies";
+      }
+      else
+      {
+        return entityName + "s";
+      }
+    }
+  }]);
 

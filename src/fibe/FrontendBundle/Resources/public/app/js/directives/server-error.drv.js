@@ -9,53 +9,53 @@
  *
  */
 angular.module('sympozerApp').directive('input',
-    ['formValidation', function (formValidation)
-    {
-        return {
-            restrict: 'E',
-            scope   : false,
-            link    : function (scope, element, attrs)
-            {
-                //ignore not model binded element
-                if (!attrs.ngModel)
-                {
-                    return;
-                }
+  ['formValidation', function (formValidation)
+  {
+    return {
+      restrict: 'E',
+      scope: false,
+      link: function (scope, element, attrs)
+      {
+        //ignore not model binded element
+        if (!attrs.ngModel)
+        {
+          return;
+        }
 
-                //get the model property from ng-model string
-                var l = attrs.ngModel.split(".").length - 1;
-                var field = attrs.ngModel.split(".")[l];
+        //get the model property from ng-model string
+        var l = attrs.ngModel.split(".").length - 1;
+        var field = attrs.ngModel.split(".")[l];
 
-                formValidation.watchField(scope, element, field);
-            }
-        };
-    }]);
+        formValidation.watchField(scope, element, field);
+      }
+    };
+  }]);
 
 
 angular.module('sympozerApp').directive('sympozerAutocomplete',
-    ['formValidation', function (formValidation)
-    {
-        return {
-            scope   : false,
-            link    : function (scope, element, attrs)
-            {
-                //get the model property from sympozer-autocomplete string
-                var field = attrs.sympozerAutocomplete;
-                formValidation.watchField(scope, element, field);
-            }
-        };
-    }]);
+  ['formValidation', function (formValidation)
+  {
+    return {
+      scope: false,
+      link: function (scope, element, attrs)
+      {
+        //get the model property from sympozer-autocomplete string
+        var field = attrs.sympozerAutocomplete;
+        formValidation.watchField(scope, element, field);
+      }
+    };
+  }]);
 
 
 angular.module('sympozerApp').directive('form',
-    ['formValidation', function (formValidation)
-    {
-        return {
-            restrict: 'E',
-            scope   : false,
-            link    : function ()
-            {
-                formValidation.emptyServerError();
-            }
-        };
-    }]);
+  ['formValidation', function (formValidation)
+  {
+    return {
+      restrict: 'E',
+      scope: false,
+      link: function ()
+      {
+        formValidation.emptyServerError();
+      }
+    };
+  }]);

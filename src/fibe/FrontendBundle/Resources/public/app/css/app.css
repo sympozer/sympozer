@@ -356,7 +356,6 @@ input.ng-dirty.ng-valid
   margin-bottom: 15px;
 }
 
-
 .ui-select-bootstrap .ng-hide
 {
   display: none;
@@ -364,6 +363,12 @@ input.ng-dirty.ng-valid
 
 .ui-select-bootstrap > .ui-select-match > .caret {
    top: auto !important;
+}
+
+textarea.form-control
+{
+  min-height: 10em;
+  max-height: 25em;
 }
 
 /*************** MODAL *******************/
