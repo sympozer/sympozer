@@ -3,200 +3,38 @@
 
 <head>
 
-<meta charset="utf-8">
+    <meta charset="utf-8">
 
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-{#Favicons#}
-<link rel="apple-touch-icon" sizes="57x57" href="{{ asset('favicon/apple-touch-icon-57x57.png') }}">
-<link rel="apple-touch-icon" sizes="114x114" href="{{ asset('favicon/apple-touch-icon-114x114.png') }}">
-<link rel="apple-touch-icon" sizes="72x72" href="{{ asset('favicon/apple-touch-icon-72x72.png') }}">
-<link rel="apple-touch-icon" sizes="144x144" href="{{ asset('favicon/apple-touch-icon-144x144.png') }}">
-<link rel="apple-touch-icon" sizes="60x60" href="{{ asset('favicon/apple-touch-icon-60x60.png') }}">
-<link rel="apple-touch-icon" sizes="120x120" href="{{ asset('favicon/apple-touch-icon-120x120.png') }}">
-<link rel="apple-touch-icon" sizes="76x76" href="{{ asset('favicon/apple-touch-icon-76x76.png') }}">
-<link rel="apple-touch-icon" sizes="152x152" href="{{ asset('favicon/apple-touch-icon-152x152.png') }}">
-<link rel="apple-touch-icon" sizes="180x180" href="{{ asset('favicon/apple-touch-icon-180x180.png') }}">
-<link rel="icon" type="image/png" sizes="192x192" href="{{ asset('favicon/favicon-192x192.png') }}">
-<link rel="icon" type="image/png " sizes="160x160" href="{{ asset('favicon/favicon-160x160.png') }}">
-<link rel="icon" type="image/png" sizes="96x96" href="{{ asset('favicon/favicon-96x96.png') }}">
-<link rel="icon" type="image/png" sizes="16x16" href="{{ asset('favicon/favicon-16x16.png') }}">
-<link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favicon/favicon-32x32.png') }}">
-<meta name="msapplication-TileColor" content="#f2f2f2">
-<meta name="msapplication-TileImage" content="{{ asset('favicon/mstile-144x144.png') }}">
+    {#Favicons#}
+    <link rel="apple-touch-icon" sizes="57x57" href="{{ asset('favicon/apple-touch-icon-57x57.png') }}">
+    <link rel="apple-touch-icon" sizes="114x114" href="{{ asset('favicon/apple-touch-icon-114x114.png') }}">
+    <link rel="apple-touch-icon" sizes="72x72" href="{{ asset('favicon/apple-touch-icon-72x72.png') }}">
+    <link rel="apple-touch-icon" sizes="144x144" href="{{ asset('favicon/apple-touch-icon-144x144.png') }}">
+    <link rel="apple-touch-icon" sizes="60x60" href="{{ asset('favicon/apple-touch-icon-60x60.png') }}">
+    <link rel="apple-touch-icon" sizes="120x120" href="{{ asset('favicon/apple-touch-icon-120x120.png') }}">
+    <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('favicon/apple-touch-icon-76x76.png') }}">
+    <link rel="apple-touch-icon" sizes="152x152" href="{{ asset('favicon/apple-touch-icon-152x152.png') }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('favicon/apple-touch-icon-180x180.png') }}">
+    <link rel="icon" type="image/png" sizes="192x192" href="{{ asset('favicon/favicon-192x192.png') }}">
+    <link rel="icon" type="image/png " sizes="160x160" href="{{ asset('favicon/favicon-160x160.png') }}">
+    <link rel="icon" type="image/png" sizes="96x96" href="{{ asset('favicon/favicon-96x96.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('favicon/favicon-16x16.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favicon/favicon-32x32.png') }}">
+    <meta name="msapplication-TileColor" content="#f2f2f2">
+    <meta name="msapplication-TileImage" content="{{ asset('favicon/mstile-144x144.png') }}">
 
-<title>Sympozer</title>
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 
-
-{% if dev_mode_activated %}
-    {% include '@Frontend/Front/dev_depedencies.html.twig' %}
-{% else %}
-    {% include '@Frontend/Front/prod_depedencies.html.twig' %}
-{% endif %}
+    <title>Sympozer</title>
 
 
-<!-- <script src="{{ asset('bundles/frontend/app/js/animations.js') }}"></script> -->
-{% if app.user %}
-    <script>
-        localStorage.setItem('currentUser', {{ user | json_encode | raw() }});
-    </script>
-{% endif %}
-
-<!-- basic client app context definition -->
-<script>
-    //@TODO to put in serchService
-    var queryNb = 0,
-            firstQueryNb = 0
-            ;
-
-    var globalConfig = {
-        api: {
-            urls: {
-                {#get_organizations: "{{ path('community_organization_post') }}",#}
-                get_organization_versions: "{{ path('community_organization_versions_post') }}",
-
-                get_persons: "{{ path('community_persons_post') }}",
-                get_locations: "{{ path('content_event_locations_post') }}",
-                get_mainEvent_locations: "{{ path('content_mainEvent_locations_post') }}",
-                get_equipments: "{{ path('content_equipments_post') }}",
-                get_events: "{{ path('schedule_events_post') }}",
-
-                get_roles: "{{ path('content_roles_post') }}",
-                get_roleLabel_verions: "{{ path('content_roleLabel_versions_post') }}",
-                get_roleLabels: "{{ path('content_roleLabels_post') }}",
-
-                get_papers: "{{ path('content_papers_post') }}",
-                get_topics: "{{ path('content_topics_post') }}",
-                get_categories: "{{ path('schedule_category_versions_post') }}",
-                get_mainEvents: "{{ path('schedule_mainEvents_post') }}",
-                login: "{{ path('login_check', {_format: 'json'}) }}",
-                logout: "{{ path('logout') }}",
-                registration: "{{ path('security_signup') }}",
-                confirm: "{{ path('security_confirm') }}",
-                changepwd: "{{ path('security_changepwd') }}",
-                reset_pwd_request: "{{ path('security_resetpwdrequest') }}",
-                reset_pwd: "{{ path('security_resetpwd') }}",
-                socialnetworks:[
-                    {% for owner in hwi_oauth_resource_owners() %}{% if loop.first %}{% else %},{% endif %}
-                    {
-                        name : "{{ owner }}",
-                        urls: {
-                            login: "{{ hwi_oauth_login_url(owner) }}",
-                            enrich: "{{ path('enrich_account', { 'socialService': owner }) }}"
-                        },
-                        {# can't register with twitter as long as they chose to not return user's mail :( #}
-                        can_register: {% if owner == 'twitter' %}false{% else %}true{% endif %}
-                    }
-                    {% endfor %}
-                ]
-            }
-        },
-        app: {
-            options: {
-                shouldLogin: {% if shouldLogin %}true{% else %}false{% endif %}
-            },
-            urls: {
-                base: "{{ asset('bundles/frontend/app/') }}",
-                partials: "{{ asset('bundles/frontend/app/partials/') }}",
-                img: "{{ asset('bundles/frontend/app/img/') }}"
-            },
-            modules: {
-                organizations: {
-                    urls: {
-                        base: "{{ asset('bundles/frontend/app/modules/organizations/') }}",
-                        partials: "{{ asset('bundles/frontend/app/modules/organizations/partials/') }}",
-                        communityPartials: "{{ asset('bundles/frontend/app/modules/organizations/partials/community/') }}",
-                        img: "{{ asset('bundles/frontend/app/modules/organizations/img') }}"
-                    }
-                },
-                locations: {
-                    urls: {
-                        base: "{{ asset('bundles/frontend/app/modules/locations/') }}",
-                        partials: "{{ asset('bundles/frontend/app/modules/locations/partials/') }}",
-                        img: "{{ asset('bundles/frontend/app/modules/locations/img') }}"
-                    }
-                },
-                equipments: {
-                    urls: {
-                        base: "{{ asset('bundles/frontend/app/modules/equipments/') }}",
-                        partials: "{{ asset('bundles/frontend/app/modules/equipments/partials/') }}",
-                        img: "{{ asset('bundles/frontend/app/modules/equipments/img') }}"
-                    }
-                },
-                events: {
-                    urls: {
-                        base: "{{ asset('bundles/frontend/app/modules/events/') }}",
-                        partials: "{{ asset('bundles/frontend/app/modules/events/partials/') }}",
-                        img: "{{ asset('bundles/frontend/app/modules/events/img') }}"
-                    }
-                },
-                papers: {
-                    urls: {
-                        base: "{{ asset('bundles/frontend/app/modules/papers/') }}",
-                        partials: "{{ asset('bundles/frontend/app/modules/papers/partials/') }}",
-                        communityPartials: "{{ asset('bundles/frontend/app/modules/papers/partials/community/') }}",
-                        img: "{{ asset('bundles/frontend/app/modules/papers/img') }}"
-                    }
-                },
-                categories: {
-                    urls: {
-                        base: "{{ asset('bundles/frontend/app/modules/categories/') }}",
-                        partials: "{{ asset('bundles/frontend/app/modules/categories/partials/') }}",
-                        img: "{{ asset('bundles/frontend/app/modules/categories/img') }}"
-                    }
-                },
-                mainEvents: {
-                    urls: {
-                        base: "{{ asset('bundles/frontend/app/modules/main-events/') }}",
-                        partials: "{{ asset('bundles/frontend/app/modules/main-events/partials/') }}",
-                        partialsCommunity: "{{ asset('bundles/frontend/app/modules/main-events/partials/community/') }}",
-                        img: "{{ asset('bundles/frontend/app/modules/main-events/img') }}"
-                    }
-                },
-                persons: {
-                    urls: {
-                        base: "{{ asset('bundles/frontend/app/modules/persons/') }}",
-                        partials: "{{ asset('bundles/frontend/app/modules/persons/partials/') }}",
-                        communityPartials: "{{ asset('bundles/frontend/app/modules/persons/partials/community/') }}",
-                        img: "{{ asset('bundles/frontend/app/modules/persons/img') }}"
-                    }
-                },
-                roles: {
-                    urls: {
-                        base: "{{ asset('bundles/frontend/app/modules/roles/') }}",
-                        partials: "{{ asset('bundles/frontend/app/modules/roles/partials/') }}",
-                        img: "{{ asset('bundles/frontend/app/modules/roles/img') }}"
-                    }
-                },
-                roleLabelVersions: {
-                    urls: {
-                        base: "{{ asset('bundles/frontend/app/modules/roles/') }}",
-                        partials: "{{ asset('bundles/frontend/app/modules/roles/partials/') }}",
-                        img: "{{ asset('bundles/frontend/app/modules/roles/img') }}"
-                    }
-                },
-                topics: {
-                    urls: {
-                        base: "{{ asset('bundles/frontend/app/modules/topics/') }}",
-                        partials: "{{ asset('bundles/frontend/app/modules/topics/partials/') }}",
-                        img: "{{ asset('bundles/frontend/app/modules/topics/img') }}"
-                    }
-                },
-                authentication: {
-                    urls: {
-                        base: "{{ asset('bundles/frontend/app/modules/authentication/') }}",
-                        partials: "{{ asset('bundles/frontend/app/modules/authentication/partials/') }}",
-                        img: "{{ asset('bundles/frontend/app/modules/authentication/img') }}"
-                    }
-                }
-            }
-        },
-        language: 'EN',
-        severTime: "{{ 'now'|date('m/d/Y') }}"
-    };
-    angular.module('sympozerApp').value('GLOBAL_CONFIG', globalConfig);
-</script>
-
+    {% if dev_mode_activated %}
+        {% include '@Frontend/Front/dev_depedencies.html.twig' %}
+    {% else %}
+        {% include '@Frontend/Front/prod_depedencies.html.twig' %}
+    {% endif %}
 </head>
 
 <!-- Main View -->

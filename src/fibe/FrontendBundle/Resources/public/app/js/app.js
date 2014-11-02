@@ -85,10 +85,9 @@ sympozerApp.run(function (editableOptions, editableThemes)
  * @type {config}
  */
 angular.module('sympozerApp').config(['$provide', '$httpProvider',
-    function ($provide, $httpProvider)
-    {
-        $httpProvider.interceptors.push('globalHttpInterceptor');
+function ($provide, $httpProvider)
+{
+    $httpProvider.interceptors.push('globalHttpInterceptor');
 
-
-    }]);
+}]);
 

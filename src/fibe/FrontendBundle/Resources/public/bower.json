@@ -26,7 +26,8 @@
     "angular-cached-resource": "~1.0.0",
     "select2": "~3.5.1",
     "bootstrap-social": "~4.8.0",
-    "bootstrap-tags": "~1.1.5",    "angular-ui-select": "~0.8.3",
+    "bootstrap-tags": "~1.1.5",
+    "angular-ui-select": "~0.8.3",
     "angular-bootstrap-colorpicker": "~3.0.8",
     "angular-ui-bootstrap-bower": "~0.11.2"
   },
