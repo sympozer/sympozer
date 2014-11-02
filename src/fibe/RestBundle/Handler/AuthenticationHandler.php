@@ -70,7 +70,7 @@ class AuthenticationHandler implements AuthenticationSuccessHandlerInterface, Au
     $result = array(
       'error' => $this->translator->trans($exception->getMessage(), array(), 'FOSUserBundle'),
     );
-    $response = new Response(json_encode($result));
+    $response = new Response(json_encode($result),400);
     $response->headers->set('Content-Type', 'application/json');
 
     return $response;

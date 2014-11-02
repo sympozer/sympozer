@@ -21,20 +21,22 @@
 
 <div class="row">
     <label>Topics</label>
-    <div sympozer-autocomplete="topics"  on-select="addTopic" on-keyup="searchTopics"></div>
+    <div sympozer-autocomplete="topics" on-select="addTopic" on-keyup="searchTopics"></div>
     <ul class="nav nav-pills" ng-show="paper.topics.length > 0">
         <li ng-repeat="topic in paper.topics track by $index"  class="active">
-            <a href="javascript:void(0)" >{{topic.label}}</a>
+            <a href="javascript:void(0)" >{{topic.label}}</a>9<a ng-click="deleteTopic(topic,$index)" >
+        <i class="fa fa-close" ></i>
+        </a>
         </li>
     </ul>
 </div>
 
 <div class="row">
     <label>Authors</label>
-    <div sympozer-autocomplete="persons"  on-select="addPerson" on-keyup="searchPersons"></div>
+    <div sympozer-autocomplete="persons" on-select="addPerson" on-keyup="searchPersons"></div>
     <div ng-repeat="author in paper.authors track by $index" class="col-sm-4 col-md-4 col-lg-3  well" ng-show="paper.authors">
         <div class="col-sm-4 col-md-4 col-lg-3">
-        <a ng-click="deletePerson" >
+        <a ng-click="deletePerson(author,$index)" >
         <i class="fa fa-close" ></i>
         </a>
         </div>

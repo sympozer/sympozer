@@ -2,254 +2,38 @@
 <html lang="en" ng-app="sympozerApp">
 
 <head>
+
 <meta charset="utf-8">
-{#plop#}
+
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+{#Favicons#}
+<link rel="apple-touch-icon" sizes="57x57" href="{{ asset('favicon/apple-touch-icon-57x57.png') }}">
+<link rel="apple-touch-icon" sizes="114x114" href="{{ asset('favicon/apple-touch-icon-114x114.png') }}">
+<link rel="apple-touch-icon" sizes="72x72" href="{{ asset('favicon/apple-touch-icon-72x72.png') }}">
+<link rel="apple-touch-icon" sizes="144x144" href="{{ asset('favicon/apple-touch-icon-144x144.png') }}">
+<link rel="apple-touch-icon" sizes="60x60" href="{{ asset('favicon/apple-touch-icon-60x60.png') }}">
+<link rel="apple-touch-icon" sizes="120x120" href="{{ asset('favicon/apple-touch-icon-120x120.png') }}">
+<link rel="apple-touch-icon" sizes="76x76" href="{{ asset('favicon/apple-touch-icon-76x76.png') }}">
+<link rel="apple-touch-icon" sizes="152x152" href="{{ asset('favicon/apple-touch-icon-152x152.png') }}">
+<link rel="apple-touch-icon" sizes="180x180" href="{{ asset('favicon/apple-touch-icon-180x180.png') }}">
+<link rel="icon" type="image/png" sizes="192x192" href="{{ asset('favicon/favicon-192x192.png') }}">
+<link rel="icon" type="image/png " sizes="160x160" href="{{ asset('favicon/favicon-160x160.png') }}">
+<link rel="icon" type="image/png" sizes="96x96" href="{{ asset('favicon/favicon-96x96.png') }}">
+<link rel="icon" type="image/png" sizes="16x16" href="{{ asset('favicon/favicon-16x16.png') }}">
+<link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favicon/favicon-32x32.png') }}">
+<meta name="msapplication-TileColor" content="#f2f2f2">
+<meta name="msapplication-TileImage" content="{{ asset('favicon/mstile-144x144.png') }}">
 
 <title>Sympozer</title>
 
-{#Favicons#}
-<link rel="apple-touch-icon" sizes="57x57" href="{{ asset('favicon/apple-touch-icon-57x57.png')}}">
-<link rel="apple-touch-icon" sizes="114x114" href="{{ asset('favicon/apple-touch-icon-114x114.png')}}">
-<link rel="apple-touch-icon" sizes="72x72" href="{{ asset('favicon/apple-touch-icon-72x72.png')}}">
-<link rel="apple-touch-icon" sizes="144x144"href="{{ asset('favicon/apple-touch-icon-144x144.png')}}">
-<link rel="apple-touch-icon" sizes="60x60" href="{{ asset('favicon/apple-touch-icon-60x60.png')}}">
-<link rel="apple-touch-icon" sizes="120x120"href="{{ asset('favicon/apple-touch-icon-120x120.png')}}">
-<link rel="apple-touch-icon" sizes="76x76" href="{{ asset('favicon/apple-touch-icon-76x76.png')}}">
-<link rel="apple-touch-icon" sizes="152x152" href="{{ asset('favicon/apple-touch-icon-152x152.png')}}">
-<link rel="apple-touch-icon" sizes="180x180" href="{{ asset('favicon/apple-touch-icon-180x180.png')}}">
-<link rel="icon" type="image/png" sizes="192x192"  href="{{ asset('favicon/favicon-192x192.png')}}">
-<link rel="icon" type="image/png " sizes="160x160" href="{{ asset('favicon/favicon-160x160.png')}}">
-<link rel="icon" type="image/png" sizes="96x96" href="{{ asset('favicon/favicon-96x96.png')}}">
-<link rel="icon" type="image/png" sizes="16x16" href="{{ asset('favicon/favicon-16x16.png')}}">
-<link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favicon/favicon-32x32.png')}}">
-<meta name="msapplication-TileColor" content="#f2f2f2">
-<meta name="msapplication-TileImage" content="{{ asset('favicon/mstile-144x144.png')}}">
 
-{% stylesheets
+{% if dev_mode_activated %}
+    {% include '@Frontend/Front/dev_depedencies.html.twig' %}
+{% else %}
+    {% include '@Frontend/Front/prod_depedencies.html.twig' %}
+{% endif %}
 
-
-'bundles/frontend/vendors/bootstrap/dist/css/bootstrap.min.css'
-'bundles/frontend/vendors/bootstrap/dist/css/bootstrap-theme.min.css'
-'bundles/frontend/vendors/angular-loading-bar/src/loading-bar.css'
-'bundles/frontend/vendors/leaflet/dist/leaflet.css'
-'bundles/frontend/vendors/angular-bootstrap-datetimepicker/src/css/datetimepicker.css'
-'bundles/frontend/vendors/angular-ui-select/dist/select.css'
-'bundles/frontend/vendors/select2/select2.css'
-'bundles/frontend/vendors/angular-bootstrap-colorpicker/css/colorpicker.css'
-'bundles/frontend/vendors/angular-xeditable/dist/css/xeditable.css'
-'bundles/frontend/vendors/bootstrap-tags/dist/css/bootstrap-tags.css'
-'bundles/frontend/vendors/bootstrap-social/bootstrap-social.css'
-
-'bundles/frontend/app/css/app.css'
-'bundles/frontend/app/css/animations.css'
-output='css/compiled/vendors.css' %}
-<link rel="stylesheet" href="{{ asset_url }}"/>
-<link href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.css" rel="stylesheet">
-{% endstylesheets %}
-
-{#'bundles/frontend/vendors/ui-bootstrap-tpls-0.11.2.min.js'
-
-'bundles/frontend/vendors/bootstrap-colopicker-module.js'
-#}
-<!-- included vendors -->
-{% javascripts 'bundles/frontend/vendors/jquery/jquery.min.js'
-'bundles/frontend/vendors/angular/angular.min.js'
-'bundles/frontend/vendors/angular-resource/angular-resource.min.js'
-'bundles/frontend/vendors/angular-translate/angular-translate.js'
-'bundles/frontend/vendors/angular-route/angular-route.js'
-'bundles/frontend/vendors/angular-animate/angular-animate.js'
-'bundles/frontend/vendors/bootstrap/dist/js/bootstrap.min.js'
-'bundles/frontend/vendors/angular-ui-router/release/angular-ui-router.min.js'
-'bundles/frontend/vendors/angular-ui-select/dist/select.js'
-'bundles/frontend/vendors/angular-sanitize/angular-sanitize.js'
-'bundles/frontend/vendors/angular-loading-bar/src/loading-bar.js'
-'bundles/frontend/vendors/angular-cached-resource/angular-cached-resource.min.js'
-'bundles/frontend/vendors/angular-cookies/angular-cookies.min.js'
-'bundles/frontend/vendors/moment/min/moment-with-locales.min.js'
-'bundles/frontend/vendors/angular-leaflet-directive/dist/angular-leaflet-directive.min.js'
-'bundles/frontend/vendors/angularjs-modal-service/src/createDialog.js'
-'bundles/frontend/vendors/angular-xeditable/dist/js/xeditable.min.js'
-'bundles/frontend/vendors/angular-moment/angular-moment.min.js'
-'bundles/frontend/vendors/angular-bootstrap-datetimepicker/src/js/datetimepicker.js'
-'bundles/frontend/vendors/leaflet/dist/leaflet.js'
-
-'bundles/frontend/vendors/angular-boostrap-ui/src/modal/modal.js'
-'bundles/frontend/vendors/angular-ui-bootstrap-bower/ui-bootstrap-tpls.min.js'
-'bundles/frontend/vendors/angular-boostrap-ui/src/transition/transition.js'
-
-'bundles/frontend/vendors/angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.js'
-
-'bundles/frontend/vendors/bootstrap-tags/dist/js/bootstrap-tags.min.js'
-'bundles/frontend/vendors/select2/select2.min.js'
-
-output='js/compiled/vendors.js' %}
-<script src="{{ asset_url }}" type="text/javascript"></script>
-{% endjavascripts %}
-
-<!-- common client app assets -->
-{% javascripts
-'bundles/frontend/app/js/app.js'
-
-'bundles/frontend/app/js/controllers/alert.ctrl.js'
-'bundles/frontend/app/js/controllers/dashboard.ctrl.js'
-'bundles/frontend/app/js/controllers/generic-dialog.ctrl.js'
-'bundles/frontend/app/js/controllers/generic-modal.ctrl.js'
-'bundles/frontend/app/js/controllers/main.ctrl.js'
-'bundles/frontend/app/js/controllers/nav-left.ctrl.js'
-'bundles/frontend/app/js/controllers/nav-right.ctrl.js'
-'bundles/frontend/app/js/controllers/nav-top.ctrl.js'
-'bundles/frontend/app/js/controllers/home.ctrl.js'
-
-'bundles/frontend/app/js/routes.js'
-
-'bundles/frontend/app/js/directives/entity-list-handler.drv.js'
-'bundles/frontend/app/js/directives/filter.drv.js'
-'bundles/frontend/app/js/directives/get-or-create.drv.js'
-'bundles/frontend/app/js/directives/infinite-scroll.drv.js'
-'bundles/frontend/app/js/directives/sympozer-autocomplete.drv.js'
-'bundles/frontend/app/js/directives/no-image.drv.js'
-
-'bundles/frontend/app/js/services/global-http-interceptor.fact.js'
-'bundles/frontend/app/js/services/search.fact.js'
-'bundles/frontend/app/js/services/template-loader.fact.js'
-
-
-'bundles/frontend/app/js/filters/sympozer-checkmark.fltr.js'
-
-'bundles/frontend/app/modules/contextualization/js/routes.js'
-'bundles/frontend/app/modules/contextualization/js/controllers/context.ctrl.js'
-
-'bundles/frontend/app/modules/organizations/js/routes.js'
-'bundles/frontend/app/modules/organizations/js/controllers/organizations-delete.ctrl.js'
-'bundles/frontend/app/modules/organizations/js/controllers/organizations-edit.ctrl.js'
-'bundles/frontend/app/modules/organizations/js/controllers/organizations-list.ctrl.js'
-'bundles/frontend/app/modules/organizations/js/controllers/community/organizations-community-list.ctrl.js'
-'bundles/frontend/app/modules/organizations/js/controllers/organizations-main.ctrl.js'
-'bundles/frontend/app/modules/organizations/js/controllers/organizations-new.ctrl.js'
-'bundles/frontend/app/modules/organizations/js/controllers/organizations-show.ctrl.js'
-'bundles/frontend/app/modules/organizations/js/services/organizations.fact.js'
-
-
-'bundles/frontend/app/modules/papers/js/routes.js'
-'bundles/frontend/app/modules/papers/js/controllers/papers-delete.ctrl.js'
-'bundles/frontend/app/modules/papers/js/controllers/papers-edit.ctrl.js'
-'bundles/frontend/app/modules/papers/js/controllers/papers-list.ctrl.js'
-'bundles/frontend/app/modules/papers/js/controllers/community/papers-community-list.ctrl.js'
-'bundles/frontend/app/modules/papers/js/controllers/papers-main.ctrl.js'
-'bundles/frontend/app/modules/papers/js/controllers/papers-new.ctrl.js'
-'bundles/frontend/app/modules/papers/js/controllers/papers-show.ctrl.js'
-'bundles/frontend/app/modules/papers/js/services/papers.fact.js'
-
-
-'bundles/frontend/app/modules/topics/js/routes.js'
-'bundles/frontend/app/modules/topics/js/controllers/topics-delete.ctrl.js'
-'bundles/frontend/app/modules/topics/js/controllers/topics-edit.ctrl.js'
-'bundles/frontend/app/modules/topics/js/controllers/topics-list.ctrl.js'
-'bundles/frontend/app/modules/topics/js/controllers/topics-main.ctrl.js'
-'bundles/frontend/app/modules/topics/js/controllers/topics-new.ctrl.js'
-'bundles/frontend/app/modules/topics/js/controllers/topics-show.ctrl.js'
-'bundles/frontend/app/modules/topics/js/controllers/topics-list-by-event.ctrl.js'
-'bundles/frontend/app/modules/topics/js/services/topics.fact.js'
-
-'bundles/frontend/app/modules/categories/js/routes.js'
-'bundles/frontend/app/modules/categories/js/controllers/categories-delete.ctrl.js'
-'bundles/frontend/app/modules/categories/js/controllers/categories-edit.ctrl.js'
-'bundles/frontend/app/modules/categories/js/controllers/categories-list.ctrl.js'
-'bundles/frontend/app/modules/categories/js/controllers/categories-main.ctrl.js'
-'bundles/frontend/app/modules/categories/js/controllers/categories-new.ctrl.js'
-'bundles/frontend/app/modules/categories/js/controllers/categories-show.ctrl.js'
-'bundles/frontend/app/modules/categories/js/services/categories.fact.js'
-
-'bundles/frontend/app/modules/persons/js/routes.js'
-'bundles/frontend/app/modules/persons/js/controllers/persons-delete.ctrl.js'
-'bundles/frontend/app/modules/persons/js/controllers/community/persons-community-list.ctrl.js'
-'bundles/frontend/app/modules/persons/js/controllers/persons-edit.ctrl.js'
-'bundles/frontend/app/modules/persons/js/controllers/persons-list.ctrl.js'
-'bundles/frontend/app/modules/persons/js/controllers/persons-main.ctrl.js'
-'bundles/frontend/app/modules/persons/js/controllers/persons-new.ctrl.js'
-'bundles/frontend/app/modules/persons/js/controllers/persons-event-list.ctrl.js'
-'bundles/frontend/app/modules/persons/js/controllers/persons-list-by-event.ctrl.js'
-'bundles/frontend/app/modules/persons/js/controllers/persons-show.ctrl.js'
-'bundles/frontend/app/modules/persons/js/services/persons.fact.js'
-
-'bundles/frontend/app/modules/equipments/js/routes.js'
-'bundles/frontend/app/modules/equipments/js/controllers/equipments-delete.ctrl.js'
-'bundles/frontend/app/modules/equipments/js/controllers/equipments-edit.ctrl.js'
-'bundles/frontend/app/modules/equipments/js/controllers/equipments-list.ctrl.js'
-'bundles/frontend/app/modules/equipments/js/controllers/equipments-main.ctrl.js'
-'bundles/frontend/app/modules/equipments/js/controllers/equipments-new.ctrl.js'
-'bundles/frontend/app/modules/equipments/js/controllers/equipments-show.ctrl.js'
-'bundles/frontend/app/modules/equipments/js/services/equipments.fact.js'
-
-'bundles/frontend/app/modules/locations/js/routes.js'
-'bundles/frontend/app/modules/locations/js/controllers/locations-delete.ctrl.js'
-'bundles/frontend/app/modules/locations/js/controllers/locations-edit.ctrl.js'
-'bundles/frontend/app/modules/locations/js/controllers/locations-list.ctrl.js'
-'bundles/frontend/app/modules/locations/js/controllers/locations-main.ctrl.js'
-'bundles/frontend/app/modules/locations/js/controllers/locations-new.ctrl.js'
-'bundles/frontend/app/modules/locations/js/controllers/locations-show.ctrl.js'
-'bundles/frontend/app/modules/locations/js/controllers/main-event-locations-new.ctrl.js'
-'bundles/frontend/app/modules/locations/js/controllers/main-event-locations-edit.ctrl.js'
-'bundles/frontend/app/modules/locations/js/services/locations.fact.js'
-'bundles/frontend/app/modules/locations/js/services/main-event-locations.fact.js'
-
-'bundles/frontend/app/modules/events/js/routes.js'
-'bundles/frontend/app/modules/events/js/controllers/events-delete.ctrl.js'
-'bundles/frontend/app/modules/events/js/controllers/events-edit.ctrl.js'
-'bundles/frontend/app/modules/events/js/controllers/events-list.ctrl.js'
-'bundles/frontend/app/modules/events/js/controllers/events-main.ctrl.js'
-'bundles/frontend/app/modules/events/js/controllers/events-new.ctrl.js'
-'bundles/frontend/app/modules/events/js/controllers/events-show.ctrl.js'
-'bundles/frontend/app/modules/events/js/services/events.fact.js'
-
-'bundles/frontend/app/modules/main-events/js/routes.js'
-'bundles/frontend/app/modules/main-events/js/controllers/main-events-delete.ctrl.js'
-'bundles/frontend/app/modules/main-events/js/controllers/main-events-edit.ctrl.js'
-'bundles/frontend/app/modules/main-events/js/controllers/main-events-list.ctrl.js'
-'bundles/frontend/app/modules/main-events/js/controllers/main-events-main.ctrl.js'
-'bundles/frontend/app/modules/main-events/js/controllers/main-events-new.ctrl.js'
-'bundles/frontend/app/modules/main-events/js/controllers/main-events-show.ctrl.js'
-'bundles/frontend/app/modules/main-events/js/controllers/community/main-events-community-list.ctrl.js'
-'bundles/frontend/app/modules/main-events/js/services/main-events.fact.js'
-
-'bundles/frontend/app/modules/roles/js/routes.js'
-'bundles/frontend/app/modules/roles/js/controllers/roles/roles-delete.ctrl.js'
-'bundles/frontend/app/modules/roles/js/controllers/roles/roles-edit.ctrl.js'
-'bundles/frontend/app/modules/roles/js/controllers/roles/roles-list.ctrl.js'
-'bundles/frontend/app/modules/roles/js/controllers/roles/roles-main.ctrl.js'
-'bundles/frontend/app/modules/roles/js/controllers/roles/roles-new.ctrl.js'
-'bundles/frontend/app/modules/roles/js/controllers/roles/roles-show.ctrl.js'
-'bundles/frontend/app/modules/roles/js/services/roles.fact.js'
-
-'bundles/frontend/app/modules/roles/js/controllers/role-labels/role-labels-delete.ctrl.js'
-'bundles/frontend/app/modules/roles/js/controllers/role-labels/role-labels-edit.ctrl.js'
-'bundles/frontend/app/modules/roles/js/controllers/role-labels/role-labels-list.ctrl.js'
-'bundles/frontend/app/modules/roles/js/controllers/role-labels/role-labels-main.ctrl.js'
-'bundles/frontend/app/modules/roles/js/controllers/role-labels/role-labels-new.ctrl.js'
-'bundles/frontend/app/modules/roles/js/controllers/role-labels/role-labels-show.ctrl.js'
-'bundles/frontend/app/modules/roles/js/services/role-labels.fact.js'
-
-
-'bundles/frontend/app/modules/authentication/js/routes.js'
-'bundles/frontend/app/modules/authentication/js/controllers/change-pwd.ctrl.js'
-'bundles/frontend/app/modules/authentication/js/controllers/confirm.ctrl.js'
-'bundles/frontend/app/modules/authentication/js/controllers/global-auth.ctrl.js'
-'bundles/frontend/app/modules/authentication/js/controllers/profile.ctrl.js'
-'bundles/frontend/app/modules/authentication/js/controllers/reset-pwd.ctrl.js'
-'bundles/frontend/app/modules/authentication/js/controllers/reset-pwd-request.ctrl.js'
-'bundles/frontend/app/modules/authentication/js/controllers/sign-in.ctrl.js'
-'bundles/frontend/app/modules/authentication/js/controllers/sign-out.ctrl.js'
-'bundles/frontend/app/modules/authentication/js/controllers/sign-up.ctrl.js'
-'bundles/frontend/app/modules/authentication/js/services/users.fact.js'
-
-'bundles/frontend/app/modules/i18n/i18nApp.js'
-'bundles/frontend/app/modules/authentication/js/controllers/change-pwd.ctrl.js'
-'bundles/frontend/app/modules/authentication/js/controllers/confirm.ctrl.js'
-
-
-output='js/compiled/app.js' %}
-<script src="{{ asset_url }}" type="text/javascript"></script>
 
 <!-- <script src="{{ asset('bundles/frontend/app/js/animations.js') }}"></script> -->
 {% if app.user %}
@@ -384,7 +168,7 @@ output='js/compiled/app.js' %}
                         img: "{{ asset('bundles/frontend/app/modules/roles/img') }}"
                     }
                 },
-                roleLabels: {
+                roleLabelVersions: {
                     urls: {
                         base: "{{ asset('bundles/frontend/app/modules/roles/') }}",
                         partials: "{{ asset('bundles/frontend/app/modules/roles/partials/') }}",
@@ -412,7 +196,7 @@ output='js/compiled/app.js' %}
     };
     angular.module('sympozerApp').value('GLOBAL_CONFIG', globalConfig);
 </script>
-{% endjavascripts %}
+
 </head>
 
 <!-- Main View -->

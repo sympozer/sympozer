@@ -70,6 +70,8 @@ class PersonService extends AbstractBusinessService
     $user = $person->getUser();
 
     //nobody but the user himself can change his profile while his account is enabled
+    //TODO : manage this with ACL
+    //TODO : manage this with ACL
     //!== $this->securityContext->getToken()->getUser()->getId()
       //()
     if ($user->isEnabled()

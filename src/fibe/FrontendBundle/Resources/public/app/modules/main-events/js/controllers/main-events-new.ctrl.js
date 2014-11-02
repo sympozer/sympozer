@@ -3,13 +3,20 @@
  *
  * @type {controller}
  */
-angular.module('mainEventsApp').controller('mainEventsNewCtrl', [ '$scope', '$rootScope', '$location', 'mainEventsFact', 'locationsFact', '$modal', function ($scope, $rootScope, $location, mainEventsFact, locationsFact, $modal)
+angular.module('mainEventsApp').controller('mainEventsNewCtrl', [ '$scope', '$rootScope', '$location', 'mainEventsFact', 'locationsFact', 'formValidation', '$modal', function ($scope, $rootScope, $location, mainEventsFact, locationsFact, formValidation, $modal)
 {
     $scope.conference = new mainEventsFact;
 
     var error = function (response, args)
     {
-        $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'the conference has not been created', type: 'danger'});
+        if("Validation Failed" == response.data.message)
+        {
+            formValidation.transformFromServer(response);
+        }
+        else
+        {
+            $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'the conference has not been created', type: 'danger'});
+        }
     };
 
     var success = function (response, args)
@@ -20,11 +27,13 @@ angular.module('mainEventsApp').controller('mainEventsNewCtrl', [ '$scope', '$ro
 
     $scope.create = function (form)
     {
-        if (form.$valid)
-        {
-            debugger;
+//        if (form.$valid)
+//        {
+            //date format fix
+            $scope.conference.startAt = $scope.conference.startAt ? $scope.conference.startAt.toString() : undefined;
+            $scope.conference.endAt = $scope.conference.endAt ? $scope.conference.endAt.toString() : undefined;
             $scope.conference.$create({}, success, error);
-        }
+//        }
     }
 
     //initialize map zoom

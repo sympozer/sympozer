@@ -12,6 +12,7 @@
         <parameter key="fibe.rest.searchservice.class">fibe\RestBundle\Search\SearchService</parameter>
         <parameter key="fibe.rest.collection.type.class">fibe\RestBundle\Form\GetOrCreateCollectionType</parameter>
         <parameter key="fibe.rest.entity.type.class">fibe\RestBundle\Form\GetOrCreateEntityType</parameter>
+        <parameter key="acl_serialize_listener.class">fibe\RestBundle\Listener\ACLSerializationListener</parameter>
         <!--<parameter key="app.cors_listener.class">fibe\RestBundle\Listener\CorsListener</parameter>-->
     </parameters>
 
@@ -52,6 +53,14 @@
         <service id="serialize_exception_listener" class="%serialize_exception_listener.class%">
             <tag name="kernel.event_listener" event="kernel.exception" method="onKernelException"/>
             <argument type="service" id="serializer" />
+            <argument type="service" id="logger" />
+        </service>
+
+
+        <service id="acl_serialize_listener" class="%acl_serialize_listener.class%">
+            <tag name="jms_serializer.event_subscriber" event="serializer.post_serialize" method="onPostSerialize"/>
+            <argument type="service" id="fibe_security.acl_entity_helper" />
+            <argument type="service" id="logger" />
         </service>
 
 

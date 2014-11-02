@@ -2,12 +2,8 @@
   "name": "sympozer",
   "version": "0.0.1",
   "description": "",
-  "scripts": {
-    "postinstall": ""
-  },
   "devDependencies": {
-    "bower": "~1.2.6",
-    "grunt": "~0.4.4",
+    "grunt": "0.4.4",
     "grunt-chmod": "^1.0.3",
     "grunt-contrib-concat": "~0.3.0",
     "grunt-contrib-connect": "~0.5.0",
@@ -32,7 +28,7 @@
     "karma-requirejs": "~0.1.0",
     "karma-script-launcher": "~0.1.0",
     "matchdep": "~0.1.2",
-    "protractor": "~0.14.0"
+    "protractor": "1.0.0"
   },
   "dependencies": {}
 }

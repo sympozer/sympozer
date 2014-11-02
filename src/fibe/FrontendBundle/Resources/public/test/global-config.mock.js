@@ -116,7 +116,7 @@ var globalConfig = {
                     img: "{{ asset('bundles/frontend/app/modules/roles/img') }}"
                 }
             },
-            roleLabels: {
+            roleLabelVersions: {
                 urls: {
                     base: "{{ asset('bundles/frontend/app/modules/roles/') }}",
                     partials: "{{ asset('bundles/frontend/app/modules/roles/partials/') }}",

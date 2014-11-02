@@ -1,15 +1,15 @@
 <form name="signupForm" role="form" ng-submit="signupAction(signupForm)" novalidate="">
   <div class="form-group">
     <label for="inputUsername">Login</label>
-    <input type="text" required="" name="username" class="form-control" id="inputUsername" placeholder="Username" ng-model="user.username" ng-minlength="3"
+    <input type="text" required="" server-error="serverError" name="username" class="form-control" id="inputUsername" placeholder="Username" ng-model="user.username" ng-minlength="3" required
            ng-maxlength="20"/>
 
     <div class="alert alert-danger" role="alert" ng-show="signupForm.username.$error.minlength">Your login is required to be at least 3 characters</div>
     <div class="alert alert-danger" role="alert" ng-show="signupForm.username.$error.maxlength">Your login cannot be longer than 20 characters</div>
   </div>
-    <div class="form-group">
+  <div class="form-group">
     <label for="inputEmail">Email</label>
-    <input type="email" class="form-control" id="inputEmail" name="mail" placeholder="Email" ng-model="user.email" required ng-pattern=/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/>
+    <input type="email" class="form-control" server-error="serverError" id="inputEmail" name="mail" placeholder="Email" ng-model="user.email" required ng-class="{'ng-dirty': formServerErrors.email, 'ng-valid': !formServerErrors.email,  'ng-invalid': formServerErrors.email}" ng-pattern=/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/>
   </div>
   <div class="form-group">
     <label for="inputPassword">Password</label>
@@ -23,16 +23,10 @@
     <label for="inputPasswordConfirm">Password check</label>
     <input required="" type="password" name="confirmpassword" id="inputPasswordConfirm" class="form-control" placeholder="Password check" ng-model="user.plainPassword.second"/>
 
-    <div class="alert alert-danger" role="alert" ng-show="signupForm.confirmpassword.$dirty && user.password != user.confirmpassword">Passwords must match</div>
+    <div class="alert alert-danger" role="alert" ng-show="signupForm.confirmpassword.$dirty && user.plainPassword.first != user.plainPassword.second">Passwords must match</div>
   </div>
 
   <div class="form-group">
     <button ng-disabled="signupForm.$invalid" type="submit" class="btn btn-default">Register</button>
   </div>
 </form>
-<!--
-    fos_user_registration_form[username]:benoitddlp
-    fos_user_registration_form[email]:benoitddlp@msn.com
-    fos_user_registration_form[plainPassword][first]:benoitddlp
-    fos_user_registration_form[plainPassword][second]:benoitddlp
--->

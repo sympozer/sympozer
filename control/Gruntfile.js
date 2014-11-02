@@ -1,8 +1,3 @@
-/**
- * Global grunt configuration template. The file has to be configured for each environement.
- * Before editing make sure you work on a copy on the root of the project
- * @param grunt
- */
 module.exports = function(grunt) {
 
     require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
@@ -28,6 +23,9 @@ module.exports = function(grunt) {
             //Start default navigator on prod mode
             prodserver: {
                 path: PROD_SERVER_PATH
+            },
+            adminserver: {
+                path: PROD_SERVER_PATH+'sonata/admin'
             }
         },
 
@@ -295,7 +293,7 @@ module.exports = function(grunt) {
 
     //installation-related
     grunt.registerTask('install', ['update','shell:protractor_install']);
-    grunt.registerTask('update', ['shell:npm_install', 'concat']);
+    grunt.registerTask('update', ['shell:npm_install']);
 
 
 
@@ -305,7 +303,8 @@ module.exports = function(grunt) {
         'sf2-console:database_init', 'sf2-console:assets_install',
         'sf2-console:admin_create', 'sf2-console:cache_clear', 'chmod:cache_log']);
 
-    grunt.registerTask('dev', ['sf2-console:assets_install', 'sf2-console:cache_clear', 'chmod:cache_log', 'open:prodserver']);
+    grunt.registerTask('dev', ['sf2-console:assets_install', 'sf2-console:cache_clear',
+        'chmod:cache_log', 'open:devserver']);
 
     /** PRODUCTION **/
     grunt.registerTask('build', ['sf2-console:database_update', 'sf2-console:assets_dump',

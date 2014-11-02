@@ -4,7 +4,7 @@
  * @type {controller}
  */
 angular.module('authenticationApp').controller('signupCtrl',
-    ['$scope', '$rootScope', '$location', '$routeParams', 'GLOBAL_CONFIG', 'usersFact', function ($scope, $rootScope, $location, $routeParams, GLOBAL_CONFIG, usersFact)
+    ['$scope', '$rootScope', '$location', '$routeParams', 'GLOBAL_CONFIG', 'usersFact', 'formValidation', function ($scope, $rootScope, $location, $routeParams, GLOBAL_CONFIG, usersFact, formValidation)
     {
         $scope.GLOBAL_CONFIG = GLOBAL_CONFIG;
         $scope.user = {};
@@ -12,8 +12,16 @@ angular.module('authenticationApp').controller('signupCtrl',
         var error = function (response, args)
         {
             $scope.busy = false;
-            $rootScope.$broadcast('AlertCtrl:addAlert', {code: response.data.error, type: 'danger'});
-        }
+
+            if("Validation Failed" == response.data.message)
+            {
+                formValidation.transformFromServer(response);
+            }
+            else
+            {
+                $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'the acount has not been created', type: 'danger'});
+            }
+        };
         var success = function (response, args)
         {
             $scope.busy = false;

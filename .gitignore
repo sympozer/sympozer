@@ -1,8 +1,4 @@
-#mobile app
-src/fibe/MobileAppBundle/Resources/public/mobileApp/*
-
 # Symfony directories
-web/uploads/*
 */logs/*
 */cache/*
 vendor/*
@@ -22,11 +18,16 @@ composer.lock
 # gedit temp file
 *~
 
-#node modules
+
 /node_modules/*
 package.json
 Gruntfile.js
 /src/fibe/FrontendBundle/Resources/public/vendors/*
 
 
+
+bin
+
+# smlink file (for dev environement)
+web/smlink
 

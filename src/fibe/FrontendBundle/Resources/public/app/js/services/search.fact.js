@@ -1,5 +1,3 @@
-
-
 //mandatory args for searchService.doSearch() : entitiesLbl, callback
 
 angular.module('sympozerApp').factory('searchService', [
@@ -34,12 +32,16 @@ angular.module('sympozerApp').factory('searchService', [
                     for (var i in searchConfig.filters)
                     {
                         var currentFilter = searchConfig.filters[i];
-                        if(currentFilter instanceof Array){
+                        if (currentFilter instanceof Array)
+                        {
                             requestParams["filters[" + i + "]"] = [];
-                            for (var value in currentFilter) {
+                            for (var value in currentFilter)
+                            {
                                 requestParams["filters[" + i + "]"].push(currentFilter[value]);
                             }
-                        }else{
+                        }
+                        else
+                        {
                             requestParams["filters[" + i + "]"] = searchConfig.filters[i];
                         }
                     }

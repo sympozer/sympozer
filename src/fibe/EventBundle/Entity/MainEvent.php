@@ -360,7 +360,7 @@ class MainEvent extends VEvent
     public function isEmpty()
     {
         return (count($this->events) <= 1)
-        and (count($this->locations) <= 1)
+        and (count($this->eventLocations) <= 1)
         and (count($this->papers) == 0)
         and (count($this->persons) == 0)
         and (count($this->organizations) == 0)

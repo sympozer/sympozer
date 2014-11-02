@@ -70,10 +70,10 @@ var sympozerApp = angular.module('sympozerApp', [
  */
 sympozerApp.run(function (editableOptions, editableThemes)
 {
-    editableOptions.theme = 'bs3';
-    // overwrite submit button template
-    editableThemes['bs3'].submitTpl = '<button type="submit" class="btn btn-primary"><i class="fa fa-check"></i></button>';
-    editableThemes['bs3'].cancelTpl =  '<button type="button" class="btn btn-default" ng-click="$form.$cancel()"><i class="fa fa-times"></i></button>';
+  editableOptions.theme = 'bs3';
+  // overwrite submit button template
+  editableThemes['bs3'].submitTpl = '<button type="submit" class="btn btn-primary"><i class="fa fa-check"></i></button>';
+  editableThemes['bs3'].cancelTpl = '<button type="button" class="btn btn-default" ng-click="$form.$cancel()"><i class="fa fa-times"></i></button>';
 });
 
 /**
@@ -82,8 +82,8 @@ sympozerApp.run(function (editableOptions, editableThemes)
  * @type {config}
  */
 angular.module('sympozerApp').config(['$provide', '$httpProvider',
-function ($provide, $httpProvider)
-{
+  function ($provide, $httpProvider)
+  {
     $httpProvider.interceptors.push('globalHttpInterceptor');
 
-}]);
+  }]);

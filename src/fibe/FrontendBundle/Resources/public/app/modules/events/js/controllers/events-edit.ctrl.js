@@ -12,22 +12,25 @@ angular.module('eventsApp').controller('eventsEditCtrl', [ '$scope', '$window', 
         var error = function (response, args)
         {
             $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'the event has not been saved', type: 'danger'});
-        }
+        };
 
         var success = function (response, args)
         {
             $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'event saved', type: 'success'});
             $location.path('/conference/' + $rootScope.currentMainEvent.id + '/events/list');
-        }
+        };
 
         $scope.update = function (form)
         {
             //$scope.event.mainEvent = $rootScope.currentMainEvent;
+            //date format fix
+            $scope.event.startAt = $scope.event.startAt ? $scope.event.startAt.toString() : undefined;
+            $scope.event.endAt = $scope.event.endAt ? $scope.event.endAt.toString() : undefined;
             if (form.$valid)
             {
                 $scope.event.$update({}, success, error);
             }
-        }
+        };
 
         $scope.createLocationModal = function ()
         {
@@ -167,6 +170,7 @@ angular.module('eventsApp').controller('eventsEditCtrl', [ '$scope', '$window', 
                 }
             });
             modalInstance.result.then(function (newRole) {
+                $scope.newRole.event = event;
                 if(!$scope.event.roles){
                     $scope.event.roles = [];
                 }

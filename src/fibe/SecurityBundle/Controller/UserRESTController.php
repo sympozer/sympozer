@@ -17,6 +17,7 @@ use FOS\UserBundle\Model\UserInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
@@ -80,18 +81,33 @@ class UserRESTController extends Controller
         $dispatcher->dispatch(FOSUserEvents::REGISTRATION_COMPLETED, new FilterUserResponseEvent($user, $request, $response));
       }
       return $successResponse;
-    }else
-    {
-      //investigate on failure...
-      if(null != $userManager->findUserByUsername($form->getData()->getUsername()))
-      {
-        throw new \Exception('Register_username_in_use_error');
-      }else if(null != $userManager->findUserByEmail($form->getData()->getEmail()))
-      {
-        throw new \Exception('Register_email_in_use_error');
-      }
     }
+
+    //investigate on failure...
+    $result = array(
+      'message' => 'Validation Failed',
+      'errors' => array('errors' => array()),
+    );
+
+    if(null != $userManager->findUserByUsername($form->getData()->getUsername()))
+    {
+      $result['errors']['errors'][] = "{'field' : 'username', 'msg' : 'Register_username_in_use_error'}";
+    }
+
+    if(null != $userManager->findUserByEmail($form->getData()->getEmail()))
+    {
+      $result['errors']['errors'][] = "{'field' : 'email', 'msg' : 'Register_email_in_use_error'}";
+    }
+
+    if(count($result['errors']['errors']) > 0)
+    {
+      $response = new Response(json_encode($result), 400);
+      $response->headers->set('Content-Type', 'application/json');
+      return $response;
+    }
+
     throw new \Exception('Register_error');
+
   }
 
   /**

@@ -63,6 +63,7 @@ abstract class VEvent
    * This property defines a short summary or subject for the
    * calendar component.
    * @ORM\Column(type="string", length=255)
+   * @Assert\NotBlank()
    * @Expose
    */
   protected $label;
@@ -73,6 +74,7 @@ abstract class VEvent
    * This property specifies when the calendar component begins.
    *
    * @ORM\Column(type="datetime", name="start_at")
+   * @Assert\NotBlank()
    * @SerializedName("startAt")
    * @Expose
    */
@@ -85,6 +87,7 @@ abstract class VEvent
    * component ends.
    *
    * @ORM\Column(type="datetime", name="end_at")
+   * @Assert\NotBlank()
    * @SerializedName("endAt")
    * @Expose
    */
@@ -308,9 +311,24 @@ abstract class VEvent
   }
 
   /**
-   * computeEndAt
+   * Validates start is before end
+   * @Assert\True(message = "{'field' : 'startAt', 'msg' : 'EventFormValidation_start_is_after_end_error'}")
    *
-   * @TODO EVENT : à corriger
+   * @return bool
+   */
+  public function isDatesInValid()
+  {
+    if ($this->startAt != null)
+    {
+      echo $this->startAt->format( 'd-m-Y' );
+      echo " ";
+      echo $this->endAt->format( 'd-m-Y' );
+    }
+    return $this->startAt < $this->endAt;
+  }
+
+  /**
+   * computeEndAt
    *
    * @ORM\PrePersist()
    * @ORM\PreUpdate()

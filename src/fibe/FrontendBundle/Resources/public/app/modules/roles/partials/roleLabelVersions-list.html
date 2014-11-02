@@ -1,0 +1,27 @@
+<div ng-include="GLOBAL_CONFIG.app.modules.roleLabelVersions.urls.partials+'roleLabelVersions-actions.html'"></div>
+
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Label<i class="fa fa-sort-asc" ng-click="order('label','ASC')"></i><i class="fa fa-sort-desc" ng-click="order('label','DESC')"></i></th>
+        <th>Description</th>
+    </tr>
+    </thead>
+    <tbody entity-list-handler="roleLabels" infinite-scroll='load()' infinite-scroll-disabled='busy' infinite-scroll-distance='0.5'>
+    <tr ng-repeat="roleLabel in entities  track by $index">
+        <td>{{ roleLabel.label }}</td>
+        <td>{{ roleLabel.description }}</td>
+        <td>
+            <a class="btn btn-warning" href="#roleLabels/edit/{{ roleLabel.id }}" role="button"><i class="fa fa-edit fa-1x"></i></a>
+            <a class="btn btn-default" href="#roleLabels/show/{{ roleLabel.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>
+            <a class="btn btn-primary" href="" data-ng-click="clone(roleLabel)" role="button"><i class="fa fa-files-o fa-1x"></i></a>
+            <button class="btn btn-danger" data-ng-click="deleteModal($index, roleLabel)" role="button">
+                <i class="fa fa-trash-o fa-1x"></i></button>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+
+
+
