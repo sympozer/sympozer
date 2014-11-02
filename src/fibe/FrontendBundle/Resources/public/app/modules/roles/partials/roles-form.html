@@ -1,5 +1,5 @@
 <h3>Person</h3>
-<div sympozer-autocomplete="persons" on-select="addPerson" on-keyup="searchPersons"></div>
+<div sympozer-autocomplete="person" on-select="addPerson" on-keyup="searchPersons"></div>
 <div class="col-sm-1 col-md-1 col-lg-4  well" ng-show="role.person">
     <div class="img-container-lg">
         <img  class="scale-img" no-image ng-src="{{ role.person.img }}"/>
@@ -8,7 +8,7 @@
     <h5>{{ role.person.email }}</h5>
 </div>
 <h3>Role Type</h3>
-<div sympozer-autocomplete="roleLabelsVersion" on-select="addRoleLabel" on-keyup="searchRoleLabels"></div>
+<div sympozer-autocomplete="roleLabelVersion" on-select="addRoleLabel" on-keyup="searchRoleLabels"></div>
 <ul class="nav nav-pills">
     <li class="active" ng-show="role.roleLabelVersion">
         <a href="javascript:void(0)">

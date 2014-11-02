@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use fibe\CommunityBundle\Entity\Person;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="fibe\SecurityBundle\Repository\TeammateRepository")
@@ -27,6 +28,7 @@ class Teammate
   /**
    * @ORM\ManyToOne(targetEntity="fibe\CommunityBundle\Entity\Person", inversedBy="teammates")
    * @ORM\JoinColumn(name="person_id", referencedColumnName="id", onDelete="Set Null")
+   * @Assert\NotBlank()
    * @Expose
    */
   protected $person;
@@ -34,6 +36,7 @@ class Teammate
   /**
    * @ORM\ManyToOne(targetEntity="fibe\SecurityBundle\Entity\Team", inversedBy="teammates")
    * @ORM\JoinColumn(onDelete="Set Null")
+   * @Assert\NotBlank()
    * @Expose
    */
   protected $team;

@@ -19,6 +19,8 @@ use Pagerfanta\Exception\NotValidCurrentPageException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
+ * TODO: TO REMOVE
+ * TODO: TO REMOVE
  * User controller.
  *
  * @Route("/team")

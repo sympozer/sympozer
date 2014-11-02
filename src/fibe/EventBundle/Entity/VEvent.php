@@ -2,20 +2,12 @@
 namespace fibe\EventBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
-
-use fibe\ContentBundle\Entity\Location;
-use fibe\ContentBundle\Entity\Role;
+use Doctrine\ORM\Mapping as ORM;
 use fibe\ContentBundle\Entity\Sponsor;
+use fibe\ContentBundle\Entity\Topic;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
 use JMS\Serializer\Annotation\SerializedName;
-use JMS\Serializer\Annotation\Discriminator;
-use JMS\Serializer\Annotation\Groups;
-use JMS\Serializer\Annotation\VirtualProperty;
-
-use fibe\ContentBundle\Entity\Topic;
-
-use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**

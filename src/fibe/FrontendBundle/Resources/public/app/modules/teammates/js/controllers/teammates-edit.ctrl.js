@@ -4,7 +4,8 @@
  * @type {controller}
  */
 angular.module('teammatesApp').controller('teammatesEditCtrl',
-    [ '$scope', '$window', 'GLOBAL_CONFIG', 'createDialog', '$rootScope', '$routeParams', '$location', 'teammatesFact',  'personsFact', 'teammatesFact', 'eventsFact', '$modal', function ($scope, $window,  GLOBAL_CONFIG, createDialogService, $rootScope, $routeParams, $location, teammatesFact,  personsFact, teammatesFact, eventsFact, $modal)
+    [ '$scope', '$window', 'GLOBAL_CONFIG', 'createDialog', '$rootScope', '$routeParams', '$location', 'teammatesFact',  'personsFact', 'eventsFact', '$modal',
+      function ($scope, $window,  GLOBAL_CONFIG, createDialogService, $rootScope, $routeParams, $location, teammatesFact,  personsFact, eventsFact, $modal)
     {
         $scope.teammate = teammatesFact.get({id: $routeParams.teammateId});
 
@@ -23,9 +24,10 @@ angular.module('teammatesApp').controller('teammatesEditCtrl',
         {
             if (form.$valid)
             {
+                $scope.teammate.team = $scope.$root.currentMainEvent.team;
                 $scope.teammate.$update({}, success, error);
             }
-        }
+        };
 
 
         //Autocomplete and add person workflow
