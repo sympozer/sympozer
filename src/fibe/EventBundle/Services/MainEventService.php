@@ -42,8 +42,14 @@ class MainEventService
       $mainEvent->setLabel("Sympozer New Conference");
     }
     //$mainEvent->setLogoPath("sympozer-logo.png");
-    $mainEvent->setStartAt(new \DateTime('now'));
-    $mainEvent->setEndAt(clone $mainEvent->getStartAt()->add(new \DateInterval('P2D')));
+    if(!$mainEvent->setStartAt)
+    {
+      $mainEvent->setStartAt(new \DateTime('now'));
+    }
+    if(!$mainEvent->setEndAt)
+    {
+      $mainEvent->setEndAt(clone $mainEvent->getStartAt()->add(new \DateInterval('P2D')));
+    }
     $this->entityManager->persist($mainEvent);
 
 

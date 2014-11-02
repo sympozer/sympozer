@@ -312,19 +312,18 @@ abstract class VEvent
 
   /**
    * Validates start is before end
-   * @Assert\True(message = "{'field' : 'startAt', 'msg' : 'EventFormValidation_start_is_after_end_error'}")
+   *  don't perform the check if one date is missing
+   * @Assert\True(message = "{'field' : 'endAt', 'msg' : 'EventFormValidation_start_is_after_end_error'}")
    *
    * @return bool
    */
-  public function isDatesInValid()
+  public function isDatesValid()
   {
-    if ($this->startAt != null)
+    if ($this->startAt && $this->endAt)
     {
-      echo $this->startAt->format( 'd-m-Y' );
-      echo " ";
-      echo $this->endAt->format( 'd-m-Y' );
+      return $this->startAt < $this->endAt;
     }
-    return $this->startAt < $this->endAt;
+    return true;
   }
 
   /**

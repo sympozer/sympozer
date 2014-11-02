@@ -3,7 +3,7 @@
  *
  * @type {controller}
  */
-angular.module('equipmentsApp').controller('equipmentsListCtrl', ['$scope', 'GLOBAL_CONFIG', 'createDialog', '$rootScope', 'equipmentsFact', '$cachedResource', function ($scope, GLOBAL_CONFIG, createDialogService, $rootScope, equipmentsFact, $cachedResource)
+angular.module('equipmentsApp').controller('equipmentsListCtrl', ['$scope', 'GLOBAL_CONFIG', 'createDialog', '$rootScope', 'equipmentsFact', '$cachedResource', '$routeParams', function ($scope, GLOBAL_CONFIG, createDialogService, $rootScope, equipmentsFact, $cachedResource, $routeParams)
 {
     $scope.GLOBAL_CONFIG = GLOBAL_CONFIG;
     $scope.entities = [];

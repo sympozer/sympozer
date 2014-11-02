@@ -17,7 +17,17 @@ composer.lock
 
 # gedit temp file
 *~
+
+
+/node_modules/*
+package.json
+Gruntfile.js
+/src/fibe/FrontendBundle/Resources/public/vendors/*
+
+
+
 bin
 
 # smlink file (for dev environement)
 web/smlink
+

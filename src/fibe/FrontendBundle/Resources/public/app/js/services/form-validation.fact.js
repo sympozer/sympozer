@@ -1,7 +1,7 @@
 angular.module('sympozerApp').factory('formValidation', [
   '$compile', function ($compile)
   {
-    var serverError = {error: {}};
+    var serverError = {};
     return {
       /**
        * Transform Symfony2 default "Validation Failed" rest response
@@ -62,7 +62,6 @@ angular.module('sympozerApp').factory('formValidation', [
        */
       watchField: function (scope, element, field)
       {
-        //@TODO : TRACK WHEN IT NEEDS TO BE EMPTIED ( directive form ?)
         //this service need the serverError scope variable in order to watch inside
         if (!scope.serverError)
         {

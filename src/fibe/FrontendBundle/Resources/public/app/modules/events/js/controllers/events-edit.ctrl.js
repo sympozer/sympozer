@@ -23,9 +23,6 @@ angular.module('eventsApp').controller('eventsEditCtrl', [ '$scope', '$window', 
         $scope.update = function (form)
         {
             //$scope.event.mainEvent = $rootScope.currentMainEvent;
-            //date format fix
-            $scope.event.startAt = $scope.event.startAt ? $scope.event.startAt.toString() : undefined;
-            $scope.event.endAt = $scope.event.endAt ? $scope.event.endAt.toString() : undefined;
             if (form.$valid)
             {
                 $scope.event.$update({}, success, error);

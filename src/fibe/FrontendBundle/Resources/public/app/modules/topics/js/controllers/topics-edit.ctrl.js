@@ -3,7 +3,7 @@
  *
  * @type {controller}
  */
-angular.module('topicsApp').controller('topicsEditCtrl', [ '$scope', '$rootScope', '$routeParams', '$topic', 'topicsFact', function ($scope, $rootScope, $routeParams, $topic, topicsFact)
+angular.module('topicsApp').controller('topicsEditCtrl', [ '$scope', '$rootScope', '$routeParams', '$window', 'topicsFact', function ($scope, $rootScope, $routeParams, $window, topicsFact)
 {
     $scope.topic = topicsFact.get({id: $routeParams.topicId});
 
@@ -15,7 +15,7 @@ angular.module('topicsApp').controller('topicsEditCtrl', [ '$scope', '$rootScope
     var success = function (response, args)
     {
         $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'topic saved', type: 'success'});
-        $topic.path('/topics/list');
+        $window.history.back();
     }
 
     $scope.update = function (form)
