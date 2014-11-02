@@ -15,19 +15,20 @@
     <textarea elastic class="form-control" id="inputAccesibility" placeholder="Accesibility" ng-model="location.accesibility"></textarea>
 </div>
 <div class="row">
-  <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
-    <h1>{{location.equipments.length}} Equipments</h1>
-       <ul class="nav nav-pills" ng-show="location.equipments.length > 0">
-            <li ng-repeat="equipment in location.equipments track by $index"  class="active">
-                <a href="javascript:void(0)" ng-click="">
-                <span class="badge pull-right"><i class="fa fa-{{equipment.icon}} fa-1x"></i></span>
-                {{ equipment.label }}
+    <label>Equipments</label>
+    <ul class="nav nav-pills" ng-show="location.equipments.length > 0">
+           <li ng-repeat="equipment in location.equipments track by $index" class="active">
+                <a ng-click="deleteEquipment($index)">
+                    <i class="fa fa-close"></i>
+                        {{ equipment.label }}
+                        <span class="badge pull-right"><i class="fa fa-{{equipment.icon}} fa-1x"></i></span>
                 </a>
-            </li>
+           </li>
         </ul>
+    <div sympozer-autocomplete="equipments" on-select="addEquipment" on-keyup="searchEquipments"></div>
   </div>
 
-<div sympozer-autocomplete="equipments" on-select="addEquipment" on-keyup="searchEquipments"></div>
+
 </div>
 
 <div>

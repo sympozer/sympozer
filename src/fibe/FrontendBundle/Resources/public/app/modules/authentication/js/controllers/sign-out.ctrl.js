@@ -20,7 +20,7 @@ angular.module('authenticationApp').controller('signoutCtrl',
             $scope.busy = false;
             localStorage.removeItem('currentUser');
             $rootScope.currentUser = {};
-            $window.history.back();
+            //$window.history.back();
             $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'signout_success', type: 'success'});
         }
 

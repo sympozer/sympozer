@@ -26,14 +26,14 @@ angular.module('papersApp').controller('papersEditCtrl', [ '$scope', 'GLOBAL_CON
         {
             $scope.paper.$update({}, success, error);
         }
-    }
+    };
 
     $scope.updatePaper = function (field, data)
     {
         var updatePaperParam = {id: $scope.paper.id};
         updatePaperParam[field] = data;
         return papersFact.patch(updatePaperParam, success, error);
-    }
+    };
 
 
 
@@ -64,14 +64,11 @@ angular.module('papersApp').controller('papersEditCtrl', [ '$scope', 'GLOBAL_CON
             $scope.paper.authors.push(personModel);
 
         }
-    }
+    };
 
-    $scope.deletePerson = function(personModel,index){
-        alert('coucou');
-      
-           // $scope.paper.authors.splice(index,personModel);
-       
-    }
+    $scope.deletePerson = function(index){
+      $scope.paper.authors.splice(index,1);  
+    };
 
 
     //Autocomplete and add topic workflow
@@ -100,5 +97,9 @@ angular.module('papersApp').controller('papersEditCtrl', [ '$scope', 'GLOBAL_CON
             }
             $scope.paper.topics.push(topicModel);
         }
-    }
+    };
+
+    $scope.deleteTopic = function(index){
+      $scope.paper.topics.splice(index,1);  
+    };
 }]);
