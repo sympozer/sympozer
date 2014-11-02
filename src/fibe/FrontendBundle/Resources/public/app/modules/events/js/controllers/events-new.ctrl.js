@@ -36,9 +36,6 @@ angular.module('eventsApp').controller('eventsNewCtrl', [ '$scope', '$window', '
         $scope.create = function (form)
         {
             $scope.event.mainEvent = $routeParams.mainEventId;
-            //date format fix
-            $scope.event.startAt = $scope.event.startAt ? $scope.event.startAt.toString() : undefined;
-            $scope.event.endAt = $scope.event.endAt ? $scope.event.endAt.toString() : undefined;
             if (form.$valid)
             {
                 $scope.event.$create({}, success, error);

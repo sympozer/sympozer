@@ -28,7 +28,7 @@
 
     <div class="dropdown">
       <a class="dropdown-toggle" id="dropdownStart" role="button" data-toggle="dropdown" data-target="#" href="javascript:void(0)">
-        <input type="text" class="form-control" id="inputStartAt" name="inputStartAt" placeholder="Start at" ng-model="conference.startAt" ng-class="{'ng-dirty': formServerErrors.startAt, 'ng-valid': !formServerErrors.startAt,  'ng-invalid': formServerErrors.startAt}">
+        <input type="text" datetime-format class="form-control" id="inputStartAt" name="inputStartAt" placeholder="Start at" ng-model="conference.startAt" ng-class="{'ng-dirty': formServerErrors.startAt, 'ng-valid': !formServerErrors.startAt,  'ng-invalid': formServerErrors.startAt}">
       </a>
       <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
         <datetimepicker data-ng-model="conference.startAt" data-datetimepicker-config="{ dropdownSelector: '#dropdown2' }"/>
@@ -44,7 +44,7 @@
 
     <div class="dropdown">
       <a class="dropdown-toggle" id="dropdownEnd" role="button" data-toggle="dropdown" data-target="#" href="javascript:void(0)">
-        <input type="text" class="form-control" id="inputEndAt" name="inputEndAt" placeholder="End at" ng-model="conference.endAt">
+        <input type="text" datetime-format class="form-control" id="inputEndAt" name="inputEndAt" placeholder="End at" ng-model="conference.endAt">
       </a>
       <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
         <datetimepicker data-ng-model="conference.endAt" data-datetimepicker-config="{ dropdownSelector: '#dropdown2' }"/>
