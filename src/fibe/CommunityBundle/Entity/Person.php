@@ -8,6 +8,7 @@ use fibe\ContentBundle\Entity\Paper;
 use fibe\ContentBundle\Entity\Role;
 use fibe\ContentBundle\Util\StringTools;
 use fibe\SecurityBundle\Entity\Team;
+use fibe\SecurityBundle\Entity\Teammate;
 use fibe\SecurityBundle\Entity\User;
 use FOS\UserBundle\Model\UserInterface;
 use JMS\Serializer\Annotation\ExclusionPolicy;
@@ -366,31 +367,31 @@ class Person extends AdditionalInformations
   }
 
   /**
-   * Add teams
+   * Add teammate
    *
-   * @param Team $teams
+   * @param Teammate $teammate
    *
    * @return User
    */
-  public function addTeam(Team $teams)
+  public function addTeammate(Teammate $teammate)
   {
-    $this->teammates[] = $teams;
+    $this->teammates[] = $teammate;
 
     return $this;
   }
 
   /**
-   * Remove teams
+   * Remove teammates
    *
-   * @param Team $teams
+   * @param Teammate $teammate
    */
-  public function removeTeam(Team $teams)
+  public function removeTeammate(Teammate $teammate)
   {
-    $this->teammates->removeElement($teams);
+    $this->teammates->removeElement($teammate);
   }
 
   /**
-   * Get teams
+   * Get teammates
    *
    * @return \Doctrine\Common\Collections\Collection
    */

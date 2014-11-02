@@ -41,7 +41,8 @@ angular.module('teammatesApp').controller('teammatesEditCtrl',
                     resolve: {
                     }
                 });
-                modalInstance.result.then(function (newPerson) {
+                modalInstx
+                ance.result.then(function (newPerson) {
                     $scope.teammate.person = newPerson;
                 }, function () {
                     //$log.info('Modal dismissed at: ' + new Date());

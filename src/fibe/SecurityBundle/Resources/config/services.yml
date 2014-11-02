@@ -49,6 +49,10 @@ services:
         class:  fibe\SecurityBundle\Services\UserService
         arguments: ["@doctrine.orm.entity_manager"]
 
+    fibe.TeammateService:
+        class:  fibe\SecurityBundle\Services\TeammateService
+        arguments: ["@doctrine.orm.entity_manager"]
+
     fibe_user.registration.form.type:
         class: fibe\SecurityBundle\Form\RegistrationFormType
         arguments: [%fos_user.model.user.class%]
