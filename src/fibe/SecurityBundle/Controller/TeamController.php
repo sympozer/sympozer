@@ -9,9 +9,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use fibe\SecurityBundle\Entity\User;
-use fibe\SecurityBundle\Entity\UserConfPermission;
+use fibe\SecurityBundle\Entity\Teammate;
 use fibe\SecurityBundle\Form\UserAuthorizationType;
-use fibe\SecurityBundle\Form\UserConfPermissionType;
+use fibe\SecurityBundle\Form\TeammateType;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
@@ -36,7 +36,7 @@ class TeamController extends Controller
     $currentMainEvent = $this->getUser()->getcurrentMainEvent();
 
     $ACLService = $this->get('fibe_security.acl_user_permission_helper');
-    //here the access control is on the team and not on the teamate himself
+    //here the access control is on the team and not on the teammate himself
     $team = $ACLService->getEntityACL('VIEW', 'Team', $currentMainEvent->getTeam());
 
     $managers = $team->getTeammates();
@@ -53,68 +53,68 @@ class TeamController extends Controller
 
         $delete_forms[] = $this->createDeleteForm($manager->getId())->createView();
 
-        $managerConfAuthorizations[] = $ACLService->getUserConfPermission($manager, false);
+        $managerConfAuthorizations[] = $ACLService->getTeammate($manager, false);
       }
     }
 
-    $userConfPermission = $ACLService->getUserConfPermission($this->getUser(), false);
-    $addTeamateForm = $this->createForm(
-      new UserConfPermissionType($this->getUser()),
-      $ACLService->getUserConfPermission()
+    $teammate = $ACLService->getTeammate($this->getUser(), false);
+    $addTeammateForm = $this->createForm(
+      new TeammateType($this->getUser()),
+      $ACLService->getTeammate()
     );
 
     return array(
       'team'                                => $team,
       'delete_forms'                        => $delete_forms,
       'manager_conf_authorizations'         => $managerConfAuthorizations,
-      'current_manager_conf_authorizations' => $userConfPermission,
+      'current_manager_conf_authorizations' => $teammate,
       // 'update_forms'                     => $update_forms,
-      'add_teamate_form'                    => $addTeamateForm->createView(),
+      'add_teammate_form'                    => $addTeammateForm->createView(),
       'currentMainEvent'                         => $currentMainEvent,
       'authorized'                          => true
     );
   }
 
   /**
-   * add teamate with his UserConfPermission
+   * add teammate with his Teammate
    *
    * @Route("/add", name="conference_team_add")
    *
    */
-  public function addTeamateAction(Request $request)
+  public function addTeammateAction(Request $request)
   {
 
     $currentMainEvent = $this->getUser()->getcurrentMainEvent();
     $ACLService = $this->get('fibe_security.acl_user_permission_helper');
     $team = $ACLService->getEntityACL('CREATE', 'Team', $currentMainEvent->getTeam()->getId());
 
-    $userConfPermission = $ACLService->getUserConfPermission();
-    $form = $this->createForm(new UserConfPermissionType($this->getUser()), $userConfPermission);
+    $teammate = $ACLService->getTeammate();
+    $form = $this->createForm(new TeammateType($this->getUser()), $teammate);
     $form->bind($request);
 
     if ($form->isValid())
     {
       $em = $this->getDoctrine()->getManager();
-      $teamate = $userConfPermission->getUser();
-      $team->addTeammate($teamate);
-      $teamate->addTeam($team);
-      $em->persist($teamate);
+      $teammate = $teammate->getUser();
+      $team->addTeammate($teammate);
+      $teammate->addTeam($team);
+      $em->persist($teammate);
       $em->persist($team);
       $em->persist($currentMainEvent);
 
-      $ACLService->updateUserConfPermission($userConfPermission);
+      $ACLService->updateTeammate($teammate);
 
       $em->flush();
       $this->container->get('session')->getFlashBag()->add(
         'success',
-        $teamate->getUsername() . ' is now in your team!'
+        $teammate->getUsername() . ' is now in your team!'
       );
     }
     else
     {
       $this->container->get('session')->getFlashBag()->add(
         'error',
-        'there was an error adding ' . $teamate->getUsername() . ' to your team!'
+        'there was an error adding ' . $teammate->getUsername() . ' to your team!'
       );
     }
 
@@ -136,8 +136,8 @@ class TeamController extends Controller
     $em = $this->getDoctrine()->getManager();
     $entity = $em->getRepository('fibeSecurityBundle:User')->find($id);
 
-    $userConfPermission = $ACLService->getUserConfPermission($entity);
-    $editForm = $this->createForm(new UserConfPermissionType($this->getUser()), $userConfPermission);
+    $teammate = $ACLService->getTeammate($entity);
+    $editForm = $this->createForm(new TeammateType($this->getUser()), $teammate);
 
     return array(
       'entity'     => $entity,
@@ -147,7 +147,7 @@ class TeamController extends Controller
   }
 
   /**
-   * @Route("/{id}/update", name="conference_teamate_update")
+   * @Route("/{id}/update", name="conference_teammate_update")
    */
   public function updateAction(Request $request, $id)
   {
@@ -158,13 +158,13 @@ class TeamController extends Controller
     $em = $this->getDoctrine()->getManager();
     $entity = $em->getRepository('fibeSecurityBundle:User')->find($id);
 
-    $userConfPermission = $ACLService->getUserConfPermission($entity);
-    $editForm = $this->createForm(new UserConfPermissionType($this->getUser()), $userConfPermission);
+    $teammate = $ACLService->getTeammate($entity);
+    $editForm = $this->createForm(new TeammateType($this->getUser()), $teammate);
     $editForm->bind($request);
 
     if ($editForm->isValid())
     {
-      $ACLService->updateUserConfPermission($userConfPermission);
+      $ACLService->updateTeammate($teammate);
 
       $em->persist($entity);
       $em->flush();
@@ -181,7 +181,7 @@ class TeamController extends Controller
 
 
   /**
-   * Deletes a teamate entity.
+   * Deletes a teammate entity.
    *
    * @Route("/{id}", name="conference_team_delete")
    * @Method("DELETE")
@@ -225,7 +225,7 @@ class TeamController extends Controller
         $em->flush();
         $this->container->get('session')->getFlashBag()->add(
           'success',
-          'This teamate doesn\'t belong to the current conference anymore!'
+          'This teammate doesn\'t belong to the current conference anymore!'
         );
       }
     }

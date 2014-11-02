@@ -12,6 +12,7 @@ angular.module('organizationsApp', ['fundoo.services']);
 angular.module('i18nApp', ['pascalprecht.translate']);
 angular.module('papersApp', ['fundoo.services']);
 angular.module('topicsApp', []);
+angular.module('teammatesApp', ['fundoo.services']);
 angular.module('rolesApp', ['fundoo.services']);
 angular.module('roleLabelsApp', ['fundoo.services']);
 angular.module('categoriesApp', ['fundoo.services']);
@@ -31,37 +32,38 @@ angular.module('contextualizationApp', ['mainEventsApp']);
  * @type {module}
  */
 var sympozerApp = angular.module('sympozerApp', [
-  'ngRoute',
-  'ui.bootstrap',
-  'ui.bootstrap.modal',
-  'ngAnimate',
-  'ngResource',
-  'ngCookies',
-  'ngDragDrop',
-  'angular-loading-bar',
-  'ngCachedResource',
-  'sympozerFilters',
-  'authenticationApp',
-  'organizationsApp',
-  'personsApp',
-  'topicsApp',
-  'locationsApp',
-  'equipmentsApp',
-  'eventsApp',
-  'rolesApp',
-  'roleLabelsApp',
-  'categoriesApp',
-  'mainEventsApp',
-  'i18nApp',
-  'contextualizationApp',
-  'papersApp',
-  'angularMoment',
-  'leaflet-directive',
-  'ui.bootstrap.datetimepicker',
-  'ngSanitize',
-  'ui.select',
-  'xeditable',
-  'colorpicker.module'
+    'ngRoute',
+    'ui.bootstrap',
+    'ui.bootstrap.modal',
+    'ngAnimate',
+    'ngResource',
+    'ngCookies',
+    'ngDragDrop',
+    'angular-loading-bar',
+    'ngCachedResource',
+    'sympozerFilters',
+    'authenticationApp',
+    'organizationsApp',
+    'personsApp',
+    'topicsApp',
+    'locationsApp',
+    'equipmentsApp',
+    'eventsApp',
+    'teammatesApp',
+    'rolesApp',
+    'roleLabelsApp',
+    'categoriesApp',
+    'mainEventsApp',
+    'i18nApp',
+    'contextualizationApp',
+    'papersApp',
+    'angularMoment',
+    'leaflet-directive',
+    'ui.bootstrap.datetimepicker',
+    'ngSanitize',
+    'ui.select',
+    'xeditable',
+    'colorpicker.module'
 ]);
 
 
@@ -72,10 +74,10 @@ var sympozerApp = angular.module('sympozerApp', [
  */
 sympozerApp.run(function (editableOptions, editableThemes)
 {
-  editableOptions.theme = 'bs3';
-  // overwrite submit button template
-  editableThemes['bs3'].submitTpl = '<button type="submit" class="btn btn-primary"><i class="fa fa-check"></i></button>';
-  editableThemes['bs3'].cancelTpl = '<button type="button" class="btn btn-default" ng-click="$form.$cancel()"><i class="fa fa-times"></i></button>';
+    editableOptions.theme = 'bs3';
+    // overwrite submit button template
+    editableThemes['bs3'].submitTpl = '<button type="submit" class="btn btn-primary"><i class="fa fa-check"></i></button>';
+    editableThemes['bs3'].cancelTpl =  '<button type="button" class="btn btn-default" ng-click="$form.$cancel()"><i class="fa fa-times"></i></button>';
 });
 
 /**
@@ -84,8 +86,8 @@ sympozerApp.run(function (editableOptions, editableThemes)
  * @type {config}
  */
 angular.module('sympozerApp').config(['$provide', '$httpProvider',
-  function ($provide, $httpProvider)
-  {
+function ($provide, $httpProvider)
+{
     $httpProvider.interceptors.push('globalHttpInterceptor');
 
-  }]);
+}]);

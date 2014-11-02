@@ -123,7 +123,7 @@ class ACLHelper
   {
     if ($id)
     {
-      return $teamate = $this->entityManager->getRepository('fibeSecurityBundle:User')->find($id);
+      return $teammate = $this->entityManager->getRepository('fibeSecurityBundle:User')->find($id);
     }
     else if (($user = $this->securityContext->getToken()->getUser()) instanceof UserInterface)
     {

@@ -120,7 +120,7 @@ class StatusRESTController extends FOSRestController
   public function deleteStatusAction($id)
   {
 
-    return $this->get('fibe.rest.crudhandler')->delete(
+    $this->get('fibe.rest.crudhandler')->delete(
       $this::ENTITY_CLASSNAME,
       $id
     );;

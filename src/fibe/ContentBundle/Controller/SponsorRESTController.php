@@ -120,7 +120,7 @@ class SponsorRESTController extends FOSRestController
   public function deleteSponsorAction($id)
   {
 
-    return $this->get('fibe.rest.crudhandler')->delete(
+    $this->get('fibe.rest.crudhandler')->delete(
       $this::ENTITY_CLASSNAME,
       $id
     );;

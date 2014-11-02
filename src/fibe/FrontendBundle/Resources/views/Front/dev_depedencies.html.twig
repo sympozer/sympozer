@@ -1,4 +1,5 @@
 {#Favicons#}
+<!--suppress HtmlUnknownTarget -->
 <link rel="apple-touch-icon" sizes="57x57" href="favicon/apple-touch-icon-57x57.png">
 <link rel="apple-touch-icon" sizes="114x114" href="favicon/apple-touch-icon-114x114.png">
 <link rel="apple-touch-icon" sizes="72x72" href="favicon/apple-touch-icon-72x72.png">
@@ -105,6 +106,17 @@
 <script type="text/javascript" src="smlink/app/modules/organizations/js/controllers/organizations-new.ctrl.js"></script>
 <script type="text/javascript" src="smlink/app/modules/organizations/js/controllers/organizations-show.ctrl.js"></script>
 <script type="text/javascript" src="smlink/app/modules/organizations/js/services/organizations.fact.js"></script>
+
+
+<script type="text/javascript" src="smlink/app/modules/teammates/js/routes.js"></script>
+<script type="text/javascript" src="smlink/app/modules/teammates/js/controllers/teammates-delete.ctrl.js"></script>
+<script type="text/javascript" src="smlink/app/modules/teammates/js/controllers/teammates-edit.ctrl.js"></script>
+<script type="text/javascript" src="smlink/app/modules/teammates/js/controllers/teammates-list.ctrl.js"></script>
+<script type="text/javascript" src="smlink/app/modules/teammates/js/controllers/community/teammates-community-list.ctrl.js"></script>
+<script type="text/javascript" src="smlink/app/modules/teammates/js/controllers/teammates-main.ctrl.js"></script>
+<script type="text/javascript" src="smlink/app/modules/teammates/js/controllers/teammates-new.ctrl.js"></script>
+<script type="text/javascript" src="smlink/app/modules/teammates/js/controllers/teammates-show.ctrl.js"></script>
+<script type="text/javascript" src="smlink/app/modules/teammates/js/services/teammates.fact.js"></script>
 
 
 <script type="text/javascript" src="smlink/app/modules/papers/js/routes.js"></script>
@@ -347,6 +359,13 @@
             partials: "smlink/app/modules/persons/partials/",
             communityPartials: "smlink/app/modules/persons/partials/community/",
             img: "smlink/app/modules/persons/img"
+          }
+        },
+        teammates: {
+          urls: {
+            base: "{{ asset('smlink/app/modules/teammates/') }}",
+            partials: "{{ asset('smlink/app/modules/teammates/partials/') }}",
+            img: "{{ asset('smlink/app/modules/teammates/img') }}"
           }
         },
         roles: {

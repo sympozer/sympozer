@@ -205,6 +205,17 @@ output='js/compiled/main.js' %}
 'bundles/frontend/app/modules/roles/js/controllers/roles/roles-show.ctrl.js'
 'bundles/frontend/app/modules/roles/js/services/roles.fact.js'
 
+
+'bundles/frontend/app/modules/teammates/js/routes.js'
+'bundles/frontend/app/modules/teammates/js/controllers/teammates-delete.ctrl.js'
+'bundles/frontend/app/modules/teammates/js/controllers/teammates-edit.ctrl.js'
+'bundles/frontend/app/modules/teammates/js/controllers/teammates-list.ctrl.js'
+'bundles/frontend/app/modules/teammates/js/controllers/community/teammates-community-list.ctrl.js'
+'bundles/frontend/app/modules/teammates/js/controllers/teammates-main.ctrl.js'
+'bundles/frontend/app/modules/teammates/js/controllers/teammates-new.ctrl.js'
+'bundles/frontend/app/modules/teammates/js/controllers/teammates-show.ctrl.js'
+'bundles/frontend/app/modules/teammates/js/services/teammates.fact.js'
+
 'bundles/frontend/app/modules/roles/js/controllers/role-labels/role-labels-delete.ctrl.js'
 'bundles/frontend/app/modules/roles/js/controllers/role-labels/role-labels-edit.ctrl.js'
 'bundles/frontend/app/modules/roles/js/controllers/role-labels/role-labels-list.ctrl.js'
@@ -359,6 +370,13 @@ output='js/compiled/app.js' %}
             partials: "{{ asset('bundles/frontend/app/modules/persons/partials/') }}",
             communityPartials: "{{ asset('bundles/frontend/app/modules/persons/partials/community/') }}",
             img: "{{ asset('bundles/frontend/app/modules/persons/img') }}"
+          }
+        },
+        teammates: {
+          urls: {
+            base: "{{ asset('bundles/frontend/app/modules/teammates/') }}",
+            partials: "{{ asset('bundles/frontend/app/modules/teammates/partials/') }}",
+            img: "{{ asset('bundles/frontend/app/modules/teammates/img') }}"
           }
         },
         roles: {

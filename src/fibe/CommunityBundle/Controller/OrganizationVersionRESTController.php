@@ -138,7 +138,7 @@ class OrganizationVersionRESTController extends FOSRestController
     public function deleteOrganizationVersionAction($id)
     {
 
-        return $this->get('fibe.rest.crudhandler')->delete(
+        $this->get('fibe.rest.crudhandler')->delete(
             $this::ENTITY_CLASSNAME,
             $id
         );
