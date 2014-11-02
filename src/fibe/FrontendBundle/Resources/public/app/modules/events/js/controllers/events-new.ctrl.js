@@ -89,6 +89,11 @@ angular.module('eventsApp').controller('eventsNewCtrl', [ '$scope', '$window', '
             }
         };
 
+        $scope.deleteTopic = function (index)
+        {
+            $scope.event.topics.splice(index, 1);
+        };
+
 
         //Autocomplete and add location workflow
         $scope.searchLocations = locationsFact.allByConference;
@@ -110,6 +115,11 @@ angular.module('eventsApp').controller('eventsNewCtrl', [ '$scope', '$window', '
             }else{
                 $scope.event.eventLocations.push(locationModel);
             }
+        };
+
+        $scope.deleteLocation = function (index)
+        {
+            $scope.event.eventLocations.splice(index, 1);
         };
 
 
@@ -135,7 +145,6 @@ angular.module('eventsApp').controller('eventsNewCtrl', [ '$scope', '$window', '
             }
         };
 
-
         //Autocomplete and add role workflow
         $scope.event.roles = [];
         $scope.addRole = function(){
@@ -153,6 +162,11 @@ angular.module('eventsApp').controller('eventsNewCtrl', [ '$scope', '$window', '
                 //$log.info('Modal dismissed at: ' + new Date());
             });
 
-        }
+        };
+
+         $scope.deleteRole = function (index)
+        {
+            $scope.event.roles.splice(index, 1);
+        };
     }
 ]);

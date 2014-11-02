@@ -41,13 +41,13 @@ angular.module('eventsApp').controller('eventsEditCtrl', [ '$scope', '$window', 
                 }}
             }, {
             });
-        }
+        };
 
 
         $scope.deleteLocation = function (index)
         {
-            $scope.event.eventLocations.slice(index, 1);
-        }
+            $scope.event.eventLocations.splice(index, 1);
+        };
 
 
         //Autocomplete and add paper workflow
@@ -69,7 +69,7 @@ angular.module('eventsApp').controller('eventsEditCtrl', [ '$scope', '$window', 
             }else{
                 $scope.event.category = categoryModel;
             }
-        }
+        };
 
         //Autocomplete and add paper workflow
         $scope.searchTopics = topicsFact.all;
@@ -96,8 +96,12 @@ angular.module('eventsApp').controller('eventsEditCtrl', [ '$scope', '$window', 
                 }
                 $scope.event.topics.push(topicModel);
             }
-        }
+        };
 
+        $scope.deleteTopic = function (index)
+        {
+            $scope.event.topics.splice(index, 1);
+        };
 
         //Autocomplete and add paper workflow
         $scope.searchLocations = locationsFact.allByConference;
@@ -124,7 +128,7 @@ angular.module('eventsApp').controller('eventsEditCtrl', [ '$scope', '$window', 
                 }
                 $scope.event.eventLocations.push(locationModel);
             }
-        }
+        };
 
 
         //Autocomplete and add paper workflow
@@ -153,7 +157,12 @@ angular.module('eventsApp').controller('eventsEditCtrl', [ '$scope', '$window', 
                 }
                 $scope.event.papers.push(paperModel);
             }
-        }
+        };
+
+         $scope.deletePaper = function (index)
+        {
+            $scope.event.papers.splice(index, 1);
+        };
 
 
         //Autocomplete and add role workflow
@@ -175,7 +184,13 @@ angular.module('eventsApp').controller('eventsEditCtrl', [ '$scope', '$window', 
             }, function () {
                 //$log.info('Modal dismissed at: ' + new Date());
             });
+        };
 
-        }
+        $scope.deleteRole = function (index)
+        {
+            $scope.event.roles.splice(index, 1);
+        };
+
+        
 
     }]);

@@ -24,26 +24,27 @@
     <div sympozer-autocomplete="topics" on-select="addTopic" on-keyup="searchTopics"></div>
     <ul class="nav nav-pills" ng-show="paper.topics.length > 0">
         <li ng-repeat="topic in paper.topics track by $index"  class="active">
-            <a href="javascript:void(0)" >{{topic.label}}</a>9<a ng-click="deleteTopic(topic,$index)" >
-        <i class="fa fa-close" ></i>
-        </a>
+            <a ng-click="deleteTopic($index)" >
+                {{topic.label}}
+               <i class="fa fa-close" ></i>
+            </a>
         </li>
     </ul>
 </div>
 
 <div class="row">
     <label>Authors</label>
-    <div sympozer-autocomplete="persons" on-select="addPerson" on-keyup="searchPersons"></div>
-    <div ng-repeat="author in paper.authors track by $index" class="col-sm-4 col-md-4 col-lg-3  well" ng-show="paper.authors">
-        <div class="col-sm-4 col-md-4 col-lg-3">
-        <a ng-click="deletePerson(author,$index)" >
-        <i class="fa fa-close" ></i>
+    <div sympozer-autocomplete="persons" on-select="addPerson" on-keyup="searchPersons">
+    </div>
+    <div ng-repeat="author in paper.authors track by $index" class="col-sm-4 col-md-4 col-lg-2  well" ng-show="paper.authors">
+        <a ng-click="deletePerson($index)" >
+            <i class="fa fa-close" ></i>
         </a>
-        </div>
         <div class="img-container-lg">
             <img  class="scale-img" no-image ng-src="{{ author.img }}"/>
         </div>
-        <h2>{{ author.label }}</h2>
-        <h2>{{ author.email }}</h2>
+        <h3>{{ author.label }}</h3>
+        <h4>{{ author.email }}</h4>
+    </div>
     </div>
 </div>
