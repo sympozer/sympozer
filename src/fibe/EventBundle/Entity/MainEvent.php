@@ -75,7 +75,7 @@ class MainEvent extends VEvent
   /**
    * Team
    *
-   * @ORM\OneToOne(targetEntity="fibe\SecurityBundle\Entity\Team", inversedBy="mainEvent", cascade={"persist", "remove"})
+   * @ORM\OneToOne(targetEntity="fibe\SecurityBundle\Entity\Team", mappedBy="mainEvent", cascade={"all"})
    * @Expose
    */
   private $team;

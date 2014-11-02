@@ -22,11 +22,6 @@ angular.module('teammatesApp')
                     templateUrl: globalConfig.app.modules.teammates.urls.partials + 'teammates-thumbnail.html',
                     controller : 'teammatesListCtrl'
                 })
-                .when('/teammates/:personId/events', {
-                    templateUrl: globalConfig.app.modules.teammates.urls.partials + 'teammates-events.html',
-                    controller : 'teammatesEventListCtrl'
-                })
-
                 .when('/teammates/thumbnail', {
                     templateUrl: globalConfig.app.modules.teammates.urls.partials + 'teammates-thumbnail.html',
                     controller : 'teammatesListCtrl'
@@ -35,11 +30,11 @@ angular.module('teammatesApp')
                     templateUrl: globalConfig.app.modules.teammates.urls.partials + 'teammates-new.html',
                     controller : 'teammatesNewCtrl'
                 })
-                .when('/teammates/edit/:personId', {
+                .when('/teammates/edit/:teammateId', {
                     templateUrl: globalConfig.app.modules.teammates.urls.partials + 'teammates-edit.html',
                     controller : 'teammatesEditCtrl'
                 })
-                .when('/teammates/show/:personId', {
+                .when('/teammates/show/:teammateId', {
                     templateUrl: globalConfig.app.modules.teammates.urls.partials + 'teammates-show.html',
                     controller : 'teammatesShowCtrl'
                 })

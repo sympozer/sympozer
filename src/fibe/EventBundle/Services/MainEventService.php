@@ -42,11 +42,11 @@ class MainEventService
       $mainEvent->setLabel("Sympozer New Conference");
     }
     //$mainEvent->setLogoPath("sympozer-logo.png");
-    if(!$mainEvent->setStartAt)
+    if(!$mainEvent->getStartAt())
     {
       $mainEvent->setStartAt(new \DateTime('now'));
     }
-    if(!$mainEvent->setEndAt)
+    if(!$mainEvent->getEndAt())
     {
       $mainEvent->setEndAt(clone $mainEvent->getStartAt()->add(new \DateInterval('P2D')));
     }

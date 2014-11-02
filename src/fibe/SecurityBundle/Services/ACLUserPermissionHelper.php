@@ -46,7 +46,7 @@ class ACLUserPermissionHelper extends ACLEntityHelper
     $teammate = new Teammate();
     if ($manager)
     {
-      $teammate->setUser($manager);
+      $teammate->setPerson($manager);
     }
     $noManager = ($manager == null);
     if ($noManager)
@@ -100,7 +100,7 @@ class ACLUserPermissionHelper extends ACLEntityHelper
    */
   public function updateTeammate(Teammate $teammate)
   {
-    $teammate = $teammate->getUser();
+    $teammate = $teammate->getPerson()->getUser();
     // cannot demote own permission
     if ($teammate->getId() == $this->getUser()->getId())
     {

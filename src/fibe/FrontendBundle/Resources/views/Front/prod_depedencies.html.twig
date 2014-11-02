@@ -202,7 +202,6 @@ output='js/compiled/main.js' %}
 'bundles/frontend/app/modules/teammates/js/controllers/teammates-delete.ctrl.js'
 'bundles/frontend/app/modules/teammates/js/controllers/teammates-edit.ctrl.js'
 'bundles/frontend/app/modules/teammates/js/controllers/teammates-list.ctrl.js'
-'bundles/frontend/app/modules/teammates/js/controllers/community/teammates-community-list.ctrl.js'
 'bundles/frontend/app/modules/teammates/js/controllers/teammates-main.ctrl.js'
 'bundles/frontend/app/modules/teammates/js/controllers/teammates-new.ctrl.js'
 'bundles/frontend/app/modules/teammates/js/controllers/teammates-show.ctrl.js'
@@ -265,6 +264,7 @@ output='js/compiled/app.js' %}
         get_equipments: "{{ path('content_equipments_post') }}",
         get_events: "{{ path('schedule_events_post') }}",
 
+        get_teammates: "{{ path('security_teammates_post') }}",
         get_roles: "{{ path('content_roles_post') }}",
         get_roleLabel_verions: "{{ path('content_roleLabel_versions_post') }}",
         get_roleLabels: "{{ path('content_roleLabels_post') }}",

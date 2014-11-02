@@ -95,7 +95,7 @@ class TeamController extends Controller
     if ($form->isValid())
     {
       $em = $this->getDoctrine()->getManager();
-      $teammate = $teammate->getUser();
+      $teammate = $teammate->getPerson();
       $team->addTeammate($teammate);
       $teammate->addTeam($team);
       $em->persist($teammate);

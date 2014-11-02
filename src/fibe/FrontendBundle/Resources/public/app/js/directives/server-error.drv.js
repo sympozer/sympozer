@@ -53,9 +53,11 @@ angular.module('sympozerApp').directive('form',
     return {
       restrict: 'E',
       scope: false,
-      link: function ()
+      link: function (scope, element)
       {
         formValidation.emptyServerError();
+        var field = "form";
+        formValidation.watchField(scope, element, field, true);
       }
     };
   }]);

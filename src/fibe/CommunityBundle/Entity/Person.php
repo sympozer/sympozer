@@ -47,12 +47,10 @@ class Person extends AdditionalInformations
 
   /**
    *
-   * @ORM\ManyToMany(targetEntity="fibe\SecurityBundle\Entity\Team", inversedBy="teammates", cascade={"persist","remove"})
-   * @ORM\JoinTable(name="teammate_team",
-   *     joinColumns={@ORM\JoinColumn(name="teammate_id", referencedColumnName="id", onDelete="Cascade")},
-   *     inverseJoinColumns={@ORM\JoinColumn(name="team_id", referencedColumnName="id", onDelete="Cascade")})
+   * @ORM\OneToMany(targetEntity="fibe\SecurityBundle\Entity\Teammate", mappedBy="person")
+   * @Expose
    */
-  protected $teams;
+  protected $teammates;
 
   /**
    * familyName
@@ -147,7 +145,7 @@ class Person extends AdditionalInformations
    */
   public function __construct()
   {
-    $this->teams = new ArrayCollection();
+    $this->teammates = new ArrayCollection();
     $this->papers = new ArrayCollection();
     $this->organizations = new ArrayCollection();
     $this->roles = new ArrayCollection();
@@ -376,7 +374,7 @@ class Person extends AdditionalInformations
    */
   public function addTeam(Team $teams)
   {
-    $this->teams[] = $teams;
+    $this->teammates[] = $teams;
 
     return $this;
   }
@@ -388,7 +386,7 @@ class Person extends AdditionalInformations
    */
   public function removeTeam(Team $teams)
   {
-    $this->teams->removeElement($teams);
+    $this->teammates->removeElement($teams);
   }
 
   /**
@@ -396,9 +394,9 @@ class Person extends AdditionalInformations
    *
    * @return \Doctrine\Common\Collections\Collection
    */
-  public function getTeams()
+  public function getTeammates()
   {
-    return $this->teams;
+    return $this->teammates;
   }
 
 

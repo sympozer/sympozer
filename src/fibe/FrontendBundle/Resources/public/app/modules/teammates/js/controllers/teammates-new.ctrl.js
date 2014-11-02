@@ -1,37 +1,73 @@
 /**
- * New person controller
+ * New teammate controller
  *
  * @type {controller}
  */
-angular.module('teammatesApp').controller('teammatesNewCtrl', [ '$scope', '$window', '$rootScope', '$location', 'teammatesFact',
-    function ($scope, $window, $rootScope, $location, teammatesFact)
-    {
-        $scope.person = new teammatesFact();
-
-        var error = function (response, args)
+angular.module('teammatesApp').controller('teammatesNewCtrl',
+    [ '$scope', '$window', 'GLOBAL_CONFIG', '$routeParams', '$rootScope', '$location', 'teammatesFact', 'personsFact', 'eventsFact','$modal','formValidation',
+        function ($scope, $window, GLOBAL_CONFIG, $routeParams, $rootScope, $location, teammatesFact, personsFact, eventsFact, $modal, formValidation)
         {
-            $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'the person has not been created', type: 'danger'});
-        }
+            $scope.teammate = new teammatesFact;
 
-        var success = function (response, args)
-        {
-            $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'person created', type: 'success'});
-            if($scope.$close){
-                $scope.$close($scope.person);
-            }else{
-                $window.history.back();
-            }
-        }
-
-        $scope.cancel = function () {
-            $scope.$dismiss('cancel');
-        };
-
-        $scope.create = function (form)
-        {
-            if (form.$valid)
+            var error = function (response, args)
             {
-                $scope.person.$create({}, success, error);
+                $scope.busy = false;
+
+
+
+                if ("Validation Failed" == response.data.message)
+                {
+                    formValidation.transformFromServer(response);
+                }
+                else
+                {
+                    $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'the teammate has not been created', type: 'danger'});
+                }
+            };
+
+            var success = function (response, args)
+            {
+                $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'teammate created', type: 'success'});
+                if($scope.$close){
+                    $scope.$close($scope.teammate);
+                }else{
+                    $window.history.back();
+                }
+            };
+
+            $scope.create = function (form)
+            {
+                if (form.$valid)
+                {
+                    $scope.teammate.team = $scope.$root.currentMainEvent.team;
+                    $scope.teammate.$create({}, success, error);
+                }
             }
-        }
-    }]);
+
+            $scope.cancel = function () {
+                $scope.$dismiss('cancel');
+            };
+
+
+
+            //Autocomplete and add person workflow
+            $scope.searchPersons = personsFact.all;
+            $scope.addPerson = function(personModel){
+                if(!personModel.id) {
+                    var modalInstance = $modal.open({
+                        templateUrl: GLOBAL_CONFIG.app.modules.persons.urls.partials + 'persons-modal-form.html',
+                        controller: 'personsNewCtrl',
+                        size: "large",
+                        resolve: {
+                        }
+                    });
+                    modalInstance.result.then(function (newPerson) {
+                        $scope.teammate.person = newPerson;
+                    }, function () {
+                        //$log.info('Modal dismissed at: ' + new Date());
+                    });
+                }else{
+                    $scope.teammate.person = personModel;
+                }
+            }
+        }]);

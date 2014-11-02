@@ -1,10 +1,11 @@
 /**
- * Show person controller
+ * Show teammate controller
  *
  * @type {controller}
  */
-angular.module('teammatesApp').controller('teammatesShowCtrl', [ '$scope', '$rootScope', '$routeParams', 'teammatesFact', function ($scope, $rootScope, $routeParams, teammatesFact )
-{
-    $scope.person = teammatesFact.get({id: $routeParams.personId});
+angular.module('teammatesApp').controller('teammatesShowCtrl',
+    [ '$scope', '$routeParams', 'teammatesFact', function ($scope, $routeParams, teammatesFact)
+    {
+        $scope.teammate = teammatesFact.get({id: $routeParams.teammateId});
 
-}]);
+    }]);
