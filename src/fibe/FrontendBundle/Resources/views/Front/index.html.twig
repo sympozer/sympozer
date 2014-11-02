@@ -3,6 +3,7 @@
 
 <head>
 <meta charset="utf-8">
+{#plop#}
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 <title>Sympozer</title>
@@ -25,54 +26,64 @@
 <meta name="msapplication-TileColor" content="#f2f2f2">
 <meta name="msapplication-TileImage" content="{{ asset('favicon/mstile-144x144.png')}}">
 
-{% stylesheets 'bundles/frontend/app/css/bootstrap.min.css'
-'bundles/frontend/app/css/bootstrap-theme.min.css'
-'bundles/frontend/app/css/loading-bar.css'
+{% stylesheets
+
+
+'bundles/frontend/vendors/bootstrap/dist/css/bootstrap.min.css'
+'bundles/frontend/vendors/bootstrap/dist/css/bootstrap-theme.min.css'
+'bundles/frontend/vendors/angular-loading-bar/src/loading-bar.css'
+'bundles/frontend/vendors/leaflet/dist/leaflet.css'
+'bundles/frontend/vendors/angular-bootstrap-datetimepicker/src/css/datetimepicker.css'
+'bundles/frontend/vendors/angular-ui-select/dist/select.css'
+'bundles/frontend/vendors/select2/select2.css'
+'bundles/frontend/vendors/angular-bootstrap-colorpicker/css/colorpicker.css'
+'bundles/frontend/vendors/angular-xeditable/dist/css/xeditable.css'
+'bundles/frontend/vendors/bootstrap-tags/dist/css/bootstrap-tags.css'
+'bundles/frontend/vendors/bootstrap-social/bootstrap-social.css'
+
 'bundles/frontend/app/css/app.css'
 'bundles/frontend/app/css/animations.css'
-'bundles/frontend/app/css/leaflet.css'
-'bundles/frontend/app/css/datetimepicker.css'
-'bundles/frontend/app/css/select.css'
-'bundles/frontend/app/css/select2.css'
-'bundles/frontend/app/css/colorpicker.css'
-'bundles/frontend/app/css/xeditable.css'
-'bundles/frontend/app/css/bootstrap-tag.css'
-'bundles/frontend/app/css/bootstrap-social.css'
 output='css/compiled/vendors.css' %}
 <link rel="stylesheet" href="{{ asset_url }}"/>
 <link href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.css" rel="stylesheet">
 {% endstylesheets %}
 
+{#'bundles/frontend/vendors/ui-bootstrap-tpls-0.11.2.min.js'
 
-<!-- included vendors -->
-{% javascripts 'bundles/frontend/vendors/jquery.min.js'
-'bundles/frontend/vendors/angular.js'
-'bundles/frontend/vendors/angular-resource.js'
-'bundles/frontend/vendors/angular-translate.js'
-'bundles/frontend/vendors/angular-route.js'
-'bundles/frontend/vendors/angular-animate.min.js'
-'bundles/frontend/vendors/bootstrap.min.js'
-'bundles/frontend/vendors/angular-ui-router.min.js'
-'bundles/frontend/vendors/select.js'
-'bundles/frontend/vendors/angular-sanitize.js'
-'bundles/frontend/vendors/draganddrop.js'
-'bundles/frontend/vendors/loading-bar.js'
-'bundles/frontend/vendors/angular-cached-resource.min.js'
-'bundles/frontend/vendors/angular-cookies.js'
-'bundles/frontend/vendors/moment.js'
-'bundles/frontend/vendors/angular-leaflet-directive.min.js'
-'bundles/frontend/vendors/createDialog.js'
-'bundles/frontend/vendors/xeditable.js'
-'bundles/frontend/vendors/angular-moment.js'
-'bundles/frontend/vendors/loadingBarModule.js'
-'bundles/frontend/vendors/datetimepicker.js'
-'bundles/frontend/vendors/leaflet.js'
-'bundles/frontend/vendors/ui-bootstrap-tpls-0.11.2.min.js'
-'bundles/frontend/vendors/angular-ui-modal.js'
-'bundles/frontend/vendors/angular-ui-transition.js'
 'bundles/frontend/vendors/bootstrap-colopicker-module.js'
-'bundles/frontend/vendors/bootstrap-colorpicker.js'
-output='js/compiled/main.js' %}
+#}
+<!-- included vendors -->
+{% javascripts 'bundles/frontend/vendors/jquery/jquery.min.js'
+'bundles/frontend/vendors/angular/angular.min.js'
+'bundles/frontend/vendors/angular-resource/angular-resource.min.js'
+'bundles/frontend/vendors/angular-translate/angular-translate.js'
+'bundles/frontend/vendors/angular-route/angular-route.js'
+'bundles/frontend/vendors/angular-animate/angular-animate.js'
+'bundles/frontend/vendors/bootstrap/dist/js/bootstrap.min.js'
+'bundles/frontend/vendors/angular-ui-router/release/angular-ui-router.min.js'
+'bundles/frontend/vendors/angular-ui-select/dist/select.js'
+'bundles/frontend/vendors/angular-sanitize/angular-sanitize.js'
+'bundles/frontend/vendors/angular-loading-bar/src/loading-bar.js'
+'bundles/frontend/vendors/angular-cached-resource/angular-cached-resource.min.js'
+'bundles/frontend/vendors/angular-cookies/angular-cookies.min.js'
+'bundles/frontend/vendors/moment/min/moment-with-locales.min.js'
+'bundles/frontend/vendors/angular-leaflet-directive/dist/angular-leaflet-directive.min.js'
+'bundles/frontend/vendors/angularjs-modal-service/src/createDialog.js'
+'bundles/frontend/vendors/angular-xeditable/dist/js/xeditable.min.js'
+'bundles/frontend/vendors/angular-moment/angular-moment.min.js'
+'bundles/frontend/vendors/angular-bootstrap-datetimepicker/src/js/datetimepicker.js'
+'bundles/frontend/vendors/leaflet/dist/leaflet.js'
+
+'bundles/frontend/vendors/angular-boostrap-ui/src/modal/modal.js'
+'bundles/frontend/vendors/angular-ui-bootstrap-bower/ui-bootstrap-tpls.min.js'
+'bundles/frontend/vendors/angular-boostrap-ui/src/transition/transition.js'
+
+'bundles/frontend/vendors/angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.js'
+
+'bundles/frontend/vendors/bootstrap-tags/dist/js/bootstrap-tags.min.js'
+'bundles/frontend/vendors/select2/select2.min.js'
+
+output='js/compiled/vendors.js' %}
 <script src="{{ asset_url }}" type="text/javascript"></script>
 {% endjavascripts %}
 

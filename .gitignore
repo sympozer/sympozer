@@ -21,4 +21,12 @@ composer.lock
 
 # gedit temp file
 *~
-bin
+
+#node modules
+/node_modules/*
+package.json
+Gruntfile.js
+/src/fibe/FrontendBundle/Resources/public/vendors/*
+
+
+
