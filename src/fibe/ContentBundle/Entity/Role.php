@@ -55,7 +55,6 @@ class Role
     private $person;
 
     /**
-     *
      * @ORM\ManyToOne(targetEntity="fibe\EventBundle\Entity\Event", inversedBy="roles")
      *
      * @Expose
@@ -80,8 +79,6 @@ class Role
      * @Expose
      */
     private $roleLabelVersion;
-
-
 
     /**
      *

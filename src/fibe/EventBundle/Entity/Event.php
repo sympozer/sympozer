@@ -92,15 +92,10 @@ class Event extends VEvent
      */
     protected $category;
 
-
     /**
      * Roles for the event
      *
-     * @ORM\ManyToMany(targetEntity="fibe\ContentBundle\Entity\Role", inversedBy="events", cascade={"persist"})
-     * @ORM\JoinTable(name="event_role",
-     *     joinColumns={@ORM\JoinColumn(name="event_id", referencedColumnName="id")},
-     *     inverseJoinColumns={@ORM\JoinColumn(name="role_id", referencedColumnName="id")})
-     *
+     * @ORM\OneToMany(targetEntity="fibe\ContentBundle\Entity\Role", mappedBy="event", cascade={"persist"})
      */
     private $roles;
 

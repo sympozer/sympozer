@@ -75,7 +75,6 @@ class RoleLabelVersion
      */
     private $mainEvent;
 
-
     /**
      * Constructor
      */

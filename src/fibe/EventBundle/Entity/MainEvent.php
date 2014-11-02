@@ -31,428 +31,432 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class MainEvent extends VEvent
 {
-    /**
-     * Events
-     *
-     * @ORM\OneToMany(targetEntity="fibe\EventBundle\Entity\Event", mappedBy="mainEvent",cascade={"persist", "remove"})
-     * @Expose
-     */
-    private $events;
+  /**
+   * Events
+   *
+   * @ORM\OneToMany(targetEntity="fibe\EventBundle\Entity\Event", mappedBy="mainEvent",cascade={"persist", "remove"})
+   * @Expose
+   */
+  private $events;
 
-    /**
-     * Papers
-     *
-     * @ORM\OneToMany(targetEntity="fibe\ContentBundle\Entity\Paper", mappedBy="mainEvent",cascade={"persist", "remove"})
-     * @Expose
-     */
-    private $papers;
+  /**
+   * Papers
+   *
+   * @ORM\OneToMany(targetEntity="fibe\ContentBundle\Entity\Paper", mappedBy="mainEvent",cascade={"persist", "remove"})
+   * @Expose
+   */
+  private $papers;
 
-    /**
-     * Roles
-     *
-     * @ORM\OneToMany(targetEntity="fibe\ContentBundle\Entity\Role", mappedBy="mainEvent",cascade={"persist", "remove"})
-     */
-    private $roles;
+  /**
+   * Roles
+   *
+   * @ORM\OneToMany(targetEntity="fibe\ContentBundle\Entity\Role", mappedBy="mainEvent",cascade={"persist", "remove"})
+   */
+  private $roles;
 
-    /**
-     * Organizations
-     *
-     * @ORM\OneToMany(targetEntity="fibe\CommunityBundle\Entity\Organization", mappedBy="mainEvent",cascade={"persist", "remove"})
-     */
-    private $organizations;
+  /**
+   * @ORM\OneToMany(targetEntity="fibe\ContentBundle\Entity\RoleLabelVersion", mappedBy="mainEvent",cascade={"persist", "remove"})
+   */
+  private $roleLabelVersions;
 
-    /**
-     * Categories
-     * @ORM\OneToMany(targetEntity="CategoryVersion", mappedBy="mainEvent",cascade={"persist", "remove"})
-     */
-    private $categoryVersions;
+  /**
+   * Categories
+   * @ORM\OneToMany(targetEntity="fibe\EventBundle\Entity\CategoryVersion", mappedBy="mainEvent",cascade={"persist", "remove"})
+   */
+  private $categoryVersions;
 
+  /**
+   *
+   * @ORM\ManyToMany(targetEntity="fibe\CommunityBundle\Entity\Person",  mappedBy="mainEvents", cascade={"persist","merge","remove"})
+   * @Expose
+   */
+  private $persons;
 
-    /**
-     *
-     * @ORM\ManyToMany(targetEntity="fibe\CommunityBundle\Entity\Person",  mappedBy="mainEvents", cascade={"persist","merge","remove"})
-     * @Expose
-     */
-    private $persons;
+  /**
+   * Team
+   *
+   * @ORM\OneToOne(targetEntity="fibe\SecurityBundle\Entity\Team",cascade={"persist", "remove"})
+   * @Expose
+   */
+  private $team;
 
-    /**
-     * Team
-     *
-     * @ORM\OneToOne(targetEntity="fibe\SecurityBundle\Entity\Team",cascade={"persist", "remove"})
-     * @Expose
-     */
-    private $team;
+  /**
+   * mappingFiles
+   * @ORM\OneToOne(targetEntity="fibe\EventBundle\Entity\MainEventSettings", mappedBy="mainEvent", cascade={"all"})
+   */
+  private $setting;
 
-    /**
-     * mappingFiles
-     * @ORM\OneToOne(targetEntity="fibe\EventBundle\Entity\MainEventSettings", mappedBy="mainEvent", cascade={"all"})
-     */
-    private $setting;
+  /**
+   * @ORM\Column(type="string", length=256, nullable=true)
+   * @Expose
+   */
+  private $logo;
 
-    /**
-     * @ORM\Column(type="string", length=256, nullable=true)
-     * @Expose
-     */
-    private $logo;
+  /**
+   * @ORM\Column(type="string", length=256, nullable=true)
+   */
+  private $slug;
 
+  /**
+   *
+   * @ORM\Column(type="string", length=128, nullable=true)
+   */
+  private $acronym;
 
-    /**
-     * @ORM\Column(type="string", length=256, nullable=true)
-     */
-    private $slug;
+  /**
+   * main event location
+   *
+   * @ORM\OneToOne(targetEntity="fibe\ContentBundle\Entity\MainEventLocation", cascade={"all"})
+   * @ORM\JoinColumn(name="main_event_location_id", referencedColumnName="id")
+   * @Expose
+   * @SerializedName("mainEventLocation")
+   */
+  private $mainEventLocation;
 
-    /**
-     *
-     * @ORM\Column(type="string", length=128, nullable=true)
-     */
-    private $acronym;
+  /**
+   * @ORM\OneToMany(targetEntity="fibe\ContentBundle\Entity\EventLocation", mappedBy="mainEvent",cascade={"persist", "remove"})
+   * @Expose
+   * @SerializedName("eventLocations")
+   */
+  private $eventLocations;
 
-    /**
-     * main event location
-     *
-     * @ORM\OneToOne(targetEntity="fibe\ContentBundle\Entity\MainEventLocation", cascade={"all"})
-     * @ORM\JoinColumn(name="main_event_location_id", referencedColumnName="id")
-     *  @Expose
-     * @SerializedName("mainEventLocation")
-     */
-    private $mainEventLocation;
+  /**
+   * Slugify
+   */
+  public function slugify()
+  {
+    $this->setSlug(StringTools::slugify($this->getId() . $this->getLabel()));
+  }
 
-    /**
-     * @ORM\OneToMany(targetEntity="fibe\ContentBundle\Entity\EventLocation", mappedBy="mainEvent",cascade={"persist", "remove"})
-     * @Expose
-     * @SerializedName("eventLocations")
-     */
-    private $eventLocations;
+  /**
+   * onUpdate
+   *
+   * @ORM\PostPersist()
+   * @ORM\PreUpdate()
+   */
+  public function slugifyOnUpdate()
+  {
+    $this->slugify();
+  }
 
-    /**
-     * Slugify
-     */
-    public function slugify()
-    {
-        $this->setSlug(StringTools::slugify($this->getId() . $this->getLabel()));
-    }
+  /**
+   * Set slug
+   *
+   * @param string $slug
+   *
+   * @return $this
+   */
+  public function setSlug($slug)
+  {
+    $this->slug = $slug;
 
-    /**
-     * onUpdate
-     *
-     * @ORM\PostPersist()
-     * @ORM\PreUpdate()
-     */
-    public function slugifyOnUpdate()
-    {
-        $this->slugify();
-    }
+    return $this;
+  }
 
-    /**
-     * Set slug
-     *
-     * @param string $slug
-     *
-     * @return $this
-     */
-    public function setSlug($slug)
-    {
-        $this->slug = $slug;
+  /**
+   * Get slug
+   *
+   * @return string
+   */
+  public function getSlug()
+  {
+    return $this->slug;
+  }
 
-        return $this;
-    }
+  /**
+   * Sets file.
+   *
+   * @param String $logo
+   *
+   * @return $this
+   */
+  public function setLogo($logo)
+  {
+    $this->logo = $logo;
 
-    /**
-     * Get slug
-     *
-     * @return string
-     */
-    public function getSlug()
-    {
-        return $this->slug;
-    }
+    return $this;
+  }
 
-    /**
-     * Sets file.
-     *
-     * @param String $logo
-     *
-     * @return $this
-     */
-    public function setLogo($logo)
-    {
-        $this->logo = $logo;
+  /**
+   * Get file.
+   *
+   * @return String
+   */
+  public function getLogo()
+  {
+    return $this->logo;
+  }
 
-        return $this;
-    }
+  /**
+   * Constructor
+   */
+  public function __construct()
+  {
+    parent::__construct();
+    $this->setIsAllDay(true);
+    $this->events = new ArrayCollection();
+    $this->roles = new ArrayCollection();
+    $this->eventLocations = new ArrayCollection();
+    $this->papers = new ArrayCollection();
+    $this->persons = new ArrayCollection();
+    $this->topics = new ArrayCollection();
+    $this->sponsors = new ArrayCollection();
+    $this->organizations = new ArrayCollection();
+  }
 
-    /**
-     * Get file.
-     *
-     * @return String
-     */
-    public function getLogo()
-    {
-        return $this->logo;
-    }
+  /**
+   * Get papers
+   *
+   * @return \Doctrine\Common\Collections\Collection
+   */
+  public function getPapers()
+  {
+    return $this->papers;
+  }
 
+  /**
+   * @param mixed $papers
+   */
+  public function setPapers($papers)
+  {
+    $this->papers = $papers;
+  }
 
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        parent::__construct();
-        $this->setIsAllDay(true);
-        $this->events = new ArrayCollection();
-        $this->roles = new ArrayCollection();
-        $this->eventLocations = new ArrayCollection();
-        $this->papers = new ArrayCollection();
-        $this->persons = new ArrayCollection();
-        $this->topics = new ArrayCollection();
-        $this->sponsors = new ArrayCollection();
-        $this->organizations = new ArrayCollection();
-    }
+  /**
+   * Get papers
+   *
+   * @return \Doctrine\Common\Collections\Collection
+   */
+  public function getRoles()
+  {
+    return $this->roles;
+  }
 
+  /**
+   * @param mixed $roles
+   */
+  public function setRoles($roles)
+  {
+    $this->roles = $roles;
+  }
 
+  /**
+   * Get persons
+   *
+   * @return \Doctrine\Common\Collections\Collection
+   */
+  public function getPersons()
+  {
+    return $this->persons;
+  }
 
+  /**
+   * @param mixed $persons
+   */
+  public function setPersons($persons)
+  {
+    $this->persons = $persons;
+  }
 
-    /**
-     * Get papers
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getPapers()
-    {
-        return $this->papers;
-    }
+  /**
+   *
+   * @param \fibe\SecurityBundle\Entity\Team $team
+   *
+   * @return $this
+   */
+  public function setTeam($team)
+  {
+    $this->team = $team;
 
-    /**
-     * @param mixed $papers
-     */
-    public function setPapers($papers)
-    {
-        $this->papers = $papers;
-    }
+    return $this;
+  }
 
+  /**
+   *
+   * @return \fibe\SecurityBundle\Entity\Team
+   */
+  public function getTeam()
+  {
+    return $this->team;
+  }
 
-    /**
-     * Get papers
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getRoles()
-    {
-        return $this->roles;
-    }
+  /**
+   * Get sponsors
+   *
+   * @return \Doctrine\Common\Collections\Collection
+   */
+  public function getSponsors()
+  {
+    return $this->sponsors;
+  }
 
-    /**
-     * @param mixed $roles
-     */
-    public function setRoles($roles)
-    {
-        $this->roles = $roles;
-    }
+  /**
+   * Get organizations
+   *
+   * @return \Doctrine\Common\Collections\Collection
+   */
+  public function getOrganizations()
+  {
+    return $this->organizations;
+  }
 
+  /**
+   * @param mixed $organizations
+   */
+  public function setOrganizations($organizations)
+  {
+    $this->organizations = $organizations;
+  }
 
-    /**
-     * Get persons
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getPersons()
-    {
-        return $this->persons;
-    }
+  /**
+   * Add events
+   *
+   * @param VEvent $events
+   *
+   * @return $this
+   */
+  public function addEvent(VEvent $events)
+  {
+    $this->events[] = $events;
 
-    /**
-     * @param mixed $persons
-     */
-    public function setPersons($persons)
-    {
-        $this->persons = $persons;
-    }
+    return $this;
+  }
 
-    /**
-     *
-     * @param \fibe\SecurityBundle\Entity\Team $team
-     *
-     * @return $this
-     */
-    public function setTeam($team)
-    {
-        $this->team = $team;
+  /**
+   * @param mixed $events
+   */
+  public function setEvents($events)
+  {
+    $this->events = $events;
+  }
 
-        return $this;
-    }
+  /**
+   * Get events
+   *
+   * @return \Doctrine\Common\Collections\Collection
+   */
+  public function getEvents()
+  {
+    return $this->events;
+  }
 
-    /**
-     *
-     * @return \fibe\SecurityBundle\Entity\Team
-     */
-    public function getTeam()
-    {
-        return $this->team;
-    }
+  /**
+   * @TODO comment
+   *
+   * @return bool
+   */
+  public function isEmpty()
+  {
+    return (count($this->events) <= 1)
+    and (count($this->eventLocations) <= 1)
+    and (count($this->papers) == 0)
+    and (count($this->persons) == 0)
+    and (count($this->organizations) == 0)
+    and (count($this->topics) == 0);
 
+  }
 
-    /**
-     * Get sponsors
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getSponsors()
-    {
-        return $this->sponsors;
-    }
+  /**
+   * Set acronym
+   *
+   * @param string $acronym
+   *
+   * @return MainEvent
+   */
+  public function setAcronym($acronym)
+  {
+    $this->acronym = $acronym;
 
+    return $this;
+  }
 
-    /**
-     * Get organizations
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getOrganizations()
-    {
-        return $this->organizations;
-    }
+  /**
+   * Get acronym
+   *
+   * @return string
+   */
+  public function getAcronym()
+  {
+    return $this->acronym;
+  }
 
-    /**
-     * @param mixed $organizations
-     */
-    public function setOrganizations($organizations)
-    {
-        $this->organizations = $organizations;
-    }
+  /**
+   * @return mixed
+   */
+  public function getSetting()
+  {
+    return $this->setting;
+  }
 
-    /**
-     * Add events
-     *
-     * @param VEvent $events
-     *
-     * @return $this
-     */
-    public function addEvent(VEvent $events)
-    {
-        $this->events[] = $events;
+  /**
+   * @param mixed $setting
+   */
+  public function setSetting($setting)
+  {
+    $this->setting = $setting;
+  }
 
-        return $this;
-    }
+  /**
+   * @return mixed
+   */
+  public function getCategoryVersions()
+  {
+    return $this->categoryVersions;
+  }
 
-    /**
-     * @param mixed $events
-     */
-    public function setEvents($events)
-    {
-        $this->events = $events;
-    }
+  /**
+   * @param mixed $categoryVersions
+   */
+  public function setCategoryVersions($categoryVersions)
+  {
+    $this->categoryVersions = $categoryVersions;
+  }
 
-    /**
-     * Get events
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getEvents()
-    {
-        return $this->events;
-    }
+  /**
+   * @return mixed
+   */
+  public function getMainEventLocation()
+  {
+    return $this->mainEventLocation;
+  }
 
-    /**
-     * @TODO comment
-     *
-     * @return bool
-     */
-    public function isEmpty()
-    {
-        return (count($this->events) <= 1)
-        and (count($this->eventLocations) <= 1)
-        and (count($this->papers) == 0)
-        and (count($this->persons) == 0)
-        and (count($this->organizations) == 0)
-        and (count($this->topics) == 0);
+  /**
+   * @param mixed $mainEventLocation
+   */
+  public function setMainEventLocation($mainEventLocation)
+  {
+    $this->mainEventLocation = $mainEventLocation;
+  }
 
-    }
+  /**
+   * @return mixed
+   */
+  public function getEventLocations()
+  {
+    return $this->eventLocations;
+  }
 
-    /**
-     * Set acronym
-     *
-     * @param string $acronym
-     *
-     * @return MainEvent
-     */
-    public function setAcronym($acronym)
-    {
-        $this->acronym = $acronym;
+  /**
+   * @param mixed $eventLocations
+   */
+  public function setEventLocations($eventLocations)
+  {
+    $this->eventLocations = $eventLocations;
+  }
 
-        return $this;
-    }
+  /**
+   * @return mixed
+   */
+  public function getRoleLabelVersions()
+  {
+    return $this->roleLabelVersions;
+  }
 
-    /**
-     * Get acronym
-     *
-     * @return string
-     */
-    public function getAcronym()
-    {
-        return $this->acronym;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getSetting()
-    {
-        return $this->setting;
-    }
-
-    /**
-     * @param mixed $setting
-     */
-    public function setSetting($setting)
-    {
-        $this->setting = $setting;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getCategoryVersions()
-    {
-        return $this->categoryVersions;
-    }
-
-    /**
-     * @param mixed $categoryVersions
-     */
-    public function setCategoryVersions($categoryVersions)
-    {
-        $this->categoryVersions = $categoryVersions;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getMainEventLocation()
-    {
-        return $this->mainEventLocation;
-    }
-
-    /**
-     * @param mixed $mainEventLocation
-     */
-    public function setMainEventLocation($mainEventLocation)
-    {
-        $this->mainEventLocation = $mainEventLocation;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getEventLocations()
-    {
-        return $this->eventLocations;
-    }
-
-    /**
-     * @param mixed $eventLocations
-     */
-    public function setEventLocations($eventLocations)
-    {
-        $this->eventLocations = $eventLocations;
-    }
+  /**
+   * @param mixed $roleLabelVersions
+   */
+  public function setRoleLabelVersions($roleLabelVersions)
+  {
+    $this->roleLabelVersions = $roleLabelVersions;
+  }
 }

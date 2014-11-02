@@ -40,7 +40,7 @@ class SocialService
   /**
    * accounts
    *
-   * @ORM\OneToMany(targetEntity="SocialServiceAccount", mappedBy="socialService")
+   * @ORM\OneToMany(targetEntity="fibe\CommunityBundle\Entity\SocialServiceAccount", mappedBy="socialService")
    */
   private $accounts;
 

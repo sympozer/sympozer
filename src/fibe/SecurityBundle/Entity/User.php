@@ -52,7 +52,6 @@ class User extends BaseUser
 
 
   /**
-   *
    * @ORM\ManyToOne(targetEntity="fibe\EventBundle\Entity\MainEvent")
    * @ORM\JoinColumn(name="current_main_event", referencedColumnName="id")
    */
