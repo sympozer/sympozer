@@ -2,17 +2,39 @@
 <html lang="en" ng-app="sympozerApp">
 
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <title>Sympozer</title>
+    <meta charset="utf-8">
 
-  {% if dev_mode_activated %}
-    {% include '@Frontend/Front/dev_depedencies.html.twig' %}
-  {% else %}
-    {% include '@Frontend/Front/prod_depedencies.html.twig' %}
-  {% endif %}
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
+    {#Favicons#}
+    <link rel="apple-touch-icon" sizes="57x57" href="{{ asset('favicon/apple-touch-icon-57x57.png') }}">
+    <link rel="apple-touch-icon" sizes="114x114" href="{{ asset('favicon/apple-touch-icon-114x114.png') }}">
+    <link rel="apple-touch-icon" sizes="72x72" href="{{ asset('favicon/apple-touch-icon-72x72.png') }}">
+    <link rel="apple-touch-icon" sizes="144x144" href="{{ asset('favicon/apple-touch-icon-144x144.png') }}">
+    <link rel="apple-touch-icon" sizes="60x60" href="{{ asset('favicon/apple-touch-icon-60x60.png') }}">
+    <link rel="apple-touch-icon" sizes="120x120" href="{{ asset('favicon/apple-touch-icon-120x120.png') }}">
+    <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('favicon/apple-touch-icon-76x76.png') }}">
+    <link rel="apple-touch-icon" sizes="152x152" href="{{ asset('favicon/apple-touch-icon-152x152.png') }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('favicon/apple-touch-icon-180x180.png') }}">
+    <link rel="icon" type="image/png" sizes="192x192" href="{{ asset('favicon/favicon-192x192.png') }}">
+    <link rel="icon" type="image/png " sizes="160x160" href="{{ asset('favicon/favicon-160x160.png') }}">
+    <link rel="icon" type="image/png" sizes="96x96" href="{{ asset('favicon/favicon-96x96.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('favicon/favicon-16x16.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favicon/favicon-32x32.png') }}">
+    <meta name="msapplication-TileColor" content="#f2f2f2">
+    <meta name="msapplication-TileImage" content="{{ asset('favicon/mstile-144x144.png') }}">
+
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <title>Sympozer</title>
+
+
+    {% if dev_mode_activated %}
+        {% include '@Frontend/Front/dev_depedencies.html.twig' %}
+    {% else %}
+        {% include '@Frontend/Front/prod_depedencies.html.twig' %}
+    {% endif %}
 </head>
 
 <!-- Main View -->
@@ -27,23 +49,23 @@
 
 <div id="wrapper">
 
-  <div class="navLeft" ng-include="GLOBAL_CONFIG.app.urls.partials+'layout/nav-left.html'"
-       ng-controller="navLeftCtrl"></div>
+    <div class="navLeft" ng-include="GLOBAL_CONFIG.app.urls.partials+'layout/nav-left.html'"
+         ng-controller="navLeftCtrl"></div>
 
-  <!-- Page content -->
-  <div id="page-content-wrapper">
+    <!-- Page content -->
+    <div id="page-content-wrapper">
 
-    <div class="page-content inset view-container">
+        <div class="page-content inset view-container">
 
-      <div class="row view-frame" ng-class="view-frame" data-ng-view="">
-      </div>
+            <div class="row view-frame" ng-class="view-frame" data-ng-view="">
+            </div>
 
+        </div>
+        <div id="scrollTopBtn">
+            <button class="btn btn-default" ng-click="scrollTop()" role="button"><i class="fa  fa-arrows-v fa-3x"></i>
+            </button>
+        </div>
     </div>
-    <div id="scrollTopBtn">
-      <button class="btn btn-default" ng-click="scrollTop()" role="button"><i class="fa  fa-arrows-v fa-3x"></i>
-      </button>
-    </div>
-  </div>
 
 </div>
 <div ng-controller="contextCtrl"></div>

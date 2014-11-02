@@ -38,7 +38,6 @@ var sympozerApp = angular.module('sympozerApp', [
     'ngAnimate',
     'ngResource',
     'ngCookies',
-    'ngDragDrop',
     'angular-loading-bar',
     'ngCachedResource',
     'sympozerFilters',
@@ -91,3 +90,4 @@ function ($provide, $httpProvider)
     $httpProvider.interceptors.push('globalHttpInterceptor');
 
 }]);
+

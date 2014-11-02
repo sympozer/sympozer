@@ -36,7 +36,8 @@ class GenericAdmin extends AdminSympozerInherit
     $this->excluded = array(
       'id',
       'logo',
-      'organizations'
+      'organizations',
+      'dtype'
     );
   }
 

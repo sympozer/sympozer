@@ -1,34 +1,17 @@
-{#Favicons#}
-<link rel="apple-touch-icon" sizes="57x57" href="{{ asset('favicon/apple-touch-icon-57x57.png') }}">
-<link rel="apple-touch-icon" sizes="114x114" href="{{ asset('favicon/apple-touch-icon-114x114.png') }}">
-<link rel="apple-touch-icon" sizes="72x72" href="{{ asset('favicon/apple-touch-icon-72x72.png') }}">
-<link rel="apple-touch-icon" sizes="144x144" href="{{ asset('favicon/apple-touch-icon-144x144.png') }}">
-<link rel="apple-touch-icon" sizes="60x60" href="{{ asset('favicon/apple-touch-icon-60x60.png') }}">
-<link rel="apple-touch-icon" sizes="120x120" href="{{ asset('favicon/apple-touch-icon-120x120.png') }}">
-<link rel="apple-touch-icon" sizes="76x76" href="{{ asset('favicon/apple-touch-icon-76x76.png') }}">
-<link rel="apple-touch-icon" sizes="152x152" href="{{ asset('favicon/apple-touch-icon-152x152.png') }}">
-<link rel="apple-touch-icon" sizes="180x180" href="{{ asset('favicon/apple-touch-icon-180x180.png') }}">
-<link rel="icon" type="image/png" sizes="192x192" href="{{ asset('favicon/favicon-192x192.png') }}">
-<link rel="icon" type="image/png " sizes="160x160" href="{{ asset('favicon/favicon-160x160.png') }}">
-<link rel="icon" type="image/png" sizes="96x96" href="{{ asset('favicon/favicon-96x96.png') }}">
-<link rel="icon" type="image/png" sizes="16x16" href="{{ asset('favicon/favicon-16x16.png') }}">
-<link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favicon/favicon-32x32.png') }}">
-<meta name="msapplication-TileColor" content="#f2f2f2">
-<meta name="msapplication-TileImage" content="{{ asset('favicon/mstile-144x144.png') }}">
 
-{% stylesheets 'bundles/frontend/app/css/bootstrap.min.css'
-'bundles/frontend/app/css/bootstrap-theme.min.css'
-'bundles/frontend/app/css/loading-bar.css'
+{% stylesheets 'bundles/frontend/vendors/bootstrap/dist/css/bootstrap.min.css'
+'bundles/frontend/vendors/bootstrap/dist/css/bootstrap-theme.min.css'
+'bundles/frontend/vendors/angular-loading-bar/src/loading-bar.css'
+'bundles/frontend/vendors/leaflet/dist/leaflet.css'
+'bundles/frontend/vendors/angular-bootstrap-datetimepicker/src/css/datetimepicker.css'
+'bundles/frontend/vendors/angular-ui-select/dist/select.css'
+'bundles/frontend/vendors/select2/select2.css'
+'bundles/frontend/vendors/angular-bootstrap-colorpicker/css/colorpicker.css'
+'bundles/frontend/vendors/angular-xeditable/dist/css/xeditable.css'
+'bundles/frontend/vendors/bootstrap-tags/dist/css/bootstrap-tags.css'
+'bundles/frontend/vendors/bootstrap-social/bootstrap-social.css'
 'bundles/frontend/app/css/app.css'
 'bundles/frontend/app/css/animations.css'
-'bundles/frontend/app/css/leaflet.css'
-'bundles/frontend/app/css/datetimepicker.css'
-'bundles/frontend/app/css/select.css'
-'bundles/frontend/app/css/select2.css'
-'bundles/frontend/app/css/colorpicker.css'
-'bundles/frontend/app/css/xeditable.css'
-'bundles/frontend/app/css/bootstrap-tag.css'
-'bundles/frontend/app/css/bootstrap-social.css'
 output='css/compiled/vendors.css' %}
 <link rel="stylesheet" href="{{ asset_url }}"/>
 <link href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.css" rel="stylesheet">
@@ -36,33 +19,40 @@ output='css/compiled/vendors.css' %}
 
 
 <!-- included vendors -->
-{% javascripts 'bundles/frontend/vendors/jquery.min.js'
-'bundles/frontend/vendors/angular.js'
-'bundles/frontend/vendors/angular-resource.js'
-'bundles/frontend/vendors/angular-translate.js'
-'bundles/frontend/vendors/angular-route.js'
-'bundles/frontend/vendors/angular-animate.min.js'
-'bundles/frontend/vendors/bootstrap.min.js'
-'bundles/frontend/vendors/angular-ui-router.min.js'
-'bundles/frontend/vendors/select.js'
-'bundles/frontend/vendors/angular-sanitize.js'
-'bundles/frontend/vendors/draganddrop.js'
-'bundles/frontend/vendors/loading-bar.js'
-'bundles/frontend/vendors/angular-cached-resource.min.js'
-'bundles/frontend/vendors/angular-cookies.js'
-'bundles/frontend/vendors/moment.js'
-'bundles/frontend/vendors/angular-leaflet-directive.min.js'
-'bundles/frontend/vendors/createDialog.js'
-'bundles/frontend/vendors/xeditable.js'
-'bundles/frontend/vendors/angular-moment.js'
-'bundles/frontend/vendors/loadingBarModule.js'
-'bundles/frontend/vendors/datetimepicker.js'
-'bundles/frontend/vendors/leaflet.js'
-'bundles/frontend/vendors/ui-bootstrap-tpls-0.11.2.min.js'
-'bundles/frontend/vendors/angular-ui-modal.js'
-'bundles/frontend/vendors/angular-ui-transition.js'
-'bundles/frontend/vendors/bootstrap-colopicker-module.js'
-'bundles/frontend/vendors/bootstrap-colorpicker.js'
+{% javascripts
+'bundles/frontend/vendors/angular/angular.js'
+'bundles/frontend/vendors/angular-moment/angular-moment.min.js'
+'bundles/frontend/vendors/moment/min/moment-with-locales.min.js'
+'bundles/frontend/vendors/jquery/jquery.min.js'
+'bundles/frontend/vendors/angular-route/angular-route.min.js'
+'bundles/frontend/vendors/angular-ui-bootstrap-bower/ui-bootstrap-tpls.min.js'
+'bundles/frontend/vendors/angular-translate/angular-translate.min.js'
+'bundles/frontend/vendors/angular-animate/angular-animate.min.js'
+'bundles/frontend/vendors/angular-sanitize/angular-sanitize.min.js'
+'bundles/frontend/vendors/angular-resource/angular-resource.min.js'
+'bundles/frontend/vendors/angularjs-modal-service/src/createDialog.js'
+'bundles/frontend/vendors/angular-cookies/angular-cookies.min.js'
+'bundles/frontend/vendors/angular-cached-resource/angular-cached-resource.min.js'
+'bundles/frontend/vendors/angular-leaflet-directive/dist/angular-leaflet-directive.min.js'
+'bundles/frontend/vendors/angular-xeditable/dist/js/xeditable.min.js'
+'bundles/frontend/vendors/angular-bootstrap-datetimepicker/src/js/datetimepicker.js'
+'bundles/frontend/vendors/leaflet/dist/leaflet.js'
+
+'bundles/frontend/vendors/bootstrap/dist/js/bootstrap.min.js'
+'bundles/frontend/vendors/angular-ui-router/release/angular-ui-router.min.js'
+'bundles/frontend/vendors/angular-ui-select/dist/select.min.js'
+'bundles/frontend/vendors/angular-loading-bar/src/loading-bar.js'
+
+
+'bundles/frontend/vendors/angular-boostrap-ui/src/modal/modal.js'
+
+'bundles/frontend/vendors/angular-boostrap-ui/src/transition/transition.js'
+
+'bundles/frontend/vendors/angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.js'
+
+'bundles/frontend/vendors/bootstrap-tags/dist/js/bootstrap-tags.min.js'
+'bundles/frontend/vendors/select2/select2.min.js'
+
 output='js/compiled/main.js' %}
 <script src="{{ asset_url }}" type="text/javascript"></script>
 {% endjavascripts %}
@@ -100,6 +90,7 @@ output='js/compiled/main.js' %}
 
 
 'bundles/frontend/app/js/filters/sympozer-checkmark.fltr.js'
+'bundles/frontend/app/js/filters/sympozer-titleize.fltr.js'
 
 'bundles/frontend/app/modules/contextualization/js/routes.js'
 'bundles/frontend/app/modules/contextualization/js/controllers/context.ctrl.js'
@@ -245,6 +236,8 @@ output='js/compiled/main.js' %}
 
 output='js/compiled/app.js' %}
 <script src="{{ asset_url }}" type="text/javascript"></script>
+{% endjavascripts %}
+
 
 <!-- <script src="{{ asset('bundles/frontend/app/js/animations.js') }}"></script> -->
 {% if app.user %}
@@ -415,4 +408,5 @@ output='js/compiled/app.js' %}
   };
   angular.module('sympozerApp').value('GLOBAL_CONFIG', globalConfig);
 </script>
-{% endjavascripts %}
+
+
