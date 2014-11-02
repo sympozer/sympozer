@@ -2,20 +2,18 @@
 
 namespace fibe\SecurityBundle\Form;
 
+use fibe\SecurityBundle\Entity\User;
+use fibe\SecurityBundle\Repository\UserRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Symfony\Component\Security\Acl\Permission\MaskBuilder;
-use fibe\SecurityBundle\Services\ACLHelper;
-use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\FormEvents;
 
-class UserConfPermissionType extends AbstractType
+class TeammateType extends AbstractType
 {
   private $user;
 
-  public function __construct($user)
+  public function __construct(User $user)
   {
     $this->user = $user;
   }
@@ -27,9 +25,9 @@ class UserConfPermissionType extends AbstractType
   public function buildForm(FormBuilderInterface $builder, array $options)
   {
     $builder
-      ->add('confPermissions', 'collection', array(
-          'type'      => new ConfPermissionType(),
-          'label'     => 'Permissions for the user : ',
+      ->add('teammates', 'collection', array(
+          'type' => new ConfPermissionType(),
+          'label' => 'Permissions for the user : ',
           'allow_add' => true,
           // 'options'  => array(
           //   'data_class' => 'fibe\SecurityBundle\Entity\ConfPermission',
@@ -54,10 +52,10 @@ class UserConfPermissionType extends AbstractType
         function (FormEvent $event) use ($builder)
         {
           $event->getForm()->add('user', 'entity', array(
-            'class'         => 'fibeSecurityBundle:User',
-            'property'      => 'username',
-            'required'      => true,
-            'query_builder' => function (EntityRepository $er)
+            'class' => 'fibeSecurityBundle:User',
+            'property' => 'username',
+            'required' => true,
+            'query_builder' => function (UserRepository $er)
               {
                 return $er->ManagerForSelectTeamQuery($this->user->getCurrentMainEvent()->getTeam());
               },

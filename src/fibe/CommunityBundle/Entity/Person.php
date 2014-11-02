@@ -3,20 +3,16 @@
 namespace fibe\CommunityBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\Event\PreFlushEventArgs;
 use Doctrine\ORM\Mapping as ORM;
 use fibe\ContentBundle\Entity\Paper;
 use fibe\ContentBundle\Entity\Role;
 use fibe\ContentBundle\Util\StringTools;
+use fibe\SecurityBundle\Entity\Team;
 use fibe\SecurityBundle\Entity\User;
 use FOS\UserBundle\Model\UserInterface;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
-use JMS\Serializer\Annotation\Groups;
-use JMS\Serializer\Annotation\MaxDepth;
 use JMS\Serializer\Annotation\SerializedName;
-use JMS\Serializer\Annotation\VirtualProperty;
-
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -48,6 +44,15 @@ class Person extends AdditionalInformations
    *
    */
   protected $user;
+
+  /**
+   *
+   * @ORM\ManyToMany(targetEntity="fibe\SecurityBundle\Entity\Team", inversedBy="teammates", cascade={"persist","remove"})
+   * @ORM\JoinTable(name="teammate_team",
+   *     joinColumns={@ORM\JoinColumn(name="teammate_id", referencedColumnName="id", onDelete="Cascade")},
+   *     inverseJoinColumns={@ORM\JoinColumn(name="team_id", referencedColumnName="id", onDelete="Cascade")})
+   */
+  protected $teams;
 
   /**
    * familyName
@@ -142,6 +147,7 @@ class Person extends AdditionalInformations
    */
   public function __construct()
   {
+    $this->teams = new ArrayCollection();
     $this->papers = new ArrayCollection();
     $this->organizations = new ArrayCollection();
     $this->roles = new ArrayCollection();
@@ -360,6 +366,41 @@ class Person extends AdditionalInformations
   {
     return $this->openId;
   }
+
+  /**
+   * Add teams
+   *
+   * @param Team $teams
+   *
+   * @return User
+   */
+  public function addTeam(Team $teams)
+  {
+    $this->teams[] = $teams;
+
+    return $this;
+  }
+
+  /**
+   * Remove teams
+   *
+   * @param Team $teams
+   */
+  public function removeTeam(Team $teams)
+  {
+    $this->teams->removeElement($teams);
+  }
+
+  /**
+   * Get teams
+   *
+   * @return \Doctrine\Common\Collections\Collection
+   */
+  public function getTeams()
+  {
+    return $this->teams;
+  }
+
 
   /**
    * Add papers

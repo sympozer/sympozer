@@ -141,7 +141,7 @@ class RoleLabelVersionRESTController extends FOSRestController
     public function deleteRoleLabelVersionAction($id)
     {
 
-        return $this->get('fibe.rest.crudhandler')->delete(
+        $this->get('fibe.rest.crudhandler')->delete(
             $this::ENTITY_CLASSNAME,
             $id
         );;

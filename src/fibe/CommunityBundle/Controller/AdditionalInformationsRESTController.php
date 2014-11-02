@@ -3,11 +3,9 @@
 namespace fibe\CommunityBundle\Controller;
 
 use FOS\RestBundle\Controller\Annotations as Rest;
+use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Request\ParamFetcherInterface;
 use Symfony\Component\HttpFoundation\Request;
-
-use FOS\RestBundle\Controller\FOSRestController;
-use FOS\RestBundle\Util\Codes;
 
 /**
  * AdditionalInformationsControl rest controller.
@@ -17,7 +15,6 @@ class AdditionalInformationsRESTController extends FOSRestController
 
   const ENTITY_CLASSNAME = "fibe\\ContentBundle\\Entity\\AdditionalInformationsControl";
   const FORM_CLASSNAME = "fibe\\ContentBundle\\Form\\AdditionalInformationsControl";
-
 
 
   /**
@@ -121,7 +118,7 @@ class AdditionalInformationsRESTController extends FOSRestController
   public function deleteAdditionalInformationsControlAction($id)
   {
 
-    return $this->get('fibe.rest.crudhandler')->delete(
+    $this->get('fibe.rest.crudhandler')->delete(
       $this::ENTITY_CLASSNAME,
       $id
     );;

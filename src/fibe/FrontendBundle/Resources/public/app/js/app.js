@@ -12,6 +12,7 @@ angular.module('organizationsApp', ['fundoo.services']);
 angular.module('i18nApp', ['pascalprecht.translate']);
 angular.module('papersApp', ['fundoo.services']);
 angular.module('topicsApp', []);
+angular.module('teammatesApp', ['fundoo.services']);
 angular.module('rolesApp', ['fundoo.services']);
 angular.module('roleLabelsApp', ['fundoo.services']);
 angular.module('categoriesApp', ['fundoo.services']);
@@ -39,6 +40,7 @@ var sympozerApp = angular.module('sympozerApp', [
     'ngCookies',
     'angular-loading-bar',
     'ngCachedResource',
+    'sympozerFilters',
     'authenticationApp',
     'organizationsApp',
     'personsApp',
@@ -46,6 +48,7 @@ var sympozerApp = angular.module('sympozerApp', [
     'locationsApp',
     'equipmentsApp',
     'eventsApp',
+    'teammatesApp',
     'rolesApp',
     'roleLabelsApp',
     'categoriesApp',
@@ -70,10 +73,10 @@ var sympozerApp = angular.module('sympozerApp', [
  */
 sympozerApp.run(function (editableOptions, editableThemes)
 {
-  editableOptions.theme = 'bs3';
-  // overwrite submit button template
-  editableThemes['bs3'].submitTpl = '<button type="submit" class="btn btn-primary"><i class="fa fa-check"></i></button>';
-  editableThemes['bs3'].cancelTpl = '<button type="button" class="btn btn-default" ng-click="$form.$cancel()"><i class="fa fa-times"></i></button>';
+    editableOptions.theme = 'bs3';
+    // overwrite submit button template
+    editableThemes['bs3'].submitTpl = '<button type="submit" class="btn btn-primary"><i class="fa fa-check"></i></button>';
+    editableThemes['bs3'].cancelTpl =  '<button type="button" class="btn btn-default" ng-click="$form.$cancel()"><i class="fa fa-times"></i></button>';
 });
 
 /**
@@ -82,8 +85,10 @@ sympozerApp.run(function (editableOptions, editableThemes)
  * @type {config}
  */
 angular.module('sympozerApp').config(['$provide', '$httpProvider',
-  function ($provide, $httpProvider)
-  {
-    $httpProvider.interceptors.push('globalHttpInterceptor');
+    function ($provide, $httpProvider)
+    {
+        $httpProvider.interceptors.push('globalHttpInterceptor');
 
-  }]);
+
+    }]);
+

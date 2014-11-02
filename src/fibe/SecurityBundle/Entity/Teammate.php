@@ -11,11 +11,17 @@ use fibe\EventBundle\Entity\MainEvent;
 /**
  * plain old object used as DTO for a form purpose
  */
-class UserConfPermission
+class Teammate
 {
 
+  /**
+   * @var $user User
+   */
   protected $user;
 
+  /**
+   * @var array ConfPermission
+   */
   protected $confPermissions;
 
   /**

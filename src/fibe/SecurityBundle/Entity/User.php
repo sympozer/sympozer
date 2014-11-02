@@ -52,20 +52,10 @@ class User extends BaseUser
 
 
   /**
-   *
    * @ORM\ManyToOne(targetEntity="fibe\EventBundle\Entity\MainEvent")
    * @ORM\JoinColumn(name="current_main_event", referencedColumnName="id")
    */
   protected $currentMainEvent;
-
-  /**
-   *
-   * @ORM\ManyToMany(targetEntity="Team", inversedBy="teammates", cascade={"persist","remove"})
-   * @ORM\JoinTable(name="manager_team",
-   *     joinColumns={@ORM\JoinColumn(name="manager_id", referencedColumnName="id", onDelete="Cascade")},
-   *     inverseJoinColumns={@ORM\JoinColumn(name="team_id", referencedColumnName="id", onDelete="Cascade")})
-   */
-  protected $teams;
 
 
   /**
@@ -121,45 +111,9 @@ class User extends BaseUser
   public function __construct()
   {
     parent::__construct();
-    $this->teams = new ArrayCollection();
     $this->conferences = new ArrayCollection();
     $this->setRandomPwd(false);
   }
-
-  /**
-   * Add teams
-   *
-   * @param Team $teams
-   *
-   * @return User
-   */
-  public function addTeam(Team $teams)
-  {
-    $this->teams[] = $teams;
-
-    return $this;
-  }
-
-  /**
-   * Remove teams
-   *
-   * @param Team $teams
-   */
-  public function removeTeam(Team $teams)
-  {
-    $this->teams->removeElement($teams);
-  }
-
-  /**
-   * Get teams
-   *
-   * @return \Doctrine\Common\Collections\Collection
-   */
-  public function getTeams()
-  {
-    return $this->teams;
-  }
-
 
   /**
    * Add conferences

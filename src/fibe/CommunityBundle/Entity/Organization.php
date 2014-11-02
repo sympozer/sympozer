@@ -32,7 +32,6 @@ class Organization extends AdditionalInformations
      */
     protected $sponsors;
 
-
     /**
      *
      * @ORM\OneToMany(targetEntity="OrganizationVersion",  mappedBy="organization",cascade={"persist","remove"})
@@ -40,7 +39,6 @@ class Organization extends AdditionalInformations
      * @Expose
      */
     private $organizationVersions;
-
 
     /**
      * @ORM\Column(type="string", length=256, nullable=true)

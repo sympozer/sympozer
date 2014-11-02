@@ -3,8 +3,6 @@
 namespace fibe\EventBundle\Services;
 
 use Doctrine\ORM\EntityManager;
-
-use fibe\ContentBundle\Entity\Location;
 use fibe\ContentBundle\Entity\MainEventLocation;
 use fibe\EventBundle\Entity\MainEvent;
 use fibe\SecurityBundle\Entity\Team;
@@ -157,14 +155,11 @@ class MainEventService
 
     //Team
     $defaultTeam = new Team();
-    $defaultTeam->addTeammate($user);
-    $user->addTeam($defaultTeam);
     $defaultTeam->setMainEvent($mainEvent);
     $mainEvent->setTeam($defaultTeam);
     $this->entityManager->persist($defaultTeam);
 
     //Add conference to current manager
-    $user->setCurrentMainEvent($mainEvent);
     $user->addConference($mainEvent);
 
     $this->entityManager->persist($user);
@@ -194,9 +189,9 @@ class MainEventService
 //      $mainEvent->addCategorie($this->entityManager->getRepository('fibeEventBundle:Category')->findOneByName("ConferenceEvent"));
 
     //recreate main event location
-    $mainEventLocation = new Location();
+    $mainEventLocation = new MainEventLocation();
     $mainEventLocation->setLabel("Conference's location");
-    $mainEvent->setLocation($mainEventLocation);
+    $mainEvent->setMainEventLocation($mainEventLocation);
     $mainEventLocation->setMainEvent($mainEvent);
     $this->entityManager->persist($mainEventLocation);
 

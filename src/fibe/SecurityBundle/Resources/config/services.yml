@@ -104,7 +104,7 @@ services:
             - '@?logger'
 
     fibe_user.user_conf_permissions.form.type:
-        class: fibe\SecurityBundle\Form\UserConfPermissionType
+        class: fibe\SecurityBundle\Form\TeammateType
         arguments: ["@fibe_security.acl_entity_helper"]
         tags: 
             - { name: form.type, alias: user_conf_permissions }

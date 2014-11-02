@@ -120,7 +120,7 @@ class SocialServiceRESTController extends FOSRestController
   public function deleteSocialServiceAction($id)
   {
 
-    return $this->get('fibe.rest.crudhandler')->delete(
+    $this->get('fibe.rest.crudhandler')->delete(
       $this::ENTITY_CLASSNAME,
       $id
     );;

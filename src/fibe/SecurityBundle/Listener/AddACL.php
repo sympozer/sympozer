@@ -53,13 +53,13 @@ class AddACL
         // grant owner access
         $acl->insertObjectAce($securityIdentity, MaskBuilder::MASK_OWNER);
         $aclProvider->updateAcl($acl);
-        //share with teamates
-//          $teamates = $user->getCurrentMainEvent()->getTeam()->getTeammates();
-//          foreach ($teamates as $teamate)
+        //share with teammates
+//          $teammates = $user->getCurrentMainEvent()->getTeam()->getTeammates();
+//          foreach ($teammates as $teammate)
 //          {
-//            if($teamate->getId() != $user->getId())
+//            if($teammate->getId() != $user->getId())
 //            {
-//              $aclHelper->createUserACL($teamate,$entity);
+//              $aclHelper->createUserACL($teammate,$entity);
 //            }
 //          }
       }

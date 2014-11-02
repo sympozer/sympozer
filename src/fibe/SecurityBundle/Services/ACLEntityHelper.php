@@ -214,41 +214,41 @@ class ACLEntityHelper extends ACLHelper
 
 
   /**
-   * update the teamate right by repository & id
-   * @param  [User] $teamate           the choosen teamate
+   * update the teammate right by repository & id
+   * @param  [User] $teammate           the choosen teammate
    * @param  [String] $action          [description]
    * @param  [String] $repositoryName  [description]
    * @param  [type] $id                if not set, update all objects of the repository given linked with the current conf
    */
-  protected function updateUserACL($teamate, $action, $repositoryName, $id = null)
+  protected function updateUserACL($teammate, $action, $repositoryName, $id = null)
   {
     if (!$id)
     {
       $entities = $this->getEntitiesACL("VIEW", $repositoryName);
       foreach ($entities as $entity)
       {
-        $this->performUpdateUserACL($teamate, $action, $entity);
+        $this->performUpdateUserACL($teammate, $action, $entity);
       }
     }
     else
     {
       $entity = $this->getEntityACL("VIEW", $repositoryName, $id);
-      $this->performUpdateUserACL($teamate, $action, $entity);
+      $this->performUpdateUserACL($teammate, $action, $entity);
     }
   }
 
   /**
    * update user acl by entity
-   *   /!\ doesn't check owner demoting and own permission change, see updateUserConfPermission for those requirment check
-   * @param  [User] $teamate [description]
+   *   /!\ doesn't check owner demoting and own permission change, see updateTeammate for those requirment check
+   * @param  [User] $teammate [description]
    * @param  [String] $action[description]
    * @param  [type] $entity  [description]
    */
-  protected function performUpdateUserACL($teamate, $action, $entity)
+  protected function performUpdateUserACL($teammate, $action, $entity)
   {
     $entitySecurityIdentity = ObjectIdentity::fromDomainObject($entity);
-    $acl = $this->getOrCreateAcl($entitySecurityIdentity, $teamate);
-    $this->updateOrCreateAce($acl, $entity, $teamate, $action);
+    $acl = $this->getOrCreateAcl($entitySecurityIdentity, $teammate);
+    $this->updateOrCreateAce($acl, $entity, $teammate, $action);
   }
 
   /**
