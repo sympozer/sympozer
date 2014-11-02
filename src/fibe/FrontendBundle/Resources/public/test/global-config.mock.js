@@ -109,6 +109,13 @@ var globalConfig = {
                     img: "{{ asset('bundles/frontend/app/modules/persons/img') }}"
                 }
             },
+            teammates: {
+                urls: {
+                    base: "{{ asset('bundles/frontend/app/modules/authentication/') }}",
+                    partials: "{{ asset('bundles/frontend/app/modules/authentication/partials/') }}",
+                    img: "{{ asset('bundles/frontend/app/modules/authentication/img') }}"
+                }
+            },
             roles: {
                 urls: {
                     base: "{{ asset('bundles/frontend/app/modules/roles/') }}",
