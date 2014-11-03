@@ -12,7 +12,7 @@ exports.config = {
   // 3. sauceUser/sauceKey - to use remote Selenium servers via SauceLabs.
 
   // The location of the selenium standalone server .jar file.
-  seleniumServerJar: '../../../../../../node_modules/protractor/selenium/selenium-server-standalone-2.42.2.jar',
+//  seleniumServerJar: '../../../../../../node_modules/protractor/selenium/selenium-server-standalone-2.42.2.jar',
   // The port to start the selenium server on, or null if the server should
   // find its own unused port.
   seleniumPort: 4444,
@@ -20,7 +20,7 @@ exports.config = {
   // find chromedriver. This will be passed to the selenium jar as
   // the system property webdriver.chrome.driver. If null, selenium will
   // attempt to find chromedriver using PATH.
-  chromeDriver: '../../../../../../node_modules/protractor/selenium/chromedriver',
+//  chromeDriver: '../../../../../../node_modules/protractor/selenium/chromedriver',
   // Additional command line options to pass to selenium. For example,
   // if you need to change the browser timeout, use
   // seleniumArgs: ['-browserTimeout=60'],
@@ -46,13 +46,11 @@ exports.config = {
   // https://code.google.com/p/selenium/wiki/DesiredCapabilities
   // and
   // https://code.google.com/p/selenium/source/browse/javascript/webdriver/capabilities.js
-  capabilities: {
-    'browserName': 'chrome'
-  },
+//  capabilities: {
+//    'browserName': 'chrome'
+//  },
 
-  // A base URL for your application under test. Calls to protractor.get()
-  // with relative paths will be prepended with this.
-  baseUrl: 'http://localhost/sympozer/web/app.php/',
+
 
   // Selector for the element housing the angular app - this defaults to
   // body, but is necessary if ng-app is on a descendant of <body>  

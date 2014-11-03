@@ -220,8 +220,20 @@ module.exports = function(grunt) {
         protractor: {
             options: {
                 keepAlive: true,
-                configFile: FRONT_APP_DIR+'/test/protractor.conf.js'
+                configFile: FRONT_APP_DIR+'/test/protractor.conf.js',
                 //debug : true
+                // A base URL for your application under test. Calls to protractor.get()
+                // with relative paths will be prepended with this.
+                args : {
+                    baseUrl: PROD_SERVER_PATH,
+                    // The location of the selenium standalone server .jar file.
+                    seleniumServerJar: './node_modules/protractor/selenium/selenium-server-standalone-2.42.2.jar',
+                    // attempt to find chromedriver using PATH.
+                    chromeDriver: './node_modules/protractor/selenium/chromedriver',
+                    capabilities: {
+                        'browserName': 'chrome'
+                    }
+                }
             },
             singlerun: {},
             auto: {
