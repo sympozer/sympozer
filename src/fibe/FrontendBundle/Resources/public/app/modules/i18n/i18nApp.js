@@ -18,6 +18,8 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
 
     //Register translation table as object hash for US language
     $translateProvider.translations('en_US', {
+
+
         //Community
         'Home': 'Home',
         'Search_event': 'Search an event',
@@ -27,13 +29,16 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
         'Search_organization': 'Search an organization',
 
         //Authentication
+        'Login': 'Login',
         'Login_success': 'Welcome to Sympozer',
         'Login_error': 'Bad credentials',
         'Forgotten_password': 'Forgotten password',
+        'Signout': 'Sign Out',
         'signout_success': 'Thanks for coming, see you soon',
         'Resetpwd_usernotfound_error': 'The user has not been found.',
         'Resetpwd_pwdalreadyrequested_error': 'Password reset has already been requested',
         'Resetpwd_pwdresetexpired_error': 'The Password reset request has expired',
+        'Register': 'Sign Up',
         'Register_success': 'Thanks for registering, You will receive an email to complete your registration',
         'Register_confirm_success': 'You account is now activated',
         'Register_error': 'Cannot register the user. Please contact the support.',
@@ -48,19 +53,25 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
 
     //Register translation table as object hash for FR language
     $translateProvider.translations('fr_FR', {
+        //Community
         'Home': 'Accueil',
         'Search_event': 'Rechercher un evenement',
         'Search_conference': 'Rechercher une conference',
         'Search_publication': 'Rechercher une publication',
         'Search_person': 'Rechercher une personne',
         'Search_organization': 'Rechercher une organization',
+
+        //Authentication
+        'Login': 'Connexion',
         'Login_success': 'Bienvenue sur sympozer.com',
         'Login_error': 'Login impossible',
         'Forgotten_password': 'Mot de passe oublié ?',
+        'Signout': 'Déconnexion',
         'signout_success': 'Merci d\'utiliser Sympozer, à bientôt',
         'Resetpwd_usernotfound_error': 'L\'utilisateur n\'a pas été trouvé',
         'Resetpwd_pwdalreadyrequested_error': 'La réinitialisation du mot de passe à déjà été demandé',
         'Resetpwd_pwdresetexpired_error': 'La demande de réinitialisation du mot de passe a expiré.',
+        'Register': 'Inscription',
         'Register_success': 'Merci de vous être enregistré. Vous recevrez un e-mail pour terminer votre inscription',
         'Register_activated_success': 'Votre compte est maintenant activé.',
         'Register_error': 'L\'utilisateur n\'a pas pu etre enregistré. Veuillez contacter le support.',

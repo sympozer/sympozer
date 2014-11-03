@@ -19,7 +19,7 @@
   <div class="navbar-collapse collapse navbar-ex1-collapse">
     <ul class="nav navbar-nav navbar-right">
       <li>
-        <a href="#signout" title="logout" ng-click="signout()" ng-if="currentUser.id" ng-controller="signoutCtrl">Logout</a>
+        <a href="#signout" title="logout" ng-click="signout()" ng-if="currentUser.id" ng-controller="signoutCtrl">{{ 'Signout' | translate }}</a>
       </li>
 
       <li>
@@ -27,11 +27,11 @@
       </li>
 
       <li>
-        <a href="javascript:void(0)" title="login" ng-if="currentUser.id == null" ng-click="showLoginPopup()" ng-controller="signinCtrl">login</a>
+        <a href="javascript:void(0)" title="login" ng-if="currentUser.id == null" ng-click="showLoginPopup()" ng-controller="signinCtrl">{{ 'Login' | translate }}</a>
       </li>
 
       <li>
-        <a href="#signup" title="login" ng-if="currentUser.id == null" ng-controller="signupCtrl">register</a>
+        <a href="#signup" title="{{ 'register' | translate }}" ng-if="currentUser.id == null" ng-controller="signupCtrl">{{ 'Register' | translate }}</a>
       </li>
       <!-- <li>
           <a id="sidebar-right-toggle"  class="btn btn-info" data-toggle="offcanvas" data-target=".sidebar-nav">
