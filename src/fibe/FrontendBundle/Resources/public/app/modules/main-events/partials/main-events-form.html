@@ -12,7 +12,10 @@
 
     <div>
         <label for="inputLogo">Logo</label>
-        <input type="text" class="form-control" id="inputLogo" placeholder="{{conference.logo}}" ng-model="conference.logo">
+        <input type="url" class="form-control" id="inputLogo" placeholder="http://..." ng-model="conference.logo">
+        <div class="img-container-lg">
+            <img  class="scale-img" no-image ng-src="{{ conference.logo }}"/>
+        </div>
     </div>
     <div>
         <label for="inputUrl">Url</label>

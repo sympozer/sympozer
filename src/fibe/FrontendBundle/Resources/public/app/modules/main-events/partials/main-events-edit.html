@@ -2,10 +2,10 @@
     <div class="row">
         <div class="col-sm-2 col-md-2 col-lg-2">
             <div class="img-container-lg">
-                <div ng-click="showAddImg= !showAddImg">
+
                     <img  class="scale-img" no-image ng-src="{{ mainEvent.logo }}"/>
-                    <span ng-show="showAddImg" editable-text="mainEvent.logo" onbeforesave="updateMainEvent('logo', $data)">{{mainEvent.logo || ' Add an image'}}</span>
-                </div>
+                    <span editable-text="mainEvent.logo" onbeforesave="updateMainEvent('logo', $data)">{{'change logo'}}</span>
+                
             </div>
             <p ng-if="mainEvent.country">{{mainEvent.country}}</p>
         </div>
