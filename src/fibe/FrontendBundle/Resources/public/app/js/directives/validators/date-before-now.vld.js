@@ -15,9 +15,14 @@ angular.module('sympozerApp').directive('dateBeforeNowValidator', function(){
             //Function that validate the entry date comapre to today
             function validateDateBeforeNow(dateValue){
                 var now = new Date();
+                var date = new Date(dateValue);
 
+                if(date > now){
+                    ctrl.$setValidity('dateBeforeNow', false);
+                }else{
+                    ctrl.$setValidity('dateBeforeNow', true);
+                }
 
-                ctrl.$setValidity('dateBeforeNow', false);
                 return dateValue;
             }
         }

@@ -1,22 +1,32 @@
+
 <div>
     <label for="inputLabel">Label</label>
     <input type="text" class="form-control" id="inputLabel" required placeholder="label" ng-model="paper.label">
 </div>
 <div>
     <label for="inputAbstract">Abstract</label>
-    <input type="text" class="form-control" id="inputAbstract" placeholder="abstract" ng-model="paper.abstract">
+    <textarea elastic class="form-control" id="inputAbstract" placeholder="{{paper.abstract}}" ng-model="paper.abstract"></textarea>
 </div>
 <div>
     <label for="inputUrl">Url</label>
-    <input type="text" class="form-control" id="inputUrl" placeholder="url" ng-model="paper.url">
+    <input type="url" class="form-control" id="inputUrl" name="inputUrl" placeholder="url" ng-model="paper.url">
 </div>
 <div>
     <label for="inputPublisher">Publisher</label>
-    <input type="text" class="form-control" id="inputPublisher" placeholder="Publisher" ng-model="paper.publisher">
+    <input type="text" class="form-control" id="inputPublisher"  placeholder="Publisher" ng-model="paper.publisher">
 </div>
 <div>
     <label for="inputPublishDate">Publish Date</label>
-    <input type="text" class="form-control" id="inputPublishDate" placeholder="publish Date" ng-model="paper.publishDate">
+    <div class="dropdown">
+        <a class="dropdown-toggle" id="dropdownPublishDate" role="button" data-toggle="dropdown" data-target="#" href="javascript:void(0)">
+            <input type="text"   date-before-now-validator   datetime-format class="form-control" id="inputPublishDate" name="inputPublishDate" placeholder="Publish date" ng-model="paper.publishDate">
+        </a>
+        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+            <datetimepicker data-ng-model="paper.publishDate" data-datetimepicker-config="{ dropdownSelector: '#dropdown2' }"/>
+        </ul>
+    </div>
+    <div class="alert alert-danger" role="alert" ng-show="paperForm.inputPublishDate.$error.dateBeforeNow" >This publish date is in the future</div>
+
 </div>
 
 <div class="row">
