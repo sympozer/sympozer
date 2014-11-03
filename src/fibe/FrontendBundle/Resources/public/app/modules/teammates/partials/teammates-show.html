@@ -1,69 +1,8 @@
-<!--<div ng-include="GLOBAL_CONFIG.app.modules.teammates.urls.partials+'teammates-actions.html'" ng-controller="personsMainCtrl"></div>-->
-
+<div ng-include="GLOBAL_CONFIG.app.modules.teammateVersions.urls.partials+'teammateVersions-actions.html'" ng-controller="teammatesMainCtrl"></div>
 <div class="well">
-    <div class="row">
-        <div class="col-sm-3 col-md-3 col-lg-3">
-            <div class="img-container-lg">
-                <img  class="scale-img" no-image ng-src="{{ person.img }}"/>
-            </div>
-            <p>{{person.country}}</p>
+  <img class="img-circle" data-src="holder.js/140x140" alt="140x140" src="http://blog.getjobber.com/wp-content/uploads/2013/01/Users-Image.png" style="width: 70px; height: 70px;"/>
 
-        </div>
-        <div class="col-sm-8 col-md-8 col-lg-8">
-            <h3>{{person.firstName || '???'}} {{person.familyName || '???'}}</h3>
-            <pre>{{person.description || 'add a descrption'}}</pre>
-            <a ng-if="currentUser.person.id === person.id" class="btn btn-info" href="#profile" role="button">
-                <i class="fa fa-edit fa-1x"></i> Edit my account
-            </a>
-            <a ng-if="currentUser.person.id === person.id" class="btn btn-info" href="#persons/edit/{{person.id}}" role="button">
-                <i class="fa fa-edit fa-1x"></i> Edit my profile
-            </a>
-        </div>
-    </div>
-</div>
+  <h3>{{teammate.label}}</h3>
 
-<div class="row">
-    <div class="col-md-6 col-lg-6">
-        <h1>Contact</h1>
-        <p><i class="fa fa-envelope fa-3x"></i>{{person.email || ''}}</p>
-        <p><i class="fa fa-home fa-3x"></i>{{person.website || ''}}</p>
-    </div>
-    <div class="col-md-6 col-lg-6">
-        <h1>Social</h1>
-        <p><i class="fa fa-twitter fa-3x"></i>{{person.twitter || ''}}</p>
-        <p><i class="fa fa-linkedin fa-3x"></i>{{person.linkedIn || ''}}</p>
-        <p><i class="fa fa-facebook fa-3x"></i>{{person.facebook || ''}}</p>
-    </div>
-</div>
-
-<div class="row">
-    <div class=" col-md-6 col-lg-6">
-        <h1>{{person.organizations.length}} Organizations</h1>
-        <div ng-repeat="organization in person.organizations  track by $index" class="col-sm-6 col-md-6 col-lg-4  well">
-            <i class="fa fa-users fa-3x"></i>
-            <h2>{{ organization.label }}</h2>
-            <a class="btn btn-default" href="#organizations/show/{{ organization.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>
-        </div>
-    </div>
-    <div class="col-md-6 col-lg-6">
-        <h1>{{person.papers.length}} Papers</h1>
-        <div ng-repeat="paper in person.papers  track by $index" class="col-sm-6 col-md-6 col-lg-4  well">
-            <i class="fa fa-book fa-3x"></i>
-            <h2>{{ paper.label }}</h2>
-            <a class="btn btn-default" href="#papers/show/{{ paper.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>
-        </div>
-    </div>
-</div>
-
-<div class="row">
-    <div class=" col-md-6 col-lg-6">
-        <h1>{{person.roles.length}} Events</h1>
-        <div ng-repeat="role in person.roles  track by $index" class="col-sm-6 col-md-6 col-lg-4  well" ng-if="person.roles">
-            <h2>{{ role.roleLabelVersion.label }} @ </h2>
-            <div class="img-container-sm">
-                <img  class="scale-img img-circle" no-image ng-src="{{ role.mainEvent.logo }}"/>
-            </div>
-            <a class="btn  btn-default" href="#mainEvents/show/{{ role.mainEvent.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>
-        </div>
-    </div>
+  <p>{{teammate.additional_information.country}}</p>
 </div>

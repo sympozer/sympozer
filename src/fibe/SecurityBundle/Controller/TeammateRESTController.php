@@ -11,15 +11,15 @@ use Symfony\Component\HttpFoundation\Request;
  * User controller.
  *
  */
-class TeamRESTController extends FOSRestController
+class TeammateRESTController extends FOSRestController
 {
 
-  const ENTITY_CLASSNAME = "fibe\\SecurityBundle\\Entity\\Team";
+  const ENTITY_CLASSNAME = "fibe\\SecurityBundle\\Entity\\Teammate";
   const FORM_CLASSNAME = "fibe\\SecurityBundle\\Form\\TeammateType";
 
   /**
    * Lists all Teams entities filtered by conference.
-   * @Rest\Get("/mainEvents/{mainEventId}/teams", name="security_teams_all_by_conference")
+   * @Rest\Get("/mainEvents/{mainEventId}/teammates", name="security_teammates_all_by_conference")
    * @Rest\View
    * @Rest\QueryParam(name="offset", requirements="\d+", nullable=true, description="Offset from which to start listing pages.")
    * @Rest\QueryParam(name="limit", requirements="\d+", default="10", description="How many entity to return.")
@@ -41,7 +41,7 @@ class TeamRESTController extends FOSRestController
 
   /**
    * Lists all Team entities.
-   * @Rest\Get("/teams",name="security_teams_all")
+   * @Rest\Get("/teammates",name="security_teammates_all")
    * @Rest\View
    * @Rest\QueryParam(name="offset", requirements="\d+", nullable=true, description="Offset from which to start listing pages.")
    * @Rest\QueryParam(name="limit", requirements="\d+", default="10", description="How many entity to return.")
@@ -59,7 +59,7 @@ class TeamRESTController extends FOSRestController
   }
 
   /**
-   * @Rest\Get("/teams/{id}",name="security_teams_get")
+   * @Rest\Get("/teammates/{id}",name="security_teammates_get")
    **/
   public function getTeamAction($id)
   {
@@ -74,7 +74,7 @@ class TeamRESTController extends FOSRestController
   /**
    * Creates a new Team from the submitted data.
    *
-   * @Rest\Post("/teams",name="security_teams_post")
+   * @Rest\Post("/teammates",name="security_teammates_post")
    *
    * @param Request $request the request object
    *
@@ -95,7 +95,7 @@ class TeamRESTController extends FOSRestController
 
   /**
    * Put action
-   * @Rest\Put("/teams/{id}",name="security_teams_put")
+   * @Rest\Put("/teammates/{id}",name="security_teammates_put")
    * @var Request $request
    * @var integer $id Id of the entity
    * @return mixed
@@ -115,7 +115,7 @@ class TeamRESTController extends FOSRestController
 
   /**
    * Patch action
-   * @Rest\Patch("/teams/{id}",name="security_teams_patch")
+   * @Rest\Patch("/teammates/{id}",name="security_teammates_patch")
    * @var Request $request
    * @var integer $id Id of the entity
    * @return mixed
@@ -133,7 +133,7 @@ class TeamRESTController extends FOSRestController
 
   /**
    * Delete action
-   * @Rest\Delete("/teams/{id}",name="security_teams_delete")
+   * @Rest\Delete("/teammates/{id}",name="security_teammates_delete")
    *
    * @var integer $id Id of the entity
    */

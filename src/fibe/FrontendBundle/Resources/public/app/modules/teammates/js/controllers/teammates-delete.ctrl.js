@@ -1,9 +1,10 @@
 /**
- * Delete person controller
+ * Delete teammate controller
  *
  * @type {controller}
  */
-angular.module('teammatesApp').controller('teammatesDeleteCtrl', [ '$scope', 'personModel', function ($scope, personModel)
-{
-    $scope.person = personModel;
-}]);
+angular.module('teammatesApp').controller('teammatesDeleteCtrl',
+    [ '$scope', 'teammateModel', function ($scope, teammateModel)
+    {
+        $scope.teammate = teammateModel;
+    }]);

@@ -17,20 +17,16 @@ angular.module('locationsApp').controller('locationsEditCtrl', [ '$scope', '$roo
         $scope.markers.push($scope.center);
     });
 
-    if(!$scope.location.equipments){
-        $scope.location.equipments =[];
-    }
-
     var error = function (response, args)
     {
         $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'the location has not been saved', type: 'danger'});
-    }
+    };
 
     var success = function (response, args)
     {
         $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'location saved', type: 'success'});
         $location.path('/conference/'+$rootScope.currentMainEvent.id+'/locations/list');
-    }
+    };
 
     $scope.save = function (form)
     {
@@ -38,16 +34,14 @@ angular.module('locationsApp').controller('locationsEditCtrl', [ '$scope', '$roo
         {
             $scope.location.$update({}, success, error);
         }
-    }
+    };
 
     //Autocomplete and add equipment workflow
     $scope.searchEquipments = equipmentsFact.all;
     $scope.addEquipment = function (equipmentModel)
     {
-            $scope.location.equipments.push(equipmentModel);            
-    }
-
-
+        $scope.location.equipments.push(equipmentModel);            
+    };
 
     $scope.markers = new Array();
     $scope.$on("leafletDirectiveMap.click", function (event, args)
@@ -64,5 +58,9 @@ angular.module('locationsApp').controller('locationsEditCtrl', [ '$scope', '$roo
         $scope.location.longitude = leafEvent.latlng.lng;
 
     });
+
+    $scope.deleteEquipment= function(index){
+        $scope.location.equipments.splice(index, 1);
+    };
 
 }]);

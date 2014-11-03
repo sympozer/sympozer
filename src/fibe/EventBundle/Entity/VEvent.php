@@ -2,20 +2,12 @@
 namespace fibe\EventBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
-
-use fibe\ContentBundle\Entity\Location;
-use fibe\ContentBundle\Entity\Role;
+use Doctrine\ORM\Mapping as ORM;
 use fibe\ContentBundle\Entity\Sponsor;
+use fibe\ContentBundle\Entity\Topic;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
 use JMS\Serializer\Annotation\SerializedName;
-use JMS\Serializer\Annotation\Discriminator;
-use JMS\Serializer\Annotation\Groups;
-use JMS\Serializer\Annotation\VirtualProperty;
-
-use fibe\ContentBundle\Entity\Topic;
-
-use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -312,19 +304,18 @@ abstract class VEvent
 
   /**
    * Validates start is before end
-   * @Assert\True(message = "{'field' : 'startAt', 'msg' : 'EventFormValidation_start_is_after_end_error'}")
+   *  don't perform the check if one date is missing
+   * @Assert\True(message = "{'field' : 'endAt', 'msg' : 'EventFormValidation_start_is_after_end_error'}")
    *
    * @return bool
    */
-  public function isDatesInValid()
+  public function isDatesValid()
   {
-    if ($this->startAt != null)
+    if ($this->startAt && $this->endAt)
     {
-      echo $this->startAt->format( 'd-m-Y' );
-      echo " ";
-      echo $this->endAt->format( 'd-m-Y' );
+      return $this->startAt < $this->endAt;
     }
-    return $this->startAt < $this->endAt;
+    return true;
   }
 
   /**

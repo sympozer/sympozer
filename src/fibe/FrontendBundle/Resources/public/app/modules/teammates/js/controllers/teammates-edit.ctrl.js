@@ -1,90 +1,97 @@
 /**
- * Edit person controller
+ * Edit teammate controller
  *
  * @type {controller}
  */
-angular.module('teammatesApp').controller('teammatesEditCtrl', [ '$scope', '$rootScope', '$modal', 'GLOBAL_CONFIG', '$routeParams', '$location', 'createDialog', 'teammatesFact', 'organizationsFact', 'papersFact', function ($scope, $rootScope, $modal, GLOBAL_CONFIG, $routeParams, $location, createDialogService, teammatesFact, organizationsFact, papersFact)
-{
-    $scope.person = teammatesFact.get({id: $routeParams.personId});
-    $scope.GLOBAL_CONFIG = GLOBAL_CONFIG;
-    var error = function (response, args)
+angular.module('teammatesApp').controller('teammatesEditCtrl',
+    [ '$scope', '$window', 'GLOBAL_CONFIG', 'createDialog', '$rootScope', '$routeParams', '$location', 'teammatesFact',  'personsFact', 'eventsFact', '$modal',
+      function ($scope, $window,  GLOBAL_CONFIG, createDialogService, $rootScope, $routeParams, $location, teammatesFact,  personsFact, eventsFact, $modal)
     {
-        $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'the field has not been saved', type: 'danger'});
-    }
+        $scope.teammate = teammatesFact.get({id: $routeParams.teammateId});
 
-    var success = function (response, args)
-    {
-        $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'field saved', type: 'success'});
-    }
+        var error = function (response, args)
+        {
+            $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'the teammate has not been saved', type: 'danger'});
+        };
 
-    $scope.updatePerson = function(field, data){
-        var updatePersonParam = {id: $scope.person.id};
-        updatePersonParam[field] = data;
-        return teammatesFact.patch(updatePersonParam, success, error);
-    }
+        var success = function (response, args)
+        {
+            $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'teammate saved', type: 'success'});
+            $window.history.back();
+        };
 
-    //Autocomplete and add organization workflow
-    $scope.searchOrganizations = organizationsFact.all;
-    $scope.addOrganization = function(organizationModel){
-        if(!organizationModel.id) {
-            var modalInstance = $modal.open({
-                templateUrl: GLOBAL_CONFIG.app.modules.organizations.urls.partials + 'organizations-modal-form.html',
-                controller: 'organizationsNewCtrl',
-                size: "large",
-                resolve: {
-                    personModel : function(){
-                        return $scope.person;
+        $scope.update = function (form)
+        {
+            if (form.$valid)
+            {
+                $scope.teammate.team = $scope.$root.currentMainEvent.team;
+                $scope.teammate.$update({}, success, error);
+            }
+        };
+
+
+        //Autocomplete and add person workflow
+        $scope.searchPersons = personsFact.all;
+        $scope.addPerson = function(personModel){
+            if(!personModel.id) {
+                var modalInstance = $modal.open({
+                    templateUrl: GLOBAL_CONFIG.app.modules.persons.urls.partials + 'persons-modal-form.html',
+                    controller: 'personsNewCtrl',
+                    size: "large",
+                    resolve: {
                     }
-                }
-            });
-            modalInstance.result.then(function (newOrganization) {
-                if(!$scope.person.organizations){
-                    $scope.person.organizations = [];
-                }
-                $scope.person.organizations.push(newOrganization);
-                $scope.updatePerson("organizations", $scope.person.organizations);
-            }, function () {
-                //$log.info('Modal dismissed at: ' + new Date());
-            });
-        }else{
-            if(!$scope.person.organizations){
-                $scope.person.organizations = [];
+                });
+                modalInstx
+                ance.result.then(function (newPerson) {
+                    $scope.teammate.person = newPerson;
+                }, function () {
+                    //$log.info('Modal dismissed at: ' + new Date());
+                });
+            }else{
+                $scope.teammate.person = personModel;
             }
-            $scope.person.organizations.push(organizationModel);
-            $scope.updatePerson("organizations", $scope.person.organizations);
-
         }
-    }
 
 
-
-    //Autocomplete and add paper workflow
-    $scope.searchPapers = papersFact.all;
-    $scope.addPaper = function(paperModel){
-        if(!paperModel.id) {
-            var modalInstance = $modal.open({
-                templateUrl: GLOBAL_CONFIG.app.modules.papers.urls.partials + 'papers-modal-form.html',
-                controller: 'papersNewCtrl',
-                size: "large",
-                resolve: {
-                }
-            });
-            modalInstance.result.then(function (newPaper) {
-                if(!$scope.person.papers){
-                    $scope.person.papers = [];
-                }
-                $scope.person.papers.push(newPaper);
-                $scope.updatePerson("papers", $scope.person.papers);
-            }, function () {
-                //$log.info('Modal dismissed at: ' + new Date());
-            });
-        }else{
-            if(!$scope.person.papers){
-                $scope.person.papers = [];
+        //Autocomplete and add teammatelabel workflow
+        $scope.searchTeammates = teammatesFact.allByConference;
+        $scope.addTeammateLabel = function(teammateLabelModel){
+            if(!teammateLabelModel.id) {
+                var modalInstance = $modal.open({
+                    templateUrl: GLOBAL_CONFIG.app.modules.teammateLabelVersions.urls.partials + 'teammateLabelVersions-modal-form.html',
+                    controller: 'teammatesNewCtrl',
+                    size: "large",
+                    resolve: {
+                    }
+                });
+                modalInstance.result.then(function (newTeammateLabel) {
+                    $scope.teammate.teammateLabelVersion = newTeammateLabel;
+                }, function () {
+                    //$log.info('Modal dismissed at: ' + new Date());
+                });
+            }else{
+                $scope.teammate.teammateLabelVersion = teammateLabelModel;
             }
-            $scope.person.papers.push(paperModel);
-            $scope.updatePerson("papers", $scope.person.papers);
-
         }
-    }
-}]);
+
+        //Autocomplete and add event workflow
+        $scope.searchEvents = eventsFact.allByConference;
+        $scope.addEvent = function(eventModel){
+            if(!eventModel.id) {
+                var modalInstance = $modal.open({
+                    templateUrl: GLOBAL_CONFIG.app.modules.events.urls.partials + 'events-modal-form.html',
+                    controller: 'eventsNewCtrl',
+                    size: "large",
+                    resolve: {
+                    }
+                });
+                modalInstance.result.then(function (newPerson) {
+                    $scope.teammate.event = newPerson;
+                }, function () {
+                    //$log.info('Modal dismissed at: ' + new Date());
+                });
+            }else{
+                $scope.teammate.event = eventModel;
+            }
+        }
+    }]);

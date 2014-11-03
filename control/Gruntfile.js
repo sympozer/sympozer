@@ -3,8 +3,8 @@ module.exports = function(grunt) {
     require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
 
     //CONSTANT VALUES
-    var PROD_SERVER_PATH = "http://localhost/sympozer/web/app.php";
-    var DEV_SERVER_PATH = "http://localhost/sympozer/web/app_dev.php/";
+    var PROD_SERVER_PATH = "http://localhost:8000/";
+    var DEV_SERVER_PATH = "http://localhost:8000/";
     var FRONT_APP_DIR = "./src/fibe/FrontendBundle/Resources/public/";
 
     grunt.initConfig({

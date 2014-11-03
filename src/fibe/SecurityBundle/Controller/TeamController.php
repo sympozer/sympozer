@@ -19,6 +19,8 @@ use Pagerfanta\Exception\NotValidCurrentPageException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
+ * TODO: TO REMOVE
+ * TODO: TO REMOVE
  * User controller.
  *
  * @Route("/team")
@@ -95,7 +97,7 @@ class TeamController extends Controller
     if ($form->isValid())
     {
       $em = $this->getDoctrine()->getManager();
-      $teammate = $teammate->getUser();
+      $teammate = $teammate->getPerson();
       $team->addTeammate($teammate);
       $teammate->addTeam($team);
       $em->persist($teammate);

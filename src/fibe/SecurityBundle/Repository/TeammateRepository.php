@@ -14,7 +14,7 @@ use fibe\SecurityBundle\Entity\Team;
  * repository methods below.
  *
  */
-class TeamRepository extends EntityRepository
+class TeammateRepository extends EntityRepository
 {
 
   /**

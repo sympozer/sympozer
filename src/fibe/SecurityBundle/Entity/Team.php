@@ -12,7 +12,7 @@ use JMS\Serializer\Annotation\Expose;
  * This entity define a team
  *
  * @ORM\Table(name="team")
- * @ORM\Entity(repositoryClass="fibe\SecurityBundle\Repository\TeamRepository")
+ * @ORM\Entity()
  * @ORM\HasLifecycleCallbacks
  * @ExclusionPolicy("ALL")
  */
@@ -24,14 +24,14 @@ class Team
    * @ORM\Column(name="id", type="integer")
    * @ORM\Id
    * @ORM\GeneratedValue(strategy="AUTO")
+   * @Expose
    */
   private $id;
 
   /**
    * Conference
    *
-   * @ORM\OneToOne(targetEntity="fibe\EventBundle\Entity\MainEvent", cascade={"all"})
-   * @ORM\JoinColumn(name="mainEvent", referencedColumnName="id",onDelete="CASCADE")
+   * @ORM\OneToOne(targetEntity="fibe\EventBundle\Entity\MainEvent", inversedBy="team", cascade={"all"})
    */
   private $mainEvent;
 
@@ -39,7 +39,7 @@ class Team
   /**
    * teammate
    *
-   * @ORM\ManyToMany(targetEntity="fibe\CommunityBundle\Entity\Person", mappedBy="teams", cascade={"persist"})
+   * @ORM\OneToMany(targetEntity="fibe\SecurityBundle\Entity\Teammate", mappedBy="team", cascade={"all"})
    * @Expose
    */
   private $teammates;

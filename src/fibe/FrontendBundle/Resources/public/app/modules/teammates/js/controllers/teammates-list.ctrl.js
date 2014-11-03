@@ -1,62 +1,76 @@
 /**
- * List (all) teammates controller
+ * List teammates controller
  *
  * @type {controller}
  */
-angular.module('teammatesApp').controller('teammatesListCtrl', ['$scope', '$routeParams', 'GLOBAL_CONFIG', 'createDialog', '$rootScope', 'teammatesFact', '$cachedResource', function ($scope, $routeParams, GLOBAL_CONFIG, createDialogService, $rootScope, teammatesFact, $cachedResource)
-{
-    $scope.GLOBAL_CONFIG = GLOBAL_CONFIG;
-
-    $scope.entities = [];
-
-    $scope.request = teammatesFact.allByConference;
-
-
-    $scope.reload = function ()
+angular.module('teammatesApp').controller('teammatesListCtrl', [
+    '$scope', 'teammatesFact', '$routeParams', 'GLOBAL_CONFIG', 'createDialog', '$rootScope', 'teammatesFact', '$cachedResource', function ($scope, teammatesFact, $routeParams, GLOBAL_CONFIG, createDialogService, $rootScope, teammatesFact, $cachedResource)
     {
-        $scope.entities.$promise.then(function ()
+        $scope.GLOBAL_CONFIG = GLOBAL_CONFIG;
+        $scope.entities = [];
+
+        $scope.filters = {};
+
+        $scope.teammateLabelVersions = teammatesFact.allByConference({'mainEventId': $routeParams.mainEventId});
+        $scope.request = teammatesFact.allByConference;
+        $scope.filters.teammateLabelVersionIds = [];
+
+        $scope.addTeammatesFilter= function(teammateLabelVersionId){
+            var teammateLabelVersionIndex = $scope.filters.teammateLabelVersionIds.indexOf(teammateLabelVersionId)
+            if( teammateLabelVersionIndex == -1){
+                $scope.filters.teammateLabelVersionIds.push(teammateLabelVersionId);
+            }else{
+                $scope.filters.teammateLabelVersionIds.splice(teammateLabelVersionIndex, 1);
+            }
+            $scope.filter();
+        }
+
+
+        $scope.reload = function ()
         {
-            console.log('From cache:', $scope.persons);
-        });
-    };
-
-    $scope.clone = function (person)
-    {
-        var clonePerson = angular.copy(person);
-        clonePerson.id = null;
-
-        var error = function (response, args)
-        {
-            $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'Clone not completed', type: 'danger'});
-        };
-
-        var success = function (response, args)
-        {
-            $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'Person saved', type: 'success'});
-            $scope.entities.push(response);
-        };
-
-        clonePerson.$create({}, success, error);
-    };
-
-
-    $scope.deleteModal = function (index, person)
-    {
-        $scope.index = index;
-
-        createDialogService(GLOBAL_CONFIG.app.modules.persons.urls.partials + 'persons-delete.html', {
-            id: 'complexDialog',
-            title: 'Person deletion',
-            backdrop: true,
-            controller: 'personsDeleteCtrl',
-            success: {label: 'Ok', fn: function ()
+            $scope.entities.$promise.then(function ()
             {
-                teammatesFact.delete({id: person.id},function(data){
+                console.log('From cache:', $scope.entities);
+            });
+        };
+
+        $scope.clone = function (teammate)
+        {
+            var cloneteammate = angular.copy(teammate);
+            delete cloneteammate.id;
+
+            var error = function (response, args)
+            {
+                $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'Clone not completed', type: 'danger'});
+            };
+
+            var success = function (response, args)
+            {
+                $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'teammate saved', type: 'success'});
+                $scope.entities.push(response);
+            };
+
+            cloneteammate.$create({}, success, error);
+        };
+
+
+        $scope.deleteModal = function (index, teammate)
+        {
+            $scope.index = index;
+
+            createDialogService(GLOBAL_CONFIG.app.modules.teammates.urls.partials + 'teammates-delete.html', {
+                id        : 'complexDialog',
+                title     : 'teammate deletion',
+                backdrop  : true,
+                controller: 'teammatesDeleteCtrl',
+                success   : {label: 'Ok', fn: function ()
+                {
+                    teammatesFact.delete({id: teammate.id});
                     $scope.entities.splice(index, 1);
-                });
-            }}
-        }, {
-            personModel: person
-        });
-    }
-}]);
+                }}
+            }, {
+                teammateModel: teammate
+            });
+        }
+
+    }]);

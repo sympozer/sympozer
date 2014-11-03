@@ -11,12 +11,12 @@ use Symfony\Component\Form\FormEvents;
 
 class TeammateType extends AbstractType
 {
-  private $user;
-
-  public function __construct(User $user)
-  {
-    $this->user = $user;
-  }
+//  private $user;
+//
+//  public function __construct(User $user)
+//  {
+//    $this->user = $user;
+//  }
 
   /**
    * @param FormBuilderInterface $builder
@@ -24,6 +24,19 @@ class TeammateType extends AbstractType
    */
   public function buildForm(FormBuilderInterface $builder, array $options)
   {
+    $builder
+      ->add('id')
+      ->add('person', 'entity', array(
+        'class' => 'fibeCommunityBundle:Person',
+        'required' => 'true',
+        'multiple' => false,
+      ))
+      ->add('team', 'entity', array(
+        'class' => 'fibeSecurityBundle:Team',
+        'required' => 'true',
+        'multiple' => false,
+      ));
+    /*
     $builder
       ->add('teammates', 'collection', array(
           'type' => new ConfPermissionType(),
@@ -36,7 +49,7 @@ class TeammateType extends AbstractType
         )
       );
 
-    //if there's  a user set, ther's no need to use a custom qb
+    //if there's  a user set, there's no need to use a custom qb
     if ($builder->getData()->getUser())
     {
       $builder->add('user', 'hidden', array(
@@ -83,7 +96,7 @@ class TeammateType extends AbstractType
         }
       );
 
-    };
+    };*/
   }
 
   /**

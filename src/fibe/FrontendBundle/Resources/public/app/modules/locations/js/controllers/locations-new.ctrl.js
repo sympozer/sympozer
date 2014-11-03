@@ -62,5 +62,9 @@ angular.module('locationsApp').controller('locationsNewCtrl', [ '$scope', '$wind
             $scope.location.longitude = leafEvent.latlng.lng;
 
         });
+
+         $scope.deleteEquipment= function(index){
+            $scope.location.equipments.splice(index, 1);
+       };
     }
 ]);

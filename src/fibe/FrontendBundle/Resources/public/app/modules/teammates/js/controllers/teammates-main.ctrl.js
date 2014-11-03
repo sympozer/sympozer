@@ -3,7 +3,8 @@
  *
  * @type {controller}
  */
-angular.module('teammatesApp').controller('teammatesMainCtrl', [function ($scope)
-{
+angular.module('teammatesApp').controller('teammatesMainCtrl',
+    [function ($scope)
+    {
 
-}]);
+    }]);

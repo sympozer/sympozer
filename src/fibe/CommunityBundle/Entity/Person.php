@@ -8,6 +8,7 @@ use fibe\ContentBundle\Entity\Paper;
 use fibe\ContentBundle\Entity\Role;
 use fibe\ContentBundle\Util\StringTools;
 use fibe\SecurityBundle\Entity\Team;
+use fibe\SecurityBundle\Entity\Teammate;
 use fibe\SecurityBundle\Entity\User;
 use FOS\UserBundle\Model\UserInterface;
 use JMS\Serializer\Annotation\ExclusionPolicy;
@@ -47,12 +48,10 @@ class Person extends AdditionalInformations
 
   /**
    *
-   * @ORM\ManyToMany(targetEntity="fibe\SecurityBundle\Entity\Team", inversedBy="teammates", cascade={"persist","remove"})
-   * @ORM\JoinTable(name="teammate_team",
-   *     joinColumns={@ORM\JoinColumn(name="teammate_id", referencedColumnName="id", onDelete="Cascade")},
-   *     inverseJoinColumns={@ORM\JoinColumn(name="team_id", referencedColumnName="id", onDelete="Cascade")})
+   * @ORM\OneToMany(targetEntity="fibe\SecurityBundle\Entity\Teammate", mappedBy="person")
+   * @Expose
    */
-  protected $teams;
+  protected $teammates;
 
   /**
    * familyName
@@ -147,7 +146,7 @@ class Person extends AdditionalInformations
    */
   public function __construct()
   {
-    $this->teams = new ArrayCollection();
+    $this->teammates = new ArrayCollection();
     $this->papers = new ArrayCollection();
     $this->organizations = new ArrayCollection();
     $this->roles = new ArrayCollection();
@@ -368,37 +367,37 @@ class Person extends AdditionalInformations
   }
 
   /**
-   * Add teams
+   * Add teammate
    *
-   * @param Team $teams
+   * @param Teammate $teammate
    *
    * @return User
    */
-  public function addTeam(Team $teams)
+  public function addTeammate(Teammate $teammate)
   {
-    $this->teams[] = $teams;
+    $this->teammates[] = $teammate;
 
     return $this;
   }
 
   /**
-   * Remove teams
+   * Remove teammates
    *
-   * @param Team $teams
+   * @param Teammate $teammate
    */
-  public function removeTeam(Team $teams)
+  public function removeTeammate(Teammate $teammate)
   {
-    $this->teams->removeElement($teams);
+    $this->teammates->removeElement($teammate);
   }
 
   /**
-   * Get teams
+   * Get teammates
    *
    * @return \Doctrine\Common\Collections\Collection
    */
-  public function getTeams()
+  public function getTeammates()
   {
-    return $this->teams;
+    return $this->teammates;
   }
 
 
