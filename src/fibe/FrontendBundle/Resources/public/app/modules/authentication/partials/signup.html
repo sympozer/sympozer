@@ -1,3 +1,11 @@
+<a ng-repeat="socialnetwork in GLOBAL_CONFIG.api.urls.socialnetworks track by $index"
+   ng-if="socialnetwork.can_register"
+   class="btn btn-social btn-{{ socialnetwork.name }}{{ socialnetwork.name == 'google' ? '-plus' : '' }}"
+   href="{{ socialnetwork.urls.login }}">
+    <!--ng-click="socialSignInAction(socialnetwork.url)">-->
+    <i class="fa fa-{{ socialnetwork.name }}{{ socialnetwork.name == 'google' ? '-plus' : '' }}"></i> Sign in with {{ socialnetwork.name | titleize }}
+</a>
+<hr/>
 <form name="signupForm" role="form" ng-submit="signupAction(signupForm)" novalidate="">
   <div class="form-group">
     <label for="inputUsername">Login</label>
