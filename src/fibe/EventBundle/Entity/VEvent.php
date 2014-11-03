@@ -49,16 +49,6 @@ abstract class VEvent
    */
   protected $id;
 
-  /**
-   * label -> summary
-   *
-   * This property defines a short summary or subject for the
-   * calendar component.
-   * @ORM\Column(type="string", length=255)
-   * @Assert\NotBlank()
-   * @Expose
-   */
-  protected $label;
 
   /**
    * dtstart
@@ -852,21 +842,6 @@ abstract class VEvent
     $this->topics->removeElement($topic);
   }
 
-  /**
-   * @return mixed
-   */
-  public function getLabel()
-  {
-    return $this->label;
-  }
-
-  /**
-   * @param mixed $label
-   */
-  public function setLabel($label)
-  {
-    $this->label = $label;
-  }
 
   /**
    * @return mixed

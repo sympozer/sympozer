@@ -3,9 +3,9 @@
     <label for="inputUsername">Login</label>
     <input type="text" required="" server-error="serverError" name="username" class="form-control" id="inputUsername" placeholder="Username" ng-model="user.username" ng-minlength="3" required
            ng-maxlength="20"/>
+    <div class="alert alert-danger" role="alert" ng-show="signupForm.username.$error.minlength">Your login is too short</div>
+    <div class="alert alert-danger" role="alert" ng-show="signupForm.username.$error.maxlength">Your login is too long</div>
 
-    <div class="alert alert-danger" role="alert" ng-show="signupForm.username.$error.minlength">Your login is required to be at least 3 characters</div>
-    <div class="alert alert-danger" role="alert" ng-show="signupForm.username.$error.maxlength">Your login cannot be longer than 20 characters</div>
   </div>
   <div class="form-group">
     <label for="inputEmail">Email</label>
@@ -16,13 +16,12 @@
     <input type="password" required="" name="password" id="inputPassword" class="form-control" placeholder="Password" ng-model="user.plainPassword.first" ng-minlength="3"
            ng-maxlength="20"/>
 
-    <div class="alert alert-danger" role="alert" ng-show="signupForm.password.$error.minlength">Your password is required to be at least 3 characters</div>
-    <div class="alert alert-danger" role="alert" ng-show="signupForm.password.$error.maxlength">Your password cannot be longer than 20 characters</div>
+    <div class="alert alert-danger" role="alert" ng-show="signupForm.password.$error.minlength">Your password is too short</div>
+    <div class="alert alert-danger" role="alert" ng-show="signupForm.password.$error.maxlength">Your password is too long</div>
   </div>
   <div class="form-group">
     <label for="inputPasswordConfirm">Password check</label>
     <input required="" type="password" name="confirmpassword" id="inputPasswordConfirm" class="form-control" placeholder="Password check" ng-model="user.plainPassword.second"/>
-
     <div class="alert alert-danger" role="alert" ng-show="signupForm.confirmpassword.$dirty && user.plainPassword.first != user.plainPassword.second">Passwords must match</div>
   </div>
 

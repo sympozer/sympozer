@@ -30,6 +30,18 @@ use JMS\Serializer\Annotation\VirtualProperty;
 class Event extends VEvent
 {
     /**
+     * label -> summary
+     *
+     * This property defines a short summary or subject for the
+     * calendar component.
+     * @ORM\Column(type="string", length=255, unique=false, nullable=false)
+     * @Expose
+     */
+    private $label;
+
+
+
+    /**
      * The parent of the event
      *
      * @ORM\ManyToOne(targetEntity="fibe\EventBundle\Entity\Event", inversedBy="children", cascade={"persist","detach"})
@@ -412,5 +424,22 @@ class Event extends VEvent
     {
         $this->eventLocations = $eventLocations;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getLabel()
+    {
+        return $this->label;
+    }
+
+    /**
+     * @param mixed $label
+     */
+    public function setLabel($label)
+    {
+        $this->label = $label;
+    }
+
 
 }

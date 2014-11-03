@@ -13,14 +13,20 @@ var i18nApp = angular.module('i18nApp', ['pascalprecht.translate']);
 i18nApp.config(['$translateProvider', function ($translateProvider)
 {
 
-    // Simply register translation table as object hash
+    //Intialization of the translate provider
+    $translateProvider.preferredLanguage('en_US');
+
+    //Register translation table as object hash for US language
     $translateProvider.translations('en_US', {
+        //Community
         'Home': 'Home',
         'Search_event': 'Search an event',
         'Search_conference': 'Search a conference',
         'Search_publication': 'Search an publication',
         'Search_person': 'Search a person',
         'Search_organization': 'Search an organization',
+
+        //Authentication
         'Login_success': 'Welcome to Sympozer',
         'Login_error': 'Bad credentials',
         'Forgotten_password': 'Forgotten password',
@@ -34,10 +40,13 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
         'Register_email_in_use_error': 'Email already in use',
         'Register_username_in_use_error': 'Login already in use',
         'Register_confirm_error': 'Invalid confirmation token.',
-        'EventFormValidation_start_is_after_end_error': 'the start date must not be after the end date.'
+        'EventFormValidation_start_is_after_end_error': 'the start date must not be after the end date.',
+
+        //MainEvent
+        'Label_already_used' : 'A main event with the same label already exists.'
     });
 
-    // Simply register translation table as object hash
+    //Register translation table as object hash for FR language
     $translateProvider.translations('fr_FR', {
         'Home': 'Accueil',
         'Search_event': 'Rechercher un evenement',
@@ -58,9 +67,11 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
         'Register_email_in_use_error': 'Adresse mail déjà utilisée',
         'Register_username_in_use_error': 'Login déjà utilisé',
         'Register_confirm_error': 'Jeton de confirmation invalide.',
-        'EventFormValidation_start_is_after_end_error': "La date de fin doit être postérieure à la date de commencement."
+        'EventFormValidation_start_is_after_end_error': "La date de fin doit être postérieure à la date de commencement.",
+
+        //MainEvent
+        'Label_already_used' : 'Un évènement portant ce label existe déjà.'
     });
 
-    $translateProvider.preferredLanguage('en_US');
 }]);
 
