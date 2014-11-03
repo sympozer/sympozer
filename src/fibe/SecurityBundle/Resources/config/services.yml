@@ -47,11 +47,12 @@ services:
 
     fibe.UserService:
         class:  fibe\SecurityBundle\Services\UserService
-        arguments: ["@doctrine.orm.entity_manager"]
+        parent: fibe.rest.business_service
 
     fibe.TeammateService:
         class:  fibe\SecurityBundle\Services\TeammateService
-        arguments: ["@doctrine.orm.entity_manager"]
+        parent: fibe.rest.business_service
+        arguments: ["@fibe_security.acl_entity_helper"]
 
     fibe_user.registration.form.type:
         class: fibe\SecurityBundle\Form\RegistrationFormType

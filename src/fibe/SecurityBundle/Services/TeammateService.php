@@ -1,7 +1,6 @@
 <?php
 namespace fibe\SecurityBundle\Services;
 
-use Doctrine\ORM\EntityManager;
 use fibe\RestBundle\Services\AbstractBusinessService;
 use fibe\SecurityBundle\Entity\Teammate;
 
@@ -11,16 +10,21 @@ use fibe\SecurityBundle\Entity\Teammate;
  */
 class TeammateService extends AbstractBusinessService
 {
-  protected $entityManager;
+  protected $aclEntityHelper;
 
-  public function __construct(EntityManager $entityManager)
+  function __construct(ACLEntityHelper $aclEntityHelper)
   {
-    $this->entityManager = $entityManager;
+    $this->aclEntityHelper = $aclEntityHelper;
   }
 
   public function post(Teammate $teammate)
   {
-    //TODO ; add acl
+//    $person = $teammate->getPerson();
+//    $ACLService = $this->get('fibe_security.acl_user_permission_helper');
+//    $ACLService->updateTeammate($teammate);
+//
+//    $this->entityManager->flush();
+
     return $teammate;
   }
 

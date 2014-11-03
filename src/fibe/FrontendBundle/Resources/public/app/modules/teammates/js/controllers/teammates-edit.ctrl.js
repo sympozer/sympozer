@@ -3,9 +3,9 @@
  *
  * @type {controller}
  */
-angular.module('teammatesApp').controller('teammatesEditCtrl',
-    [ '$scope', '$window', 'GLOBAL_CONFIG', 'createDialog', '$rootScope', '$routeParams', '$location', 'teammatesFact',  'personsFact', 'eventsFact', '$modal',
-      function ($scope, $window,  GLOBAL_CONFIG, createDialogService, $rootScope, $routeParams, $location, teammatesFact,  personsFact, eventsFact, $modal)
+angular.module('teammatesApp').controller('teammatesEditCtrl', [
+    '$scope', '$window', 'GLOBAL_CONFIG', 'createDialog', '$rootScope', '$routeParams', '$location', 'teammatesFact', 'personsFact', 'eventsFact', '$modal',
+    function ($scope, $window, GLOBAL_CONFIG, createDialogService, $rootScope, $routeParams, $location, teammatesFact, personsFact, eventsFact, $modal)
     {
         $scope.teammate = teammatesFact.get({id: $routeParams.teammateId});
 
@@ -32,66 +32,83 @@ angular.module('teammatesApp').controller('teammatesEditCtrl',
 
         //Autocomplete and add person workflow
         $scope.searchPersons = personsFact.all;
-        $scope.addPerson = function(personModel){
-            if(!personModel.id) {
+        $scope.addPerson = function (personModel)
+        {
+            if (!personModel.id)
+            {
                 var modalInstance = $modal.open({
                     templateUrl: GLOBAL_CONFIG.app.modules.persons.urls.partials + 'persons-modal-form.html',
-                    controller: 'personsNewCtrl',
-                    size: "large",
-                    resolve: {
+                    controller : 'personsNewCtrl',
+                    size       : "large",
+                    resolve    : {
                     }
                 });
-                modalInstx
-                ance.result.then(function (newPerson) {
+                modalInstance.result.then(function (newPerson)
+                {
                     $scope.teammate.person = newPerson;
-                }, function () {
+                }, function ()
+                {
                     //$log.info('Modal dismissed at: ' + new Date());
                 });
-            }else{
+            }
+            else
+            {
                 $scope.teammate.person = personModel;
             }
-        }
+        };
 
 
         //Autocomplete and add teammatelabel workflow
         $scope.searchTeammates = teammatesFact.allByConference;
-        $scope.addTeammateLabel = function(teammateLabelModel){
-            if(!teammateLabelModel.id) {
+        $scope.addTeammateLabel = function (teammateLabelModel)
+        {
+            if (!teammateLabelModel.id)
+            {
                 var modalInstance = $modal.open({
                     templateUrl: GLOBAL_CONFIG.app.modules.teammateLabelVersions.urls.partials + 'teammateLabelVersions-modal-form.html',
-                    controller: 'teammatesNewCtrl',
-                    size: "large",
-                    resolve: {
+                    controller : 'teammatesNewCtrl',
+                    size       : "large",
+                    resolve    : {
                     }
                 });
-                modalInstance.result.then(function (newTeammateLabel) {
+                modalInstance.result.then(function (newTeammateLabel)
+                {
                     $scope.teammate.teammateLabelVersion = newTeammateLabel;
-                }, function () {
+                }, function ()
+                {
                     //$log.info('Modal dismissed at: ' + new Date());
                 });
-            }else{
+            }
+            else
+            {
                 $scope.teammate.teammateLabelVersion = teammateLabelModel;
             }
-        }
+        };
 
         //Autocomplete and add event workflow
         $scope.searchEvents = eventsFact.allByConference;
-        $scope.addEvent = function(eventModel){
-            if(!eventModel.id) {
+        $scope.addEvent = function (eventModel)
+        {
+            if (!eventModel.id)
+            {
                 var modalInstance = $modal.open({
                     templateUrl: GLOBAL_CONFIG.app.modules.events.urls.partials + 'events-modal-form.html',
-                    controller: 'eventsNewCtrl',
-                    size: "large",
-                    resolve: {
+                    controller : 'eventsNewCtrl',
+                    size       : "large",
+                    resolve    : {
                     }
                 });
-                modalInstance.result.then(function (newPerson) {
+                modalInstance.result.then(function (newPerson)
+                {
                     $scope.teammate.event = newPerson;
-                }, function () {
+                }, function ()
+                {
                     //$log.info('Modal dismissed at: ' + new Date());
                 });
-            }else{
+            }
+            else
+            {
                 $scope.teammate.event = eventModel;
             }
-        }
+        };
     }]);
