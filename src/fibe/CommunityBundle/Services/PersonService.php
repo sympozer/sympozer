@@ -2,7 +2,6 @@
 
 namespace fibe\CommunityBundle\Services;
 
-use Doctrine\ORM\EntityManager;
 use fibe\CommunityBundle\Entity\Person;
 use fibe\RestBundle\Services\AbstractBusinessService;
 use FOS\UserBundle\Model\UserInterface;
@@ -18,15 +17,13 @@ use Symfony\Component\Security\Core\SecurityContextInterface;
 class PersonService extends AbstractBusinessService
 {
 
-  protected $entityManager;
   protected $securityContext;
   protected $userManager;
   protected $tokenGenerator;
   protected $mailer;
 
-  public function __construct(EntityManager $entityManager, SecurityContextInterface $securityContext, UserManagerInterface $userManager, TokenGeneratorInterface $tokenGenerator, MailManager $mailer)
+  public function __construct(SecurityContextInterface $securityContext, UserManagerInterface $userManager, TokenGeneratorInterface $tokenGenerator, MailManager $mailer)
   {
-    $this->entityManager = $entityManager;
     $this->securityContext = $securityContext;
     $this->userManager = $userManager;
     $this->tokenGenerator = $tokenGenerator;
@@ -73,16 +70,17 @@ class PersonService extends AbstractBusinessService
     //TODO : manage this with ACL
     //TODO : manage this with ACL
     //!== $this->securityContext->getToken()->getUser()->getId()
-      //()
+    //()
     if ($user->isEnabled()
-      && $this->securityContext->getToken()->getUser() instanceof  UserInterface
-      && $user->getId() !== $this->securityContext->getToken()->getUser()->getId())
+      && $this->securityContext->getToken()->getUser() instanceof UserInterface
+      && $user->getId() !== $this->securityContext->getToken()->getUser()->getId()
+    )
     {
       throw new AccessDeniedException('This person is linked to a real user account');
     }
     else
     {
-      if ($oldMail = $this->isDirty($this->entityManager, $person, 'email'))
+      if ($oldMail = $this->isDirty($person, 'email'))
       {
         $user->setEmail($person->getEmail());
         $this->userManager->updateUser($user);

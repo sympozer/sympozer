@@ -14,7 +14,7 @@ class CategoryVersionService extends AbstractBusinessService
 
     public function post(CategoryVersion $category = null,  $categoryClassName)
     {
-        $this->createGlobalEntity($this->entityManager, $category, $categoryClassName, "setCategory");
+        $this->createGlobalEntity( $category, $categoryClassName, "setCategory");
     }
 
 }

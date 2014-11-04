@@ -11,7 +11,7 @@ class OrganizationVersionService extends AbstractBusinessService
 
     public function post(OrganizationVersion $organizationPersonVersion = null,  $organizationPersonVersionClassName)
     {
-        $this->createGlobalEntity($this->entityManager, $organizationPersonVersion, $organizationPersonVersionClassName, "setOrganization");
+        $this->createGlobalEntity($organizationPersonVersion, $organizationPersonVersionClassName, "setOrganization");
     }
 
 }

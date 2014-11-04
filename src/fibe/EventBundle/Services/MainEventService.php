@@ -5,6 +5,7 @@ namespace fibe\EventBundle\Services;
 use Doctrine\ORM\EntityManager;
 use fibe\ContentBundle\Entity\MainEventLocation;
 use fibe\EventBundle\Entity\MainEvent;
+use fibe\RestBundle\Services\AbstractBusinessService;
 use fibe\SecurityBundle\Entity\Team;
 use fibe\SecurityBundle\Entity\User;
 use FOS\UserBundle\Model\UserInterface;
@@ -15,15 +16,13 @@ use Symfony\Component\Security\Core\SecurityContextInterface;
  * Class MainEventService
  * @package fibe\EventBundle\Services
  */
-class MainEventService
+class MainEventService extends AbstractBusinessService
 {
 
-  protected $entityManager;
   protected $securityContext;
 
-  public function __construct(EntityManager $entityManager, SecurityContextInterface $securityContext)
+  public function __construct(SecurityContextInterface $securityContext)
   {
-    $this->entityManager = $entityManager;
     $this->securityContext = $securityContext;
   }
 
