@@ -1,14 +1,14 @@
 <h3>Person</h3>
-<div sympozer-autocomplete="person" on-select="addPerson" on-keyup="searchPersons"></div>
-<div class="col-sm-1 col-md-1 col-lg-4  well" ng-show="role.person">
-    <div class="img-container-lg">
-        <img  class="scale-img" no-image ng-src="{{ role.person.img }}"/>
-    </div>
-    <h5>{{ role.person.label }}</h5>
-    <h5>{{ role.person.email }}</h5>
-</div>
+<div sympozer-autocomplete="persons" on-select="addPerson" on-keyup="searchPersons"></div>
+<ul class="nav nav-pills">
+    <li class="active" ng-show="role.person">
+        <a href="javascript:void(0)">
+            {{ role.person.label }}
+        </a>
+    </li>
+</ul>
 <h3>Role Type</h3>
-<div sympozer-autocomplete="roleLabelVersion" on-select="addRoleLabel" on-keyup="searchRoleLabels"></div>
+<div sympozer-autocomplete="roleLabelVersions" required on-select="addRoleLabel" on-keyup="searchRoleLabels"></div>
 <ul class="nav nav-pills">
     <li class="active" ng-show="role.roleLabelVersion">
         <a href="javascript:void(0)">

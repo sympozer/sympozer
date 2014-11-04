@@ -71,7 +71,7 @@
         <div ng-repeat="paper in person.papers  track by $index" class="col-sm-6 col-md-6 col-lg-4  well">
             <i class="fa fa-book fa-3x"></i>
             <h2>{{ paper.label }}</h2>
-            <a class="btn btn-default" href="#papers/show/{{ paper.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>
+            <a class="btn btn-default" href="#conference/{{paper.mainEvent.id}}/papers/show/{{ paper.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>
         </div>
     </div>
 </div>

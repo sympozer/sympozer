@@ -27,7 +27,7 @@
     "select2": "~3.5.2",
     "bootstrap-social": "~4.8.0",
     "bootstrap-tags": "~1.1.5",
-    "angular-ui-select": "~0.8.3",
+    "angular-ui-select": "0.8.0",
     "angular-bootstrap-colorpicker": "~3.0.8",
     "angular-ui-bootstrap-bower": "~0.11.2"
   },

@@ -9,7 +9,7 @@
 </div>
 <div>
     <label for="inputUrl">Url</label>
-    <input type="url" class="form-control" id="inputUrl" name="inputUrl" placeholder="url" ng-model="paper.url">
+    <input type="url" class="form-control" id="inputUrl" name="inputUrl" placeholder="http://" ng-model="paper.url">
 </div>
 <div>
     <label for="inputPublisher">Publisher</label>
@@ -25,7 +25,7 @@
             <datetimepicker data-ng-model="paper.publishDate" data-datetimepicker-config="{ dropdownSelector: '#dropdown2' }"/>
         </ul>
     </div>
-    <div class="alert alert-danger" role="alert" ng-show="paperForm.inputPublishDate.$error.dateBeforeNow" >This publish date is in the future</div>
+    <div class="alert alert-danger" role="alert" ng-show="paperForm.inputPublishDate.$error.dateBeforeNow" >This publish date is in the futur</div>
 
 </div>
 

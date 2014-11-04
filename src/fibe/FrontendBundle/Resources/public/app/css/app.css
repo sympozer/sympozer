@@ -5,6 +5,10 @@ body
   padding-top: 50px;
 }
 
+.inline {
+    display : inline-block;
+}
+
 #wrapper
 {
   padding-left: 260px;

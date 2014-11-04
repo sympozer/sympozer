@@ -1,22 +1,16 @@
-<label>Participants</label>
-<div>
-  <span ng-repeat="entity in resource[parentField]  track by $index" class="tag label label-info">
-    <span>{{ entity.label }}</span>
-    <a ng-click="deleteEntity($index,entity)"><span class="fa fa-times"></span></a>
-  </span>
-</div>
 
-<ui-select ng-model="addedEntity" on-select="change($model)" ng-keyup="keyup($event)"  style="width: 100%;">
-  <ui-select-match>Add a Participant...</ui-select-match>
-  <ui-select-choices repeat="entity in entities">
-    <!--<ui-select-choices repeat="entity.email as entity in people | propsFilter: {label: $select.search, age: $select.search}">-->
-    <div ng-if="!entity.id ">
-      Add a new Participant...
+<input type="text" ng-model="entity" typeahead-template-url="roles-typeahead.html" typeahead-on-select="select($item, $model)"  placeholder="Search a role ..." typeahead-wait-ms="500" typeahead="entity as entity.label  for entity in keyup($viewValue)"  typeahead-loading="loading"  class="form-control">
+<i ng-show="loading" class="fa fa-spinner fa-spin"></i>
+
+
+<script type="text/ng-template" id="roles-typeahead.html">
+    <div style="width:100%">
+        <span ng-if="!match.model.id">
+            <hr/>
+             <i class="fa fa-plus"></i> Add a new role ...
+         </span>
+        <span ng-if="match.model.id">
+            <span bind-html-unsafe="match.model.label | typeaheadHighlight:query"></span>
+        </span>
     </div>
-    <i class="fa fa-map-marker fa-2x"></i>
-    <b ng-bind-html="entity.label | highlight: $select.search"></b>
-
-    <div ng-bind-html="entity.description | highlight: $select.search"></div>
-  </ui-select-choices>
-</ui-select>
-<br/>
+</script>
