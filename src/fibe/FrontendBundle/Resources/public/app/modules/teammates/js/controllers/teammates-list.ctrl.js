@@ -4,7 +4,7 @@
  * @type {controller}
  */
 angular.module('teammatesApp').controller('teammatesListCtrl', [
-    '$scope', 'teammatesFact', '$routeParams', 'GLOBAL_CONFIG', 'createDialog', '$rootScope', 'teammatesFact', '$cachedResource', function ($scope, teammatesFact, $routeParams, GLOBAL_CONFIG, createDialogService, $rootScope, teammatesFact, $cachedResource)
+    '$scope', 'teammatesFact', '$routeParams', 'GLOBAL_CONFIG', 'createDialog', '$rootScope', '$cachedResource', function ($scope, teammatesFact, $routeParams, GLOBAL_CONFIG, createDialogService, $rootScope, $cachedResource)
     {
         $scope.GLOBAL_CONFIG = GLOBAL_CONFIG;
         $scope.entities = [];

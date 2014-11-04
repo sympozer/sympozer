@@ -41,11 +41,11 @@ class SocialServiceAccount
    */
   private $owner;
 
-  /**
-   * @ORM\Column(type="string", length=32)
-   * @Assert\Choice(multiple=false, choices = {"Facebook","Twitter","LinkedIn"},  message = "Choose a valid social service.")
-   */
-  private $socialService;
+//  /**
+//   * @ORM\Column(type="string", length=32)
+//   * @Assert\Choice(multiple=false, choices = {"Facebook","Twitter","LinkedIn"},  message = "Choose a valid social service.")
+//   */
+//  private $socialService;
 
   /**
    * Get id
@@ -105,27 +105,27 @@ class SocialServiceAccount
     return $this->owner;
   }
 
-  /**
-   * Set socialService
-   *
-   * @param SocialService $socialService
-   *
-   * @return SocialServiceAccount
-   */
-  public function setSocialService(SocialService $socialService = null)
-  {
-    $this->socialService = $socialService;
-
-    return $this;
-  }
-
-  /**
-   * Get socialService
-   *
-   * @return SocialService
-   */
-  public function getSocialService()
-  {
-    return $this->socialService;
-  }
+//  /**
+//   * Set socialService
+//   *
+//   * @param SocialService $socialService
+//   *
+//   * @return SocialServiceAccount
+//   */
+//  public function setSocialService(SocialService $socialService = null)
+//  {
+//    $this->socialService = $socialService;
+//
+//    return $this;
+//  }
+//
+//  /**
+//   * Get socialService
+//   *
+//   * @return SocialService
+//   */
+//  public function getSocialService()
+//  {
+//    return $this->socialService;
+//  }
 }
