@@ -9,7 +9,7 @@
  * Put string first character to upper case
  * @type {filter}
  */
-angular.module('sympozerFilters', []).filter('titleize', function ()
+angular.module('sympozerApp').filter('titleize', function ()
 {
   return function (input, scope)
   {

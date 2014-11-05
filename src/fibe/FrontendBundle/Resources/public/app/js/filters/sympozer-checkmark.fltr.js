@@ -13,7 +13,7 @@
  *
  * @type {filter}
  */
-angular.module('sympozerFilters', []).filter('sympozerCheckmark', function ()
+angular.module('sympozerApp').filter('sympozerCheckmark', function ()
 {
   return function (input)
   {

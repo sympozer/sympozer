@@ -49,6 +49,7 @@ module.exports = function(config) {
         browsers: ['/usr/bin/chromium-browser', 'PhantomJS'],
         autoWatch: false,
         singleRun: true,
+        logLevel: config.LOG_DEBUG,
         colors: true
     });
 };

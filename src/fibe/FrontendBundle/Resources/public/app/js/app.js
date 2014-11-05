@@ -40,7 +40,6 @@ var sympozerApp = angular.module('sympozerApp', [
     'ngCookies',
     'angular-loading-bar',
     'ngCachedResource',
-    'sympozerFilters',
     'authenticationApp',
     'organizationsApp',
     'personsApp',
