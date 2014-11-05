@@ -14,6 +14,7 @@
             <a href="#" e-placeholder="description" onbeforesave="updateMainEvent('description', $data)" editable-textarea="mainEvent.description" e-rows="7" e-cols="60">
                 <pre>{{mainEvent.description || 'add a descrption'}}</pre>
             </a>
+            <span editable-text="mainEvent.url" onbeforesave="updateMainEvent('url', $data)">{{mainEvent.url || 'http://...'}}</span>
         </div>
     </div>
 </div>
@@ -22,12 +23,17 @@
 
     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
         <h1>From :  </h1>
-        <datetimepicker style="font-size:15px" data-ng-model="mainEvent.startAt" on-set-time="onSelectStart"
-                        data-datetimepicker-config="{ minView:'day' }" />
+        <div class="alert alert-danger" role="alert" ng-show="mainEvent.startAt > mainEvent.endAt">{{ 'Start_date_before_end' | translate}}</div>
+
+        <datetimepicker  datetime-format style="font-size:15px" data-ng-model="mainEvent.startAt" on-set-time="onSelectStart(newDate, oldDate)"  data-datetimepicker-config="{ minView:'day' }" />
+
     </div>
+
     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
         <h1>To :</h1>
-        <datetimepicker style="font-size:15px" data-ng-model="mainEvent.endAt" on-set-time="onSelectEnd"
+        <div class="alert alert-danger" role="alert" ng-show="mainEvent.startAt > mainEvent.endAt">{{ 'End_date_after_start' | translate}}</div>
+
+        <datetimepicker datetime-format style="font-size:15px" data-ng-model="mainEvent.endAt" on-set-time="onSelectEnd(newDate, oldDate)"
                         data-datetimepicker-config="{ minView:'day' }" />
     </div>
 </div>

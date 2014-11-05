@@ -106,10 +106,6 @@ angular.module('eventsApp').controller('eventsNewCtrl', [ '$scope', '$window', '
             }
         };
 
-        $scope.deleteTopic = function (index)
-        {
-            $scope.event.topics.splice(index, 1);
-        };
 
 
         //Autocomplete and add location workflow
@@ -133,10 +129,7 @@ angular.module('eventsApp').controller('eventsNewCtrl', [ '$scope', '$window', '
             }
         };
 
-        $scope.deleteLocation = function (index)
-        {
-            $scope.event.eventLocations.splice(index, 1);
-        };
+
 
 
         //Autocomplete and add paper workflow

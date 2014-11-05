@@ -48,7 +48,9 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
         'EventFormValidation_start_is_after_end_error': 'the start date must not be after the end date.',
 
         //MainEvent
-        'Label_already_used' : 'A main event with the same label already exists.'
+        'Label_already_used' : 'A main event with the same label already exists.',
+        'End_date_after_start' : 'The end date must be after the start date',
+        'Start_date_before_end' : 'The start date must be before the end date'
     });
 
     //Register translation table as object hash for FR language
@@ -81,7 +83,9 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
         'EventFormValidation_start_is_after_end_error': "La date de fin doit être postérieure à la date de commencement.",
 
         //MainEvent
-        'Label_already_used' : 'Un évènement portant ce label existe déjà.'
+        'Label_already_used' : 'Un évènement portant ce label existe déjà.',
+        'End_date_after_start' : 'La date de fin doit être après la date de début',
+        'Start_date_before_end' : 'La date de début doit être avant la date de fin'
     });
 
 }]);

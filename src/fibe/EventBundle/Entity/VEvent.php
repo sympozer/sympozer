@@ -219,6 +219,7 @@ abstract class VEvent
    * associated with the iCalendar object.
    *
    * @ORM\Column(type="string", length=255, nullable=true)
+   * @expose
    */
   protected $url;
 

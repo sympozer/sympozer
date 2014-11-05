@@ -68,20 +68,22 @@ angular.module('mainEventsApp').controller('mainEventsEditCtrl', [ '$scope', '$r
         return mainEventsFact.patch(updateMainEvent, success, error);
     };
 
-    $scope.onSelectStart = function(newVal, oldVal){
-        //date format fix
-        newVal = moment(newVal.toString()).format();
-        $scope.updateMainEvent('startAt', newVal);
-    };
-
-    $scope.onSelectEnd = function(newVal, oldVal){
-        //date format fix
-        newVal = moment(newVal.toString()).format();
-        $scope.updateMainEvent('endAt', newVal);
-    };
 
     //Context change
     $rootScope.$broadcast('contextCtrl:changeContext', {mainEventId: $routeParams.mainEventId});
 
 
+    $scope.onSelectStart = function(newDate, oldDate){
+        //Verify startAt < endAt
+        if(!(newDate > $scope.mainEvent.endAt)){
+            $scope.updateMainEvent('startAt', newDate);
+        }
+    }
+
+    $scope.onSelectEnd= function(newDate, oldDate){
+        //Verify startAt < endAt
+        if(!(oldDate < $scope.mainEvent.startAt)){
+            $scope.updateMainEvent('endAt', oldDate);
+        }
+    }
 }]);
