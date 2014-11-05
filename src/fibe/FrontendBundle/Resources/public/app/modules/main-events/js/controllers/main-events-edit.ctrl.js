@@ -26,9 +26,13 @@ angular.module('mainEventsApp').controller('mainEventsEditCtrl', [ '$scope', '$r
 
     $scope.editLocation = function()
     {
+        var locationCtrl = 'mainEventLocationsEditCtrl';
+        if(!$scope.mainEvent.mainEventLocation){
+            locationCtrl = 'mainEventLocationsNewCtrl';
+        }
         var modalInstance = $modal.open({
             templateUrl: $rootScope.GLOBAL_CONFIG.app.modules.locations.urls.partials + 'locations-modal-form.html',
-            controller: 'mainEventLocationsEditCtrl',
+            controller: locationCtrl,
             size: "large",
             resolve: {
                 locationModel: function () {
@@ -37,7 +41,7 @@ angular.module('mainEventsApp').controller('mainEventsEditCtrl', [ '$scope', '$r
             }
         });
         modalInstance.result.then(function (newLocation) {
-            $scope.mainEvent.mainEventlocation = newLocation;
+            $scope.mainEvent.mainEventLocation = newLocation;
             if(newLocation.latitude){
                 updateMarkers({
                     lat: newLocation.latitude,

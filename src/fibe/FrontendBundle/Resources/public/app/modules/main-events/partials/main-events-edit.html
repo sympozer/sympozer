@@ -3,8 +3,8 @@
         <div class="col-sm-2 col-md-2 col-lg-2">
             <div class="img-container-lg">
 
-                    <img  class="scale-img" no-image ng-src="{{ mainEvent.logo }}"/>
-                    <span editable-text="mainEvent.logo" onbeforesave="updateMainEvent('logo', $data)">{{'change logo'}}</span>
+                <img  class="scale-img" no-image ng-src="{{ mainEvent.logo }}"/>
+                <span editable-text="mainEvent.logo" onbeforesave="updateMainEvent('logo', $data)">{{'change logo'}}</span>
 
             </div>
             <p ng-if="mainEvent.country">{{mainEvent.country}}</p>
@@ -19,26 +19,25 @@
 </div>
 </br>
 <div class="row">
-    <div class=" col-md-6 col-lg-6">
-        <div clas="row">
-            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                <h1>From :  </h1>
-                <datetimepicker style="font-size:15px" data-ng-model="mainEvent.startAt" on-set-time="onSelectStart"
-                                data-datetimepicker-config="{ minView:'day' }" />
-            </div>
-            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                <h1>To :</h1>
-                <datetimepicker style="font-size:15px" data-ng-model="mainEvent.endAt" on-set-time="onSelectEnd"
-                                data-datetimepicker-config="{ minView:'day' }" />
-            </div>
-        </div>
-    </div>
-    <div class=" col-md-6 col-lg-6">
-        <leaflet  ng-click="editLocation()" center="center" markers="markers" height="300px" width="100%"></leaflet>
-    </div>
 
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+        <h1>From :  </h1>
+        <datetimepicker style="font-size:15px" data-ng-model="mainEvent.startAt" on-set-time="onSelectStart"
+                        data-datetimepicker-config="{ minView:'day' }" />
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+        <h1>To :</h1>
+        <datetimepicker style="font-size:15px" data-ng-model="mainEvent.endAt" on-set-time="onSelectEnd"
+                        data-datetimepicker-config="{ minView:'day' }" />
+    </div>
+</div>
 </div>
 
+<div class="row">
+    <div class=" col-md-12 col-lg-12">
+        <leaflet  ng-click="editLocation()" center="center" markers="markers" height="300px" width="100%"></leaflet>
+    </div>
+</div>
 
 <div class="row">
 

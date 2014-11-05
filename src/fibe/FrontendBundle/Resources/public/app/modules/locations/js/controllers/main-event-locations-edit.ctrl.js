@@ -23,12 +23,10 @@ angular.module('locationsApp').controller('mainEventLocationsEditCtrl', [ '$scop
 
     }
 
-    if(locationModel){
-        $scope.location = new mainEventLocationFact(locationModel);
-        addMarkers(locationModel);
-    }else{
-        $scope.location = mainEventLocationFact.get({id: $routeParams.locationId}, addMarkers);
-    }
+
+    $scope.location = new mainEventLocationFact(locationModel);
+    addMarkers(locationModel);
+
 
 
     if(!$scope.location.equipments){
@@ -67,7 +65,7 @@ angular.module('locationsApp').controller('mainEventLocationsEditCtrl', [ '$scop
     $scope.searchEquipments = equipmentsFact.all;
     $scope.addEquipment = function (equipmentModel)
     {
-            $scope.location.equipments.push(equipmentModel);            
+        $scope.location.equipments.push(equipmentModel);
     }
 
 
