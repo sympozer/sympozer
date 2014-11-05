@@ -36,6 +36,24 @@
         $scope.$dismiss('cancel');
     };
 
+    //Populate array of a specific linked entity
+    $scope.addRelationship = function(key, model){
+        //Check if array available for the linked entity
+        if(!$scope.paper[key]){
+            $scope.paper[key] = [];
+        }
+
+        //Stop if the object selected is already in array (avoid duplicates)
+        if(! $filter('inArray')('id', model.id, $scope.paper[key])){
+            //If no duplicate add the selected object to the specified array
+            $scope.paper[key].push(model);
+        };
+    }
+
+    $scope.removeRelationship = function(key, index){
+        $scope.paper[key].splice(index, 1);
+    }
+
     //Autocomplete and add authors workflow
     $scope.searchPersons = personsFact.all;
     $scope.paper.authors = [];
@@ -49,33 +67,14 @@
                 }
             });
             modalPersonInstance.result.then(function (newPerson) {
-                if(!$scope.paper.authors){
-                    $scope.paper.authors = [];
-                }
-                $scope.paper.authors.push(newPerson);
+                $scope.addRelationship('authors',newPerson)
             }, function () {
                 //$log.info('Modal dismissed at: ' + new Date());
             });
         }else{
-            if(!$scope.paper.authors){
-                $scope.paper.authors = [];
-            }
-            $scope.paper.authors.push(personModel);
-
+             $scope.addRelationship('authors',personModel);
         }
     }
-
-    $scope.deletePerson = function(personModel,index){
-      
-        
-            $scope.paper.authors.splice(index,personModel);
-        
-    }
-
-    $scope.deleteTopic = function(topicModel,index){
-            $scope.paper.topics.splice(index,topicModel);    
-    }
-
 
     //Autocomplete and add topic workflow
     $scope.searchTopics = topicsFact.all;
@@ -90,18 +89,12 @@
                 }
             });
             modalInstance.result.then(function (newTopic) {
-                if(!$scope.paper.topics){
-                    $scope.paper.topics = [];
-                }
-                $scope.paper.topics.push(newTopic);
+                $scope.addRelationship('topics',newTopic)
             }, function () {
                 //$log.info('Modal dismissed at: ' + new Date());
             });
         }else{
-            if(!$scope.paper.topics){
-                $scope.paper.topics = [];
-            }
-            $scope.paper.topics.push(topicModel);
+            $scope.addRelationship('topics',topicModel)
         }
     }
 }]);

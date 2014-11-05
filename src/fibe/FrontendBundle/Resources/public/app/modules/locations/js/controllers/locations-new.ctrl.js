@@ -4,8 +4,8 @@
  *
  * @type {controller}
  */
-angular.module('locationsApp').controller('locationsNewCtrl', [ '$scope', '$window', '$routeParams', '$rootScope', '$location', 'locationsFact', 'equipmentsFact',
-    function ($scope, $window, $routeParams, $rootScope, $location, locationsFact, equipmentsFact)
+angular.module('locationsApp').controller('locationsNewCtrl', [ '$scope', '$filter', '$window', '$routeParams', '$rootScope', '$location', 'locationsFact', 'equipmentsFact',
+    function ($scope, $filter, $window, $routeParams, $rootScope, $location, locationsFact, equipmentsFact)
     {
         $scope.location = new locationsFact;
         $scope.location.equipments = [];
@@ -40,11 +40,26 @@ angular.module('locationsApp').controller('locationsNewCtrl', [ '$scope', '$wind
             $scope.$dismiss('cancel');
         };
 
+        //Populate array of a specific linked entity
+        $scope.addRelationship = function(key, model){
+            //Check if array available for the linked entity
+            if(!$scope.location[key]){
+                $scope.location[key] = [];
+            }
+
+            //Stop if the object selected is already in array (avoid duplicates)
+            if(! $filter('inArray')('id', model.id, $scope.location[key])){
+                //If no duplicate add the selected object to the specified array
+                $scope.location[key].push(model);
+            };
+        }
+
+
         //Autocomplete and add equipment workflow
         $scope.searchEquipments = equipmentsFact.all;
         $scope.addEquipment = function (equipmentModel)
         {
-            $scope.location.equipments.push(equipmentModel);
+            $scope.addRelationship('equipments',equipmentModel)
         }
 
         $scope.markers = new Array();

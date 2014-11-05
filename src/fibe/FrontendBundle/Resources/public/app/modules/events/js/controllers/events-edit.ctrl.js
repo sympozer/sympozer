@@ -4,8 +4,8 @@
  *
  * @type {controller}
  */
-angular.module('eventsApp').controller('eventsEditCtrl', [ '$scope', '$window', 'GLOBAL_CONFIG', '$routeParams', '$rootScope', '$location', 'eventsFact', 'categoriesFact', 'topicsFact', 'locationsFact', 'papersFact', '$modal',
-    function ($scope, $window, GLOBAL_CONFIG, $routeParams, $rootScope, $location, eventsFact, categoriesFact, topicsFact, locationsFact, papersFact, $modal)
+angular.module('eventsApp').controller('eventsEditCtrl', [ '$scope', '$filter', '$window', 'GLOBAL_CONFIG', '$routeParams', '$rootScope', '$location', 'eventsFact', 'categoriesFact', 'topicsFact', 'locationsFact', 'papersFact', '$modal',
+    function ($scope, $filter, $window, GLOBAL_CONFIG, $routeParams, $rootScope, $location, eventsFact, categoriesFact, topicsFact, locationsFact, papersFact, $modal)
     {
         $scope.event = eventsFact.get({id: $routeParams.eventId});
 
@@ -29,6 +29,25 @@ angular.module('eventsApp').controller('eventsEditCtrl', [ '$scope', '$window', 
             }
         };
 
+        //Populate array of a specific linked entity
+        $scope.addRelationship = function(key, model){
+            //Check if array available for the linked entity
+            if(!$scope.event[key]){
+                $scope.event[key] = [];
+            }
+
+            //Stop if the object selected is already in array (avoid duplicates)
+            if(! $filter('inArray')('id', model.id, $scope.event[key])){
+                //If no duplicate add the selected object to the specified array
+                $scope.event[key].push(model);
+            };
+        }
+
+        $scope.removeRelationship = function(key, index){
+            $scope.event[key].splice(index, 1);
+        }
+
+
         $scope.createLocationModal = function ()
         {
             createDialogService(GLOBAL_CONFIG.app.modules.locations.urls.partials + 'locations-new.html', {
@@ -42,13 +61,6 @@ angular.module('eventsApp').controller('eventsEditCtrl', [ '$scope', '$window', 
             }, {
             });
         };
-
-
-        $scope.deleteLocation = function (index)
-        {
-            $scope.event.eventLocations.splice(index, 1);
-        };
-
 
         //Autocomplete and add paper workflow
         $scope.searchCategories = categoriesFact.allByConference;
@@ -83,27 +95,18 @@ angular.module('eventsApp').controller('eventsEditCtrl', [ '$scope', '$window', 
                     }
                 });
                 modalInstance.result.then(function (newTopic) {
-                    if(!$scope.event.topics){
-                        $scope.event.topics = [];
-                    }
-                    $scope.event.topics.push(newTopic);
+                    $scope.addRelationship('topics', newTopic);
+
                 }, function () {
                     //$log.info('Modal dismissed at: ' + new Date());
                 });
             }else{
-                if(!$scope.event.topics){
-                    $scope.event.topics = [];
-                }
-                $scope.event.topics.push(topicModel);
+                $scope.addRelationship('topics', topicModel);
+
             }
         };
 
-        $scope.deleteTopic = function (index)
-        {
-            $scope.event.topics.splice(index, 1);
-        };
-
-        //Autocomplete and add paper workflow
+        //Autocomplete and add location workflow
         $scope.searchLocations = locationsFact.allByConference;
         $scope.addLocation = function(locationModel){
             if(!locationModel.id) {
@@ -115,18 +118,12 @@ angular.module('eventsApp').controller('eventsEditCtrl', [ '$scope', '$window', 
                     }
                 });
                 modalInstance.result.then(function (newLocation) {
-                    if(!$scope.event.eventLocations){
-                        $scope.event.eventLocations = [];
-                    }
-                    $scope.event.eventLocations.push(newLocation);
+                    $scope.addRelationship('eventLocations', newLocation);
                 }, function () {
                     //$log.info('Modal dismissed at: ' + new Date());
                 });
             }else{
-                if(!$scope.event.eventLocations){
-                    $scope.event.eventLocations = [];
-                }
-                $scope.event.eventLocations.push(locationModel);
+                $scope.addRelationship('eventLocations', locationModel);
             }
         };
 
@@ -144,24 +141,14 @@ angular.module('eventsApp').controller('eventsEditCtrl', [ '$scope', '$window', 
                     }
                 });
                 modalInstance.result.then(function (newPaper) {
-                    if(!$scope.event.papers){
-                        $scope.event.papers = [];
-                    }
-                    $scope.event.papers.push(newPaper);
+                    $scope.addRelationship('papers', newPaper);
                 }, function () {
                     //$log.info('Modal dismissed at: ' + new Date());
                 });
             }else{
-                if(!$scope.event.papers){
-                    $scope.event.papers = [];
-                }
-                $scope.event.papers.push(paperModel);
-            }
-        };
+                $scope.addRelationship('papers', paperModel);
 
-         $scope.deletePaper = function (index)
-        {
-            $scope.event.papers.splice(index, 1);
+            }
         };
 
 

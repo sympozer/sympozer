@@ -46,6 +46,24 @@ angular.module('eventsApp').controller('eventsNewCtrl', [ '$scope', '$window', '
             $scope.$dismiss('cancel');
         };
 
+        //Populate array of a specific linked entity
+        $scope.addRelationship = function(key, model){
+            //Check if array available for the linked entity
+            if(!$scope.event[key]){
+                $scope.event[key] = [];
+            }
+
+            //Stop if the object selected is already in array (avoid duplicates)
+            if(! $filter('inArray')('id', model.id, $scope.event[key])){
+                //If no duplicate add the selected object to the specified array
+                $scope.event[key].push(model);
+            };
+        }
+
+        $scope.removeRelationship = function(key, index){
+            $scope.event[key].splice(index, 1);
+        }
+
         //Autocomplete and add paper workflow
         $scope.searchCategories = categoriesFact.allByConference;
         $scope.addCategory = function(categoryModel){
@@ -69,7 +87,6 @@ angular.module('eventsApp').controller('eventsNewCtrl', [ '$scope', '$window', '
 
         //Autocomplete and add topic workflow
         $scope.searchTopics = topicsFact.all;
-        $scope.event.topics = [];
         $scope.addTopic = function(topicModel){
             if(!topicModel.id) {
                 var modalInstance = $modal.open({
@@ -80,12 +97,12 @@ angular.module('eventsApp').controller('eventsNewCtrl', [ '$scope', '$window', '
                     }
                 });
                 modalInstance.result.then(function (newTopic) {
-                    $scope.event.topics.push(newTopic);
+                    $scope.addRelationship('topics', newTopic);
                 }, function () {
                     //$log.info('Modal dismissed at: ' + new Date());
                 });
             }else{
-                $scope.event.topics.push(topicModel);
+                $scope.addRelationship('topics', topicModel);
             }
         };
 
@@ -97,7 +114,6 @@ angular.module('eventsApp').controller('eventsNewCtrl', [ '$scope', '$window', '
 
         //Autocomplete and add location workflow
         $scope.searchLocations = locationsFact.allByConference;
-        $scope.event.eventLocations = [];
         $scope.addLocation = function(locationModel){
             if(!locationModel.id) {
                 var modalInstance = $modal.open({
@@ -108,12 +124,12 @@ angular.module('eventsApp').controller('eventsNewCtrl', [ '$scope', '$window', '
                     }
                 });
                 modalInstance.result.then(function (newLocation) {
-                    $scope.event.eventLocations.push(newLocation);
+                    $scope.addRelationship('eventLocations', locationModel);
                 }, function () {
                     //$log.info('Modal dismissed at: ' + new Date());
                 });
             }else{
-                $scope.event.eventLocations.push(locationModel);
+                $scope.addRelationship('eventLocations', locationModel);
             }
         };
 
@@ -125,7 +141,6 @@ angular.module('eventsApp').controller('eventsNewCtrl', [ '$scope', '$window', '
 
         //Autocomplete and add paper workflow
         $scope.searchPapers = papersFact.all;
-        $scope.event.papers = [];
         $scope.addPaper = function(paperModel){
             if(!paperModel.id) {
                 var modalInstance = $modal.open({
@@ -136,12 +151,12 @@ angular.module('eventsApp').controller('eventsNewCtrl', [ '$scope', '$window', '
                     }
                 });
                 modalInstance.result.then(function (newPaper) {
-                    $scope.event.papers.push(newPaper);
+                    $scope.addRelationship('papers', paperModel);
                 }, function () {
                     //$log.info('Modal dismissed at: ' + new Date());
                 });
             }else{
-                $scope.event.papers.push(paperModel);
+                $scope.addRelationship('papers', paperModel);
             }
         };
 
@@ -157,16 +172,12 @@ angular.module('eventsApp').controller('eventsNewCtrl', [ '$scope', '$window', '
                 }
             });
             modalInstance.result.then(function (newRole) {
-                $scope.event.roles.push(newRole);
+                $scope.addRelationship('roles', newRole);
             }, function () {
                 //$log.info('Modal dismissed at: ' + new Date());
             });
 
         };
 
-         $scope.deleteRole = function (index)
-        {
-            $scope.event.roles.splice(index, 1);
-        };
     }
 ]);

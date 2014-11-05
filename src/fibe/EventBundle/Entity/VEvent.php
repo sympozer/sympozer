@@ -196,9 +196,9 @@ abstract class VEvent
   /**
    * Topic
    *
-   * @ORM\ManyToMany(targetEntity="fibe\ContentBundle\Entity\Topic", inversedBy="vEvents", cascade={"persist"})
+   * @ORM\ManyToMany(targetEntity="fibe\ContentBundle\Entity\Topic", inversedBy="vEvents", cascade={"all"})
    * @ORM\JoinTable(name="vevent_topic",
-   *     joinColumns={@ORM\JoinColumn(name="venvt_id", referencedColumnName="id")},
+   *     joinColumns={@ORM\JoinColumn(name="vevent_id", referencedColumnName="id")},
    *     inverseJoinColumns={@ORM\JoinColumn(name="topic_id", referencedColumnName="id")})
    */
   protected $topics;

@@ -220,4 +220,10 @@ class Role
     {
         $this->roleLabelVersion = $roleLabelVersion;
     }
+
+
+    public function __toString()
+    {
+        return $this->label;
+    }
 }

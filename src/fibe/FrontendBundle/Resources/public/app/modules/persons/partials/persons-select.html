@@ -1,9 +1,9 @@
 
-<input type="text" ng-model="entity" typeahead-template-url="organizations-typeahead.html" typeahead-on-select="select($item, $model)"  placeholder="Search a person ..." typeahead-wait-ms="500" typeahead="entity as entity.label  for entity in keyup($viewValue)"  typeahead-loading="loading"  class="form-control">
+<input type="text" ng-model="entity" typeahead-template-url="persons-typeahead.html" typeahead-on-select="select($item, $model)"  placeholder="Search a person ..." typeahead-wait-ms="500" typeahead="entity as entity.label  for entity in keyup($viewValue)"  typeahead-loading="loading"  class="form-control">
 <i ng-show="loading" class="fa fa-spinner fa-spin"></i>
 
 
-<script type="text/ng-template" id="organizations-typeahead.html">
+<script type="text/ng-template" id="persons-typeahead.html">
     <div style="width:100%">
         <span ng-if="!match.model.id">
             <hr/>

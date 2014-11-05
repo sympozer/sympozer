@@ -87,7 +87,7 @@ class Event extends VEvent
     /**
      * Locations for the event
      * @Expose
-     * @ORM\ManyToMany(targetEntity="fibe\ContentBundle\Entity\EventLocation", inversedBy="events", cascade={"all"})
+     * @ORM\ManyToMany(targetEntity="fibe\ContentBundle\Entity\EventLocation", inversedBy="events", cascade={"persist"})
      * @ORM\JoinTable(name="event_location",
      *     joinColumns={@ORM\JoinColumn(name="event_id", referencedColumnName="id")},
      *     inverseJoinColumns={@ORM\JoinColumn(name="location_id", referencedColumnName="id")})

@@ -27,7 +27,7 @@ class PersonType extends AdditionalInformationsType
             ->add('organizations', 'entity', array(
                 'class' => 'fibeCommunityBundle:OrganizationVersion',
                 'required' => false,
-                'multiple' => true
+                'multiple' => true,
             ))
             ->add('papers', 'entity', array(
                 'class' => 'fibeContentBundle:Paper',
@@ -36,6 +36,11 @@ class PersonType extends AdditionalInformationsType
             ))
             ->add('roles', 'entity', array(
                 'class' => 'fibeContentBundle:Role',
+                'required' => false,
+                'multiple' => true
+            ))
+            ->add('teammates', 'entity', array(
+                'class' => 'fibeSecurityBundle:Teammate',
                 'required' => false,
                 'multiple' => true
             ))

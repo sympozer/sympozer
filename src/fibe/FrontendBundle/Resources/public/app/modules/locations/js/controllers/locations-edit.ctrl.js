@@ -4,7 +4,8 @@
  * @TODO implement a directive for the map handling to remove code duplication
  * @type {controller}
  */
-angular.module('locationsApp').controller('locationsEditCtrl', [ '$scope', '$rootScope', '$routeParams', '$location','equipmentsFact', 'locationsFact', function ($scope, $rootScope, $routeParams, $location, equipmentsFact, locationsFact)
+angular.module('locationsApp').controller('locationsEditCtrl', [ '$scope', '$filter', '$rootScope', '$routeParams', '$location','equipmentsFact', 'locationsFact',
+    function ($scope, $filter, $rootScope, $routeParams, $location, equipmentsFact, locationsFact)
 {
     //initialize map zoom
     $scope.center = { zoom: 2 };
@@ -36,11 +37,26 @@ angular.module('locationsApp').controller('locationsEditCtrl', [ '$scope', '$roo
         }
     };
 
+    //Populate array of a specific linked entity
+    $scope.addRelationship = function(key, model){
+        //Check if array available for the linked entity
+        if(!$scope.location[key]){
+            $scope.location[key] = [];
+        }
+
+        //Stop if the object selected is already in array (avoid duplicates)
+        if(! $filter('inArray')('id', model.id, $scope.location[key])){
+            //If no duplicate add the selected object to the specified array
+            $scope.location[key].push(model);
+        };
+    }
+
+
     //Autocomplete and add equipment workflow
     $scope.searchEquipments = equipmentsFact.all;
     $scope.addEquipment = function (equipmentModel)
     {
-        $scope.location.equipments.push(equipmentModel);            
+        $scope.addRelationship('equipments',equipmentModel)
     };
 
     $scope.markers = new Array();

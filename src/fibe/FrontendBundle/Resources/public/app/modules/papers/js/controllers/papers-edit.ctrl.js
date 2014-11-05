@@ -4,7 +4,8 @@
  * @type {controller}
  */
 
-angular.module('papersApp').controller('papersEditCtrl', [ '$scope', 'GLOBAL_CONFIG', 'createDialog', '$rootScope', '$routeParams', '$location', 'papersFact', 'personsFact', 'topicsFact', '$modal', function ($scope, GLOBAL_CONFIG, createDialogService, $rootScope, $routeParams, $location, papersFact, personsFact, topicsFact, $modal)
+angular.module('papersApp').controller('papersEditCtrl', [ '$scope', '$filter', 'GLOBAL_CONFIG', 'createDialog', '$rootScope', '$routeParams', '$location', 'papersFact', 'personsFact', 'topicsFact', '$modal',
+    function ($scope, $filter, GLOBAL_CONFIG, createDialogService, $rootScope, $routeParams, $location, papersFact, personsFact, topicsFact, $modal)
 {
 
     $scope.paper = papersFact.get({id: $routeParams.paperId});
@@ -35,6 +36,23 @@ angular.module('papersApp').controller('papersEditCtrl', [ '$scope', 'GLOBAL_CON
         return papersFact.patch(updatePaperParam, success, error);
     };
 
+    //Populate array of a specific linked entity
+    $scope.addRelationship = function(key, model){
+        //Check if array available for the linked entity
+        if(!$scope.paper[key]){
+            $scope.paper[key] = [];
+        }
+
+        //Stop if the object selected is already in array (avoid duplicates)
+        if(! $filter('inArray')('id', model.id, $scope.paper[key])){
+            //If no duplicate add the selected object to the specified array
+            $scope.paper[key].push(model);
+        };
+    }
+
+    $scope.removeRelationship = function(key, index){
+        $scope.paper[key].splice(index, 1);
+    }
 
 
     //Autocomplete and add authors workflow
@@ -50,24 +68,13 @@ angular.module('papersApp').controller('papersEditCtrl', [ '$scope', 'GLOBAL_CON
                 }
             });
             modalPersonInstance.result.then(function (newPerson) {
-                if(!$scope.paper.authors){
-                    $scope.paper.authors = [];
-                }
-                $scope.paper.authors.push(newPerson);
+                $scope.addRelationship('authors',newPerson)
             }, function () {
                 //$log.info('Modal dismissed at: ' + new Date());
             });
         }else{
-            if(!$scope.paper.authors){
-                $scope.paper.authors = [];
-            }
-            $scope.paper.authors.push(personModel);
-
+                $scope.addRelationship('authors',personModel)
         }
-    };
-
-    $scope.deletePerson = function(index){
-      $scope.paper.authors.splice(index,1);  
     };
 
 
@@ -84,22 +91,13 @@ angular.module('papersApp').controller('papersEditCtrl', [ '$scope', 'GLOBAL_CON
                 }
             });
             modalInstance.result.then(function (newTopic) {
-                if(!$scope.paper.topics){
-                    $scope.paper.topics = [];
-                }
-                $scope.paper.topics.push(newTopic);
+                $scope.addRelationship('topics',newTopic)
             }, function () {
                 //$log.info('Modal dismissed at: ' + new Date());
             });
         }else{
-            if(!$scope.paper.topics){
-                $scope.paper.topics = [];
-            }
-            $scope.paper.topics.push(topicModel);
+            $scope.addRelationship('topics',topicModel)
         }
     };
 
-    $scope.deleteTopic = function(index){
-      $scope.paper.topics.splice(index,1);  
-    };
 }]);
