@@ -15,79 +15,58 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 class ACLUserPermissionHelper extends ACLEntityHelper
 {
 
-  /**
-   * entities to change right when changing right of the conference
-   * @var array
-   */
-  // public static $belongsToConfRepositories = array(
-  //   'ConfEvent',
-  //   'Location',
-  //   'Paper',
-  //   'Person',
-  //   'Role',
-  //   'Organization',
-  //   'Topic'
-  // );
-
   const NOT_AUTHORYZED_UPDATE_RIGHT_LABEL = 'You need to be MASTER to be able to change other user permission on %s %s ';
 
   /**
    * get or create a Teammate object to show or get a form
    *
-   * @param    [User]  $manager       the manager to get permissions of. if null : current user
-   * @param bool $restrictForm if none : returns "view" as action  if no manager given to add teammate when the given user doesn't have the owner required permission to update others permission  on the object
-   * @return \fibe\SecurityBundle\Entity\Teammate [Teammate]   object listing permission for an user used to show or build a form
+   * @param \fibe\SecurityBundle\Entity\Teammate       the teammate to get permissions of. if null : current user
+   * @return \fibe\SecurityBundle\Entity\Teammate      the teammate with filled confPermissions
    */
-  public function getTeammate($manager = null, $restrictForm = true)
+  public function getPermissionForTeammate(Teammate $teammate)
   {
-    $currentMainEvent = $this->getCurrentMainEvent();
-    $user = $this->getUser();
+    $currentMainEvent = $teammate->getTeam()->getMainEvent();
 
-    $teammate = new Teammate();
-    if ($manager)
-    {
-      $teammate->setPerson($manager);
-    }
-    $noManager = ($manager == null);
-    if ($noManager)
-    {
-      $manager = $user;
-    }
-
-    $formAllowed = false;
-
-    $entity = $currentMainEvent;
-    $newManagerDefaultAction = 'EDIT';
+//    $teammateAction = $this->getACEByEntity($currentMainEvent, $teammate->getPerson()->getUser());
+    $action = 'OPERATOR';
     $repositoryName = 'MainEvent';
-    $entityLabel = 'Conference';
-    $confPermission = $this->newConfPermission($user, $restrictForm, $formAllowed, $noManager, $manager, $entity, $newManagerDefaultAction, $repositoryName, $entityLabel);
+    $entityLabel = 'Main event';
+    $confPermission = $this->addConfPermission($action, $currentMainEvent, $repositoryName, $entityLabel);
     $teammate->addConfPermission($confPermission);
 
 //    $entity = $currentMainEvent->getAppConfig();
-//    $newManagerDefaultAction = 'EDIT';
+//    $action = 'EDIT';
 //    $repositoryName = 'MobileAppConfig';
 //    $entityLabel = 'Mobile application';
-//    $confPermission = $this->newConfPermission($user, $restrictForm, $formAllowed, $noManager, $manager, $entity, $newManagerDefaultAction, $repositoryName, $entityLabel);
+//    $confPermission = $this->addConfPermission($action, $entity, $repositoryName, $entityLabel);
 //    $teammate->addConfPermission($confPermission);
 //
 //    $entity = $currentMainEvent->getModule();
-//    $newManagerDefaultAction = 'EDIT';
+//    $action = 'EDIT';
 //    $repositoryName = 'Module';
 //    $entityLabel = 'Modules';
-//    $confPermission = $this->newConfPermission($user, $restrictForm, $formAllowed, $noManager, $manager, $entity, $newManagerDefaultAction, $repositoryName, $entityLabel);
+//    $confPermission = $this->addConfPermission($action, $entity, $repositoryName, $entityLabel);
 //    $teammate->addConfPermission($confPermission);
 
-    $entity = $currentMainEvent->getTeam();
-    $newManagerDefaultAction = 'VIEW';
-    $repositoryName = 'Team';
-    $entityLabel = 'Team';
-    $confPermission = $this->newConfPermission($user, $restrictForm, $formAllowed, $noManager, $manager, $entity, $newManagerDefaultAction, $repositoryName, $entityLabel);
-    $teammate->addConfPermission($confPermission);
-
-    $teammate->setRestricted(!$formAllowed);
-    $teammate->setIsOwner("OWNER" == $this->getACEByEntity($currentMainEvent, $manager));
+//    $entity = $currentMainEvent->getTeam();
+//    $action = 'VIEW';
+//    $repositoryName = 'Team';
+//    $entityLabel = 'Team';
+//    $confPermission = $this->addConfPermission($action, $entity, $repositoryName, $entityLabel);
+//    $teammate->addConfPermission($confPermission);
 
     return $teammate;
+  }
+
+  //used only by getPermissionForTeammate
+  private function addConfPermission($action, $entity, $repositoryName, $entityLabel)
+  {
+    $confPermission = new ConfPermission();
+    $confPermission->setEntityLabel($entityLabel);
+    $confPermission->setAction($action);
+    $confPermission->setRepositoryName($repositoryName);
+    $confPermission->setEntityId($entity->getId());
+    return $confPermission;
   }
 
   /**
@@ -100,22 +79,22 @@ class ACLUserPermissionHelper extends ACLEntityHelper
    */
   public function updateTeammate(Teammate $teammate)
   {
-    $teammate = $teammate->getPerson()->getUser();
+    $teammateUser = $teammate->getPerson()->getUser();
     // cannot demote own permission
-    if ($teammate->getId() == $this->getUser()->getId())
+    if ($teammateUser->getId() == $this->getUser()->getId())
     {
       throw new AccessDeniedException("You cannot demote yourself.");
     }
     // cannot demote the owner of the conference
     try
     {
-      if ("OWNER" == $this->getACEByEntity($this->getCurrentMainEvent(), $teammate))
+      if ("OWNER" == $this->getACEByEntity($this->currentMainEvent, $teammateUser))
       {
         throw new AccessDeniedException("You cannot demote the owner.");
       }
     } catch (NoAceFoundException $e)
     {
-      //ignore NoAceFoundException : new teammate without ace cannot be found...
+      //ignore NoAceFoundException : new teammate without ace cannot be found. => go on
     }
     foreach ($teammate->getConfPermissions() as $confPermission)
     {
@@ -127,22 +106,23 @@ class ACLUserPermissionHelper extends ACLEntityHelper
       //check if update is required
       try
       {
-        if ($action == $this->getACEByRepositoryName($repositoryName, $teammate, $id))
+        $entity = $this->getEntitiesInConf($repositoryName, $id);
+        if ($action == $this->getACEByEntity($entity, $this->getUser()))
         {
-          continue;
+          continue; // no update required
         }
       } catch (NoAceFoundException $e)
       {
-        //ignore NoAceFoundException : new teammate without ace cannot be found...
+        //ignore NoAceFoundException : new teammate without ace cannot be found. => go on
+        //TODO create a new entity ?
       }
-
-      $this->updateUserACL($teammate, $action, $repositoryName, $id);
+      $this->performUpdateUserACL($teammate, $action, $entity);
     }
   }
 
   /**
    * create acl with permission check for one entity
-   * @param  [User] $teammate           the choosen teammate
+   * @param  [User] $teammate          the chosen teammate
    * @param  [type] $entity            the entity to update permissions
    */
   public function createUserACL($teammate, $entity)
@@ -152,26 +132,8 @@ class ACLUserPermissionHelper extends ACLEntityHelper
       $action = $this->getACEByEntity($entity, $teammate);
     } catch (NoAceFoundException $e)
     {
-      $action = $this->getACEByEntity($this->getCurrentMainEvent(), $teammate);
+      $action = $this->getACEByEntity($this->currentMainEvent, $teammate);
     }
     $this->performUpdateUserACL($teammate, $action, $entity);
-  }
-
-  //used only by getTeammate
-  private function newConfPermission($user, $restrictForm, &$formAllowed, $noManager, $manager, $entity, $newManagerDefaultAction, $repositoryName, $entityLabel)
-  {
-    $currentUserAction = $this->getACEByEntity($entity, $user);
-    $isMaster = ($currentUserAction == "OWNER" || $currentUserAction == "MASTER");
-    $allowed = !$restrictForm || $isMaster;
-    $action = !$allowed ? 'VIEW' : ($noManager ? $newManagerDefaultAction : $this->getACEByEntity($entity, $manager));
-    $formAllowed |= $isMaster;
-
-    $confPermission = new ConfPermission();
-    $confPermission->setEntityLabel($entityLabel);
-    $confPermission->setAction($action);
-    $confPermission->setRestricted(!$allowed);
-    $confPermission->setRepositoryName($repositoryName);
-    $confPermission->setEntityId($entity->getId());
-    return $confPermission;
   }
 }

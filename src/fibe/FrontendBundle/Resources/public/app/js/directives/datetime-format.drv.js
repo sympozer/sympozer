@@ -1,12 +1,5 @@
 /**
- * angular directive used to show error from server near a form input
- *
- * call it in controller at a callback for a server error response :
- * if ("Validation Failed" == response.data.message)
- * {
- *     formValidation.transformFromServer(response);
- * }
- *
+ * TODO : doc
  */
 angular.module('sympozerApp').directive('datetimeFormat',
   ['$parse', function ($parse)
@@ -28,7 +21,7 @@ angular.module('sympozerApp').directive('datetimeFormat',
               scope.$watch(attrs.ngModel, function(newValue, oldValue, scope) {
                   if(newValue && newValue != oldValue)
                   {
-                      // This returns a function that lets us set the value of the ng-model binding expression:
+                      // This returns a function that lets us set the value of the ng-model binding expression
                       var modelSetter = modelGetter.assign;
 
                       // This is how you can use it to set the value 'bar' on the given scope.
@@ -37,7 +30,7 @@ angular.module('sympozerApp').directive('datetimeFormat',
               });
 
               element.on('change', function (e) {
-                  var element = e.target;
+                  var element = e.target
                   element.value = formatter(ngModel.$modelValue);
               });
 

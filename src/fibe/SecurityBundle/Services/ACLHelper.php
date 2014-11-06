@@ -114,6 +114,9 @@ class ACLHelper
   /** @var MutableAclProvider $aclProvider */
   protected $aclProvider;
 
+  /** @var MainEvent $currentMainEvent */
+  protected $currentMainEvent;
+
   /**
    * @param null $id
    * @return \fibe\SecurityBundle\Entity\User|mixed
@@ -131,7 +134,7 @@ class ACLHelper
     }
     else
     {
-      throw new UnauthorizedHttpException('negotiate', 'You must be logged in to create a new event');
+      throw new UnauthorizedHttpException('negotiate', 'Authentication_reguired_error');
     }
   }
 
@@ -172,24 +175,9 @@ class ACLHelper
 
     return $class->getShortName();
   }
-
-  /**
-   * @return \fibe\EventBundle\Entity\MainEvent
-   */
-  protected function getCurrentMainEvent()
-  {
-    if (!$currentMainEvent = $this->getUser()->getCurrentMainEvent())
-    {
-      //TODO redirect to the dashboard with parameter if the conf doesn't exist
-      $this->throwNotFoundHttpException("current conference");
-    }
-
-    return $currentMainEvent;
-  }
-
   protected function restrictQueryBuilderByConferenceId(QueryBuilder $queryBuilder)
   {
-    $queryBuilder->andWhere("entity.mainEvent = " . $this->getCurrentMainEvent()->getId());
+    $queryBuilder->andWhere("entity.mainEvent = " . $this->currentMainEvent->getId());
   }
 
   protected function restrictQueryBuilderByIds(QueryBuilder $queryBuilder, $ids)
