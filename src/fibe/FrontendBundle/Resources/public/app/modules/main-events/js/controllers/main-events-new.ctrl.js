@@ -15,13 +15,13 @@ angular.module('mainEventsApp').controller('mainEventsNewCtrl', [ '$scope', '$ro
         }
         else
         {
-            $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'the conference has not been created', type: 'danger'});
+            $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'mainEvents.validations.not_created', type: 'danger'});
         }
     };
 
     var success = function (response, args)
     {
-        $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'conference created', type: 'success'});
+        $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'mainEvents.validations.created', type: 'success'});
         $location.path('/mainEvents/edit/'+response.id);
     };
 

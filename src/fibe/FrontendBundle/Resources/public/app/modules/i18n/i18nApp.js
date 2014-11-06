@@ -19,7 +19,6 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
     //Register translation table as object hash for US language
     $translateProvider.translations('en_US', {
 
-
         //Global
         global : {
             actions : {
@@ -128,7 +127,10 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 'EventFormValidation_start_is_after_end_error': 'the start date must not be after the end date.',
                 'Label_already_used' : 'A main event with the same label already exists.',
                 'end_date_after_start' : 'The end date must be after the start date',
-                'start_date_before_end' : 'The start date must be before the end date'
+                'start_date_before_end' : 'The start date must be before the end date',
+                'created' : 'The conference has been saved',
+                'not_created' : 'Sorry, the conference has not been saved'
+
             },
             messages : {
                 delete_confirm : 'Are you sure you want to delete this conference ?'
@@ -168,6 +170,8 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
             validations : {
                 start_before_end : 'The start date must be before the end date',
                 end_after_start :  'The end date must be after the start date',
+                'created' : 'The event has been saved',
+                'not_created' : 'Sorry, the event has not been saved'
             },
             messages : {
                 delete_confirm : 'Are you sure you want to delete this event ?'
@@ -196,7 +200,9 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 papers : 'Papers'
             },
             validations : {
-                delete_confirm : 'Are you sure you want to delete this paper ?'
+                delete_confirm : 'Are you sure you want to delete this paper ?',
+                'created' : 'The paper has been saved',
+                'not_created' : 'Sorry, the paper has not been saved'
             },
             messages : {
             },
@@ -228,9 +234,12 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 teammate : 'Teammate'
             },
             validations : {
+                'created' : 'The teammate has been saved',
+                'not_created' : 'Sorry, the teammate has not been saved'
             },
             messages : {
-                delete_confirm : 'Are you sure you want to delete this teammate ?'
+                delete_confirm : 'Are you sure you want to delete this teammate ?',
+
             },
             model : {
             }
@@ -254,9 +263,12 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
             labels : {
             },
             validations : {
+                'created' : 'The topic has been saved',
+                'not_created' : 'Sorry, the topic has not been saved'
             },
             messages : {
-                delete_confirm : 'Are you sure you want to delete this topic ?'
+                delete_confirm : 'Are you sure you want to delete this topic ?',
+
             },
             model : {
                 label : 'Label'
@@ -280,9 +292,12 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 categories : 'Categories'
             },
             validations : {
+                'created' : 'The category has been saved',
+                'not_created' : 'Sorry, the category has not been saved'
             },
             messages : {
-                delete_confirm : 'Are you sure you want to delete this category ?'
+                delete_confirm : 'Are you sure you want to delete this category ?',
+
             },
             model : {
                 label : 'Label',
@@ -306,9 +321,12 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 locations : 'Locations'
             },
             validations : {
+                'created' : 'The location has been saved',
+                'not_created' : 'Sorry, the location has not been saved'
             },
             messages : {
-                delete_confirm : 'Are you sure you want to delete this location ?'
+                delete_confirm : 'Are you sure you want to delete this location ?',
+
             },
             model : {
                 label : 'Label',
@@ -332,6 +350,8 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 equipments : 'Equipments'
             },
             validations : {
+                'created' : 'The equipment has been saved',
+                'not_created' : 'Sorry, the equipment has not been saved'
             },
             messages : {
                 delete_confirm : 'Are you sure you want to delete this equipment ?'
@@ -362,6 +382,8 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 member : 'Members'
             },
             validations : {
+                'created' : 'The organization has been saved',
+                'not_created' : 'Sorry, the organization has not been saved'
             },
             messages : {
                 delete_confirm : 'Are you sure you want to delete this organization ?'
@@ -394,6 +416,8 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
 
             },
             validations : {
+                'created' : 'The role label has been saved',
+                'not_created' : 'Sorry, the role label has not been saved'
             },
             messages : {
                 delete_confirm : 'Are you sure you want to delete this role label ?'
@@ -423,6 +447,8 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
 
             },
             validations : {
+                'created' : 'The role has been saved',
+                'not_created' : 'Sorry, the role has not been saved'
             },
             messages : {
                 delete_confirm : 'Are you sure you want to delete this role ?'
@@ -458,6 +484,8 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 contact : 'Contact'
             },
             validations : {
+                'created' : 'The person has been saved',
+                'not_created' : 'Sorry, the person has not been saved'
             },
             messages : {
                 delete_confirm : 'Are you sure you want to delete this person ?'
@@ -478,43 +506,480 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
 
     //Register translation table as object hash for FR language
     $translateProvider.translations('fr_FR', {
-        //Community
-        'Home': 'Accueil',
-        'Search_event': 'Rechercher un evenement',
-        'Search_conference': 'Rechercher une conference',
-        'Search_publication': 'Rechercher une publication',
-        'Search_person': 'Rechercher une personne',
-        'Search_organization': 'Rechercher une organization',
-
-        authentication : {
+        //Global
+        global : {
             actions : {
-                'Login': 'Connexion'
+                go_home : 'Retour à l\'accueil',
+                actions : 'Actions',
+                lang : 'Language',
+                save : 'Enregistrer',
+                ok : 'Ok',
+                cancel : 'Annuler',
+                details : 'Détails &raquo;'
             }
         },
-        //Authentication
-        'Login': 'Connexion',
-        'Login_success': 'Bienvenue sur sympozer.com',
-        'Login_error': 'Login impossible',
-        'Forgotten_password': 'Mot de passe oublié ?',
-        'Signout': 'Déconnexion',
-        'signout_success': 'Merci d\'utiliser Sympozer, à bientôt',
-        'Resetpwd_info' : 'Pour réinitialiser le mot de passe, entrer l\'adresse email que vous utilisez pour vous connecter à Sympozer. Vous recevrez un email de la part de Sympozer qui vous fournira un lien à partir duquel vous pourrez changer votre mot de passe',
-        'Resetpwd_usernotfound_error': 'L\'utilisateur n\'a pas été trouvé',
-        'Resetpwd_pwdalreadyrequested_error': 'La réinitialisation du mot de passe à déjà été demandé',
-        'Resetpwd_pwdresetexpired_error': 'La demande de réinitialisation du mot de passe a expiré.',
-        'Register': 'Inscription',
-        'Register_success': 'Merci de vous être enregistré. Vous recevrez un e-mail pour terminer votre inscription',
-        'Register_activated_success': 'Votre compte est maintenant activé.',
-        'Register_error': 'L\'utilisateur n\'a pas pu etre enregistré. Veuillez contacter le support.',
-        'Register_email_in_use_error': 'Adresse mail déjà utilisée',
-        'Register_username_in_use_error': 'Login déjà utilisé',
-        'Register_confirm_error': 'Jeton de confirmation invalide.',
-        'EventFormValidation_start_is_after_end_error': "La date de fin doit être postérieure à la date de commencement.",
 
-        //MainEvent
-        'Label_already_used' : 'Un évènement portant ce label existe déjà.',
-        'End_date_after_start' : 'La date de fin doit être après la date de début',
-        'Start_date_before_end' : 'La date de début doit être avant la date de fin'
+
+        navleft : {
+            home : 'Accueil',
+            overview : 'Aperçu',
+            settings : 'Parametres',
+            appearance : 'Apparence',
+            directory : 'Participants',
+            powered_by : 'Propulsé par sympozer.com',
+            help : 'Aide',
+            infos : 'Information',
+            import : 'Import',
+            resource : 'Ressouces',
+            highlights : 'Live wall',
+            embedded_calendar : 'Planning embarqué',
+            ticket_page : 'Page tickets',
+            mobile_app : 'Application mobile',
+            widgets : 'Widgets',
+            slides : 'Slides'
+        },
+
+
+        //Authentication
+        authentication : {
+            actions : {
+                signin: 'Connexion',
+                signup: 'Inscription',
+                signout: 'Déconnexion'
+            },
+            validations : {
+                signin_success : 'Bienvenu sur Sympozer!',
+                signin_error : 'Accès refusé',
+                signout_success : 'Merci d\'utiliser Sympozer, à bientôt',
+                signup_success : 'Bienvenue sur Sympozer, vous allez recevoir un email pour terminer votre inscription',
+                signup_error : 'Désolé nous n\'avons pas pu vous connecter',
+                signup_confirm : 'Votre compte est désormais actif.',
+                signup_email_in_use : 'Email déjà utilisé.',
+                signup_username_in_use : 'nom d\'utilisateur déjà utilisé.',
+                signup_confirm_error : 'Token de confirmation non valide.',
+                reset_pwd_usernotfound : 'Utilisateur non trouvé.',
+                reset_pwd_alreadyrequested : 'La requête de changement de mot de passe a déjà été effectuée.',
+                reset_pwd_resetexpired : 'La requête de changement de mot de passe à expirée',
+                pwd_too_short : 'Votre mot de passe est trop court',
+                pwd_too_long : 'Votre mot de passe est trop long',
+                pwd_not_match : 'Les deux mots de passe doivent être identiques',
+                username_too_short : 'Votre nom d\'utilisateur est trop court',
+                username_too_long : 'Votre nom d\'utilisateur est trop long'
+
+            },
+            messages : {
+                reset_pwd_info : 'Pour reinitialiser votre mot de passe, entrer votre email ou nom d\'utilisateur. Vous recevrez alors un email pour mettre à jour votre mot de passe',
+                pwd_not_set : 'Vous n\'avez pas encore défini votre mot de passe'
+            },
+            labels :{
+                username : 'Utilisateur',
+                password : 'Mot de passe',
+                email : 'Email',
+                profile : 'Profile',
+                forgotten_pwd : 'Mot de passe oublié ?',
+                current_pwd : 'Votre mot de passe',
+                change_pwd : 'Changer mon mot de passe',
+                new_pwd : 'Nouveau mot de passe',
+                pwd_check : 'Confirmation mot de passe',
+                reset_pwd : 'Reinitialiser mon mot de passe',
+                pwd_verification : 'Vérification',
+                enrich_with : 'Enrichir mon profile avec',
+                enrich_profile : 'Enrichir mon profile avec',
+                signin_with : 'Connexion avec ',
+                account : 'Compte',
+                username_or_email : 'Nom d\'utilisateur ou email'
+
+            }
+        },
+
+
+        //mainEvent
+        mainEvents : {
+            actions : {
+                search : 'Rechercher une conférence',
+                new : 'Nouvelle conférence',
+                add : 'Ajouter a conférence',
+                edit : 'Editer la conférence',
+                import : 'Importer conférence',
+                export : 'Exporter conférence',
+                print : 'Imprimer conférence'
+            },
+            labels : {
+                general_info : 'Informations générales',
+                time_localization : 'Durée & localisation',
+                to : 'Jusqu\'à',
+                from : 'Depuis'
+            },
+            validations : {
+                'EventFormValidation_start_is_after_end_error': 'La date de début doit être avant la date de fin',
+                'Label_already_used' : 'Une conférence avec le même nom existe déjà',
+                'end_date_after_start' : 'La date de fin doit être après la date de début',
+                'start_date_before_end' : 'La date de début doit être avant la date de fin',
+                'created' : 'La conférence a été enregistrée',
+                'not_created' : 'Désolé, la conférence n\'a pas été sauvegardée'
+            },
+            messages : {
+                delete_confirm : 'Etes-vous sur de vouloir supprimer cette conférence ?'
+            },
+            model : {
+                label : 'Label',
+                startAt : 'Début',
+                endAt: 'Fin',
+                description : 'Description',
+                logo : 'Logo',
+                'url' : 'Lien'
+            }
+        },
+
+        //event
+        events : {
+            actions : {
+                search : 'Rechercher un évènement',
+                new : 'Nouvel évènement',
+                add : 'Ajouter un évènement',
+                edit : 'Editer l\'évènement',
+                import : 'Importer évènements',
+                export : 'Exporter évènements',
+                print : 'Imprimer évènements'
+            },
+            links : {
+                events : 'Evènements',
+                schedule : 'Calendrier',
+                calendar : 'Planning'
+            },
+            labels : {
+                general_info : 'Informations générales',
+                time_localization : 'Durée & localisation',
+                to : 'Jusqu\'à',
+                from : 'Depuis'
+            },
+            validations : {
+                start_before_end : 'La date de fin doit être après la date de début',
+                end_after_start :  'La date de début doit être avant la date de fin',
+                'created' : 'L\'évènement a été enregistrée',
+                'not_created' : 'Désolé, l\'évènement n\'a pas été sauvegardée'
+            },
+            messages : {
+                delete_confirm : 'Etes-vous sur de vouloir supprimer cet évènement ?'
+            },
+            model : {
+                label : 'Label',
+                description : 'Descritpion',
+                url : 'Lien',
+                startAt : 'Début',
+                endAt: 'Fin'
+            }
+        },
+
+        //event
+        papers : {
+            actions : {
+                search : 'Rechercher une publication',
+                new : 'Nouvelle publication',
+                add : 'Ajouter une publication',
+                edit : 'Editer la publication',
+                import : 'Importer publications',
+                export : 'Exporter publications',
+                print : 'Imprimer publications'
+            },
+            links : {
+                papers : 'Publications'
+            },
+            validations : {
+                delete_confirm : 'Etes-vous sur de vouloir supprimer cette publication ?',
+                'created' : 'La publication a été enregistrée',
+                'not_created' : 'Désolé, la publication n\'a pas été sauvegardée'
+            },
+            messages : {
+            },
+            model : {
+                label : 'Label',
+                abstract : 'Résumé',
+                publisher : 'Editeur',
+                publish_date : 'Date de publication',
+                url : 'lien',
+                authors : 'Auteurs'
+            }
+        },
+
+        //teammates
+        teammates : {
+            actions : {
+                search : 'Rechercher un équipier',
+                new : 'Nouvel équipier',
+                add : 'Ajouter un équipier',
+                edit : 'Editer l\'équipier',
+                import : 'Importer équipiers',
+                export : 'Exporter équipiers',
+                print : 'Imprimer équipiers'
+            },
+            links : {
+                team : 'Equipe'
+            },
+            labels : {
+                teammate : 'Equipier'
+            },
+            validations : {
+                'created' : 'L\'équipier a été enregistrée',
+                'not_created' : 'Désolé, l\'équipier n\'a pas été sauvegardée'
+            },
+            messages : {
+                delete_confirm : 'Etes-vous sur de vouloir supprimer cet équipier ?'
+            },
+            model : {
+            }
+        },
+
+
+        //topics
+        topics : {
+            actions : {
+                search : 'Rechercher un tag',
+                new : 'Nouveau tag',
+                add : 'Ajouter un tag',
+                edit : 'Editer le tag',
+                import : 'Importer tags',
+                export : 'Exporter tags',
+                print : 'Imprimer tags'
+            },
+            links : {
+                topics : 'Tags'
+            },
+            labels : {
+            },
+            validations : {
+                'created' : 'Le tag a été enregistré',
+                'not_created' : 'Désolé, Le tag n\'a pas été sauvegardé'
+            },
+            messages : {
+                delete_confirm : 'Etes-vous sur de vouloir supprimer ce tag ?'
+            },
+            model : {
+                label : 'Label'
+            }
+        },
+
+
+
+        //categories
+        categories : {
+            actions : {
+                search : 'Rechercher une catégorie',
+                new : 'Nouvelle catégorie',
+                add : 'Ajouter une catégorie',
+                edit : 'Editer la catégorie',
+                import : 'Importer catégories',
+                export : 'Exporter catégories',
+                print : 'Imprimer catégories'
+            },
+            links : {
+                categories : 'Catégories'
+            },
+            validations : {
+                'created' : 'La catégorie a été enregistré',
+                'not_created' : 'Désolé, la catégorie n\'a pas été sauvegardée'
+            },
+            messages : {
+                delete_confirm : 'Etes-vous sur de vouloir supprimer cette catégorie ?'
+            },
+            model : {
+                label : 'Label',
+                description : 'Description',
+                color : 'Couleur'
+            }
+        },
+
+        //locations
+        locations : {
+            actions : {
+                search : 'Rechercher une localisation',
+                new : 'Nouvelle localisation',
+                add : 'ajouter une localisation',
+                edit : 'Editer la localisation',
+                import : 'Importer localisations',
+                export : 'Exporter localisations',
+                print : 'Imprimer localisations'
+            },
+            links : {
+                locations : 'Localisations'
+            },
+            validations : {
+                'created' : 'La localisation a été enregistré',
+                'not_created' : 'Désolé, la localisation n\'a pas été sauvegardée'
+            },
+            messages : {
+                delete_confirm : 'Etes-vous sur de vouloir supprimer cette localisation ?'
+            },
+            model : {
+                label : 'Label',
+                description : 'Description',
+                capacity : 'Capacité',
+                accessibility : 'Accessibilité',
+                latitude : 'Latitude',
+                longitude : 'Longitude'
+            }
+        },
+
+
+        //equipments
+        equipments : {
+            actions : {
+                search : 'Rechercher un équipement',
+                new : 'Nouvel équipement',
+                add : 'Ajouter un équipement'
+            },
+            links : {
+                equipments : 'Equipements'
+            },
+            validations : {
+                'created' : 'L\'équipement a été enregistré',
+                'not_created' : 'Désolé, l\'équipement n\'a pas été sauvegardé'
+            },
+            messages : {
+                delete_confirm : 'Etes-vous sur de vouloir supprimer cet équipement ?'
+            },
+            model : {
+                label : 'Label',
+                description : 'Description',
+                icon : 'Icone'
+            }
+        },
+
+
+        //organizations
+        organizations : {
+            actions : {
+                search : 'Rechercher une organisation',
+                new : 'Nouvelle organisation',
+                add : 'Ajouter une organisation',
+                edit : 'Editer l\'organisation',
+                import : 'Importer organisations',
+                export : 'Exporter organisations',
+                print : 'Imprimer organisations'
+            },
+            links : {
+                organizations : 'Organisations'
+            },
+            labels : {
+                member : 'Membres'
+            },
+            validations : {
+                'created' : 'L\'organization a été enregistrée',
+                'not_created' : 'Désolé, l\'organization n\'a pas été sauvegardée'
+            },
+            messages : {
+                delete_confirm : 'Etes-vous sur de vouloir supprimer cette organisation ?'
+            },
+            model : {
+                label : 'Label',
+                country : 'Pays',
+                website : 'Site web',
+                img : 'Image',
+                description : 'Description'
+            }
+        },
+
+
+        //roleLabelVersions
+        roleLabelVersions : {
+            actions : {
+                search : 'Rechercher un type de rôle',
+                new : 'Nouveau type de rôle',
+                add : 'Ajouter un type de rôle',
+                edit : 'Editer le type de rôle',
+                import : 'Importer types de rôle',
+                export : 'Exporter types de rôles',
+                print : 'Imprimer types de rôles'
+            },
+            links : {
+                roleLabelVersions : 'Types de roles'
+            },
+            labels : {
+
+            },
+            validations : {
+            },
+            messages : {
+                delete_confirm : 'Etes-vous sur de vouloir supprimer ce type de rôle ?'
+            },
+            model : {
+                label : 'Label',
+                description : 'Description'
+            }
+        },
+
+
+        //roles
+        roles : {
+            actions : {
+                search : 'Ajouter un rôle',
+                new : 'Nouveau rôle',
+                add : 'ajouter a rôle',
+                edit : 'Editer le rôle',
+                import : 'Importer rôles',
+                export : 'Exporter rôles',
+                print : 'Imprimer rôles'
+            },
+            links : {
+                roles : 'Roles'
+            },
+            labels : {
+
+            },
+            validations : {
+                'created' : 'Le rôle a été enregistré',
+                'not_created' : 'Désolé, le rôle n\'a pas été sauvegardée'
+            },
+            messages : {
+                delete_confirm : 'Etes-vous sur de vouloir supprimer ce rôle ?'
+            },
+            model : {
+                event : 'Evènement',
+                person : 'Personne',
+                role_label_version: 'Type de rôle'
+            }
+        },
+
+        //person
+        persons : {
+            actions : {
+                search : 'Rechercher une personne',
+                new : 'Nouvelle personne',
+                add : 'Ajouter une personne',
+                edit : 'Editer la personne',
+                import : 'Importer personnes',
+                export : 'Exporter personnes',
+                print : 'Imprimer personnes',
+                edit_account : 'Modifier mon compte',
+                edit_profile : 'Editer mon profile'
+            },
+            links : {
+                persons : 'Personnes',
+                my_events : 'Mes évènements',
+                my_bookmarks : 'Mes marques page',
+                my_tickets : 'Mes tickets',
+                my_recommandations : 'Mes recommandations'
+            },
+            labels : {
+                contact : 'Contact'
+            },
+            validations : {
+                'created' : 'La personne a été enregistrée',
+                'not_created' : 'Désolé, La personne n\'a pas été sauvegardée'
+            },
+            messages : {
+                delete_confirm : 'Etes-vous sur de vouloir supprimer cette personne ?'
+            },
+            model : {
+                label : 'Label',
+                website : 'Site web',
+                country : 'Pays',
+                firstname : 'Prénom',
+                familyname : 'Nom',
+                email : 'Email',
+                img : 'Image'
+            }
+        }
     });
 
 }]);

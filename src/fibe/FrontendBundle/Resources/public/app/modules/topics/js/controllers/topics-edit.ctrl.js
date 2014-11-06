@@ -9,12 +9,12 @@ angular.module('topicsApp').controller('topicsEditCtrl', [ '$scope', '$rootScope
 
     var error = function (response, args)
     {
-        $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'the topic has not been saved', type: 'danger'});
+        $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'topics.validations.not_created', type: 'danger'});
     }
 
     var success = function (response, args)
     {
-        $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'topic saved', type: 'success'});
+        $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'topics.validations.created', type: 'success'});
         $window.history.back();
     }
 

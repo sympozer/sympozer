@@ -11,12 +11,12 @@ angular.module('eventsApp').controller('eventsEditCtrl', [ '$scope', '$filter', 
 
         var error = function (response, args)
         {
-            $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'the event has not been saved', type: 'danger'});
+            $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'events.validations.not_created', type: 'danger'});
         };
 
         var success = function (response, args)
         {
-            $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'event saved', type: 'success'});
+            $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'events.validations.created', type: 'success'});
             $location.path('/conference/' + $rootScope.currentMainEvent.id + '/events/list');
         };
 

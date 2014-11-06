@@ -9,12 +9,12 @@ angular.module('organizationsApp').controller('organizationsEditCtrl', [ '$scope
 
     var error = function (response, args)
     {
-        $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'the organization has not been saved', type: 'danger'});
+        $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'organizations.validations.not_created', type: 'danger'});
     }
 
     var success = function (response, args)
     {
-        $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'organization saved', type: 'success'});
+        $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'organizations.validations.created', type: 'success'});
         $window.history.back();
     }
 

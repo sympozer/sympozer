@@ -3,11 +3,11 @@ angular.module('categoriesApp').controller('categoriesNewCtrl', [ '$scope', '$wi
     $scope.category = new categoriesFact;
 
     var error = function(response, args){
-        $rootScope.$broadcast('AlertCtrl:addAlert', {code:'the category has not been created', type:'danger'});
+        $rootScope.$broadcast('AlertCtrl:addAlert', {code:'categories.validations.not_created', type:'danger'});
     };
 
     var success = function(response, args){
-        $rootScope.$broadcast('AlertCtrl:addAlert', {code:'category created', type:'success'});
+        $rootScope.$broadcast('AlertCtrl:addAlert', {code:'categories.validations.created', type:'success'});
         if($scope.$close){
             $scope.$close($scope.category);
         }else{

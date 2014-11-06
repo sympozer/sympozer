@@ -12,12 +12,12 @@ angular.module('papersApp').controller('papersEditCtrl', [ '$scope', '$filter', 
 
     var error = function (response, args)
     {
-        $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'the paper has not been saved', type: 'danger'});
+        $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'papers.validations.not_created', type: 'danger'});
     };
 
     var success = function (response, args)
     {
-        $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'paper saved', type: 'success'});
+        $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'papers.validations.created', type: 'success'});
         $location.path('/conference/' + $rootScope.currentMainEvent.id + '/papers/list');
     };
 

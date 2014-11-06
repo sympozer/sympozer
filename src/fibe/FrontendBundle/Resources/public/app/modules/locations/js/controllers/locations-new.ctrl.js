@@ -14,12 +14,12 @@ angular.module('locationsApp').controller('locationsNewCtrl', [ '$scope', '$filt
         $scope.center = { zoom: 2 }
         var error = function (response, args)
         {
-            $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'the location has not been created', type: 'danger'});
+            $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'locations.validations.not_created', type: 'danger'});
         }
 
         var success = function (response, args)
         {
-            $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'location created', type: 'success'});
+            $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'locations.validations.created', type: 'success'});
             if($scope.$close){
                 $scope.$close($scope.location);
             }else{

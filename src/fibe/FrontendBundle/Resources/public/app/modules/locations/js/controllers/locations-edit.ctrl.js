@@ -20,12 +20,12 @@ angular.module('locationsApp').controller('locationsEditCtrl', [ '$scope', '$fil
 
     var error = function (response, args)
     {
-        $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'the location has not been saved', type: 'danger'});
+        $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'locations.validations.not_created', type: 'danger'});
     };
 
     var success = function (response, args)
     {
-        $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'location saved', type: 'success'});
+        $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'locations.validations.created', type: 'success'});
         $location.path('/conference/'+$rootScope.currentMainEvent.id+'/locations/list');
     };
 

@@ -9,12 +9,12 @@
     $scope.paper = new papersFact();
     var error = function (response, args)
     {
-        $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'the paper has not been created', type: 'danger'});
+        $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'papers.validations.not_created', type: 'danger'});
     };
 
     var success = function (response, args)
     {
-        $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'paper created', type: 'success'});
+        $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'papers.validations.created', type: 'success'});
         if($scope.$close){
             $scope.$close($scope.paper);
         }else{

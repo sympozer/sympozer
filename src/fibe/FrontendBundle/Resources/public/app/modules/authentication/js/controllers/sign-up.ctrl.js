@@ -19,7 +19,7 @@ angular.module('authenticationApp').controller('signupCtrl',
             }
             else
             {
-                $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'the acount has not been created', type: 'danger'});
+                $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'authentication.validations.signup_error', type: 'danger'});
             }
         };
         var success = function (response, args)
@@ -27,7 +27,7 @@ angular.module('authenticationApp').controller('signupCtrl',
             $scope.busy = false;
             $scope.user = response;
             $rootScope.currentUser = response;
-            $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'Register_success', type: 'success'});
+            $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'authentication.validations.signup_success', type: 'success'});
             $location.path('/');
         }
         $scope.signupAction = function (signupForm)
