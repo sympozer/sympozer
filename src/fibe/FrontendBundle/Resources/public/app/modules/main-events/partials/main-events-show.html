@@ -18,8 +18,8 @@
 
 <div class="row">
     <div class=" col-md-6 col-lg-6">
-        <h1>From : {{mainEvent.startAt}}</h1>
-        <h1>To : {{mainEvent.endAt}}</h1>
+        <h1>{{ 'mainEvents.labels.from' | translate}} : {{mainEvent.startAt}}</h1>
+        <h1>{{ 'mainEvents.labels.to' | translate}} : {{mainEvent.endAt}}</h1>
     </div>
     <div class=" col-md-6 col-lg-6">
         <leaflet  center="center" markers="markers" height="300px" width="100%"></leaflet>
@@ -32,7 +32,7 @@
     <div class=" col-md-6 col-lg-6">
         <div class="row">
             <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
-                <h1>{{mainEvent.events.length}} Events </h1>
+                <h1>{{mainEvent.events.length}} {{ 'events.links.events' | translate}} </h1>
             </div>
         </div>
         <div ng-repeat="event in mainEvent.events | limitTo: 5  track by $index" class="col-sm-6 col-md-6 col-lg-4  well">
@@ -44,7 +44,7 @@
     <div class=" col-md-6 col-lg-6">
         <div class="row">
             <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
-                <h1>{{mainEvent.papers.length}} Papers </h1>
+                <h1>{{mainEvent.papers.length}} {{ 'papers.links.papers' | translate}} </h1>
             </div>
         </div>
         <div ng-repeat="paper in mainEvent.papers | limitTo: 5  track by $index" class="col-sm-6 col-md-6 col-lg-4  well">

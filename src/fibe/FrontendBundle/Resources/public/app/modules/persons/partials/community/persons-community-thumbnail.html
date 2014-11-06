@@ -1,5 +1,5 @@
 <div class="row">
-    <input type="text" class="form-control" placeholder="Search" ng-change="sendQuery(query)" ng-model="query">
+    <input type="text" class="form-control" placeholder="{{ 'persons.actions.search' | translate}}" ng-change="sendQuery(query)" ng-model="query">
 </div>
 <hr/>
 <div class="row" entity-list-handler="persons" infinite-scroll='load()' infinite-scroll-disabled='busy' infinite-scroll-distance='0.5'>

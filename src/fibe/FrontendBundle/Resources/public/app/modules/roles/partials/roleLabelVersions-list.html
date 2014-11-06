@@ -3,8 +3,8 @@
 <table class="table table-striped">
     <thead>
     <tr>
-        <th>Label<i class="fa fa-sort-asc" ng-click="order('label','ASC')"></i><i class="fa fa-sort-desc" ng-click="order('label','DESC')"></i></th>
-        <th>Description</th>
+        <th>{{ 'roleLabelVersions.model.label' | translate}}<i class="fa fa-sort-asc" ng-click="order('label','ASC')"></i><i class="fa fa-sort-desc" ng-click="order('label','DESC')"></i></th>
+        <th>{{ 'roleLabelVersions.model.description' | translate}}</th>
     </tr>
     </thead>
     <tbody entity-list-handler="roleLabels" infinite-scroll='load()' infinite-scroll-disabled='busy' infinite-scroll-distance='0.5'>

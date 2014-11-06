@@ -1,63 +1,63 @@
-<h2>General informations</h2>
+<h2>{{ 'mainEvents.labels.general_info' | translate}}</h2>
 
 <div class="well">
     <div>
-        <label for="inputLabel">Label</label>
+        <label for="inputLabel">{{ 'mainEvents.model.label' | translate}}</label>
         <input type="text" class="form-control" server-error="serverError" id="inputLabel" placeholder="{{conference.label}}" ng-model="conference.label" />
     </div>
     <div class="form-group">
-        <label for="inputDescription">Description</label>
+        <label for="inputDescription">{{ 'mainEvents.model.description' | translate}}</label>
         <textarea elastic class="form-control" id="inputDescription" placeholder="{{conference.description}}" ng-model="conference.description"></textarea>
     </div>
 
     <div>
-        <label for="inputLogo">Logo</label>
+        <label for="inputLogo">{{ 'mainEvents.model.logo' | translate}}</label>
         <input type="url" class="form-control" id="inputLogo" placeholder="http://..." ng-model="conference.logo">
         <div class="img-container-lg">
             <img  class="scale-img" no-image ng-src="{{ conference.logo }}"/>
         </div>
     </div>
     <div>
-        <label for="inputUrl">Url</label>
+        <label for="inputUrl">{{ 'mainEvents.model.url' | translate}}</label>
         <input type="url" class="form-control" id="inputUrl" placeholder="http://..." ng-model="conference.url">
     </div>
 </div>
 
-<h2>Time and localization</h2>
+<h2>{{ 'mainEvents.labels.time_localization' | translate}}</h2>
 
 <div class="well">
     <div>
-        <label for="inputStartAt">Start at</label>
+        <label for="inputStartAt">{{ 'mainEvents.model.startAt' | translate}}</label>
 
         <div class="dropdown">
             <a class="dropdown-toggle" id="dropdownStart" role="button" data-toggle="dropdown" data-target="#" href="javascript:void(0)">
-                <input type="text" datetime-format class="form-control" id="inputStartAt" name="inputStartAt" placeholder="Start at" ng-model="conference.startAt" ng-class="{'ng-dirty': formServerErrors.startAt, 'ng-valid': !formServerErrors.startAt,  'ng-invalid': formServerErrors.startAt}">
+                <input type="text" datetime-format class="form-control" id="inputStartAt" name="inputStartAt" placeholder="{{ 'mainEvents.model.startAt' | translate}}" ng-model="conference.startAt" ng-class="{'ng-dirty': formServerErrors.startAt, 'ng-valid': !formServerErrors.startAt,  'ng-invalid': formServerErrors.startAt}">
             </a>
             <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
                 <datetimepicker data-ng-model="conference.startAt" data-datetimepicker-config="{ dropdownSelector: '#dropdown2' }"/>
             </ul>
         </div>
-        <div class="alert alert-danger" role="alert" ng-show="inputStartAt.startAt.$dirty && conferenceForm.startAt > conferenceForm.endAt" >The start date must be before the end date</div>
+        <div class="alert alert-danger" role="alert" ng-show="inputStartAt.startAt.$dirty && conferenceForm.startAt > conferenceForm.endAt">{{ 'mainEvents.validations.start_date_before_end' | translate}}</div>
         <div ng-if="formServerErrors.startAt" ng-repeat="error in formServerErrors.startAt" class="alert alert-danger" role="alert">
             <p>{{ error | translate }}</p>
         </div>
     </div>
     <div>
-        <label for="inputEndAt">End at</label>
+        <label for="inputEndAt">{{ 'mainEvents.model.endAt' | translate}}</label>
 
         <div class="dropdown">
             <a class="dropdown-toggle" id="dropdownEnd" role="button" data-toggle="dropdown" data-target="#" href="javascript:void(0)">
-                <input type="text" datetime-format class="form-control" id="inputEndAt" name="inputEndAt" placeholder="End at" ng-model="conference.endAt">
+                <input type="text" datetime-format class="form-control" id="inputEndAt" name="inputEndAt" placeholder="{{ 'mainEvents.model.endAt' | translate}}" ng-model="conference.endAt">
             </a>
             <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
                 <datetimepicker data-ng-model="conference.endAt" data-datetimepicker-config="{ dropdownSelector: '#dropdown2' }"/>
             </ul>
         </div>
-        <div class="alert alert-danger" role="alert" ng-show="inputStartAtconferenceForm.inputStartAt.$dirty && conferenceForm.endAt < eventNewForm.startAt ">The end date must be after the start date</div>
+        <div class="alert alert-danger" role="alert" ng-show="inputStartAtconferenceForm.inputStartAt.$dirty && conferenceForm.endAt < eventNewForm.startAt ">{{ 'mainEvents.validations.end_date_after_start' | translate}}</div>
     </div>
 
     <div>
-        <label>Location </label>
+        <label>{{ 'locations.links.locations' | translate}} </label>
 
         <div class="caption well">
             <leaflet ng-click="addLocation()" center="center" markers="markers" height="300px" width="100%"></leaflet>
@@ -65,7 +65,7 @@
     </div>
 </div>
 
-<h2>Team</h2>
+<h2>{{ 'teammates.links.team' | translate}}</h2>
 
 <div class="well">
     <div ng-repeat="teammate in conference.team.teammates track by $index">

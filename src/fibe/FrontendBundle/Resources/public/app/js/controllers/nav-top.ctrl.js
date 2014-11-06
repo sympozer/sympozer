@@ -4,8 +4,8 @@
  * @type {controller}
  */
 angular.module('sympozerApp').controller('navTopCtrl',
-  ['$translate', '$scope', '$routeParams', 'GLOBAL_CONFIG',
-    function ($translate, $scope, $routeParams, GLOBAL_CONFIG)
+  ['$translate', '$scope', '$window', '$routeParams', 'GLOBAL_CONFIG',
+    function ($translate, $scope, $window, $routeParams, GLOBAL_CONFIG)
     {
       $scope.GLOBAL_CONFIG = GLOBAL_CONFIG;
       $scope.toggleNavLeft = function ()
@@ -23,6 +23,7 @@ angular.module('sympozerApp').controller('navTopCtrl',
       $scope.changeLocal = function (local)
       {
         $translate.use(local.code);
+        $window.history.back();
         return local;
       };
 

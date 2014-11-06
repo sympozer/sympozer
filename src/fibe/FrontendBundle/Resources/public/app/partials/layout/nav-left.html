@@ -2,7 +2,7 @@
 
 <div class="sidebar-nav">
 <!-- @button : New conference button -->
-<a class="btn btn-primary btn-lg noBorder" style="width:100%" href="#mainEvents/new">New conference</a>
+<a class="btn btn-primary btn-lg noBorder" style="width:100%" href="#mainEvents/new">{{ 'mainEvents.actions.new' | translate }}</a>
 
 <!-- @panel Community / Home panel -->
 <div class="panel-group" id="communityAccordion">
@@ -11,7 +11,7 @@
             <!-- @button : collapse panel Community / Home -->
             <a data-toggle="collapse" data-parent="#communityAccordion" href="#/#collapseCommunity" class="panel-heading-href btn btn-default noBorder">
                 <h4 class="panel-title">
-                    <i class="fa fa-home fa-3x"></i>{{ 'Home' | translate }}
+                    <i class="fa fa-home fa-3x"></i>{{ 'navleft.home' | translate }}
                 </h4>
             </a>
         </div>
@@ -20,19 +20,19 @@
                 <ul class="sidebar-nav-list">
                     <li>
                         <!-- @hlink : Search a conference -->
-                        <a href="#mainEvents/list"><i class="fa fa-calendar fa-2x"></i> {{ 'Search_conference' | translate }}</a>
+                        <a href="#mainEvents/list"><i class="fa fa-calendar fa-2x"></i> {{ 'mainEvents.actions.search' | translate }}</a>
                     </li>
                     <li>
                         <!-- @hlink : Search an organization -->
-                        <a href="#organizations/list"><i class="fa fa-users fa-2x"></i> {{ 'Search_organization' | translate }}</a>
+                        <a href="#organizations/list"><i class="fa fa-users fa-2x"></i> {{ 'organizations.actions.search' | translate }}</a>
                     </li>
                     <li>
                         <!-- @hlink : Search a person -->
-                        <a href="#persons/list"><i class="fa fa-user fa-2x"></i> {{ 'Search_person' | translate }}</a>
+                        <a href="#persons/list"><i class="fa fa-user fa-2x"></i> {{ 'persons.actions.search' | translate }}</a>
                     </li>
                     <li>
                         <!-- @hlink : Publications -->
-                        <a href="#papers/list"><i class="fa fa-book fa-2x"></i> Search a publication</a>
+                        <a href="#papers/list"><i class="fa fa-book fa-2x"></i> {{ 'papers.actions.search' | translate }}</a>
                     </li>
 
 
@@ -60,19 +60,19 @@
                 <ul class="sidebar-nav-list">
                     <li>
                         <!-- @hlink : My events -->
-                        <a href="#/persons/{{currentUser.id}}/events"><i class="fa fa-calendar-o fa-2x"></i> My events</a>
+                        <a href="#/persons/{{currentUser.id}}/events"><i class="fa fa-calendar-o fa-2x"></i>{{ 'persons.links.my_events' | translate }}</a>
                     </li>
                     <li>
                         <!-- @hlink : My bookmarks -->
-                        <a href="#attendees" disabled="disabled"><i class="fa fa-bookmark fa-2x"></i> My bookmarks</a>
+                        <a href="#attendees" disabled="disabled"><i class="fa fa-bookmark fa-2x"></i>{{ 'persons.links.my_bookmarks' | translate }}</a>
                     </li>
                     <li>
                         <!-- @hlink : My tickets -->
-                        <a href="#locations" disabled="disabled"><i class="fa fa-ticket fa-2x"></i> My tickets</a>
+                        <a href="#locations" disabled="disabled"><i class="fa fa-ticket fa-2x"></i>{{ 'persons.links.my_tickets' | translate }}</a>
                     </li>
                     <li>
                         <!-- @hlink : My recommandation -->
-                        <a href="#schedule" disabled="disabled"><i class="fa fa-thumbs-o-up fa-2x"></i> My recommandation</a>
+                        <a href="#schedule" disabled="disabled"><i class="fa fa-thumbs-o-up fa-2x"></i>{{ 'persons.links.my_recommandations' | translate }}</a>
                     </li>
                 </ul>
             </div>
@@ -104,7 +104,7 @@
                             <!-- @button : collapse panel Curent Conference : Overview -->
                             <a data-toggle="collapse" data-parent="#accordion" href="#dashboard/overview#collapseOne" class="panel-heading-href btn btn-default noBorder">
                                 <h4 class="panel-title">
-                                    <i class="fa fa-th fa-2x"></i> Overview
+                                    <i class="fa fa-th fa-2x"></i> {{ 'navleft.overview' | translate }}
                                 </h4>
                             </a>
                         </div>
@@ -113,11 +113,11 @@
                                 <ul class="sidebar-nav-list">
                                     <li>
                                         <!-- @hlink : Settings -->
-                                        <a href="#mainEvents/edit/{{currentMainEvent.id}}"><i class="fa fa-cogs fa-2x"></i> Settings</a>
+                                        <a href="#mainEvents/edit/{{currentMainEvent.id}}"><i class="fa fa-cogs fa-2x"></i> {{ 'navleft.settings' | translate }}</a>
                                     </li>
                                     <li>
                                         <!-- @hlink : Appearance -->
-                                        <a href="#mainEvents/edit/appearance/{{currentMainEvent.id}}"><i class="fa fa-paint-brush fa-2x"></i> Appearance</a>
+                                        <a href="#mainEvents/edit/appearance/{{currentMainEvent.id}}"><i class="fa fa-paint-brush fa-2x"></i> {{ 'navleft.appearance' | translate }}</a>
                                     </li>
 
                                     <!--<li>-->
@@ -142,7 +142,7 @@
                             <!-- @button : collapse panel Curent Conference : Resource -->
                             <a data-toggle="collapse" data-parent="#accordion" href="#dashboard/directory#collapseDirectory" class="panel-heading-href btn btn-default noBorder">
                                 <h4 class="panel-title">
-                                    <i class="fa fa-users fa-2x"></i> Directory
+                                    <i class="fa fa-users fa-2x"></i> {{ 'navleft.directory' | translate }}
                                 </h4>
                             </a>
                         </div>
@@ -151,15 +151,15 @@
                                 <ul class="sidebar-nav-list">
                                     <li>
                                         <!-- @hlink : Team -->
-                                        <a href="#conference/{{currentMainEvent.id}}/teammates/list"><i class="fa fa-graduation-cap fa-2x"></i> Team</a>
+                                        <a href="#conference/{{currentMainEvent.id}}/teammates/list"><i class="fa fa-graduation-cap fa-2x"></i> {{ 'teammates.links.team' | translate }}</a>
                                     </li>
                                     <li>
                                         <!-- @hlink : Organizations -->
-                                        <a href="#conference/{{currentMainEvent.id}}/organizations/list"><i class="fa fa-users fa-2x"></i> Organizations</a>
+                                        <a href="#conference/{{currentMainEvent.id}}/organizations/list"><i class="fa fa-users fa-2x"></i>  {{ 'organizations.links.organizations' | translate }}</a>
                                     </li>
                                     <li>
                                         <!-- @hlink : Persons -->
-                                        <a href="#conference/{{currentMainEvent.id}}/roles/list"><i class="fa fa-user fa-2x"></i> Persons</a>
+                                        <a href="#conference/{{currentMainEvent.id}}/roles/list"><i class="fa fa-user fa-2x"></i> {{ 'persons.links.persons' | translate }}</a>
                                     </li>
                                 </ul>
                             </div>
@@ -171,7 +171,7 @@
                             <!-- @button : collapse panel Curent Conference : Schedule -->
                             <a data-toggle="collapse" data-parent="#accordion" href="#dashboard/resources#collapseResources" class="panel-heading-href btn btn-default noBorder">
                                 <h4 class="panel-title">
-                                    <i class="fa fa-folder-open-o fa-2x"></i> Resources
+                                    <i class="fa fa-folder-open-o fa-2x"></i>  {{ 'navleft.resource' | translate }}
                                 </h4>
                             </a>
                         </div>
@@ -180,13 +180,13 @@
                                 <ul class="sidebar-nav-list">
                                     <li>
                                         <!-- @hlink : Publications -->
-                                        <a href="#conference/{{currentMainEvent.id}}/papers/list"><i class="fa fa-book fa-2x"></i> Publications</a>
+                                        <a href="#conference/{{currentMainEvent.id}}/papers/list"><i class="fa fa-book fa-2x"></i> {{ 'papers.links.papers' | translate }}</a>
                                     </li>
                                 </ul>
                                 <ul class="sidebar-nav-list">
                                     <li>
                                         <!-- @hlink : Slides -->
-                                        <a href="#conference/{{currentMainEvent.id}}/slides/list"><i class="fa fa-slideshare fa-2x"></i> Slides</a>
+                                        <a href="#conference/{{currentMainEvent.id}}/slides/list"><i class="fa fa-slideshare fa-2x"></i> {{ 'navleft.slides' | translate }}</a>
                                     </li>
                                 </ul>
                             </div>
@@ -198,7 +198,7 @@
                             <!-- @button : collapse panel Curent Conference : Schedule -->
                             <a data-toggle="collapse" data-parent="#accordion" href="#dashboard/schedule#collapseTwo" class="panel-heading-href btn btn-default noBorder">
                                 <h4 class="panel-title">
-                                    <i class="fa fa-calendar fa-2x"></i> Schedule
+                                    <i class="fa fa-calendar fa-2x"></i> {{ 'events.links.schedule' | translate }}
                                 </h4>
                             </a>
                         </div>
@@ -207,15 +207,15 @@
                                 <ul class="sidebar-nav-list">
                                     <li>
                                         <!-- @hlink : Calendar -->
-                                        <a href="#conference/{{currentMainEvent.id}}/events/list"><i class="fa fa-clock-o fa-2x"></i> Calendar</a>
+                                        <a href="#conference/{{currentMainEvent.id}}/events/list"><i class="fa fa-clock-o fa-2x"></i> {{ 'events.links.calendar' | translate }}</a>
                                     </li>
                                     <li>
                                         <!-- @hlink : Locations -->
-                                        <a href="#conference/{{currentMainEvent.id}}/locations/list"><i class="fa fa-map-marker fa-2x"></i> Locations</a>
+                                        <a href="#conference/{{currentMainEvent.id}}/locations/list"><i class="fa fa-map-marker fa-2x"></i> {{ 'locations.links.locations' | translate }}</a>
                                     </li>
                                     <li>
                                         <!-- @hlink : Categories -->
-                                        <a href="#conference/{{currentMainEvent.id}}/categories/list"><i class="fa fa-tag fa-2x"></i> Categories</a>
+                                        <a href="#conference/{{currentMainEvent.id}}/categories/list"><i class="fa fa-tag fa-2x"></i> {{ 'categories.links.categories' | translate }}</a>
                                     </li>
                                 </ul>
                             </div>
@@ -227,7 +227,7 @@
                             <!-- @button : collapse panel Curent Conference : Widgets -->
                             <a data-toggle="collapse" data-parent="#accordion" href="#dashboard/widget#collapseThree" class="panel-heading-href btn btn-default noBorder">
                                 <h4 class="panel-title">
-                                    <i class="fa fa-bullhorn fa-2x"></i> Widgets
+                                    <i class="fa fa-bullhorn fa-2x"></i> {{ 'navleft.widgets' | translate }}
                                 </h4>
                             </a>
                         </div>
@@ -236,19 +236,19 @@
                                 <ul class="sidebar-nav-list">
                                     <li>
                                         <!-- @hlink : Mobile app' -->
-                                        <a href="#conference"><i class="fa fa-mobile fa-2x"></i> Mobile app'</a>
+                                        <a href="#conference"><i class="fa fa-mobile fa-2x"></i> {{ 'navleft.mobile_app' | translate }}</a>
                                     </li>
                                     <li>
                                         <!-- @hlink : Ticket page -->
-                                        <a href="#ticketPage"><i class="fa fa-ticket fa-2x"></i> Ticket page</a>
+                                        <a href="#ticketPage"><i class="fa fa-ticket fa-2x"></i> {{ 'navleft.ticket_page' | translate }}</a>
                                     </li>
                                     <li>
                                         <!-- @hlink : Embedded calendar -->
-                                        <a href="#publications"><i class="fa fa-calendar fa-2x"></i> Embedded calendar</a>
+                                        <a href="#publications"><i class="fa fa-calendar fa-2x"></i> {{ 'navleft.embedded_calendar' | translate }}</a>
                                     </li>
                                     <li>
                                         <!-- @hlink : Highlight -->
-                                        <a href="#publications"><i class="fa fa-desktop fa-2x"></i> Highlight</a>
+                                        <a href="#publications"><i class="fa fa-desktop fa-2x"></i> {{ 'navleft.highlights' | translate }}</a>
                                     </li>
                                 </ul>
                             </div>
@@ -260,7 +260,7 @@
                             <!-- @button : collapse panel Curent Conference : Import -->
                             <a data-toggle="collapse" data-parent="#accordion" href="#dashboard/widget#collapseFour" class="panel-heading-href btn btn-default noBorder">
                                 <h4 class="panel-title">
-                                    <i class="fa fa-download fa-2x"></i> Import
+                                    <i class="fa fa-download fa-2x"></i> {{ 'navleft.import' | translate }}
                                 </h4>
                             </a>
                         </div>
@@ -269,7 +269,7 @@
                                 <ul class="sidebar-nav-list">
                                     <li>
                                         <!-- @hlink : Import -->
-                                        <a href="#conference"><i class="fa fa-download fa-2x"></i> Import</a>
+                                        <a href="#conference"><i class="fa fa-download fa-2x"></i> {{ 'navleft.import' | translate }}</a>
                                     </li>
                                 </ul>
                             </div>
@@ -284,13 +284,13 @@
 <ul class="sidebar-nav-list">
     <li>
         <!-- @hlink : Infos -->
-        <a href="#infos"><i class="fa fa-info fa-2x"></i> Infos</a>
+        <a href="#infos"><i class="fa fa-info fa-2x"></i> {{ 'navleft.infos' | translate }}</a>
     </li>
     <li>
         <!-- @hlink : Help -->
-        <a href="#help"><i class="fa fa-magic fa-2x"></i> Help</a>
+        <a href="#help"><i class="fa fa-magic fa-2x"></i> {{ 'navleft.help' | translate }}</a>
     </li>
-    <li><p style="text-align:center;">Powered by sympozer.com</p>
+    <li><p style="text-align:center;">{{ 'navleft.powered_by' | translate }}</p>
         <img no-image ng-src="{{sympozerLogoPath}}" style="margin-left:55px;height:30px;width:auto;"/>
     </li>
 </ul>

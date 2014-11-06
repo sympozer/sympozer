@@ -11,7 +11,7 @@
             <p>{{ paper.url }}</p>
             <pre>{{paper.abstract || 'add an abstract'}}</pre>
             <a class="btn btn-info" href="#conference/{{paper.mainEvent.id}}/papers/edit/{{paper.id}}" role="button">
-                <i class="fa fa-edit fa-1x"></i> Edit the paper
+                <i class="fa fa-edit fa-1x"></i> {{ 'papers.actions.edit' | translate}}
             </a>
         </div>
     </div>
@@ -19,7 +19,7 @@
 
 <div class="row">
     <div class="col-md-6 col-lg-6">
-        <h1>{{paper.authors.length}} Authors</h1>
+        <h1>{{paper.authors.length}}  {{ 'papers.model.authors' | translate}}</h1>
         <div ng-repeat="person in paper.authors track by $index" class="col-sm-6 col-md-6 col-lg-4 well">
             <div class="img-container-lg">
                 <img class="scale-img " no-image ng-src="{{ person.img}}"  alt="Auhtor image">

@@ -1,25 +1,25 @@
 
 <div>
-    <label for="inputLabel">Label</label>
-    <input type="text" class="form-control" id="inputLabel" required placeholder="label" ng-model="paper.label">
+    <label for="inputLabel">{{ 'papers.model.label' | translate}}</label>
+    <input type="text" class="form-control" id="inputLabel" required placeholder="{{ 'papers.model.label' | translate}}" ng-model="paper.label">
 </div>
 <div>
-    <label for="inputAbstract">Abstract</label>
-    <textarea elastic class="form-control" id="inputAbstract" placeholder="{{paper.abstract}}" ng-model="paper.abstract"></textarea>
+    <label for="inputAbstract">{{ 'papers.model.abstract' | translate}}</label>
+    <textarea elastic class="form-control" id="inputAbstract" placeholder="{{ 'papers.model.abstract' | translate}}" ng-model="paper.abstract"></textarea>
 </div>
 <div>
-    <label for="inputUrl">Url</label>
+    <label for="inputUrl">{{ 'papers.model.url' | translate}}</label>
     <input type="url" class="form-control" id="inputUrl" name="inputUrl" placeholder="http://" ng-model="paper.url">
 </div>
 <div>
-    <label for="inputPublisher">Publisher</label>
-    <input type="text" class="form-control" id="inputPublisher"  placeholder="Publisher" ng-model="paper.publisher">
+    <label for="inputPublisher">{{ 'papers.model.publisher' | translate}}</label>
+    <input type="text" class="form-control" id="inputPublisher"  placeholder="{{ 'papers.model.publisher' | translate}}" ng-model="paper.publisher">
 </div>
 <div>
-    <label for="inputPublishDate">Publish Date</label>
+    <label for="inputPublishDate">{{ 'papers.model.publish_date' | translate}}</label>
     <div class="dropdown">
         <a class="dropdown-toggle" id="dropdownPublishDate" role="button" data-toggle="dropdown" data-target="#" href="javascript:void(0)">
-            <input type="text"   date-before-now-validator   datetime-format class="form-control" id="inputPublishDate" name="inputPublishDate" placeholder="Publish date" ng-model="paper.publishDate">
+            <input type="text"   date-before-now-validator   datetime-format class="form-control" id="inputPublishDate" name="inputPublishDate" placeholder="{{ 'papers.model.publish_date' | translate}}" ng-model="paper.publishDate">
         </a>
         <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
             <datetimepicker data-ng-model="paper.publishDate" data-datetimepicker-config="{ dropdownSelector: '#dropdown2' }"/>
@@ -30,7 +30,7 @@
 </div>
 
 <div class="row">
-    <label>Topics</label>
+    <label>{{ 'topics.links.topics' | translate}}</label>
     <div sympozer-autocomplete="topics" on-select="addTopic" on-keyup="searchTopics"></div>
     <ul class="nav nav-pills" ng-show="paper.topics.length > 0">
         <li ng-repeat="topic in paper.topics track by $index"  class="active">
@@ -43,7 +43,7 @@
 </div>
 
 <div class="row">
-    <label>Authors</label>
+    <label>{{ 'papers.model.authors' | translate}}</label>
     <div sympozer-autocomplete="persons" on-select="addPerson" on-keyup="searchPersons">
     </div>
     <div ng-repeat="author in paper.authors track by $index" class="col-sm-4 col-md-4 col-lg-2  well" ng-show="paper.authors">

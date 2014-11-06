@@ -22,8 +22,8 @@
                 </li>
             </ul>
         </div>
-            <h3>From : {{event.startAt}}</h3>
-            <h3>To : {{event.endAt}}</h3>
+            <h3>{{ 'events.labels.from' | translate }} : {{event.startAt}}</h3>
+            <h3>{{ 'events.labels.to' | translate }}  : {{event.endAt}}</h3>
                 <ul class="nav nav-pills" ng-show="event.eventLocations.length > 0">
                   <li ng-repeat="location in event.eventLocations  track by $index"  class="active">
                     <a href="javascript:void(0)" > <i class="fa fa-map-marker"></i>  {{location.label}}</a>
@@ -33,7 +33,7 @@
             <pre>{{event.description || 'add a description'}}</pre>
             <pre>{{event.comment || 'add a comment'}}</pre>
             <a class="btn btn-info" href="#conference/{{event.mainEvent.id}}/events/edit/{{event.id}}" role="button">
-                <i class="fa fa-edit fa-1x"></i> Edit the event
+                <i class="fa fa-edit fa-1x"></i> {{ 'events.actions.edit' | translate }}
             </a>
         </div>
     </div>

@@ -2,10 +2,10 @@
 <table class="table table-striped">
     <thead>
     <tr>
-        <th>Label<i class="fa fa-sort-asc" ng-click="order('label','ASC')"></i><i class="fa fa-sort-desc" ng-click="order('label','DESC')"></i></th>
-        <th>website<i class="fa fa-sort-asc" ng-click="order('website','ASC')"></i><i class="fa fa-sort-desc" ng-click="order('website','DESC')"></i></th>
-        <th>Country <i class="fa fa-sort-asc" ng-click="order('country','ASC')"></i><i class="fa fa-sort-desc" ng-click="order('country','DESC')"></i></th>
-        <th>Actions</th>
+        <th>{{ 'persons.model.label' | translate}}<i class="fa fa-sort-asc" ng-click="order('label','ASC')"></i><i class="fa fa-sort-desc" ng-click="order('label','DESC')"></i></th>
+        <th>{{ 'persons.model.website' | translate}}<i class="fa fa-sort-asc" ng-click="order('website','ASC')"></i><i class="fa fa-sort-desc" ng-click="order('website','DESC')"></i></th>
+        <th>{{ 'persons.model.country' | translate}} <i class="fa fa-sort-asc" ng-click="order('country','ASC')"></i><i class="fa fa-sort-desc" ng-click="order('country','DESC')"></i></th>
+        <th>{{ 'global.actions.actions' | translate}}</th>
     </tr>
     </thead>
     <tbody entity-list-handler="persons" infinite-scroll='load()' infinite-scroll-disabled='busy' infinite-scroll-distance='0.5'>

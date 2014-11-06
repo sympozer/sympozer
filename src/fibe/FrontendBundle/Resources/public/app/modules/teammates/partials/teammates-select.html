@@ -1,4 +1,4 @@
-<label>Participants</label>
+<label>{{ 'teammates.labels.teammates' | translate }}</label>
 <div>
   <span ng-repeat="entity in resource[parentField]  track by $index" class="tag label label-info">
     <span>{{ entity.label }}</span>
@@ -11,7 +11,7 @@
   <ui-select-choices repeat="entity in entities">
     <!--<ui-select-choices repeat="entity.email as entity in people | propsFilter: {label: $select.search, age: $select.search}">-->
     <div ng-if="!entity.id ">
-      Add a new Participant...
+        {{ 'teammates.actions.new' | translate }}...
     </div>
     <i class="fa fa-map-marker fa-2x"></i>
     <b ng-bind-html="entity.label | highlight: $select.search"></b>

@@ -1,9 +1,11 @@
+<div class="alert alert-info" role="alert">{{ 'authentication.messages.reset_pwd_info' | translate }}</div>
+
 <form name="resetPwdRequestForm" class="form" role="form" ng-submit="resetPwdRequestAction(resetPwdRequestForm)" novalidate="">
   <div class="form-group">
-    <label for="inputUsername">Username or Email</label>
-    <input required="" type="text" name="username" class="form-control" id="inputUsername" placeholder="Username or Email" ng-model="user.username"/>
+    <label for="inputUsername">{{ 'authentication.labels.username_or_email' | translate }}</label>
+    <input required="" type="text" name="username" class="form-control" id="inputUsername" placeholder="{{ 'authentication.labels.username_or_email' | translate }}" ng-model="user.username"/>
   </div>
     <div class="form-group">
-        <button ng-disabled="signinForm.$invalid" type="submit" class="btn btn-default">Reset my password</button>
+        <button ng-disabled="signinForm.$invalid" type="submit" class="btn btn-default">{{ 'authentication.labels.reset_pwd' | translate }}</button>
     </div>
 </form>

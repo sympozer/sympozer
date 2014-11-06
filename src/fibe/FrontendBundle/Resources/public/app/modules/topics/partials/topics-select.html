@@ -1,4 +1,4 @@
-<input type="text" ng-model="entity" typeahead-template-url="topics-typeahead.html" typeahead-on-select="select($item, $model)"  placeholder="Search a topic ..." typeahead-wait-ms="500" typeahead="entity as entity.label  for entity in keyup($viewValue)"  typeahead-loading="loading"  class="form-control">
+<input type="text" ng-model="entity" typeahead-template-url="topics-typeahead.html" typeahead-on-select="select($item, $model)"  placeholder="{{ 'topics.actions.search' | translate }}..." typeahead-wait-ms="500" typeahead="entity as entity.label  for entity in keyup($viewValue)"  typeahead-loading="loading"  class="form-control">
 <i ng-show="loading" class="fa fa-spinner fa-spin"></i>
 
 
@@ -6,7 +6,7 @@
     <div style="width:100%">
         <span ng-if="!match.model.id">
             <hr/>
-             <i class="fa fa-plus"></i> Add a new topic...
+             <i class="fa fa-plus"></i> {{ 'topics.actions.new' | translate }}...
          </span>
         <span ng-if="match.model.id">
             <span bind-html-unsafe="match.model.label | typeaheadHighlight:query"></span>
