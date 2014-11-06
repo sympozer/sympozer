@@ -21,8 +21,6 @@ class ConfPermission
 
   protected $entityLabel;
 
-  protected $restricted;
-
   public function setAction($action)
   {
     $this->action = $action;
@@ -73,19 +71,4 @@ class ConfPermission
   {
     return $this->entityLabel;
   }
-
-
-  public function setRestricted($restricted)
-  {
-    $this->restricted = $restricted;
-
-    return $this;
-  }
-
-  public function getRestricted()
-  {
-    return $this->restricted;
-  }
-
-
 }

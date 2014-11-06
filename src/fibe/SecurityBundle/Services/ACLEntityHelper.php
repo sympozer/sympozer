@@ -37,13 +37,8 @@ class ACLEntityHelper extends ACLHelper
    * @throws AccessDeniedException
    *
    */
-  public function getEntityACL($action, $repositoryName, $entity = null)
+  public function getEntityACL($action, $repositoryName, $entity)
   {
-
-    if (!is_object($entity))
-    {
-      $entity = $this->getEntitiesInConf($repositoryName, $entity);
-    }
     if (false === $this->securityContext->isGranted($action, $entity))
     {
       throw new AccessDeniedException(
@@ -55,7 +50,6 @@ class ACLEntityHelper extends ACLHelper
         )
       );
     }
-
     return $entity;
   }
 
@@ -104,13 +98,6 @@ class ACLEntityHelper extends ACLHelper
     return $rtn;
   }
 
-  public function getACEByRepositoryName($repositoryName, $user = null, $id = null)
-  {
-    $entity = $this->getEntitiesInConf($repositoryName, $id);
-
-    return $this->getACEByEntity($entity, $user);
-  }
-
   /**
    * [getACEByEntity description]
    *
@@ -124,7 +111,7 @@ class ACLEntityHelper extends ACLHelper
 
   /**get the allowed action
    *
-   * @param Object $entity the entity to get
+   * @param mixed $entity the entity to get
    * @param UserInterface|null $user the current user if null
    * @param String $returnType all|mask|index|action (all | int binary mask | index of the ace in the acl | readable action i.e. VIEW)
    * @param null $acl provide acl if you already got it
@@ -186,13 +173,14 @@ class ACLEntityHelper extends ACLHelper
    */
   protected function getEntitiesInConf($repositoryName, $id = null)
   {
+    //TODO ; fix $this->currentMainEvent
     $entity = null;
     if ($id)
     {
       $findOneByArgs = array('id' => $id);
       if ($repositoryName != self::LINK_WITH)
       {
-        $findOneByArgs['mainEvent'] = $this->getCurrentMainEvent();
+        $findOneByArgs['mainEvent'] = $this->currentMainEvent;
       }
       $entity = $this->entityManager->getRepository($this->getClassNameByRepositoryName($repositoryName))->findOneBy(
         $findOneByArgs
@@ -220,21 +208,8 @@ class ACLEntityHelper extends ACLHelper
    * @param  [String] $repositoryName  [description]
    * @param  [type] $id                if not set, update all objects of the repository given linked with the current conf
    */
-  protected function updateUserACL($teammate, $action, $repositoryName, $id = null)
+  protected function updateUserACL($teammate, $action, $repositoryName, $id)
   {
-    if (!$id)
-    {
-      $entities = $this->getEntitiesACL("VIEW", $repositoryName);
-      foreach ($entities as $entity)
-      {
-        $this->performUpdateUserACL($teammate, $action, $entity);
-      }
-    }
-    else
-    {
-      $entity = $this->getEntityACL("VIEW", $repositoryName, $id);
-      $this->performUpdateUserACL($teammate, $action, $entity);
-    }
   }
 
   /**

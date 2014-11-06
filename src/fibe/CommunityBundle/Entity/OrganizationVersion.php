@@ -167,7 +167,7 @@ class OrganizationVersion extends AdditionalInformations
   /**
    * @param Person $organizationVersionOwner
    */
-  public function setOrganizationVersionOwner(Person $organizationVersionOwner)
+  public function setOrganizationVersionOwner($organizationVersionOwner)
   {
     $this->organizationVersionOwner = $organizationVersionOwner;
   }

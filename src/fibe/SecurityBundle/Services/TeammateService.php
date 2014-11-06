@@ -12,16 +12,15 @@ class TeammateService extends AbstractBusinessService
 {
   protected $aclEntityHelper;
 
-  function __construct(ACLEntityHelper $aclEntityHelper)
+  function __construct(ACLUserPermissionHelper $aclEntityHelper)
   {
     $this->aclEntityHelper = $aclEntityHelper;
   }
 
   public function post(Teammate $teammate)
   {
-//    $person = $teammate->getPerson();
-//    $ACLService = $this->get('fibe_security.acl_user_permission_helper');
-//    $ACLService->updateTeammate($teammate);
+//    $this->aclEntityHelper->getPermissionForTeammate($teammate);
+//    $this->aclEntityHelper->updateTeammate($teammate);
 //
 //    $this->entityManager->flush();
 

@@ -18,13 +18,14 @@ class TeammateRepository extends EntityRepository
 {
 
   /**
-   * filtering with all parameters difned
-   * @param $qb , query builder to add the filter to
+   * filtering with all parameters defined
+   * @param QueryBuilder $qb , query builder to add the filter to
    * @param $params , the field to filter on
-   * @return $qb, modified query builder
+   * @return QueryBuilder $qb, modified query builder
    */
   public function filter(QueryBuilder $qb, $params)
   {
+
     if (isset($params['mainEventId'])) {
       $qb->andWhere('qb.mainEvent = :mainEventId');
       $qb->setParameter('mainEventId', $params['mainEventId']);

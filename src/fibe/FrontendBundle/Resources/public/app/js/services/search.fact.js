@@ -8,7 +8,7 @@ angular.module('sympozerApp').factory('searchService', [
 
             doSearch: function (arg, searchConfig)
             {
-                //avoid too many query
+                //avoid too many queries
                 $timeout.cancel(searchTimeout);
                 searchTimeout = $timeout(doSearch, 500);
 

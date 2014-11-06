@@ -2,21 +2,15 @@
 
 namespace fibe\SecurityBundle\Controller;
 
-use Symfony\Component\DomCrawler\Form;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use fibe\SecurityBundle\Form\TeammateType;
+use fibe\SecurityBundle\Form\UserAuthorizationType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use fibe\SecurityBundle\Entity\User;
-use fibe\SecurityBundle\Entity\Teammate;
-use fibe\SecurityBundle\Form\UserAuthorizationType;
-use fibe\SecurityBundle\Form\TeammateType;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\DomCrawler\Form;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
-use Pagerfanta\Adapter\ArrayAdapter;
-use Pagerfanta\Pagerfanta;
-use Pagerfanta\Exception\NotValidCurrentPageException;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
  * TODO: TO REMOVE
@@ -46,34 +40,32 @@ class TeamController extends Controller
     $delete_forms = array();
     $managerConfAuthorizations = array();
 
-    foreach ($managers
-             as
-             $manager)
+    foreach ($managers as $manager)
     {
       if ($manager->getId() != $this->getUser()->getId())
       {
 
         $delete_forms[] = $this->createDeleteForm($manager->getId())->createView();
 
-        $managerConfAuthorizations[] = $ACLService->getTeammate($manager, false);
+        $managerConfAuthorizations[] = $ACLService->getPermissionForTeammate($manager, false);
       }
     }
 
-    $teammate = $ACLService->getTeammate($this->getUser(), false);
+    $teammate = $ACLService->getPermissionForTeammate($this->getUser(), false);
     $addTeammateForm = $this->createForm(
       new TeammateType($this->getUser()),
-      $ACLService->getTeammate()
+      $ACLService->getPermissionForTeammate()
     );
 
     return array(
-      'team'                                => $team,
-      'delete_forms'                        => $delete_forms,
-      'manager_conf_authorizations'         => $managerConfAuthorizations,
+      'team' => $team,
+      'delete_forms' => $delete_forms,
+      'manager_conf_authorizations' => $managerConfAuthorizations,
       'current_manager_conf_authorizations' => $teammate,
       // 'update_forms'                     => $update_forms,
-      'add_teammate_form'                    => $addTeammateForm->createView(),
-      'currentMainEvent'                         => $currentMainEvent,
-      'authorized'                          => true
+      'add_teammate_form' => $addTeammateForm->createView(),
+      'currentMainEvent' => $currentMainEvent,
+      'authorized' => true
     );
   }
 
@@ -90,7 +82,7 @@ class TeamController extends Controller
     $ACLService = $this->get('fibe_security.acl_user_permission_helper');
     $team = $ACLService->getEntityACL('CREATE', 'Team', $currentMainEvent->getTeam()->getId());
 
-    $teammate = $ACLService->getTeammate();
+    $teammate = $ACLService->getPermissionForTeammate();
     $form = $this->createForm(new TeammateType($this->getUser()), $teammate);
     $form->bind($request);
 
@@ -138,12 +130,12 @@ class TeamController extends Controller
     $em = $this->getDoctrine()->getManager();
     $entity = $em->getRepository('fibeSecurityBundle:User')->find($id);
 
-    $teammate = $ACLService->getTeammate($entity);
+    $teammate = $ACLService->getPermissionForTeammate($entity);
     $editForm = $this->createForm(new TeammateType($this->getUser()), $teammate);
 
     return array(
-      'entity'     => $entity,
-      'edit_form'  => $editForm->createView(),
+      'entity' => $entity,
+      'edit_form' => $editForm->createView(),
       'authorized' => true,
     );
   }
@@ -160,7 +152,7 @@ class TeamController extends Controller
     $em = $this->getDoctrine()->getManager();
     $entity = $em->getRepository('fibeSecurityBundle:User')->find($id);
 
-    $teammate = $ACLService->getTeammate($entity);
+    $teammate = $ACLService->getPermissionForTeammate($entity);
     $editForm = $this->createForm(new TeammateType($this->getUser()), $teammate);
     $editForm->bind($request);
 
