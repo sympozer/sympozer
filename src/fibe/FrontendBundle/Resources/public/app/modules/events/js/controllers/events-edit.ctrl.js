@@ -155,6 +155,7 @@ angular.module('eventsApp').controller('eventsEditCtrl', [ '$scope', '$filter', 
         //Autocomplete and add role workflow
         $scope.event.roles = [];
         $scope.addRole = function(){
+            alert("role");
             var modalInstance = $modal.open({
                 templateUrl: GLOBAL_CONFIG.app.modules.roles.urls.partials + 'roles-modal-form.html',
                 controller: 'rolesNewCtrl',

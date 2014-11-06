@@ -7,8 +7,7 @@
     </div>
     <div class="form-group">
         <label for="inputPassword">{{ 'authentication.labels.password' | translate }}</label>
-        <input required="" type="password" name="_password" class="form-control" id="inputPassword" placeholder="{{ 'authentication.labels.password' | translate }}" ng-model="user.password" ng-minlength="3"
-               ng-maxlength="40" />
+        <input required="" type="password" name="_password" class="form-control" id="inputPassword" placeholder="{{ 'authentication.labels.password' | translate }}" ng-model="user.password"/>
     </div>
     <div class="form-group">
         <span><a ng-click="$modalCancel()" href="#/forgotten_password">{{ 'authentication.labels.forgotten_pwd' | translate }}</a></span>

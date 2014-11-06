@@ -20,9 +20,10 @@
   <div class="form-group">
     <label for="inputPassword">{{ 'authentication.labels.password' | translate }}</label>
     <input type="password" required="" name="password" id="inputPassword" class="form-control" placeholder="{{ 'authentication.labels.password' | translate }}" ng-model="user.plainPassword.first" ng-minlength="3"
-           ng-maxlength="40"/>
+      ng-maxlength="20" ng-pattern=/(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z].*[a-z].*[a-z])(?=.*\s*\S)/ required/>
       <div class="alert alert-danger" role="alert" ng-show="signupForm._password.$error.minlength">{{ 'authentication.validations.pwd_too_short' | translate }}</div>
       <div class="alert alert-danger" role="alert" ng-show="signupForm._password.$error.maxlength">{{ 'authentication.validations.pwd_too_long' | translate }}</div>
+       <div class="alert alert-danger" role="alert" ng-show="signupForm.password.$error.pattern">{{ 'authentication.validations.pwd_not_enough_strength' | translate }}</div>
   </div>
   <div class="form-group">
     <label for="inputPasswordConfirm">{{ 'authentication.labels.pwd_check' | translate }}</label>

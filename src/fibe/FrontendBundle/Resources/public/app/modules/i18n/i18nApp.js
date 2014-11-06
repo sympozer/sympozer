@@ -75,6 +75,7 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 reset_pwd_resetexpired : 'The Password reset request has expired',
                 pwd_too_short : 'Your password is required to be at least 3 characters',
                 pwd_too_long : 'Your password cannot be longer than 20 characters',
+                pwd_not_enough_strength : 'Your password must contains 2 Uppercase Letters, 1 Special Caracteres as !@#$&*,2 digits,3 Lowercase letters, 0 space',
                 pwd_not_match : 'Passwords must match',
                 username_too_short : 'Your login is required to be at least 3 characters',
                 username_too_long : 'Your login cannot be longer than 20 characters'
@@ -562,6 +563,7 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 reset_pwd_resetexpired : 'La requête de changement de mot de passe à expirée',
                 pwd_too_short : 'Votre mot de passe est trop court',
                 pwd_too_long : 'Votre mot de passe est trop long',
+                pwd_not_enough_strength : 'Le mot de passe doit contenir au moins 2 caractéres en majuscule, 1 caractére special comme !@#$&*,2 chiffres,3 caractéres minuscules, 0 espace',
                 pwd_not_match : 'Les deux mots de passe doivent être identiques',
                 username_too_short : 'Votre nom d\'utilisateur est trop court',
                 username_too_long : 'Votre nom d\'utilisateur est trop long'
