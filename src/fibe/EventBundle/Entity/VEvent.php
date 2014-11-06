@@ -200,6 +200,7 @@ abstract class VEvent
    * @ORM\JoinTable(name="vevent_topic",
    *     joinColumns={@ORM\JoinColumn(name="vevent_id", referencedColumnName="id")},
    *     inverseJoinColumns={@ORM\JoinColumn(name="topic_id", referencedColumnName="id")})
+   * @Expose
    */
   protected $topics;
 
