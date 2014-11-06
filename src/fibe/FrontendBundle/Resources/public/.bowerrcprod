@@ -1,5 +1,5 @@
 {
-    "directory" : "vendors"
+    "directory" : "vendors",
     "proxy" : "http://proxy.univ-lyon1.fr:3128",
     "https-proxy" : "https://proxy.univ-lyon1.fr:3128"
 }
