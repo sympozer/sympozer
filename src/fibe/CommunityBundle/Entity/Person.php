@@ -7,10 +7,8 @@ use Doctrine\ORM\Mapping as ORM;
 use fibe\ContentBundle\Entity\Paper;
 use fibe\ContentBundle\Entity\Role;
 use fibe\ContentBundle\Util\StringTools;
-use fibe\SecurityBundle\Entity\Team;
 use fibe\SecurityBundle\Entity\Teammate;
 use fibe\SecurityBundle\Entity\User;
-use FOS\UserBundle\Model\UserInterface;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
 use JMS\Serializer\Annotation\SerializedName;
@@ -90,19 +88,9 @@ class Person extends AdditionalInformations
    * Paper
    * Paper made by this person
    * @Expose
-   * @ORM\ManyToMany(targetEntity="fibe\ContentBundle\Entity\Paper",  mappedBy="authors", cascade={"persist","merge", "remove"})
+   * @ORM\ManyToMany(targetEntity="fibe\ContentBundle\Entity\Paper",  mappedBy="authors", cascade={"all"})
    */
   protected $papers;
-
-  /**
-   *
-   * organization
-   *
-   * @ORM\OneToMany(targetEntity="fibe\CommunityBundle\Entity\OrganizationVersion", mappedBy="organizationVersionOwner", cascade={"all"})
-   * @Expose
-   */
-  private $organizations;
-
   /**
    * openId
    *
@@ -110,7 +98,6 @@ class Person extends AdditionalInformations
    * @ORM\Column(type="string", nullable=true,  name="openId")
    */
   protected $openId;
-
   /**
    *
    * @ORM\OneToMany(targetEntity="fibe\ContentBundle\Entity\Role",  mappedBy="person",cascade={"persist","remove"})
@@ -118,7 +105,6 @@ class Person extends AdditionalInformations
    * @Expose
    */
   protected $roles;
-
   /**
    * @TODO : Difference avec un utilisateur Sympozer ? Peut appartenir a plusieurs main events
    *
@@ -128,18 +114,24 @@ class Person extends AdditionalInformations
    *     inverseJoinColumns={@ORM\JoinColumn(name="person_id", referencedColumnName="id")})
    */
   protected $mainEvents;
-
   /**
    *
    * @ORM\OneToMany(targetEntity="SocialServiceAccount",  mappedBy="owner", cascade={"persist", "remove"})
    *
    */
   protected $accounts;
-
   /**
    * @ORM\Column(type="string", length=256, nullable=true)
    */
   protected $slug;
+  /**
+   *
+   * organization
+   *
+   * @ORM\OneToMany(targetEntity="fibe\CommunityBundle\Entity\OrganizationVersion", mappedBy="organizationVersionOwner", cascade={"all"}, orphanRemoval=true)
+   * @Expose
+   */
+  private $organizations;
 
   /**
    * Constructor
@@ -177,15 +169,6 @@ class Person extends AdditionalInformations
   }
 
   /**
-   * Slugify
-   * @ORM\PrePersist()
-   */
-  public function slugify()
-  {
-    $this->setSlug(StringTools::slugify($this->getId() . $this->getLabel()));
-  }
-
-  /**
    * onUpdate
    *
    * @ORM\PostPersist()
@@ -197,29 +180,22 @@ class Person extends AdditionalInformations
   }
 
   /**
-   * Set slug
-   *
-   * @param string $slug
-   *
-   * @return $this
+   * Slugify
+   * @ORM\PrePersist()
    */
-  public function setSlug($slug)
+  public function slugify()
   {
-    $this->slug = $slug;
-
-    return $this;
+    $this->setSlug(StringTools::slugify($this->getId() . $this->getLabel()));
   }
 
   /**
-   * Get slug
+   * Get label
    *
    * @return string
    */
-  public function getSlug()
+  public function getlabel()
   {
-    $this->slugify();
-
-    return $this->slug;
+    return $this->label;
   }
 
   /**
@@ -237,13 +213,39 @@ class Person extends AdditionalInformations
   }
 
   /**
-   * Get label
+   * Get slug
    *
    * @return string
    */
-  public function getlabel()
+  public function getSlug()
   {
-    return $this->label;
+    $this->slugify();
+
+    return $this->slug;
+  }
+
+  /**
+   * Set slug
+   *
+   * @param string $slug
+   *
+   * @return $this
+   */
+  public function setSlug($slug)
+  {
+    $this->slug = $slug;
+
+    return $this;
+  }
+
+  /**
+   * Get familyName
+   *
+   * @return string
+   */
+  public function getFamilyName()
+  {
+    return $this->familyName;
   }
 
   /**
@@ -261,13 +263,13 @@ class Person extends AdditionalInformations
   }
 
   /**
-   * Get familyName
+   * Get firstName
    *
    * @return string
    */
-  public function getFamilyName()
+  public function getFirstName()
   {
-    return $this->familyName;
+    return $this->firstName;
   }
 
   /**
@@ -285,13 +287,13 @@ class Person extends AdditionalInformations
   }
 
   /**
-   * Get firstName
+   * Get description
    *
    * @return string
    */
-  public function getFirstName()
+  public function getDescription()
   {
-    return $this->firstName;
+    return $this->description;
   }
 
   /**
@@ -309,13 +311,13 @@ class Person extends AdditionalInformations
   }
 
   /**
-   * Get description
+   * Get age
    *
-   * @return string
+   * @return integer
    */
-  public function getDescription()
+  public function getAge()
   {
-    return $this->description;
+    return $this->age;
   }
 
   /**
@@ -333,13 +335,13 @@ class Person extends AdditionalInformations
   }
 
   /**
-   * Get age
+   * Get openId
    *
-   * @return integer
+   * @return string
    */
-  public function getAge()
+  public function getOpenId()
   {
-    return $this->age;
+    return $this->openId;
   }
 
   /**
@@ -354,16 +356,6 @@ class Person extends AdditionalInformations
     $this->openId = $openId;
 
     return $this;
-  }
-
-  /**
-   * Get openId
-   *
-   * @return string
-   */
-  public function getOpenId()
-  {
-    return $this->openId;
   }
 
   /**
@@ -444,26 +436,14 @@ class Person extends AdditionalInformations
   }
 
   /**
-   * Add organization
-   *
-   * @param OrganizationVersion $organization
-   *
-   * @return $this
-   */
-  public function addOrganization(OrganizationVersion $organization)
-  {
-    $this->organizations[] = $organization;
-    $organization->setOrganizationVersionOwner($this);
-    return $this;
-  }
-
-  /**
    * Remove organization
    *
    * @param OrganizationVersion $organization
    */
   public function removeOrganization(OrganizationVersion $organization)
   {
+//    echo $organization->getLabel();die;
+    $organization->setOrganizationVersionOwner(null);
     $this->organizations->removeElement($organization);
   }
 
@@ -491,6 +471,20 @@ class Person extends AdditionalInformations
       $this->addOrganization($organization);
     }
 
+    return $this;
+  }
+
+  /**
+   * Add organization
+   *
+   * @param OrganizationVersion $organization
+   *
+   * @return $this
+   */
+  public function addOrganization(OrganizationVersion $organization)
+  {
+    $this->organizations[] = $organization;
+    $organization->setOrganizationVersionOwner($this);
     return $this;
   }
 
@@ -618,7 +612,7 @@ class Person extends AdditionalInformations
   }
 
   /**
-   * @param UserInterface $user
+   * @param \fibe\SecurityBundle\Entity\User $user
    */
   public function setUser(User $user = null)
   {
