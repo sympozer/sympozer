@@ -1,0 +1,39 @@
+//popovers.less
+.popover {
+  border: none;
+	.box-shadow(0px 1px 2px 1px rgba(0, 0, 0, 0.1));
+  .arrow {border-top-color: rgba(0, 0, 0, 0.1) !important;}
+}
+.popover-title {
+	padding: 8px 15px;
+	border-bottom-width: 0;
+	border-radius: 0;
+}
+.popover-content {
+	padding: 10px 15px;
+}
+
+//tooltips
+.tooltip {
+  font-size: @font-size-mini;
+	&.top    { margin-top:  -3px; padding: @tooltip-arrow-width 0; }
+  	&.right  { margin-left:  3px; padding: 0 @tooltip-arrow-width; }
+  	&.bottom { margin-top:   3px; padding: @tooltip-arrow-width 0; }
+  	&.left   { margin-left: -3px; padding: 0 @tooltip-arrow-width; }
+  	&.top-left .tooltip-arrow, &.bottom-left .tooltip-arrow {
+  		left: @tooltip-arrow-width;
+  	}
+  	&.top-right .tooltip-arrow, &.bottom-right .tooltip-arrow {
+  		right: @tooltip-arrow-width;
+  	}
+}
+.tooltip-inner {
+	padding: 5px 8px;
+}
+
+
+//Modals
+
+.modal-content {
+  .box-shadow(~"none");
+}

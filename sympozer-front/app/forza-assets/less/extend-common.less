@@ -1,0 +1,76 @@
+//dropdowns.less
+
+.caret {
+  -webkit-font-smoothing: antialiased;
+  display: inline;
+  margin-left: 2px;
+  border-top: 0; border-right: 0;border-left: 0; border-bottom: 0;
+  vertical-align: top;
+	&:before {
+    	content: "\f107"; 
+    	font-family: FontAwesome;
+    	font-style: normal;
+    	font-weight: normal;
+    	text-decoration: inherit;
+		line-height: 1em;
+    	font-size: 14px;
+	}
+}
+
+.dropdown-menu {
+	left: auto; right: 0;
+	margin-top: 2px;
+	border: none;
+	.box-shadow(0px 1px 2px 1px rgba(0, 0, 0, 0.1));
+	background-color: @dropdown-fallback-bg;
+	background-color: @dropdown-bg;
+	&.pull-left {
+		left: 0; right: auto;
+	}
+	.divider {margin: 10px 0;}
+	>li>a {
+		color: @gray-dark;
+		padding: 5px 15px;
+	}
+	&.arrow:before {
+		position: absolute; 
+		top: -8px; 
+		right: 11px; 
+		display: inline-block; 
+		border-right: 10px solid transparent; 
+		border-bottom: 10px solid #fff; 
+		border-left: 10px solid transparent; 
+		content: '';
+	}
+}
+
+.dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
+text-decoration: none;
+color: @gray-dark;
+background-color: @border-lighter;
+}
+
+//wells.less
+
+.well {
+	padding: 15px;
+	box-shadow: none !important;
+	blockquote {
+    	border-color: @border-lighter;
+    }
+    &.well-transparent  {
+		background: none;
+	}
+}
+
+//blockquotes
+
+// Blockquotes
+blockquote {
+	color: @gray;
+	font-style: normal;
+	font-weight: 300;
+  small, .small {
+    font-size: @font-size-small;
+  }
+}

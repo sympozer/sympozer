@@ -42,7 +42,8 @@
     "jScrollPane": "https://github.com/vitch/jScrollPane.git#2.0.14",
     "enquire": "2.1.1",
     "shufflejs": "2.1.1",
-    "pnotify": "sciactive/pnotify#~2.0.1"
+    "pnotify": "sciactive/pnotify#~2.0.1",
+    "json3": "~3.3.2"
   },
   "resolutions": {
     "jquery": "~1.11.0"
