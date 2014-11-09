@@ -140,7 +140,7 @@ angular
         resolve: {
           lazyLoad: ['lazyLoad', function (lazyLoad) {
             return lazyLoad.load([
-              'assets/plugins/fullcalendar/fullcalendar.js'
+              'common-assets/plugins/fullcalendar/fullcalendar.js'
             ]);
           }]
         }
@@ -150,8 +150,8 @@ angular
         resolve: {
           lazyLoad: ['lazyLoad', function (lazyLoad) {
             return lazyLoad.load([
-              'assets/plugins/form-ckeditor/ckeditor.js',
-              'assets/plugins/form-ckeditor/lang/en.js'
+              'common-assets/plugins/form-ckeditor/ckeditor.js',
+              'common-assets/plugins/form-ckeditor/lang/en.js'
             ]);
           }]
         }
@@ -161,7 +161,7 @@ angular
         resolve: {
           lazyLoad: ['lazyLoad', function (lazyLoad) {
             return lazyLoad.load([
-              'assets/plugins/jcrop/js/jquery.Jcrop.js'
+              'common-assets/plugins/jcrop/js/jquery.Jcrop.js'
             ]);
           }]
         }
@@ -171,8 +171,8 @@ angular
         resolve: {
           lazyLoad: ['lazyLoad', function (lazyLoad) {
             return lazyLoad.load([
-              'bower_components/jquery-validation/dist/jquery.validate.js',
-              'bower_components/stepy/lib/jquery.stepy.js'
+              'bower/jquery-validation/dist/jquery.validate.js',
+              'bower/stepy/lib/jquery.stepy.js'
             ]);
           }]
         }
@@ -182,7 +182,7 @@ angular
         resolve: {
           lazyLoad: ['lazyLoad', function (lazyLoad) {
             return lazyLoad.load([
-              'bower_components/jquery.inputmask/dist/jquery.inputmask.bundle.js'
+              'bower/jquery.inputmask/dist/jquery.inputmask.bundle.js'
             ]);
           }]
         }
@@ -192,8 +192,8 @@ angular
         resolve: {
           lazyLoad: ['lazyLoad', function (lazyLoad) {
             return lazyLoad.load([
-              'bower_components/jqvmap/jqvmap/maps/jquery.vmap.europe.js',
-              'bower_components/jqvmap/jqvmap/maps/jquery.vmap.usa.js'
+              'bower/jqvmap/jqvmap/maps/jquery.vmap.europe.js',
+              'bower/jqvmap/jqvmap/maps/jquery.vmap.usa.js'
             ]);
           }]
         }
@@ -203,7 +203,7 @@ angular
         resolve: {
           lazyLoad: ['lazyLoad', function (lazyLoad) {
             return lazyLoad.load([
-              'bower_components/Chart.js/Chart.min.js'
+              'bower/Chart.js/Chart.min.js'
             ]);
           }]
         }
@@ -213,8 +213,8 @@ angular
         resolve: {
           lazyLoad: ['lazyLoad', function (lazyLoad) {
             return lazyLoad.load([
-              'bower_components/raphael/raphael.js',
-              'bower_components/morris.js/morris.js'
+              'bower/raphael/raphael.js',
+              'bower/morris.js/morris.js'
             ]);
           }]
         }

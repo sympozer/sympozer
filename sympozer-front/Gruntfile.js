@@ -80,8 +80,8 @@ module.exports = function (grunt) {
             return [
               connect.static('.tmp'),
               connect().use(
-                '/bower_components',
-                 connect.static('./bower_components')
+                '/bower',
+                 connect.static('./bower')
               ),
               connect.static(require('./bower.json').appPath || 'app')
             ];
@@ -300,14 +300,14 @@ module.exports = function (grunt) {
             'images/{,*/}*.{webp}',
             'fonts/*',
             'assets/**',
-            'bower_components/jquery.inputmask/dist/jquery.inputmask.bundle.js',
-            'bower_components/jquery-validation/dist/jquery.validate.js',
-            'bower_components/jqvmap/jqvmap/maps/jquery.vmap.europe.js',
-            'bower_components/jqvmap/jqvmap/maps/jquery.vmap.usa.js',
-            'bower_components/stepy/lib/jquery.stepy.js',
-            'bower_components/Chart.js/Chart.min.js',
-            'bower_components/raphael/raphael.js',
-            'bower_components/morris.js/morris.js'
+            'bower/jquery.inputmask/dist/jquery.inputmask.bundle.js',
+            'bower/jquery-validation/dist/jquery.validate.js',
+            'bower/jqvmap/jqvmap/maps/jquery.vmap.europe.js',
+            'bower/jqvmap/jqvmap/maps/jquery.vmap.usa.js',
+            'bower/stepy/lib/jquery.stepy.js',
+            'bower/Chart.js/Chart.min.js',
+            'bower/raphael/raphael.js',
+            'bower/morris.js/morris.js'
           ]
         }, {
           expand: true,

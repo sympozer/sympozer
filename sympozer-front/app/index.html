@@ -128,25 +128,399 @@
     }
   </style>
 </head>
-<body>
-<header class="navbar navbar-inverse" role="banner">
-  <!-- All header links, including sidebar triggers and drop downs-->
-</header>
-<div id="page-container">
-  <nav id="page-leftbar" role="navigation">
-    <!-- sidebar items go here -->
-  </nav>
-  <div id="page-rightbar">
-    <!-- righbar widgets go here -->
-  </div>
-  <div id="page-content">
-    <div id="wrap" ng-view><!-- where page content is loaded via AJAX! -->
-      <div id="page-heading"><!-- page heading content--></div>
-      <div class="container"><!-- Content begins here--></div>
+<body class=""
+      ng-app="themesApp"
+      ng-controller="MainController"
+      ng-class="{
+              'static-header': !style_fixedHeader,
+              'focusedform': style_fullscreen,
+              'layout-horizontal': style_layoutHorizontal,
+              'fixed-layout': style_layoutBoxed,
+              'collapse-leftbar': style_leftbarCollapsed && !style_leftbarShown,
+              'show-rightbar': style_rightbarCollapsed,
+              'show-leftbar': style_leftbarShown
+            }"
+      ng-click="hideSearchBar();hideHeaderBar();"
+      ng-cloak
+    >
+
+<div id="headerbar" ng-class="{topNegative1000: style_headerBarHidden, topZero: !style_headerBarHidden}">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-xs-6 col-sm-2">
+        <a href="#" class="shortcut-tiles tiles-brown">
+          <div class="tiles-body">
+            <div class="pull-left"><i class="fa fa-pencil"></i></div>
+          </div>
+          <div class="tiles-footer">
+            Create Post
+          </div>
+        </a>
+      </div>
+      <div class="col-xs-6 col-sm-2">
+        <a href="#" class="shortcut-tiles tiles-grape">
+          <div class="tiles-body">
+            <div class="pull-left"><i class="fa fa-group"></i></div>
+            <div class="pull-right"><span class="badge">2</span></div>
+          </div>
+          <div class="tiles-footer">
+            Contacts
+          </div>
+        </a>
+      </div>
+      <div class="col-xs-6 col-sm-2">
+        <a href="#" class="shortcut-tiles tiles-primary">
+          <div class="tiles-body">
+            <div class="pull-left"><i class="fa fa-envelope-o"></i></div>
+            <div class="pull-right"><span class="badge">10</span></div>
+          </div>
+          <div class="tiles-footer">
+            Messages
+          </div>
+        </a>
+      </div>
+      <div class="col-xs-6 col-sm-2">
+        <a href="#" class="shortcut-tiles tiles-inverse">
+          <div class="tiles-body">
+            <div class="pull-left"><i class="fa fa-camera"></i></div>
+            <div class="pull-right"><span class="badge">3</span></div>
+          </div>
+          <div class="tiles-footer">
+            Gallery
+          </div>
+        </a>
+      </div>
+
+      <div class="col-xs-6 col-sm-2">
+        <a href="#" class="shortcut-tiles tiles-midnightblue">
+          <div class="tiles-body">
+            <div class="pull-left"><i class="fa fa-cog"></i></div>
+          </div>
+          <div class="tiles-footer">
+            Settings
+          </div>
+        </a>
+      </div>
+      <div class="col-xs-6 col-sm-2">
+        <a href="#" class="shortcut-tiles tiles-orange">
+          <div class="tiles-body">
+            <div class="pull-left"><i class="fa fa-wrench"></i></div>
+          </div>
+          <div class="tiles-footer">
+            Plugins
+          </div>
+        </a>
+      </div>
+
     </div>
   </div>
 </div>
-<footer role="contentinfo"><!--Footer--></footer>
+
+<header class="navbar navbar-inverse" ng-class="{'navbar-fixed-top': style_fixedHeader, 'navbar-static-top': !style_fixedHeader}" role="banner">
+  <a id="leftmenu-trigger" tooltip-placement="right" tooltip="Toggle Sidebar" ng-click="toggleLeftBar()"></a>
+  <a id="rightmenu-trigger" tooltip-placement="left" tooltip="Toggle Infobar" ng-click="toggleRightBar()"></a>
+
+  <div class="navbar-header pull-left">
+    <a class="navbar-brand" href="#/">Forza</a>
+  </div>
+
+  <ul class="nav navbar-nav pull-right toolbar">
+    <li class="dropdown" ng-show="!isLoggedIn">
+      <a href="#/extras-login2" style="font-size: 14px"><i class="fa fa-sign-in"></i> Log in</a>
+    </li>
+    <li class="dropdown" ng-show="isLoggedIn">
+      <a href="#" class="dropdown-toggle username"><span class="hidden-xs">Matt Smith</span><img src="forza-assets/demo/avatar/dangerfield.png" alt="Dangerfield" /></a>
+      <ul class="dropdown-menu userinfo arrow">
+        <li class="userlinks">
+          <ul class="dropdown-menu">
+            <li><a href="#">Edit Profile <i class="pull-right fa fa-fw fa-pencil"></i></a></li>
+            <li><a href="#">Account <i class="pull-right fa fa-fw fa-user"></i></a></li>
+            <li><a href="#">Settings <i class="pull-right fa fa-fw fa-cog"></i></a></li>
+            <li class="divider"></li>
+            <li><a href="#">Earnings <i class="pull-right fa fa-fw fa-dollar"></i></a></li>
+            <li><a href="#">Statement <i class="pull-right fa fa-fw fa-bars"></i></a></li>
+            <li><a href="#">Withdrawals <i class="pull-right fa fa-fw fa-credit-card"></i></a></li>
+            <li class="divider"></li>
+            <li><a href="" class="text-right" ng-click="logOut()">Sign Out</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li class="dropdown" ng-controller="MessagesController" ng-show="isLoggedIn"
+        data-bootstro
+        data-bootstro-step="2"
+        data-bootstro-placement='bottom'
+        data-bootstro-content="Click to mark messages as read."
+        >
+      <a href="#" class="dropdown-toggle">
+        <i class="fa fa-envelope"></i><span class="badge badge-danger" ng-if="unseenCount>0" ng-bind="unseenCount"></span>
+      </a>
+      <ul class="dropdown-menu messages arrow">
+        <li class="dd-header">
+          <span>You have {{unseenCount}} new message(s)</span>
+          <span><a href="#" ng-click="setReadAll($event)">Mark all Read</a></span>
+        </li>
+        <div class="scrollthis" jscrollpane="{autoReinitialise:true, autoReinitialiseDelay: 20}">
+          <li ng-repeat="item in messages">
+            <a href="#/extras-chatroom" ng-class="{active: !item.read}">
+              <button tooltip-placement="top" tooltip-append-to-body="true" tooltip="Mark Read" class="btn-mark-read" ng-if="!item.read" ng-click="setRead(item, $event)"><i class="fa fa-circle"></i></button>
+              <button tooltip-placement="top" tooltip-append-to-body="true" tooltip="Mark Unread" class="btn-mark-unread" ng-if="item.read" ng-click="setUnread(item, $event)"><i class="fa fa-circle-thin"></i></button>
+              <span class="time">{{item.time}}</span>
+              <img ng-src="{{item.thumb}}" alt="avatar" />
+              <div>
+                <span class="name">{{item.name}}</span>
+                <span class="msg">{{item.message}}</span>
+              </div>
+            </a>
+          </li>
+        </div>
+        <li class="dd-footer"><a href="#">View All Messages</a></li>
+      </ul>
+    </li>
+    <li class="dropdown" ng-controller="NotificationsController" ng-show="isLoggedIn"
+        data-bootstro
+        data-bootstro-step="1"
+        data-bootstro-placement='bottom'
+        data-bootstro-content="Click here to check out the dynamic notifications section. You can mark items as read and see the changes in real time."
+        >
+      <a href="#" class="dropdown-toggle">
+        <i class="fa fa-bell"></i><span class="badge badge-orange" ng-if="unseenCount>0" ng-bind="unseenCount"></span>
+      </a>
+      <ul class="dropdown-menu notifications arrow">
+        <li class="dd-header">
+          <span>You have {{unseenCount}} new notification(s)</span>
+          <span><a href="javascript:;" ng-click="setSeenAll($event)">Mark all Seen</a></span>
+        </li>
+        <div class="scrollthis" jscrollpane="{autoReinitialise:true, autoReinitialiseDelay: 20}">
+          <li ng-repeat="item in notifications">
+            <a href="#" class="{{item.class}}" ng-class="{active: !item.seen}">
+              <button tooltip-placement="top" tooltip-append-to-body="true" tooltip="Mark Seen" class="btn-mark-read" ng-if="!item.seen" ng-click="setSeen(item, $event)"><i class="fa fa-circle"></i></button>
+              <button tooltip-placement="top" tooltip-append-to-body="true" tooltip="Mark Unseen" class="btn-mark-unread" ng-if="item.seen" ng-click="setUnseen(item, $event)"><i class="fa fa-circle-thin"></i></button>
+              <span class="time">{{item.time}}</span>
+              <i class="{{item.iconClasses}}"></i>
+              <span class="msg">{{item.text}}</span>
+            </a>
+          </li>
+        </div>
+        <li class="dd-footer"><a href="#">View All Notifications</a></li>
+      </ul>
+    </li>
+    <li ng-click="showHeaderBar($event)">
+      <a href="" id="headerbardropdown"><span><i class="fa fa-level-down"></i></span></a>
+    </li>
+    <li class="dropdown demodrop" ng-controller="ColorPickerController" data-pulsate="{glow:false, repeat: 3}">
+      <a href="#" class="dropdown-toggle tooltips"><i class="fa fa-cog"></i></a>
+
+      <ul class="dropdown-menu arrow dropdown-menu-form" id="demo-dropdown">
+        <li>
+          <label for="demo-header-variations" class="control-label">Header Colors</label>
+
+          <ul class="list-inline demo-color-variation" id="demo-header-variations">
+            <li><a class="color-dark"       href="javascript:;" ng-click="setHeaderStyle('default.css', $event)"></a></li>
+            <li><a class="color-black"      href="javascript:;" ng-click="setHeaderStyle('header-black.css', $event)"></a></li>
+            <li><a class="color-inverse"    href="javascript:;" ng-click="setHeaderStyle('header-inverse.css', $event)"></a></li>
+            <li><a class="color-default"    href="javascript:;" ng-click="setHeaderStyle('header-midnightblue.css', $event)"></a></li>
+            <li><a class="color-dangerdark" href="javascript:;" ng-click="setHeaderStyle('header-dangerdark.css', $event)"></a></li>
+          </ul>
+        </li>
+        <li class="divider"></li>
+        <li>
+          <label for="demo-color-variations" class="control-label">Sidebar Colors</label>
+          <ul class="list-inline demo-color-variation">
+            <li><a class="color-default"    href="javascript:;" ng-click="setSidebarStyle('default.css', $event)"></a></li>
+            <li><a class="color-inverse"    href="javascript:;" ng-click="setSidebarStyle('sidebar-inverse.css', $event)"></a></li>
+            <li><a class="color-primary"    href="javascript:;" ng-click="setSidebarStyle('sidebar-primary.css', $event)"></a></li>
+            <li><a class="color-gray"       href="javascript:;" ng-click="setSidebarStyle('sidebar-gray.css', $event)"></a></li>
+            <li><a class="color-indigo"     href="javascript:;" ng-click="setSidebarStyle('sidebar-indigo.css', $event)"></a></li>
+            <li><a class="color-dangerdark" href="javascript:;" ng-click="setSidebarStyle('sidebar-dangerdark.css', $event)"></a></li>
+          </ul>
+        </li>
+        <li class="divider"></li>
+        <li>
+          <label for="fixedheader">Fixed Header</label>
+          <div ng-click="$event.stopPropagation()">
+            <toggle-switch model="headerFixed" class="success"></toggle-switch>
+          </div>
+        </li>
+        <li class="divider"></li>
+        <li>
+          <label for="boxedlayout"><a href="#/layout-fixed">Boxed Layout</a></label>
+          <div ng-click="$event.stopPropagation()">
+            <toggle-switch model="layoutFixed" class="success"></toggle-switch>
+          </div>
+        </li>
+        <li class="divider"></li>
+        <li>
+          <label for="layoutHorizontal">Horizontal Nav</label>
+          <div ng-click="$event.stopPropagation()">
+            <toggle-switch model="layoutHorizontal" class="success"></toggle-switch>
+          </div>
+        </li>
+      </ul>
+      <link rel="stylesheet" type="text/css" ng-href="forza-assets/demo/variations/{{headerStylesheet}}">
+      <link rel="stylesheet" type="text/css" ng-href="forza-assets/demo/variations/{{sidebarStylesheet}}">
+    </li>
+  </ul>
+</header>
+<nav class="navbar navbar-default ng-hide" role="navigation" ng-show="style_layoutHorizontal">
+  <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+      <i class="fa fa-reorder"></i>
+    </button>
+  </div>
+  <div class="collapse navbar-collapse navbar-ex1-collapse" ng-class="{'large-icons-nav': style_layoutHorizontalLargeIcons}" id="horizontal-navbar">
+    <ul ng-controller="NavigationController" id="top-nav" class="nav navbar-nav">
+      <li ng-repeat="item in menu"
+          ng-if="!item.hideOnHorizontal"
+          ng-class="{ hasChild: (item.children!==undefined),
+                                    active: item.selected,
+                                      open: (item.children!==undefined) && item.open }"
+          ng-include="'templates/nav_renderer_horizontal.html'"
+          ></li>
+    </ul>
+  </div>
+</nav>
+<div id="page-container" class="clearfix">
+
+  <!-- BEGIN SIDEBAR -->
+  <nav id="page-leftbar" role="navigation">
+
+    <div>
+      <ul ng-controller="NavigationController" id="sidebar" sticky-scroll="40">
+        <li id="search" ng-class="{'keep-open':style_showSearchCollapsed}">
+          <a href=""
+             ng-class="{blockImportant:style_leftbarCollapsed && !style_showSearchCollapsed}"
+             ng-click="showSearchBar($event)"
+              ><i class="fa fa-search opacity-control"></i></a>
+          <form ng-show="!style_leftbarCollapsed || style_showSearchCollapsed"
+                ng-style="{display: style_showSearchCollapsed? 'block':''}"
+                ng-click="$event.stopPropagation()"
+                ng-submit="goToSearch()"
+              >
+            <input type="text" ng-model="searchQuery" class="search-query" placeholder="Search..."
+                   ng-style="{width: style_showSearchCollapsed? 'auto':''}"
+                >
+            <button type="submit" ng-click="goToSearch()"><i class="fa fa-search"></i></button>
+          </form>
+        </li>
+        <li ng-repeat="item in menu"
+            ng-class="{ hasChild: (item.children!==undefined),
+                                    active: item.selected,
+                                      open: (item.children!==undefined) && item.open }"
+            ng-include="'templates/nav_renderer.html'"
+            ></li>
+      </ul>
+    </div>
+    <!-- END SIDEBAR MENU -->
+  </nav>
+
+  <!-- BEGIN RIGHTBAR -->
+  <div id="page-rightbar" sticky-scroll="40" rightbar-right-position="style_layoutBoxed" style="">
+    <div jscrollpane="{autoReinitialise:true, autoReinitialiseDelay: 100}" style="height: 100%;padding-bottom:40px">
+      <accordion close-others="rightbarAccordionsShowOne">
+        <accordion-group is-open="rightbarAccordions[0].open" ng-class="{open:rightbarAccordions[0].open}">
+          <accordion-heading>Account Summary</accordion-heading>
+
+          <div class="widget-block mt0" style="background: #7dcc93;">
+            <div class="pull-left">
+              <small>Current Balance</small>
+              <h5>$71,182</h5>
+            </div>
+            <div class="pull-right"><div id="currentbalance">
+                        <span sparklines="{
+                              type: 'bar',
+                              barColor: '#67a879',
+                              height: '41',
+                              barWidth: 5.5}" data-data="[12700,8573,10145,21077,15380,14399,19158,23911,15401,16793,13115,12315]"></span>
+            </div></div>
+          </div>
+          <div class="widget-block mt10 mb0" style="background: #4f5259;">
+            <div class="pull-left">
+              <small>Total Sales</small>
+              <h5>$185,603</h5>
+            </div>
+            <div class="pull-right"><div id="totalsales">
+                        <span sparklines="{
+                              type: 'bar',
+                              barColor: '#787d87',
+                              height: '41',
+                              barWidth: 5.5}" data-data="[27543,58573,43145,75077,37281,24389,69158,73911,45451,11393,48815,15626]"></span>
+            </div></div>
+          </div>
+
+        </accordion-group>
+
+        <accordion-group is-open="rightbarAccordions[1].open" ng-class="{open:rightbarAccordions[1].open}">
+          <accordion-heading>
+            Pending Tasks <small>(5)</small>
+          </accordion-heading>
+
+          <progressbar contextual="true" value="25" heading="Backend Development" type="info"></progressbar>
+          <progressbar contextual="true" value="77" heading="Bug Fix" type="primary"></progressbar>
+          <progressbar contextual="true" value="70" heading="Javascript Code" type="success"></progressbar>
+          <progressbar contextual="true" value="55" heading="Preparing Documentation" type="danger"></progressbar>
+          <progressbar contextual="true" value="25" heading="Mobile App" type="orange"></progressbar>
+
+          <span class="more"><a href="#/ui-progressbars">View all Pending</a></span>
+
+
+        </accordion-group>
+        <accordion-group is-open="rightbarAccordions[2].open" ng-class="{open:rightbarAccordions[2].open}" id="chatbar">
+          <accordion-heading>
+            Online Contacts
+          </accordion-heading>
+          <ul class="chat-users">
+            <li data-stats="online"><a href="#/extras-chatroom"><img src="forza-assets/demo/avatar/potter.png" alt=""><span>Jeremy Potter</span></a></li>
+            <li data-stats="online"><a href="#/extras-chatroom"><img src="forza-assets/demo/avatar/tennant.png" alt=""><span>David Tennant</span></a></li>
+            <li data-stats="online"><a href="#/extras-chatroom"><img src="forza-assets/demo/avatar/johansson.png" alt=""><span>Anna Johansson</span></a></li>
+            <li data-stats="busy"><a href="#/extras-chatroom"><img src="forza-assets/demo/avatar/jackson.png" alt=""><span>Eric Jackson</span></a></li>
+            <li data-stats="away"><a href="#/extras-chatroom"><img src="forza-assets/demo/avatar/jobs.png" alt=""><span>Howard Jobs</span></a></li>
+            <li data-stats="online"><a href="#/extras-chatroom"><img src="forza-assets/demo/avatar/potter.png" alt=""><span>Jeremy Potter</span></a></li>
+            <li data-stats="online"><a href="#/extras-chatroom"><img src="forza-assets/demo/avatar/tennant.png" alt=""><span>David Tennant</span></a></li>
+            <li data-stats="online"><a href="#/extras-chatroom"><img src="forza-assets/demo/avatar/johansson.png" alt=""><span>Anna Johansson</span></a></li>
+            <li data-stats="busy"><a href="#/extras-chatroom"><img src="forza-assets/demo/avatar/jackson.png" alt=""><span>Eric Jackson</span></a></li>
+            <li data-stats="away"><a href="#/extras-chatroom"><img src="forza-assets/demo/avatar/jobs.png" alt=""><span>Howard Jobs</span></a></li>
+          </ul>
+          <span class="more"><a href="#/extras-chatroom">See all</a></span>
+
+        </accordion-group>
+        <accordion-group is-open="rightbarAccordions[3].open" ng-class="{open:rightbarAccordions[3].open}">
+          <accordion-heading>
+            Storage Space
+          </accordion-heading>
+
+          <div class="clearfix" style="margin-bottom: 5px;margin-top:10px;">
+            <div class="progress-title pull-left">1.31 GB of 1.50 GB used</div>
+            <div class="progress-percentage pull-right">87.3%</div>
+          </div>
+          <div class="progress">
+            <div class="progress-bar progress-bar-success" style="width: 50%"></div>
+            <div class="progress-bar progress-bar-warning" style="width: 25%"></div>
+            <div class="progress-bar progress-bar-danger" style="width: 12.3%"></div>
+          </div>
+        </accordion-group>
+
+
+
+      </accordion>
+    </div>
+  </div>
+  <!-- END RIGHTBAR -->
+  <div id="page-content" class="clearfix" fit-height>
+    <div id="wrap" ng-view="" class="mainview-animation">
+    </div> <!--wrap -->
+  </div> <!-- page-content -->
+
+  <footer role="contentinfo">
+    <div class="clearfix">
+      <ul class="list-unstyled list-inline pull-left">
+        <li>FORZA &copy; 2014</li>
+      </ul>
+      <button class="pull-right btn btn-default btn-xs hidden-print" back-to-top style="padding: 1px 10px;"><i class="fa fa-angle-up"></i></button>
+    </div>
+  </footer>
+
+</div> <!-- page-container -->
 
 <!-- scripts are loaded here -->
 

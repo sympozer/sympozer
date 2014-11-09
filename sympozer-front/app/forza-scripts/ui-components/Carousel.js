@@ -8,7 +8,7 @@ angular
     var images = ['yvonne.jpg', 'nature_woodstump.jpg', 'arch_fireescape.jpg', 'nature_river.jpg'];
     $scope.addSlide = function() {
       slides.push({
-        image: 'assets/demo/images/'+images[slides.length],
+        image: 'forza-assets/demo/images/'+images[slides.length],
         text: images[slides.length]
       });
     };
