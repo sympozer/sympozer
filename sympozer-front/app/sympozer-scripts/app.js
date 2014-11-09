@@ -1,7 +1,9 @@
 'use strict';
 
-angular
-  .module('themesApp', [
+/**
+ * Main sympozer angular app
+ */
+angular.module('sympozerApp', [
     'easypiechart',
     'toggle-switch',
     'ui.bootstrap',
