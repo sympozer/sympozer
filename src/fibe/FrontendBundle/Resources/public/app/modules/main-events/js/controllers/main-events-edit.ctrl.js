@@ -75,15 +75,17 @@ angular.module('mainEventsApp').controller('mainEventsEditCtrl', [ '$scope', '$r
 
     $scope.onSelectStart = function(newDate, oldDate){
         //Verify startAt < endAt
-        if(!(newDate > $scope.mainEvent.endAt)){
+        if (moment(newDate).isBefore(moment($scope.mainEvent.endAt)))
+        {
             $scope.updateMainEvent('startAt', newDate);
         }
     }
 
     $scope.onSelectEnd= function(newDate, oldDate){
         //Verify startAt < endAt
-        if(!(oldDate < $scope.mainEvent.startAt)){
-            $scope.updateMainEvent('endAt', oldDate);
+        if (moment(newDate).isAfter(moment($scope.mainEvent.startAt)))
+        {
+            $scope.updateMainEvent('endAt', newDate);
         }
     }
 }]);
