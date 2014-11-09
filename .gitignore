@@ -20,6 +20,7 @@ composer.lock
 
 
 */node_modules/*
+sympozer-front/app/bower
 ./Gruntfile.js
 ./src/fibe/FrontendBundle/Resources/public/vendors/*
 
@@ -31,4 +32,5 @@ bin
 web/smlink
 
 #Symlink files
- src/fibe/FrontendBundle/Resources/public/public
+src/fibe/FrontendBundle/Resources/public/public
+
