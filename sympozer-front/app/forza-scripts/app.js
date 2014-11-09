@@ -133,10 +133,10 @@ angular
   .config(['$provide', '$routeProvider', function ($provide, $routeProvider) {
     $routeProvider
       .when('/', {
-        templateUrl: 'views/index.html',
+        templateUrl: 'forza-views/index.html',
       })
       .when('/calendar', {
-        templateUrl: 'views/calendar.html',
+        templateUrl: 'forza-views/calendar.html',
         resolve: {
           lazyLoad: ['lazyLoad', function (lazyLoad) {
             return lazyLoad.load([
@@ -146,7 +146,7 @@ angular
         }
       })
       .when('/form-ckeditor', {
-        templateUrl: 'views/form-ckeditor.html',
+        templateUrl: 'forza-views/form-ckeditor.html',
         resolve: {
           lazyLoad: ['lazyLoad', function (lazyLoad) {
             return lazyLoad.load([
@@ -157,7 +157,7 @@ angular
         }
       })
       .when('/form-imagecrop', {
-        templateUrl: 'views/form-imagecrop.html',
+        templateUrl: 'forza-views/form-imagecrop.html',
         resolve: {
           lazyLoad: ['lazyLoad', function (lazyLoad) {
             return lazyLoad.load([
@@ -167,7 +167,7 @@ angular
         }
       })
       .when('/form-wizard', {
-        templateUrl: 'views/form-wizard.html',
+        templateUrl: 'forza-views/form-wizard.html',
         resolve: {
           lazyLoad: ['lazyLoad', function (lazyLoad) {
             return lazyLoad.load([
@@ -178,7 +178,7 @@ angular
         }
       })
       .when('/form-masks', {
-        templateUrl: 'views/form-masks.html',
+        templateUrl: 'forza-views/form-masks.html',
         resolve: {
           lazyLoad: ['lazyLoad', function (lazyLoad) {
             return lazyLoad.load([
@@ -188,7 +188,7 @@ angular
         }
       })
       .when('/maps-vector', {
-        templateUrl: 'views/maps-vector.html',
+        templateUrl: 'forza-views/maps-vector.html',
         resolve: {
           lazyLoad: ['lazyLoad', function (lazyLoad) {
             return lazyLoad.load([
@@ -199,7 +199,7 @@ angular
         }
       })
       .when('/charts-canvas', {
-        templateUrl: 'views/charts-canvas.html',
+        templateUrl: 'forza-views/charts-canvas.html',
         resolve: {
           lazyLoad: ['lazyLoad', function (lazyLoad) {
             return lazyLoad.load([
@@ -209,7 +209,7 @@ angular
         }
       })
       .when('/charts-svg', {
-        templateUrl: 'views/charts-svg.html',
+        templateUrl: 'forza-views/charts-svg.html',
         resolve: {
           lazyLoad: ['lazyLoad', function (lazyLoad) {
             return lazyLoad.load([
@@ -220,7 +220,7 @@ angular
         }
       })
       .when('/:templateFile', {
-        templateUrl: function (param) { return 'views/'+param.templateFile+'.html' }
+        templateUrl: function (param) { return 'forza-views/'+param.templateFile+'.html' }
       })
       .otherwise({
         redirectTo: '/'
