@@ -1,8 +1,9 @@
-'use strict'
+'use strict';
 
 angular
   .module('theme.colorpicker-controller', [])
-  .controller('ColorPickerController', ['$scope', '$global', function ($scope, $global) {
+  .controller('ColorPickerController', ['$scope', '$global', function ($scope, $global)
+  {
     $scope.headerStylesheet = 'header-midnightblue.css';
     $scope.sidebarStylesheet = 'sidebar-gray.css';
     $scope.headerBarHidden = $global.get('headerBarHidden');
@@ -10,35 +11,45 @@ angular
     $scope.headerFixed = $global.get('fixedHeader');
     $scope.layoutHorizontal = $global.get('layoutHorizontal');
 
-    $scope.setHeaderStyle = function (filename, $event) {
+    $scope.setHeaderStyle = function (filename, $event)
+    {
       $event.preventDefault();
       $event.stopPropagation();
 
       $scope.headerStylesheet = filename;
     };
 
-    $scope.setSidebarStyle = function (filename, $event) {
+    $scope.setSidebarStyle = function (filename, $event)
+    {
       $event.preventDefault();
       $event.stopPropagation();
 
       $scope.sidebarStylesheet = filename;
     };
 
-    $scope.$watch('headerFixed', function (newVal) {
-      if (newVal === undefined) return;
+    $scope.$watch('headerFixed', function (newVal)
+    {
+      if (newVal === undefined)
+      {
+        return;
+      }
       $global.set('fixedHeader', newVal);
     });
-    $scope.$watch('layoutFixed', function (newVal) {
+    $scope.$watch('layoutFixed', function (newVal)
+    {
       $global.set('layoutBoxed', newVal);
     });
-    $scope.$watch('layoutHorizontal', function (newVal) {
+    $scope.$watch('layoutHorizontal', function (newVal)
+    {
       $global.set('layoutHorizontal', newVal);
     });
 
-    $scope.$on('globalStyles:changed:layoutBoxed', function (event, newVal) {
+    $scope.$on('globalStyles:changed:layoutBoxed', function (event, newVal)
+    {
       $scope.layoutFixed = newVal;
     });
-    $scope.$on('globalStyles:changed:layoutHorizontal', function (event, newVal) {
+    $scope.$on('globalStyles:changed:layoutHorizontal', function (event, newVal)
+    {
       $scope.layoutHorizontal = newVal;
     });
-  }])
+  }]);

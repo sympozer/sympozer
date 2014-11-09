@@ -2,7 +2,8 @@
 
 angular
   .module('theme.ui-tables-basic', [])
-  .controller('TablesBasicController', ['$scope', '$filter', function ($scope, $filter) {
+  .controller('TablesBasicController', ['$scope', '$filter', function ($scope, $filter)
+  {
     $scope.data = {
       headings: ['#', 'First Name', 'Last Name', 'Username'],
       rows: [

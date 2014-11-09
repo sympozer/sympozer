@@ -2,7 +2,8 @@
 
 angular
   .module('theme.ui-tiles', [])
-  .controller('TilesController', ['$scope', '$global', function ($scope, $global) {
+  .controller('TilesController', ['$scope', '$global', function ($scope, $global)
+  {
     $scope.$global = $global;
 
     $scope.largeTiles = [

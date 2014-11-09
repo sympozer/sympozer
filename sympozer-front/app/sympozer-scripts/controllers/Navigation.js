@@ -68,95 +68,95 @@ navigationModule.controller('NavigationController', ['$scope', '$location', '$ti
       label: 'UI Elements',
       iconClasses: 'fa fa-magic',
       html: '<span class="badge badge-indigo">4</span>', /** menu notification **/
-      children: [
-        {
-          label: 'Typography',
-          url: '#/ui-typography'
-        },
-        {
-          label: 'Buttons',
-          url: '#/ui-buttons'
-        },
-        {
-          label: 'Tables',
-          url: '#/tables-basic'
-        },
-        {
-          label: 'Forms',
-          url: '#/form-layout'
-        },
-        {
-          label: 'Panels',
-          url: '#/ui-panels'
-        },
-        {
-          label: 'Images',
-          url: '#/ui-images'
-        }
-      ]
+    children: [
+      {
+        label: 'Typography',
+        url: '#/ui-typography'
+      },
+      {
+        label: 'Buttons',
+        url: '#/ui-buttons'
+      },
+      {
+        label: 'Tables',
+        url: '#/tables-basic'
+      },
+      {
+        label: 'Forms',
+        url: '#/form-layout'
+      },
+      {
+        label: 'Panels',
+        url: '#/ui-panels'
+      },
+      {
+        label: 'Images',
+        url: '#/ui-images'
+      }
+    ]
     },
     {
       label: 'UI Components',
       iconClasses: 'fa fa-random',
       html: '<span class="badge badge-info">12</span>', /** menu notification **/
-      children: [
-        {
-          label: 'Tiles',
-          url: '#/ui-tiles'
-        },
-        {
-          label: 'Modals & Bootbox',
-          url: '#/ui-modals'
-        },
-        {
-          label: 'Progress Bars',
-          url: '#/ui-progressbars'
-        },
-        {
-          label: 'Pagers & Pagination',
-          url: '#/ui-paginations'
-        },
-        {
-          label: 'Breadcrumbs',
-          url: '#/ui-breadcrumbs'
-        },
-        {
-          label: 'Labels & Badges',
-          url: '#/ui-labelsbadges'
-        },
-        {
-          label: 'Alerts & Notifications',
-          url: '#/ui-alerts'
-        },
-        {
-          label: 'Sliders & Ranges',
-          url: '#/ui-sliders'
-        },
-        {
-          label: 'Ratings',
-          url: '#/ui-ratings'
-        },
-        {
-          label: 'Tabs & Accordions',
-          url: '#/ui-tabs'
-        },
-        {
-          label: 'Carousel',
-          url: '#/ui-carousel'
-        },
-        {
-          label: 'Nestable Lists',
-          url: '#/ui-nestable'
-        },
-        {
-          label: 'Wells',
-          url: '#/ui-wells'
-        },
-        {
-          label: 'Tour',
-          url: '#/ui-tour'
-        }
-      ]
+    children: [
+      {
+        label: 'Tiles',
+        url: '#/ui-tiles'
+      },
+      {
+        label: 'Modals & Bootbox',
+        url: '#/ui-modals'
+      },
+      {
+        label: 'Progress Bars',
+        url: '#/ui-progressbars'
+      },
+      {
+        label: 'Pagers & Pagination',
+        url: '#/ui-paginations'
+      },
+      {
+        label: 'Breadcrumbs',
+        url: '#/ui-breadcrumbs'
+      },
+      {
+        label: 'Labels & Badges',
+        url: '#/ui-labelsbadges'
+      },
+      {
+        label: 'Alerts & Notifications',
+        url: '#/ui-alerts'
+      },
+      {
+        label: 'Sliders & Ranges',
+        url: '#/ui-sliders'
+      },
+      {
+        label: 'Ratings',
+        url: '#/ui-ratings'
+      },
+      {
+        label: 'Tabs & Accordions',
+        url: '#/ui-tabs'
+      },
+      {
+        label: 'Carousel',
+        url: '#/ui-carousel'
+      },
+      {
+        label: 'Nestable Lists',
+        url: '#/ui-nestable'
+      },
+      {
+        label: 'Wells',
+        url: '#/ui-wells'
+      },
+      {
+        label: 'Tour',
+        url: '#/ui-tour'
+      }
+    ]
     },
     {
       label: 'Advanced Tables',
@@ -180,40 +180,40 @@ navigationModule.controller('NavigationController', ['$scope', '$location', '$ti
       label: 'Advanced Forms',
       iconClasses: 'fa fa-pencil',
       html: '<span class="badge badge-primary">5</span>', /** menu notification **/
-      children: [
-        {
-          label: 'Components',
-          url: '#/form-components'
-        },
-        {
-          label: 'Wizards',
-          url: '#/form-wizard'
-        },
-        {
-          label: 'Validation',
-          url: '#/form-validation'
-        },
-        {
-          label: 'Masks',
-          url: '#/form-masks'
-        },
-        {
-          label: 'Multiple File Uploads',
-          url: '#/form-fileupload'
-        },
-        {
-          label: 'WYSIWYG Editor',
-          url: '#/form-ckeditor'
-        },
-        {
-          label: 'Inline Editor',
-          url: '#/form-xeditable'
-        },
-        {
-          label: 'Image Cropping',
-          url: '#/form-imagecrop'
-        }
-      ]
+    children: [
+      {
+        label: 'Components',
+        url: '#/form-components'
+      },
+      {
+        label: 'Wizards',
+        url: '#/form-wizard'
+      },
+      {
+        label: 'Validation',
+        url: '#/form-validation'
+      },
+      {
+        label: 'Masks',
+        url: '#/form-masks'
+      },
+      {
+        label: 'Multiple File Uploads',
+        url: '#/form-fileupload'
+      },
+      {
+        label: 'WYSIWYG Editor',
+        url: '#/form-ckeditor'
+      },
+      {
+        label: 'Inline Editor',
+        url: '#/form-xeditable'
+      },
+      {
+        label: 'Image Cropping',
+        url: '#/form-imagecrop'
+      }
+    ]
     },
     {
       label: 'Maps',
@@ -255,67 +255,67 @@ navigationModule.controller('NavigationController', ['$scope', '$location', '$ti
       label: 'Pages',
       iconClasses: 'fa fa-briefcase',
       html: '<span class="badge badge-danger">1</span>', /** menu notification **/
-      children: [
-        {
-          label: 'Timeline',
-          url: '#/extras-timeline'
-        },
-        {
-          label: 'Profile',
-          url: '#/extras-profile'
-        },
-        {
-          label: 'Inbox',
-          url: '#/extras-inbox'
-        },
-        {
-          label: 'Search Page',
-          url: '#/extras-search'
-        },
-        {
-          label: 'Registration',
-          url: '#/extras-registration'
-        },
-        {
-          label: 'Sign Up',
-          url: '#/extras-signupform'
-        },
-        {
-          label: 'Password Reset',
-          url: '#/extras-forgotpassword'
-        },
-        {
-          label: 'Login 1',
-          url: '#/extras-login'
-        },
-        {
-          label: 'Login 2',
-          url: '#/extras-login2'
-        },
-        {
-          label: '404 Page',
-          url: '#/extras-404'
-        },
-        {
-          label: '500 Page',
-          url: '#/extras-500'
-        }
-      ]
+    children: [
+      {
+        label: 'Timeline',
+        url: '#/extras-timeline'
+      },
+      {
+        label: 'Profile',
+        url: '#/extras-profile'
+      },
+      {
+        label: 'Inbox',
+        url: '#/extras-inbox'
+      },
+      {
+        label: 'Search Page',
+        url: '#/extras-search'
+      },
+      {
+        label: 'Registration',
+        url: '#/extras-registration'
+      },
+      {
+        label: 'Sign Up',
+        url: '#/extras-signupform'
+      },
+      {
+        label: 'Password Reset',
+        url: '#/extras-forgotpassword'
+      },
+      {
+        label: 'Login 1',
+        url: '#/extras-login'
+      },
+      {
+        label: 'Login 2',
+        url: '#/extras-login2'
+      },
+      {
+        label: '404 Page',
+        url: '#/extras-404'
+      },
+      {
+        label: '500 Page',
+        url: '#/extras-500'
+      }
+    ]
     },
     {
       label: 'Font Icons',
       iconClasses: 'fa fa-flag',
       html: '<span class="badge badge-orange">2</span>', /** menu notification **/
-      children: [
-        {
-          label: 'Font Awesome',
-          url: '#/icons-fontawesome'
-        },
-        {
-          label: 'Glyphicons',
-          url: '#/icons-glyphicons'
-        }
-      ]
+    children: [
+      {
+        label: 'Font Awesome',
+        url: '#/icons-fontawesome'
+      },
+      {
+        label: 'Glyphicons',
+        url: '#/icons-glyphicons'
+      }
+    ]
     },
     {
       label: 'Unlimited Level Menu',

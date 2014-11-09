@@ -2,12 +2,14 @@
 
 angular
   .module('theme.ui-ratings', [])
-  .controller('RatingsDemoController', ['$scope', function ($scope) {
+  .controller('RatingsDemoController', ['$scope', function ($scope)
+  {
     $scope.rate = 7;
     $scope.max = 10;
     $scope.isReadonly = false;
 
-    $scope.hoveringOver = function(value) {
+    $scope.hoveringOver = function (value)
+    {
       this.overStar = value;
       this.percent = 100 * (value / $scope.max);
     };
