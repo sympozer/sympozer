@@ -1,0 +1,131 @@
+        <div id="page-heading">
+            <ol class="breadcrumb">
+                <li><a href="#/">Dashboard</a></li>
+                <li>Maps</li>
+                <li class="active">Vector Maps</li>
+            </ol>
+
+            <h1>Vector Maps</h1>
+            <div class="options">
+                <div class="btn-toolbar">
+                    <div class="btn-group" dropdown>
+                        <button type="button" class="btn btn-default dropdown-toggle">
+                            Export as <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                          <li><a href="#">Action</a></li>
+                          <li><a href="#">Another action</a></li>
+                          <li><a href="#">Something else here</a></li>
+                          <li class="divider"></li>
+                          <li><a href="#">Separated link</a></li>
+                        </ul>
+                    </div>
+                    <a href="#" class="btn btn-default hidden-xs"><i class="fa fa-cog"></i></a>
+                </div>
+            </div>
+        </div>
+
+<div class="container-fluid" ng-controller="VectorMapsController">
+    <div class="row">
+        <tabset panel-tabs="true" panel-class="panel-sky col-xs-12" heading="World Map">
+            <tab>
+                <tab-heading><i class="fa fa-desktop"></i></tab-heading>
+                <div style="height: 350px" jqvmap options="jqvmapWorld"></div>
+            </tab>
+            <tab>
+                <tab-heading><i class="fa fa-code"></i></tab-heading>
+                <tabset>
+                    <tab heading="HTML">
+<pre class="prettyprint">
+&lt;div style=&quot;height: 350px&quot; jqvmap options=&quot;jqvmapWorld&quot;&gt;&lt;/div&gt;
+</pre>
+                    </tab>
+                    <tab heading="JavaScript">
+<pre>
+// inside the controller
+$scope.jqvmapWorld = {
+  map: 'world_en',
+  backgroundColor: 'transparent',
+  color: '#f5f5f5',
+  hoverOpacity: 0.7,
+  selectedColor: '#0264d2',
+  enableZoom: true,
+  showTooltip: true,
+  values: sample_data,
+  scaleColors: ['#7cb4f2', '#1e80ee'],
+  normalizeFunction: 'polynomial'
+};
+</pre>
+                    </tab>
+                </tabset>
+            </tab>
+        </tabset>
+        <tabset panel-tabs="true" panel-class="panel-sky col-xs-12" heading="Map of the USA">
+            <tab>
+                <tab-heading><i class="fa fa-desktop"></i></tab-heading>
+                 <div style="height: 350px" jqvmap options="jqvmapUSA"></div>
+            </tab>
+            <tab>
+                <tab-heading><i class="fa fa-code"></i></tab-heading>
+                <tabset>
+                    <tab heading="HTML">
+<pre>
+&lt;div style=&quot;height: 350px&quot; jqvmap options=&quot;jqvmapUSA&quot;&gt;&lt;/div&gt;
+</pre>
+                    </tab>
+                    <tab heading="JavaScript">
+<pre class="prettyprint">
+// inside the controller
+$scope.jqvmapUSA = {
+  map: 'usa_en',
+  backgroundColor: 'transparent',
+  color: '#509BBD',
+  hoverOpacity: 0.7,
+  selectedColor: '#1278a6',
+  enableZoom: true,
+  showTooltip: true,
+  values: sample_data,
+  scaleColors: ['#C8EEFF', '#006491'],
+  normalizeFunction: 'polynomial'
+};
+</pre>
+                    </tab>
+                </tabset>
+            </tab>
+        </tabset>
+        <tabset panel-tabs="true" panel-class="panel-sky col-xs-12" heading="Map of Europe">
+            <tab>
+                <tab-heading><i class="fa fa-desktop"></i></tab-heading>
+                <div style="height: 350px" jqvmap options="jqvmapEurope"></div>
+            </tab>
+            <tab>
+                <tab-heading><i class="fa fa-code"></i></tab-heading>
+                <tabset>
+                    <tab heading="HTML">
+<pre>
+&lt;div style=&quot;height: 350px&quot; jqvmap options=&quot;jqvmapWorld&quot;&gt;&lt;/div&gt;
+</pre>
+                    </tab>
+                    <tab heading="JavaScript">
+<pre>
+// inside the controller
+$scope.jqvmapEurope = {
+  map: 'europe_en',
+  backgroundColor: 'transparent',
+  color: '#dddddd',
+  hoverOpacity: 0.7,
+  selectedColor: '#1dda1d',
+  enableZoom: true,
+  showTooltip: true,
+  values: sample_data,
+  scaleColors: ['#b6ddb7', '#51d951'],
+  normalizeFunction: 'polynomial'
+};
+</pre>
+                    </tab>
+                </tabset>
+            </tab>
+        </tabset>
+    </div>
+</div> <!-- container -->
+

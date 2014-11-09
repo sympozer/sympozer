@@ -1,0 +1,250 @@
+
+		<div id="page-heading">
+			<ol class="breadcrumb">
+				<li><a href="#/">Dashboard</a></li>
+				<li>UI Components</li>
+				<li class="active">Tiles</li>
+			</ol>
+
+			<h1>Tiles</h1>
+				<div class="options">
+	                <div class="btn-toolbar">
+	                    <div class="btn-group" dropdown>
+	                        <button type="button" class="btn btn-default dropdown-toggle">
+	                            Export as <span class="caret"></span>
+	                        </button>
+	                        <ul class="dropdown-menu" role="menu">
+	                          <li><a href="#">Action</a></li>
+	                          <li><a href="#">Another action</a></li>
+	                          <li><a href="#">Something else here</a></li>
+	                          <li class="divider"></li>
+	                          <li><a href="#">Separated link</a></li>
+	                        </ul>
+	                    </div>
+	                    <a href="#" class="btn btn-default hidden-xs"><i class="fa fa-cog"></i></a>
+	                </div>
+	            </div>
+		</div>
+		<div class="container-fluid" ng-controller="TilesController">
+
+
+
+			<tabset panel-tabs="true" heading="Large Tiles">
+				<tab heading="Home">
+					<tab-heading><i class="fa fa-desktop"></i></tab-heading>
+
+						<div class="row">
+			            	<div class="col-md-3" ng-repeat="item in largeTiles">
+			            		<tile-large data="item"></tile-large>
+			            	</div>
+			            </div>
+
+				</tab>
+				<tab heading="Profile">
+					<tab-heading><i class="fa fa-code"></i></tab-heading>
+					<p>Forza give you the ability to create tiles programmatically using the <code>tile-large</code> directive.</p>
+					<p>Tiles can also have arbitrary content if the <code>text</code> property is not defined (2nd example).</p>
+					<p><span class="label label-primary">NOTE</span> If you specify a link in the <code>href</code> attribute, the tile functions as a link.</p>
+
+<tabset>
+<tab heading="HTML">
+<pre class="prettyprint linenums">
+&lt;tile-large data=&quot;tileDef&quot;&gt;&lt;/tile-large&gt;
+&lt;tile-large data=&quot;tileDef2&quot;&gt;&lt;span sparklines values=&quot;5,4,7,6,9,5,8,2,6,4,6,7&quot;&gt;&lt;/span&gt;&lt;/tile-large&gt;
+</pre>
+</tab>
+<tab heading="JavaScript">
+<pre class="prettyprint linenums">
+// inside the controller
+$scope.tileDef = { title: &#039;Page Views&#039;, href: &#039;#/ui-tiles&#039;, titleBarInfo: &#039;-7.6%&#039;, text: &#039;1.6K&#039;, color: &#039;info&#039;, classes: &#039;fa fa-eye&#039; };
+$scope.tileDef2 = { title: &#039;Page Views&#039;, href: &#039;#/ui-tiles&#039;, titleBarInfo: &#039;-7.6%&#039;, color: &#039;info&#039;, classes: &#039;fa fa-eye&#039; };
+</pre>
+</tab>
+</tabset>
+
+<p>And this gives you:</p>
+
+<div class="row">
+	<div class="col-md-3">
+		<tile-large data="{ title: 'Page Views', href: &#039;#/ui-tiles&#039;, titleBarInfo: '-7.6%', text: '1.6K', color: 'info', classes: 'fa fa-eye' }"></tile-large>
+		<tile-large data="{ title: 'Page Views', href: &#039;#/ui-tiles&#039;, titleBarInfo: '-7.6%', color: 'info', classes: 'fa fa-eye' }"><span sparklines values="5,4,7,6,9,5,8,2,6,4,6,7"></span></tile-large>
+	</div>
+</div>
+
+				</tab>
+			</tabset>
+
+			<tabset panel-tabs="true" heading="Mini Tiles">
+				<tab>
+					<tab-heading><i class="fa fa-desktop"></i></tab-heading>
+						<div class="row">
+			            	<div class="col-md-2" ng-repeat="item in miniTiles">
+								<tile-mini data="item"></tile-mini>
+							</div>
+			            </div>
+
+				</tab>
+				<tab heading="Profile">
+					<tab-heading><i class="fa fa-code"></i></tab-heading>
+					<p>Same as <code>&lt;tile-large&gt;</code>, <code>&lt;tile-mini&gt;</code> can be generated programmatically.</p>
+
+
+<tabset>
+<tab heading="HTML">
+<pre class="prettyprint linenums">
+&lt;tile-mini data=&quot;tileDef&quot;&gt;&lt;/tile-mini&gt;
+</pre>
+</tab>
+<tab heading="JavaScript">
+<pre class="prettyprint linenums">
+// inside the controller
+$scope.tileDef = { text: &#039;Page Views&#039;, href: &#039;#/ui-tiles&#039;, titleBarInfo: &#039;7&#039;, color: &#039;info&#039;, classes: &#039;fa fa-eye&#039; };
+</pre>
+</tab>
+</tabset>
+
+<div class="row">
+	<div class="col-md-2">
+		<tile-mini data="{ text: 'Page Views', href: '#/ui-tiles', titleBarInfo: '7', color: 'info', classes: 'fa fa-eye' }"></tile-mini>
+	</div>
+</div>
+
+
+				</tab>
+			</tabset>
+
+			<tabset panel-tabs="true" heading="Generic Tiles">
+				<tab>
+					<tab-heading><i class="fa fa-desktop"></i></tab-heading>
+						
+						<div class="row">
+							<div class="col-md-2">
+								<tile type="midnightblue" heading="Bandwidth">
+		            				<div easypiechart class="easypiechart"
+		            					data-percent="5"
+                                	    data-options="{
+                                	        animate: { duration: 0, enabled: false},
+                                	        barColor: 'rgba(255,255,255,0.6)',
+                                	        trackColor: 'rgba(255,255,255,0.2)',
+                                	        scaleColor: 'rgba(255,255,255,0.3)',
+                                	        lineWidth: 2,
+                                	        size: 100,
+                                	        lineCap:'circle'
+                                	    }"><span class="percent">5</span>
+                                	</div>
+								</tile>
+			            	</div>
+
+							<div class="col-md-2">
+								<tile type="info" heading="RAM Usage">
+                    				<div easypiechart class="easypiechart"
+                    					data-percent="14"
+                                	    data-options="{
+                                	        animate: { duration: 0, enabled: false},
+                                	        barColor: '#16a085',
+                                	        trackColor: '#edeef0',
+                                	        scaleColor: '#d2d3d6',
+                                	        lineWidth: 2,
+                                	        size: 100,
+                                	        lineCap:'circle'
+                                	    }"><span class="percent">14</span>
+                                	</div>
+								</tile>
+			            	</div>
+
+							<div class="col-md-2">
+								<tile type="success" heading="Server Load">
+		            				<div easypiechart class="easypiechart"
+		            					data-percent="19"
+                                	    data-options="{
+                                	        animate: { duration: 0, enabled: false},
+                                	        barColor: '#16a085',
+                                	        trackColor: '#edeef0',
+                                	        scaleColor: '#d2d3d6',
+                                	        lineWidth: 2,
+                                	        size: 100,
+                                	        lineCap:'circle'
+                                	    }"><span class="percent">19</span>
+                                	</div>
+								</tile>
+			            	</div>
+
+							<div class="col-md-2">
+								<tile type="danger">
+									<tile-heading>
+										Space
+									</tile-heading>
+		            				<div easypiechart class="easypiechart"
+		            					data-percent="15"
+                                	    data-options="{
+                                	        animate: { duration: 0, enabled: false},
+                                	        barColor: $global.getBrandColor('green'),
+                                	        trackColor: $global.getBrandColor('red'),
+                                	        scaleColor: $global.getBrandColor('blue'),
+                                	        lineWidth: 2,
+                                	        size: 100,
+                                	        lineCap:'circle'
+                                	    }"><span class="percent">15</span>
+                                	</div>
+								</tile>
+			            	</div>
+
+			            	
+
+                            <div class="col-md-2">
+								<tile type="midnightblue">
+									<tile-heading>
+										Revenue
+									</tile-heading>
+		            					<div class="text-center">
+		            						<div class="info-text"><span class="superscript">$</span>71,2<span class="subscript">K</span></div>
+		            						<div class="info-text-bottom">up by 15%</div>
+		            					</div>
+								</tile>
+			            	</div>
+			            </div>
+
+				</tab>
+				<tab>
+					<tab-heading><i class="fa fa-code"></i></tab-heading>
+					<p>Tiles can be created through enhanced <code>HTML</code> to contain arbitrary content. It can even have nested directives!</p>
+					
+<pre class="prettyprint linenums">
+&lt;tile type=&quot;danger&quot;&gt;
+	&lt;tile-heading&gt;
+		&lt;i class=&quot;fa fa-floppy-o&quot;&gt;&lt;/i&gt; Space
+	&lt;/tile-heading&gt;
+	&lt;div easypiechart class=&quot;easypiechart&quot;
+		data-percent=&quot;15&quot;
+		data-options=&quot;{
+			lineWidth: 2,
+			size: 100,
+			lineCap:&#039;circle&#039;
+		}&quot;&gt;&lt;span class=&quot;percent&quot;&gt;15&lt;/span&gt;
+	&lt;/div&gt;
+&lt;/tile&gt;
+</pre>
+
+
+<div class="row">
+	<div class="col-md-2">
+		<tile type="danger">
+			<tile-heading>
+				<i class="fa fa-floppy-o"></i> Space
+			</tile-heading>
+			<div easypiechart class="easypiechart"
+				data-percent="15"
+	    	    data-options="{
+	    	        lineWidth: 2,
+	    	        size: 100,
+	    	        lineCap:'circle'
+	    	    }"><span class="percent">15</span>
+	    	</div>
+		</tile>
+	</div>
+</div>
+
+				</tab>
+			</tabset>
+
+</div> <!-- container -->

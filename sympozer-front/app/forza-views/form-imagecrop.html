@@ -1,0 +1,87 @@
+		<div id="page-heading">
+			<ol class="breadcrumb">
+				<li><a href="#/">Dashboard</a></li>
+				<li>Form Components</li>
+				<li class="active">Image Cropping</li>
+			</ol>
+
+			<h1>Image Cropping</h1>
+			<div class="options">
+                    <div class="btn-toolbar">
+                        <div class="btn-group" dropdown>
+                            <button type="button" class="btn btn-default dropdown-toggle">
+                                Export as <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                              <li><a href="#">Action</a></li>
+                              <li><a href="#">Another action</a></li>
+                              <li><a href="#">Something else here</a></li>
+                              <li class="divider"></li>
+                              <li><a href="#">Separated link</a></li>
+                            </ul>
+                        </div>
+                        <a href="#" class="btn btn-default hidden-xs"><i class="fa fa-cog"></i></a>
+                    </div>
+                </div>
+		</div>
+		<div class="container-fluid" ng-controller="ImageCropController">
+			<style type="text/css">
+				div#cropped-image-container {
+				    overflow: hidden;
+				    position: relative;
+				    margin: 0 auto;
+				}
+				#preview {
+					position: absolute;
+				}
+				.panel-body {
+					overflow: hidden;
+				}
+			</style>
+			<div class="row">
+				<div class="col-sm-6">
+					<panel panel-class="panel-sky" heading="Original Image" panel-icon="fa fa-image">
+					    <!-- <img-cropped src='assets/demo/images/yvonne.jpg' crop-init="setBounds(bounds)" selected='selected(cords)'></img-cropped> -->
+					    <img src="assets/demo/images/yvonne.jpg" crop-init="setBounds(bounds)" img-selected="selected(coords)" croppable
+					    	style="width: 100%">
+					</panel>
+				</div>
+
+				<div class="col-sm-6">
+					<panel panel-class="panel-sky" heading="Cropped Image" panel-icon="fa fa-code">
+						<alert ng-show="!cropped"><i class="fa fa-info"></i> Please select a cropping section on the left!</alert>
+					    <h3 ng-show="cropped">Cropped image</h3>
+					    <div ng-show="cropped" id="cropped-image-container" ng-style="{width: containerWidth+'px', height: containerHeight+'px'}" >
+					        <img id="preview" src='assets/demo/images/yvonne.jpg' ng-style="{top: imageTop+'px', left: imageLeft+'px', width: imageWidth+'px'}">
+					    </div>
+					    <br>
+					    <div class="form-horizontal row-border" ng-show="cropped">
+		                    <div class="form-group">
+		                        <label class="col-sm-3 control-label">Cropped Width</label>
+		                        <div class="col-sm-6">
+		                            <span class="form-control-static">{{ containerWidth }}px</span>
+		                        </div>
+		                    </div>
+		                    <div class="form-group">
+		                        <label class="col-sm-3 control-label">Cropped Height</label>
+		                        <div class="col-sm-6">
+		                            <span class="form-control-static">{{ containerHeight }}px</span>
+		                        </div>
+		                    </div>
+		                    <div class="form-group">
+		                        <label class="col-sm-3 control-label">Image Left Offset</label>
+		                        <div class="col-sm-6">
+		                            <span class="form-control-static">{{ -imageLeft }}px</span>
+		                        </div>
+		                    </div>
+		                    <div class="form-group">
+		                        <label class="col-sm-3 control-label">Image Top Offset</label>
+		                        <div class="col-sm-6">
+		                            <span class="form-control-static">{{ -imageTop }}px</span>
+		                        </div>
+		                    </div>
+					    </div>
+					</panel>
+				</div>
+			</div>
+		</div> <!-- container -->

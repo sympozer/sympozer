@@ -1,0 +1,713 @@
+        <div id="page-heading">
+            <!-- <ol class="breadcrumb">
+                <li class='active'><a href="index.htm">Dashboard</a></li>
+            </ol> -->
+
+            <h1>Dashboard</h1>
+            <div class="options">
+                <div class="btn-toolbar">
+                    <div class="btn-group" dropdown>
+                        <button type="button" class="btn btn-default dropdown-toggle">
+                           Export as <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                          <li><a href="#">Action</a></li>
+                          <li><a href="#">Another action</a></li>
+                          <li><a href="#">Something else here</a></li>
+                          <li class="divider"></li>
+                          <li><a href="#">Separated link</a></li>
+                        </ul>
+                    </div>
+                    <a href="#" class="btn btn-default hidden-xs"><i class="fa fa-cog"></i></a>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="container-fluid" ng-controller="DashboardController">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-3 col-sm-6">
+                            <a class="info-tiles tiles-danger" href="#">
+                                <div class="tiles-heading">
+                                    <div class="pull-left">Downloads</div>
+                                    <div class="pull-right">-8.5%</div>
+                                </div>
+                                <div class="tiles-body">
+                                    <div class="pull-left"><i class="fa fa-download"></i></div>
+                                    <div class="pull-right">6.7K</div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <a class="info-tiles tiles-indigo" href="#">
+                                <div class="tiles-heading">
+                                    <div class="pull-left">New Orders</div>
+                                    <div class="pull-right">+25.8%</div>
+                                </div>
+                                <div class="tiles-body">
+                                    <div class="pull-left"><i class="fa fa-shopping-cart"></i></div>
+                                    <div class="pull-right">679</div>
+                                </div>
+                            </a>
+                        </div>
+                       <div class="col-md-3 col-sm-6">
+                            <a class="info-tiles tiles-success" href="#">
+                                <div class="tiles-heading">
+                                    <div class="pull-left">Profits</div>
+                                    <div class="pull-right">+4.5%</div>
+                                </div>
+                                <div class="tiles-body">
+                                    <div class="pull-left"><i class="fa fa-money"></i></div>
+                                    <div class="pull-right">$2.4K</div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <a class="info-tiles tiles-midnightblue" href="#">
+                                <div class="tiles-heading">
+                                    <div class="pull-left">New Members</div>
+                                    <div class="pull-right">-9.8%</div>
+                                </div>
+                                <div class="tiles-body">
+                                    <div class="pull-left"><i class="fa fa-group"></i></div>
+                                    <div class="pull-right">125</div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- <div class="row">
+                <div class="col-md-2">
+                    <tile type="indigo" heading="Members">
+                        <div class="text-center">
+                            <div class="info-text">1,73<span class="subscript">K</span></div>
+                            <div class="info-text-bottom">increased by 15%</div>
+                        </div>
+                    </tile>
+                </div>
+                <div class="col-md-2">
+                    <tile type="danger" heading="Orders">
+                        <div class="text-center">
+                            <div class="info-text">1562</div>
+                            <div class="info-text-bottom">increased by 30%</div>
+                        </div>
+                    </tile>
+                </div>
+                <div class="col-md-2">
+                    <tile type="success" heading="Revenue">
+                        <div class="text-center">
+                            <div class="info-text"><span class="superscript">$</span>77,2<span class="subscript">K</span></div>
+                            <div class="info-text-bottom">increased by 12%</div>
+                        </div>
+                    </tile>
+                </div>
+
+                <div class="col-md-2">
+                    <tile type="primary" heading="Bandwidth">
+                        <div easypiechart class="easypiechart"
+                            data-percent="5"
+                            data-options="{
+                                animate: { duration: 0, enabled: false},
+                                barColor: 'rgba(255,255,255,0.6)',
+                                trackColor: 'rgba(255,255,255,0.2)',
+                                scaleColor: 'rgba(255,255,255,0.3)',
+                                lineWidth: 2,
+                                size: 100,
+                                lineCap:'circle'
+                            }"><span class="percent">5</span>
+                        </div>
+                    </tile>
+                </div>
+
+                <div class="col-md-2">
+                    <tile type="inverse" heading="RAM Usage">
+                        <div easypiechart class="easypiechart"
+                            data-percent="64"
+                            data-options="{
+                                animate: { duration: 0, enabled: false},
+                                barColor: 'rgba(255,255,255,0.6)',
+                                trackColor: 'rgba(255,255,255,0.2)',
+                                scaleColor: 'rgba(255,255,255,0.3)',
+                                lineWidth: 2,
+                                size: 100,
+                                lineCap:'circle'
+                            }"><span class="percent">64</span>
+                        </div>
+                    </tile>
+                </div>
+
+                <div class="col-md-2">
+                    <tile type="midnightblue" heading="Server Load">
+                        <div easypiechart class="easypiechart"
+                            data-percent="19"
+                            data-options="{
+                                animate: { duration: 0, enabled: false},
+                                barColor: 'rgba(255,255,255,0.6)',
+                                trackColor: 'rgba(255,255,255,0.2)',
+                                scaleColor: 'rgba(255,255,255,0.3)',
+                                lineWidth: 2,
+                                size: 100,
+                                lineCap:'circle'
+                            }"><span class="percent">19</span>
+                        </div>
+                    </tile>
+                </div>
+            </div> -->
+
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="panel panel-gray">
+                        <div class="panel-body no-border">
+                            <div class="row">
+                                <div class="col-md-12 clearfix">
+                                    <h4 class="pull-left" style="margin: 6px 0;">User Reports</h4>
+                                    <div ng-controller="DateRangePickerDemo" class="pull-right">
+                                        <button class="btn btn-default" daterangepicker="drp_options" date-begin="drp_start" date-end="drp_end">
+                                            <i class="fa fa-calendar"></i> <span style="margin-left: 5px">{{drp_start}} - {{drp_end}}</span> <b class="caret"></b>
+                                        </button>
+                                    </div>    
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                   <div class="mb20 mt20" flot-chart style="width: 100%; height:250px" 
+                                        data-flot-data="plotStatsData"
+                                        data-flot-options="plotStatsOptions"
+                                    ></div>
+                                </div>
+                            </div>
+                            <div class="panel-footer">
+                            <div class="row">
+                                <div class="visitor-sparklines col-xs-12 col-sm-4 col-md-4">
+                                        <div class="sparkline-block">
+                                            <span sparklines="{
+                                            lineWidth: 1.5,
+                                            type: 'line',
+                                            width: '90px',
+                                            height: '20px',
+                                            lineColor: '#b3bcc7',
+                                            fillColor: 'rgba(179,188,199,0.1)',
+                                            spotColor: false,
+                                            minSpotColor: false,
+                                            highlightLineColor: 'rgba(0,0,0,0.1)',
+                                            highlightSpotColor: '#b3bcc7',
+                                            spotRadius: 3,
+                                            maxSpotColor: false}" data-data="[251,933,653,759,1022,1702,565,1913,889,674]"></span>
+                                        </div>
+                                    <h3 style="text-align: center; margin: 0;">7,451</h3>
+                                    <p style="text-align: center; margin: 0;">Visits</p>
+                                    <hr class="hidden-md hidden-sm hidden-lg">
+                                </div>
+                                <div class="visitor-sparklines col-xs-12 col-sm-4 col-md-4">
+                                        <div class="sparkline-block">
+                                            <span sparklines="{
+                                            lineWidth: 1.5,
+                                            type: 'line',
+                                            width: '90px',
+                                            height: '20px',
+                                            lineColor: '#b3bcc7',
+                                            fillColor: 'rgba(179,188,199,0.1)',
+                                            spotColor: false,
+                                            minSpotColor: false,
+                                            highlightLineColor: 'rgba(0,0,0,0.1)',
+                                            highlightSpotColor: '#b3bcc7',
+                                            spotRadius: 3,
+                                            maxSpotColor: false}" data-data="[1225,6533,2953,3469,21282,7354,1655,2567,1234,677]"></span>
+                                        </div>
+                                    <h3 style="text-align: center; margin: 0;">25,170</h3>
+                                    <p style="text-align: center; margin: 0;">Page Views</p>
+                                    <hr class="hidden-md hidden-sm hidden-lg">
+                                </div>
+                                <div class="visitor-sparklines col-xs-12 col-sm-4 col-md-4">
+                                        <div class="sparkline-block">
+                                            <span sparklines="{
+                                            lineWidth: 1.5,
+                                            type: 'line',
+                                            width: '90px',
+                                            height: '20px',
+                                            lineColor: '#b3bcc7',
+                                            fillColor: 'rgba(179,188,199,0.1)',
+                                            spotColor: false,
+                                            minSpotColor: false,
+                                            highlightLineColor: 'rgba(0,0,0,0.1)',
+                                            highlightSpotColor: '#b3bcc7',
+                                            spotRadius: 3,
+                                            maxSpotColor: false}" data-data="[5,3,7,6,2,4,6,8,6,4]"></span>
+                                        </div>
+                                    <h3 style="text-align: center; margin: 0;">5.36</h3>
+                                    <p style="text-align: center; margin: 0;">Pages/Visit</p>
+                                </div>
+                                <!-- <div class="visitor-sparklines col-xs-6 col-sm-6 col-md-2">
+                                        <div class="sparkline-block">
+                                            <span sparklines="{
+                                            lineWidth: 1.5,
+                                            type: 'line',
+                                            width: '90px',
+                                            height: '20px',
+                                            lineColor: '#b3bcc7',
+                                            fillColor: 'rgba(179,188,199,0.1)',
+                                            spotColor: false,
+                                            minSpotColor: false,
+                                            highlightLineColor: 'rgba(0,0,0,0.1)',
+                                            highlightSpotColor: '#b3bcc7',
+                                            spotRadius: 3,
+                                            maxSpotColor: false}" data-data="[2,4,7,6,5,3,2,3,5,2]"></span>
+                                        </div>
+                                    <h3 style="text-align: center; margin: 0;">00:04:15</h3>
+                                    <p style="text-align: center; margin: 0;">Avg. Visit Time</p>
+                                    <hr class="hidden-md hidden-lg">
+                                </div>
+                                <div class="visitor-sparklines col-xs-6 col-sm-6 col-md-2">
+                                        <div class="sparkline-block">
+                                            <span sparklines="{
+                                            lineWidth: 1.5,
+                                            type: 'line',
+                                            width: '90px',
+                                            height: '20px',
+                                            lineColor: '#b3bcc7',
+                                            fillColor: 'rgba(179,188,199,0.1)',
+                                            spotColor: false,
+                                            minSpotColor: false,
+                                            highlightLineColor: 'rgba(0,0,0,0.1)',
+                                            highlightSpotColor: '#b3bcc7',
+                                            spotRadius: 3,
+                                            maxSpotColor: false}" data-data="[68,83,33,90,20,76,85,65,34,52]"></span>
+                                        </div>
+                                    <h3 style="text-align: center; margin: 0;">71.63%</h3>
+                                    <p style="text-align: center; margin: 0;">New Visits</p>
+                                    <hr class="hidden-md hidden-lg">
+                                </div>
+                                <div class="visitor-sparklines col-xs-6 col-sm-6 col-md-2">
+                                        <div class="sparkline-block">
+                                            <span sparklines="{
+                                            lineWidth: 1.5,
+                                            type: 'line',
+                                            width: '90px',
+                                            height: '20px',
+                                            lineColor: '#b3bcc7',
+                                            fillColor: 'rgba(179,188,199,0.1)',
+                                            spotColor: false,
+                                            minSpotColor: false,
+                                            highlightLineColor: 'rgba(0,0,0,0.1)',
+                                            highlightSpotColor: '#b3bcc7',
+                                            spotRadius: 3,
+                                            maxSpotColor: false}" data-data="[41,33,53,79,62,47,35,23,25,64]"></span>
+                                        </div>
+                                    <h3 style="text-align: center; margin: 0;">60.24%</h3>
+                                    <p style="text-align: center; margin: 0;">Bounce Rate</p>
+                                    <hr class="hidden-md hidden-lg">
+                                </div> -->   
+                            </div>
+                        </div>
+                        
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="panel panel-gray">
+                        <div class="panel-body no-border">
+                            <div class="row">
+                                <div class="col-md-12 clearfix">
+                                    <h4 class="pull-left" style="margin: 6px 0;">Revenues</h4>
+                                    <div ng-controller="DateRangePickerDemo" class="pull-right">
+                                        <button class="btn btn-default" daterangepicker="drp_options" date-begin="drp_start" date-end="drp_end">
+                                            <i class="fa fa-calendar"></i> <span style="margin-left: 5px">{{drp_start}} - {{drp_end}}</span> <b class="caret"></b>
+                                        </button>
+                                    </div>    
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                   <div class="mb20 mt20" flot-chart style="width: 100%; height:250px" 
+                                        data-flot-data="plotRevenueData"
+                                        data-flot-options="plotRevenueOptions"
+                                    ></div>
+                                </div>
+                            </div>
+                            <div class="panel-footer">
+                            <div class="row">
+                                <div class="visitor-sparklines col-xs-12 col-sm-4 col-md-4">
+                                        <div class="sparkline-block" style="width: 69px">
+                                            <span sparklines="{
+                                            lineWidth: 1.5,
+                                            type: 'bar',
+                                            barWidth: 6,
+                                            height: '20px',
+                                            barColor: '#e79f9f',
+                                            barSpacing: 1
+                                            }" data-data="[251,933,653,759,1022,1702,565,1913,889,674]"></span>
+                                        </div>
+                                    <h3 style="text-align: center; margin: 0;">$29,462</h3>
+                                    <p style="text-align: center; margin: 0;">Sales Volume</p>
+                                    <hr class="hidden-md hidden-sm hidden-lg">
+                                </div>
+                                <div class="visitor-sparklines col-xs-12 col-sm-4 col-md-4">
+                                        <div class="sparkline-block" style="width: 69px">
+                                            <span sparklines="{
+                                            lineWidth: 1.5,
+                                            type: 'bar',
+                                            barWidth: 6,
+                                            height: '20px',
+                                            barColor: '#e79f9f',
+                                            barSpacing: 1
+                                            }" data-data="[1225,6533,2953,3469,21282,7354,1655,2567,1234,677]"></span>
+                                        </div>
+                                    <h3 style="text-align: center; margin: 0;">$12,352</h3>
+                                    <p style="text-align: center; margin: 0;">Earnings</p>
+                                    <hr class="hidden-md hidden-sm hidden-lg">
+                                </div>
+                                <div class="visitor-sparklines col-xs-12 col-sm-4 col-md-4">
+                                        <div class="sparkline-block" style="width: 69px">
+                                            <span sparklines="{
+                                            lineWidth: 1.5,
+                                            type: 'bar',
+                                            barWidth: 6,
+                                            height: '20px',
+                                            barColor: '#e79f9f',
+                                            barSpacing: 1
+                                            }" data-data="[5,3,7,6,2,4,6,8,6,4]"></span>
+                                        </div>
+                                    <h3 style="text-align: center; margin: 0;">789</h3>
+                                    <p style="text-align: center; margin: 0;">Units Sold</p>
+                                    
+                                </div>
+                                <!-- <div class="visitor-sparklines col-xs-6 col-sm-6 col-md-2">
+                                        <div class="sparkline-block">
+                                            <span sparklines="{
+                                            lineWidth: 1.5,
+                                            type: 'line',
+                                            width: '90px',
+                                            height: '20px',
+                                            lineColor: '#b3bcc7',
+                                            fillColor: 'rgba(179,188,199,0.1)',
+                                            spotColor: false,
+                                            minSpotColor: false,
+                                            highlightLineColor: 'rgba(0,0,0,0.1)',
+                                            highlightSpotColor: '#b3bcc7',
+                                            spotRadius: 3,
+                                            maxSpotColor: false}" data-data="[2,4,7,6,5,3,2,3,5,2]"></span>
+                                        </div>
+                                    <h3 style="text-align: center; margin: 0;">00:04:15</h3>
+                                    <p style="text-align: center; margin: 0;">Avg. Visit Time</p>
+                                    <hr class="hidden-md hidden-lg">
+                                </div>
+                                <div class="visitor-sparklines col-xs-6 col-sm-6 col-md-2">
+                                        <div class="sparkline-block">
+                                            <span sparklines="{
+                                            lineWidth: 1.5,
+                                            type: 'line',
+                                            width: '90px',
+                                            height: '20px',
+                                            lineColor: '#b3bcc7',
+                                            fillColor: 'rgba(179,188,199,0.1)',
+                                            spotColor: false,
+                                            minSpotColor: false,
+                                            highlightLineColor: 'rgba(0,0,0,0.1)',
+                                            highlightSpotColor: '#b3bcc7',
+                                            spotRadius: 3,
+                                            maxSpotColor: false}" data-data="[68,83,33,90,20,76,85,65,34,52]"></span>
+                                        </div>
+                                    <h3 style="text-align: center; margin: 0;">71.63%</h3>
+                                    <p style="text-align: center; margin: 0;">New Visits</p>
+                                    <hr class="hidden-md hidden-lg">
+                                </div>
+                                <div class="visitor-sparklines col-xs-6 col-sm-6 col-md-2">
+                                        <div class="sparkline-block">
+                                            <span sparklines="{
+                                            lineWidth: 1.5,
+                                            type: 'line',
+                                            width: '90px',
+                                            height: '20px',
+                                            lineColor: '#b3bcc7',
+                                            fillColor: 'rgba(179,188,199,0.1)',
+                                            spotColor: false,
+                                            minSpotColor: false,
+                                            highlightLineColor: 'rgba(0,0,0,0.1)',
+                                            highlightSpotColor: '#b3bcc7',
+                                            spotRadius: 3,
+                                            maxSpotColor: false}" data-data="[41,33,53,79,62,47,35,23,25,64]"></span>
+                                        </div>
+                                    <h3 style="text-align: center; margin: 0;">60.24%</h3>
+                                    <p style="text-align: center; margin: 0;">Bounce Rate</p>
+                                    <hr class="hidden-md hidden-lg">
+                                </div> -->   
+                            </div>
+                        </div>
+                        
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            
+
+            <div class="row">
+                <div class="col-md-6">
+                    <panel heading="Map">
+                        <panel-controls>
+                            <a href="javascript:;"><i class="fa fa-cog"></i></a>
+                            <a href="javascript:;"><i class="fa fa-wrench"></i></a> 
+                            <a href=""><panel-control-collapse class="fa fa-chevron-down"></panel-control-collapse></a>
+                        </panel-controls>
+                        <div ng-controller="VectorMapsController">
+                            <div style="height: 320px" jqvmap options="jqvmapWorld"></div>
+                        </div>
+                    </panel>
+
+                </div>
+
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <tile type="success" heading="Revenue">
+                                <div class="text-center">
+                                    <div class="info-text"><span class="superscript">$</span>77,2<span class="subscript">K</span></div>
+                                    <div class="info-text-bottom">increased by 12%</div>
+                                </div>
+                            </tile>
+                        </div>
+                        
+                        <div class="col-md-4">
+                            <tile type="inverse" heading="RAM Usage">
+                                <div easypiechart class="easypiechart"
+                                    data-percent="64"
+                                    data-options="{
+                                        animate: { duration: 0, enabled: false},
+                                        barColor: 'rgba(255,255,255,0.6)',
+                                        trackColor: 'rgba(255,255,255,0.2)',
+                                        scaleColor: 'rgba(255,255,255,0.3)',
+                                        lineWidth: 2,
+                                        size: 100,
+                                        lineCap:'circle'
+                                    }"><span class="percent">64</span>
+                                </div>
+                            </tile>
+                        </div>
+                        
+                        <div class="col-md-4">
+                            <tile type="midnightblue" heading="Server Load">
+                                <div easypiechart class="easypiechart"
+                                    data-percent="19"
+                                    data-options="{
+                                        animate: { duration: 0, enabled: false},
+                                        barColor: 'rgba(255,255,255,0.6)',
+                                        trackColor: 'rgba(255,255,255,0.2)',
+                                        scaleColor: 'rgba(255,255,255,0.3)',
+                                        lineWidth: 2,
+                                        size: 100,
+                                        lineCap:'circle'
+                                    }"><span class="percent">19</span>
+                                </div>
+                            </tile>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12" ng-controller="FlotChartsController">
+                            <div class="panel panel-gray">
+                                <div class="panel-body no-border">
+                                    <h4 class="mt0 mb0">Live Dynamic</h4>
+                                    <div class="mt20 mb0" flot-chart style="width: 100%; height:140px" 
+                                        data-flot-data="realtimeData"
+                                        data-flot-options="realtimeOptions"
+                                    ></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                
+            <div class="row">  
+                                <div class="col-md-6" ng-controller="TasksController">
+                    <script type="text/ng-template" id="items_renderer.html">
+                        <label>
+                            <span class="task-description" ng-show="!item.editing">{{item.title}}</span>
+                            <span class="label label-{{item.color || 'primary'}}" ng-show="item.label && !item.editing">{{item.label}}</span>
+                                    <form class="form-horizontal" action="" ng-submit="doneEditing(item)" ng-show="item.editing" data-nodrag>
+                                        <div class="form-group">
+                                            <div class="col-lg-6 col-xs-5">
+                                                <input type="text" class="form-control no-validate" ng-model="item.title" placeholder="Task title..." ng-keyup="cancelEdit($event, item)">
+                                            </div>
+                                            <div class="col-lg-4 col-xs-4">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control no-validate" ng-model="item.label" placeholder="Task label..." ng-keyup="cancelEdit($event, item)">
+
+                                                    <div class="input-group-btn">
+                                                        <div class="btn-group" dropdown style="">
+                                                          <button type="button" class="btn btn-default dropdown-toggle">
+                                                            <div class="label label-{{item.color||'primary'}} color-block"></div>
+                                                          </button>
+                                                          <ul class="dropdown-menu dropdown-colors" role="menu">
+                                                            <li><span class="label label-success" ng-click="item.color='success'"></span></li>
+                                                            <li><span class="label label-primary" ng-click="item.color='primary'"></span></li>
+                                                            <li><span class="label label-warning" ng-click="item.color='warning'"></span></li>
+                                                            <li><span class="label label-danger" ng-click="item.color='danger'"></span></li>
+                                                            <li><span class="label label-info" ng-click="item.color='info'"></span></li>
+                                                          </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-2 col-xs-3">
+                                                
+                                                <input type="submit" class="btn btn-primary btn-block" value="Save" />
+                                            </div>
+                                        </div>
+                                    </form>
+                        </label>
+                        <div class="options todooptions">
+                            <div class="btn-group" ng-show="!item.editing">
+                                
+                                <button data-nodrag class="btn btn-default btn-xs" ng-click="complete(this, item)"><i class="fa fa-fw fa-check"></i></button>
+                                <button data-nodrag class="btn btn-default btn-xs" ng-click="edit(item)"><i class="fa fa-fw fa-pencil"></i></button>
+                                <button data-nodrag class="btn btn-default btn-xs" ng-click="remove(this)"><i class="fa fa-fw fa-trash-o"></i></button>
+                            </div>
+                        </div>
+                    </script>
+                    <tabset panel-tabs="true" panel-class="panel-inverse">
+                        <panel-controls class="pull-right">
+                            <button class="btn btn-primary btn-sm" ng-click="showForm=true" style="margin-top: -5px;">Add Task</button>
+                        </panel-controls>
+                        <tab>
+                            <tab-heading><i class="fa fa-tasks"></i> <span class="hidden-xs">To-do</span> <span class="badge badge-primary">{{tasks.length}}</span></tab-heading>
+                          <div>
+
+                            <form class="form-horizontal" name="create_task" ng-submit="newItem(newTaskTitle, newTaskLabelText, newTaskColor)" ng-show="showForm">
+                                <div class="form-group">
+                                    <div class="col-lg-6 col-xs-5">
+                                        <input type="text" class="form-control no-validate" ng-model="newTaskTitle" placeholder="Task title..." ng-keyup="cancelAdd($event)">
+                                    </div>
+                                    <div class="col-lg-4 col-xs-4">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control no-validate" ng-model="newTaskLabelText" placeholder="Task label..." ng-keyup="cancelAdd($event)">
+
+                                            <div class="input-group-btn">
+                                                <div class="btn-group" dropdown style="">
+                                                  <button type="button" class="btn btn-default dropdown-toggle">
+                                                    <div class="label label-{{newTaskColor||'primary'}} color-block"></div>
+                                                  </button>
+                                                  <ul class="dropdown-menu dropdown-colors" role="menu">
+                                                    <li><span class="label label-success" ng-click="newTaskColor='success'"></span></li>
+                                                    <li><span class="label label-primary" ng-click="newTaskColor='primary'"></span></li>
+                                                    <li><span class="label label-warning" ng-click="newTaskColor='warning'"></span></li>
+                                                    <li><span class="label label-danger" ng-click="newTaskColor='danger'"></span></li>
+                                                    <li><span class="label label-info" ng-click="newTaskColor='info'"></span></li>
+                                                  </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2 col-xs-3">
+                                            <input
+                                                class="btn btn-success btn-block"
+                                                value="Add"
+                                                type="submit"
+                                            />
+                                    </div>
+                                </div>
+                                
+                            </form>
+                            
+                            
+                            
+                          </div>
+                          <div ui-tree="options" class="tasklist">
+                            <ol ui-tree-nodes ng-model="tasks" class="panel-tasks">
+                              <li
+                                ui-tree-node
+                                ui-tree-handle
+                                ng-repeat="item in tasks"
+                                ng-include="'items_renderer.html'"
+                                ng-style="{'border-left': item.color? '2px solid '+item.color:''}"
+                              ></li>
+                            </ol>
+                          </div>
+
+                        </tab>
+
+                        <tab>
+                            <tab-heading><i class="fa fa-check"></i> <span class="hidden-xs">Completed</span> <span class="badge badge-success">{{tasksComplete.length}}</span></tab-heading>
+                            <div class="tasklist">
+                                <ol class="panel-tasks">
+                                    <li ng-repeat="item in tasksComplete"
+                                        ng-style="{'border-left': item.color? '2px solid '+item.color:''}">
+                                        <label>
+                                            <span class="task-description">{{item.title}}</span>
+                                            <span class="label label-{{item.color || 'primary'}}" ng-show="item.label">{{item.label}}</span>
+                                        </label>
+                                        <div class="options todooptions">
+                                            <div class="btn-group" ng-show="!item.editing">
+                                                <button data-nodrag class="btn btn-default btn-xs" ng-click="incomplete(item, $index)"><i class="fa fa-fw fa-undo"></i></button>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>
+                        </tab>
+                    </tabset>
+                </div>      
+                <div class="col-md-6">
+                    <div class="panel panel-gray">
+                        <div class="panel-heading">
+                            <h4>User Accounts</h4>
+                            <div class="options">
+                                <a href=""><i class="fa fa-cog"></i></a>
+                                <a href=""><i class="fa fa-wrench"></i></a> 
+                                <a href=""><panel-control-collapse class="fa fa-chevron-down"></panel-control-collapse></a>
+                            </div>
+                        </div>
+                        <div class="panel-body no-padding">
+                            <div class="table-responsive">
+                                <table class="table" style="margin-bottom: 0px;">
+                                    <thead>
+                                        <tr>
+                                            <th class="col-xs-1 col-sm-1"></th>
+                                            <th class="col-xs-9 col-sm-4">User ID</th>
+                                            <th class="col-sm-5 hidden-xs">Email Address</th>
+                                            <th class="col-xs-2 col-sm-2 text-right">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="selects">
+                                        <tr ng-repeat="ua in accountsInRange()">
+                                            <td><input icheck type="checkbox" ng-model="ua.rem"></td>
+                                            <td>{{ua.name}}</td>
+                                            <td class="hidden-xs">{{ua.email}}</td>
+                                            <td class="text-right">
+                                                <div class="btn-group">
+                                                    <button class="btn btn-xs btn-default-alt" ng-click="uaHandle($index)"><i class="fa fa-fw fa-check"></i></button>
+                                                    <button class="btn btn-xs btn-default-alt" ng-click="uaHandle($index)"><i class="fa fa-fw fa-times"></i></button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr class="active">
+                                            <td colspan="4" class="text-left" style="background: none;">
+                                                <div class="clearfix">
+                                                    <button class="btn btn-sm btn-default pull-left" ng-click="uaHandleSelected()">Aprrove Selected</button>
+
+                                                    <div class="pull-right">
+                                                        <pagination class="mb0 pagination-sm" boundary-links="false" total-items="userAccounts.length-6" ng-model="currentPage" items-per-page="itemsPerPage" previous-text="&lsaquo;" next-text="&rsaquo;" class="pull-right"></pagination>
+                                                    </div>
+                                                </div>
+
+                                            </td>
+                                        </tr>
+                                    </tfoot>
+
+                                </table>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div> <!-- container -->

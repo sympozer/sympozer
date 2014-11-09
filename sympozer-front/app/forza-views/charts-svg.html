@@ -1,0 +1,62 @@
+            <div id="page-heading">
+                <ol class="breadcrumb">
+                    <li><a href="#/">Dashboard</a></li>
+                    <li>Charts</li>
+                    <li class="active">SVG Charts</li>
+                </ol>
+
+                <h1>SVG Charts</h1>
+                <div class="options">
+                    <div class="btn-toolbar">
+                        <div class="btn-group" dropdown>
+                            <button type="button" class="btn btn-default dropdown-toggle">
+                                Export as <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                              <li><a href="#">Action</a></li>
+                              <li><a href="#">Another action</a></li>
+                              <li><a href="#">Something else here</a></li>
+                              <li class="divider"></li>
+                              <li><a href="#">Separated link</a></li>
+                            </ul>
+                        </div>
+                        <a href="#" class="btn btn-default hidden-xs"><i class="fa fa-cog"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid" ng-controller="SvgChartsController">
+
+                <div class="row">
+                    <div class="col-md-12 col-lg-12">
+                        <alert>
+                            <p>Morris.js charts are highly-interactive charts created using the <code>svg-chart</code> directive.</p>
+                            <p>Pass in the chart options in the <code>svg-chart</code> attribute and the chart type <code>data-type</code> attribute.</p>
+                        </alert>
+
+                        <panel panel-class="panel-info" heading="Line Graph">
+                            <div svg-chart="lineChart"
+                                data-type="'Line'"></div>
+                        </panel>
+                    </div>
+                    <div class="col-md-12 col-lg-12">
+                        <panel panel-class="panel-info" heading="Bar Graph">
+                            <div svg-chart="barChart"
+                                data-type="'Bar'"></div>
+                        </panel>
+                    </div>
+                    <div class="col-md-12 col-lg-12">
+                        <panel panel-class="panel-info" heading="Donut Graph">
+                            <div svg-chart="donutChart"
+                                data-type="'Donut'"></div>
+                        </panel>
+                    </div>
+                    <div class="col-md-12 col-lg-12">
+                        <panel panel-class="panel-info" heading="Area Graph">
+                            <div svg-chart="areaChart"
+                                data-type="'Area'"></div>
+                        </panel>
+                    </div>
+                </div>
+
+
+            </div> <!-- container -->

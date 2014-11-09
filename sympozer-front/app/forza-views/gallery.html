@@ -1,0 +1,193 @@
+<style type="text/css">
+.mix img {
+    cursor: pointer;
+}
+</style>
+
+        <div id="page-heading">
+            <ol class="breadcrumb">
+                <li><a href="#/">Dashboard</a></li>
+                <li class="active">Gallery</li>
+            </ol>
+
+            <h1>Simple Gallery</h1>
+            <div class="options">
+                <div class="btn-toolbar">
+                    <div class="btn-group" dropdown>
+                        <button type="button" class="btn btn-default dropdown-toggle">
+                            Export as <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                          <li><a href="#">Action</a></li>
+                          <li><a href="#">Another action</a></li>
+                          <li><a href="#">Something else here</a></li>
+                          <li class="divider"></li>
+                          <li><a href="#">Separated link</a></li>
+                        </ul>
+                    </div>
+                    <a href="#" class="btn btn-default hidden-xs"><i class="fa fa-cog"></i></a>
+                </div>
+            </div>
+        </div>
+
+ 
+ 
+ 
+        <div class="container-fluid" ng-controller="GalleryController">
+            <script type="text/ng-template" id="imageModalContent.html">
+                <div class="modal-header">
+                    <h3 class="modal-title">Highlighted Image</h3>
+                </div>
+                <div class="modal-body">
+                    <img ng-src="{{src}}" style="width: 100%">
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-warning" ng-click="cancel()">Close</button>
+                </div>
+            </script>
+            <div class="row">
+              <div class="col-lg-12">
+
+                <div class="panel panel-danger">
+                    <div class="panel-heading">
+                        <h4>Gallery</h4>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p>Forza comes bundled with easy to use, light weight, CSS3 fliter and sort plugin. It provides beautiful animated filtering and sorting of categorized and ordered content. It plays nice with your existing HTML and CSS, making it a great choice for fluid, responsive layouts. </p>
+                            </div>
+                        </div>
+ <hr style="margin-top:0; margin-bottom:10px;">
+
+        <div class="row">
+                <div class="col-md-3">
+                        <div class="form-group clearfix">
+                        <div class="btn-group">
+                                <button class="galleryfilter btn btn-default active" data-group="all">All</button>
+                                <button class="galleryfilter btn btn-default" data-group="industrial">Industrial</button>
+                                <button class="galleryfilter btn btn-default" data-group="nature">Nature</button>
+                                <button class="galleryfilter btn btn-default" data-group="architecture">Architecture</button>
+                        </div>
+                        </div>
+                </div>
+
+                <div class="col-md-9">
+                        <div class="pull-right">
+                                <div class="form-group clearfix">
+                                        <!-- <button class="btn btn-default sort" data-sort="random"><i class="fa fa-random"></i><span class="hidden-xs"> Randomize</span></button> -->
+                                        <div class="btn-group">
+                                                <button class="gallerysort btn btn-default sort active" data-sort="default" data-order="desc">Default</button>
+                                                <button class="gallerysort btn btn-default sort" data-sort="data-name" data-order="desc"><i class="fa fa-sort-alpha-asc"></i><span class="hidden-xs"> Name</span></button>
+                                                <button class="gallerysort btn btn-default sort" data-sort="data-name" data-order="asc"><i class="fa fa-sort-alpha-desc"></i><span class="hidden-xs"> Name</span></button>
+                                        </div>
+                                </div>
+                        </div>
+                </div>
+        </div>
+ 
+ 
+            <ul class="gallery" data-gallery filter-class="galleryfilter" sort-class="gallerysort">
+ 
+                <li data-groups='["industrial"]' class="item" data-name="Rusty"><a href="assets/demo/images/ind_rusty.jpg">
+                                <img ng-click="openImageModal($event)" src="assets/demo/images/thmb_ind_rusty.jpg">
+                                <h4>Rusty</h4>
+                        </a>
+                </li>
+ 
+                <li data-groups='["nature"]' class="item" data-name="Enchanted Creek"><a href="assets/demo/images/nature_enchantedcreek.jpg">
+                                <img ng-click="openImageModal($event)" src="assets/demo/images/thmb_nature_enchantedcreek.jpg">
+                                <h4>Enchanted Creek</h4>
+                        </a>
+                </li>
+ 
+                <li data-groups='["architecture"]' class="item" data-name="Building"><a href="assets/demo/images/arch_building.jpg">
+                                <img ng-click="openImageModal($event)" src="assets/demo/images/thmb_arch_building.jpg">
+                                <h4>Building</h4>
+                        </a>
+                </li>
+ 
+                <li data-groups='["nature"]' class="item" data-name="Mill"><a href="assets/demo/images/nature_mill.jpg">
+                                <img ng-click="openImageModal($event)" src="assets/demo/images/thmb_nature_mill.jpg">
+                                <h4>Mill</h4>
+                        </a>
+                </li>
+ 
+                <li data-groups='["industrial"]' class="item" data-name="Machiery"><a href="assets/demo/images/ind_machinery.jpg">
+                                <img ng-click="openImageModal($event)" src="assets/demo/images/thmb_ind_machinery.jpg">
+                                <h4>Machiery</h4>
+                        </a>
+                </li>
+ 
+                <li data-groups='["architecture"]' class="item" data-name="Fire Escape"><a href="assets/demo/images/arch_fireescape.jpg">
+                                <img ng-click="openImageModal($event)" src="assets/demo/images/thmb_arch_fireescape.jpg">
+                                <h4>Fire Escape</h4>
+                        </a>
+                </li>
+ 
+                <li data-groups='["nature"]' class="item" data-name="Mossy Tree"><a href="assets/demo/images/nature_mossytree.jpg">
+                                <img ng-click="openImageModal($event)" src="assets/demo/images/thmb_nature_mossytree.jpg">
+                                <h4>Mossy Tree</h4>
+                        </a>
+                </li>
+ 
+                <li data-groups='["industrial"]' class="item" data-name="Demolition"><a href="assets/demo/images/ind_demolition.jpg">
+                                <img ng-click="openImageModal($event)" src="assets/demo/images/thmb_ind_demolition.jpg">
+                                <h4>Demolition</h4>
+                        </a>
+                </li>
+ 
+                <li data-groups='["architecture"]' class="item" data-name="Fountain"><a href="assets/demo/images/arch_fountain.jpg">
+                                <img ng-click="openImageModal($event)" src="assets/demo/images/thmb_arch_fountain.jpg">
+                                <h4>Fountain</h4>
+                        </a>
+                </li>
+ 
+                <li data-groups='["nature"]' class="item" data-name="Rider"><a href="assets/demo/images/nature_rider.jpg">
+                                <img ng-click="openImageModal($event)" src="assets/demo/images/thmb_nature_rider.jpg" alt="">
+                                <h4>Rider</h4>
+                        </a>
+                </li>
+ 
+                <li data-groups='["nature"]' class="item" data-name="River"><a href="assets/demo/images/nature_river.jpg">
+                                <img ng-click="openImageModal($event)" src="assets/demo/images/thmb_nature_river.jpg">
+                                <h4>River</h4>
+                        </a>
+                </li>
+ 
+                <li data-groups='["industrial"]' class="item" data-name="Corrosion Hazard"><a href="assets/demo/images/ind_corrosion_hazard.jpg">
+                                <img ng-click="openImageModal($event)" src="assets/demo/images/thmb_ind_corrosion_hazard.jpg">
+                                <h4>Corrosion Hazard</h4>
+                        </a>
+                </li>
+ 
+                <li data-groups='["nature"]' class="item" data-name="Gardens"><a href="assets/demo/images/nature_gardens.jpg">
+                                <img ng-click="openImageModal($event)" src="assets/demo/images/thmb_nature_gardens.jpg">
+                                <h4>Gardens</h4>
+                        </a>
+                </li>
+ 
+                <li data-groups='["industrial"]' class="item" data-name="Code"><a href="assets/demo/images/ind_code.jpg">
+                                <img ng-click="openImageModal($event)" src="assets/demo/images/thmb_ind_code.jpg">
+                                <h4>Code</h4>
+                        </a>
+                </li>
+ 
+                <li data-groups='["nature"]' class="item" data-name="Trees"><a href="assets/demo/images/nature_trees.jpg">
+                                <img ng-click="openImageModal($event)" src="assets/demo/images/thmb_nature_trees.jpg">
+                                <h4>Trees</h4>
+                        </a>
+                </li>
+ 
+                <li data-groups='["nature"]' class="item" data-name="Woodstump"><a href="assets/demo/images/nature_woodstump.jpg">
+                                <img ng-click="openImageModal($event)" src="assets/demo/images/thmb_nature_woodstump.jpg" alt="">
+                                <h4>Woodstump</h4>
+                        </a>
+                </li>
+        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>

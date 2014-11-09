@@ -1,0 +1,155 @@
+        <div id="page-heading">
+            <ol class="breadcrumb">
+                <li><a href="#/">Dashboard</a></li>
+                <li>Advanced Forms</li>
+                <li class="active">Multi File Upload</li>
+            </ol>
+
+            <h1>Multi File Upload</h1>
+            <div class="options">
+                <div class="btn-toolbar">
+                    <div class="btn-group" dropdown>
+                        <button type="button" class="btn btn-default dropdown-toggle">
+                            Export as <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                          <li><a href="#">Action</a></li>
+                          <li><a href="#">Another action</a></li>
+                          <li><a href="#">Something else here</a></li>
+                          <li class="divider"></li>
+                          <li><a href="#">Separated link</a></li>
+                        </ul>
+                    </div>
+                    <a href="#" class="btn btn-default hidden-xs"><i class="fa fa-cog"></i></a>
+                </div>
+            </div>
+        </div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+
+                <panel panel-class="panel-midnightblue" heading="Advanced File Uploads">
+                    <h3><a name="basic-example" class="anchor" href="#basic-example"><span class="octicon octicon-link"></span></a>Basic upload</h3>
+
+                    <div class="alert alert-warning">This is just an example of flow.js. No files are actually uploaded.</div>
+
+                    <div flow-init
+                         flow-files-submitted="$flow.upload()">
+                      <div class="drop" flow-drop ng-class="dropClass">
+                        <span class="btn btn-default" flow-btn>Upload File</span>
+                        <span class="btn btn-default" flow-btn flow-directory ng-show="$flow.supportDirectory">Upload Folder</span>
+                        <b>OR</b>
+                        Drag And Drop your file here
+                      </div>
+
+                      <br/>
+
+                      <div class="well">
+                        <a class="btn btn-small btn-success" ng-click="$flow.resume()">Resume all</a>
+                        <a class="btn btn-small btn-danger" ng-click="$flow.pause()">Pause all</a>
+                        <a class="btn btn-small btn-info" ng-click="$flow.cancel()">Cancel all</a>
+                        <span class="label label-info">Total Size: {{$flow.getSize()}} bytes</span>
+                      </div>
+
+                      <div>
+
+                        <div ng-repeat="file in $flow.files" class="transfer-box">
+                          {{file.relativePath}} ({{file.size}}bytes)
+                          <div class="progress progress-striped" ng-class="{active: file.isUploading()}">
+                            <div class="progress-bar" role="progressbar"
+                                 aria-valuenow="{{file.progress() * 100}}"
+                                 aria-valuemin="0"
+                                 aria-valuemax="100"
+                                 ng-style="{width: (file.progress() * 100) + '%'}">
+                              <span class="sr-only">{{file.progress()}}% Complete</span>
+                            </div>
+                          </div>
+                          <div class="btn-group">
+                            <a class="btn btn-xs btn-warning" ng-click="file.pause()" ng-show="!file.paused && file.isUploading()">
+                              Pause
+                            </a>
+                            <a class="btn btn-xs btn-warning" ng-click="file.resume()" ng-show="file.paused">
+                              Resume
+                            </a>
+                            <a class="btn btn-xs btn-danger" ng-click="file.cancel()">
+                              Cancel
+                            </a>
+                            <a class="btn btn-xs btn-info" ng-click="file.retry()" ng-show="file.error">
+                              Retry
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+
+                    <h3>
+                    <a name="gallery-example" class="anchor" href="#gallery-example"><span class="octicon octicon-link"></span></a>Gallery upload</h3>
+                    <div flow-init
+                         flow-files-submitted="$flow.upload()"
+                         flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1}[$file.getExtension()]">
+                      <div class="drop" flow-drop ng-class="dropClass">
+                        <span class="btn btn-default" flow-btn>Upload Image</span>
+                        <span class="btn btn-default" flow-btn flow-directory ng-show="$flow.supportDirectory">Upload Folder of Images</span>
+                        <b>OR</b>
+                        Drag And Drop your images here
+                      </div>
+
+                      <br/>
+
+                      <div>
+
+                        <div ng-repeat="file in $flow.files" class="gallery-box">
+                          <span class="title">{{file.name}}</span>
+                          <div class="thumbnail" ng-show="$flow.files.length">
+                            <img flow-img="file" />
+                          </div>
+                          <div class="progress progress-striped" ng-class="{active: file.isUploading()}">
+                            <div class="progress-bar" role="progressbar"
+                                 aria-valuenow="{{file.progress() * 100}}"
+                                 aria-valuemin="0"
+                                 aria-valuemax="100"
+                                 ng-style="{width: (file.progress() * 100) + '%'}">
+                              <span class="sr-only">{{file.progress()}}% Complete</span>
+                            </div>
+                          </div>
+                          <div class="btn-group">
+                            <a class="btn btn-xs btn-danger" ng-click="file.cancel()">
+                              Remove
+                            </a>
+                          </div>
+                        </div>
+                        <div class="clear"></div>
+                      </div>
+
+                    </div>
+
+
+
+                    <div flow-init="{singleFile:true}"
+                     flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1}[$file.getExtension()]">
+                    <h3>
+                    <a name="image-example" class="anchor" href="#image-example"><span class="octicon octicon-link"></span></a>Single Image upload</h3>
+                    <div class="thumbnail" ng-show="!$flow.files.length">
+                      <img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&text=no+image" />
+                    </div>
+                    <div class="thumbnail" ng-show="$flow.files.length">
+                      <img flow-img="$flow.files[0]" />
+                    </div>
+                    <div class="mt10 mb10">
+                      <span class="btn btn-primary" ng-show="!$flow.files.length" flow-btn>Select image</span>
+                      <span class="btn btn-info" ng-show="$flow.files.length" flow-btn>Change</span>
+                      <span class="btn btn-danger" ng-show="$flow.files.length"
+                         ng-click="$flow.cancel()">
+                        Remove
+                      </span>
+                    </div>
+                    <p>
+                      Only PNG,GIF,JPG,JEPG files allowed.
+                    </p>
+                    </div>
+                </panel>
+            </div>
+        </div>
+    </div>

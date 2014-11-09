@@ -1,0 +1,11 @@
+<a class="info-tiles tiles-{{item.color}}" ng-href="{{item.href}}">
+    <div class="tiles-heading">
+        <div class="pull-left">{{item.title}}</div>
+        <div class="pull-right">{{item.titleBarInfo}}</div>
+    </div>
+    <div class="tiles-body">
+        <div class="pull-left"><i class="{{item.classes}}"></i></div>
+        <div class="pull-right" ng-show="item.text">{{item.text}}</div>
+        <div class="pull-right" ng-show="!item.text" ng-transclude></div>
+    </div>
+</a>

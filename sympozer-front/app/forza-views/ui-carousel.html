@@ -1,0 +1,87 @@
+<div id="page-heading">
+    <ol class="breadcrumb">
+        <li><a href="#/">Dashboard</a></li>
+        <li>UI Elements</li>
+        <li>Carousel</li>
+    </ol>
+
+    <h1>Carousel</h1>
+    <div class="options">
+        <div class="btn-toolbar">
+            <div class="btn-group" dropdown>
+                <button type="button" class="btn btn-default dropdown-toggle">
+                    Export as <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                  <li><a href="#">Action</a></li>
+                  <li><a href="#">Another action</a></li>
+                  <li><a href="#">Something else here</a></li>
+                  <li class="divider"></li>
+                  <li><a href="#">Separated link</a></li>
+                </ul>
+            </div>
+            <a href="#" class="btn btn-default hidden-xs"><i class="fa fa-cog"></i></a>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid" ng-controller="CarouselDemoController">
+  <div class="row">
+        <div class="col-md-12">
+
+            <tabset panel-tabs="true" panel-class="panel-info" heading="Carousel">
+                <tab>
+                    <tab-heading><i class="fa fa-desktop"></i></tab-heading>
+                    <p>The slideshow below shows an example of a simple carousel plugin which you can use to cycle through elements at regular intervals</p>
+
+                    <carousel interval="myInterval" style="width:100%;margin:0 auto" disable-animation="true">
+                        <slide ng-repeat="slide in slides" active="slide.active">
+                          <img ng-src="{{slide.image}}" style="margin:auto;">
+                            <div class="carousel-caption">
+                                <h4>Slide {{$index}}</h4>
+                                <p>{{slide.text}}</p>
+                            </div>
+                        </slide>
+                    </carousel>
+                    
+                </tab>
+                <tab>
+                    <tab-heading><i class="fa fa-code"></i></tab-heading>
+                    <tabset>
+                        <tab heading="HTML">
+<pre class="prettyprint">
+&lt;carousel interval=&quot;myInterval&quot; style=&quot;width:100%;margin:0 auto&quot; disable-animation=&quot;true&quot;&gt;
+    &lt;slide ng-repeat=&quot;slide in slides&quot; active=&quot;slide.active&quot;&gt;
+      &lt;img ng-src=&quot;{{slide.image}}&quot; style=&quot;margin:auto;&quot;&gt;
+        &lt;div class=&quot;carousel-caption&quot;&gt;
+            &lt;h4&gt;Slide {{$index}}&lt;/h4&gt;
+            &lt;p&gt;{{slide.text}}&lt;/p&gt;
+        &lt;/div&gt;
+    &lt;/slide&gt;
+&lt;/carousel&gt;
+</pre>
+                        </tab>
+                        <tab heading="JavaScript">
+<pre class="prettyprint">
+// in the controller
+$scope.myInterval = 5000;
+var slides = $scope.slides = [];
+var images = [&#039;yvonne.jpg&#039;, &#039;nature_woodstump.jpg&#039;, &#039;arch_fireescape.jpg&#039;, &#039;nature_river.jpg&#039;];
+$scope.addSlide = function() {
+  slides.push({
+    image: &#039;/assets/demo/images/&#039;+images[slides.length],
+    text: images[slides.length]
+  });
+};
+for (var i=0; i&lt;4; i++) {
+  $scope.addSlide();
+}
+</pre>   
+                        </tab>
+                    </tabset>
+                </tab>
+            </tabset>
+
+        </div>
+    </div>
+</div> <!-- container -->

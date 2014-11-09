@@ -1,0 +1,216 @@
+				<div id="page-heading">
+					<ol class="breadcrumb">
+						<li><a href="#/">Dashboard</a></li>
+						<li>UI Components</li>
+						<li class="active">Progress Bars</li>
+					</ol>
+
+					<h1>Progress Bars</h1>
+					<div class="options">
+	                    <div class="btn-toolbar">
+	                        <div class="btn-group" dropdown>
+	                            <button type="button" class="btn btn-default dropdown-toggle">
+	                                Export as <span class="caret"></span>
+	                            </button>
+	                            <ul class="dropdown-menu" role="menu">
+	                              <li><a href="#">Action</a></li>
+	                              <li><a href="#">Another action</a></li>
+	                              <li><a href="#">Something else here</a></li>
+	                              <li class="divider"></li>
+	                              <li><a href="#">Separated link</a></li>
+	                            </ul>
+	                        </div>
+	                        <a href="#" class="btn btn-default hidden-xs"><i class="fa fa-cog"></i></a>
+	                    </div>
+	                </div>
+				</div>
+
+				<div class="container-fluid" ng-controller="ProgressbarController">
+
+					<div class="row">
+						<div class="col-xs-12">
+							<tabset panel-tabs="true" panel-class="panel-info" heading="Progress Bars">
+								<tab>
+									<tab-heading><i class="fa fa-desktop"></i></tab-heading>
+									<div class="row">
+										<div class="col-md-12">
+											<p>Provide up-to-date feedback on the progress of a workflow or action with simple yet flexible progress bars.</p>
+											<h3>Default Progress Bars</h3>
+											<p>Progressbars are created with the directive <code>progressbar</code> and setting the <code>type</code> attribute.</p>
+
+											<p>Primary with <code>type="primary"</code>.</p>
+											<progressbar class="progress-sm" value="68" type="primary"></progressbar>
+											<p>Info with <code>type="info"</code>.</p>
+											<progressbar class="progress-sm" value="23" type="info"></progressbar>
+											<p>Success with <code>type="success"</code>.</p>
+											<progressbar class="progress-sm" value="23" type="success"></progressbar>
+											<p>Warning with <code>type="warning"</code>.</p>
+											<progressbar class="progress-sm" value="23" type="warning"></progressbar>
+											<p>Danger with <code>type="danger"</code>.</p>
+											<progressbar class="progress-sm" value="23" type="danger"></progressbar>
+											<p>Inverse with <code>type="inverse"</code>.</p>
+											<progressbar class="progress-sm" value="23" type="inverse"></progressbar>
+										</div>
+										<div class="col-md-12">
+											<h3>Striped Progress Bars</h3>
+											<p>Sriped Progress bars made with CSS3 gradients, just add the <code>progress-striped</code> class</p>
+											<p><span class="label label-info">Note</span> Does not work with browsers that do not support CSS3 gradients or animations, like IE9</p>
+											<p>Info</p>
+											<progressbar class="progress-sm progress-striped" value="23" type="info"></progressbar>
+										</div>
+										<div class="col-md-12">
+											<h3>Inverse</h3>
+											<progressbar class="progress-sm" class="progress-striped active" value="23" type="inverse"></progressbar>
+										</div>
+										<div class="col-md-12">
+											<h3>Stacking progressbars</h3>
+											<p>You can stack one progressbar on top of another simply by wrapping <code>&lt;bar&gt;</code> elements inside a <code>&lt;progress&gt;</code> element</p>
+											<progress class="progress-striped active progress-sm">
+												<bar value="40" type="success"></bar>
+												<bar value="20" type="warning"></bar>
+												<bar value="20" type="danger"></bar>
+											</progress> 
+										</div>
+									</div>
+								</tab>
+								<tab>
+									<tab-heading><i class="fa fa-code"></i></tab-heading>
+									<p>Progressbars can be created with the <code>progressbar</code> HTML element. These examples show how to create regular and stacked progressbars.</p>
+<pre class="prettyprint linenums">
+&lt;progressbar class=&quot;progress-sm&quot; value=&quot;23&quot; type=&quot;danger&quot;&gt;&lt;/progressbar&gt;
+
+&lt;progress class=&quot;progress-striped active progress-sm&quot;&gt;
+	&lt;bar value=&quot;40&quot; type=&quot;success&quot;&gt;&lt;/bar&gt;
+	&lt;bar value=&quot;20&quot; type=&quot;warning&quot;&gt;&lt;/bar&gt;
+	&lt;bar value=&quot;20&quot; type=&quot;danger&quot;&gt;&lt;/bar&gt;
+&lt;/progress&gt; 
+</pre>
+
+<progressbar class="progress-sm" value="23" type="danger"></progressbar>
+
+<progress class="progress-striped active progress-sm">
+	<bar value="40" type="success"></bar>
+	<bar value="20" type="warning"></bar>
+	<bar value="20" type="danger"></bar>
+</progress> 
+
+								</tab>
+							</tabset>
+						</div>
+
+						<div class="col-xs-12">
+							<tabset panel-tabs="true" panel-class="panel-info" heading="Dynamic Progressbars">
+								<tab>
+									<tab-heading><i class="fa fa-desktop"></i></tab-heading>
+									<p></p>
+
+									<h3>Dynamic <button class="btn btn-sm btn-primary" type="button" ng-click="random()">Randomize</button></h3>
+									<progressbar max="max" value="dynamic"><span>{{dynamic}} / {{max}}</span></progressbar>
+
+									<small><em>No animation</em></small>
+									<progressbar animate="false" value="dynamic" type="success"><b>{{dynamic}}%</b></progressbar>
+
+									<small><em>Object (changes type based on value)</em></small>
+									<progressbar class="progress-striped active" value="dynamic" type="{{type}}">{{type}} <i ng-show="showWarning">!!! Watch out !!!</i></progressbar>
+
+									<hr />
+									<h3>Stacked <button class="btn btn-sm btn-primary" type="button" ng-click="randomStacked()">Randomize</button></h3>
+									<progress><bar ng-repeat="bar in stacked track by $index" value="bar.value" type="{{bar.type}}"><span ng-hide="bar.value < 5">{{bar.value}}%</span></bar></progress>
+								</tab>
+								<tab>
+									<tab-heading><i class="fa fa-code"></i></tab-heading>
+									<tabset>
+										<tab heading="HTML">
+<pre class="prettyprint">
+&lt;h3&gt;Dynamic &lt;button class=&quot;btn btn-sm btn-primary&quot; type=&quot;button&quot; ng-click=&quot;random()&quot;&gt;Randomize&lt;/button&gt;&lt;/h3&gt;
+&lt;progressbar max=&quot;max&quot; value=&quot;dynamic&quot;&gt;&lt;span&gt;{{dynamic}} / {{max}}&lt;/span&gt;&lt;/progressbar&gt;
+
+&lt;small&gt;&lt;em&gt;No animation&lt;/em&gt;&lt;/small&gt;
+&lt;progressbar animate=&quot;false&quot; value=&quot;dynamic&quot; type=&quot;success&quot;&gt;&lt;b&gt;{{dynamic}}%&lt;/b&gt;&lt;/progressbar&gt;
+
+&lt;small&gt;&lt;em&gt;Object (changes type based on value)&lt;/em&gt;&lt;/small&gt;
+&lt;progressbar class=&quot;progress-striped active&quot; value=&quot;dynamic&quot; type=&quot;{{type}}&quot;&gt;{{type}} &lt;i ng-show=&quot;showWarning&quot;&gt;!!! Watch out !!!&lt;/i&gt;&lt;/progressbar&gt;
+
+&lt;hr /&gt;
+&lt;h3&gt;Stacked &lt;button class=&quot;btn btn-sm btn-primary&quot; type=&quot;button&quot; ng-click=&quot;randomStacked()&quot;&gt;Randomize&lt;/button&gt;&lt;/h3&gt;
+&lt;progress&gt;&lt;bar ng-repeat=&quot;bar in stacked track by $index&quot; value=&quot;bar.value&quot; type=&quot;{{bar.type}}&quot;&gt;&lt;span ng-hide=&quot;bar.value &lt; 5&quot;&gt;{{bar.value}}%&lt;/span&gt;&lt;/bar&gt;&lt;/progress&gt;
+</pre>
+										</tab>
+										<tab heading="JavaScript">
+<pre class="prettyprint">
+$scope.random = function() {
+  var value = Math.floor((Math.random() * 100) + 1);
+  var type;
+
+  if (value < 25) {
+    type = 'success';
+  } else if (value < 50) {
+    type = 'info';
+  } else if (value < 75) {
+    type = 'warning';
+  } else {
+    type = 'danger';
+  }
+
+  $scope.showWarning = (type === 'danger' || type === 'warning');
+
+  $scope.dynamic = value;
+  $scope.type = type;
+};
+$scope.random();
+
+$scope.randomStacked = function() {
+  $scope.stacked = [];
+  var types = ['success', 'info', 'warning', 'danger'];
+
+  for (var i = 0, n = Math.floor((Math.random() * 4) + 1); i < n; i++) {
+      var index = Math.floor((Math.random() * 4));
+      $scope.stacked.push({
+        value: Math.floor((Math.random() * 30) + 1),
+        type: types[index]
+      });
+  }
+};
+$scope.randomStacked();
+</pre>
+										</tab>
+									</tabset>
+								</tab>
+							</tabset>
+						</div>
+
+						<div class="col-xs-12">
+							<tabset panel-tabs="false" panel-class="panel-info" heading="Contextual Progress Bars">
+								<tab>
+									<tab-heading><i class="fa fa-desktop"></i></tab-heading>
+										<h3>Contextual Progressbars</h3>
+										<p>Have thinner progress bars with details. Check out the code tab to see how to use them.</p>
+
+										<progressbar contextual="true" value="29" heading="Task 1" type="info"></progressbar>
+										<progressbar contextual="true" value="55" heading="Task 2" type="danger"></progressbar>
+										<progressbar contextual="true" value="33" heading="Task 3" type="warning"></progressbar>
+										<progressbar contextual="true" value="100" heading="Task 4" type="success"></progressbar>
+								</tab>
+								<tab>
+									<tab-heading><i class="fa fa-code"></i></tab-heading>
+										<h3>Contextual Progressbars</h3>
+										<p>Use them just like you'd use normal progressbars but set <code>contextual="true"</code> and supply a <code>heading</code>.</p>
+
+										<div class="tab-pane" id="codecontext">
+<pre class="prettyprint linenums">
+&lt;progressbar contextual=&quot;true&quot; value=&quot;29&quot; heading=&quot;Task 1&quot; type=&quot;info&quot;&gt;&lt;/progressbar&gt;
+</pre>
+<p>And you get:</p>
+<progressbar contextual="true" value="29" heading="Task 1" type="info"></progressbar>
+										</div>
+
+								</tab>
+							</tabset>
+
+
+
+
+
+					</div>
+
+				</div> <!-- container -->

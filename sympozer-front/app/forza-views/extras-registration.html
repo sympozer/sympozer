@@ -1,0 +1,171 @@
+		<div id="page-heading">
+			<ol class="breadcrumb">
+				<li><a href="#/">Dashboard</a></li>
+				<li>Extras</li>
+				<li class="active">Sign Up</li>
+			</ol>
+
+			<h1>Sign Up</h1>
+			<div class="options">
+                <div class="btn-toolbar">
+                    <div class="btn-group" dropdown>
+                        <button type="button" class="btn btn-default dropdown-toggle">
+                            Export as <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                          <li><a href="#">Action</a></li>
+                          <li><a href="#">Another action</a></li>
+                          <li><a href="#">Something else here</a></li>
+                          <li class="divider"></li>
+                          <li><a href="#">Separated link</a></li>
+                        </ul>
+                    </div>
+                    <a href="#" class="btn btn-default hidden-xs"><i class="fa fa-cog"></i></a>
+                </div>
+            </div>
+		</div>
+		<div class="container-fluid" ng-controller="RegistrationPageController">
+
+
+
+			<div class="row">
+				<div class="col-md-12">
+					<div class="panel panel-orange">
+						<div class="panel-heading">
+							<h4>Registration Form</h4>
+						</div>
+						<div class="panel-body">
+							<div class="row">
+								<div class="col-md-12">
+								    <form action="" name="reg_form" class="form-horizontal row-border">
+							            <div class="form-group">
+							                <label class="col-sm-3 control-label">Full Name</label>
+							                <div class="col-sm-6">
+							                    <input type="text" class="form-control">
+							                </div>
+							            </div>
+							            <div class="form-group">
+							                <label class="col-sm-3 control-label">Username</label>
+							                <div class="col-sm-6">
+							                    <input type="text" class="form-control" ng-minlength="3" ng-model="username" name="username" placeholder="Minimum 3 characters">
+							                    <p ng-show="checking"><i class="fa fa-refresh fa-spin"></i></p>
+							                    <p style="margin-top:5px; margin-bottom:0;" ng-show="checked && username.length">{{username}} is available!</p>
+							                    <p style="margin-top:5px; margin-bottom:0;"><buttn class="btn-link" ng-click="checkAvailability()">Check Availability</a></p>
+							                </div>
+							                <div class="col-sm-3"><p class="help-block">16 characters maximum</p></div>
+							            </div>
+							            <div class="form-group">
+							                <label class="col-sm-3 control-label">Password</label>
+							                <div class="col-sm-6">
+							                    <input type="password" class="form-control" id="password" placeholder="Password">
+							                </div>
+							                <div class="col-sm-3"><p class="help-block">8 characters minimum</p></div>
+							            </div>
+							            <div class="form-group">
+							                <label class="col-sm-3 control-label">Confirm Password</label>
+							                <div class="col-sm-6">
+							                    <input type="password" class="form-control" id="password" placeholder="Password">
+							                </div>
+							            </div>
+							            <div class="form-group">
+							                <label class="col-sm-3 control-label">Email Address</label>
+							                <div class="col-sm-6">
+							                    <input type="text" class="form-control" id="email">
+							                </div>
+							            </div>
+							            <div class="form-group">
+							                <label class="col-sm-3 control-label">Gender</label>
+							                <div class="col-sm-6">
+							                    <div class="radio-inline">
+							                      <label>
+							                        <input icheck type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked="">
+							                        Male
+							                      </label>
+							                    </div>
+							                    <div class="radio-inline">
+							                      <label>
+							                        <input icheck type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+							                        Female
+							                      </label>
+							                    </div>
+							                    <div class="radio-inline">
+							                      <label>
+							                        <input icheck type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+							                        Other
+							                      </label>
+							                    </div>
+							                </div>
+							            </div>
+							            <div class="form-group">
+					                        <label class="col-sm-3 control-label">Birthday</label>
+					                        <div class="col-sm-6">
+					                            <input type="text" class="form-control mask" data-inputmask="'alias': 'date'">
+					                        </div>
+					                        <div class="col-sm-3"><p class="help-block">Day/Month/Year</p></div>
+					                    </div>
+							            <div class="form-group">
+							                <label class="col-sm-3 control-label">Address</label>
+							                <div class="col-sm-6">
+							                    <input type="text" class="form-control">
+							                </div>
+							            </div>
+							            <div class="form-group">
+							                <label class="col-sm-3 control-label">Address 2</label>
+							                <div class="col-sm-6">
+							                    <input type="text" class="form-control">
+							                </div>
+							            </div>
+							            <div class="form-group">
+							                <label class="col-sm-3 control-label">Country</label>
+							                <div class="col-sm-6">
+							                    <span class="twitter-typeahead" style="position: relative; display: inline-block;"><input class="tt-hint" type="text" autocomplete="on" spellcheck="off" style="position: absolute; top: 0px; left: 0px; border-color: transparent; box-shadow: none; background-attachment: scroll; background-clip: border-box; background-color: rgb(255, 255, 255); background-image: none; background-origin: padding-box; background-size: auto; background-position: 0% 0%; background-repeat: repeat repeat;"><input type="text" class="form-control typeahead example-countries tt-query" placeholder="Country" width="300" autocomplete="off" spellcheck="false" dir="auto" style="position: relative; vertical-align: top; background-color: transparent;"><span style="position: absolute; left: -9999px; visibility: hidden; white-space: nowrap; font-family: 'Source Sans Pro', 'Segoe UI', 'Droid Sans', Tahoma, Arial, sans-serif; font-size: 14px; font-style: normal; font-variant: normal; font-weight: 400; word-spacing: 0px; letter-spacing: 0px; text-indent: 0px; text-rendering: auto; text-transform: none;"></span><span class="tt-dropdown-menu" style="position: absolute; top: 100%; left: 0px; z-index: 100; display: none;"></span></span>
+							                    
+							                </div>
+							            </div>
+							            <div class="form-group">
+					                        <label class="col-sm-3 control-label">Phone</label>
+					                        <div class="col-sm-6">
+					                            <input type="text" class="form-control mask" data-inputmask="'mask':'(999) 999-9999'">
+					                        </div>
+					                        <div class="col-sm-3"><p class="help-block">(999) 999-9999</p></div>
+                    					</div>
+                    					<div class="form-group">
+							                <label class="col-sm-3 control-label">Website</label>
+							                <div class="col-sm-6">
+							                    <input type="text" class="form-control" value="http://">
+							                </div>
+							            </div>
+											<div class="form-group">
+							                <label class="col-sm-3 control-label"></label>
+							                <div class="col-sm-6">
+							                    <label class="checkbox-inline">
+							                      <input icheck type="checkbox" id="inlinecheckbox1" value="option1"> I agree to the <a href="#">Terms</a> & <a href="#">Policy</a>
+							                    </label>
+							                </div>
+							            </div>
+							            
+							        </form>
+								</div>
+							</div>
+						</div>
+						<div class="panel-footer">
+				      	<div class="row">
+				      		<div class="col-sm-6 col-sm-offset-3">
+				      			<div class="btn-toolbar">
+					      			<button class="btn-primary btn">Sign Up</button>
+					      			<button class="btn-default btn">Reset</button>
+				      			</div>
+				      		</div>
+				      	</div>
+				      </div>
+					</div>
+				</div>
+			</div>
+
+
+
+			
+
+
+
+		</div> <!-- container -->

@@ -1,0 +1,98 @@
+        <div id="page-heading">
+            <ol class="breadcrumb">
+                <li><a href="#/">Dashboard</a></li>
+                <li>Advanced Tables</li>
+                <li class="active">Editable Tables</li>
+            </ol>
+
+            <h1>Editable Data Tables</h1>
+            <div class="options">
+                  <div class="btn-toolbar">
+                      <div class="btn-group" dropdown>
+                          <button type="button" class="btn btn-default dropdown-toggle">
+                              Export as <span class="caret"></span>
+                          </button>
+                          <ul class="dropdown-menu" role="menu">
+                            <li><a href="#">Action</a></li>
+                            <li><a href="#">Another action</a></li>
+                            <li><a href="#">Something else here</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#">Separated link</a></li>
+                          </ul>
+                      </div>
+                      <a href="#" class="btn btn-default hidden-xs"><i class="fa fa-cog"></i></a>
+                  </div>
+              </div>
+        </div>
+
+
+        <div class="container-fluid" ng-controller="TablesEditableController">
+
+            <div class="row">
+                <div class="col-md-12">
+
+                    <panel panel-class="panel-primary" data-heading="Editable Rows">
+                        <panel-controls>
+                            <a href="javascript:;"><i class="fa fa-cog"></i></a>
+                            <a href="javascript:;"><i class="fa fa-wrench"></i></a> 
+                            <a href=""><panel-control-collapse class="fa fa-chevron-down"></panel-control-collapse></a>
+                        </panel-controls>
+                          <table class="table table-bordered table-condensed">
+                            <tr style="font-weight: bold">
+                              <td style="width:35%">Name</td>
+                              <td style="width:20%">Status</td>
+                              <td style="width:20%">Group</td>
+                              <td style="width:25%">Edit</td>
+                            </tr>
+                            <tr ng-repeat="user in users">
+                              <td>
+                                <!-- editable username (text with validation) -->
+                                <span editable-text="user.name" e-name="name" e-form="rowform" e-required>
+                                  {{ user.name || 'empty' }}
+                                </span>
+                              </td>
+                              <td>
+                                <!-- editable status (select-local) -->
+                                <span editable-select="user.status" e-name="status" e-form="rowform" e-ng-options="s.value as s.text for s in statuses">
+                                  {{ showStatus(user) }}
+                                </span>
+                              </td>
+                              <td>
+                                <!-- editable group (select-remote) -->
+                                <span editable-select="user.group" e-name="group" e-form="rowform" e-ng-options="g.id as g.text for g in groups">
+                                  {{ showGroup(user) }}
+                                </span>
+                              </td>
+                              <td style="white-space: nowrap">
+                                <!-- form -->
+                                <form editable-form name="rowform" onbeforesave="saveUser($data, user.id)" ng-show="rowform.$visible" class="form-buttons form-inline" shown="inserted == user">
+                                  <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-sm btn-primary">
+                                    Save
+                                  </button>
+                                  <button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()" class="btn btn-sm btn-default">
+                                    Cancel
+                                  </button>
+                                </form>
+                                <div class="buttons" ng-show="!rowform.$visible">
+                                  <button class="btn btn-sm btn-primary" ng-click="rowform.$show()">Edit</button>
+                                  <button class="btn btn-sm btn-danger" ng-click="removeUser($index)">Delete</button>
+                                </div>  
+                              </td>
+                            </tr>
+                          </table>
+                          <button class="btn btn-default" ng-click="addUser()">Add row</button>
+                    </panel>
+
+                    <panel panel-class="panel-primary" data-heading="Inline Editing">
+                        <panel-controls>
+                            <a href="javascript:;"><i class="fa fa-cog"></i></a>
+                            <a href="javascript:;"><i class="fa fa-wrench"></i></a> 
+                            <a href=""><panel-control-collapse class="fa fa-chevron-down"></panel-control-collapse></a>
+                        </panel-controls>
+                        <alert type="info">Click on any field to edit the data! You can save the data through async callbacks via the controller.</alert>
+                        <div style="height: 500px;" ng-grid="gridOptions">
+                        </div>
+                    </panel>
+
+
+            </div>    <!-- container -->

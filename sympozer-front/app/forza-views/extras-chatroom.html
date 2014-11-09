@@ -1,0 +1,156 @@
+	<SCRIPT LANGUAGE="JavaScript" TYPE="text/javascript" SRC="assets/plugins/robots/elizabot.js"></SCRIPT>
+	<SCRIPT LANGUAGE="JavaScript" TYPE="text/javascript" SRC="assets/plugins/robots/elizadata.js"></SCRIPT>
+
+		<div id="page-heading">
+			<ol class="breadcrumb">
+				<li><a href="#/">Dashboard</a></li>
+				<li>Extras</li>
+				<li class="active">Chat Room</li>
+			</ol>
+
+			<h1>Chat Room</h1>
+			<div class="options">
+                <div class="btn-toolbar">
+                    <div class="btn-group hidden-xs">
+                        <a href='#' class="btn btn-default dropdown-toggle" data-toggle='dropdown'><i class="fa fa-cloud-download"></i><span class="hidden-sm"> Export as  </span><span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Text File (*.txt)</a></li>
+                            <li><a href="#">Excel File (*.xlsx)</a></li>
+                            <li><a href="#">PDF File (*.pdf)</a></li>
+                        </ul>
+                    </div>
+                    <a href="#" class="btn btn-default"><i class="fa fa-cog"></i></a>
+                </div>
+            </div>
+		</div>
+		<div class="container-fluid" ng-controller="ChatRoomController">
+
+			<div class="row">
+				<div class="col-md-12">
+					<alert type="info" close="">
+						Try typing something :)
+					</alert>
+
+					<panel panel-class="panel-inverse" heading="Chatroom">
+						<div class="row">
+							<div class="col-md-8">
+								<div class="panel-chat well" id="chat" scroll-to-bottom="messages.length + elizaTyping">
+									<div class="chat-message me">
+										<div class="chat-contact">
+											<img src="assets/demo/avatar/tennant.png" alt="">
+										</div>
+										<div class="chat-text">
+											This is a really weird chat room. I keep getting strange responses. :S
+										</div>
+									</div>
+									<div class="chat-message chat-primary">
+										<div class="chat-contact">
+											<img src="assets/demo/avatar/potter.png" alt="">
+										</div>
+										<div class="chat-text">
+											Why don't you tell us more about what's bothering you?
+										</div>
+									</div>
+									<div class="chat-message chat-indigo">
+										<div class="chat-contact">
+											<img src="assets/demo/avatar/tennant.png" alt="">
+										</div>
+										<div class="chat-text">
+											How about we don't?
+										</div>
+									</div>
+									<div class="chat-message chat-midnightblue">
+										<div class="chat-contact">
+											<img src="assets/demo/avatar/johansson.png" alt="">
+										</div>
+										<div class="chat-text">
+											But if we don't talk about it, we won't know why this chatroom is so weird.
+										</div>
+									</div>
+									<div class="chat-message me">
+										<div class="chat-contact">
+											<img src="assets/demo/avatar/tennant.png" alt="">
+										</div>
+										<div class="chat-text">
+											Point taken. What do you guys want to do?
+										</div>
+									</div>
+									<div class="chat-message me">
+										<div class="chat-contact">
+											<img src="assets/demo/avatar/tennant.png" alt="">
+										</div>
+										<div class="chat-text">
+											Well... we could talk about it...
+										</div>
+									</div>
+                                    <div class="chat-message chat-midnightblue">
+                                        <div class="chat-contact">
+                                            <img src="assets/demo/avatar/johansson.png" alt="">
+                                        </div>
+                                        <div class="chat-text">
+                                            No one talks about... the Other...
+                                        </div>
+                                    </div>
+                                    <div class="chat-message chat-success">
+                                        <div class="chat-contact">
+                                            <img src="assets/demo/avatar/jobs.png" alt="">
+                                        </div>
+                                        <div class="chat-text">
+                                            The Other?
+                                        </div>
+                                    </div>
+                                    <div ng-repeat="msg in messages" class="chat-message {{msg.class}}">
+                                        <div class="chat-contact">
+                                            <img ng-src="assets/demo/avatar/{{msg.avatar}}" alt="">
+                                        </div>
+                                        <div class="chat-text">
+                                            {{msg.text}}
+                                        </div>
+                                    </div>
+                                    <div class="chat-message chat-success" ng-show="elizaTyping">
+                                        <div class="chat-contact">
+                                            <img ng-src="assets/demo/avatar/{{elizaAvatar}}" alt="">
+                                        </div>
+                                        <div class="chat-text" style="width:30px">
+                                            ...
+                                        </div>
+                                    </div>
+								</div>
+								<form action="" ng-submit="sendMessage(userText)">
+	                        	    <div class="input-group">
+	                        	    	<input type="text" placeholder="Enter your message here" ng-model="userText" class="form-control no-validate">
+	                        	    	<span class="input-group-btn">
+	                        	    		<button type="button" class="btn btn-primary" ng-click="sendMessage(userText)"><i class="fa fa-comments-o"></i></button>
+	                        	    	</span>
+	                        	    </div>
+	                        	</form>
+							</div>
+							<div class="col-md-4">
+								<ul class="chat-users">
+							        <h4>Online<small> (5)</small></h4>
+										<li data-stats="online"><a href="javascript:;"><img src="assets/demo/avatar/potter.png" alt=""><span>Jeremy Potter</span></a></li>
+                						<li data-stats="online"><a href="javascript:;"><img src="assets/demo/avatar/tennant.png" alt=""><span>David Tennant</span></a></li>
+                						<li data-stats="online"><a href="javascript:;"><img src="assets/demo/avatar/johansson.png" alt=""><span>Anna Johansson</span></a></li>
+                						<li data-stats="busy"><a href="javascript:;"><img src="assets/demo/avatar/jackson.png" alt=""><span>Eric Jackson</span></a></li>
+                						<li data-stats="away"><a href="javascript:;"><img src="assets/demo/avatar/jobs.png" alt=""><span>Howard Jobs</span></a></li>
+                                    <hr>
+                                    <h4>All Contacts<small> (10)</small></h4>
+                						<li data-stats="offline"><a href="javascript:;"><img src="assets/demo/avatar/watson.png" alt=""><span>Annie Watson</span></a></li>
+                    					<li data-stats="offline"><a href="javascript:;"><img src="assets/demo/avatar/doyle.png" alt=""><span>Alan Doyle</span></a></li>				
+                    					<li data-stats="offline"><a href="javascript:;"><img src="assets/demo/avatar/corbett.png" alt=""><span>Simon Corbett</span></a></li>
+                    					<li data-stats="offline"><a href="javascript:;"><img src="assets/demo/avatar/paton.png" alt=""><span>Polly Paton</span></a></li>
+                                    	<li data-stats="offline"><a href="javascript:;"><img src="assets/demo/avatar/watson.png" alt=""><span>Annie Watson</span></a></li>
+                                    	<li data-stats="offline"><a href="javascript:;"><img src="assets/demo/avatar/doyle.png" alt=""><span>Alan Doyle</span></a></li>             
+                                    	<li data-stats="offline"><a href="javascript:;"><img src="assets/demo/avatar/corbett.png" alt=""><span>Simon Corbett</span></a></li>
+                                    	<li data-stats="offline"><a href="javascript:;"><img src="assets/demo/avatar/paton.png" alt=""><span>Polly Paton</span></a></li>
+                                    	<li data-stats="offline"><a href="javascript:;"><img src="assets/demo/avatar/watson.png" alt=""><span>Annie Watson</span></a></li>
+                                    	<li data-stats="offline"><a href="javascript:;"><img src="assets/demo/avatar/doyle.png" alt=""><span>Alan Doyle</span></a></li>
+								</ul>
+							</div>
+						</div>
+					</panel>
+
+				</div>
+			</div>
+
+		</div> <!-- container -->
