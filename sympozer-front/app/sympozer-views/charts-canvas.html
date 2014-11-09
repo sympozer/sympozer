@@ -1,0 +1,84 @@
+            <div id="page-heading">
+                <ol class="breadcrumb">
+                    <li><a href="#/">Dashboard</a></li>
+                    <li>Charts</li>
+                    <li class="active">Canvas Charts</li>
+                </ol>
+
+                <h1>Canvas Charts</h1>
+                <div class="options">
+                    <div class="btn-toolbar">
+                        <div class="btn-group" dropdown>
+                            <button type="button" class="btn btn-default dropdown-toggle">
+                                Export as <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                              <li><a href="#">Action</a></li>
+                              <li><a href="#">Another action</a></li>
+                              <li><a href="#">Something else here</a></li>
+                              <li class="divider"></li>
+                              <li><a href="#">Separated link</a></li>
+                            </ul>
+                        </div>
+                        <a href="#" class="btn btn-default hidden-xs"><i class="fa fa-cog"></i></a>
+                    </div>
+                </div>
+               
+            </div>
+            <style>
+                canvas {display: block;margin: 0 auto;}
+            </style>
+            <div class="container-fluid" ng-controller="CanvasChartsController">
+                <alert>
+                    <p>Create fantastic-looking, fast charts using the <code>canvas-chart</code> directive.</p>
+                    <p>Pass in the chart options in the <code>canvas-chart</code> attribute and the chart type <code>data-type</code> attribute.</p>
+                    <p>These are extremely lightweight charts that use the <code>canvas</code> element for rendering.</p>
+                </alert>
+                
+                <div class="row">
+                    <div class="col-md-12 col-lg-12">
+                        <panel panel-class="panel-info" heading="Line Chart">
+                            <canvas height="300" width="600"
+                                canvas-chart="lineChartData"
+                                data-type="'Line'"></canvas>
+                        </panel>
+                    </div>
+                    <div class="col-md-12 col-lg-12">
+                        <panel panel-class="panel-info" heading="Bar Chart">
+                            <canvas height="300" width="600"
+                                canvas-chart="barChartData"
+                                data-type="'Bar'"></canvas>
+                        </panel>
+                    </div>
+                    <div class="col-sm-12 col-md-6">
+                        <panel panel-class="panel-info" heading="Radar Chart">
+                            <canvas height="300"
+                                canvas-chart="radarChartData"
+                                data-options="{scaleShowLabels : false, pointLabelFontSize : 10}"
+                                data-type="'Radar'"></canvas>
+                        </panel>
+                    </div>
+                    <div class="col-sm-12 col-md-6">
+                        <panel panel-class="panel-info" heading="Pie Chart">
+                            <canvas height="300"
+                                canvas-chart="pieData"
+                                data-type="'Pie'"></canvas>
+                        </panel>
+                    </div>
+                    <div class="col-sm-12 col-md-6">
+                        <panel panel-class="panel-info" heading="Polar Area Chart">
+                            <canvas height="300"
+                                canvas-chart="polarAreaData"
+                                data-type="'PolarArea'"></canvas>
+                        </panel>
+                    </div>
+                    <div class="col-sm-12 col-md-6">
+                        <panel panel-class="panel-info" heading="Doughnut Chart">
+                            <canvas height="300"
+                                canvas-chart="doughnutData"
+                                data-type="'Doughnut'"></canvas>
+                        </panel>
+                    </div>
+                </div>
+
+            </div> <!-- container -->

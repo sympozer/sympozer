@@ -1,0 +1,176 @@
+<div id="page-heading">
+    <ol class="breadcrumb">
+        <li><a href="#/">Dashboard</a>
+        </li>
+        <li>UI Elements</li>
+        <li class="active">Tables</li>
+    </ol>
+
+    <h1>Tables</h1>
+    <div class="options">
+        <div class="btn-toolbar">
+            <div class="btn-group" dropdown>
+                <button type="button" class="btn btn-default dropdown-toggle">
+                    Export as <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                  <li><a href="#">Action</a></li>
+                  <li><a href="#">Another action</a></li>
+                  <li><a href="#">Something else here</a></li>
+                  <li class="divider"></li>
+                  <li><a href="#">Separated link</a></li>
+                </ul>
+            </div>
+            <a href="#" class="btn btn-default hidden-xs"><i class="fa fa-cog"></i></a>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid" ng-controller="TablesBasicController">
+    <div class="row">
+        <div class="col-xs-12">
+            <panel panel-class="panel-primary" data-heading="Default Tables">
+                <p>For basic styling—light padding and only horizontal dividers—add the base class <code>.table</code>to any <code>&lt;table&gt;</code>.</p>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th ng-repeat="heading in data.headings">{{heading}}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="row in data.rows">
+                            <td>{{row[0]}}</td>
+                            <td>{{row[1]}}</td>
+                            <td>{{row[2]}}</td>
+                            <td>{{row[3]}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </panel>
+        </div>
+
+        <div class="col-xs-12">
+            <panel panel-class="panel-primary" data-heading="Striped Tables">
+                <p>Adds zebra-striping to any table row within <code>&lt;tbody&gt;</code>by adding the <code>.table-striped</code>to the base class</p>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th ng-repeat="heading in data.headings">{{heading}}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="row in data.rows">
+                            <td>{{row[0]}}</td>
+                            <td>{{row[1]}}</td>
+                            <td>{{row[2]}}</td>
+                            <td>{{row[3]}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </panel>
+        </div>
+
+        <div class="col-xs-12">
+            <panel panel-class="panel-primary" data-heading="Bordered Tables">
+                <p>Adds borders to any table row within <code>&lt;tbody&gt;</code>by adding the <code>.table-bordered</code>to the base class</p>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th ng-repeat="heading in data.headings">{{heading}}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="row in data.rows">
+                            <td>{{row[0]}}</td>
+                            <td>{{row[1]}}</td>
+                            <td>{{row[2]}}</td>
+                            <td>{{row[3]}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </panel>
+        </div>
+
+        <div class="col-xs-12">
+            <panel panel-class="panel-primary" data-heading="Hover Tables">
+                <p>Enables a hover state within <code>&lt;tbody&gt;</code>by adding the <code>.table-hover</code>to the base class</p>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th ng-repeat="heading in data.headings">{{heading}}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="row in data.rows">
+                            <td>{{row[0]}}</td>
+                            <td>{{row[1]}}</td>
+                            <td>{{row[2]}}</td>
+                            <td>{{row[3]}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </panel>
+        </div>
+
+        <div class="col-xs-12">
+            <panel panel-class="panel-primary" data-heading="Condensed Tables">
+                <p>Makes tables more compact by cutting down cell-padding in half by adding the <code>.table-condensed</code> </p>
+                <table class="table table-condensed">
+                    <thead>
+                        <tr>
+                            <th ng-repeat="heading in data.headings">{{heading}}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="row in data.rows">
+                            <td>{{row[0]}}</td>
+                            <td>{{row[1]}}</td>
+                            <td>{{row[2]}}</td>
+                            <td>{{row[3]}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </panel>
+        </div>
+
+        <div class="col-xs-12">
+            <panel panel-class="panel-primary" data-heading="Custom Colors in Tables">
+                <p>Custom colors in the rows by the addition of <code>success</code>, <code>warning</code>, <code>danger</code> and <code>info</code> classes respectively</p>
+                
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Username</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="success">
+                            <td>1</td>
+                            <td>Mark</td>
+                            <td>Otto</td>
+                            <td>@mdo</td>
+                        </tr>
+                        <tr class="warning">
+                            <td>2</td>
+                            <td>Jacob</td>
+                            <td>Thornton</td>
+                            <td>@fat</td>
+                        </tr>
+                        <tr class="danger">
+                            <td>3</td>
+                            <td>Larry</td>
+                            <td>the Bird</td>
+                            <td>@twitter</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </panel>
+        </div>
+    </div>
+
+
+
+</div><!-- container -->

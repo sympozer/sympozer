@@ -1,0 +1,12 @@
+<a ng-click="select(item)" ng-href="{{item.url}}">
+  <i ng-if="item.iconClasses" class="{{item.iconClasses}}"></i><span>{{item.label}}</span>
+  <span ng-bind-html="item.html"></span>
+</a>
+<ul ng-if="item.children.length">
+    <li ng-repeat="item in item.children"
+      ng-class="{ hasChild: (item.children!==undefined),
+                      active: item.selected,
+                        open: (item.children!==undefined) && item.open }"
+      ng-include="'templates/nav_renderer_horizontal.html'"
+    ></li>
+</ul>

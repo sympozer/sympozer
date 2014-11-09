@@ -1,0 +1,363 @@
+        <div id="page-heading">
+            <ol class="breadcrumb">
+                <li><a href="#/">Dashboard</a></li>
+                <li>UI Components</li>
+                <li class="active">Sliders and Ranges</li>
+            </ol>
+
+            <h1>Sliders and Ranges</h1>
+            <div class="options">
+              <div class="btn-toolbar">
+                  <div class="btn-group" dropdown>
+                      <button type="button" class="btn btn-default dropdown-toggle">
+                          Export as <span class="caret"></span>
+                      </button>
+                      <ul class="dropdown-menu" role="menu">
+                        <li><a href="#">Action</a></li>
+                        <li><a href="#">Another action</a></li>
+                        <li><a href="#">Something else here</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">Separated link</a></li>
+                      </ul>
+                  </div>
+                  <a href="#" class="btn btn-default hidden-xs"><i class="fa fa-cog"></i></a>
+              </div>
+          </div>
+        </div>
+
+        <div class="container-fluid" ng-controller="RangeAndSliderController">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <panel panel-class="panel-info" data-heading="EasyPieChart">
+                            <p>Easy Pie Chart is a liteweight plugin to draw simple, animated pie charts for single values.</p>
+                            <p>Use it by adding an <code>easypiechart</code> attribute and setting the <code>data-percent</code> and <code>data-options</code> values.</p>
+                            <div class="row">
+
+                                <div class="col-md-3 col-sm-6 col-xs-6">
+                                    <div easypiechart class="easypiechart"
+                                        data-percent="percentages[0]"
+                                        data-options="{
+                                            animate: { duration: 1000, enabled: true},
+                                            barColor: '#16a085',
+                                            trackColor: '#edeef0',
+                                            scaleColor: '#d2d3d6',
+                                            lineWidth: 2,
+                                            size: 90,
+                                            lineCap:'circle'
+                                        }"><span class="percent">{{percentages[0]}}</span>
+                                    </div>
+
+                                    <label for="newvisits">New Visits</label>
+                                    <hr class="visible-sm visible-xs">
+                                </div>
+                                <div class="col-md-3 col-sm-6 col-xs-6">
+                                    <div easypiechart class="easypiechart"
+                                        data-percent="percentages[1]"
+                                        data-options="{
+                                            barColor: '#7ccc2e',
+                                            trackColor: '#edeef0',
+                                            scaleColor: '#d2d3d6',
+                                            animate: { duration: 1000, enabled: true},
+                                            lineWidth: 2,
+                                            size: 90,
+                                            lineCap:'circle'
+                                        }"><span class="percent">{{percentages[1]}}</span>
+                                    </div>
+
+                                    <label for="bouncerate">Bounce Rate</label>
+                                    <hr class="visible-sm visible-xs">
+                                </div>
+                                <div class="col-md-3 col-sm-6 col-xs-6">
+                                    <div easypiechart class="easypiechart"
+                                        data-percent="percentages[2]"
+                                        data-options="{
+                                            animate: { duration: 1000, enabled: true},
+                                            barColor: '#e84747',
+                                            trackColor: '#edeef0',
+                                            scaleColor: '#d2d3d6',
+                                            lineWidth: 2,
+                                            size: 90,
+                                            lineCap:'circle'
+                                        }"><span class="percent">{{percentages[2]}}</span>
+                                    </div>
+
+                                    <label for="clickrate">Click Rate</label>
+                                    <hr class="visible-sm visible-xs">
+                                </div>
+                                <div class="col-md-3 col-sm-6 col-xs-6">
+                                    <div easypiechart class="easypiechart"
+                                        data-percent="percentages[3]"
+                                        data-options="{
+                                            barColor: '#8e44ad',
+                                            trackColor: '#edeef0',
+                                            scaleColor: '#d2d3d6',
+                                            animate: { duration: 1000, enabled: true},
+                                            lineWidth: 2,
+                                            size: 90,
+                                            lineCap:'circle'
+                                        }"><span class="percent">{{percentages[3]}}</span>
+                                    </div>
+                                    <label for="covertionrate">Conversion</label>
+                                    <hr class="visible-sm visible-xs">
+                                </div>
+
+                            </div>
+
+                            <button ng-click="randomizePie()" class="btn btn-block btn-primary" style="margin-top: 20px">Randomize</button>
+                    </panel>
+
+                    <tabset panel-tabs="true" panel-class="panel-info" heading="Angular Bootstrap Slider">
+                        <tab>
+                            <tab-heading><i class="fa fa-desktop"></i></tab-heading>
+                            <form action="" class="form-horizontal row-border">
+                                <div class="form-group">
+                                    <div class="col-md-3">
+                                        Basic Slider
+                                    </div>
+                                    <div class="col-md-9">
+                                        <input type="text"
+                                            ui-bs-slider
+                                            data-slider-min="0"
+                                            data-slider-max="10"
+                                            data-slider-step="1"
+                                            data-slider-orientation="horizontal"
+                                            data-slider-value="6"
+                                            data-slider-selection="before"
+                                            data-slider-tooltip="show"
+                                            data-slider-handle="round">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-3">
+                                        Range slider disabled
+                                    </div>
+                                    <div class="col-md-9">
+                                        <input type="text"
+                                           ui-bs-slider
+                                           data-slider-min="0"
+                                           data-slider-max="10"
+                                           data-slider-step="1"
+                                           data-slider-orientation="horizontal"
+                                           data-slider-value="5"
+                                           data-slider-selection="before"
+                                           data-slider-tooltip="show"
+                                           data-slider-handle="round"
+                                           data-slider-enabled="false">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-3">
+                                        Range slider with step set to 10
+                                    </div>
+                                    <div class="col-md-9">
+                                        <input type="text"
+                                            value=""
+                                            ui-bs-slider
+                                            data-slider-min="0"
+                                            data-slider-max="100"
+                                            data-slider-step="10"
+                                            data-slider-orientation="horizontal"
+                                            data-slider-value="60"
+                                            data-slider-selection="before"
+                                            data-slider-tooltip="show"
+                                            data-slider-handle="round">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-3">Range slider with predifined value to 30</div>
+                                    <div class="col-md-9">
+                                         <input type="text"
+                                            value=""
+                                            ui-bs-slider
+                                            data-slider-min="0"
+                                            data-slider-max="100"
+                                            data-slider-step="10"
+                                            data-slider-orientation="horizontal"
+                                            data-slider-value="30"
+                                            data-slider-selection="before"
+                                            data-slider-tooltip="show"
+                                            data-slider-handle="round">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-3">Range slider with range</div>
+                                    <div class="col-md-9">
+                                        <input type="text"
+                                            value=""
+                                            ui-bs-slider
+                                            data-slider-min="0"
+                                            data-slider-max="100"
+                                            data-slider-step="10"
+                                            data-slider-orientation="horizontal"
+                                            data-slider-value="[20, 80]"
+                                            data-slider-selection="before"
+                                            data-slider-tooltip="show"
+                                            data-slider-handle="round">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-3">Vertical Slider</div>
+                                    <div class="col-md-9">
+                                        <input type="text"
+                                               ui-bs-slider
+                                               data-slider-min="0"
+                                               data-slider-max="10"
+                                               data-slider-step="1"
+                                               data-slider-orientation="vertical"
+                                               data-slider-value="5"
+                                               data-slider-selection="before"
+                                               data-slider-tooltip="show"
+                                               data-slider-handle="round">
+                                        <input type="text"
+                                               value=""
+                                               ui-bs-slider
+                                               data-slider-min="0"
+                                               data-slider-max="100"
+                                               data-slider-step="10"
+                                               data-slider-orientation="vertical"
+                                               data-slider-value="50"
+                                               data-slider-selection="before"
+                                               data-slider-tooltip="show"
+                                               data-slider-handle="round">
+                                        <input type="text"
+                                               value=""
+                                               ui-bs-slider
+                                               data-slider-min="0"
+                                               data-slider-max="100"
+                                               data-slider-step="10"
+                                               data-slider-orientation="vertical"
+                                               data-slider-value="30"
+                                               data-slider-selection="before"
+                                               data-slider-tooltip="show"
+                                               data-slider-handle="round">
+                                        <input type="text"
+                                               value=""
+                                               ui-bs-slider
+                                               data-slider-min="0"
+                                               data-slider-max="100"
+                                               data-slider-step="10"
+                                               data-slider-orientation="vertical"
+                                               data-slider-value="[10, 90]"
+                                               data-slider-selection="before"
+                                               data-slider-tooltip="show"
+                                               data-slider-handle="round">
+                                    </div>
+                                </div>
+                            </form>
+                        </tab>
+                        <tab>
+                            <tab-heading><i class="fa fa-code"></i></tab-heading>
+                            <p>Using sliders is as easy as adding a <code>ui-bs-slider</code> attribute and setting slider properties.</p>
+<pre class="prettyprint">
+&lt;input type=&quot;text&quot;
+   value=&quot;&quot;
+   ui-bs-slider
+   data-slider-min=&quot;0&quot;
+   data-slider-max=&quot;100&quot;
+   data-slider-step=&quot;10&quot;
+   data-slider-value=&quot;[10, 90]&quot;
+   data-slider-selection=&quot;before&quot;
+   data-slider-tooltip=&quot;show&quot;
+   data-slider-handle=&quot;round&quot;&gt;
+</pre>
+                            <div class="row">
+                                <div class="col-md-9">
+                                    <input type="text" style="width: 200% !important"
+                                        value="8"
+                                        ui-bs-slider
+                                        data-slider-min="0"
+                                        data-slider-max="100"
+                                        data-slider-step="10"
+                                        data-slider-value="[10, 90]"
+                                        data-slider-selection="before"
+                                        data-slider-tooltip="show"
+                                        data-slider-handle="round">
+                                </div>
+                            </div>
+
+                        </tab>
+                    </tabset>
+
+
+                    <panel panel-class="panel-info" data-heading="jQuery Knob">
+                        <style>
+                            .centeredcontainer {width:180px; margin:0 auto 25px}
+                        </style>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p>jQuery Knob is a downward compatible, canvas based and touch friendly jQuery dial.</p>
+                                <p>To use Knob, use Forza's <code>knob</code> element and set <code>data-*</code> properties like below. No JS code needed!</p>
+<pre class="prettyprint">
+    &lt;knob value=&quot;25&quot; data-width=&quot;180&quot; data-displayInput=&quot;false&quot; data-thickness=&quot;.15&quot;&gt;&lt;/knob&gt;
+</pre>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="centeredcontainer">
+                                    <p class="text-center">Display input disabled</p>
+                                    <knob value="25" data-width="180" data-displayInput="false" data-thickness=".15"></knob>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="centeredcontainer">
+                                    <p class="text-center">Rounded Linecap</p>
+                                    <knob data-linecap="round" value="63" data-width="180" data-fgColor="#07d14f" data-thickness=".05"></knob>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="centeredcontainer">
+                                    <p class="text-center">Cursor Mode</p>
+                                    <knob data-cursor=true value="12" data-width="180" data-fgColor="#ffa200" data-thickness=".15"></knob>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="centeredcontainer">
+                                    <p class="text-center">Angle offset and arc</p>
+                                    <knob value="50" data-angleOffset="-125" data-angleArc="250" data-width="180" data-fgColor="#e74949" data-thickness=".15"></knob>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="centeredcontainer">
+                                    <p class="text-center">Display previous values</p>
+                                    <knob  value="23" data-width="180" data-fgColor="#dc51f5" data-displayPrevious="true" data-thickness=".15"></knob>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="centeredcontainer">
+                                    <p class="text-center">Five digit values with 1,000 steps</p>
+                                    <knob  value="2000" data-width="180" data-fgColor="#a4ed16" data-step="1000" data-min="-15000" data-max="15000" data-thickness=".15"></knob>
+                                </div>
+                            </div>
+                        </div>
+                    </panel>
+
+                </div>
+                
+
+                
+
+                <div class="col-md-12">
+                    <div class="panel panel-info">
+                      <div class="panel-heading">
+                            <h4>Sky Loader</h4>
+                      </div>
+                      <div class="panel-body">
+                            <p>Add progress loaders at the top of the page like YouTube!</p>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <button class="btn btn-primary btn-block" ng-click="loaderStart()">Load Demo</button>
+                                    <button class="btn btn-primary btn-block" ng-click="loaderSet(50)">Set Position 50</button>
+                                </div>
+                                <div class="col-md-6">
+                                    <button class="btn btn-primary btn-block" ng-click="loaderGet()">Get Position</button>
+                                    <button class="btn btn-primary btn-block" ng-click="loaderInch(10)">Inch Forward (+ 10)</button>
+                                </div>
+                            </div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div> <!-- container -->
