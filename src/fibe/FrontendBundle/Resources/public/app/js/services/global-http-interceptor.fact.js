@@ -39,7 +39,7 @@ angular.module('sympozerApp').factory('globalHttpInterceptor', [
 
     var getObjectId = function (object)
     {
-      return object.id;
+        return object.id || object;
     };
 
 
