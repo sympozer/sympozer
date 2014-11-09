@@ -203,10 +203,18 @@ sympozerApp.config(['$provide', '$routeProvider', function ($provide, $routeProv
 {
   $routeProvider
     .when('/', {
-      templateUrl: 'forza-views/index.html'
+      /**
+       * MAIN PAGE
+       * @TODO FORZA : TO TRANSFORM
+       */
+      templateUrl: 'sympozer-views/index.html'
     })
     .when('/calendar', {
-      templateUrl: 'forza-views/calendar.html',
+      /**
+       * CALENDAR VIEW
+       * @TODO FORZA : TO TRANSFORM
+       */
+      templateUrl: 'sympozer-views/calendar.html',
       resolve: {
         lazyLoad: ['lazyLoad', function (lazyLoad)
         {
@@ -217,6 +225,10 @@ sympozerApp.config(['$provide', '$routeProvider', function ($provide, $routeProv
       }
     })
     .when('/form-ckeditor', {
+      /**
+       * CKEDITOR VIEW (The web embedded editor)
+       * @TODO FORZA : TO DELETE
+       */
       templateUrl: 'forza-views/form-ckeditor.html',
       resolve: {
         lazyLoad: ['lazyLoad', function (lazyLoad)
@@ -229,6 +241,10 @@ sympozerApp.config(['$provide', '$routeProvider', function ($provide, $routeProv
       }
     })
     .when('/form-imagecrop', {
+      /**
+       * IMAGE CROPPER TOOL VIEW
+       * @TODO FORZA : TO DELETE
+       */
       templateUrl: 'forza-views/form-imagecrop.html',
       resolve: {
         lazyLoad: ['lazyLoad', function (lazyLoad)
@@ -240,6 +256,10 @@ sympozerApp.config(['$provide', '$routeProvider', function ($provide, $routeProv
       }
     })
     .when('/form-wizard', {
+      /**
+       * WIZARD VIEW
+       * @TODO FORZA : TO DELETE
+       */
       templateUrl: 'forza-views/form-wizard.html',
       resolve: {
         lazyLoad: ['lazyLoad', function (lazyLoad)
@@ -252,6 +272,10 @@ sympozerApp.config(['$provide', '$routeProvider', function ($provide, $routeProv
       }
     })
     .when('/form-masks', {
+      /**
+       * ESPECIALIZED MASKS VIEW
+       * @TODO FORZA : TO DELETE
+       */
       templateUrl: 'forza-views/form-masks.html',
       resolve: {
         lazyLoad: ['lazyLoad', function (lazyLoad)
@@ -263,6 +287,10 @@ sympozerApp.config(['$provide', '$routeProvider', function ($provide, $routeProv
       }
     })
     .when('/maps-vector', {
+      /**
+       * VECTOR MAPS VIEW
+       * @TODO FORZA : TO DELETE
+       */
       templateUrl: 'forza-views/maps-vector.html',
       resolve: {
         lazyLoad: ['lazyLoad', function (lazyLoad)
@@ -275,6 +303,10 @@ sympozerApp.config(['$provide', '$routeProvider', function ($provide, $routeProv
       }
     })
     .when('/charts-canvas', {
+      /**
+       * CHARTS CANVAS VIEW
+       * @TODO FORZA : TO DELETE
+       */
       templateUrl: 'forza-views/charts-canvas.html',
       resolve: {
         lazyLoad: ['lazyLoad', function (lazyLoad)
@@ -286,6 +318,10 @@ sympozerApp.config(['$provide', '$routeProvider', function ($provide, $routeProv
       }
     })
     .when('/charts-svg', {
+      /**
+       * CHARTS SVG VIEW (simpler charts)
+       * @TODO FORZA : TO DELETE
+       */
       templateUrl: 'forza-views/charts-svg.html',
       resolve: {
         lazyLoad: ['lazyLoad', function (lazyLoad)
@@ -300,10 +336,16 @@ sympozerApp.config(['$provide', '$routeProvider', function ($provide, $routeProv
     .when('/:templateFile', {
       templateUrl: function (param)
       {
+        /**
+         * REDIRECTION TO A SPECIFIC TEMPLATE
+         */
         return 'forza-views/' + param.templateFile + '.html'
       }
     })
     .otherwise({
+      /**
+       * IF UNKNOWN ROUTE : redirection to the main page (see above)
+       */
       redirectTo: '/'
     });
 }]);
