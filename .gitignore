@@ -19,9 +19,9 @@ composer.lock
 *~
 
 
-/node_modules/*
-Gruntfile.js
-/src/fibe/FrontendBundle/Resources/public/vendors/*
+*/node_modules/*
+./Gruntfile.js
+./src/fibe/FrontendBundle/Resources/public/vendors/*
 
 
 
