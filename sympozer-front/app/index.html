@@ -39,32 +39,32 @@
 
   <!-- build:css assets/css/vendor.css -->
   <!-- bower:css -->
-  <link rel="stylesheet" href="bower/seiyria-bootstrap-slider/dist/css/bootstrap-slider.min.css" />
-  <link rel="stylesheet" href="bower/angular-ui-tree/dist/angular-ui-tree.min.css" />
-  <link rel="stylesheet" href="bower/angular-toggle-switch/angular-toggle-switch.css" />
-  <link rel="stylesheet" href="bower/ng-grid/ng-grid.css" />
-  <link rel="stylesheet" href="bower/angular-xeditable/dist/css/xeditable.css" />
-  <link rel="stylesheet" href="bower/select2/select2.css" />
-  <link rel="stylesheet" href="bower/jScrollPane/style/jquery.jscrollpane.css" />
-  <link rel="stylesheet" href="bower/pnotify/pnotify.core.css" />
-  <link rel="stylesheet" href="bower/pnotify/pnotify.buttons.css" />
-  <link rel="stylesheet" href="bower/pnotify/pnotify.history.css" />
+  <link rel="stylesheet" href="bower/seiyria-bootstrap-slider/dist/css/bootstrap-slider.min.css"/>
+  <link rel="stylesheet" href="bower/angular-ui-tree/dist/angular-ui-tree.min.css"/>
+  <link rel="stylesheet" href="bower/angular-toggle-switch/angular-toggle-switch.css"/>
+  <link rel="stylesheet" href="bower/ng-grid/ng-grid.css"/>
+  <link rel="stylesheet" href="bower/angular-xeditable/dist/css/xeditable.css"/>
+  <link rel="stylesheet" href="bower/select2/select2.css"/>
+  <link rel="stylesheet" href="bower/jScrollPane/style/jquery.jscrollpane.css"/>
+  <link rel="stylesheet" href="bower/pnotify/pnotify.core.css"/>
+  <link rel="stylesheet" href="bower/pnotify/pnotify.buttons.css"/>
+  <link rel="stylesheet" href="bower/pnotify/pnotify.history.css"/>
   <!-- endbower -->
-  <link rel='stylesheet' type='text/css' href='common-assets/fonts/glyphicons/css/glyphicons.min.css' />
-  <link rel='stylesheet' type='text/css' href='common-assets/plugins/icheck/all.css' />
-  <link rel='stylesheet' type='text/css' href='common-assets/plugins/form-multiselect/css/multi-select.css' />
-  <link rel='stylesheet' type='text/css' href='common-assets/plugins/form-fseditor/fseditor.css' />
-  <link rel='stylesheet' type='text/css' href='common-assets/plugins/form-tokenfield/bootstrap-tokenfield.css' />
-  <link rel='stylesheet' type='text/css' href='common-assets/plugins/datepaginator/bootstrap-datepaginator.css' />
-  <link rel='stylesheet' type='text/css' href='common-assets/plugins/jquery-fileupload/css/jquery.fileupload-ui.css' />
-  <link rel='stylesheet' type='text/css' href='common-assets/plugins/bootstro.js/bootstro.min.css' />
-  <link rel='stylesheet' type='text/css' href='common-assets/plugins/progress-skylo/skylo.css' />
-  <link rel='stylesheet' type='text/css' href='common-assets/plugins/jcrop/css/jquery.Jcrop.min.css' />
-  <link rel='stylesheet' type='text/css' href='common-assets/plugins/form-daterangepicker/daterangepicker-bs3.css' />
-  <link rel='stylesheet' type='text/css' href='common-assets/plugins/form-markdown/css/bootstrap-markdown.min.css' />
-  <link rel='stylesheet' type='text/css' href='common-assets/plugins/codeprettifier/prettify.css' />
-  <link rel='stylesheet' type='text/css' href='common-assets/plugins/form-select2/select2.css' />
-  <link rel='stylesheet' type='text/css' href='common-assets/plugins/fullcalendar/fullcalendar.css' />
+  <link rel='stylesheet' type='text/css' href='common-assets/fonts/glyphicons/css/glyphicons.min.css'/>
+  <link rel='stylesheet' type='text/css' href='common-assets/plugins/icheck/all.css'/>
+  <link rel='stylesheet' type='text/css' href='common-assets/plugins/form-multiselect/css/multi-select.css'/>
+  <link rel='stylesheet' type='text/css' href='common-assets/plugins/form-fseditor/fseditor.css'/>
+  <link rel='stylesheet' type='text/css' href='common-assets/plugins/form-tokenfield/bootstrap-tokenfield.css'/>
+  <link rel='stylesheet' type='text/css' href='common-assets/plugins/datepaginator/bootstrap-datepaginator.css'/>
+  <link rel='stylesheet' type='text/css' href='common-assets/plugins/jquery-fileupload/css/jquery.fileupload-ui.css'/>
+  <link rel='stylesheet' type='text/css' href='common-assets/plugins/bootstro.js/bootstro.min.css'/>
+  <link rel='stylesheet' type='text/css' href='common-assets/plugins/progress-skylo/skylo.css'/>
+  <link rel='stylesheet' type='text/css' href='common-assets/plugins/jcrop/css/jquery.Jcrop.min.css'/>
+  <link rel='stylesheet' type='text/css' href='common-assets/plugins/form-daterangepicker/daterangepicker-bs3.css'/>
+  <link rel='stylesheet' type='text/css' href='common-assets/plugins/form-markdown/css/bootstrap-markdown.min.css'/>
+  <link rel='stylesheet' type='text/css' href='common-assets/plugins/codeprettifier/prettify.css'/>
+  <link rel='stylesheet' type='text/css' href='common-assets/plugins/form-select2/select2.css'/>
+  <link rel='stylesheet' type='text/css' href='common-assets/plugins/fullcalendar/fullcalendar.css'/>
   <!-- endbuild -->
 
   <!-- build:css({.tmp,app}) sympozer-assets/css/main.css -->
@@ -229,7 +229,7 @@
       <a href="#/extras-login2" style="font-size: 14px"><i class="fa fa-sign-in"></i> Log in</a>
     </li>
     <li class="dropdown" ng-show="isLoggedIn">
-      <a href="#" class="dropdown-toggle username"><span class="hidden-xs">Matt Smith</span><img src="forza-assets/demo/avatar/dangerfield.png" alt="Dangerfield" /></a>
+      <a href="#" class="dropdown-toggle username"><span class="hidden-xs">Matt Smith</span><img src="forza-assets/demo/avatar/dangerfield.png" alt="Dangerfield"/></a>
       <ul class="dropdown-menu userinfo arrow">
         <li class="userlinks">
           <ul class="dropdown-menu">
@@ -263,10 +263,13 @@
         <div class="scrollthis" jscrollpane="{autoReinitialise:true, autoReinitialiseDelay: 20}">
           <li ng-repeat="item in messages">
             <a href="#/extras-chatroom" ng-class="{active: !item.read}">
-              <button tooltip-placement="top" tooltip-append-to-body="true" tooltip="Mark Read" class="btn-mark-read" ng-if="!item.read" ng-click="setRead(item, $event)"><i class="fa fa-circle"></i></button>
-              <button tooltip-placement="top" tooltip-append-to-body="true" tooltip="Mark Unread" class="btn-mark-unread" ng-if="item.read" ng-click="setUnread(item, $event)"><i class="fa fa-circle-thin"></i></button>
+              <button tooltip-placement="top" tooltip-append-to-body="true" tooltip="Mark Read" class="btn-mark-read" ng-if="!item.read" ng-click="setRead(item, $event)">
+                <i class="fa fa-circle"></i></button>
+              <button tooltip-placement="top" tooltip-append-to-body="true" tooltip="Mark Unread" class="btn-mark-unread" ng-if="item.read" ng-click="setUnread(item, $event)">
+                <i class="fa fa-circle-thin"></i></button>
               <span class="time">{{item.time}}</span>
-              <img ng-src="{{item.thumb}}" alt="avatar" />
+              <img ng-src="{{item.thumb}}" alt="avatar"/>
+
               <div>
                 <span class="name">{{item.name}}</span>
                 <span class="msg">{{item.message}}</span>
@@ -294,8 +297,10 @@
         <div class="scrollthis" jscrollpane="{autoReinitialise:true, autoReinitialiseDelay: 20}">
           <li ng-repeat="item in notifications">
             <a href="#" class="{{item.class}}" ng-class="{active: !item.seen}">
-              <button tooltip-placement="top" tooltip-append-to-body="true" tooltip="Mark Seen" class="btn-mark-read" ng-if="!item.seen" ng-click="setSeen(item, $event)"><i class="fa fa-circle"></i></button>
-              <button tooltip-placement="top" tooltip-append-to-body="true" tooltip="Mark Unseen" class="btn-mark-unread" ng-if="item.seen" ng-click="setUnseen(item, $event)"><i class="fa fa-circle-thin"></i></button>
+              <button tooltip-placement="top" tooltip-append-to-body="true" tooltip="Mark Seen" class="btn-mark-read" ng-if="!item.seen" ng-click="setSeen(item, $event)">
+                <i class="fa fa-circle"></i></button>
+              <button tooltip-placement="top" tooltip-append-to-body="true" tooltip="Mark Unseen" class="btn-mark-unread" ng-if="item.seen" ng-click="setUnseen(item, $event)">
+                <i class="fa fa-circle-thin"></i></button>
               <span class="time">{{item.time}}</span>
               <i class="{{item.iconClasses}}"></i>
               <span class="msg">{{item.text}}</span>
@@ -316,28 +321,45 @@
           <label for="demo-header-variations" class="control-label">Header Colors</label>
 
           <ul class="list-inline demo-color-variation" id="demo-header-variations">
-            <li><a class="color-dark"       href="javascript:;" ng-click="setHeaderStyle('default.css', $event)"></a></li>
-            <li><a class="color-black"      href="javascript:;" ng-click="setHeaderStyle('header-black.css', $event)"></a></li>
-            <li><a class="color-inverse"    href="javascript:;" ng-click="setHeaderStyle('header-inverse.css', $event)"></a></li>
-            <li><a class="color-default"    href="javascript:;" ng-click="setHeaderStyle('header-midnightblue.css', $event)"></a></li>
-            <li><a class="color-dangerdark" href="javascript:;" ng-click="setHeaderStyle('header-dangerdark.css', $event)"></a></li>
+            <li><a class="color-dark" href="javascript:;" ng-click="setHeaderStyle('default.css', $event)"></a></li>
+            <li><a class="color-black" href="javascript:;" ng-click="setHeaderStyle('header-black.css', $event)"></a>
+            </li>
+            <li>
+              <a class="color-inverse" href="javascript:;" ng-click="setHeaderStyle('header-inverse.css', $event)"></a>
+            </li>
+            <li>
+              <a class="color-default" href="javascript:;" ng-click="setHeaderStyle('header-midnightblue.css', $event)"></a>
+            </li>
+            <li>
+              <a class="color-dangerdark" href="javascript:;" ng-click="setHeaderStyle('header-dangerdark.css', $event)"></a>
+            </li>
           </ul>
         </li>
         <li class="divider"></li>
         <li>
           <label for="demo-color-variations" class="control-label">Sidebar Colors</label>
           <ul class="list-inline demo-color-variation">
-            <li><a class="color-default"    href="javascript:;" ng-click="setSidebarStyle('default.css', $event)"></a></li>
-            <li><a class="color-inverse"    href="javascript:;" ng-click="setSidebarStyle('sidebar-inverse.css', $event)"></a></li>
-            <li><a class="color-primary"    href="javascript:;" ng-click="setSidebarStyle('sidebar-primary.css', $event)"></a></li>
-            <li><a class="color-gray"       href="javascript:;" ng-click="setSidebarStyle('sidebar-gray.css', $event)"></a></li>
-            <li><a class="color-indigo"     href="javascript:;" ng-click="setSidebarStyle('sidebar-indigo.css', $event)"></a></li>
-            <li><a class="color-dangerdark" href="javascript:;" ng-click="setSidebarStyle('sidebar-dangerdark.css', $event)"></a></li>
+            <li><a class="color-default" href="javascript:;" ng-click="setSidebarStyle('default.css', $event)"></a></li>
+            <li>
+              <a class="color-inverse" href="javascript:;" ng-click="setSidebarStyle('sidebar-inverse.css', $event)"></a>
+            </li>
+            <li>
+              <a class="color-primary" href="javascript:;" ng-click="setSidebarStyle('sidebar-primary.css', $event)"></a>
+            </li>
+            <li><a class="color-gray" href="javascript:;" ng-click="setSidebarStyle('sidebar-gray.css', $event)"></a>
+            </li>
+            <li>
+              <a class="color-indigo" href="javascript:;" ng-click="setSidebarStyle('sidebar-indigo.css', $event)"></a>
+            </li>
+            <li>
+              <a class="color-dangerdark" href="javascript:;" ng-click="setSidebarStyle('sidebar-dangerdark.css', $event)"></a>
+            </li>
           </ul>
         </li>
         <li class="divider"></li>
         <li>
           <label for="fixedheader">Fixed Header</label>
+
           <div ng-click="$event.stopPropagation()">
             <toggle-switch model="headerFixed" class="success"></toggle-switch>
           </div>
@@ -345,6 +367,7 @@
         <li class="divider"></li>
         <li>
           <label for="boxedlayout"><a href="#/layout-fixed">Boxed Layout</a></label>
+
           <div ng-click="$event.stopPropagation()">
             <toggle-switch model="layoutFixed" class="success"></toggle-switch>
           </div>
@@ -352,6 +375,7 @@
         <li class="divider"></li>
         <li>
           <label for="layoutHorizontal">Horizontal Nav</label>
+
           <div ng-click="$event.stopPropagation()">
             <toggle-switch model="layoutHorizontal" class="success"></toggle-switch>
           </div>
@@ -392,6 +416,7 @@
              ng-class="{blockImportant:style_leftbarCollapsed && !style_showSearchCollapsed}"
              ng-click="showSearchBar($event)"
               ><i class="fa fa-search opacity-control"></i></a>
+
           <form ng-show="!style_leftbarCollapsed || style_showSearchCollapsed"
                 ng-style="{display: style_showSearchCollapsed? 'block':''}"
                 ng-click="$event.stopPropagation()"
@@ -426,33 +451,38 @@
               <small>Current Balance</small>
               <h5>$71,182</h5>
             </div>
-            <div class="pull-right"><div id="currentbalance">
+            <div class="pull-right">
+              <div id="currentbalance">
                         <span sparklines="{
                               type: 'bar',
                               barColor: '#67a879',
                               height: '41',
                               barWidth: 5.5}" data-data="[12700,8573,10145,21077,15380,14399,19158,23911,15401,16793,13115,12315]"></span>
-            </div></div>
+              </div>
+            </div>
           </div>
           <div class="widget-block mt10 mb0" style="background: #4f5259;">
             <div class="pull-left">
               <small>Total Sales</small>
               <h5>$185,603</h5>
             </div>
-            <div class="pull-right"><div id="totalsales">
+            <div class="pull-right">
+              <div id="totalsales">
                         <span sparklines="{
                               type: 'bar',
                               barColor: '#787d87',
                               height: '41',
                               barWidth: 5.5}" data-data="[27543,58573,43145,75077,37281,24389,69158,73911,45451,11393,48815,15626]"></span>
-            </div></div>
+              </div>
+            </div>
           </div>
 
         </accordion-group>
 
         <accordion-group is-open="rightbarAccordions[1].open" ng-class="{open:rightbarAccordions[1].open}">
           <accordion-heading>
-            Pending Tasks <small>(5)</small>
+            Pending Tasks
+            <small>(5)</small>
           </accordion-heading>
 
           <progressbar contextual="true" value="25" heading="Backend Development" type="info"></progressbar>
@@ -470,16 +500,36 @@
             Online Contacts
           </accordion-heading>
           <ul class="chat-users">
-            <li data-stats="online"><a href="#/extras-chatroom"><img src="forza-assets/demo/avatar/potter.png" alt=""><span>Jeremy Potter</span></a></li>
-            <li data-stats="online"><a href="#/extras-chatroom"><img src="forza-assets/demo/avatar/tennant.png" alt=""><span>David Tennant</span></a></li>
-            <li data-stats="online"><a href="#/extras-chatroom"><img src="forza-assets/demo/avatar/johansson.png" alt=""><span>Anna Johansson</span></a></li>
-            <li data-stats="busy"><a href="#/extras-chatroom"><img src="forza-assets/demo/avatar/jackson.png" alt=""><span>Eric Jackson</span></a></li>
-            <li data-stats="away"><a href="#/extras-chatroom"><img src="forza-assets/demo/avatar/jobs.png" alt=""><span>Howard Jobs</span></a></li>
-            <li data-stats="online"><a href="#/extras-chatroom"><img src="forza-assets/demo/avatar/potter.png" alt=""><span>Jeremy Potter</span></a></li>
-            <li data-stats="online"><a href="#/extras-chatroom"><img src="forza-assets/demo/avatar/tennant.png" alt=""><span>David Tennant</span></a></li>
-            <li data-stats="online"><a href="#/extras-chatroom"><img src="forza-assets/demo/avatar/johansson.png" alt=""><span>Anna Johansson</span></a></li>
-            <li data-stats="busy"><a href="#/extras-chatroom"><img src="forza-assets/demo/avatar/jackson.png" alt=""><span>Eric Jackson</span></a></li>
-            <li data-stats="away"><a href="#/extras-chatroom"><img src="forza-assets/demo/avatar/jobs.png" alt=""><span>Howard Jobs</span></a></li>
+            <li data-stats="online">
+              <a href="#/extras-chatroom"><img src="forza-assets/demo/avatar/potter.png" alt=""><span>Jeremy Potter</span></a>
+            </li>
+            <li data-stats="online">
+              <a href="#/extras-chatroom"><img src="forza-assets/demo/avatar/tennant.png" alt=""><span>David Tennant</span></a>
+            </li>
+            <li data-stats="online">
+              <a href="#/extras-chatroom"><img src="forza-assets/demo/avatar/johansson.png" alt=""><span>Anna Johansson</span></a>
+            </li>
+            <li data-stats="busy">
+              <a href="#/extras-chatroom"><img src="forza-assets/demo/avatar/jackson.png" alt=""><span>Eric Jackson</span></a>
+            </li>
+            <li data-stats="away">
+              <a href="#/extras-chatroom"><img src="forza-assets/demo/avatar/jobs.png" alt=""><span>Howard Jobs</span></a>
+            </li>
+            <li data-stats="online">
+              <a href="#/extras-chatroom"><img src="forza-assets/demo/avatar/potter.png" alt=""><span>Jeremy Potter</span></a>
+            </li>
+            <li data-stats="online">
+              <a href="#/extras-chatroom"><img src="forza-assets/demo/avatar/tennant.png" alt=""><span>David Tennant</span></a>
+            </li>
+            <li data-stats="online">
+              <a href="#/extras-chatroom"><img src="forza-assets/demo/avatar/johansson.png" alt=""><span>Anna Johansson</span></a>
+            </li>
+            <li data-stats="busy">
+              <a href="#/extras-chatroom"><img src="forza-assets/demo/avatar/jackson.png" alt=""><span>Eric Jackson</span></a>
+            </li>
+            <li data-stats="away">
+              <a href="#/extras-chatroom"><img src="forza-assets/demo/avatar/jobs.png" alt=""><span>Howard Jobs</span></a>
+            </li>
           </ul>
           <span class="more"><a href="#/extras-chatroom">See all</a></span>
 
@@ -501,26 +551,29 @@
         </accordion-group>
 
 
-
       </accordion>
     </div>
   </div>
   <!-- END RIGHTBAR -->
   <div id="page-content" class="clearfix" fit-height>
     <div id="wrap" ng-view="" class="mainview-animation">
-    </div> <!--wrap -->
-  </div> <!-- page-content -->
+    </div>
+    <!--wrap -->
+  </div>
+  <!-- page-content -->
 
   <footer role="contentinfo">
     <div class="clearfix">
       <ul class="list-unstyled list-inline pull-left">
         <li>FORZA &copy; 2014</li>
       </ul>
-      <button class="pull-right btn btn-default btn-xs hidden-print" back-to-top style="padding: 1px 10px;"><i class="fa fa-angle-up"></i></button>
+      <button class="pull-right btn btn-default btn-xs hidden-print" back-to-top style="padding: 1px 10px;">
+        <i class="fa fa-angle-up"></i></button>
     </div>
   </footer>
 
-</div> <!-- page-container -->
+</div>
+<!-- page-container -->
 
 <!-- scripts are loaded here -->
 
@@ -605,53 +658,102 @@
 <!-- endbuild -->
 
 <!--
+  Sympozer Angular scripts
+-->
+
+<!-- build:js({.tmp,app}) sympozer-scripts/sympozer-scripts.js -->
+<script src="sympozer-scripts/shared/Services.js"></script>
+<script src="sympozer-scripts/shared/Directives.js"></script>
+<script src="sympozer-scripts/maps/VectorMaps.js"></script>
+<script src="sympozer-scripts/maps/GoogleMaps.js"></script>
+<script src="sympozer-scripts/calendar/Calendar.js"></script>
+<script src="sympozer-scripts/gallery/Gallery.js"></script>
+<script src="sympozer-scripts/task/Tasks.js"></script>
+<script src="sympozer-scripts/ui-components/Ratings.js"></script>
+<script src="sympozer-scripts/ui-components/Modals.js"></script>
+<script src="sympozer-scripts/ui-components/Tiles.js"></script>
+<script src="sympozer-scripts/ui-components/Alerts.js"></script>
+<script src="sympozer-scripts/ui-components/Sliders.js"></script>
+<script src="sympozer-scripts/ui-components/Progressbars.js"></script>
+<script src="sympozer-scripts/ui-components/Paginations.js"></script>
+<script src="sympozer-scripts/ui-components/Carousel.js"></script>
+<script src="sympozer-scripts/ui-components/Tabs.js"></script>
+<script src="sympozer-scripts/ui-components/Nestable.js"></script>
+<script src="sympozer-scripts/ui-elements/Tables.js"></script>
+<script src="sympozer-scripts/ui-elements/Panels.js"></script>
+<script src="sympozer-scripts/form/Components.js"></script>
+<script src="sympozer-scripts/form/Directives.js"></script>
+<script src="sympozer-scripts/form/Validation.js"></script>
+<script src="sympozer-scripts/form/Inline.js"></script>
+<script src="sympozer-scripts/form/FileUploads.js"></script>
+<script src="sympozer-scripts/form/ImageCrop.js"></script>
+<script src="sympozer-scripts/table/ngGrid.js"></script>
+<script src="sympozer-scripts/table/Editable.js"></script>
+<script src="sympozer-scripts/chart/Flot.js"></script>
+<script src="sympozer-scripts/chart/SVG.js"></script>
+<script src="sympozer-scripts/chart/Canvas.js"></script>
+<script src="sympozer-scripts/chart/Inline.js"></script>
+<script src="sympozer-scripts/layout/Horizontal.js"></script>
+<script src="sympozer-scripts/layout/Boxed.js"></script>
+<script src="sympozer-scripts/pages/Controllers.js"></script>
+<script src="sympozer-scripts/templates/templates.js"></script>
+<script src="sympozer-scripts/templates/overrides.js"></script>
+<script src="sympozer-scripts/controllers/Navigation.js"></script>
+<script src="sympozer-scripts/controllers/Notifications.js"></script>
+<script src="sympozer-scripts/controllers/Messages.js"></script>
+<script src="sympozer-scripts/controllers/ColorPicker.js"></script>
+<script src="sympozer-scripts/controllers/Dashboard.js"></script>
+<script src="sympozer-scripts/app.js"></script>
+<!-- endbuild -->
+
+<!--
   Forza Angular scripts
   @TODO : Remove scripts
 -->
 
 <!-- build:js({.tmp,app}) forza-scripts/forza-scripts.js -->
-<script src="forza-scripts/shared/Services.js"></script>
-<script src="forza-scripts/shared/Directives.js"></script>
-<script src="forza-scripts/maps/VectorMaps.js"></script>
-<script src="forza-scripts/maps/GoogleMaps.js"></script>
-<script src="forza-scripts/calendar/Calendar.js"></script>
-<script src="forza-scripts/gallery/Gallery.js"></script>
-<script src="forza-scripts/task/Tasks.js"></script>
-<script src="forza-scripts/ui-components/Ratings.js"></script>
-<script src="forza-scripts/ui-components/Modals.js"></script>
-<script src="forza-scripts/ui-components/Tiles.js"></script>
-<script src="forza-scripts/ui-components/Alerts.js"></script>
-<script src="forza-scripts/ui-components/Sliders.js"></script>
-<script src="forza-scripts/ui-components/Progressbars.js"></script>
-<script src="forza-scripts/ui-components/Paginations.js"></script>
-<script src="forza-scripts/ui-components/Carousel.js"></script>
-<script src="forza-scripts/ui-components/Tabs.js"></script>
-<script src="forza-scripts/ui-components/Nestable.js"></script>
-<script src="forza-scripts/ui-elements/Tables.js"></script>
-<script src="forza-scripts/ui-elements/Panels.js"></script>
-<script src="forza-scripts/form/Components.js"></script>
-<script src="forza-scripts/form/Directives.js"></script>
-<script src="forza-scripts/form/Validation.js"></script>
-<script src="forza-scripts/form/Inline.js"></script>
-<script src="forza-scripts/form/FileUploads.js"></script>
-<script src="forza-scripts/form/ImageCrop.js"></script>
-<script src="forza-scripts/table/ngGrid.js"></script>
-<script src="forza-scripts/table/Editable.js"></script>
-<script src="forza-scripts/chart/Flot.js"></script>
-<script src="forza-scripts/chart/SVG.js"></script>
-<script src="forza-scripts/chart/Canvas.js"></script>
-<script src="forza-scripts/chart/Inline.js"></script>
-<script src="forza-scripts/layout/Horizontal.js"></script>
-<script src="forza-scripts/layout/Boxed.js"></script>
-<script src="forza-scripts/pages/Controllers.js"></script>
-<script src="forza-scripts/templates/templates.js"></script>
-<script src="forza-scripts/templates/overrides.js"></script>
-<script src="forza-scripts/controllers/Navigation.js"></script>
-<script src="forza-scripts/controllers/Notifications.js"></script>
-<script src="forza-scripts/controllers/Messages.js"></script>
-<script src="forza-scripts/controllers/ColorPicker.js"></script>
-<script src="forza-scripts/controllers/Dashboard.js"></script>
-<script src="forza-scripts/app.js"></script>
+<!--<script src="forza-scripts/shared/Services.js"></script>-->
+<!--<script src="forza-scripts/shared/Directives.js"></script>-->
+<!--<script src="forza-scripts/maps/VectorMaps.js"></script>-->
+<!--<script src="forza-scripts/maps/GoogleMaps.js"></script>-->
+<!--<script src="forza-scripts/calendar/Calendar.js"></script>-->
+<!--<script src="forza-scripts/gallery/Gallery.js"></script>-->
+<!--<script src="forza-scripts/task/Tasks.js"></script>-->
+<!--<script src="forza-scripts/ui-components/Ratings.js"></script>-->
+<!--<script src="forza-scripts/ui-components/Modals.js"></script>-->
+<!--<script src="forza-scripts/ui-components/Tiles.js"></script>-->
+<!--<script src="forza-scripts/ui-components/Alerts.js"></script>-->
+<!--<script src="forza-scripts/ui-components/Sliders.js"></script>-->
+<!--<script src="forza-scripts/ui-components/Progressbars.js"></script>-->
+<!--<script src="forza-scripts/ui-components/Paginations.js"></script>-->
+<!--<script src="forza-scripts/ui-components/Carousel.js"></script>-->
+<!--<script src="forza-scripts/ui-components/Tabs.js"></script>-->
+<!--<script src="forza-scripts/ui-components/Nestable.js"></script>-->
+<!--<script src="forza-scripts/ui-elements/Tables.js"></script>-->
+<!--<script src="forza-scripts/ui-elements/Panels.js"></script>-->
+<!--<script src="forza-scripts/form/Components.js"></script>-->
+<!--<script src="forza-scripts/form/Directives.js"></script>-->
+<!--<script src="forza-scripts/form/Validation.js"></script>-->
+<!--<script src="forza-scripts/form/Inline.js"></script>-->
+<!--<script src="forza-scripts/form/FileUploads.js"></script>-->
+<!--<script src="forza-scripts/form/ImageCrop.js"></script>-->
+<!--<script src="forza-scripts/table/ngGrid.js"></script>-->
+<!--<script src="forza-scripts/table/Editable.js"></script>-->
+<!--<script src="forza-scripts/chart/Flot.js"></script>-->
+<!--<script src="forza-scripts/chart/SVG.js"></script>-->
+<!--<script src="forza-scripts/chart/Canvas.js"></script>-->
+<!--<script src="forza-scripts/chart/Inline.js"></script>-->
+<!--<script src="forza-scripts/layout/Horizontal.js"></script>-->
+<!--<script src="forza-scripts/layout/Boxed.js"></script>-->
+<!--<script src="forza-scripts/pages/Controllers.js"></script>-->
+<!--<script src="forza-scripts/templates/templates.js"></script>-->
+<!--<script src="forza-scripts/templates/overrides.js"></script>-->
+<!--<script src="forza-scripts/controllers/Navigation.js"></script>-->
+<!--<script src="forza-scripts/controllers/Notifications.js"></script>-->
+<!--<script src="forza-scripts/controllers/Messages.js"></script>-->
+<!--<script src="forza-scripts/controllers/ColorPicker.js"></script>-->
+<!--<script src="forza-scripts/controllers/Dashboard.js"></script>-->
+<!--<script src="forza-scripts/app.js"></script>-->
 <!-- endbuild -->
 
 </body>
