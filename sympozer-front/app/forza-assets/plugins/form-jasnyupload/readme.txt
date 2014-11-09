@@ -1,1 +1,0 @@
-http://jasny.github.com/bootstrap/javascript.html#fileinput

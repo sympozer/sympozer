@@ -43,7 +43,8 @@
     "shufflejs": "2.1.1",
     "pnotify": "sciactive/pnotify#~2.0.1",
     "json3": "~3.3.2",
-    "placeholdr": "*"
+    "placeholdr": "*",
+    "iCheck": "~1.0.2"
   },
   "resolutions": {
     "jquery": "~1.11.0"
