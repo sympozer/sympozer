@@ -1,0 +1,40 @@
+/* Sidebar Gray Variation */
+
+@sidebardivider:				lighten(#0f1012, 80%);
+
+@sidebarbackground:				#e6e9ee;
+@sidebarmenucolor:				lighten(#0f1012, 37%);
+@sidebariconcolor:				@sidebarmenucolor;
+
+@sidebaractivebg:				#4697ce;
+@sidebaractivecolor:			#fff;
+
+@sidebarhoverbg:				rgba(255, 255, 255, 0.4);
+@sidebarhovercolor:				lighten(#0f1012, 20%);
+
+
+@sidebarsubmenuactivecolor: 	lighten(#0f1012, 20%);
+@sidebarsubmenubg:				@sidebardivider;
+@sidebarsubmenucolor:			lighten(#0f1012, 37%);
+
+@searchbg:							@sidebardivider;
+@searchcolor:						@sidebarmenucolor;
+
+// Horizontal Nav
+// -------------------------
+@horizontalbackground:     			@sidebarbackground;
+@horizontalmenucolor: 				@sidebarmenucolor;
+@horizontaliconcolor: 				@horizontalmenucolor;
+	
+@horizontalactivebg:  				@sidebaractivebg;
+@horizontalactivecolor:  			@sidebaractivecolor;
+
+@horizontalhoverbg: 				@sidebarhoverbg;
+@horizontalhovercolor: 				@sidebarhovercolor;
+
+@horizontalsubmenubackground: 			@sidebarsubmenubg;
+@horizontalsubmenuitemcolor: 			@sidebarsubmenucolor;
+@horizontalsubmenuitemhoverbackground: 	@sidebarhoverbg;
+@horizontalsubmenuitemhovercolor: 		@sidebarhovercolor;
+
+@import "sidebar-processcolors.less";
