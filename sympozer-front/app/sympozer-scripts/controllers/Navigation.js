@@ -125,7 +125,7 @@ navigationModule.controller('NavigationController', ['$scope', '$location', '$ti
               label: 'Events',
               html: '<span class="badge badge-indigo">4</span>', /** menu notification **/
               iconClasses: 'fa fa-clock-o',
-              url: '#/' /** @TODO FORZA : TO ALIMENT WITH THE PROPER URL**/
+              url: '#/calendar'
             },
             {
               label: 'Locations',
