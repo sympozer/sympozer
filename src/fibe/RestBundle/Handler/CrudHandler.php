@@ -83,7 +83,25 @@ class CrudHandler
     //unset($formData['id']);//remove id to avoid form validation error with this unnecessary id
     //unset($formData['dtype']);
     $form->submit($formData, 'PATCH' !== $method);
+    $this->validateAction($method, $entity);
 
+
+    if ($form->isValid())
+    {
+      $entity = $form->getData();
+      $this->callBusinessService($entity, $entityClassName, $method);
+      $this->em->persist($entity);
+      $this->em->flush($entity);
+      return $entity;
+    }
+
+    return array(
+      'form' => $form,
+    );
+  }
+
+  protected function validateAction($method, $entity)
+  {
     switch ($method)
     {
       case "PUT":
@@ -101,19 +119,6 @@ class CrudHandler
     }
     //perform acl check
     $entity = $this->container->get("fibe_security.acl_entity_helper")->getEntityACL($right, $entity);
-
-    if ($form->isValid())
-    {
-      $entity = $form->getData();
-      $this->callBusinessService($entity, $entityClassName, $method);
-      $this->em->persist($entity);
-      $this->em->flush($entity);
-      return $entity;
-    }
-
-    return array(
-      'form' => $form,
-    );
   }
 
   /**
@@ -142,6 +147,7 @@ class CrudHandler
   public function delete($entityClassName, $id)
   {
     $entity = $this->em->getRepository($entityClassName)->find($id);
+    $this->validateAction("DELETE", $entity);
     $this->callBusinessService($entity, $entityClassName, 'delete');
     $this->em->remove($entity);
     $this->em->flush($entity);
