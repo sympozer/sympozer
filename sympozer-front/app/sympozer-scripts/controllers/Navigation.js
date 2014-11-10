@@ -2,6 +2,8 @@
 
 /**
  * Sympozer Navigation module (left menu)
+ *
+ * @TODO FORZA : TO ALIMENT & MAYBE TO RETHINK...
  */
 var navigationModule = angular.module('theme.navigation-controller', []);
 
@@ -10,349 +12,141 @@ var navigationModule = angular.module('theme.navigation-controller', []);
  */
 navigationModule.controller('NavigationController', ['$scope', '$location', '$timeout', '$global', function ($scope, $location, $timeout, $global)
 {
-  $scope.menu = [
+  /**
+   * This menu is always present
+   * @type {{label: string, iconClasses: string, url: string}[]}
+   */
+   var basicMenu = [
     {
-      label: 'Dashboard',
-      iconClasses: 'fa fa-home',
-      url: '#/'
+      label: 'Conferences',
+      iconClasses: 'fa fa-calendar',
+      url: '#/' /** @TODO FORZA : TO ALIMENT WITH THE PROPER URL**/
     },
     {
-      label: "Apps",
-      iconClasses: "fa fa-th-large",
-      children: [
-        {
-          label: "Tasks",
-          iconClasses: "fa fa-tasks",
-          url: "#/tasks"
-        },
-        {
-          label: "Chat",
-          iconClasses: "fa fa-comments-o",
-          url: "#/extras-chatroom"
-        },
-        {
-          label: "Calendar",
-          iconClasses: "fa fa-calendar",
-          url: "#/calendar"
-        },
-        {
-          label: "Gallery",
-          iconClasses: "fa fa-camera",
-          url: "#/gallery"
-        }
-      ]
+      label: 'Organizations',
+      iconClasses: 'fa fa-group',
+      url: '#/' /** @TODO FORZA : TO ALIMENT WITH THE PROPER URL**/
     },
     {
-      label: 'Layout Options',
-      iconClasses: 'fa fa-cog',
-      children: [
-        {
-          label: 'Grids',
-          url: '#/layout-grid'
-        },
-        {
-          label: 'Horizontal Navigation',
-          url: '#/layout-horizontal'
-        },
-        {
-          label: 'Horizontal Navigation 2',
-          url: '#/layout-horizontal2'
-        },
-        {
-          label: 'Fixed Boxed Layout',
-          url: '#/layout-fixed'
-        }
-      ]
+      label: 'Annuary',
+      iconClasses: 'fa fa-book',
+      url: '#/' /** @TODO FORZA : TO ALIMENT WITH THE PROPER URL**/
     },
     {
-      label: 'UI Elements',
-      iconClasses: 'fa fa-magic',
-      html: '<span class="badge badge-indigo">4</span>', /** menu notification **/
-    children: [
-      {
-        label: 'Typography',
-        url: '#/ui-typography'
-      },
-      {
-        label: 'Buttons',
-        url: '#/ui-buttons'
-      },
-      {
-        label: 'Tables',
-        url: '#/tables-basic'
-      },
-      {
-        label: 'Forms',
-        url: '#/form-layout'
-      },
-      {
-        label: 'Panels',
-        url: '#/ui-panels'
-      },
-      {
-        label: 'Images',
-        url: '#/ui-images'
-      }
-    ]
-    },
-    {
-      label: 'UI Components',
-      iconClasses: 'fa fa-random',
-      html: '<span class="badge badge-info">12</span>', /** menu notification **/
-    children: [
-      {
-        label: 'Tiles',
-        url: '#/ui-tiles'
-      },
-      {
-        label: 'Modals & Bootbox',
-        url: '#/ui-modals'
-      },
-      {
-        label: 'Progress Bars',
-        url: '#/ui-progressbars'
-      },
-      {
-        label: 'Pagers & Pagination',
-        url: '#/ui-paginations'
-      },
-      {
-        label: 'Breadcrumbs',
-        url: '#/ui-breadcrumbs'
-      },
-      {
-        label: 'Labels & Badges',
-        url: '#/ui-labelsbadges'
-      },
-      {
-        label: 'Alerts & Notifications',
-        url: '#/ui-alerts'
-      },
-      {
-        label: 'Sliders & Ranges',
-        url: '#/ui-sliders'
-      },
-      {
-        label: 'Ratings',
-        url: '#/ui-ratings'
-      },
-      {
-        label: 'Tabs & Accordions',
-        url: '#/ui-tabs'
-      },
-      {
-        label: 'Carousel',
-        url: '#/ui-carousel'
-      },
-      {
-        label: 'Nestable Lists',
-        url: '#/ui-nestable'
-      },
-      {
-        label: 'Wells',
-        url: '#/ui-wells'
-      },
-      {
-        label: 'Tour',
-        url: '#/ui-tour'
-      }
-    ]
-    },
-    {
-      label: 'Advanced Tables',
-      iconClasses: 'fa fa-table',
-      children: [
-        {
-          label: 'ngGrid',
-          url: '#/tables-data'
-        },
-        {
-          label: 'Responsive Tables',
-          url: '#/tables-responsive'
-        },
-        {
-          label: 'Editable Tables',
-          url: '#/tables-editable'
-        }
-      ]
-    },
-    {
-      label: 'Advanced Forms',
-      iconClasses: 'fa fa-pencil',
-      html: '<span class="badge badge-primary">5</span>', /** menu notification **/
-    children: [
-      {
-        label: 'Components',
-        url: '#/form-components'
-      },
-      {
-        label: 'Wizards',
-        url: '#/form-wizard'
-      },
-      {
-        label: 'Validation',
-        url: '#/form-validation'
-      },
-      {
-        label: 'Masks',
-        url: '#/form-masks'
-      },
-      {
-        label: 'Multiple File Uploads',
-        url: '#/form-fileupload'
-      },
-      {
-        label: 'WYSIWYG Editor',
-        url: '#/form-ckeditor'
-      },
-      {
-        label: 'Inline Editor',
-        url: '#/form-xeditable'
-      },
-      {
-        label: 'Image Cropping',
-        url: '#/form-imagecrop'
-      }
-    ]
-    },
-    {
-      label: 'Maps',
-      iconClasses: 'fa fa-map-marker',
-      children: [
-        {
-          label: 'Google Maps',
-          url: '#/maps-google'
-        },
-        {
-          label: 'Vector Maps',
-          url: '#/maps-vector'
-        }
-      ]
-    },
-    {
-      label: 'Charts',
-      iconClasses: 'fa fa-bar-chart-o',
-      children: [
-        {
-          label: 'Extensible',
-          url: '#/charts-flot'
-        },
-        {
-          label: 'Interactive',
-          url: '#/charts-svg'
-        },
-        {
-          label: 'Lightweight',
-          url: '#/charts-canvas'
-        },
-        {
-          label: 'Inline',
-          url: '#/charts-inline'
-        }
-      ]
-    },
-    {
-      label: 'Pages',
-      iconClasses: 'fa fa-briefcase',
-      html: '<span class="badge badge-danger">1</span>', /** menu notification **/
-    children: [
-      {
-        label: 'Timeline',
-        url: '#/extras-timeline'
-      },
-      {
-        label: 'Profile',
-        url: '#/extras-profile'
-      },
-      {
-        label: 'Inbox',
-        url: '#/extras-inbox'
-      },
-      {
-        label: 'Search Page',
-        url: '#/extras-search'
-      },
-      {
-        label: 'Registration',
-        url: '#/extras-registration'
-      },
-      {
-        label: 'Sign Up',
-        url: '#/extras-signupform'
-      },
-      {
-        label: 'Password Reset',
-        url: '#/extras-forgotpassword'
-      },
-      {
-        label: 'Login 1',
-        url: '#/extras-login'
-      },
-      {
-        label: 'Login 2',
-        url: '#/extras-login2'
-      },
-      {
-        label: '404 Page',
-        url: '#/extras-404'
-      },
-      {
-        label: '500 Page',
-        url: '#/extras-500'
-      }
-    ]
-    },
-    {
-      label: 'Font Icons',
-      iconClasses: 'fa fa-flag',
-      html: '<span class="badge badge-orange">2</span>', /** menu notification **/
-    children: [
-      {
-        label: 'Font Awesome',
-        url: '#/icons-fontawesome'
-      },
-      {
-        label: 'Glyphicons',
-        url: '#/icons-glyphicons'
-      }
-    ]
-    },
-    {
-      label: 'Unlimited Level Menu',
-      iconClasses: 'fa fa-sitemap',
-      hideOnHorizontal: true,
-      children: [
-        {
-          label: 'Menu Item 1'
-        },
-        {
-          label: 'Menu Item 2',
-          children: [
-            {
-              label: 'Menu Item 2.1'
-            },
-            {
-              label: 'Menu Item 2.1',
-              children: [
-                {
-                  label: 'Menu Item 2.1.1'
-                },
-                {
-                  label: 'Menu Item 2.1.2',
-                  children: [
-                    {
-                      label: 'And Deeper Yet!'
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        }
+      label: 'Publications',
+      iconClasses: 'glyphicon glyphicon-book',
+      url: '#/' /** @TODO FORZA : TO ALIMENT WITH THE PROPER URL**/
+    }
+  ];
+  // Initialize the basic menu
+  $scope.menu = basicMenu;
 
+  /**
+   * User menu
+   *
+   * @TODO FORZA : TO DELETE & REPLACE BY THE TOP USER MENU
+   *
+   * @type {{label: string, iconClasses: string, children: {label: string, iconClasses: string, url: string}[]}[]}
+   */
+  var menuLoggedIn = [
+    {
+      label: 'User',
+      iconClasses: 'fa fa-user',
+      children: [
+        {
+          label: 'My events',
+          iconClasses: 'fa fa-calendar-o',
+          url: '#/' /** @TODO FORZA : TO ALIMENT WITH THE PROPER URL**/
+        }
       ]
     }
   ];
+  // Initialize the User menu (if the user is logged In)
+  if ($scope.isLoggedIn)
+  {
+    $scope.menu = $scope.menu.concat(menuLoggedIn);
+  }
+
+  /**
+   * Current main conference menu
+   *
+   * @TODO FORZA : TO RETHINK... ?
+   *
+   * @type {{label: string, iconClasses: string, children: *[]}[]}
+   */
+  var menuCurrentConference = [
+    {
+      label: 'Conference',
+      iconClasses: 'fa fa-certificate',
+      children: [
+        {
+          label: 'Overview',
+          iconClasses: 'fa fa-th',
+          children: [
+            {
+              label: 'Overview',
+              iconClasses: 'fa fa-cogs',
+              url: '#/' /** @TODO FORZA : TO ALIMENT WITH THE PROPER URL**/
+            }
+          ]
+        },
+        {
+          label: 'Directory',
+          iconClasses: 'fa fa-group',
+          children: [
+            {
+              label: 'Organizations',
+              iconClasses: 'fa fa-group',
+              url: '#/' /** @TODO FORZA : TO ALIMENT WITH THE PROPER URL**/
+            },
+            {
+              label: 'Persons',
+              iconClasses: 'fa fa-user',
+              url: '#/' /** @TODO FORZA : TO ALIMENT WITH THE PROPER URL**/
+            }
+          ]
+        },
+        {
+          label: 'Resources',
+          iconClasses: 'fa fa-folder-open',
+          children: [
+            {
+              label: 'Publications',
+              iconClasses: 'glyphicon glyphicon-book',
+              url: '#/' /** @TODO FORZA : TO ALIMENT WITH THE PROPER URL**/
+            }
+          ]
+        },
+        {
+          label: 'Schedule',
+          iconClasses: 'fa fa-calendar',
+          children: [
+            {
+              label: 'Events',
+              html: '<span class="badge badge-indigo">4</span>', /** menu notification **/
+              iconClasses: 'fa fa-clock-o',
+              url: '#/' /** @TODO FORZA : TO ALIMENT WITH THE PROPER URL**/
+            },
+            {
+              label: 'Locations',
+              iconClasses: 'fa fa-map-marker red',
+              url: '#/' /** @TODO FORZA : TO ALIMENT WITH THE PROPER URL**/
+            },
+            {
+              label: 'Categories',
+              iconClasses: 'fa fa-tag',
+              url: '#/' /** @TODO FORZA : TO ALIMENT WITH THE PROPER URL**/
+            }
+          ]
+        }
+      ]
+    }
+  ];
+  // Initialize the User menu (if the user is logged In)
+  if ($scope.isContextMainEvent)
+  {
+    $scope.menu = $scope.menu.concat(menuCurrentConference);
+  }
 
   /**
    * Set hierarchy among the menu items
@@ -468,6 +262,22 @@ navigationModule.controller('NavigationController', ['$scope', '$location', '$ti
    */
   $scope.$watch(function ()
   {
+    /**
+     * Each time there is a change, the menu is actualize
+     *
+     * @TODO FORZA : TO RETHINK... ?
+     */
+    $scope.menu = basicMenu;
+    // If the user is logged in
+    if ($scope.isLoggedIn)
+    {
+      $scope.menu = $scope.menu.concat(menuLoggedIn);
+    }
+    // If there is a current conference
+    if ($scope.isContextMainEvent)
+    {
+      $scope.menu = $scope.menu.concat(menuCurrentConference);
+    }
     return $location.path();
   }, function (newVal, oldVal)
   {

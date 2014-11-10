@@ -160,6 +160,18 @@ sympozerApp.controller('MainController', ['$scope', '$global', '$timeout', 'prog
     $scope.isLoggedIn = true;
   };
 
+  // there are better ways to do this, e.g. using a dedicated service
+  // but for the purposes of this demo this will do :P
+  $scope.isContextMainEvent = true;
+  $scope.setContextMainEventOn = function ()
+  {
+    $scope.isContextMainEvent = true;
+  };
+  $scope.setContextMainEventOff = function ()
+  {
+    $scope.isContextConference = false;
+  };
+
 
   /**
    * Specify if the right accordeon show only one element at a time of severals
