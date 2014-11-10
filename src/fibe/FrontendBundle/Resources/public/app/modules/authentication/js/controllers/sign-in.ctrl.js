@@ -23,7 +23,7 @@ angular.module('authenticationApp').controller('signinCtrl',
         var error = function (response, args)
         {
             $scope.busy = false;
-            $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'Login_error', type: 'danger'});
+            showLoginPopup();
         };
 
         var success = function (response, args)
