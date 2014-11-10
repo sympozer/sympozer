@@ -84,7 +84,7 @@ navigationModule.controller('NavigationController', ['$scope', '$location', '$ti
           iconClasses: 'fa fa-th',
           children: [
             {
-              label: 'Overview',
+              label: 'Settings',
               iconClasses: 'fa fa-cogs',
               url: '#/' /** @TODO FORZA : TO ALIMENT WITH THE PROPER URL**/
             }
