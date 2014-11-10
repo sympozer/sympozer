@@ -2,10 +2,7 @@
 
 namespace fibe\SecurityBundle\Entity;
 
-use FOS\UserBundle\Entity\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
-
-use fibe\EventBundle\Entity\MainEvent;
 
 /**
  * plain old object used as dto for user permissions about the current conference
@@ -15,11 +12,12 @@ class ConfPermission
 
   protected $action;
 
-  protected $repositoryName;
+  protected $entity;
 
-  protected $entityId;
-
-  protected $entityLabel;
+  public function getAction()
+  {
+    return $this->action;
+  }
 
   public function setAction($action)
   {
@@ -28,47 +26,19 @@ class ConfPermission
     return $this;
   }
 
-  public function getAction()
+  /**
+   * @return mixed
+   */
+  public function getEntity()
   {
-    return $this->action;
+    return $this->entity;
   }
 
-
-  public function setRepositoryName($repositoryName)
+  /**
+   * @param mixed $entity
+   */
+  public function setEntity($entity)
   {
-    $this->repositoryName = $repositoryName;
-
-    return $this;
-  }
-
-  public function getRepositoryName()
-  {
-    return $this->repositoryName;
-  }
-
-
-  public function setEntityId($entityId)
-  {
-    $this->entityId = $entityId;
-
-    return $this;
-  }
-
-  public function getEntityId()
-  {
-    return $this->entityId;
-  }
-
-
-  public function setEntityLabel($entityLabel)
-  {
-    $this->entityLabel = $entityLabel;
-
-    return $this;
-  }
-
-  public function getEntityLabel()
-  {
-    return $this->entityLabel;
+    $this->entity = $entity;
   }
 }

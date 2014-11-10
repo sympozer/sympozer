@@ -6,15 +6,11 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Event\PreFlushEventArgs;
 use Doctrine\ORM\Mapping as ORM;
 use fibe\ContentBundle\Entity\Paper;
-use fibe\ContentBundle\Entity\Location;
 use fibe\ContentBundle\Util\StringTools;
-use JMS\Serializer\Annotation\MaxDepth;
-use JMS\Serializer\Annotation\SerializedName;
-
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
-use JMS\Serializer\Annotation\Groups;
-use JMS\Serializer\Annotation\VirtualProperty;
+use JMS\Serializer\Annotation\MaxDepth;
+use JMS\Serializer\Annotation\SerializedName;
 
 
 /**
@@ -30,6 +26,14 @@ use JMS\Serializer\Annotation\VirtualProperty;
 class Event extends VEvent
 {
     /**
+     * Category
+     *
+     * @ORM\ManyToOne(targetEntity="CategoryVersion", inversedBy="events", cascade={"persist"})
+     * @ORM\JoinColumn(name="event_id", referencedColumnName="id")
+     * @Expose
+     */
+  protected $category;
+  /**
      * label -> summary
      *
      * This property defines a short summary or subject for the
@@ -38,9 +42,6 @@ class Event extends VEvent
      * @Expose
      */
     private $label;
-
-
-
     /**
      * The parent of the event
      *
@@ -49,14 +50,12 @@ class Event extends VEvent
      * @Expose
      */
     private $parent;
-
     /**
      * The events who are children
      *
      * @ORM\OneToMany(targetEntity="fibe\EventBundle\Entity\Event", mappedBy="parent", cascade={"persist"})
      */
     private $children;
-
     /**
      * Main Event
      *
@@ -66,12 +65,10 @@ class Event extends VEvent
      * @SerializedName("mainEvent")
      */
     private $mainEvent;
-
     /**
      * @ORM\Column(type="string", length=128, nullable=true)
      */
     private $slug;
-
     /**
      * Papers presented at an event
      *
@@ -83,7 +80,6 @@ class Event extends VEvent
      * @MaxDepth(1)
      */
     private $papers;
-
     /**
      * Locations for the event
      * @Expose
@@ -94,16 +90,6 @@ class Event extends VEvent
      * @SerializedName("eventLocations")
      */
     private $eventLocations;
-
-    /**
-     * Category
-     *
-     * @ORM\ManyToOne(targetEntity="CategoryVersion", inversedBy="events", cascade={"persist"})
-     * @ORM\JoinColumn(name="event_id", referencedColumnName="id")
-     * @Expose
-     */
-    protected $category;
-
     /**
      * Roles for the event
      *
@@ -124,33 +110,23 @@ class Event extends VEvent
     }
 
     /**
-     * Slugify
-     *
-     * @ORM\PrePersist()
-     */
-    public function slugify()
-    {
-        $this->setSlug(StringTools::slugify($this->getId() . $this->getLabel()));
-    }
-
-    /**
-     * onUpdateben
+     * onUpdate
      *
      * @ORM\PrePersist()
      * @ORM\PreUpdate()
      */
-    public function onUpdate()
+  public function onUpdate()
     {
-        $this->slugify();
-        //$this->setIsInstant($this->getEndAt()->format('U') == $this->getStartAt()->format('U'));
+      $this->slugify();
+      //$this->setIsInstant($this->getEndAt()->format('U') == $this->getStartAt()->format('U'));
 
-        //events that aren't leaf in the hierarchy can't have a location
-        if ($this->hasChildren() && $this->getLocations() != null)
-        {
-            $this->setLocations(null);
-        }
+      //events that aren't leaf in the hierarchy can't have a location
+      if ($this->hasChildren() && $this->getLocations() != null)
+      {
+        $this->setLocations(null);
+      }
 
-        //ensure main conf has correct properties
+      //ensure main conf has correct properties
 //    if ($this->isMainVEvent) //@TODO EVENT
 //    {
 //      $this->fitChildrenDate(true);
@@ -164,11 +140,47 @@ class Event extends VEvent
     }
 
     /**
+     * Slugify
+     *
+     * @ORM\PrePersist()
+     */
+  public function slugify()
+    {
+      $this->setSlug(StringTools::slugify(hash('sha256', uniqid(mt_rand(), true), true) . $this->getLabel()));
+    }
+
+    /**
+     * @return mixed
+     */
+  public function getLabel()
+    {
+      return $this->label;
+    }
+
+    /**
+     * @param mixed $label
+     */
+  public function setLabel($label)
+  {
+    $this->label = $label;
+    }
+
+    /**
+     * Has children
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+  public function hasChildren()
+  {
+    return count($this->children) != 0;
+    }
+
+    /**
      * auto persist of embedded data
      * @ORM\PreFlush
      */
-    public function updateSomething(PreFlushEventArgs $eventArgs)
-    {
+  public function updateSomething(PreFlushEventArgs $eventArgs)
+  {
 //        if (!$this->getId() || !$this->getEventLocations()->first())
 //        {
 //            return;
@@ -182,29 +194,29 @@ class Event extends VEvent
     }
 
     /**
+     * Get slug
+     *
+     * @return string
+     */
+  public function getSlug()
+    {
+      $this->slugify();
+
+      return $this->slug;
+    }
+
+    /**
      * Set slug
      *
      * @param string $slug
      *
      * @return Event
      */
-    public function setSlug($slug)
-    {
-        $this->slug = $slug;
+  public function setSlug($slug)
+  {
+    $this->slug = $slug;
 
         return $this;
-    }
-
-    /**
-     * Get slug
-     *
-     * @return string
-     */
-    public function getSlug()
-    {
-        $this->slugify();
-
-        return $this->slug;
     }
 
     /**
@@ -214,11 +226,11 @@ class Event extends VEvent
      *
      * @return Event
      */
-    public function setUrl($url)
+  public function setUrl($url)
     {
-        $this->url = $url;
+      $this->url = $url;
 
-        return $this;
+      return $this;
     }
 
     /**
@@ -226,9 +238,19 @@ class Event extends VEvent
      *
      * @return string
      */
-    public function getUrl()
+  public function getUrl()
+  {
+    return $this->url;
+    }
+
+    /**
+     * Get conference
+     *
+     * @return MainEvent
+     */
+  public function getMainEvent()
     {
-        return $this->url;
+      return $this->mainEvent;
     }
 
     /**
@@ -240,21 +262,11 @@ class Event extends VEvent
      *
      * @return Event
      */
-    public function setMainEvent(MainEvent $mainEvent)
+  public function setMainEvent(MainEvent $mainEvent)
     {
-        $this->mainEvent = $mainEvent;
+      $this->mainEvent = $mainEvent;
 
-        return $this;
-    }
-
-    /**
-     * Get conference
-     *
-     * @return MainEvent
-     */
-    public function getMainEvent()
-    {
-        return $this->mainEvent;
+      return $this;
     }
 
     /**
@@ -264,11 +276,11 @@ class Event extends VEvent
      *
      * @return Event
      */
-    public function addPaper(Paper $papers)
+  public function addPaper(Paper $papers)
     {
-        $this->papers[] = $papers;
+      $this->papers[] = $papers;
 
-        return $this;
+      return $this;
     }
 
     /**
@@ -276,9 +288,9 @@ class Event extends VEvent
      *
      * @param Paper $papers
      */
-    public function removePaper(Paper $papers)
-    {
-        $this->papers->removeElement($papers);
+  public function removePaper(Paper $papers)
+  {
+    $this->papers->removeElement($papers);
     }
 
     /**
@@ -286,17 +298,27 @@ class Event extends VEvent
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getPapers()
+  public function getPapers()
     {
-        return $this->papers;
+      return $this->papers;
     }
 
     /**
      * @param mixed $papers
      */
-    public function setPapers($papers)
+  public function setPapers($papers)
+  {
+    $this->papers = $papers;
+    }
+
+    /**
+     * Get parent
+     *
+     * @return Event
+     */
+  public function getParent()
     {
-        $this->papers = $papers;
+      return $this->parent;
     }
 
     /**
@@ -306,21 +328,11 @@ class Event extends VEvent
      *
      * @return Event
      */
-    public function setParent(VEvent $parent = null)
+  public function setParent(VEvent $parent = null)
     {
-        $this->parent = $parent;
+      $this->parent = $parent;
 
-        return $this;
-    }
-
-    /**
-     * Get parent
-     *
-     * @return Event
-     */
-    public function getParent()
-    {
-        return $this->parent;
+      return $this;
     }
 
     /**
@@ -330,11 +342,11 @@ class Event extends VEvent
      *
      * @return $this
      */
-    public function addChildren(Event $children)
+  public function addChildren(Event $children)
     {
-        $this->children[] = $children;
+      $this->children[] = $children;
 
-        return $this;
+      return $this;
     }
 
     /**
@@ -342,9 +354,9 @@ class Event extends VEvent
      *
      * @param VEvent $children
      */
-    public function removeChildren(VEvent $children)
+  public function removeChildren(VEvent $children)
     {
-        $this->children->removeElement($children);
+      $this->children->removeElement($children);
     }
 
     /**
@@ -352,93 +364,65 @@ class Event extends VEvent
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getChildren()
+  public function getChildren()
     {
-        return $this->children;
+      return $this->children;
     }
 
     /**
      * @param mixed $children
      */
-    public function setChildren($children)
+  public function setChildren($children)
     {
-        $this->children = $children;
+      $this->children = $children;
     }
-
-    /**
-     * Has children
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function hasChildren()
-    {
-        return count($this->children) != 0;
-    }
-
-
 
     /**
      * @return mixed
      */
-    public function getRoles()
+  public function getRoles()
     {
-        return $this->roles;
+      return $this->roles;
     }
 
     /**
      * @param mixed $roles
      */
-    public function setRoles($roles)
+  public function setRoles($roles)
     {
-        $this->roles = $roles;
+      $this->roles = $roles;
     }
 
     /**
      * @return mixed
      */
-    public function getCategory()
+  public function getCategory()
     {
-        return $this->category;
+      return $this->category;
     }
 
     /**
      * @param mixed $category
      */
-    public function setCategory($category)
+  public function setCategory($category)
     {
-        $this->category = $category;
+      $this->category = $category;
     }
 
     /**
      * @return mixed
      */
-    public function getEventLocations()
+  public function getEventLocations()
     {
-        return $this->eventLocations;
+      return $this->eventLocations;
     }
 
     /**
      * @param mixed $eventLocations
      */
-    public function setEventLocations($eventLocations)
+  public function setEventLocations($eventLocations)
     {
-        $this->eventLocations = $eventLocations;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getLabel()
-    {
-        return $this->label;
-    }
-
-    /**
-     * @param mixed $label
-     */
-    public function setLabel($label)
-    {
-        $this->label = $label;
+      $this->eventLocations = $eventLocations;
     }
 
 
