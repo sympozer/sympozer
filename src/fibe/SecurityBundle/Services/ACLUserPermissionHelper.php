@@ -3,7 +3,12 @@ namespace fibe\SecurityBundle\Services;
 
 use fibe\SecurityBundle\Entity\ConfPermission;
 use fibe\SecurityBundle\Entity\Teammate;
+use FOS\UserBundle\Model\UserInterface;
+use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
+use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
+use Symfony\Component\Security\Acl\Exception\AclNotFoundException;
 use Symfony\Component\Security\Acl\Exception\NoAceFoundException;
+use Symfony\Component\Security\Acl\Model\MutableAclInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 ;
@@ -14,7 +19,7 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 class ACLUserPermissionHelper extends ACLEntityHelper
 {
 
-  const NOT_AUTHORYZED_UPDATE_RIGHT_LABEL = 'You need to be MASTER to be able to change other user permission on %s %s ';
+//  const NOT_AUTHORYZED_UPDATE_RIGHT_LABEL = 'You need to be MASTER to be able to change other user permission on %s %s ';
 
 //  /**
 //   * get or create a Teammate object to show or get a form
@@ -78,6 +83,8 @@ class ACLUserPermissionHelper extends ACLEntityHelper
    */
   public function updateTeammate(Teammate $teammate)
   {
+    echo "updateTeammate";
+    die;
     $teammateUser = $teammate->getPerson()->getUser();
     // cannot demote own permission
     if ($teammateUser->getId() == $this->getUser()->getId())
@@ -97,6 +104,7 @@ class ACLUserPermissionHelper extends ACLEntityHelper
     }
     foreach ($teammate->getConfPermissions() as $confPermission)
     {
+      //TODO fix this
       /** @var ConfPermission $confPermission */
       $repositoryName = $confPermission->getRepositoryName();
       $action = $confPermission->getAction();
@@ -105,6 +113,7 @@ class ACLUserPermissionHelper extends ACLEntityHelper
       //check if update is required
       try
       {
+        //TODO fix this
         $entity = $this->getEntitiesInConf($repositoryName, $id);
         if ($action == $this->getACEByEntity($entity, $this->getUser()))
         {
@@ -119,19 +128,92 @@ class ACLUserPermissionHelper extends ACLEntityHelper
   }
 
   /**
-   * create acl with permission check for one entity
-   * @param  [User] $teammate          the chosen teammate
-   * @param  [type] $entity            the entity to update permissions
+   * update user acl by entity
+   *   /!\ doesn't check owner demoting and own permission change, see updateTeammate for those requirment check
+   * @param \FOS\UserBundle\Model\UserInterface $user
+   * @param $action
+   * @param $entity
    */
-  public function createUserACL($teammate, $entity)
+  public function performUpdateUserACL(Userinterface $user, $action, $entity)
+  {
+    $entitySecurityIdentity = ObjectIdentity::fromDomainObject($entity);
+    $acl = $this->getOrCreateAcl($entitySecurityIdentity, $user);
+    $this->updateOrCreateAce($acl, $entity, $user, $action);
+  }
+
+  /**
+   * @param $entitySecurityIdentity
+   * @param $user
+   * @return \Symfony\Component\Security\Acl\Model\MutableAclInterface
+   */
+  protected function getOrCreateAcl($entitySecurityIdentity, Userinterface $user)
+  {
+    $userSecurityIdentity = UserSecurityIdentity::fromAccount($user);
+    try
+    {
+      $acl = $this->aclProvider->findAcl(
+        $entitySecurityIdentity,
+        array($userSecurityIdentity)
+      );
+    } catch (AclNotFoundException $e)
+    {
+      $acl = $this->aclProvider->createAcl($entitySecurityIdentity);
+    }
+    return $acl;
+  }
+
+  /**
+   * process permission change
+   *
+   *  if the user is master : OK
+   *  else : do nothing
+   * @param MutableAclInterface $acl
+   * @param $entity
+   * @param UserInterface $user
+   * @param $action
+   */
+  protected function updateOrCreateAce(MutableAclInterface $acl, $entity, UserInterface $user, $action)
   {
     try
     {
-      $action = $this->getACEByEntity($entity, $teammate);
+      $currentUserRight = $this->getACEByEntity($entity, $user);
+      //get the ace index
+      $ace = $this->getACEByEntity($entity, $user, "all", $acl);
+      //master permission required to update permissions
+      if ($this->getMask($ace['action']) != $this->getMask($action) && ("MASTER" == $ace['action'] || "OWNER" == $ace['action']))
+      {
+        $acl->updateObjectAce(
+          $ace['index'],
+          $this->getMask($action)
+        );
+        $this->aclProvider->updateAcl($acl);
+      }
     } catch (NoAceFoundException $e)
     {
-      $action = $this->getACEByEntity($this->currentMainEvent, $teammate);
+      //if it's a new manager or object thus the ace isn't found
+      $userSecurityIdentity = UserSecurityIdentity::fromAccount($user);
+      $acl->insertObjectAce(
+        $userSecurityIdentity,
+        $this->getMask($action)
+      );
+      $this->aclProvider->updateAcl($acl);
     }
-    $this->performUpdateUserACL($teammate, $action, $entity);
   }
+
+//  /**
+//   * create acl with permission check for one entity
+//   * @param  [User] $teammate          the chosen teammate
+//   * @param  [type] $entity            the entity to update permissions
+//   */
+//  public function createUserACL($teammate, $entity)
+//  {
+//    try
+//    {
+//      $action = $this->getACEByEntity($entity, $teammate);
+//    } catch (NoAceFoundException $e)
+//    {
+//      $action = $this->getACEByEntity($this->currentMainEvent, $teammate);
+//    }
+//    $this->performUpdateUserACL($teammate, $action, $entity);
+//  }
 }

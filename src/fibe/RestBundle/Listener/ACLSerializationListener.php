@@ -11,6 +11,7 @@ use fibe\SecurityBundle\Services\ACLHelper;
 use JMS\Serializer\EventDispatcher\EventSubscriberInterface;
 use JMS\Serializer\EventDispatcher\ObjectEvent;
 use Psr\Log\LoggerInterface;
+use Symfony\Component\Security\Core\SecurityContextInterface;
 
 /**
  * Add data after serialization
@@ -20,10 +21,12 @@ class ACLSerializationListener implements EventSubscriberInterface
 {
   private $logger;
   private $aclHelper;
+  private $securityContext;
 
-  function __construct(ACLEntityHelper $aclHelper, LoggerInterface $logger = null)
+  function __construct(ACLEntityHelper $aclHelper, SecurityContextInterface $securityContext, LoggerInterface $logger = null)
   {
     $this->aclHelper = $aclHelper;
+    $this->securityContext = $securityContext;
     $this->logger = $logger;
   }
 
@@ -47,7 +50,8 @@ class ACLSerializationListener implements EventSubscriberInterface
     if (ACLHelper::isManaged(get_class($object)))
 //    if (isset(ACLHelper::$ACLEntityNameArray[ACLHelper::getRepositoryNameByClassName(get_class($object))]))
     {
-      $event->getVisitor()->addData('acl', $this->aclHelper->getHierarchicalACEByEntity($object));
+      $user = $this->securityContext->getToken()->getUser();
+      $event->getVisitor()->addData('acl', $this->aclHelper->getHierarchicalACEByEntity($object, $user));
     }
 //    try
 //    {

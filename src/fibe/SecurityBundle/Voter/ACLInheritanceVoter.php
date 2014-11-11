@@ -3,6 +3,7 @@
 namespace fibe\SecurityBundle\Voter;
 
 use ErrorException;
+use fibe\CommunityBundle\Entity\Person;
 use fibe\EventBundle\Entity\MainEvent;
 use fibe\SecurityBundle\Services\ACLHelper;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
@@ -74,6 +75,13 @@ class ACLInheritanceVoter implements VoterInterface
     if ($entity instanceof MainEvent && $attribute == "CREATE")
     {
       $this->log('[ACLInheritanceVoter][GRANT] Granting access to create a new conference.');
+      return self::ACCESS_GRANTED;
+    }
+
+    //grant access to a person creation
+    if ($entity instanceof Person && $attribute == "CREATE")
+    {
+      $this->log('[ACLInheritanceVoter][GRANT] Granting access to create a new person.');
       return self::ACCESS_GRANTED;
     }
     $this->log(sprintf('[ACLInheritanceVoter]voting for action => %s on entity => %s', $attribute, get_class($entity)));
@@ -156,7 +164,7 @@ class ACLInheritanceVoter implements VoterInterface
 //        return $this->isGranted($sids, $mask, $parent);
 //      }
       //no more parent
-      $this->log('[ACLInheritanceVoter][DENY] ACL not found, no more parent, permission denied.');
+      $this->log(sprintf('[ACLInheritanceVoter][DENY] ACL not found, no more parent, permission denied for %s.', get_class($entity)));
       return self::ACCESS_DENIED;
     }
   }

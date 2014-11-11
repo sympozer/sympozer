@@ -2,14 +2,10 @@
 namespace fibe\SecurityBundle\Services;
 
 use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\QueryBuilder;
 use Psr\Log\LoggerInterface;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Symfony\Component\Security\Acl\Dbal\MutableAclProvider;
 use Symfony\Component\Security\Acl\Permission\MaskBuilder;
 use Symfony\Component\Security\Core\SecurityContext;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 class ACLHelper
 {
@@ -18,10 +14,6 @@ class ACLHelper
    * first %s is entityType and second is id
    */
   const CANNOT_FIND_ENTITY_LABEL = 'Cannot find %s %s';
-  /*
-   * first %s is action, second is entityType and third is id
-   */
-  const NOT_AUTHORYZED_ENTITY_LABEL = 'You don\'t have the authorization to perform %s on %s';
 
   /** @const */
   public static $MASKS = array(
@@ -54,6 +46,11 @@ class ACLHelper
       'repositoryBundle' => 'fibeEventBundle'
     ),
     'Team' => array(
+      'parent' => 'getMainEvent',
+      'classpath' => 'fibe\\SecurityBundle\\Entity',
+    ),
+    'Teammate' => array(
+      'parent' => 'getTeam',
       'classpath' => 'fibe\\SecurityBundle\\Entity',
     ),
     'Event' => array(
@@ -69,43 +66,38 @@ class ACLHelper
       'parent' => 'getMainEvent',
       'classpath' => 'fibe\\ContentBundle\\Entity',
     ),
-//    'Person' => array(
-//      'parent' => 'getMainEvent',
-//      'classpath' => 'fibe\\CommunityBundle\\Entity',
-//    ),
+    'Person' => array(
+      'classpath' => 'fibe\\CommunityBundle\\Entity',
+    ),
     'Role' => array(
       'parent' => 'getMainEvent',
       'classpath' => 'fibe\\ContentBundle\\Entity',
     ),
-    'Organization' => array(
-      'parent' => 'getMainEvent',
-      'classpath' => 'fibe\\CommunityBundle\\Entity',
-    ),
-    'Topic' => array(
+    'RoleLabelVersion' => array(
       'parent' => 'getMainEvent',
       'classpath' => 'fibe\\ContentBundle\\Entity',
-      'repositoryBundle' => 'fibeContentBundle'
     ),
+    'OrganizationVersion' => array(
+      'parent' => 'getOrganizationVersionOwner',
+      'classpath' => 'fibe\\CommunityBundle\\Entity',
+    ),
+//    'Topic' => array(
+//      'parent' => 'getMainEvent',
+//      'classpath' => 'fibe\\ContentBundle\\Entity',
+//      'repositoryBundle' => 'fibeContentBundle'
+//    ),
     'Sponsor' => array(
       'parent' => 'getMainEvent',
       'classpath' => 'fibe\\ContentBundle\\Entity',
     ),
-    'SocialServiceAccount' => array(
-      'parent' => 'getMainEvent',
-      'classpath' => 'fibe\\CommunityBundle\\Entity',
-    ),
-    'Category' => array(
-      'parent' => 'getMainEvent',
-      'classpath' => 'fibe\\EventBundle\\Entity',
-    ),
-    'Equipment' => array(
-      'parent' => 'getMainEvent',
-      'classpath' => 'fibe\\ContentBundle\\Entity',
-    ),
-    'RoleType' => array(
-      'parent' => 'getMainEvent',
-      'classpath' => 'fibe\\ContentBundle\\Entity',
-    )
+//    'Category' => array(
+//      'parent' => 'getMainEvent',
+//      'classpath' => 'fibe\\EventBundle\\Entity',
+//    ),
+//    'Equipment' => array(
+//      'parent' => 'getMainEvent',
+//      'classpath' => 'fibe\\ContentBundle\\Entity',
+//    ),
   );
 
   /** @var SecurityContext */
@@ -126,65 +118,38 @@ class ACLHelper
    */
   public static function getParent($entity)
   {
-    $ACLEntityInfo = self::$ACLEntityNameArray[self::getRepositoryNameByClassName(get_class($entity))];
+    $ACLEntityInfo = self::isManaged(get_class($entity));
     if ($ACLEntityInfo && isset($ACLEntityInfo['parent']))
     {
-      return $parent = call_user_func_array(array($entity, $ACLEntityInfo['parent']), array());
+      return call_user_func_array(array($entity, $ACLEntityInfo['parent']), array());
     }
     return null;
   }
 
   /**
-   * @param $className
-   * @return string
-   * @throws EntityACLNotRegisteredException
+   * @param $classname
+   * @return array | false
    */
-  public static function getRepositoryNameByClassName($className)
-  {
-    $class = new \ReflectionClass($className);
-
-    if (!isset(self::$ACLEntityNameArray[$class->getShortName()]))
-    {
-      throw new EntityACLNotRegisteredException(
-        "Can't get ACL for Entity [" . $className . "] as it's not registered in ACLEntityHelper::\$ACLEntityNameArray"
-      );
-    }
-
-    return $class->getShortName();
-  }
-
   public static function isManaged($classname)
   {
-    try
+
+    $class = new \ReflectionClass($classname);
+
+    if (isset(self::$ACLEntityNameArray[$class->getShortName()]))
     {
-      if (isset(ACLHelper::$ACLEntityNameArray[ACLHelper::getRepositoryNameByClassName($classname)]))
+      try
       {
-        return ACLHelper::$ACLEntityNameArray[ACLHelper::getRepositoryNameByClassName($classname)];
+        if (isset(ACLHelper::$ACLEntityNameArray[$class->getShortName()]))
+        {
+          return ACLHelper::$ACLEntityNameArray[$class->getShortName()];
+        }
+      } catch (EntityACLNotRegisteredException $e)
+      {
+        //return false if the entity is not managed with acl
       }
-    } catch (EntityACLNotRegisteredException $e)
-    {
-      //return false if the entity is not managed with acl
     }
+
     return false;
-  }
-
-
-  /**
-   * @param String $repositoryName registered in the ACLHelper::$ACLEntityNameArray
-   *
-   * @return String  the full class path
-   * @throws EntityACLNotRegisteredException in case entity is not registered in the array
-   */
-  public function getClassNameByRepositoryName($repositoryName)
-  {
-    if (!isset(self::$ACLEntityNameArray[$repositoryName]))
-    {
-      throw new EntityACLNotRegisteredException(
-        "Can't get ACL for Entity [" . $repositoryName . "] as it's not registered in ACLEntityHelper::\$ACLEntityNameArray"
-      );
-    }
-
-    return self::$ACLEntityNameArray[$repositoryName]['classpath'] . '\\' . $repositoryName;
   }
 
   /**
@@ -219,77 +184,104 @@ class ACLHelper
     $this->securityContext = $securityContext;
   }
 
-  /**
-   * @param null $id
-   * @return \fibe\SecurityBundle\Entity\User|mixed
-   * @throws \Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException
-   */
-  protected function getUser($id = null)
-  {
-    if ($id)
-    {
-      return $teammate = $this->entityManager->getRepository('fibeSecurityBundle:User')->find($id);
-    }
-    else if (($user = $this->securityContext->getToken()->getUser()) instanceof UserInterface)
-    {
-      return $user;
-    }
-    else
-    {
-      throw new UnauthorizedHttpException('negotiate', 'Authentication_reguired_error');
-    }
-  }
-
-  protected function restrictQueryBuilderByConferenceId(QueryBuilder $queryBuilder)
-  {
-    $queryBuilder->andWhere("entity.mainEvent = " . $this->currentMainEvent->getId());
-  }
-
-  protected function restrictQueryBuilderByIds(QueryBuilder $queryBuilder, $ids)
-  {
-    if (is_string($ids))
-    {
-      $queryBuilder->andWhere("entity.id IN ($ids)");
-    }
-    // No ACL found: deny all
-    elseif ($ids === false)
-    {
-      $queryBuilder->andWhere("entity.id = 0");
-    }
-    elseif ($ids === true)
-    {
-      // Global-class permission: allow all
-    }
-  }
+//  /**
+//   * @param null $id
+//   * @return \fibe\SecurityBundle\Entity\User|mixed
+//   * @throws \Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException
+//   */
+//  protected function getUser($id = null)
+//  {
+//    if ($id)
+//    {
+//      return $teammate = $this->entityManager->getRepository('fibeSecurityBundle:User')->find($id);
+//    }
+//    else if (($user = $this->securityContext->getToken()->getUser()) instanceof UserInterface)
+//    {
+//      return $user;
+//    }
+//    else
+//    {
+//      throw new UnauthorizedHttpException('negotiate', 'Authentication_reguired_error');
+//    }
+//  }
 
   protected function getMask($action)
   {
     if (is_int($action))
     {
-      return static::$MASKS[MaskBuilder::getCode($action)];
+      return $action;
     }
     else if (!defined($mask = 'Symfony\Component\Security\Acl\Permission\MaskBuilder::MASK_' . $action))
     {
       throw new \RuntimeException("[ACLHelper] Requested action $action is incorrect!");
     }
-
     return constant($mask);
   }
 
-  protected function getMaskCode($action)
+  protected function getAction($mask)
   {
-    if (!defined($mask = 'Symfony\Component\Security\Acl\Permission\MaskBuilder::CODE_' . $action))
+    if (is_int($mask))
     {
-      throw new \RuntimeException("[ACLHelper] Requested action $action is incorrect!");
+      return static::$MASKS[MaskBuilder::getCode($mask)];
     }
-
     return constant($mask);
   }
 
-  protected function throwNotFoundHttpException($repositoryName, $id = null)
-  {
-    throw new NotFoundHttpException(sprintf(ACLHelper::CANNOT_FIND_ENTITY_LABEL, $repositoryName, $id ? '#' . $id : ''));
-  }
+
+//  /**
+//   * @param String $repositoryName registered in the ACLHelper::$ACLEntityNameArray
+//   *
+//   * @return String  the full class path
+//   * @throws EntityACLNotRegisteredException in case entity is not registered in the array
+//   */
+//  public function getClassNameByRepositoryName($repositoryName)
+//  {
+//    if (!isset(self::$ACLEntityNameArray[$repositoryName]))
+//    {
+//      throw new EntityACLNotRegisteredException(
+//        "Can't get ACL for Entity [" . $repositoryName . "] as it's not registered in ACLEntityHelper::\$ACLEntityNameArray"
+//      );
+//    }
+//
+//    return self::$ACLEntityNameArray[$repositoryName]['classpath'] . '\\' . $repositoryName;
+//  }
+
+//  protected function restrictQueryBuilderByConferenceId(QueryBuilder $queryBuilder)
+//  {
+//    $queryBuilder->andWhere("entity.mainEvent = " . $this->currentMainEvent->getId());
+//  }
+
+//  protected function restrictQueryBuilderByIds(QueryBuilder $queryBuilder, $ids)
+//  {
+//    if (is_string($ids))
+//    {
+//      $queryBuilder->andWhere("entity.id IN ($ids)");
+//    }
+//    // No ACL found: deny all
+//    elseif ($ids === false)
+//    {
+//      $queryBuilder->andWhere("entity.id = 0");
+//    }
+//    elseif ($ids === true)
+//    {
+//      // Global-class permission: allow all
+//    }
+//  }
+
+//  protected function getMaskCode($action)
+//  {
+//    if (!defined($mask = 'Symfony\Component\Security\Acl\Permission\MaskBuilder::CODE_' . $action))
+//    {
+//      throw new \RuntimeException("[ACLHelper] Requested action $action is incorrect!");
+//    }
+//
+//    return constant($mask);
+//  }
+
+//  protected function throwNotFoundHttpException($repositoryName, $id = null)
+//  {
+//    throw new NotFoundHttpException(sprintf(ACLHelper::CANNOT_FIND_ENTITY_LABEL, $repositoryName, $id ? '#' . $id : ''));
+//  }
 }
 
 class EntityACLNotRegisteredException extends \RunTimeException

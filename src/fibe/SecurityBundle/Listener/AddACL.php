@@ -2,18 +2,15 @@
 namespace fibe\SecurityBundle\Listener;
 
 use Doctrine\ORM\Event\LifecycleEventArgs;
-use fibe\SecurityBundle\Services\ACLHelper;
-use fibe\SecurityBundle\Services\EntityACLNotRegisteredException;
+use fibe\CommunityBundle\Entity\Person;
+use fibe\EventBundle\Entity\MainEvent;
+use FOS\UserBundle\Model\UserInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
-use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
-use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
 use Symfony\Component\Security\Acl\Permission\MaskBuilder;
-use Symfony\Component\Security\Core\Authentication\Token\AnonymousToken;
 
 /**
- * Post persist doctrine listener that add the acl MASTER for the current user
- *   also set a right for all user of the team
+ * Post persist listener that add the acl OWNER for the current user
  */
 class AddACL
 {
@@ -28,53 +25,56 @@ class AddACL
   {
     // $entityManager = $args->getEntityManager();
     $entity = $args->getEntity();
-    $token = $this->container->get('security.context')->getToken();
-    if (!isset($token))
+
+    //just add acl for MainEvent and Person
+    if (!($entity instanceof Person) || !($entity instanceof MainEvent))
     {
       return;
     }
-    $user = $token->getUser();
 
-    if ($token instanceof AnonymousToken)
+    $token = $this->container->get('security.context')->getToken();
+    if (isset($token))
+    {
+      $user = $token->getUser();
+    }
+    if (!$user && $entity instanceof Person)
+    {
+      $user = $entity->getUser();
+    }
+
+    if (!($user instanceof UserInterface))
     {
       throw new UnauthorizedHttpException('negotiate', 'You must be logged in');
     }
 
+    $aclHelper = $this->container->get('fibe_security.acl_user_permission_helper');
+    $aclHelper->performUpdateUserACL($user, MaskBuilder::MASK_OWNER, $entity);
 
-    try
-    {
-      $aclHelper = $this->container->get('fibe_security.acl_user_permission_helper');
-      //check if the entity doesn't have a parent in the hierarchy of ACL
-      //TODO what??
-      if (!isset(ACLHelper::$ACLEntityNameArray[ACLHelper::getRepositoryNameByClassName(get_class($entity))]['parent']))
-      {
-
-        $aclHelper->getClassNameByRepositoryName($this->get_real_class($entity));
-        // create the ACL
-        $aclProvider = $this->container->get('security.acl.provider');
-
-        $objectIdentity = ObjectIdentity::fromDomainObject($entity);
-        $acl = $aclProvider->createAcl($objectIdentity);
-
-        $securityIdentity = UserSecurityIdentity::fromAccount($user);
-
-        // grant owner access
-        $acl->insertObjectAce($securityIdentity, MaskBuilder::MASK_OWNER);
-        $aclProvider->updateAcl($acl);
-        //share with teammates
-//          $teammates = $user->getCurrentMainEvent()->getTeam()->getTeammates();
-//          foreach ($teammates as $teammate)
-//          {
-//            if($teammate->getId() != $user->getId())
-//            {
-//              $aclHelper->createUserACL($teammate,$entity);
-//            }
-//          }
-      }
-    } catch (EntityACLNotRegisteredException $e)
-    {
-      // just don't add acl
-    }
+//    //only set acl of mainEvent and Person because they are top level in the permission
+//    $aclInfo = ACLHelper::isManaged(get_class($entity));
+//    if ($aclInfo && !isset($aclInfo['parent']))
+//    {
+//      // create the ACL
+//      $aclProvider = $this->container->get('security.acl.provider');
+//
+//      $objectIdentity = ObjectIdentity::fromDomainObject($entity);
+//      $acl = $aclProvider->createAcl($objectIdentity);
+//
+//      $securityIdentity = UserSecurityIdentity::fromAccount($user);
+//
+//      // grant owner access
+//      $acl->insertObjectAce($securityIdentity, MaskBuilder::MASK_OWNER);
+//      $aclProvider->updateAcl($acl);
+//      //share with teammates
+////      $teammates = $user->getCurrentMainEvent()->getTeam()->getTeammates();
+////      foreach ($teammates as $teammate)
+////      {
+////        if($teammate->getId() != $user->getId())
+////        {
+////          $aclHelper->performUpdateUserACL($teammate, "MASTER", $entity);
+////        }
+////      }
+//    }
   }
 
   /**
