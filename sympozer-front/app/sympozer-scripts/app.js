@@ -57,7 +57,9 @@ var sympozerApp = angular.module('sympozerApp', [
   'ngResource',
   'ngSanitize',
   'ngRoute',
-  'ngAnimate'
+  'ngAnimate',
+  /** SYMPOZER GLOBAL CONTROLLERS **/
+  'sympozer.breadcrumb-controller'
 ]);
 
 /**
