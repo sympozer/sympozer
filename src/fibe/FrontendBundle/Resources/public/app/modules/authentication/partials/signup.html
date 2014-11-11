@@ -9,7 +9,7 @@
 <form name="signupForm" role="form" ng-submit="signupAction(signupForm)" novalidate="">
   <div class="form-group">
     <label for="inputUsername">{{ 'authentication.labels.username' | translate }}</label>
-    <input type="text" required="" server-error="serverError" name="username" class="form-control" id="inputUsername" placeholder="{{ 'authentication.labels.username' | translate }}" ng-model="user.username" ng-minlength="3" ng-maxlength="40" required/>
+    <input type="text" required="" server-error="serverError" name="username" class="form-control" id="inputUsername" placeholder="{{ 'authentication.labels.username' | translate }}" ng-model="user.username" ng-minlength="3" ng-maxlength="128" required/>
       <div class="alert alert-danger" role="alert" ng-show="signinForm._username.$error.minlength">{{ 'authentication.validations.username_too_short' | translate }}</div>
       <div class="alert alert-danger" role="alert" ng-show="signinForm._username.$error.maxlength">{{ 'authentication.validations.username_too_long' | translate }}</div>
   </div>
@@ -19,8 +19,9 @@
   </div>
   <div class="form-group">
     <label for="inputPassword">{{ 'authentication.labels.password' | translate }}</label>
-    <input type="password" required="" name="password" id="inputPassword" class="form-control" placeholder="{{ 'authentication.labels.password' | translate }}" ng-model="user.plainPassword.first" ng-minlength="3"
-      ng-maxlength="20" ng-pattern=/(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z].*[a-z].*[a-z])(?=.*\s*\S)/ required/>
+    <input type="password" required="" name="password" id="inputPassword" class="form-control" placeholder="{{ 'authentication.labels.password' | translate }}" ng-model="user.plainPassword.first" ng-minlength="5"
+      ng-maxlength="20" ng-pattern=/(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z].*[a-z].*[a-z])(?=.*[\S])/ required/>
+
       <div class="alert alert-danger" role="alert" ng-show="signupForm._password.$error.minlength">{{ 'authentication.validations.pwd_too_short' | translate }}</div>
       <div class="alert alert-danger" role="alert" ng-show="signupForm._password.$error.maxlength">{{ 'authentication.validations.pwd_too_long' | translate }}</div>
        <div class="alert alert-danger" role="alert" ng-show="signupForm.password.$error.pattern">{{ 'authentication.validations.pwd_not_enough_strength' | translate }}</div>

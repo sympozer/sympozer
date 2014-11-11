@@ -25,7 +25,7 @@
         <h1>{{ 'mainEvents.labels.from' | translate}} :  </h1>
         <div class="alert alert-danger" role="alert" ng-show="mainEvent.startAt > mainEvent.endAt">{{ 'mainEvents.validations.end_date_after_start' | translate}}</div>
 
-        <datetimepicker  datetime-format style="font-size:15px" data-ng-model="mainEvent.startAt" on-set-time="onSelectStart(newDate, oldDate)"  data-datetimepicker-config="{ minView:'day' }" />
+      <datetimepicker style="font-size:15px" data-ng-model="mainEvent.startAt" on-set-time="onSelectStart(newDate, oldDate)" data-datetimepicker-config="{ minView:'day' }"/>
 
     </div>
 
@@ -33,7 +33,7 @@
         <h1>{{ 'mainEvents.labels.to' | translate}} :</h1>
         <div class="alert alert-danger" role="alert" ng-show="mainEvent.startAt > mainEvent.endAt">{{ 'mainEvents.validations.start_date_before_end' | translate}}</div>
 
-        <datetimepicker datetime-format style="font-size:15px" data-ng-model="mainEvent.endAt" on-set-time="onSelectEnd(newDate, oldDate)"
+      <datetimepicker style="font-size:15px" data-ng-model="mainEvent.endAt" on-set-time="onSelectEnd(newDate, oldDate)"
                         data-datetimepicker-config="{ minView:'day' }" />
     </div>
 </div>

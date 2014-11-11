@@ -30,14 +30,13 @@ class ACLEntityHelper extends ACLHelper
    *   $entity = $this->get('fibe_security.acl_entity_helper')->getEntityACL('EDIT','Person',$entity);
    *
    * @param String $action VIEW|EDIT|CREATE|DELETE|OPERATOR|OWNER|MASTER
-   * @param String $repositoryName the class name
    * @param mixed $entity the entity to get
    *
    * @return mixed the entity to get
    * @throws AccessDeniedException
    *
    */
-  public function getEntityACL($action, $repositoryName, $entity)
+  public function getEntityACL($action, $entity)
   {
     if (false === $this->securityContext->isGranted($action, $entity))
     {
@@ -45,7 +44,6 @@ class ACLEntityHelper extends ACLHelper
         sprintf(
           ACLHelper::NOT_AUTHORYZED_ENTITY_LABEL,
           $action,
-          $repositoryName,
           '#' . $entity->getId()
         )
       );
@@ -109,60 +107,6 @@ class ACLEntityHelper extends ACLHelper
    * @return [string|int]       the uppest permission
    */
 
-  /**get the allowed action
-   *
-   * @param mixed $entity the entity to get
-   * @param UserInterface|null $user the current user if null
-   * @param String $returnType all|mask|index|action (all | int binary mask | index of the ace in the acl | readable action i.e. VIEW)
-   * @param null $acl provide acl if you already got it
-   *
-   * @throws \Symfony\Component\Security\Acl\Exception\NoAceFoundException
-   * @return String VIEW|EDIT|CREATE|DELETE|OPERATOR|OWNER|MASTER
-   */
-  public function getACEByEntity($entity, UserInterface $user = null, $returnType = "action", $acl = null)
-  {
-    $entitySecurityIdentity = ObjectIdentity::fromDomainObject($entity);
-    $userSecurityIdentity = UserSecurityIdentity::fromAccount($user ? $user : $this->getUser());
-    if (!$acl)
-    {
-      $acl = $this->aclProvider->findAcl(
-        $entitySecurityIdentity,
-        array($userSecurityIdentity)
-      );
-    }
-    //find the ace for the given user
-    foreach ($acl->getObjectAces() as $index => $ace)
-    {
-      if ($ace->getSecurityIdentity()->equals($userSecurityIdentity))
-      {
-        switch ($returnType)
-        {
-          case 'all':
-            return array(
-              'mask' => $ace->getMask(),
-              'index' => $index,
-              'action' => $this->getMask($ace->getMask())
-            );
-          case 'mask':
-            return $ace->getMask();
-          case 'index':
-            return $index;
-          case 'action':
-          default:
-            return $this->getMask($ace->getMask());
-        }
-      }
-    }
-    throw new NoAceFoundException(
-      sprintf(
-        'Cannot find ACE %s %s for user %s',
-        get_class($entity),
-        '#' . $entity->getId(),
-        $user ? $user->getUsername() : "[current user]"
-      )
-    );
-  }
-
   /**
    * filter by conferenceId if the repository != this::LINK_WITH
    *
@@ -198,8 +142,6 @@ class ACLEntityHelper extends ACLHelper
 
     return $entity;
   }
-
-
 
   /**
    * update the teammate right by repository & id
@@ -296,6 +238,60 @@ class ACLEntityHelper extends ACLHelper
       }
       $this->aclProvider->updateAcl($acl);
     }
+  }
+
+  /**get the allowed action
+   *
+   * @param mixed $entity the entity to get
+   * @param UserInterface|null $user the current user if null
+   * @param String $returnType all|mask|index|action (all | int binary mask | index of the ace in the acl | readable action i.e. VIEW)
+   * @param null $acl provide acl if you already got it
+   *
+   * @throws \Symfony\Component\Security\Acl\Exception\NoAceFoundException
+   * @return String VIEW|EDIT|CREATE|DELETE|OPERATOR|OWNER|MASTER
+   */
+  public function getACEByEntity($entity, UserInterface $user = null, $returnType = "action", $acl = null)
+  {
+    $entitySecurityIdentity = ObjectIdentity::fromDomainObject($entity);
+    $userSecurityIdentity = UserSecurityIdentity::fromAccount($user ? $user : $this->getUser());
+    if (!$acl)
+    {
+      $acl = $this->aclProvider->findAcl(
+        $entitySecurityIdentity,
+        array($userSecurityIdentity)
+      );
+    }
+    //find the ace for the given user
+    foreach ($acl->getObjectAces() as $index => $ace)
+    {
+      if ($ace->getSecurityIdentity()->equals($userSecurityIdentity))
+      {
+        switch ($returnType)
+        {
+          case 'all':
+            return array(
+              'mask' => $ace->getMask(),
+              'index' => $index,
+              'action' => $this->getMask($ace->getMask())
+            );
+          case 'mask':
+            return $ace->getMask();
+          case 'index':
+            return $index;
+          case 'action':
+          default:
+            return $this->getMask($ace->getMask());
+        }
+      }
+    }
+    throw new NoAceFoundException(
+      sprintf(
+        'Cannot find ACE %s %s for user %s',
+        get_class($entity),
+        '#' . $entity->getId(),
+        $user ? $user->getUsername() : "[current user]"
+      )
+    );
   }
 }
 

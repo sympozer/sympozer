@@ -1,10 +1,10 @@
-
 /**
  * Edit event controller
  *
  * @type {controller}
  */
-angular.module('eventsApp').controller('eventsEditCtrl', [ '$scope', '$filter', '$window', 'GLOBAL_CONFIG', '$routeParams', '$rootScope', '$location', 'eventsFact', 'categoriesFact', 'topicsFact', 'locationsFact', 'papersFact', '$modal',
+angular.module('eventsApp').controller('eventsEditCtrl', [
+    '$scope', '$filter', '$window', 'GLOBAL_CONFIG', '$routeParams', '$rootScope', '$location', 'eventsFact', 'categoriesFact', 'topicsFact', 'locationsFact', 'papersFact', '$modal',
     function ($scope, $filter, $window, GLOBAL_CONFIG, $routeParams, $rootScope, $location, eventsFact, categoriesFact, topicsFact, locationsFact, papersFact, $modal)
     {
         $scope.event = eventsFact.get({id: $routeParams.eventId});
@@ -30,26 +30,31 @@ angular.module('eventsApp').controller('eventsEditCtrl', [ '$scope', '$filter', 
         };
 
         //Populate array of a specific linked entity
-        $scope.addRelationship = function(key, model){
+        $scope.addRelationship = function (key, model)
+        {
             //Check if array available for the linked entity
-            if(!$scope.event[key]){
+            if (!$scope.event[key])
+            {
                 $scope.event[key] = [];
             }
 
             //Stop if the object selected is already in array (avoid duplicates)
-            if(! $filter('inArray')('id', model.id, $scope.event[key])){
+            if (!$filter('inArray')('id', model.id, $scope.event[key]))
+            {
                 //If no duplicate add the selected object to the specified array
                 $scope.event[key].push(model);
-            };
-        }
+            }
+        };
 
-        $scope.removeRelationship = function(key, index){
+        $scope.removeRelationship = function (key, index)
+        {
             $scope.event[key].splice(index, 1);
-        }
+        };
 
 
         $scope.createLocationModal = function ()
         {
+            //TODO : fix this
             createDialogService(GLOBAL_CONFIG.app.modules.locations.urls.partials + 'locations-new.html', {
                 id        : 'complexDialog',
                 title     : 'New location',
@@ -64,43 +69,55 @@ angular.module('eventsApp').controller('eventsEditCtrl', [ '$scope', '$filter', 
 
         //Autocomplete and add paper workflow
         $scope.searchCategories = categoriesFact.allByConference;
-        $scope.addCategory = function(categoryModel){
-            if(!categoryModel.id) {
+        $scope.addCategory = function (categoryModel)
+        {
+            if (!categoryModel.id)
+            {
                 var modalInstance = $modal.open({
                     templateUrl: GLOBAL_CONFIG.app.modules.categories.urls.partials + 'categories-modal-form.html',
-                    controller: 'categoriesNewCtrl',
-                    size: "large",
-                    resolve: {
+                    controller : 'categoriesNewCtrl',
+                    size       : "large",
+                    resolve    : {
                     }
                 });
-                modalInstance.result.then(function (newCategory) {
+                modalInstance.result.then(function (newCategory)
+                {
                     $scope.event.category = newCategory;
-                }, function () {
+                }, function ()
+                {
                     //$log.info('Modal dismissed at: ' + new Date());
                 });
-            }else{
+            }
+            else
+            {
                 $scope.event.category = categoryModel;
             }
         };
 
         //Autocomplete and add paper workflow
         $scope.searchTopics = topicsFact.all;
-        $scope.addTopic = function(topicModel){
-            if(!topicModel.id) {
+        $scope.addTopic = function (topicModel)
+        {
+            if (!topicModel.id)
+            {
                 var modalInstance = $modal.open({
                     templateUrl: GLOBAL_CONFIG.app.modules.topics.urls.partials + 'topics-modal-form.html',
-                    controller: 'topicsNewCtrl',
-                    size: "large",
-                    resolve: {
+                    controller : 'topicsNewCtrl',
+                    size       : "large",
+                    resolve    : {
                     }
                 });
-                modalInstance.result.then(function (newTopic) {
+                modalInstance.result.then(function (newTopic)
+                {
                     $scope.addRelationship('topics', newTopic);
 
-                }, function () {
+                }, function ()
+                {
                     //$log.info('Modal dismissed at: ' + new Date());
                 });
-            }else{
+            }
+            else
+            {
                 $scope.addRelationship('topics', topicModel);
 
             }
@@ -108,21 +125,27 @@ angular.module('eventsApp').controller('eventsEditCtrl', [ '$scope', '$filter', 
 
         //Autocomplete and add location workflow
         $scope.searchLocations = locationsFact.allByConference;
-        $scope.addLocation = function(locationModel){
-            if(!locationModel.id) {
+        $scope.addLocation = function (locationModel)
+        {
+            if (!locationModel.id)
+            {
                 var modalInstance = $modal.open({
                     templateUrl: GLOBAL_CONFIG.app.modules.locations.urls.partials + 'locations-modal-form.html',
-                    controller: 'locationsNewCtrl',
-                    size: "large",
-                    resolve: {
+                    controller : 'locationsNewCtrl',
+                    size       : "large",
+                    resolve    : {
                     }
                 });
-                modalInstance.result.then(function (newLocation) {
+                modalInstance.result.then(function (newLocation)
+                {
                     $scope.addRelationship('eventLocations', newLocation);
-                }, function () {
+                }, function ()
+                {
                     //$log.info('Modal dismissed at: ' + new Date());
                 });
-            }else{
+            }
+            else
+            {
                 $scope.addRelationship('eventLocations', locationModel);
             }
         };
@@ -131,21 +154,27 @@ angular.module('eventsApp').controller('eventsEditCtrl', [ '$scope', '$filter', 
         //Autocomplete and add paper workflow
         $scope.searchPapers = papersFact.all;
         $scope.event.papers = [];
-        $scope.addPaper = function(paperModel){
-            if(!paperModel.id) {
+        $scope.addPaper = function (paperModel)
+        {
+            if (!paperModel.id)
+            {
                 var modalInstance = $modal.open({
                     templateUrl: GLOBAL_CONFIG.app.modules.papers.urls.partials + 'papers-modal-form.html',
-                    controller: 'papersNewCtrl',
-                    size: "large",
-                    resolve: {
+                    controller : 'papersNewCtrl',
+                    size       : "large",
+                    resolve    : {
                     }
                 });
-                modalInstance.result.then(function (newPaper) {
+                modalInstance.result.then(function (newPaper)
+                {
                     $scope.addRelationship('papers', newPaper);
-                }, function () {
+                }, function ()
+                {
                     //$log.info('Modal dismissed at: ' + new Date());
                 });
-            }else{
+            }
+            else
+            {
                 $scope.addRelationship('papers', paperModel);
 
             }
@@ -154,22 +183,26 @@ angular.module('eventsApp').controller('eventsEditCtrl', [ '$scope', '$filter', 
 
         //Autocomplete and add role workflow
         $scope.event.roles = [];
-        $scope.addRole = function(){
+        $scope.addRole = function ()
+        {
             alert("role");
             var modalInstance = $modal.open({
                 templateUrl: GLOBAL_CONFIG.app.modules.roles.urls.partials + 'roles-modal-form.html',
-                controller: 'rolesNewCtrl',
-                size: "large",
-                resolve: {
+                controller : 'rolesNewCtrl',
+                size       : "large",
+                resolve    : {
                 }
             });
-            modalInstance.result.then(function (newRole) {
+            modalInstance.result.then(function (newRole)
+            {
                 $scope.newRole.event = event;
-                if(!$scope.event.roles){
+                if (!$scope.event.roles)
+                {
                     $scope.event.roles = [];
                 }
                 $scope.event.roles.push(newRole);
-            }, function () {
+            }, function ()
+            {
                 //$log.info('Modal dismissed at: ' + new Date());
             });
         };
@@ -178,7 +211,4 @@ angular.module('eventsApp').controller('eventsEditCtrl', [ '$scope', '$filter', 
         {
             $scope.event.roles.splice(index, 1);
         };
-
-        
-
     }]);

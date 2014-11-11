@@ -83,7 +83,8 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
             },
             messages : {
                 reset_pwd_info : 'To reset your password, enter the email address you use to sign in to Sympozer. You will receive an email from Sympozer with the link to use in order to reset your password',
-                pwd_not_set : 'You haven\'t set your password yet'
+                pwd_not_set: 'You haven\'t set your password yet',
+                forbidden  : 'You don\'t have the authorization to perform this action'
             },
             labels :{
                 username : 'Username',
@@ -116,7 +117,7 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 edit : 'Edit the conference',
                 import : 'Import conference',
                 export : 'Export conference',
-                print : 'Print conference',
+                print: 'Print conference'
             },
             labels : {
                 general_info : 'General informations',
@@ -155,7 +156,7 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 edit : 'Edit the event',
                 import : 'Import events',
                 export : 'Export events',
-                print : 'Print events',
+                print: 'Print events'
             },
             links : {
                 events : 'Events',
@@ -179,10 +180,10 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
             },
             model : {
                 label : 'Label',
-                description : 'Descritpion',
+                description: 'Description',
                 url : 'Url',
                 startAt : 'Start at',
-                endAt: 'End at',
+                endAt      : 'End at'
             }
         },
 
@@ -239,7 +240,7 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 'not_created' : 'Sorry, the teammate has not been saved'
             },
             messages : {
-                delete_confirm : 'Are you sure you want to delete this teammate ?',
+                delete_confirm: 'Are you sure you want to delete this teammate ?'
 
             },
             model : {
@@ -268,7 +269,7 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 'not_created' : 'Sorry, the topic has not been saved'
             },
             messages : {
-                delete_confirm : 'Are you sure you want to delete this topic ?',
+                delete_confirm: 'Are you sure you want to delete this topic ?'
 
             },
             model : {
@@ -287,7 +288,7 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 edit : 'Edit the category',
                 import : 'Import categories',
                 export : 'Export categories',
-                print : 'Print categories',
+                print: 'Print categories'
             },
             links : {
                 categories : 'Categories'
@@ -297,7 +298,7 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 'not_created' : 'Sorry, the category has not been saved'
             },
             messages : {
-                delete_confirm : 'Are you sure you want to delete this category ?',
+                delete_confirm: 'Are you sure you want to delete this category ?'
 
             },
             model : {
@@ -316,7 +317,7 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 edit : 'Edit the location',
                 import : 'Import location',
                 export : 'Export location',
-                print : 'Print location',
+                print: 'Print location'
             },
             links : {
                 locations : 'Locations'
@@ -326,7 +327,7 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 'not_created' : 'Sorry, the location has not been saved'
             },
             messages : {
-                delete_confirm : 'Are you sure you want to delete this location ?',
+                delete_confirm: 'Are you sure you want to delete this location ?'
 
             },
             model : {
@@ -500,7 +501,7 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 email : 'Email',
                 img : 'Image'
             }
-        },
+        }
 
 
     });
@@ -571,7 +572,8 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
             },
             messages : {
                 reset_pwd_info : 'Pour reinitialiser votre mot de passe, entrer votre email ou nom d\'utilisateur. Vous recevrez alors un email pour mettre à jour votre mot de passe',
-                pwd_not_set : 'Vous n\'avez pas encore défini votre mot de passe'
+                pwd_not_set: 'Vous n\'avez pas encore défini votre mot de passe',
+                forbidden  : 'Vous n\'avez le droit d\'exécuter cette action'
             },
             labels :{
                 username : 'Utilisateur',

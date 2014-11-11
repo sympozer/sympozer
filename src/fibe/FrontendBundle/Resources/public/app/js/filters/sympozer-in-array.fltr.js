@@ -13,21 +13,17 @@ angular.module('sympozerApp').filter('inArray', function ()
     return function (key, value, array)
     {
         //Arguments check
-        if(!key || !value || !array){
+        if (!key || !value || !array)
+        {
             return;
         }
 
-
         //Find object in array
-        var results = $.grep(array, function(n, i){
+        var results = $.grep(array, function (n)
+        {
             return n[key] == value;
         });
 
-        if(results.length == 0){
-            return false;
-        }
-
-        return true;
-
+        return results.length != 0;
     }
 });

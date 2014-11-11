@@ -4,20 +4,15 @@ namespace fibe\ContentBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use fibe\EventBundle\Entity\Event;
-use JMS\Serializer\Annotation\MaxDepth;
-use Symfony\Component\Validator\Constraints as Assert;
-
-use fibe\EventBundle\Entity\MainEvent;
-use fibe\EventBundle\Entity\VEvent;
 use fibe\CommunityBundle\Entity\Person;
 use fibe\ContentBundle\Util\StringTools;
-
+use fibe\EventBundle\Entity\Event;
+use fibe\EventBundle\Entity\MainEvent;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
-use JMS\Serializer\Annotation\Groups;
+use JMS\Serializer\Annotation\MaxDepth;
 use JMS\Serializer\Annotation\SerializedName;
-use JMS\Serializer\Annotation\VirtualProperty;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Paper entity
@@ -146,16 +141,6 @@ class Paper
   }
 
   /**
-   * Slugify
-   *
-   * @ORM\PrePersist()
-   */
-  public function slugify()
-  {
-    $this->setSlug(StringTools::slugify($this->getId() . $this->getLabel()));
-  }
-
-  /**
    * onUpdate
    *
    * @ORM\PostPersist()
@@ -167,29 +152,13 @@ class Paper
   }
 
   /**
-   * Set slug
+   * Slugify
    *
-   * @param string $slug
-   *
-   * @return string
+   * @ORM\PrePersist()
    */
-  public function setSlug($slug)
+  public function slugify()
   {
-    $this->slug = $slug;
-
-    return $this;
-  }
-
-  /**
-   * Get slug
-   *
-   * @return string
-   */
-  public function getSlug()
-  {
-    $this->slugify();
-
-    return $this->slug;
+    $this->setSlug(StringTools::slugify($this->getId() . $this->getLabel()));
   }
 
   /**
@@ -200,6 +169,16 @@ class Paper
   public function getId()
   {
     return $this->id;
+  }
+
+  /**
+   * Get label
+   *
+   * @return string
+   */
+  public function getLabel()
+  {
+    return $this->label;
   }
 
   /**
@@ -217,13 +196,39 @@ class Paper
   }
 
   /**
-   * Get label
+   * Get slug
    *
    * @return string
    */
-  public function getLabel()
+  public function getSlug()
   {
-    return $this->label;
+    $this->slugify();
+
+    return $this->slug;
+  }
+
+  /**
+   * Set slug
+   *
+   * @param string $slug
+   *
+   * @return string
+   */
+  public function setSlug($slug)
+  {
+    $this->slug = $slug;
+
+    return $this;
+  }
+
+  /**
+   * Get abstract
+   *
+   * @return string
+   */
+  public function getAbstract()
+  {
+    return $this->abstract;
   }
 
   /**
@@ -241,13 +246,13 @@ class Paper
   }
 
   /**
-   * Get abstract
+   * Get url
    *
    * @return string
    */
-  public function getAbstract()
+  public function getUrl()
   {
-    return $this->abstract;
+    return $this->url;
   }
 
   /**
@@ -265,13 +270,13 @@ class Paper
   }
 
   /**
-   * Get url
+   * Get publisher
    *
    * @return string
    */
-  public function getUrl()
+  public function getPublisher()
   {
-    return $this->url;
+    return $this->publisher;
   }
 
   /**
@@ -289,13 +294,13 @@ class Paper
   }
 
   /**
-   * Get publisher
+   * Get publishDate
    *
    * @return string
    */
-  public function getPublisher()
+  public function getPublishDate()
   {
-    return $this->publisher;
+    return $this->publishDate;
   }
 
   /**
@@ -310,16 +315,6 @@ class Paper
     $this->publishDate = $publishDate;
 
     return $this;
-  }
-
-  /**
-   * Get publishDate
-   *
-   * @return string
-   */
-  public function getPublishDate()
-  {
-    return $this->publishDate;
   }
 
   /**
@@ -434,6 +429,16 @@ class Paper
   }
 
   /**
+   * Get mainEvent
+   *
+   * @return MainEvent
+   */
+  public function getMainEvent()
+  {
+    return $this->mainEvent;
+  }
+
+  /**
    * Set mainEvent
    *
    * @param MainEvent $mainEvent
@@ -445,15 +450,5 @@ class Paper
     $this->mainEvent = $mainEvent;
 
     return $this;
-  }
-
-  /**
-   * Get mainEvent
-   *
-   * @return MainEvent
-   */
-  public function getMainEvent()
-  {
-    return $this->mainEvent;
   }
 }

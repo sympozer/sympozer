@@ -12,7 +12,7 @@
  *    @param on-keyup             : Function to trigger when the user type a research
  */
 angular.module('sympozerApp').directive('sympozerAutocomplete', [
-    'GLOBAL_CONFIG', '$q', '$routeParams', 'papersFact', function (GLOBAL_CONFIG, $q, $routeParams, papersFact)
+    'GLOBAL_CONFIG', '$q', '$routeParams', function (GLOBAL_CONFIG, $q, $routeParams)
     {
         return {
             template: '<div ng-include="templateUrl" ></div>',
@@ -53,14 +53,14 @@ angular.module('sympozerApp').directive('sympozerAutocomplete', [
                     scope.onKeyup(requestParams, function(data) {
                         data.push({label : ""});
                         deferred.resolve(data);
-
-                    })
+                    });
                     return deferred.promise;
                 };
 
                 /**
                  * fired when a selection is done on the autocomplete list
-                 * @param $item, $model, represents the selected item
+                 * @param $item represents the selected item
+                 * @param $model represents the selected item
                  */
                 scope.select = function ($item, $model)
                 {
