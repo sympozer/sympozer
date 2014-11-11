@@ -69,6 +69,7 @@ class UserRESTController extends Controller
 
       $this->container->get('fibe.UserService')->post($user);
       $userManager->updateUser($user);
+      var_dump($this->get('session')->get('_locale'));
 
       $successResponse = new Response('Register_success');
 

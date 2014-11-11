@@ -51,7 +51,8 @@ class PersonService extends AbstractBusinessService
     $newUser->setConfirmationToken($this->tokenGenerator->generateToken());
     $person->setUser($newUser);
     $this->userManager->updateUser($newUser);
-
+    
+    $this->get('session')->set('_locale', 'fr_FR');
     $this->mailer->sendConfirmationEmailMessage($newUser);
   }
 

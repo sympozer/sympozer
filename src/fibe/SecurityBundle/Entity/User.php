@@ -50,6 +50,13 @@ class User extends BaseUser
    */
   private $person;
 
+   /**
+   * Langage
+   * @ORM\Column(type="string", nullable=true)
+   * @Expose
+   */
+  private $langage;
+
 
   /**
    * @ORM\ManyToOne(targetEntity="fibe\EventBundle\Entity\MainEvent")
@@ -203,6 +210,19 @@ class User extends BaseUser
   public function setName($name)
   {
     $this->name = $name;
+
+    return $this;
+  }
+
+  public function getLangage()
+  {
+    return $this->langage;
+  }
+
+
+  public function setLangage($langage)
+  {
+    $this->langage = $langage;
 
     return $this;
   }
