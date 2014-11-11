@@ -41,19 +41,20 @@ class User extends BaseUser
    * @Expose
    */
   protected $randomPwd;
+
   /**
+   * Person
    *
    * @ORM\Column(name="name", type="string", length=255, nullable=true)
    * @Expose
    */
   protected $name;
+
   /**
    * @ORM\Column(name="picture", type="string", length=255, nullable=true)
    * @Expose
    */
   protected $picture;
-  /** @ORM\Column(name="google_id", type="string", length=255, nullable=true) */
-  protected $google_id;
 
 
 
@@ -61,20 +62,31 @@ class User extends BaseUser
    * SOCIAL NETWORK ID
    * @TODO : put it in the table social_service_account
    ************************************/
+
+  /** @ORM\Column(name="google_id", type="string", length=255, nullable=true) */
+  protected $google_id;
+
   /** @ORM\Column(name="google_access_token", type="string", length=255, nullable=true) */
   protected $google_access_token;
+
   /** @ORM\Column(name="twitter_id", type="string", length=255, nullable=true) */
   protected $twitter_id;
+
   /** @ORM\Column(name="twitter_access_token", type="string", length=255, nullable=true) */
   protected $twitter_access_token;
+
   /** @ORM\Column(name="twitter_screen_name", type="string", length=255, nullable=true) */
   protected $twitter_screen_name;
+
   /** @ORM\Column(name="facebook_id", type="string", length=255, nullable=true) */
   protected $facebook_id;
+
   /** @ORM\Column(name="facebook_access_token", type="string", length=255, nullable=true) */
   protected $facebook_access_token;
+
   /** @ORM\Column(name="linkedin_id", type="string", length=255, nullable=true) */
   protected $linkedin_id;
+
   /** @ORM\Column(name="linkedin_access_token", type="string", length=255, nullable=true) */
   protected $linkedin_access_token;
   /**
@@ -93,6 +105,15 @@ class User extends BaseUser
     parent::__construct();
     $this->conferences = new ArrayCollection();
     $this->setRandomPwd(false);
+  }
+
+  /**
+   * has the user set his own password yet ?
+   * @return boolean
+   */
+  public function isRandomPwd()
+  {
+    return $this->randomPwd;
   }
 
   /**
@@ -141,15 +162,6 @@ class User extends BaseUser
     return $this->conferences;
   }
 
-  /**
-   * has the user set his own password yet ?
-   * @return boolean
-   */
-  public function isRandomPwd()
-  {
-    return $this->randomPwd;
-  }
-
   public function getName()
   {
     return $this->name;
@@ -159,6 +171,19 @@ class User extends BaseUser
   public function setName($name)
   {
     $this->name = $name;
+
+    return $this;
+  }
+
+  public function getLangage()
+  {
+    return $this->langage;
+  }
+
+
+  public function setLangage($langage)
+  {
+    $this->langage = $langage;
 
     return $this;
   }

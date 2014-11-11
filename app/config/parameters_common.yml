@@ -40,4 +40,4 @@ parameters:
         linkedin:
             type:                linkedin
             client_id:           77t2v9vcniqt0s
-            client_secret:       MvFQtxReXq2eS7pB
+            client_secret:       MvFQtxReXq2eS7p
