@@ -87,10 +87,12 @@
 <script type="text/javascript" src="smlink/app/js/directives/server-error.drv.js"></script>
 <script type="text/javascript" src="smlink/app/js/directives/elastic.drv.js"></script>
 <script type="text/javascript" src="smlink/app/js/directives/datetime-format.drv.js"></script>
+<script type="text/javascript" src="smlink/app/js/directives/sympozer-acl-show.drv.js"></script>
 <script type="text/javascript" src="smlink/app/js/directives/validators/date-before-now.vld.js"></script>
 
 <script type="text/javascript" src="smlink/app/js/services/global-http-interceptor.fact.js"></script>
 <script type="text/javascript" src="smlink/app/js/services/search.fact.js"></script>
+<script type="text/javascript" src="smlink/app/js/services/sympozer-acl-service.fact.js"></script>
 <script type="text/javascript" src="smlink/app/js/services/template-loader.fact.js"></script>
 <script type="text/javascript" src="smlink/app/js/services/form-validation.fact.js"></script>
 
@@ -254,40 +256,40 @@
       ;
 
   var globalConfig = {
-    api: {
+    api      : {
       urls: {
         {#get_organizations: "{{ path('community_organization_post') }}",#}
         get_organization_versions: "{{ path('community_organization_versions_post') }}",
 
-        get_persons: "{{ path('community_persons_post') }}",
-        get_locations: "{{ path('content_event_locations_post') }}",
+        get_persons            : "{{ path('community_persons_post') }}",
+        get_locations          : "{{ path('content_event_locations_post') }}",
         get_mainEvent_locations: "{{ path('content_mainEvent_locations_post') }}",
-        get_equipments: "{{ path('content_equipments_post') }}",
-        get_events: "{{ path('schedule_events_post') }}",
+        get_equipments         : "{{ path('content_equipments_post') }}",
+        get_events             : "{{ path('schedule_events_post') }}",
 
-        get_teammates: "{{ path('security_teammates_post') }}",
-        get_roles: "{{ path('content_roles_post') }}",
+        get_teammates        : "{{ path('security_teammates_post') }}",
+        get_roles            : "{{ path('content_roles_post') }}",
         get_roleLabel_verions: "{{ path('content_roleLabel_versions_post') }}",
-        get_roleLabels: "{{ path('content_roleLabels_post') }}",
+        get_roleLabels       : "{{ path('content_roleLabels_post') }}",
 
-        get_papers: "{{ path('content_papers_post') }}",
-        get_topics: "{{ path('content_topics_post') }}",
-        get_categories: "{{ path('schedule_category_versions_post') }}",
-        get_mainEvents: "{{ path('schedule_mainEvents_post') }}",
-        login: "{{ path('login_check', {_format: 'json'}) }}",
-        logout: "{{ path('logout') }}",
-        registration: "{{ path('security_signup') }}",
-        confirm: "{{ path('security_confirm') }}",
-        changepwd: "{{ path('security_changepwd') }}",
+        get_papers       : "{{ path('content_papers_post') }}",
+        get_topics       : "{{ path('content_topics_post') }}",
+        get_categories   : "{{ path('schedule_category_versions_post') }}",
+        get_mainEvents   : "{{ path('schedule_mainEvents_post') }}",
+        login            : "{{ path('login_check', {_format: 'json'}) }}",
+        logout           : "{{ path('logout') }}",
+        registration     : "{{ path('security_signup') }}",
+        confirm          : "{{ path('security_confirm') }}",
+        changepwd        : "{{ path('security_changepwd') }}",
         reset_pwd_request: "{{ path('security_resetpwdrequest') }}",
-        reset_pwd: "{{ path('security_resetpwd') }}",
-        socialnetworks: [
+        reset_pwd        : "{{ path('security_resetpwd') }}",
+        socialnetworks   : [
           {% for owner in hwi_oauth_resource_owners() %}{% if loop.first %}{% else %},
           {% endif %}
           {
-            name: "{{ owner }}",
-            urls: {
-              login: "{{ hwi_oauth_login_url(owner) }}",
+            name        : "{{ owner }}",
+            urls        : {
+              login : "{{ hwi_oauth_login_url(owner) }}",
               enrich: "{{ path('enrich_account', { 'socialService': owner }) }}"
             },
             {# can't register with twitter as long as they chose to not return user's mail :( #}
@@ -297,114 +299,114 @@
         ]
       }
     },
-    app: {
+    app      : {
       options: {
         shouldLogin: {% if shouldLogin %}true{% else %}false{% endif %}
       },
-      urls: {
-        base: "smlink/app/",
+      urls   : {
+        base    : "smlink/app/",
         partials: "smlink/app/partials/",
-        img: "smlink/app/img/"
+        img     : "smlink/app/img/"
       },
       modules: {
-        organizations: {
+        organizations    : {
           urls: {
-            base: "smlink/app/modules/organizations/",
-            partials: "smlink/app/modules/organizations/partials/",
+            base             : "smlink/app/modules/organizations/",
+            partials         : "smlink/app/modules/organizations/partials/",
             communityPartials: "smlink/app/modules/organizations/partials/community/",
-            img: "smlink/app/modules/organizations/img"
+            img              : "smlink/app/modules/organizations/img"
           }
         },
-        locations: {
+        locations        : {
           urls: {
-            base: "smlink/app/modules/locations/",
+            base    : "smlink/app/modules/locations/",
             partials: "smlink/app/modules/locations/partials/",
-            img: "smlink/app/modules/locations/img"
+            img     : "smlink/app/modules/locations/img"
           }
         },
-        equipments: {
+        equipments       : {
           urls: {
-            base: "smlink/app/modules/equipments/",
+            base    : "smlink/app/modules/equipments/",
             partials: "smlink/app/modules/equipments/partials/",
-            img: "smlink/app/modules/equipments/img"
+            img     : "smlink/app/modules/equipments/img"
           }
         },
-        events: {
+        events           : {
           urls: {
-            base: "smlink/app/modules/events/",
+            base    : "smlink/app/modules/events/",
             partials: "smlink/app/modules/events/partials/",
-            img: "smlink/app/modules/events/img"
+            img     : "smlink/app/modules/events/img"
           }
         },
-        papers: {
+        papers           : {
           urls: {
-            base: "smlink/app/modules/papers/",
-            partials: "smlink/app/modules/papers/partials/",
+            base             : "smlink/app/modules/papers/",
+            partials         : "smlink/app/modules/papers/partials/",
             communityPartials: "smlink/app/modules/papers/partials/community/",
-            img: "smlink/app/modules/papers/img"
+            img              : "smlink/app/modules/papers/img"
           }
         },
-        categories: {
+        categories       : {
           urls: {
-            base: "smlink/app/modules/categories/",
+            base    : "smlink/app/modules/categories/",
             partials: "smlink/app/modules/categories/partials/",
-            img: "smlink/app/modules/categories/img"
+            img     : "smlink/app/modules/categories/img"
           }
         },
-        mainEvents: {
+        mainEvents       : {
           urls: {
-            base: "smlink/app/modules/main-events/",
-            partials: "smlink/app/modules/main-events/partials/",
+            base             : "smlink/app/modules/main-events/",
+            partials         : "smlink/app/modules/main-events/partials/",
             partialsCommunity: "smlink/app/modules/main-events/partials/community/",
-            img: "smlink/app/modules/main-events/img"
+            img              : "smlink/app/modules/main-events/img"
           }
         },
-        persons: {
+        persons          : {
           urls: {
-            base: "smlink/app/modules/persons/",
-            partials: "smlink/app/modules/persons/partials/",
+            base             : "smlink/app/modules/persons/",
+            partials         : "smlink/app/modules/persons/partials/",
             communityPartials: "smlink/app/modules/persons/partials/community/",
-            img: "smlink/app/modules/persons/img"
+            img              : "smlink/app/modules/persons/img"
           }
         },
-        teammates: {
+        teammates        : {
           urls: {
-            base: "{{ asset('smlink/app/modules/teammates/') }}",
+            base    : "{{ asset('smlink/app/modules/teammates/') }}",
             partials: "{{ asset('smlink/app/modules/teammates/partials/') }}",
-            img: "{{ asset('smlink/app/modules/teammates/img') }}"
+            img     : "{{ asset('smlink/app/modules/teammates/img') }}"
           }
         },
-        roles: {
+        roles            : {
           urls: {
-            base: "smlink/app/modules/roles/",
+            base    : "smlink/app/modules/roles/",
             partials: "smlink/app/modules/roles/partials/",
-            img: "smlink/app/modules/roles/img"
+            img     : "smlink/app/modules/roles/img"
           }
         },
         roleLabelVersions: {
           urls: {
-            base: "smlink/app/modules/roles/",
+            base    : "smlink/app/modules/roles/",
             partials: "smlink/app/modules/roles/partials/",
-            img: "smlink/app/modules/roles/img"
+            img     : "smlink/app/modules/roles/img"
           }
         },
-        topics: {
+        topics           : {
           urls: {
-            base: "smlink/app/modules/topics/",
+            base    : "smlink/app/modules/topics/",
             partials: "smlink/app/modules/topics/partials/",
-            img: "smlink/app/modules/topics/img"
+            img     : "smlink/app/modules/topics/img"
           }
         },
-        authentication: {
+        authentication   : {
           urls: {
-            base: "smlink/app/modules/authentication/",
+            base    : "smlink/app/modules/authentication/",
             partials: "smlink/app/modules/authentication/partials/",
-            img: "smlink/app/modules/authentication/img"
+            img     : "smlink/app/modules/authentication/img"
           }
         }
       }
     },
-    language: 'EN',
+    language : 'EN',
     severTime: "{{ 'now'|date('m/d/Y') }}"
   };
   angular.module('sympozerApp').value('GLOBAL_CONFIG', globalConfig);

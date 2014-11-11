@@ -2,13 +2,14 @@
 namespace fibe\SecurityBundle\Listener;
 
 use Doctrine\ORM\Event\LifecycleEventArgs;
-use fibe\SecurityBundle\Services\ACLEntityHelper;
 use fibe\SecurityBundle\Services\ACLHelper;
 use fibe\SecurityBundle\Services\EntityACLNotRegisteredException;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
 use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
 use Symfony\Component\Security\Acl\Permission\MaskBuilder;
+use Symfony\Component\Security\Core\Authentication\Token\AnonymousToken;
 
 /**
  * Post persist doctrine listener that add the acl MASTER for the current user
@@ -33,6 +34,12 @@ class AddACL
       return;
     }
     $user = $token->getUser();
+
+    if ($token instanceof AnonymousToken)
+    {
+      throw new UnauthorizedHttpException('negotiate', 'You must be logged in');
+    }
+
 
     try
     {

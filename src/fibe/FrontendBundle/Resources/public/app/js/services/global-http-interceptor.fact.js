@@ -24,6 +24,10 @@ angular.module('sympozerApp').factory('globalHttpInterceptor', [
                 entityClone[property][object] = getObjectId(entity[property][object]);
               }
             }
+            else if ((entity[property])instanceof Date)
+            {
+                entityClone[property] = entity[property]
+            }
             else
             {
               entityClone[property] = getObjectId(entity[property]);
@@ -68,6 +72,10 @@ angular.module('sympozerApp').factory('globalHttpInterceptor', [
         {
           $rootScope.showLoginPopup();
           $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'You need to signin to have access to this page', type: 'warning'});
+        }
+        else if (rejection.status == "403")
+        {
+            $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'authentication.messages.forbidden', type: 'warning'});
         }
         else if (rejection.data.error)
         {

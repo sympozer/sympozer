@@ -2,14 +2,11 @@
 
 namespace fibe\EventBundle\Services;
 
-use Doctrine\ORM\EntityManager;
 use fibe\ContentBundle\Entity\MainEventLocation;
 use fibe\EventBundle\Entity\MainEvent;
 use fibe\RestBundle\Services\AbstractBusinessService;
 use fibe\SecurityBundle\Entity\Team;
 use fibe\SecurityBundle\Entity\User;
-use FOS\UserBundle\Model\UserInterface;
-use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 
 /**
@@ -31,21 +28,17 @@ class MainEventService extends AbstractBusinessService
   {
     /** @var $user User */
     $user = $this->securityContext->getToken()->getUser();
-    if (!$user instanceof UserInterface)
-    {
-      throw new UnauthorizedHttpException('negotiate', 'You must be logged in to create a new event');
-    }
     if (null == $mainEvent)
     {
       $mainEvent = new MainEvent();
       $mainEvent->setLabel("Sympozer New Conference");
     }
     //$mainEvent->setLogoPath("sympozer-logo.png");
-    if(!$mainEvent->getStartAt())
+    if (!$mainEvent->getStartAt())
     {
       $mainEvent->setStartAt(new \DateTime('now'));
     }
-    if(!$mainEvent->getEndAt())
+    if (!$mainEvent->getEndAt())
     {
       $mainEvent->setEndAt(clone $mainEvent->getStartAt()->add(new \DateInterval('P2D')));
     }
@@ -204,31 +197,6 @@ class MainEventService extends AbstractBusinessService
     $this->entityManager->flush();
   }
 
-  /**
-   * delete everything linked to a main but but the main event itself
-   *
-   * @param MainEvent $mainEvent
-   */
-  public function delete(MainEvent $mainEvent)
-  {
-    $this->removeObjects($mainEvent);
-
-    //team
-    $team = $mainEvent->getTeam();
-    if ($team)
-    {
-      $mainEvent->setTeam(null);
-      $this->entityManager->flush();
-      $this->entityManager->remove($team);
-      $this->entityManager->flush();
-    }
-
-    $this->entityManager->flush();
-    $this->entityManager->remove($mainEvent);
-    $this->entityManager->flush();
-  }
-
-
   protected function removeObjects(MainEvent $mainEvent)
   {
     //  topics
@@ -273,6 +241,30 @@ class MainEventService extends AbstractBusinessService
       $mainEvent->removeEvent($event);
       $this->entityManager->remove($event);
     }
+  }
+
+  /**
+   * delete everything linked to a main but but the main event itself
+   *
+   * @param MainEvent $mainEvent
+   */
+  public function delete(MainEvent $mainEvent)
+  {
+    $this->removeObjects($mainEvent);
+
+    //team
+    $team = $mainEvent->getTeam();
+    if ($team)
+    {
+      $mainEvent->setTeam(null);
+      $this->entityManager->flush();
+      $this->entityManager->remove($team);
+      $this->entityManager->flush();
+    }
+
+    $this->entityManager->flush();
+    $this->entityManager->remove($mainEvent);
+    $this->entityManager->flush();
   }
 
 }

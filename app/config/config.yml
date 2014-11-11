@@ -138,7 +138,7 @@ fos_rest:
     access_denied_listener:
         json: true
     body_listener: true
-    disable_csrf_role: ROLE_API
+    disable_csrf_role: ~
 
 jms_serializer:
     metadata:

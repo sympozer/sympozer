@@ -20,7 +20,7 @@ class ACLHelper
   /*
    * first %s is action, second is entityType and third is id
    */
-  const NOT_AUTHORYZED_ENTITY_LABEL = 'You don\'t have the authorization to perform %s on %s %s';
+  const NOT_AUTHORYZED_ENTITY_LABEL = 'You don\'t have the authorization to perform %s on %s';
 
   /** @const */
   public static $MASKS = array(
@@ -118,26 +118,23 @@ class ACLHelper
   protected $currentMainEvent;
 
   /**
-   * @param null $id
-   * @return \fibe\SecurityBundle\Entity\User|mixed
-   * @throws \Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException
+   * @param $className
+   * @return string
+   * @throws EntityACLNotRegisteredException
    */
-  protected function getUser($id = null)
+  public static function getRepositoryNameByClassName($className)
   {
-    if ($id)
-    {
-      return $teammate = $this->entityManager->getRepository('fibeSecurityBundle:User')->find($id);
-    }
-    else if (($user = $this->securityContext->getToken()->getUser()) instanceof UserInterface)
-    {
-      return $user;
-    }
-    else
-    {
-      throw new UnauthorizedHttpException('negotiate', 'Authentication_reguired_error');
-    }
-  }
+    $class = new \ReflectionClass($className);
 
+    if (!isset(self::$ACLEntityNameArray[$class->getShortName()]))
+    {
+      throw new EntityACLNotRegisteredException(
+        "Can't get ACL for Entity [" . $className . "] as it's not registered in ACLEntityHelper::\$ACLEntityNameArray"
+      );
+    }
+
+    return $class->getShortName();
+  }
 
   /**
    * @param String $repositoryName registered in the ACLHelper::$ACLEntityNameArray
@@ -158,23 +155,50 @@ class ACLHelper
   }
 
   /**
-   * @param $className
-   * @return string
-   * @throws EntityACLNotRegisteredException
+   * @param mixed $aclProvider
    */
-  public static function getRepositoryNameByClassName($className)
+  public function setAclProvider(MutableAclProvider $aclProvider)
   {
-    $class = new \ReflectionClass($className);
-
-    if (!isset(self::$ACLEntityNameArray[$class->getShortName()]))
-    {
-      throw new EntityACLNotRegisteredException(
-        "Can't get ACL for Entity [" . $className . "] as it's not registered in ACLEntityHelper::\$ACLEntityNameArray"
-      );
-    }
-
-    return $class->getShortName();
+    $this->aclProvider = $aclProvider;
   }
+
+  /**
+   * @param mixed $entityManager
+   */
+  public function setEntityManager(EntityManager $entityManager)
+  {
+    $this->entityManager = $entityManager;
+  }
+
+  /**
+   * @param mixed $securityContext
+   */
+  public function setSecurityContext(SecurityContext $securityContext)
+  {
+    $this->securityContext = $securityContext;
+  }
+
+  /**
+   * @param null $id
+   * @return \fibe\SecurityBundle\Entity\User|mixed
+   * @throws \Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException
+   */
+  protected function getUser($id = null)
+  {
+    if ($id)
+    {
+      return $teammate = $this->entityManager->getRepository('fibeSecurityBundle:User')->find($id);
+    }
+    else if (($user = $this->securityContext->getToken()->getUser()) instanceof UserInterface)
+    {
+      return $user;
+    }
+    else
+    {
+      throw new UnauthorizedHttpException('negotiate', 'Authentication_reguired_error');
+    }
+  }
+
   protected function restrictQueryBuilderByConferenceId(QueryBuilder $queryBuilder)
   {
     $queryBuilder->andWhere("entity.mainEvent = " . $this->currentMainEvent->getId());
@@ -224,31 +248,6 @@ class ACLHelper
   protected function throwNotFoundHttpException($repositoryName, $id = null)
   {
     throw new NotFoundHttpException(sprintf(ACLHelper::CANNOT_FIND_ENTITY_LABEL, $repositoryName, $id ? '#' . $id : ''));
-  }
-
-
-  /**
-   * @param mixed $aclProvider
-   */
-  public function setAclProvider(MutableAclProvider $aclProvider)
-  {
-    $this->aclProvider = $aclProvider;
-  }
-
-  /**
-   * @param mixed $entityManager
-   */
-  public function setEntityManager(EntityManager $entityManager)
-  {
-    $this->entityManager = $entityManager;
-  }
-
-  /**
-   * @param mixed $securityContext
-   */
-  public function setSecurityContext(SecurityContext $securityContext)
-  {
-    $this->securityContext = $securityContext;
   }
 }
 
