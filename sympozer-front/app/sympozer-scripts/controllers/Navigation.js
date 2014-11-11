@@ -18,9 +18,9 @@ navigationModule.controller('NavigationController', ['$scope', '$location', '$ti
    */
    var basicMenu = [
     {
-      label: 'Conferences',
+      label: 'Events',
       iconClasses: 'fa fa-calendar',
-      url: '#/' /** @TODO FORZA : TO ALIMENT WITH THE PROPER URL**/
+      url: '#/modules/events/index'
     },
     {
       label: 'Organizations',
