@@ -6,6 +6,7 @@ use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
 use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
 use Symfony\Component\Security\Acl\Exception\AclNotFoundException;
 use Symfony\Component\Security\Acl\Exception\NoAceFoundException;
+use Symfony\Component\Security\Acl\Model\EntryInterface;
 use Symfony\Component\Security\Acl\Model\MutableAclInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
@@ -17,6 +18,8 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
  *  Explaination on the role table
  *     http://symfony.com/fr/doc/current/cookbook/security/acl_advanced.html#table-de-permission-integree
  */
+
+/** @noinspection PhpDocMissingThrowsInspection */
 class ACLEntityHelper extends ACLHelper
 {
   const LINK_WITH = 'MainEvent';
@@ -106,6 +109,40 @@ class ACLEntityHelper extends ACLHelper
    *
    * @return [string|int]       the uppest permission
    */
+
+  /**get the  allowed action in a hierarchical way
+   *
+   * @param mixed $entity the entity to get
+   * @param UserInterface|null $user the current user if null
+   * @param String $returnType all|mask|index|action (all | int binary mask | index of the ace in the acl | readable action i.e. VIEW)
+   * @param null $acl provide acl if you already got it
+   *
+   * @return String VIEW|EDIT|CREATE|DELETE|OPERATOR|OWNER|MASTER
+   */
+  public function getHierarchicalACEByEntity($entity, UserInterface $user = null, $returnType = "action", $acl = null)
+  {
+    try
+    {
+      return $this->getACEByEntity($entity, $user, $returnType, $acl);
+    } catch (\Exception $e)
+    {
+      //other exception than acl/ace not found
+      if (!($e instanceof AclNotFoundException || $e instanceof NoAceFoundException))
+      {
+        throw $e;
+      }
+      //check parent if no permission on child
+      if (null !== $parent = self::getParent($entity))
+      {
+        if (null !== $this->logger)
+        {
+          $this->logger->debug(sprintf('[ACLEntityHelper] ACL not found, looking for parent : %s', get_class($parent)));
+        }
+        return $this->getHierarchicalACEByEntity($parent, $user, $returnType, $acl);
+      }
+    }
+    return null;
+  }
 
   /**
    * filter by conferenceId if the repository != this::LINK_WITH
@@ -242,7 +279,7 @@ class ACLEntityHelper extends ACLHelper
 
   /**get the allowed action
    *
-   * @param mixed $entity the entity to get
+   * @param mixed $entity the entity to get permission on
    * @param UserInterface|null $user the current user if null
    * @param String $returnType all|mask|index|action (all | int binary mask | index of the ace in the acl | readable action i.e. VIEW)
    * @param null $acl provide acl if you already got it
@@ -264,6 +301,7 @@ class ACLEntityHelper extends ACLHelper
     //find the ace for the given user
     foreach ($acl->getObjectAces() as $index => $ace)
     {
+      /**@var $ace EntryInterface */
       if ($ace->getSecurityIdentity()->equals($userSecurityIdentity))
       {
         switch ($returnType)

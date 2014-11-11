@@ -84,6 +84,7 @@ services:
             - [setSecurityContext, ["@security.context"]]
             - [setEntityManager, ["@doctrine.orm.entity_manager"]]
             - [setAclProvider, ["@security.acl.provider"]]
+            - [setLogger, ["@?logger"]]
 
     fibe_security.acl_entity_helper:
         class: fibe\SecurityBundle\Services\ACLEntityHelper

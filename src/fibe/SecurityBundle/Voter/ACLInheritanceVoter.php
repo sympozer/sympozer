@@ -19,6 +19,11 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\VoterInterface;
 use Symfony\Component\Security\Core\Exception\InvalidArgumentException;
 
+/**
+ * Class ACLInheritanceVoter
+ * @see AclVoter
+ * @package fibe\SecurityBundle\Voter
+ */
 class ACLInheritanceVoter implements VoterInterface
 {
   private $aclProvider;
@@ -68,16 +73,11 @@ class ACLInheritanceVoter implements VoterInterface
     //grant access to a main event creation
     if ($entity instanceof MainEvent && $attribute == "CREATE")
     {
-      if (null !== $this->logger)
-      {
-        $this->logger->info(sprintf('[ACLInheritanceVoter][GRANT] Granting access to create a new conference.'));
-      }
+      $this->log('[ACLInheritanceVoter][GRANT] Granting access to create a new conference.');
       return self::ACCESS_GRANTED;
     }
-    if (null !== $this->logger)
-    {
-      $this->logger->info(sprintf('[ACLInheritanceVoter]voting for action => %s on entity => %s', $attribute, get_class($entity)));
-    }
+    $this->log(sprintf('[ACLInheritanceVoter]voting for action => %s on entity => %s', $attribute, get_class($entity)));
+
     $sids = $this->securityIdentityRetrievalStrategy->getSecurityIdentities($token);
     return $this->isGranted($sids, $mask, $entity);
   }
@@ -86,25 +86,24 @@ class ACLInheritanceVoter implements VoterInterface
   {
     try
     {
-      return $this->getACLEntityInfo($class);
+      return ACLHelper::isManaged($class);
     } catch (\RunTimeException $e)
     {
       return false;
     }
   }
 
-  private function getACLEntityInfo($class)
-  {
-    if (!isset(ACLHelper::$ACLEntityNameArray[ACLHelper::getRepositoryNameByClassName($class)]))
-    {
-      return false;
-    }
-    return ACLHelper::$ACLEntityNameArray[ACLHelper::getRepositoryNameByClassName($class)];
-  }
-
   public function supportsAttribute($attribute)
   {
     return $this->permissionMap->getMasks((string) $attribute, null);
+  }
+
+  private function log($message)
+  {
+    if (null !== $this->logger)
+    {
+      $this->logger->info($message);
+    }
   }
 
   private function isGranted($sids, $mask, $entity)
@@ -118,28 +117,23 @@ class ACLInheritanceVoter implements VoterInterface
     if ($entity instanceof ObjectIdentityInterface)
     {
       $oid = $entity;
+//      $this->log('[ACLInheritanceVoter] $entity instanceof ObjectIdentityInterface.');
     }
     else
     {
       $oid = $this->objectIdentityRetrievalStrategy->getObjectIdentity($entity);
+//      $this->log(sprintf('[ACLInheritanceVoter] $entity instanceof ObjectIdentityInterface.'));
     }
-
 
     try
     {
       $acl = $this->aclProvider->findAcl($oid, $sids);
       if ($acl->isGranted($mask, $sids))
       {
-        if (null !== $this->logger)
-        {
-          $this->logger->info(sprintf('[ACLInheritanceVoter][GRANT] ACL found, permission granted.'));
-        }
+        $this->log(sprintf('[ACLInheritanceVoter][GRANT] ACL found, permission granted on %s.', get_class($entity)));
         return self::ACCESS_GRANTED;
       }
-      elseif (null !== $this->logger)
-      {
-        $this->logger->info('[ACLInheritanceVoter][DENY] ACL found, permission denied.');
-      }
+      $this->log('[ACLInheritanceVoter][DENY] ACL found, permission denied.');
       return self::ACCESS_DENIED;
     } catch (\Exception $e)
     {
@@ -149,25 +143,21 @@ class ACLInheritanceVoter implements VoterInterface
         throw $e;
       }
       //check parent if no permission on child
-      $ACLEntityInfo = $this->supportsClass(get_class($entity));
-      if ($ACLEntityInfo && isset($ACLEntityInfo['parent']))
+      if (null !== $parent = ACLHelper::getParent($entity))
       {
-        $parent = call_user_func_array(array($entity, $ACLEntityInfo['parent']), array());
-        if (null !== $this->logger)
-        {
-          $this->logger->info(sprintf('[ACLInheritanceVoter] ACL not found, looking for parent : %s', get_class($parent)));
-        }
+        $this->log(sprintf('[ACLInheritanceVoter] ACL not found, looking for parent : %s', get_class($parent)));
         return $this->isGranted($sids, $mask, $parent);
       }
+//      $ACLEntityInfo = $this->supportsClass(get_class($entity));
+//      if ($ACLEntityInfo && isset($ACLEntityInfo['parent']))
+//      {
+//        $parent = call_user_func_array(array($entity, $ACLEntityInfo['parent']), array());
+//        $this->log(sprintf('[ACLInheritanceVoter] ACL not found, looking for parent : %s', get_class($parent)));
+//        return $this->isGranted($sids, $mask, $parent);
+//      }
       //no more parent
-      elseif (null !== $this->logger)
-      {
-        $this->logger->info('[ACLInheritanceVoter][DENY] ACL not found, no more parent, permission denied.');
-      }
+      $this->log('[ACLInheritanceVoter][DENY] ACL not found, no more parent, permission denied.');
       return self::ACCESS_DENIED;
     }
-    throw new InvalidArgumentException(
-      sprintf('[ACLInheritanceVoter] Failed to resolve permission for %s.', get_class($entity))
-    );
   }
 }

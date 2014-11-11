@@ -45,6 +45,7 @@ class AddACL
     {
       $aclHelper = $this->container->get('fibe_security.acl_user_permission_helper');
       //check if the entity doesn't have a parent in the hierarchy of ACL
+      //TODO what??
       if (!isset(ACLHelper::$ACLEntityNameArray[ACLHelper::getRepositoryNameByClassName(get_class($entity))]['parent']))
       {
 

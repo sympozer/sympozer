@@ -3,6 +3,7 @@ namespace fibe\SecurityBundle\Services;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\QueryBuilder;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Symfony\Component\Security\Acl\Dbal\MutableAclProvider;
@@ -68,10 +69,10 @@ class ACLHelper
       'parent' => 'getMainEvent',
       'classpath' => 'fibe\\ContentBundle\\Entity',
     ),
-    'Person' => array(
-      'parent' => 'getMainEvent',
-      'classpath' => 'fibe\\CommunityBundle\\Entity',
-    ),
+//    'Person' => array(
+//      'parent' => 'getMainEvent',
+//      'classpath' => 'fibe\\CommunityBundle\\Entity',
+//    ),
     'Role' => array(
       'parent' => 'getMainEvent',
       'classpath' => 'fibe\\ContentBundle\\Entity',
@@ -113,9 +114,25 @@ class ACLHelper
   protected $entityManager;
   /** @var MutableAclProvider $aclProvider */
   protected $aclProvider;
+  /** @var LoggerInterface $logger */
+  protected $logger;
 
   /** @var MainEvent $currentMainEvent */
   protected $currentMainEvent;
+
+  /**
+   * @param $entity mixed   the entity to get the parent
+   * @return mixed|null     the parent or null
+   */
+  public static function getParent($entity)
+  {
+    $ACLEntityInfo = self::$ACLEntityNameArray[self::getRepositoryNameByClassName(get_class($entity))];
+    if ($ACLEntityInfo && isset($ACLEntityInfo['parent']))
+    {
+      return $parent = call_user_func_array(array($entity, $ACLEntityInfo['parent']), array());
+    }
+    return null;
+  }
 
   /**
    * @param $className
@@ -136,6 +153,22 @@ class ACLHelper
     return $class->getShortName();
   }
 
+  public static function isManaged($classname)
+  {
+    try
+    {
+      if (isset(ACLHelper::$ACLEntityNameArray[ACLHelper::getRepositoryNameByClassName($classname)]))
+      {
+        return ACLHelper::$ACLEntityNameArray[ACLHelper::getRepositoryNameByClassName($classname)];
+      }
+    } catch (EntityACLNotRegisteredException $e)
+    {
+      //return false if the entity is not managed with acl
+    }
+    return false;
+  }
+
+
   /**
    * @param String $repositoryName registered in the ACLHelper::$ACLEntityNameArray
    *
@@ -155,7 +188,15 @@ class ACLHelper
   }
 
   /**
-   * @param mixed $aclProvider
+   * @param LoggerInterface $logger
+   */
+  public function setLogger($logger)
+  {
+    $this->logger = $logger;
+  }
+
+  /**
+   * @param MutableAclProvider $aclProvider
    */
   public function setAclProvider(MutableAclProvider $aclProvider)
   {
@@ -163,7 +204,7 @@ class ACLHelper
   }
 
   /**
-   * @param mixed $entityManager
+   * @param EntityManager $entityManager
    */
   public function setEntityManager(EntityManager $entityManager)
   {
