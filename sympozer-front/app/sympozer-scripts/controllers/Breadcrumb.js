@@ -117,7 +117,6 @@ breadcrumbModule.controller('breadcrumbController', ['$scope', '$location', func
   };
 
   $scope.breadcrumpArray = getCurrentBreadcrump();
-  console.log($scope.breadcrumpArray);
 }]);
 
 
