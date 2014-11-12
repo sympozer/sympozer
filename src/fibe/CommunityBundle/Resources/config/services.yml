@@ -11,7 +11,7 @@ services:
     fibe.PersonService:
         class:  "%person_service.class%"
         parent: fibe.rest.business_service
-        arguments: ["@security.context", "@fos_user.user_manager", "@fos_user.util.token_generator", "@fibe.mail_manager"]
+        arguments: ["@security.context", "@fos_user.user_manager", "@fos_user.util.token_generator", "@fibe.mail_manager", "@session"]
 
     fibe.OrganizationVersionService:
         class:  "%organization_version_service.class%"

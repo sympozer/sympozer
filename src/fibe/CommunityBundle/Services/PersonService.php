@@ -7,6 +7,7 @@ use fibe\RestBundle\Services\AbstractBusinessService;
 use FOS\UserBundle\Model\UserInterface;
 use FOS\UserBundle\Model\UserManagerInterface;
 use FOS\UserBundle\Util\TokenGeneratorInterface;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 
@@ -21,13 +22,15 @@ class PersonService extends AbstractBusinessService
   protected $userManager;
   protected $tokenGenerator;
   protected $mailer;
+  protected $session;
 
-  public function __construct(SecurityContextInterface $securityContext, UserManagerInterface $userManager, TokenGeneratorInterface $tokenGenerator, MailManager $mailer)
+  public function __construct(SecurityContextInterface $securityContext, UserManagerInterface $userManager, TokenGeneratorInterface $tokenGenerator, MailManager $mailer, SessionInterface $session)
   {
     $this->securityContext = $securityContext;
     $this->userManager = $userManager;
     $this->tokenGenerator = $tokenGenerator;
     $this->mailer = $mailer;
+    $this->session = $session;
   }
 
   /**
@@ -51,8 +54,8 @@ class PersonService extends AbstractBusinessService
     $newUser->setConfirmationToken($this->tokenGenerator->generateToken());
     $person->setUser($newUser);
     $this->userManager->updateUser($newUser);
-    
-    $this->get('session')->set('_locale', 'fr_FR');
+
+    $this->session->set('_locale', 'fr_FR');
     $this->mailer->sendConfirmationEmailMessage($newUser);
   }
 
