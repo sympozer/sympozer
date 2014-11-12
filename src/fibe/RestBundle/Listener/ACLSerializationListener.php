@@ -8,6 +8,7 @@ namespace fibe\RestBundle\Listener;
 
 use fibe\SecurityBundle\Services\ACLEntityHelper;
 use fibe\SecurityBundle\Services\ACLHelper;
+use FOS\UserBundle\Model\UserInterface;
 use JMS\Serializer\EventDispatcher\EventSubscriberInterface;
 use JMS\Serializer\EventDispatcher\ObjectEvent;
 use Psr\Log\LoggerInterface;
@@ -41,7 +42,7 @@ class ACLSerializationListener implements EventSubscriberInterface
   }
 
   /**
-   * Add acl field
+   * serialize acl
    * @param ObjectEvent $event
    */
   public function onPostSerialize(ObjectEvent $event)
@@ -51,7 +52,10 @@ class ACLSerializationListener implements EventSubscriberInterface
 //    if (isset(ACLHelper::$ACLEntityNameArray[ACLHelper::getRepositoryNameByClassName(get_class($object))]))
     {
       $user = $this->securityContext->getToken()->getUser();
-      $event->getVisitor()->addData('acl', $this->aclHelper->getHierarchicalACEByEntity($object, $user));
+      if ($user instanceof UserInterface)
+      {
+        $event->getVisitor()->addData('acl', $this->aclHelper->getHierarchicalACEByEntity($object, $user));
+      }
     }
 //    try
 //    {

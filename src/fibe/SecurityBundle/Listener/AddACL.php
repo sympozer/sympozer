@@ -27,10 +27,12 @@ class AddACL
     $entity = $args->getEntity();
 
     //just add acl for MainEvent and Person
-    if (!($entity instanceof Person) || !($entity instanceof MainEvent))
+    if (!($entity instanceof Person || $entity instanceof MainEvent))
     {
       return;
     }
+
+    $user = null;
 
     $token = $this->container->get('security.context')->getToken();
     if (isset($token))
@@ -42,6 +44,7 @@ class AddACL
       $user = $entity->getUser();
     }
 
+    //should happen when creating a MainEvent and
     if (!($user instanceof UserInterface))
     {
       throw new UnauthorizedHttpException('negotiate', 'You must be logged in');

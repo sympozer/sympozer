@@ -2,10 +2,8 @@
 
 namespace fibe\SecurityBundle\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use fibe\CommunityBundle\Entity\Person;
-use fibe\EventBundle\Entity\MainEvent;
 use FOS\UserBundle\Model\User as BaseUser;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
@@ -25,23 +23,19 @@ class User extends BaseUser
    * @Expose
    */
   protected $id;
-
-
   /**
    * @var string
    * @Type("string")
    * @Expose
    */
   protected $username;
-
   /**
-   * has the user set his own password yet ?
+   * has the user set his password himself ?
    *
    * @ORM\Column(type="boolean")
    * @Expose
    */
   protected $randomPwd;
-
   /**
    * Person
    *
@@ -49,12 +43,13 @@ class User extends BaseUser
    * @Expose
    */
   protected $name;
-
   /**
    * @ORM\Column(name="picture", type="string", length=255, nullable=true)
    * @Expose
    */
   protected $picture;
+  /** @ORM\Column(name="google_id", type="string", length=255, nullable=true) */
+  protected $google_id;
 
 
 
@@ -62,31 +57,20 @@ class User extends BaseUser
    * SOCIAL NETWORK ID
    * @TODO : put it in the table social_service_account
    ************************************/
-
-  /** @ORM\Column(name="google_id", type="string", length=255, nullable=true) */
-  protected $google_id;
-
   /** @ORM\Column(name="google_access_token", type="string", length=255, nullable=true) */
   protected $google_access_token;
-
   /** @ORM\Column(name="twitter_id", type="string", length=255, nullable=true) */
   protected $twitter_id;
-
   /** @ORM\Column(name="twitter_access_token", type="string", length=255, nullable=true) */
   protected $twitter_access_token;
-
   /** @ORM\Column(name="twitter_screen_name", type="string", length=255, nullable=true) */
   protected $twitter_screen_name;
-
   /** @ORM\Column(name="facebook_id", type="string", length=255, nullable=true) */
   protected $facebook_id;
-
   /** @ORM\Column(name="facebook_access_token", type="string", length=255, nullable=true) */
   protected $facebook_access_token;
-
   /** @ORM\Column(name="linkedin_id", type="string", length=255, nullable=true) */
   protected $linkedin_id;
-
   /** @ORM\Column(name="linkedin_access_token", type="string", length=255, nullable=true) */
   protected $linkedin_access_token;
   /**
@@ -103,17 +87,7 @@ class User extends BaseUser
   public function __construct()
   {
     parent::__construct();
-    $this->conferences = new ArrayCollection();
     $this->setRandomPwd(false);
-  }
-
-  /**
-   * has the user set his own password yet ?
-   * @return boolean
-   */
-  public function isRandomPwd()
-  {
-    return $this->randomPwd;
   }
 
   /**
@@ -129,27 +103,12 @@ class User extends BaseUser
   }
 
   /**
-   * Add conferences
-   *
-   * @param MainEvent $conferences
-   *
-   * @return User
+   * has the user set his own password yet ?
+   * @return boolean
    */
-  public function addConference(MainEvent $conferences)
+  public function isRandomPwd()
   {
-    $this->conferences[] = $conferences;
-
-    return $this;
-  }
-
-  /**
-   * Remove conferences
-   *
-   * @param MainEvent $conferences
-   */
-  public function removeConference(MainEvent $conferences)
-  {
-    $this->conferences->removeElement($conferences);
+    return $this->randomPwd;
   }
 
   /**
