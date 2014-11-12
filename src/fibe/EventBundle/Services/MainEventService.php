@@ -155,11 +155,8 @@ class MainEventService extends AbstractBusinessService
     $defaultTeam = new Team();
     $defaultTeam->setMainEvent($mainEvent);
     $mainEvent->setTeam($defaultTeam);
+
     $this->entityManager->persist($defaultTeam);
-
-    //Add conference to current manager
-    $user->addConference($mainEvent);
-
     $this->entityManager->persist($user);
     $this->entityManager->persist($mainEvent);
     $this->entityManager->flush();

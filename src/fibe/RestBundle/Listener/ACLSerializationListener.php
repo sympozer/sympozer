@@ -52,9 +52,9 @@ class ACLSerializationListener implements EventSubscriberInterface
 //    if (isset(ACLHelper::$ACLEntityNameArray[ACLHelper::getRepositoryNameByClassName(get_class($object))]))
     {
       $user = $this->securityContext->getToken()->getUser();
-      if ($user instanceof UserInterface)
+      if ($user instanceof UserInterface && null != $right = $this->aclHelper->getHierarchicalACEByEntity($object, $user))
       {
-        $event->getVisitor()->addData('acl', $this->aclHelper->getHierarchicalACEByEntity($object, $user));
+        $event->getVisitor()->addData('acl', $right);
       }
     }
 //    try

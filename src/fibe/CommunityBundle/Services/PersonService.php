@@ -4,7 +4,6 @@ namespace fibe\CommunityBundle\Services;
 
 use fibe\CommunityBundle\Entity\Person;
 use fibe\RestBundle\Services\AbstractBusinessService;
-use FOS\UserBundle\Model\UserInterface;
 use FOS\UserBundle\Model\UserManagerInterface;
 use FOS\UserBundle\Util\TokenGeneratorInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -34,7 +33,10 @@ class PersonService extends AbstractBusinessService
   }
 
   /**
-   * create an user linked to the person and send a confirmation mail
+   * - create an user linked to the person
+   * - send a confirmation mail
+   * - add the current logged user as "godfather"
+   *
    * @param Person $person
    *
    * @throws \Doctrine\DBAL\DBALException when email or username is already in use
@@ -55,6 +57,9 @@ class PersonService extends AbstractBusinessService
     $person->setUser($newUser);
     $this->userManager->updateUser($newUser);
 
+    //add the current logged user as "godfather"
+    $person->setInvitedBy($this->securityContext->getToken()->getUser()->getPerson());
+
     $this->session->set('_locale', 'fr_FR');
     $this->mailer->sendConfirmationEmailMessage($newUser);
   }
@@ -70,30 +75,15 @@ class PersonService extends AbstractBusinessService
   {
     $user = $person->getUser();
 
-    //nobody but the user himself can change his profile while his account is enabled
-    //TODO : manage this with ACL
-    //TODO : manage this with ACL
-    //!== $this->securityContext->getToken()->getUser()->getId()
-    //()
-    if ($user->isEnabled()
-      && $this->securityContext->getToken()->getUser() instanceof UserInterface
-      && $user->getId() !== $this->securityContext->getToken()->getUser()->getId()
-    )
+    if ($oldMail = $this->isDirty($person, 'email'))
     {
-      throw new AccessDeniedException('This person is linked to a real user account');
-    }
-    else
-    {
-      if ($oldMail = $this->isDirty($person, 'email'))
-      {
-        $user->setEmail($person->getEmail());
-        $this->userManager->updateUser($user);
+      $user->setEmail($person->getEmail());
+      $this->userManager->updateUser($user);
 
-        $user->setConfirmationToken($this->tokenGenerator->generateToken());
-        $this->userManager->updateUser($user);
-        $this->mailer->sendConfirmationEmailMessage($user);
-        //todo : send a mail to the old account to inform that the confirmation link is no longer valid !
-      }
+      $user->setConfirmationToken($this->tokenGenerator->generateToken());
+      $this->userManager->updateUser($user);
+      $this->mailer->sendConfirmationEmailMessage($user);
+      //todo : send a mail to the old account to inform that the confirmation link is no longer valid !
     }
   }
 

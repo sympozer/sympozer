@@ -1,15 +1,13 @@
 <?php
 namespace fibe\SecurityBundle\Services;
 
-use fibe\SecurityBundle\Entity\ConfPermission;
-use fibe\SecurityBundle\Entity\Teammate;
 use FOS\UserBundle\Model\UserInterface;
 use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
 use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
 use Symfony\Component\Security\Acl\Exception\AclNotFoundException;
 use Symfony\Component\Security\Acl\Exception\NoAceFoundException;
+use Symfony\Component\Security\Acl\Model\EntryInterface;
 use Symfony\Component\Security\Acl\Model\MutableAclInterface;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 ;
 
@@ -73,59 +71,59 @@ class ACLUserPermissionHelper extends ACLEntityHelper
 //    return $confPermission;
 //  }
 
-  /**
-   * process Teammate to change all given permissions
-   *    with "checks" on user given in Teammate->getUser()
-   *
-   * @param  Teammate $teammate : user & his permission
-   *
-   * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
-   */
-  public function updateTeammate(Teammate $teammate)
-  {
-    echo "updateTeammate";
-    die;
-    $teammateUser = $teammate->getPerson()->getUser();
-    // cannot demote own permission
-    if ($teammateUser->getId() == $this->getUser()->getId())
-    {
-      throw new AccessDeniedException("You cannot demote yourself.");
-    }
-    // cannot demote the owner of the conference
-    try
-    {
-      if ("OWNER" == $this->getACEByEntity($this->currentMainEvent, $teammateUser))
-      {
-        throw new AccessDeniedException("You cannot demote the owner.");
-      }
-    } catch (NoAceFoundException $e)
-    {
-      //ignore NoAceFoundException : new teammate without ace cannot be found. => go on
-    }
-    foreach ($teammate->getConfPermissions() as $confPermission)
-    {
-      //TODO fix this
-      /** @var ConfPermission $confPermission */
-      $repositoryName = $confPermission->getRepositoryName();
-      $action = $confPermission->getAction();
-      $id = $confPermission->getEntityId();
-
-      //check if update is required
-      try
-      {
-        //TODO fix this
-        $entity = $this->getEntitiesInConf($repositoryName, $id);
-        if ($action == $this->getACEByEntity($entity, $this->getUser()))
-        {
-          continue; // no update required
-        }
-      } catch (NoAceFoundException $e)
-      {
-        //ignore NoAceFoundException : new teammate without ace cannot be found. => go on
-      }
-      $this->performUpdateUserACL($teammate, $action, $entity);
-    }
-  }
+//  /**
+//   * process Teammate to change all given permissions
+//   *    with "checks" on user given in Teammate->getUser()
+//   *
+//   * @param  Teammate $teammate : user & his permission
+//   *
+//   * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
+//   */
+//  public function updateTeammate(Teammate $teammate)
+//  {
+//    echo "updateTeammate";
+//    die;
+//    $teammateUser = $teammate->getPerson()->getUser();
+//    // cannot demote own permission
+//    if ($teammateUser->getId() == $this->getUser()->getId())
+//    {
+//      throw new AccessDeniedException("You cannot demote yourself.");
+//    }
+//    // cannot demote the owner of the conference
+//    try
+//    {
+//      if ("OWNER" == $this->getACEByEntity($this->currentMainEvent, $teammateUser))
+//      {
+//        throw new AccessDeniedException("You cannot demote the owner.");
+//      }
+//    } catch (NoAceFoundException $e)
+//    {
+//      //ignore NoAceFoundException : new teammate without ace cannot be found. => go on
+//    }
+//    foreach ($teammate->getConfPermissions() as $confPermission)
+//    {
+//      //TODO fix this
+//      /** @var ConfPermission $confPermission */
+//      $repositoryName = $confPermission->getRepositoryName();
+//      $action = $confPermission->getAction();
+//      $id = $confPermission->getEntityId();
+//
+//      //check if update is required
+//      try
+//      {
+//        //TODO fix this
+//        $entity = $this->getEntitiesInConf($repositoryName, $id);
+//        if ($action == $this->getACEByEntity($entity, $this->getUser()))
+//        {
+//          continue; // no update required
+//        }
+//      } catch (NoAceFoundException $e)
+//      {
+//        //ignore NoAceFoundException : new teammate without ace cannot be found. => go on
+//      }
+//      $this->performUpdateUserACL($teammate, $action, $entity);
+//    }
+//  }
 
   /**
    * update user acl by entity
@@ -176,7 +174,6 @@ class ACLUserPermissionHelper extends ACLEntityHelper
   {
     try
     {
-      $currentUserRight = $this->getACEByEntity($entity, $user);
       //get the ace index
       $ace = $this->getACEByEntity($entity, $user, "all", $acl);
       //master permission required to update permissions
@@ -198,6 +195,24 @@ class ACLUserPermissionHelper extends ACLEntityHelper
       );
       $this->aclProvider->updateAcl($acl);
     }
+  }
+
+  public function performDeleteUserACL(Userinterface $user, $entity)
+  {
+    // Get all aces and try to get ACE for user to fire
+    $userSecurityIdentity = UserSecurityIdentity::fromAccount($user);
+    $objectIdentity = ObjectIdentity::fromDomainObject($entity);
+    $acl = $this->aclProvider->findAcl($objectIdentity);
+    $aces = $acl->getObjectAces();
+    foreach ($aces as $i => $ace)
+    {
+      /** @var $ace EntryInterface */
+      if ($ace->getSecurityIdentity() == $userSecurityIdentity)
+      {
+        $acl->deleteObjectAce($i);
+      }
+    }
+    $this->aclProvider->updateAcl($acl);
   }
 
 //  /**
