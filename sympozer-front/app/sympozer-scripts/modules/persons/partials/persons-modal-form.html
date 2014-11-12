@@ -1,0 +1,13 @@
+<div class="modal-header">
+    <h3 class="modal-title">{{ 'persons.actions.new' | translate}}</h3>
+</div>
+<div class="modal-body">
+    <form name="personEditForm" class="form" role="form">
+        <div ng-include="GLOBAL_CONFIG.app.modules.persons.urls.partials+'persons-form.html'"></div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" ng-click="create(personEditForm)">{{ 'globals.actions.ok' | translate}}</button>
+    <button class="btn btn-warning" ng-click="cancel()">{{ 'globals.actions.cancel' | translate}}</button>
+</div>
+

@@ -1,0 +1,19 @@
+<!-- Left navigation bar in horizontal mode, displayed below the top nav bar -->
+<nav class="navbar navbar-default ng-hide" role="navigation" ng-show="style_layoutHorizontal">
+  <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+      <i class="fa fa-reorder"></i>
+    </button>
+  </div>
+  <div class="collapse navbar-collapse navbar-ex1-collapse" ng-class="{'large-icons-nav': style_layoutHorizontalLargeIcons}" id="horizontal-navbar">
+    <ul ng-controller="navMainCtrl" id="top-nav" class="nav navbar-nav">
+      <li ng-repeat="item in menu"
+          ng-if="!item.hideOnHorizontal"
+          ng-class="{ hasChild: (item.children!==undefined),
+                                    active: item.selected,
+                                      open: (item.children!==undefined) && item.open }"
+          ng-include="'templates/nav_renderer_horizontal.html'"
+          ></li>
+    </ul>
+  </div>
+</nav>

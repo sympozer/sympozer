@@ -1,0 +1,80 @@
+<div class="well">
+    <div class="row">
+        <div class="col-sm-2 col-md-2 col-lg-2">
+            <div class="img-container-lg">
+
+                <img  class="scale-img" no-image ng-src="{{ mainEvent.logo }}"/>
+                <span editable-text="mainEvent.logo" onbeforesave="updateMainEvent('logo', $data)">{{'change logo'}}</span>
+
+            </div>
+            <p ng-if="mainEvent.country">{{mainEvent.country}}</p>
+        </div>
+        <div class="col-sm-8 col-md-8 col-lg-8">
+            <h3 ><span editable-text="mainEvent.label" onbeforesave="updateMainEvent('label', $data)">{{mainEvent.label}}</span></h3>
+            <a href="#" e-placeholder="description" onbeforesave="updateMainEvent('description', $data)" editable-textarea="mainEvent.description" e-rows="7" e-cols="60">
+                <pre>{{mainEvent.description || 'add a descrption'}}</pre>
+            </a>
+            <span editable-text="mainEvent.url" onbeforesave="updateMainEvent('url', $data)">{{mainEvent.url || 'http://...'}}</span>
+        </div>
+    </div>
+</div>
+</br>
+<div class="row">
+
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+        <h1>{{ 'mainEvents.labels.from' | translate}} :  </h1>
+        <div class="alert alert-danger" role="alert" ng-show="mainEvent.startAt > mainEvent.endAt">{{ 'mainEvents.validations.end_date_after_start' | translate}}</div>
+
+      <datetimepicker style="font-size:15px" data-ng-model="mainEvent.startAt" on-set-time="onSelectStart(newDate, oldDate)" data-datetimepicker-config="{ minView:'day' }"/>
+
+    </div>
+
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+        <h1>{{ 'mainEvents.labels.to' | translate}} :</h1>
+        <div class="alert alert-danger" role="alert" ng-show="mainEvent.startAt > mainEvent.endAt">{{ 'mainEvents.validations.start_date_before_end' | translate}}</div>
+
+      <datetimepicker style="font-size:15px" data-ng-model="mainEvent.endAt" on-set-time="onSelectEnd(newDate, oldDate)"
+                        data-datetimepicker-config="{ minView:'day' }" />
+    </div>
+</div>
+</div>
+
+<div class="row">
+    <div class=" col-md-12 col-lg-12">
+        <leaflet  ng-click="editLocation()" center="center" markers="markers" height="300px" width="100%"></leaflet>
+    </div>
+</div>
+
+<div class="row">
+
+    <div class=" col-md-6 col-lg-6">
+        <div class="row">
+            <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                <h1>{{mainEvent.events.length}} {{ 'events.links.events' | translate}} </h1>
+            </div>
+        </div>
+        <div ng-repeat="event in mainEvent.events | limitTo: 5  track by $index" class="col-sm-6 col-md-6 col-lg-4  well">
+            <i class="fa fa-calendar fa-3x"></i>
+            <h2>{{ event.label }}</h2>
+            <a class="btn btn-default" href="#conference/{{mainEvent.id}}/events/show/{{ event.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>
+        </div>
+    </div>
+
+    <div class=" col-md-6 col-lg-6">
+        <div class="row">
+            <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                <h1>{{mainEvent.papers.length}} {{ 'papers.links.papers' | translate}} </h1>
+            </div>
+        </div>
+        <div ng-repeat="paper in mainEvent.papers | limitTo: 5  track by $index" class="col-sm-6 col-md-6 col-lg-4  well">
+            <i class="fa fa-book fa-3x"></i>
+            <h2>{{ paper.label }}</h2>
+            <a class="btn btn-default" href="#conference/{{mainEvent.id}}/papers/show/{{paper.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>
+        </div>
+    </div>
+
+</div>
+
+<div class="row">
+
+</div>

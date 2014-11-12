@@ -1,0 +1,40 @@
+<!--<div ng-include="GLOBAL_CONFIG.app.modules.organizations.urls.partials+'organizations-actions.html'"></div>-->
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th></th>
+        <th>{{ 'organizations.model.label' | translate}}<i class="fa fa-sort-asc" ng-click="order('label','ASC')"></i><i class="fa fa-sort-desc" ng-click="order('label','DESC')"></i>
+        </th>
+        <th>{{ 'organizations.model.website' | translate}}
+            <i class="fa fa-sort-asc" ng-click="order('website','ASC')"></i><i class="fa fa-sort-desc" ng-click="order('website','DESC')"></i>
+        </th>
+        <th>{{ 'organizations.model.country' | translate}}
+            <i class="fa fa-sort-asc" ng-click="order('country','ASC')"></i><i class="fa fa-sort-desc" ng-click="order('country','DESC')"></i>
+        </th>
+        <th>{{ 'global.actions.actions' | translate}}</th>
+    </tr>
+    </thead>
+    <tbody entity-list-handler="organizations" infinite-scroll='load()' infinite-scroll-disabled='busy' infinite-scroll-distance='0.5'>
+    <tr ng-repeat="organization in entities  track by $index">
+        <td>
+            <div class="img-container-sm">
+                <img class="scale-img img-circle" no-image ng-src="{{ organization.img }}"/>
+            </div>
+        </td>
+        <td>{{ organization.label }}</td>
+        <td>{{ organization.website }}</td>
+        <td>{{ organization.country }}</td>
+        <td>
+            <a class="btn btn-warning" href="#organizations/edit/{{ organization.id }}" role="button"><i class="fa fa-edit fa-1x"></i></a>
+            <a class="btn btn-default" href="#organizations/show/{{ organization.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>
+            <a class="btn btn-primary" href="" data-ng-click="clone(organization, $index)" role="button"><i class="fa fa-files-o fa-1x"></i></a>
+            <button class="btn btn-danger" data-ng-click="deleteModal($index, organization)" role="button">
+                <i class="fa fa-trash-o fa-1x"></i></button>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+
+
+

@@ -1,0 +1,29 @@
+<div ng-include="GLOBAL_CONFIG.app.modules.persons.urls.partials+'persons-actions.html'" ></div>
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>{{ 'persons.model.label' | translate}}<i class="fa fa-sort-asc" ng-click="order('label','ASC')"></i><i class="fa fa-sort-desc" ng-click="order('label','DESC')"></i></th>
+        <th>{{ 'persons.model.website' | translate}}<i class="fa fa-sort-asc" ng-click="order('website','ASC')"></i><i class="fa fa-sort-desc" ng-click="order('website','DESC')"></i></th>
+        <th>{{ 'persons.model.country' | translate}} <i class="fa fa-sort-asc" ng-click="order('country','ASC')"></i><i class="fa fa-sort-desc" ng-click="order('country','DESC')"></i></th>
+        <th>{{ 'global.actions.actions' | translate}}</th>
+    </tr>
+    </thead>
+    <tbody entity-list-handler="persons" infinite-scroll='load()' infinite-scroll-disabled='busy' infinite-scroll-distance='0.5'>
+    <tr ng-repeat="person in entities  track by $index">
+        <td>{{ person.label }}</td>
+        <td>{{ person.website }}</td>
+        <td>{{ person.country }}</td>
+        <td>
+            <a class="btn btn-warning" href="#persons/edit/{{ person.id }}" role="button"><i class="fa fa-edit fa-1x"></i></a>
+            <a class="btn btn-default" href="#persons/show/{{ person.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>
+            <a class="btn btn-primary" href="" data-ng-click="clone(person)" role="button"><i class="fa fa-files-o fa-1x"></i></a>
+            <button class="btn btn-danger" data-ng-click="deleteModal($index, person)" role="button">
+                <i class="fa fa-trash-o fa-1x"></i></button>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+
+
+

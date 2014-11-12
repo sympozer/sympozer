@@ -1,0 +1,38 @@
+<a ng-repeat="socialnetwork in GLOBAL_CONFIG.api.urls.socialnetworks track by $index"
+   ng-if="socialnetwork.can_register"
+   class="btn btn-social btn-{{ socialnetwork.name }}{{ socialnetwork.name == 'google' ? '-plus' : '' }}"
+   href="{{ socialnetwork.urls.login }}">
+    <!--ng-click="socialSignInAction(socialnetwork.url)">-->
+    <i class="fa fa-{{ socialnetwork.name }}{{ socialnetwork.name == 'google' ? '-plus' : '' }}"></i> {{ 'authentication.labels.signin_with' | translate }} {{ socialnetwork.name | titleize }}
+</a>
+<hr/>
+<form name="signupForm" role="form" ng-submit="signupAction(signupForm)" novalidate="">
+  <div class="form-group">
+    <label for="inputUsername">{{ 'authentication.labels.username' | translate }}</label>
+    <input type="text" required="" server-error="serverError" name="username" class="form-control" id="inputUsername" placeholder="{{ 'authentication.labels.username' | translate }}" ng-model="user.username" ng-minlength="3" ng-maxlength="128" required/>
+      <div class="alert alert-danger" role="alert" ng-show="signinForm._username.$error.minlength">{{ 'authentication.validations.username_too_short' | translate }}</div>
+      <div class="alert alert-danger" role="alert" ng-show="signinForm._username.$error.maxlength">{{ 'authentication.validations.username_too_long' | translate }}</div>
+  </div>
+  <div class="form-group">
+    <label for="inputEmail">{{ 'authentication.labels.email' | translate }}</label>
+    <input type="email" class="form-control" server-error="serverError" id="inputEmail" name="mail" placeholder="{{ 'authentication.labels.email' | translate }}" ng-model="user.email" required ng-class="{'ng-dirty': formServerErrors.email, 'ng-valid': !formServerErrors.email,  'ng-invalid': formServerErrors.email}" ng-pattern=/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/>
+  </div>
+  <div class="form-group">
+    <label for="inputPassword">{{ 'authentication.labels.password' | translate }}</label>
+    <input type="password" required="" name="password" id="inputPassword" class="form-control" placeholder="{{ 'authentication.labels.password' | translate }}" ng-model="user.plainPassword.first" ng-minlength="5"
+      ng-maxlength="20" ng-pattern=/(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z].*[a-z].*[a-z])(?=.*[\S])/ required/>
+
+      <div class="alert alert-danger" role="alert" ng-show="signupForm._password.$error.minlength">{{ 'authentication.validations.pwd_too_short' | translate }}</div>
+      <div class="alert alert-danger" role="alert" ng-show="signupForm._password.$error.maxlength">{{ 'authentication.validations.pwd_too_long' | translate }}</div>
+       <div class="alert alert-danger" role="alert" ng-show="signupForm.password.$error.pattern">{{ 'authentication.validations.pwd_not_enough_strength' | translate }}</div>
+  </div>
+  <div class="form-group">
+    <label for="inputPasswordConfirm">{{ 'authentication.labels.pwd_check' | translate }}</label>
+    <input required="" type="password" name="confirmpassword" id="inputPasswordConfirm" class="form-control" placeholder="{{ 'authentication.labels.pwd_check' | translate }}" ng-model="user.plainPassword.second"/>
+    <div class="alert alert-danger" role="alert" ng-show="signupForm.confirmpassword.$dirty && user.plainPassword.first != user.plainPassword.second">{{ 'authentication.validations.pwd_not_match' | translate }}</div>
+  </div>
+
+  <div class="form-group">
+    <button ng-disabled="signupForm.$invalid" type="submit" class="btn btn-default">{{ 'authentication.actions.signup' | translate }}</button>
+  </div>
+</form>

@@ -1,0 +1,25 @@
+<form ng-controller="changePwdCtrl" name="changePwdForm" class="form" role="form" ng-submit="changePwdAction(changePwd)" novalidate="">
+    <div ng-show="!currentUser.random_pwd">
+        <div class="form-group">
+            <label for="inputPassword">{{ 'authentication.labels.current_pwd' | translate }}</label>
+            <input type="password" ng-model="changePwd.current_password" id="inputPassword" name="current_password" placeholder="{{ 'authentication.labels.current_pwd' | translate }}" class="form-control"
+                   required="">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="input_new_password_first">{{ 'authentication.labels.new_pwd' | translate }}</label>
+        <input type="password" ng-model="changePwd.new_password_first" id="input_new_password_first" name="inputNewPasswordFirst" placeholder="{{ 'authentication.labels.new_pwd' | translate }}" class="form-control"
+               required="" ng-minlength="3" ng-maxlength="20"/>
+        <div class="alert alert-danger" role="alert" ng-show="signupForm.password.$error.minlength">{{ 'authentication.validations.pwd_too_short' | translate }}</div>
+        <div class="alert alert-danger" role="alert" ng-show="signupForm.password.$error.maxlength">{{ 'authentication.validations.pwd_too_long' | translate }}</div>
+    </div>
+    <div class="form-group">
+        <label for="input_new_password_second">{{ 'authentication.labels.pwd_verification' | translate }}</label>
+        <input type="password" ng-model="changePwd.new_password_second" id="input_new_password_second" name="inputNewPasswordSecond" placeholder="{{ 'authentication.labels.pwd_check' | translate }}" class="form-control"
+               required="" />
+        <div class="alert alert-danger" role="alert" ng-show="signupForm.confirmpassword.$dirty && changePwd.password != changePwd.confirmpassword">{{ 'authentication.validations.pwd_not_match' | translate }}</div>
+    </div>
+    <div>
+        <button type="submit" class="btn btn-success">{{ 'global.actions.save' | translate }}</button>
+    </div>
+</form>

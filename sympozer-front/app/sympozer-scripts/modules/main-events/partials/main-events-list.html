@@ -1,0 +1,41 @@
+<div ng-include="GLOBAL_CONFIG.app.modules.mainEvents.urls.partials+'main-events-actions.html'"></div>
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>
+        </th>
+        <th>{{ 'mainEvents.model.label' | translate}}<i class="fa fa-sort-asc" ng-click="order('label','ASC')"></i><i class="fa fa-sort-desc" ng-click="order('label','DESC')"></i>
+        </th>
+        <th>{{ 'mainEvents.model.startAt' | translate}}
+            <i class="fa fa-sort-asc" ng-click="order('website','ASC')"></i><i class="fa fa-sort-desc" ng-click="order('website','DESC')"></i>
+        </th>
+        <th>{{ 'mainEvents.model.endAt' | translate}}
+            <i class="fa fa-sort-asc" ng-click="order('country','ASC')"></i><i class="fa fa-sort-desc" ng-click="order('country','DESC')"></i>
+        </th>
+        <th>{{ 'global.actions.actions' | translate}}</th>
+    </tr>
+    </thead>
+    <tbody entity-list-handler="mainEvents" infinite-scroll='load()' infinite-scroll-disabled='busy' infinite-scroll-distance='0.5'>
+    <tr ng-repeat="conference in entities  track by $index">
+        <td>
+            <div class="img-container-sm">
+                <img class="scale-img" no-image ng-src="{{ conference.logo }}"/>
+            </div>
+        </td>
+        <td>{{ conference.label }}</td>
+        <td>{{ conference.start_at }}</td>
+        <td>{{ conference.end_at }}</td>
+        <td>
+            <a class="btn btn-warning" href="#mainEvents/edit/{{ conference.id }}" role="button"><i class="fa fa-edit fa-1x"></i></a>
+            <a class="btn btn-default" href="#mainEvents/show/{{ conference.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>
+            <a class="btn btn-primary" href="" data-ng-click="clone(conference, $index)" role="button"><i class="fa fa-files-o fa-1x"></i></a>
+            <button class="btn btn-danger" data-ng-click="deleteModal($index, conference)" role="button">
+                <i class="fa fa-trash-o fa-1x"></i></button>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+
+
+

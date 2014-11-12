@@ -1,0 +1,31 @@
+<div entity-list-handler="categories">
+    <div ng-include="GLOBAL_CONFIG.app.modules.categories.urls.partials+'categories-actions.html'"></div>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>{{ 'categories.model.label' | translate }}<i class="fa fa-sort-asc" ng-click="order('label','ASC')"></i><i class="fa fa-sort-desc" ng-click="order('label','DESC')"></i></th>
+            <th>{{ 'categories.model.description' | translate }}</th>
+            <th>{{ 'categories.model.color' | translate }}</th>
+        </tr>
+        </thead>
+        <tbody infinite-scroll='load()' infinite-scroll-disabled='busy' infinite-scroll-distance='0.5'>
+        <tr ng-repeat="category in entities  track by $index">
+            <td>{{ category.label }}</td>
+            <td>{{ category.description }}</td>
+            <td>
+                <div style="width:28px;height:28px;border:1px solid #222;background:{{ category.color }}" title="{{ category.color }}">
+                </div>
+            </td>
+            <td>
+                <a class="btn btn-warning" href="#conference/{{currentMainEvent.id}}/categories/edit/{{ category.id }}" role="button"><i class="fa fa-edit fa-1x"></i></a>
+                <a class="btn btn-default" href="#conference/{{currentMainEvent.id}}/categories/show/{{ category.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>
+                <a class="btn btn-primary" href="" data-ng-click="clone(category)" role="button"><i class="fa fa-files-o fa-1x"></i></a>
+                <button class="btn btn-danger" data-ng-click="deleteModal($index, category)" role="button">
+                    <i class="fa fa-trash-o fa-1x"></i></button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+

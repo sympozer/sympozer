@@ -1,0 +1,19 @@
+<div ng-include="GLOBAL_CONFIG.app.modules.equipments.urls.partials+'equipments-actions.html'"></div>
+
+
+<div class="row" entity-list-handler="equipments" infinite-scroll='load()' infinite-scroll-disabled='busy' infinite-scroll-distance='0.5'>
+    <div ng-repeat="equipment in entities  track by $index" class="col-sm-6 col-md-6 col-lg-4 well">
+        <img class="img-circle" no-image src="{{equipment.icon}}" alt="equipment icon" style="width: 140px; height: 140px;">
+
+        <h2>{{ equipment.label }}</h2>
+
+        <p>{{ equipment.description }}</p>
+
+        <a class="btn btn-warning" href="#equipments/edit/{{ equipment.id }}" role="button"><i class="fa fa-edit fa-1x"></i></a>
+        <a class="btn btn-default" href="#equipments/show/{{ equipment.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>
+        <a class="btn btn-primary" href="" data-ng-click="clone(equipment)" role="button"><i class="fa fa-files-o fa-1x"></i></a>
+        <button class="btn btn-danger" data-ng-click="deleteModal($index, equipment)" role="button">
+            <i class="fa fa-trash-o fa-1x"></i></button>
+    </div>
+</div>
+</div>

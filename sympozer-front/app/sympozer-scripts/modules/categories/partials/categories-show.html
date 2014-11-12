@@ -1,0 +1,22 @@
+<div ng-include="GLOBAL_CONFIG.app.modules.categories.urls.partials+'categories-actions.html'" ng-controller="categoriesMainCtrl"></div>
+<div class="well">
+    <div class="row">
+        <div class="col-sm-1 col-md-1 col-lg-1">
+            <div class="img-container-lg">
+                <i class="fa fa-tag fa-5x"></i>
+            </div>
+        </div>
+        <div class="col-sm-4 col-md-4 col-lg-4">
+            <h3>{{category.label || '???'}} <div style="width:28px;height:28px;border:1px solid #222;background:{{ category.color }}" title="{{ category.color }}"></div></h3> 
+            <pre>{{category.description || '????' }}</pre>
+            
+            <a class="btn btn-info" href="#categories/edit/{{category.id}}" role="button">
+                <i class="fa fa-edit fa-1x"></i> {{ 'categories.actions.edit' | translate }}
+            </a>
+        </div>
+    </div>
+</div>
+
+
+
+

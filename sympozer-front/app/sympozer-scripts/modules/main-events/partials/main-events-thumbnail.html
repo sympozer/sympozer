@@ -1,0 +1,29 @@
+<div ng-include="GLOBAL_CONFIG.app.modules.mainEvents.urls.partials+'main-events-actions.html'"></div>
+
+<div class="row" entity-list-handler="mainEvents" infinite-scroll='load()' infinite-scroll-disabled='busy' infinite-scroll-distance='0.5'>
+  <div ng-repeat="conference in entities  track by $index" class="col-sm-6 col-md-6 col-lg-4 well">
+     <div class="img-container-md">
+         <img class="scale-img img-circle" no-image ng-src="{{ conference.logo }}"/>
+     </div>
+
+    <h2>{{conference.label}}</h2>
+
+    <p>{{conference.start_at}}</p>
+
+    <p>{{conference.end_at}}</p>
+
+    <p>{{conference.url}}</p>
+
+    <p>{{conference.description}}</p>
+    <a class="btn btn-warning" href="#mainEvents/edit/{{ conference.id }}" role="button"><i class="fa fa-edit fa-1x"></i></a>
+    <a class="btn btn-default" href="#mainEvents/show/{{ conference.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>
+    <a class="btn btn-primary" href="" data-ng-click="clone(conference)" role="button"><i class="fa fa-files-o fa-1x"></i></a>
+    <button class="btn btn-danger" data-ng-click="deleteModal($index, conference)" role="button">
+      <i class="fa fa-trash-o fa-1x"></i></button>
+  </div>
+</div>
+
+
+
+
+

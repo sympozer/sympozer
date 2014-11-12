@@ -1,0 +1,32 @@
+<!-- Navigation left bar in vertical mode -->
+<nav id="page-leftbar" role="navigation">
+
+    <div>
+        <ul ng-controller="navMainCtrl" id="sidebar" sticky-scroll="40">
+            <li id="search" ng-class="{'keep-open':style_showSearchCollapsed}">
+                <a href=""
+                   ng-class="{blockImportant:style_leftbarCollapsed && !style_showSearchCollapsed}"
+                   ng-click="showSearchBar($event)"
+                        ><i class="fa fa-search opacity-control"></i></a>
+
+                <form ng-show="!style_leftbarCollapsed || style_showSearchCollapsed"
+                      ng-style="{display: style_showSearchCollapsed? 'block':''}"
+                      ng-click="$event.stopPropagation()"
+                      ng-submit="goToSearch()"
+                        >
+                    <input type="text" ng-model="searchQuery" class="search-query" placeholder="Search..."
+                           ng-style="{width: style_showSearchCollapsed? 'auto':''}"
+                            >
+                    <button type="submit" ng-click="goToSearch()"><i class="fa fa-search"></i></button>
+                </form>
+            </li>
+            <li ng-repeat="item in menu"
+                ng-class="{ hasChild: (item.children!==undefined),
+                                    active: item.selected,
+                                      open: (item.children!==undefined) && item.open }"
+                ng-include="'templates/nav_renderer.html'"
+                    ></li>
+        </ul>
+    </div>
+    <!-- END SIDEBAR MENU -->
+</nav>

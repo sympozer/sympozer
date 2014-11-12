@@ -1,0 +1,13 @@
+<div class="modal-header">
+    <h3 class="modal-title">{{ 'roles.actions.new' | translate}}</h3>
+</div>
+<div class="modal-body">
+    <form name="roleEditForm" class="form" role="form">
+        <div ng-include="GLOBAL_CONFIG.app.modules.roles.urls.partials+'roles-form.html'"></div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" ng-click="create(roleEditForm)">{{ 'global.actions.ok' | translate}}</button>
+    <button class="btn btn-warning" ng-click="cancel()">{{ 'global.actions.cancel' | translate}}</button>
+</div>
+

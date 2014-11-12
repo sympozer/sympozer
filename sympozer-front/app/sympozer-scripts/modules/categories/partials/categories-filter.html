@@ -1,0 +1,13 @@
+<ul class="nav nav-pills">
+  <li class="active" ng-repeat="category in categories track by $index">
+    <a href="javascript:void(0)" filter="categoryId" ng-click="addFilter(category.id)">
+      <span class="badge pull-right">{{category.events.length}}</span>
+      {{ category.label }}
+    </a>
+  </li>
+  <li>
+    <a class="btn" href="#conference/{{currentMainEvent.id}}/categories/new/" title="{{ 'categories.actions.add' | translate }}">
+      <i class="fa fa-plus"></i><span class="visible-sm-inline visible-lg-inline visible-md-inline"> New category</span>
+    </a>
+  </li>
+</ul>

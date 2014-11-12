@@ -1,0 +1,16 @@
+<div>
+    <label for="inputLabel">{{ 'categories.model.label' | translate }}</label>
+    <input type="text" class="form-control" id="inputLabel" required placeholder="{{ 'categories.model.label' | translate }}" ng-model="category.label">
+</div>
+<div>
+    <label for="inputDescription">{{ 'categories.model.description' | translate }}</label>
+    <textarea elastic class="form-control" id="inputDescription" placeholder="{{ 'categories.model.description' | translate }}" ng-model="category.description"/>
+</div>
+<div>
+    <label for="inputColor">{{ 'categories.model.color' | translate }}</label>
+    <input colorpicker="hex" class="form-control" style="background-color:{{category.color}}"class="span2" value="" type="text" id="inputColor" placeholder="{{ 'categories.model.color' | translate }}" ng-model="category.color" />
+</div>
+<div>
+    <label for="inputLevel"></label>
+    <input type="hidden" class="form-control" id="inputLevel" placeholder="3" ng-model="category.level">
+</div>

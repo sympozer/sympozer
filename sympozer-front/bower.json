@@ -4,12 +4,12 @@
   "dependencies": {
     "underscore": "~1.5.2",
     "jquery": "~1.11.0",
-    "angular": "~1.2.0",
-    "angular-resource": "~1.2.0",
-    "angular-cookies": "~1.2.0",
-    "angular-sanitize": "~1.2.0",
-    "angular-route": "~1.2.0",
-    "angular-animate": "~1.2.0",
+    "angular": "1.2.5",
+    "angular-resource": "1.2.5",
+    "angular-cookies": "1.2.5",
+    "angular-sanitize": "1.2.5",
+    "angular-route": "1.2.5",
+    "angular-animate": "1.2.5",
     "font-awesome": "~4.0.3",
     "seiyria-bootstrap-slider": "~1.9.0",
     "angular-bootstrap": "0.11.0",
@@ -44,10 +44,20 @@
     "pnotify": "sciactive/pnotify#~2.0.1",
     "json3": "~3.3.2",
     "placeholdr": "*",
-    "iCheck": "~1.0.2"
+    "iCheck": "~1.0.2",
+    "angular-mocks": "1.2.5",
+    "angular-leaflet-directive": "~0.7.9",
+    "leaflet": "~0.7.3",
+    "angular-moment": "~0.8.2",
+    "angular-translate": "~2.4.2",
+    "angularjs-modal-service": "*",
+    "bootstrap-social": "~4.8.0",
+    "bootstrap-tags": "~1.1.5"
   },
   "resolutions": {
-    "jquery": "~1.11.0"
+    "jquery": "~1.11.0",
+    "angular": "1.2.5",
+    "font-awesome": "~4.2"
   },
   "devDependencies": {
     "twbs-bootstrap-sass": "~3.1.1",

@@ -1,0 +1,39 @@
+<div>
+    <label for="inputLabel">{{'locations.model.label' | translate}}</label>
+    <input type="text" class="form-control" id="inputLabel" required placeholder="{{'locations.model.label' | translate}}" ng-model="location.label">
+</div>
+<div>
+    <label for="inputCapacity">{{'locations.model.capacity' | translate}}</label>
+    <input type="number" class="form-control" id="inputCapacity" placeholder="{{'locations.model.capacity' | translate}}" ng-model="location.capacity">
+</div>
+<div>
+    <label for="inputDescription">{{'locations.model.description' | translate}}</label>
+    <textarea elastic class="form-control" id="inputDescription" placeholder="{{'locations.model.description' | translate}}" ng-model="location.description"></textarea>
+</div>
+<div>
+    <label for="inputAccesibility">{{'locations.model.accessibility' | translate}}</label>
+    <textarea elastic class="form-control" id="inputAccesibility" placeholder="{{'locations.model.accessibility' | translate}}" ng-model="location.accesibility"></textarea>
+</div>
+<div class="row">
+    <label>Equipments</label>
+    <ul class="nav nav-pills" ng-show="location.equipments.length > 0">
+           <li ng-repeat="equipment in location.equipments track by $index" class="active">
+                <a ng-click="deleteEquipment($index)">
+                    <i class="fa fa-close"></i>
+                        {{ equipment.label }}
+                        <span class="badge pull-right"><i class="fa fa-{{equipment.icon}} fa-1x"></i></span>
+                </a>
+           </li>
+        </ul>
+    <div sympozer-autocomplete="equipments" on-select="addEquipment" on-keyup="searchEquipments"></div>
+  </div>
+
+
+</div>
+
+<div>
+    <br/>
+    <div class="caption well">
+        <leaflet  center="center" markers="markers" height="300px" width="100%"></leaflet>
+    </div>
+</div>

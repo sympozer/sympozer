@@ -1,0 +1,30 @@
+<div ng-include="GLOBAL_CONFIG.app.modules.equipments.urls.partials+'equipments-actions.html'"></div>
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>{{ 'equipments.model.label' | translate }}</th>
+        <th>{{ 'equipments.model.description' | translate }}</th>
+        <th>{{ 'equipments.model.icon' | translate }}</th>
+    </tr>
+    </thead>
+    <tbody entity-list-handler="equipments" infinite-scroll='load()' infinite-scroll-disabled='busy' infinite-scroll-distance='0.5'>
+    <tr ng-repeat="equipment in entities  track by $index">
+        <td>{{ equipment.label }}</td>
+        <td>{{ equipment.description }}</td>
+        <td>
+            <img class="img-circle" no-image ng-src="{{equipment.icon}}" style="width: 40px; height: 40px;"/>
+        </td>
+        <td>
+            <a class="btn btn-warning" href="#equipments/edit/{{ equipment.id }}" role="button"><i class="fa fa-edit fa-1x"></i></a>
+            <a class="btn btn-default" href="#equipments/show/{{ equipment.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>
+            <a class="btn btn-primary" href="" data-ng-click="clone(equipment)" role="button"><i class="fa fa-files-o fa-1x"></i></a>
+            <button class="btn btn-danger" data-ng-click="deleteModal($index, equipment)" role="button">
+                <i class="fa fa-trash-o fa-1x"></i></button>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+
+
+

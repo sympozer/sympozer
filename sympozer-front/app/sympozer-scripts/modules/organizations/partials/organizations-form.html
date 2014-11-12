@@ -1,0 +1,24 @@
+<div>
+    <label for="inputLabel">{{ 'organizations.model.label' | translate}}</label>
+    <input type="text" class="form-control" id="inputLabel" required placeholder="{{organization.label}}" ng-model="organization.label">
+</div>
+<div>
+    <label for="inputWebsite">{{ 'organizations.model.website' | translate}}</label>
+    <input type="text" class="form-control" id="inputWebsite" placeholder="{{organization.website}}" ng-model="organization.website">
+</div>
+<div class="form-group">
+    <label for="inputCountry">{{ 'organizations.model.country' | translate}}</label>
+    <input type="text" class="form-control" id="inputCountry" placeholder="{{organization.country}}" ng-model="organization.country">
+</div>
+<div class="form-group">
+    <label for="inputImg">{{ 'organizations.model.img' | translate}}</label>
+    <input type="text" class="form-control" id="inputImg" placeholder="{{organization.img}}" ng-model="organization.img">
+</div>
+<div>
+    <label for="inputDescription">{{ 'organizations.model.description' | translate}}</label>
+    <textarea elastic class="form-control" id="inputDescription" placeholder="{{organization.description}}" ng-model="organization.description"></textarea>
+</div>
+
+<!--Owning side of person - organization is person, impossible to add a person to an organization form organization-->
+<!--<div get-or-create="person" parent-entity="organization" parent-field="member" uniq-field="email"></div>-->
+<!--<div get-or-create="sponsor" parent-entity="organization" parent-field="sponsor" uniq-field="email"></div>-->

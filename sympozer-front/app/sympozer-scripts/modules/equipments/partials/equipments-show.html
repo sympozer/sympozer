@@ -1,0 +1,13 @@
+<div ng-include="GLOBAL_CONFIG.app.modules.equipments.urls.partials+'equipments-actions.html'" ng-controller="equipmentsMainCtrl"></div>
+<div class="well">
+  <img class="img-circle" data-src="holder.js/140x140" alt="140x140" src="http://blog.getjobber.com/wp-content/uploads/2013/01/Users-Image.png" style="width: 70px; height: 70px;"/>
+
+  <h3>{{equipment.label}}</h3>
+
+  <p>{{equipment.description}}</p>
+
+  <p><img class="img-circle" no-image ng-src="{{equipment.icon}}" style="width: 40px; height: 40px;"/></p>
+
+  <div style="width:28px;height:28px;border:1px solid #222;background:{{ equipment.color }}" title="{{ equipment.color }}">
+  </div>
+</div>

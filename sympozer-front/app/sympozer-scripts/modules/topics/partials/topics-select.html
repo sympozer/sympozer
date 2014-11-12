@@ -1,0 +1,15 @@
+<input type="text" ng-model="entity" typeahead-template-url="topics-typeahead.html" typeahead-on-select="select($item, $model)"  placeholder="{{ 'topics.actions.search' | translate }}..." typeahead-wait-ms="500" typeahead="entity as entity.label  for entity in keyup($viewValue)"  typeahead-loading="loading"  class="form-control">
+<i ng-show="loading" class="fa fa-spinner fa-spin"></i>
+
+
+<script type="text/ng-template" id="topics-typeahead.html">
+    <div style="width:100%">
+        <span ng-if="!match.model.id">
+            <hr/>
+             <i class="fa fa-plus"></i> {{ 'topics.actions.new' | translate }}...
+         </span>
+        <span ng-if="match.model.id">
+            <span bind-html-unsafe="match.model.label | typeaheadHighlight:query"></span>
+        </span>
+    </div>
+</script>

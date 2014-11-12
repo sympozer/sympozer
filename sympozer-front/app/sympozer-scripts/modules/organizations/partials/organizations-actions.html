@@ -1,0 +1,30 @@
+<div class="row well visible-on">
+    <div class="col-xs-3 col-sm-5 col-md-3 col-lg-2">
+        <a class="btn btn-info" href="#/organizations/new/" title="{{ 'organizations.actions.add' | translate}}">
+            <i class="fa fa-plus"></i><span class="visible-sm-inline visible-lg-inline visible-md-inline"> {{ 'organizations.actions.new' | translate}}</span>
+        </a>
+    </div>
+    <div class="col-xs-3 col-sm-5 col-md-3 col-lg-2">
+        <a class="btn btn-info" href="#/organizations/import/" title="{{ 'organizations.actions.import' | translate}}" disabled="disabled">
+            <i class="fa fa-caret-square-o-down"></i>
+            <span class="visible-sm-inline visible-lg-inline visible-md-inline"> {{ 'organizations.actions.import' | translate}}</span> </a>
+    </div>
+    <div class="col-xs-3 col-sm-5 col-md-3 col-lg-2">
+        <a class="btn btn-info" href="#/organizations/export/" title="{{ 'organizations.actions.export' | translate}}" disabled="disabled">
+            <i class="fa fa-caret-square-o-up"></i><span class="visible-sm-inline visible-lg-inline  visible-md-inline "> {{ 'organizations.actions.export' | translate}} </span></a>
+    </div>
+    <div class="col-xs-3 col-sm-5 col-md-3 col-lg-2">
+        <a class="btn btn-info" href="#/organizations/print/" title="Print organizations" disabled="disabled">
+            <i class="fa fa-print"></i>
+            <span class="visible-sm-inline visible-lg-inline visible-md-inline "> {{ 'organizations.actions.print' | translate}}</span></a>
+    </div>
+    <div class="col-xs-3 col-sm-5 col-md-3 col-lg-2">
+        <input type="text" class="form-control" placeholder="{{ 'organizations.actions.search' | translate}}" ng-change="sendQuery(query)" ng-model="query">
+    </div>
+    <div class="col-xs-7 col-sm-5 col-md-4 col-lg-2">
+        <a class="btn btn-default" href="#organizations/list/" role="button"><i class="fa fa-list fa-1x"></i></a>
+        <a class="btn btn-default" href="#organizations/thumbnail/" role="button"><i class="fa fa-th fa-1x"></i></a>
+    </div>
+
+</div>
+

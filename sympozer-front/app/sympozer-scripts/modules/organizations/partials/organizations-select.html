@@ -1,0 +1,19 @@
+
+<input type="text" ng-model="entity" typeahead-template-url="organizations-typeahead.html" typeahead-on-select="select($item, $model)"  placeholder="{{ 'organizations.actions.search' | translate }}..." typeahead-wait-ms="500" typeahead="entity as entity.label  for entity in keyup($viewValue)"  typeahead-loading="loading"  class="form-control">
+<i ng-show="loading" class="fa fa-spinner fa-spin"></i>
+
+
+<script type="text/ng-template" id="organizations-typeahead.html">
+    <div style="width:100%">
+        <span ng-if="!match.model.id">
+            <hr/>
+            <i class="fa fa-plus"></i> {{ 'organizations.actions.add' | translate}} ...
+         </span>
+        <div ng-if="match.model.id">
+            <div class="img-container-sm inline">
+                <img  class="scale-img" no-image ng-src="{{ match.model.img }}"/>
+            </div>
+            <span bind-html-unsafe="match.model.label | typeaheadHighlight:query"></span>
+        </div>
+    </div>
+</script>

@@ -1,0 +1,27 @@
+<h3>{{ 'roles.model.person' | translate}}</h3>
+<div sympozer-autocomplete="persons" on-select="addPerson" on-keyup="searchPersons"></div>
+<ul class="nav nav-pills">
+    <li class="active" ng-show="role.person">
+        <a href="javascript:void(0)">
+            {{ role.person.label }}
+        </a>
+    </li>
+</ul>
+<h3>{{ 'roles.model.role_label_version' | translate}}</h3>
+<div sympozer-autocomplete="roleLabelVersions" required on-select="addRoleLabel" on-keyup="searchRoleLabels"></div>
+<ul class="nav nav-pills">
+    <li class="active" ng-show="role.roleLabelVersion">
+        <a href="javascript:void(0)">
+           {{ role.roleLabelVersion.label }}
+        </a>
+    </li>
+</ul>
+<h3>{{ 'roles.model.event' | translate}}</h3>
+<div sympozer-autocomplete="events" on-select="addEvent" on-keyup="searchEvents"></div>
+<ul class="nav nav-pills">
+    <li class="active" ng-show="role.event">
+        <a href="javascript:void(0)">
+           {{ role.event.label }}
+        </a>
+    </li>
+</ul>

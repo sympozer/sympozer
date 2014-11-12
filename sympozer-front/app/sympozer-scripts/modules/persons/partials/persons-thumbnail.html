@@ -1,0 +1,24 @@
+<div ng-include="GLOBAL_CONFIG.app.modules.persons.urls.partials+'persons-actions.html'"></div>
+
+<div class="row" entity-list-handler="persons" infinite-scroll='load()' infinite-scroll-disabled='busy' infinite-scroll-distance='0.5'>
+    <div ng-repeat="person in entities  track by $index" class="col-sm-6 col-md-6 col-lg-4 well">
+        <div class="img-container-lg">
+            <img  class="scale-img" no-image ng-src="{{ person.img }}"/>
+        </div>
+        <h2>{{ person.label }}</h2>
+
+        <p>{{ person.website }}</p>
+
+        <p>{{ person.country }}</p>
+        <a class="btn btn-warning" href="#persons/edit/{{ person.id }}" role="button"><i class="fa fa-edit fa-1x"></i></a>
+        <a class="btn btn-default" href="#persons/show/{{ person.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>
+        <a class="btn btn-primary" href="" data-ng-click="clone(person)" role="button"><i class="fa fa-files-o fa-1x"></i></a>
+        <button class="btn btn-danger" data-ng-click="deleteModal($index, person)" role="button">
+            <i class="fa fa-trash-o fa-1x"></i></button>
+    </div>
+</div>
+
+
+
+
+

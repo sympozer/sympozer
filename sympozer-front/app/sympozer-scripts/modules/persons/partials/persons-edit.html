@@ -1,0 +1,88 @@
+<!--<div ng-include="GLOBAL_CONFIG.app.modules.persons.urls.partials+'persons-actions.html'" ng-controller="personsMainCtrl"></div>-->
+
+<div class="well">
+    <div class="row">
+        <div class="col-sm-3 col-md-3 col-lg-3">
+            <div class="img-container-lg">
+                <div ng-click="showAddImg= !showAddImg">
+                    <img  class="scale-img" no-image ng-src="{{ person.img }}"/>
+                    <span ng-show="showAddImg" editable-text="person.img" onbeforesave="updatePerson('img', $data)">{{person.img || ' Add an image'}}</span>
+                </div>
+            </div>
+            <p ng-if="person.country">{{person.country}}</p>
+        </div>
+        <div class="col-sm-8 col-md-8 col-lg-8">
+            <h3 ><span editable-text="person.firstName" onbeforesave="updatePerson('firstName', $data)">{{person.firstName || '???'}}</span><span editable-text="person.familyName" onbeforesave="updatePerson('familyName', $data)"> {{person.familyName || '???'}}</span></h3>
+            <a href="#" e-placeholder="{{ 'persons.model.description' | translate}}" onbeforesave="updatePerson('description', $data)" editable-textarea="person.description" e-rows="7" e-cols="60">
+                <pre>{{person.description || 'add a descrption'}}</pre>
+            </a>
+            <a ng-if="currentUser.person.id === person.id" class="btn btn-info" href="#profile" role="button">
+                <i class="fa fa-edit fa-1x"></i> {{ 'persons.actions.edit_account' | translate}}
+            </a>
+            <a ng-if="currentUser.person.id === person.id" class="btn btn-info" href="#persons/edit/{{person.id}}" role="button">
+                <i class="fa fa-edit fa-1x"></i> {{ 'persons.actions.edit_profile' | translate}}
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6 col-lg-6">
+        <h1>{{ 'persons.labels.contact' | translate}}</h1>
+        <p><i class="fa fa-envelope fa-3x"></i><span editable-email="person.email" onbeforesave="updatePerson('email', $data)">{{person.email || ' ?????'}}</span></p>
+        <p><i class="fa fa-home fa-3x"></i><span editable-url="person.website" onbeforesave="updatePerson('website', $data)">{{person.website || ' ?????'}}</span></p>
+    </div>
+    <div class="col-md-6 col-lg-6">
+        <h1>Social</h1>
+        <p><i class="fa fa-twitter fa-3x"></i> <span  editable-text="person.twitter" onbeforesave="updatePerson('twitter', $data)">{{person.twitter || ' ?????'}}</span></p>
+        <p><i class="fa fa-linkedin fa-3x"></i><span  editable-text="person.linkedIn" onbeforesave="updatePerson('linkedIn', $data)">{{person.linkedIn || ' ?????'}}</span></p>
+        <p><i class="fa fa-facebook fa-3x"></i><span  editable-text="person.facebook" onbeforesave="updatePerson('facebook', $data)">{{person.facebook || ' ?????'}}</span></p>
+    </div>
+</div>
+
+<div class="row">
+
+    <div class=" col-md-6 col-lg-6">
+        <div class="row">
+            <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                <h1>{{ 'organizations.links.organizations' | translate}}</h1>
+            </div>
+            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                <a class="btn btn-primary btn-inline" href="javascript:void(0)" ng-click="showAddOrg = !showAddOrg"><i class="fa fa-plus"></i></a>
+            </div>
+            <div sympozer-autocomplete="organizations" ng-show="showAddOrg" on-select="addOrganization" on-keyup="searchOrganizations"></div>
+        </div>
+        <div ng-repeat="organization in person.organizations  track by $index" class="col-sm-6 col-md-6 col-lg-4  well">
+            <i class="fa fa-users fa-3x"></i>
+            <h2>{{ organization.label }}</h2>
+            <a class="btn btn-default" href="#organizations/show/{{ organization.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>
+            <a class="btn btn-danger" href="javascript:void(0)" ng-click="removeRelationship('organizations', $index)"  role="button"><i class="fa fa-times"></i></a>
+        </div>
+    </div>
+    <div class="col-md-6 col-lg-6">
+        <div class="row">
+            <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                <h1>{{ 'papers.links.papers' | translate}}</h1>
+            </div>
+        </div>
+        <div ng-repeat="paper in person.papers  track by $index" class="col-sm-6 col-md-6 col-lg-4  well">
+            <i class="fa fa-book fa-3x"></i>
+            <h2>{{ paper.label }}</h2>
+            <a class="btn btn-default" href="#conference/{{paper.mainEvent.id}}/papers/show/{{ paper.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-lg-6">
+        <h1>{{ 'events.links.events' | translate}}</h1>
+        <div ng-repeat="role in person.roles  track by $index" class="col-sm-6 col-md-6 col-lg-4  well" ng-if="person.roles">
+            <h2>{{ role.roleLabelVersion.label }} @ </h2>
+            <div class="img-container-sm">
+                <img  class="scale-img img-circle" no-image ng-src="{{ role.mainEvent.logo }}"/>
+            </div>
+            <a class="btn  btn-default" href="#mainEvents/show/{{ role.mainEvent.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>
+        </div>
+    </div>
+</div>

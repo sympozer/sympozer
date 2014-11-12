@@ -1,0 +1,60 @@
+
+<div>
+    <label for="inputLabel">{{ 'papers.model.label' | translate}}</label>
+    <input type="text" class="form-control" id="inputLabel" required placeholder="{{ 'papers.model.label' | translate}}" ng-model="paper.label">
+</div>
+<div>
+    <label for="inputAbstract">{{ 'papers.model.abstract' | translate}}</label>
+    <textarea elastic class="form-control" id="inputAbstract" placeholder="{{ 'papers.model.abstract' | translate}}" ng-model="paper.abstract"></textarea>
+</div>
+<div>
+    <label for="inputUrl">{{ 'papers.model.url' | translate}}</label>
+    <input type="url" class="form-control" id="inputUrl" name="inputUrl" placeholder="http://" ng-model="paper.url">
+</div>
+<div>
+    <label for="inputPublisher">{{ 'papers.model.publisher' | translate}}</label>
+    <input type="text" class="form-control" id="inputPublisher"  placeholder="{{ 'papers.model.publisher' | translate}}" ng-model="paper.publisher">
+</div>
+<div>
+    <label for="inputPublishDate">{{ 'papers.model.publish_date' | translate}}</label>
+    <div class="dropdown">
+        <a class="dropdown-toggle" id="dropdownPublishDate" role="button" data-toggle="dropdown" data-target="#" href="javascript:void(0)">
+            <input type="text"   date-before-now-validator   datetime-format class="form-control" id="inputPublishDate" name="inputPublishDate" placeholder="{{ 'papers.model.publish_date' | translate}}" ng-model="paper.publishDate">
+        </a>
+        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+            <datetimepicker data-ng-model="paper.publishDate" data-datetimepicker-config="{ dropdownSelector: '#dropdown2' }"/>
+        </ul>
+    </div>
+    <div class="alert alert-danger" role="alert" ng-show="paperForm.inputPublishDate.$error.dateBeforeNow" >This publish date is in the futur</div>
+
+</div>
+
+<div class="row">
+    <label>{{ 'topics.links.topics' | translate}}</label>
+    <div sympozer-autocomplete="topics" on-select="addTopic" on-keyup="searchTopics"></div>
+    <ul class="nav nav-pills" ng-show="paper.topics.length > 0">
+        <li ng-repeat="topic in paper.topics track by $index"  class="active">
+            <a ng-click="removeRelationship('topics', $index)" >
+                {{topic.label}}
+               <i class="fa fa-close" ></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+<div class="row">
+    <label>{{ 'papers.model.authors' | translate}}</label>
+    <div sympozer-autocomplete="persons" on-select="addPerson" on-keyup="searchPersons">
+    </div>
+    <div ng-repeat="author in paper.authors track by $index" class="col-sm-4 col-md-4 col-lg-2  well" ng-show="paper.authors">
+        <a ng-click="removeRelationship('authors', $index)" >
+            <i class="fa fa-close" ></i>
+        </a>
+        <div class="img-container-lg">
+            <img  class="scale-img" no-image ng-src="{{ author.img }}"/>
+        </div>
+        <h3>{{ author.label }}</h3>
+        <h4>{{ author.email }}</h4>
+    </div>
+    </div>
+</div>
