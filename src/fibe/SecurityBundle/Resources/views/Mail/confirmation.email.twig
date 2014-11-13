@@ -9,7 +9,7 @@
 
  {{ 'registration_confirmation_mail' | trans }} {{ confirmationUrl }}
 
-  Regards,{{ app.session.locale }}
+  Regards,{{ user.langage }}
   the Symposer team
   {% endautoescape %}
 {% endblock %}

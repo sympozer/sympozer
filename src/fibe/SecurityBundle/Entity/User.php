@@ -44,6 +44,13 @@ class User extends BaseUser
    */
   protected $name;
   /**
+   * Langage
+   *
+   * @ORM\Column(type="string",nullable=true)
+   * @Expose
+   */
+  protected $langage;
+  /**
    * @ORM\Column(name="picture", type="string", length=255, nullable=true)
    * @Expose
    */
