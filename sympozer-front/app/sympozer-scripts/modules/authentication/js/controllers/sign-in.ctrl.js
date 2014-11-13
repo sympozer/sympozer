@@ -5,20 +5,20 @@
  */
 
 angular.module('authenticationApp').controller('signinCtrl',
-    ['$scope', '$rootScope', '$routeParams', 'GLOBAL_CONFIG', 'usersFact', '$location', 'createDialog', '$timeout', function ($scope, $rootScope, $routeParams, GLOBAL_CONFIG, usersFact, $location, createDialogService, $timeout)
+    ['$scope', '$rootScope', '$routeParams', 'GLOBAL_CONFIG', 'usersFact', '$location', '$modal', '$timeout', function ($scope, $rootScope, $routeParams, GLOBAL_CONFIG, usersFact, $location, $modal, $timeout)
     {
 
         $rootScope.currentUser = JSON.parse(localStorage.getItem('currentUser'));
         $scope.user = new usersFact;
 
-        $scope.showLoginPopup = $scope.$root.showLoginPopup = showLoginPopup;
+        $scope.showSigninPopup = $scope.$root.showSigninPopup = showSigninPopup;
         $scope.signinAction = signinAction;
 
-        if (GLOBAL_CONFIG.app.options.shouldLogin)
-        {
-            GLOBAL_CONFIG.app.options.shouldLogin = false;
-            $timeout(showLoginPopup, 1);
-        }
+//        if (GLOBAL_CONFIG.app.options.shouldLogin)
+//        {
+//            GLOBAL_CONFIG.app.options.shouldLogin = false;
+//            $timeout(showLoginPopup, 1);
+//        }
 
         var error = function (response, args)
         {
@@ -35,28 +35,44 @@ angular.module('authenticationApp').controller('signinCtrl',
             $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'Login_success', type: 'success'});
         };
 
-        function showLoginPopup()
+        function showSigninPopup()
         {
-            var dialogCtrlArgs = {
-                scope                : {
-                    signinAction : $scope.signinAction,
-                    GLOBAL_CONFIG: GLOBAL_CONFIG,
-                    user         : $scope.user
-                },
-                formDialogTemplateUrl: GLOBAL_CONFIG.app.modules.authentication.urls.partials + 'signin.html'
-            };
-            var dialogOptions = {
-                id        : 'complexDialog',
-                title     : 'Login',
-                backdrop  : true,
-                controller: 'genericDialogCtrl',
-                success   : {label: 'Ok', fn: $scope.signinAction},
-                cancel    : {label: 'Cancel', fn: function ()
-                {
-                    console.log("login canceled");
-                }}
-            };
-            createDialogService(GLOBAL_CONFIG.app.urls.partials + 'layout/generic-dialog.html', dialogOptions, dialogCtrlArgs);
+
+            var modalInstance = $modal.open({
+                templateUrl: GLOBAL_CONFIG.app.modules.authentication.urls.partials + 'signin.html',
+                controller : 'signinCtrl',
+                size       : "large",
+                resolve    : {
+                }
+            });
+            modalInstance.result.then(function (userForm)
+            {
+                signinAction(userForm);
+            }, function ()
+            {
+                //$log.info('Modal dismissed at: ' + new Date());
+            });
+
+//            var dialogCtrlArgs = {
+//                scope                : {
+//                    signinAction : $scope.signinAction,
+//                    GLOBAL_CONFIG: GLOBAL_CONFIG,
+//                    user         : $scope.user
+//                },
+//                formDialogTemplateUrl: GLOBAL_CONFIG.app.modules.authentication.urls.partials + 'signin.html'
+//            };
+//            var dialogOptions = {
+//                id        : 'complexDialog',
+//                title     : 'Login',
+//                backdrop  : true,
+//                controller: 'genericDialogCtrl',
+//                success   : {label: 'Ok', fn: $scope.signinAction},
+//                cancel    : {label: 'Cancel', fn: function ()
+//                {
+//                    console.log("login canceled");
+//                }}
+//            };
+//            createDialogService(GLOBAL_CONFIG.app.urls.partials + 'layout/generic-dialog.html', dialogOptions, dialogCtrlArgs);
         }
 
         function signinAction(user)

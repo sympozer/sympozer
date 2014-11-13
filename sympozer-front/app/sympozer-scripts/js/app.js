@@ -107,10 +107,12 @@ var sympozerApp = angular.module('sympozerApp', [
     'ngSanitize',
     'ngRoute',
     'ngAnimate',
-/** SYMPOZER GLOBAL CONTROLLERS **/
+/** SYMPOZER APPS **/
 //    'sympozer.breadcrumb-controller',
     'authenticationApp',
     'contextualizationApp',
+    'i18nApp',
+    'pascalprecht.translate'
 //    'organizationsApp',
 //    'personsApp',
 //    'topicsApp',
@@ -122,7 +124,6 @@ var sympozerApp = angular.module('sympozerApp', [
 //    'roleLabelsApp',
 //    'categoriesApp',
 //    'mainEventsApp',
-//    'i18nApp',
 //    'papersApp',
 ]);
 

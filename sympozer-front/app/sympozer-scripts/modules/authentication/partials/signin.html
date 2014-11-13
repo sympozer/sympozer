@@ -1,22 +1,57 @@
-<form name="signinForm" class="form" role="form" ng-submit="$parent.signinAction(user)" novalidate="">
-    <div class="form-group">
-        <label for="inputUsername">{{ 'authentication.labels.username' | translate }}</label>
-        <input required="" type="text" name="_username" class="form-control" id="inputUsername" placeholder="{{ 'authentication.labels.username' | translate }}" ng-model="user.username" ng-minlength="3"
-               ng-maxlength="128" />
+<div class="verticalcenter">
 
+    <div class="modal-header">
+        <a href="#/"><img src="common-assets/img/logo.png" alt="Logo" class="brand"/></a>
     </div>
-    <div class="form-group">
-        <label for="inputPassword">{{ 'authentication.labels.password' | translate }}</label>
-        <input required="" type="password" name="_password" class="form-control" id="inputPassword" placeholder="{{ 'authentication.labels.password' | translate }}" ng-model="user.password"/>
+
+    <div class="modal-body">
+        <h4 class="text-center" style="margin-bottom: 25px;">{{ 'authentication.labels.signin_get_started' | translate }}
+            <a href="" ng-click="showSignupPopup()" ng-controller="signupCtrl">{{ 'authentication.actions.signup' | translate }}</a></h4>
+        <form name="signinForm" class="form-horizontal" role="form" ng-submit="signinAction(user)" novalidate="">
+
+            <div class="form-group">
+                <div class="col-sm-12">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                        <input required="" type="text" name="_username" class="form-control" id="inputUsername" placeholder="{{ 'authentication.labels.username' | translate }}" ng-model="user.username" ng-minlength="3"
+                               ng-maxlength="128" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-12">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                        <input required="" type="password" name="_password" class="form-control" id="inputPassword" placeholder="{{ 'authentication.labels.password' | translate }}" ng-model="user.password"/>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix">
+                <div class="pull-right">
+                    <label><input type="checkbox" style="margin-bottom: 20px" checked=""> {{ 'authentication.labels.remember_me' | translate }} - </label>
+                    <a ng-click="$modalCancel()" href="#/forgotten_password">{{ 'authentication.labels.forgotten_pwd' | translate }}</a>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="text-center">
+                    <p class="block">{{ 'global.labels.or' | translate }}</p>
+                    <button class="btn btn-social btn-label btn-twitter" style="margin-bottom: 10px;">
+                        <i class="fa fa-twitter"></i> {{ 'authentication.labels.signin_with' | translate }} Twitter
+                    </button>
+                    <button class="btn btn-social btn-label btn-facebook"><i class="fa fa-facebook"></i> {{ 'authentication.labels.signin_with' | translate }} Facebook
+                    </button>
+
+                </div>
+            </div>
+
+
+        </form>
     </div>
-    <div class="form-group">
-        <span><a ng-click="$modalCancel()" href="#/forgotten_password">{{ 'authentication.labels.forgotten_pwd' | translate }}</a></span>
+    <div class="modal-footer">
+        <div class="pull-right">
+            <a href="" class="btn btn-default" ng-click="$dismiss('cancel')">{{ 'global.actions.cancel' | translate }}</a>
+            <a href="" class="btn btn-primary" ng-disabled="signinForm.$invalid"  ng-click="signinAction(signinForm)">{{ 'global.actions.ok' | translate }}</a>
+        </div>
     </div>
-    <a ng-repeat="socialnetwork in GLOBAL_CONFIG.api.urls.socialnetworks track by $index"
-       ng-if="socialnetwork.can_register"
-       class="btn btn-social btn-{{ socialnetwork.name }}{{ socialnetwork.name == 'google' ? '-plus' : '' }}"
-       href="{{ socialnetwork.urls.login }}">
-        <!--ng-click="socialSignInAction(socialnetwork.url)">-->
-        <i class="fa fa-{{ socialnetwork.name }}{{ socialnetwork.name == 'google' ? '-plus' : '' }}"></i> {{ 'authentication.labels.signin_with' | translate }} {{ socialnetwork.name | titleize }}
-    </a>
-</form>
+</div>

@@ -9,7 +9,7 @@
 
     <ul class="nav navbar-nav pull-right toolbar">
         <li class="dropdown" ng-show="!isLoggedIn">
-            <a href="#/extras-login2" style="font-size: 14px"><i class="fa fa-sign-in"></i> Log in</a>
+            <a href="" ng-click="showSigninPopup()" ng-controller="signinCtrl" style="font-size: 14px"><i class="fa fa-sign-in"></i> {{ 'authentication.actions.signin' | translate }}</a>
         </li>
         <li class="dropdown" ng-show="isLoggedIn">
             <a href="#" class="dropdown-toggle username"><span class="hidden-xs">Matt Smith</span><img src="forza-assets/demo/avatar/dangerfield.png" alt="Dangerfield"/></a>
@@ -20,9 +20,9 @@
                         <li><a href="#">Account <i class="pull-right fa fa-fw fa-user"></i></a></li>
                         <li><a href="#">Settings <i class="pull-right fa fa-fw fa-cog"></i></a></li>
                         <li class="divider"></li>
-                        <li><a href="#">Earnings <i class="pull-right fa fa-fw fa-dollar"></i></a></li>
-                        <li><a href="#">Statement <i class="pull-right fa fa-fw fa-bars"></i></a></li>
-                        <li><a href="#">Withdrawals <i class="pull-right fa fa-fw fa-credit-card"></i></a></li>
+                        <li><a href="#">Events <i class="pull-right fa fa-fw fa-calendar"></i></a></li>
+                        <li><a href="#">Tickets <i class="pull-right fa fa-fw fa-ticket"></i></a></li>
+                        <li><a href="#">Recommandations<i class="pull-right fa fa-fw fa-thumbs-o-up"></i></a></li>
                         <li class="divider"></li>
                         <li><a href="" class="text-right" ng-click="logOut()">Sign Out</a></li>
                     </ul>

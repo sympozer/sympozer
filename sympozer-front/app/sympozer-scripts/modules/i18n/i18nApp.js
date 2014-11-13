@@ -29,6 +29,9 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 ok : 'Ok',
                 cancel : 'Cancel',
                 details : 'View details &raquo;'
+            },
+            labels : {
+                or : 'Or'
             }
         },
 
@@ -91,7 +94,8 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 password : 'Password',
                 email : 'Email',
                 profile : 'Profile',
-                forgotten_pwd : 'Forgotten password',
+                forgotten_pwd : 'Forgotten password ?',
+                remember_me : 'Remember me ',
                 current_pwd : 'Current password',
                 change_pwd : 'Change my password',
                 new_pwd : 'New password',
@@ -101,7 +105,10 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 enrich_with : 'Enrich profile with ',
                 enrich_profile : 'Enrich your profile ',
                 signin_with : 'Sign in with ',
+                signin_get_started : 'Sign In to get started or ',
                 account : 'Account',
+                agreement: 'User Agreement',
+                agreement_acceptance: 'I accept the ',
                 username_or_email : 'Username or email'
 
             }
@@ -518,6 +525,9 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 ok : 'Ok',
                 cancel : 'Annuler',
                 details : 'Détails &raquo;'
+            },
+            labels : {
+                or : 'Ou'
             }
         },
 
@@ -581,6 +591,7 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 email : 'Email',
                 profile : 'Profile',
                 forgotten_pwd : 'Mot de passe oublié ?',
+                remember_me : 'Se souvenir de moi ',
                 current_pwd : 'Votre mot de passe',
                 change_pwd : 'Changer mon mot de passe',
                 new_pwd : 'Nouveau mot de passe',
@@ -590,7 +601,10 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 enrich_with : 'Enrichir mon profile avec',
                 enrich_profile : 'Enrichir mon profile avec',
                 signin_with : 'Connexion avec ',
+                signin_get_started : 'Se connecter ou ',
                 account : 'Compte',
+                agreement: 'Convention d\'utilisation',
+                agreement_acceptance: 'J\'accepte les termes',
                 username_or_email : 'Nom d\'utilisateur ou email'
 
             }
