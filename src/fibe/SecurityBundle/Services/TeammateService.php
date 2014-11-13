@@ -3,6 +3,7 @@ namespace fibe\SecurityBundle\Services;
 
 use fibe\RestBundle\Services\AbstractBusinessService;
 use fibe\SecurityBundle\Entity\Teammate;
+use Symfony\Component\Security\Acl\Permission\MaskBuilder;
 
 /**
  *
@@ -10,6 +11,7 @@ use fibe\SecurityBundle\Entity\Teammate;
  */
 class TeammateService extends AbstractBusinessService
 {
+
   protected $aclEntityHelper;
 
   function __construct(ACLUserPermissionHelper $aclEntityHelper)
@@ -19,23 +21,26 @@ class TeammateService extends AbstractBusinessService
 
   public function post(Teammate $teammate)
   {
-//    $this->aclEntityHelper->getPermissionForTeammate($teammate);
-//    $this->aclEntityHelper->updateTeammate($teammate);
-//
-//    $this->entityManager->flush();
+    $this->aclEntityHelper->performUpdateUserACL($teammate->getPerson()->getUser(), MaskBuilder::MASK_MASTER, $teammate->getTeam()->getMainEvent());
 
     return $teammate;
   }
 
   public function put(Teammate $teammate)
   {
-    //TODO ; modify acl
+    $this->aclEntityHelper->performUpdateUserACL($teammate->getPerson()->getUser(), MaskBuilder::MASK_MASTER, $teammate->getTeam()->getMainEvent());
     return $teammate;
   }
 
   public function patch(Teammate $teammate)
   {
     //TODO ; modify acl
+    return $teammate;
+  }
+
+  public function delete(Teammate $teammate)
+  {
+    $this->aclEntityHelper->performDeleteUserACL($teammate->getPerson()->getUser(), $teammate->getTeam()->getMainEvent());
     return $teammate;
   }
 }

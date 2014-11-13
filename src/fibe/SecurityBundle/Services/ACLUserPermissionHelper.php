@@ -126,8 +126,8 @@ class ACLUserPermissionHelper extends ACLEntityHelper
 //  }
 
   /**
-   * update user acl by entity
-   *   /!\ doesn't check owner demoting and own permission change, see updateTeammate for those requirment check
+   * update user acl by entity<br/>
+   *   /!\ doesn't check any right
    * @param \FOS\UserBundle\Model\UserInterface $user
    * @param $action
    * @param $entity
