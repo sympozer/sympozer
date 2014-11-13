@@ -1,83 +1,65 @@
 /**
  * Sign in controller
- *
+ * Handles the signin process of a user
  * @type {controller}
  */
 
 angular.module('authenticationApp').controller('signinCtrl',
-    ['$scope', '$rootScope', '$routeParams', 'GLOBAL_CONFIG', 'usersFact', '$location', '$modal', '$timeout', function ($scope, $rootScope, $routeParams, GLOBAL_CONFIG, usersFact, $location, $modal, $timeout)
+    ['$scope', '$rootScope', '$routeParams', 'GLOBAL_CONFIG', 'usersFact', '$location', '$modal', '$timeout', 'pinesNotifications', 'translateFilter', 'authenticationFact', function ($scope, $rootScope, $routeParams, GLOBAL_CONFIG, usersFact, $location, $modal, $timeout, pinesNotifications, translateFilter, authenticationFact)
     {
-
+        //
         $rootScope.currentUser = JSON.parse(localStorage.getItem('currentUser'));
         $scope.user = new usersFact;
 
-        $scope.showSigninPopup = $scope.$root.showSigninPopup = showSigninPopup;
-        $scope.signinAction = signinAction;
-
-//        if (GLOBAL_CONFIG.app.options.shouldLogin)
-//        {
-//            GLOBAL_CONFIG.app.options.shouldLogin = false;
-//            $timeout(showLoginPopup, 1);
-//        }
 
         var error = function (response, args)
         {
-            $scope.busy = false;
-            showLoginPopup();
+            //Notify of the signin action error
+            pinesNotifications.notify({
+                title: translateFilter('global.validations.error'),
+                text: translateFilter('authentication.validations.signin_error'),
+                type: 'error'
+            });
         };
 
-        var success = function (response, args)
+        var success = function (user)
         {
-            $scope.busy = false;
-            $scope.user = response;
-            $rootScope.currentUser = response;
-            localStorage.setItem('currentUser', JSON.stringify(response));
-            $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'Login_success', type: 'success'});
+            $scope.user = user;
+
+            //Modify current user
+            authenticationFact.addUser(user);
+
+            //Notify of the signin action success
+            pinesNotifications.notify({
+                title: translateFilter('global.validations.success'),
+                text: translateFilter('authentication.validations.signin_success'),
+                type: 'success'
+            });
+
+            //Close modal
+            if($scope.$close){
+                $scope.$close();
+            }
         };
 
-        function showSigninPopup()
+        //Manage the signin modal
+        $scope.showSigninPopup = function ()
         {
-
+            //Open signin modal
             var modalInstance = $modal.open({
                 templateUrl: GLOBAL_CONFIG.app.modules.authentication.urls.partials + 'signin.html',
                 controller : 'signinCtrl',
-                size       : "large",
-                resolve    : {
-                }
+                size       : "large"
             });
-            modalInstance.result.then(function (userForm)
-            {
-                signinAction(userForm);
-            }, function ()
-            {
-                //$log.info('Modal dismissed at: ' + new Date());
-            });
-
-//            var dialogCtrlArgs = {
-//                scope                : {
-//                    signinAction : $scope.signinAction,
-//                    GLOBAL_CONFIG: GLOBAL_CONFIG,
-//                    user         : $scope.user
-//                },
-//                formDialogTemplateUrl: GLOBAL_CONFIG.app.modules.authentication.urls.partials + 'signin.html'
-//            };
-//            var dialogOptions = {
-//                id        : 'complexDialog',
-//                title     : 'Login',
-//                backdrop  : true,
-//                controller: 'genericDialogCtrl',
-//                success   : {label: 'Ok', fn: $scope.signinAction},
-//                cancel    : {label: 'Cancel', fn: function ()
-//                {
-//                    console.log("login canceled");
-//                }}
-//            };
-//            createDialogService(GLOBAL_CONFIG.app.urls.partials + 'layout/generic-dialog.html', dialogOptions, dialogCtrlArgs);
         }
 
-        function signinAction(user)
+        //Send signin request with signin form information
+        $scope.signinAction = function(user)
         {
-            $scope.busy = true;
-            usersFact.signin({}, {"_username": $scope.user.username, "_password": $scope.user.password}, success, error);
+            /*
+             * @TODO : restore backend communication
+             */
+            //usersFact.signin({}, {"_username": $scope.user.username, "_password": $scope.user.password}, success, error);
+            success({id:1, label:'anakin'});
         };
     }]);

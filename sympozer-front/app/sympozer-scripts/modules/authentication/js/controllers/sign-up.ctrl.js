@@ -4,14 +4,12 @@
  * @type {controller}
  */
 angular.module('authenticationApp').controller('signupCtrl',
-    ['$scope', '$rootScope', '$location', '$routeParams', 'GLOBAL_CONFIG', 'usersFact', 'formValidation', '$modal', function ($scope, $rootScope, $location, $routeParams, GLOBAL_CONFIG, usersFact, formValidation, $modal)
+    ['$scope', '$rootScope', 'GLOBAL_CONFIG', '$location', '$routeParams', 'translateFilter', 'usersFact', 'formValidation', '$modal', 'authenticationFact', 'pinesNotifications', function ($scope, $rootScope, GLOBAL_CONFIG, $location, $routeParams, translateFilter, usersFact, formValidation, $modal, authenticationFact, pinesNotifications)
     {
-        $scope.GLOBAL_CONFIG = GLOBAL_CONFIG;
         $scope.user = {};
 
         var error = function (response, args)
         {
-            $scope.busy = false;
 
             if("Validation Failed" == response.data.message)
             {
@@ -19,18 +17,33 @@ angular.module('authenticationApp').controller('signupCtrl',
             }
             else
             {
-                $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'authentication.validations.signup_error', type: 'danger'});
+                //Notify of the signin action error
+                pinesNotifications.notify({
+                    title: translateFilter('global.validations.error'),
+                    text: translateFilter('authentication.validations.signup_error'),
+                    type: 'error'
+                });
             }
         };
-        var success = function (response, args)
+        var success = function (user, args)
         {
-            $scope.busy = false;
-            $scope.user = response;
-            $rootScope.currentUser = response;
-            $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'authentication.validations.signup_success', type: 'success'});
+            //Notify of the signin action error
+            pinesNotifications.notify({
+                title: translateFilter('global.validations.success'),
+                text: translateFilter('authentication.validations.signup_success'),
+                type: 'success'
+            });
+
+            //Close modal
+            if($scope.$close){
+                $scope.$close();
+            }
+
+            //Go back to index
             $location.path('/');
         }
 
+        //Manage signup popup
         $scope.showSignupPopup = function() {
             var modalInstance = $modal.open({
                 templateUrl: GLOBAL_CONFIG.app.modules.authentication.urls.partials + 'signup.html',
@@ -39,19 +52,20 @@ angular.module('authenticationApp').controller('signupCtrl',
                 resolve: {
                 }
             });
-            modalInstance.result.then(function (userForm) {
-                $scope.signupAction(userForm);
-            }, function () {
-                //$log.info('Modal dismissed at: ' + new Date());
-            });
         }
 
+        //Send signup request
         $scope.signupAction = function (signupForm)
         {
-            usersFact.signup({fos_user_registration_form: signupForm}, success, error);
+            /*
+             * @TODO : restore backend communication
+             */
+            //usersFact.signup({fos_user_registration_form: signupForm}, success, error);
+            success({id:1, label:'luke'});
         }
 
 
+        //Manage user agreement popup with sympozer conditon and termes
         $scope.showUserAgreementPopup = function() {
             var modalInstance = $modal.open({
                 templateUrl: GLOBAL_CONFIG.app.modules.authentication.urls.partials + 'agreement.html',

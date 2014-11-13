@@ -34,6 +34,10 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
             },
             labels : {
                 or : 'Or'
+            },
+            validations :{
+                error : 'Error',
+                success : 'Success'
             }
         },
 
@@ -533,6 +537,10 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
             },
             labels : {
                 or : 'Ou'
+            },
+            validations :{
+                error : 'Erreur',
+                success : 'Success'
             }
         },
 

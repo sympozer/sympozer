@@ -14,14 +14,14 @@ angular.module('authenticationApp')
 //          templateUrl: globalConfig.app.modules.authentication.urls.partials + 'signin.html',
 //          controller: 'signinCtrl'
 //        })
-        .when('/signup', {
-          templateUrl: globalConfig.app.modules.authentication.urls.partials + 'signup.html',
-          controller: 'signupCtrl'
-        })
-        .when('/signout', {
-          templateUrl: globalConfig.app.modules.authentication.urls.partials + 'signout.html',
-          controller: 'signoutCtrl'
-        })
+//        .when('/signup', {
+//          templateUrl: globalConfig.app.modules.authentication.urls.partials + 'signup.html',
+//          controller: 'signupCtrl'
+//        })
+//        .when('/signout', {
+//          templateUrl: globalConfig.app.modules.authentication.urls.partials + 'signout.html',
+//          controller: 'signoutCtrl'
+//        })
         .when('/profile', {
           templateUrl: globalConfig.app.modules.authentication.urls.partials + 'profile.html',
           controller: 'profileCtrl'

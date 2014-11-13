@@ -17,7 +17,7 @@
             <ul class="dropdown-menu userinfo arrow">
                 <li class="userlinks">
                     <ul class="dropdown-menu">
-                        <li><a href="#">Edit Profile <i class="pull-right fa fa-fw fa-pencil"></i></a></li>
+                        <li><a href="#/profile">Edit Profile <i class="pull-right fa fa-fw fa-pencil"></i></a></li>
                         <li><a href="#">Account <i class="pull-right fa fa-fw fa-user"></i></a></li>
                         <li><a href="#">Settings <i class="pull-right fa fa-fw fa-cog"></i></a></li>
                         <li class="divider"></li>
@@ -25,7 +25,7 @@
                         <li><a href="#">Tickets <i class="pull-right fa fa-fw fa-ticket"></i></a></li>
                         <li><a href="#">Recommandations<i class="pull-right fa fa-fw fa-thumbs-o-up"></i></a></li>
                         <li class="divider"></li>
-                        <li><a href="" class="text-right" ng-click="logOut()">Sign Out</a></li>
+                        <li><a href="" class="text-right" ng-controller="signoutCtrl" ng-click="signoutAction()">{{ 'authentication.actions.signout' | translate }}</a></li>
                     </ul>
                 </li>
             </ul>

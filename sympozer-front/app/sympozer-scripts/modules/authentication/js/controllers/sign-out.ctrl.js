@@ -4,28 +4,39 @@
  * @type {controller}
  */
 angular.module('authenticationApp').controller('signoutCtrl',
-    ['$scope', '$rootScope', '$window', '$routeParams', 'GLOBAL_CONFIG', '$cookieStore', '$location', 'usersFact', function ($scope, $rootScope, $window, $routeParams, GLOBAL_CONFIG, $cookieStore, $location, usersFact)
+    ['$scope', '$rootScope', '$window', '$routeParams', 'pinesNotifications', '$cookieStore', '$location', 'usersFact', 'authenticationFact', 'translateFilter', function ($scope, $rootScope, $window, $routeParams, pinesNotifications, $cookieStore, $location, usersFact, authenticationFact, translateFilter)
     {
-        $scope.GLOBAL_CONFIG = GLOBAL_CONFIG;
 
-        $scope.$on('globalHttpInterceptor:401', $rootScope.logout);
         var error = function (response, args)
         {
-            $scope.busy = false;
-            $scope.$root.$broadcast('AlertCtrl:addAlert', {code: response.data.error, type: 'danger'});
+            //Notify of the signout action error
+            pinesNotifications.notify({
+                title: translateFilter('global.validations.error'),
+                text: translateFilter('response.data.error'),
+                type: 'error'
+            });
         }
 
         var success = function (response, args)
         {
-            $scope.busy = false;
-            localStorage.removeItem('currentUser');
-            $rootScope.currentUser = {};
-            //$window.history.back();
-            $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'signout_success', type: 'success'});
+            //Clear user from local storage and rootscope
+            authenticationFact.removeUser();
+
+            //Notify of the signout action success
+            pinesNotifications.notify({
+                title: translateFilter('global.validations.success'),
+                text: translateFilter('authentication.validations.signout_success'),
+                type: 'success'
+            });
         }
 
-        $rootScope.signout = function ()
+        //Send signout request
+        $scope.signoutAction = function ()
         {
-            usersFact.signout({}, success, error);
+            /*
+             * @TODO : restore backend communication
+             */
+            //usersFact.signout({}, success, error);
+            success();
         }
     }]);

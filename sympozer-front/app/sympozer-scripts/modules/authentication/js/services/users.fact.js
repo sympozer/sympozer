@@ -10,8 +10,7 @@
  *
  * @type {factory}
  */
-angular.module('authenticationApp').factory('usersFact',
-    ['$resource', function ($resource)
+angular.module('authenticationApp').factory('usersFact', ['$resource', function ($resource)
     {
         return $resource(
             globalConfig.api.urls.login,
