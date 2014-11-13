@@ -60,7 +60,7 @@ class PersonService extends AbstractBusinessService
     //add the current logged user as "godfather"
     $person->setInvitedBy($this->securityContext->getToken()->getUser()->getPerson());
 
-    $this->session->set('_locale', 'fr_FR');
+    $this->get('session')->set('_locale', $this->securityContext->getToken()->getUser()->getLangage());
     $this->mailer->sendConfirmationEmailMessage($newUser);
   }
 
