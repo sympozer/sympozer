@@ -18,12 +18,12 @@ sympozerApp.controller('breadcrumbCtrl', ['$scope', '$location', function ($scop
   var breadcrumpDefinitions = [
     {
       idUrl: 'modules',
-      label: 'Home',
+      label: 'navleft.home',
       url: '#/',
       children: [
         {
           idUrl: 'events',
-          label: 'Events',
+          label: 'events.links.events',
           children: [
             {
               idUrl: 'index',

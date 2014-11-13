@@ -36,4 +36,5 @@ sympozerApp.controller('navTopCtrl', ['$scope', '$rootScope', '$global', functio
         $global.set('rightbarCollapsed', !$scope.style_rightbarCollapsed);
     };
 
+
 }]);

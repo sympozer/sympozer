@@ -24,7 +24,7 @@
                 ng-class="{ hasChild: (item.children!==undefined),
                                     active: item.selected,
                                       open: (item.children!==undefined) && item.open }"
-                ng-include="'templates/nav_renderer.html'"
+                ng-include="GLOBAL_CONFIG.app.urls.partials+'navigation/nav-left-items-vertical.html'"
                     ></li>
         </ul>
     </div>

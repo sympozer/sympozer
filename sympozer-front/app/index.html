@@ -384,6 +384,7 @@ less.env = 'development';</script>
 
 <!-- SYMPOZER I18N APP -->
 <script src="sympozer-scripts/modules/i18n/i18nApp.js"></script>
+<script src="sympozer-scripts/modules/i18n/controllers/translate.ctrl.js"></script>
 
 <!-- endbuild -->
         <!-- basic client app context definition (just mocking the file) -->
@@ -425,9 +426,9 @@ less.env = 'development';</script>
                         app: {
 
                             urls: {
-                                base: "{{ asset('bundles/frontend/app/') }}",
-                                partials: "{{ asset('bundles/frontend/app/partials/') }}",
-                                img: "{{ asset('bundles/frontend/app/img/') }}"
+                                base: "sympozer-assets",
+                                partials: "sympozer-scripts/partials/",
+                                img: "sympozer-assets/img/"
                             },
                             modules: {
                                 authentication: {

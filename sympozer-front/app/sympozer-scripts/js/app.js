@@ -156,7 +156,7 @@ angular.module('sympozerApp').config(['$provide', '$httpProvider', function ($pr
 /**
  * Main Sympozer Angular app controller from FORZA
  */
-sympozerApp.controller('MainController', ['$scope', '$rootScope', '$global', '$timeout', 'progressLoader', '$location', function ($scope, $rootScope, $global, $timeout, progressLoader, $location)
+sympozerApp.controller('MainController', ['$scope', '$rootScope', '$global', '$timeout', 'progressLoader', '$location', 'GLOBAL_CONFIG', function ($scope, $rootScope, $global, $timeout, progressLoader, $location, GLOBAL_CONFIG)
 {
     /**
      * Getting main html attribute configurations
@@ -247,4 +247,7 @@ sympozerApp.controller('MainController', ['$scope', '$rootScope', '$global', '$t
         // console.log('success: ', $location.path());
         progressLoader.end();
     });
+
+    //Add app configuration to the rootScope
+    $rootScope.GLOBAL_CONFIG = GLOBAL_CONFIG;
 }]);

@@ -13,8 +13,10 @@ var i18nApp = angular.module('i18nApp', ['pascalprecht.translate']);
 i18nApp.config(['$translateProvider', function ($translateProvider)
 {
 
+
     //Intialization of the translate provider
     $translateProvider.preferredLanguage('en_US');
+
 
     //Register translation table as object hash for US language
     $translateProvider.translations('en_US', {
@@ -131,6 +133,9 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 time_localization : 'Time & localization',
                 to : 'To',
                 from : 'From'
+            },
+            links : {
+                mainEvents : 'Conference'
             },
             validations : {
                 'EventFormValidation_start_is_after_end_error': 'the start date must not be after the end date.',
@@ -627,6 +632,9 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 time_localization : 'Durée & localisation',
                 to : 'Jusqu\'à',
                 from : 'Depuis'
+            },
+            links : {
+              mainEvents : 'Conférence'
             },
             validations : {
                 'EventFormValidation_start_is_after_end_error': 'La date de début doit être avant la date de fin',

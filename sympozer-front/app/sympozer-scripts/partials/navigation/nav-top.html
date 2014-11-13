@@ -8,6 +8,7 @@
     </div>
 
     <ul class="nav navbar-nav pull-right toolbar">
+
         <li class="dropdown" ng-show="!isLoggedIn">
             <a href="" ng-click="showSigninPopup()" ng-controller="signinCtrl" style="font-size: 14px"><i class="fa fa-sign-in"></i> {{ 'authentication.actions.signin' | translate }}</a>
         </li>
@@ -96,6 +97,7 @@
         <li ng-click="showHeaderBar($event)">
             <a href="" id="headerbardropdown"><span><i class="fa fa-level-down"></i></span></a>
         </li>
+
         <li class="dropdown demodrop" ng-controller="ColorPickerController" data-pulsate="{glow:false, repeat: 3}">
             <a href="#" class="dropdown-toggle tooltips"><i class="fa fa-cog"></i></a>
 
@@ -166,6 +168,15 @@
             </ul>
             <link rel="stylesheet" type="text/css" ng-href="forza-assets/demo/variations/{{headerStylesheet}}">
             <link rel="stylesheet" type="text/css" ng-href="forza-assets/demo/variations/{{sidebarStylesheet}}">
+        </li>
+        <li class="dropdown demodrop" ng-controller="translateCtrl" >
+            <a href="#" class="dropdown-toggle tooltips"><img ng-src="{{ currentLocal.src }}"/></a>
+
+            <ul class="dropdown-menu arrow dropdown-menu-form" id="demo-dropdown">
+                <li  ng-repeat="local in locals">
+                    <a  ng-click="changeLocal(local)" role="menuitem" tabindex="-1" href="#"><img ng-src="{{ local.src }}"/></a>
+                </li>
+            </ul>
         </li>
     </ul>
 </header>

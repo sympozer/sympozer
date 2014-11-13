@@ -11,22 +11,22 @@ sympozerApp.controller('navMainCtrl', ['$scope', '$location', '$timeout', '$glob
    */
    var basicMenu = [
     {
-      label: 'Events',
+      label: "events.links.events",
       iconClasses: 'fa fa-calendar',
       url: '#/modules/events/index'
     },
     {
-      label: 'Organizations',
+      label: 'organizations.links.organizations',
       iconClasses: 'fa fa-group',
       url: '#/' /** @TODO FORZA : TO ALIMENT WITH THE PROPER URL**/
     },
     {
-      label: 'Annuary',
-      iconClasses: 'fa fa-book',
+      label: 'persons.links.persons',
+      iconClasses: 'fa fa-user',
       url: '#/' /** @TODO FORZA : TO ALIMENT WITH THE PROPER URL**/
     },
     {
-      label: 'Publications',
+      label: 'papers.links.papers',
       iconClasses: 'glyphicon glyphicon-book',
       url: '#/' /** @TODO FORZA : TO ALIMENT WITH THE PROPER URL**/
     }
@@ -41,24 +41,24 @@ sympozerApp.controller('navMainCtrl', ['$scope', '$location', '$timeout', '$glob
    *
    * @type {{label: string, iconClasses: string, children: {label: string, iconClasses: string, url: string}[]}[]}
    */
-  var menuLoggedIn = [
-    {
-      label: 'User',
-      iconClasses: 'fa fa-user',
-      children: [
-        {
-          label: 'My events',
-          iconClasses: 'fa fa-calendar-o',
-          url: '#/' /** @TODO FORZA : TO ALIMENT WITH THE PROPER URL**/
-        }
-      ]
-    }
-  ];
+//  var menuLoggedIn = [
+//    {
+//      label: 'User',
+//      iconClasses: 'fa fa-user',
+//      children: [
+//        {
+//          label: 'My events',
+//          iconClasses: 'fa fa-calendar-o',
+//          url: '#/' /** @TODO FORZA : TO ALIMENT WITH THE PROPER URL**/
+//        }
+//      ]
+//    }
+//  ];
   // Initialize the User menu (if the user is logged In)
-  if ($scope.isLoggedIn)
-  {
-    $scope.menu = $scope.menu.concat(menuLoggedIn);
-  }
+//  if ($scope.isLoggedIn)
+//  {
+//    $scope.menu = $scope.menu.concat(menuLoggedIn);
+//  }
 
   /**
    * Current main conference menu
@@ -69,64 +69,64 @@ sympozerApp.controller('navMainCtrl', ['$scope', '$location', '$timeout', '$glob
    */
   var menuCurrentConference = [
     {
-      label: 'Conference',
+      label: 'mainEvents.links.mainEvents',
       iconClasses: 'fa fa-certificate',
       children: [
         {
-          label: 'Overview',
+          label: 'navleft.overview',
           iconClasses: 'fa fa-th',
           children: [
             {
-              label: 'Settings',
+              label: 'navleft.settings',
               iconClasses: 'fa fa-cogs',
               url: '#/' /** @TODO FORZA : TO ALIMENT WITH THE PROPER URL**/
             }
           ]
         },
         {
-          label: 'Directory',
+          label: 'navleft.directory',
           iconClasses: 'fa fa-group',
           children: [
             {
-              label: 'Organizations',
+              label: 'organizations.links.organizations',
               iconClasses: 'fa fa-group',
               url: '#/' /** @TODO FORZA : TO ALIMENT WITH THE PROPER URL**/
             },
             {
-              label: 'Persons',
+              label: 'persons.links.persons',
               iconClasses: 'fa fa-user',
               url: '#/' /** @TODO FORZA : TO ALIMENT WITH THE PROPER URL**/
             }
           ]
         },
         {
-          label: 'Resources',
+          label: 'navleft.resource',
           iconClasses: 'fa fa-folder-open',
           children: [
             {
-              label: 'Publications',
+              label: 'papers.links.papers',
               iconClasses: 'glyphicon glyphicon-book',
               url: '#/' /** @TODO FORZA : TO ALIMENT WITH THE PROPER URL**/
             }
           ]
         },
         {
-          label: 'Schedule',
+          label: 'events.links.schedule',
           iconClasses: 'fa fa-calendar',
           children: [
             {
-              label: 'Events',
+              label: 'events.links.events',
               html: '<span class="badge badge-indigo">4</span>', /** menu notification **/
               iconClasses: 'fa fa-clock-o',
               url: '#/calendar'
             },
             {
-              label: 'Locations',
+              label: 'locations.links.locations',
               iconClasses: 'fa fa-map-marker red',
               url: '#/' /** @TODO FORZA : TO ALIMENT WITH THE PROPER URL**/
             },
             {
-              label: 'Categories',
+              label: 'categories.links.categories',
               iconClasses: 'fa fa-tag',
               url: '#/' /** @TODO FORZA : TO ALIMENT WITH THE PROPER URL**/
             }
@@ -261,11 +261,6 @@ sympozerApp.controller('navMainCtrl', ['$scope', '$location', '$timeout', '$glob
      * @TODO FORZA : TO RETHINK... ?
      */
     $scope.menu = basicMenu;
-    // If the user is logged in
-    if ($scope.isLoggedIn)
-    {
-      $scope.menu = $scope.menu.concat(menuLoggedIn);
-    }
     // If there is a current conference
     if ($scope.isContextMainEvent)
     {
