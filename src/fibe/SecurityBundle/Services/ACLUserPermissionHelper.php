@@ -91,11 +91,11 @@ class ACLUserPermissionHelper extends ACLEntityHelper
 
   public function performDeleteUserACL(Userinterface $user, $entity)
   {
-    // Get all aces and try to get ACE for user to fire
     $userSecurityIdentity = UserSecurityIdentity::fromAccount($user);
     $objectIdentity = ObjectIdentity::fromDomainObject($entity);
     $acl = $this->aclProvider->findAcl($objectIdentity);
     $aces = $acl->getObjectAces();
+    // Get all aces and try to get ACE for user to fire
     foreach ($aces as $i => $ace)
     {
       /** @var $ace EntryInterface */

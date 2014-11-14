@@ -69,7 +69,6 @@ services:
         abstract:  true
         class: fibe\SecurityBundle\Services\ACLHelper
         calls:
-            - [setSecurityContext, ["@security.context"]]
             - [setEntityManager, ["@doctrine.orm.entity_manager"]]
             - [setAclProvider, ["@security.acl.provider"]]
             - [setLogger, ["@?logger"]]

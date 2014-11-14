@@ -20,17 +20,17 @@ use Symfony\Component\Security\Acl\Model\EntryInterface;
 /** @noinspection PhpDocMissingThrowsInspection */
 class ACLEntityHelper extends ACLHelper
 {
-//  const LINK_WITH = 'MainEvent';
-//  const DEFAULT_REPOSITORY_BUNDLE = 'ERREUR_DE_DEFINITION_ACL';
-
-  /**get the  allowed action in a hierarchical way
+  /**
+   * get the  allowed action in a hierarchical way
+   *  Visits the tree to its top until an ACL is found.
+   *  If not, null is returned
    *
    * @param mixed $entity the entity to get
    * @param UserInterface|null $user the current user if null
    * @param String $returnType all|mask|index|action (all | int binary mask | index of the ace in the acl | readable action i.e. VIEW)
    * @param null $acl provide acl if you already got it
    *
-   * @return String VIEW|EDIT|CREATE|DELETE|OPERATOR|OWNER|MASTER
+   * @return null|String null | VIEW | EDIT | CREATE | DELETE | OPERATOR | OWNER | MASTER
    */
   public function getHierarchicalACEByEntity($entity, UserInterface $user, $returnType = "action", $acl = null)
   {
