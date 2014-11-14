@@ -7,7 +7,7 @@ use fibe\EventBundle\Entity\MainEvent;
 use fibe\RestBundle\Services\AbstractBusinessService;
 use fibe\SecurityBundle\Entity\Team;
 use fibe\SecurityBundle\Entity\User;
-use fibe\SecurityBundle\Services\ACLUserPermissionHelper;
+use fibe\SecurityBundle\Services\Acl\ACLUserPermissionHelper;
 use Symfony\Component\Security\Acl\Permission\MaskBuilder;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 

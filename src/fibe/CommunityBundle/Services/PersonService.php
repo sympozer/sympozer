@@ -4,7 +4,7 @@ namespace fibe\CommunityBundle\Services;
 
 use fibe\CommunityBundle\Entity\Person;
 use fibe\RestBundle\Services\AbstractBusinessService;
-use fibe\SecurityBundle\Services\ACLUserPermissionHelper;
+use fibe\SecurityBundle\Services\Acl\ACLUserPermissionHelper;
 use FOS\UserBundle\Model\UserManagerInterface;
 use FOS\UserBundle\Util\TokenGeneratorInterface;
 use Symfony\Component\Security\Acl\Permission\MaskBuilder;

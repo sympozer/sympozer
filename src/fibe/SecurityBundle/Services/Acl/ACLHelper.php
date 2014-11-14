@@ -1,5 +1,5 @@
 <?php
-namespace fibe\SecurityBundle\Services;
+namespace fibe\SecurityBundle\Services\Acl;
 
 use Doctrine\ORM\EntityManager;
 use Psr\Log\LoggerInterface;

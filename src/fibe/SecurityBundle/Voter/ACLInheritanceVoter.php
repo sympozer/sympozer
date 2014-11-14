@@ -5,7 +5,7 @@ namespace fibe\SecurityBundle\Voter;
 use ErrorException;
 use fibe\CommunityBundle\Entity\Person;
 use fibe\EventBundle\Entity\MainEvent;
-use fibe\SecurityBundle\Services\ACLHelper;
+use fibe\SecurityBundle\Services\Acl\ACLHelper;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Symfony\Component\HttpKernel\Log\LoggerInterface;
 use Symfony\Component\Security\Acl\Exception\AclNotFoundException;

@@ -1,5 +1,5 @@
 <?php
-namespace fibe\SecurityBundle\Services;
+namespace fibe\SecurityBundle\Services\Acl;
 
 use FOS\UserBundle\Model\UserInterface;
 use Symfony\Component\Security\Acl\Domain\ObjectIdentity;

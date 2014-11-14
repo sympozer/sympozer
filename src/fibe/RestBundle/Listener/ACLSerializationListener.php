@@ -6,8 +6,8 @@
 
 namespace fibe\RestBundle\Listener;
 
-use fibe\SecurityBundle\Services\ACLEntityHelper;
-use fibe\SecurityBundle\Services\ACLHelper;
+use fibe\SecurityBundle\Services\Acl\ACLEntityHelper;
+use fibe\SecurityBundle\Services\Acl\ACLHelper;
 use FOS\UserBundle\Model\UserInterface;
 use JMS\Serializer\EventDispatcher\EventSubscriberInterface;
 use JMS\Serializer\EventDispatcher\ObjectEvent;
