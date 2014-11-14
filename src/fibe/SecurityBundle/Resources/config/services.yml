@@ -69,13 +69,13 @@ services:
 
 #################      ACL      ###############
 
-    entityAddACL:
-        class: fibe\SecurityBundle\Listener\AddACL
-        arguments: ["@service_container"]
-        tags:
-            - { name: doctrine.event_listener, event: postPersist }
-    # TODO POST DELETE
-    # TODO POST DELETE
+#    entityAddACL:
+#        class: fibe\SecurityBundle\Listener\AddACL
+#        arguments: ["@service_container"]
+#        tags:
+#            - { name: doctrine.event_listener, event: postPersist }
+#    # TODO POST DELETE
+#    # TODO POST DELETE
 
     fibe_security.acl_helper:
         abstract:  true

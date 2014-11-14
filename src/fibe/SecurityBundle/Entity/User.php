@@ -55,8 +55,6 @@ class User extends BaseUser
    * @Expose
    */
   protected $picture;
-  /** @ORM\Column(name="google_id", type="string", length=255, nullable=true) */
-  protected $google_id;
 
 
 
@@ -64,6 +62,8 @@ class User extends BaseUser
    * SOCIAL NETWORK ID
    * @TODO : put it in the table social_service_account
    ************************************/
+  /** @ORM\Column(name="google_id", type="string", length=255, nullable=true) */
+  protected $google_id;
   /** @ORM\Column(name="google_access_token", type="string", length=255, nullable=true) */
   protected $google_access_token;
   /** @ORM\Column(name="twitter_id", type="string", length=255, nullable=true) */

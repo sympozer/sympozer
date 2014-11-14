@@ -7,6 +7,8 @@ use fibe\EventBundle\Entity\MainEvent;
 use fibe\RestBundle\Services\AbstractBusinessService;
 use fibe\SecurityBundle\Entity\Team;
 use fibe\SecurityBundle\Entity\User;
+use fibe\SecurityBundle\Services\ACLUserPermissionHelper;
+use Symfony\Component\Security\Acl\Permission\MaskBuilder;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 
 /**
@@ -17,10 +19,12 @@ class MainEventService extends AbstractBusinessService
 {
 
   protected $securityContext;
+  protected $aclHelper;
 
-  public function __construct(SecurityContextInterface $securityContext)
+  public function __construct(SecurityContextInterface $securityContext, ACLUserPermissionHelper $aclHelper)
   {
     $this->securityContext = $securityContext;
+    $this->aclHelper = $aclHelper;
   }
 
 
@@ -165,6 +169,9 @@ class MainEventService extends AbstractBusinessService
     $mainEvent->slugify();
     $this->entityManager->persist($mainEvent);
     $this->entityManager->flush();
+
+    $this->aclHelper->performUpdateUserACL($user, MaskBuilder::MASK_OWNER, $mainEvent);
+
     return $mainEvent;
   }
 

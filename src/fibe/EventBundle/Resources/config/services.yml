@@ -2,7 +2,7 @@ services:
     fibe.MainEventService:
         class:  fibe\EventBundle\Services\MainEventService
         parent: fibe.rest.business_service
-        arguments: ["@security.context"]
+        arguments: ["@security.context", "@fibe_security.acl_user_permission_helper"]
 
     fibe.CategoryVersionService:
         class:  fibe\EventBundle\Services\CategoryVersionService

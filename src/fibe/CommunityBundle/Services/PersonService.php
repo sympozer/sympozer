@@ -4,9 +4,10 @@ namespace fibe\CommunityBundle\Services;
 
 use fibe\CommunityBundle\Entity\Person;
 use fibe\RestBundle\Services\AbstractBusinessService;
+use fibe\SecurityBundle\Services\ACLUserPermissionHelper;
 use FOS\UserBundle\Model\UserManagerInterface;
 use FOS\UserBundle\Util\TokenGeneratorInterface;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\Security\Acl\Permission\MaskBuilder;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 
@@ -16,20 +17,20 @@ use Symfony\Component\Security\Core\SecurityContextInterface;
  */
 class PersonService extends AbstractBusinessService
 {
-
+  protected $aclHelper;
   protected $securityContext;
   protected $userManager;
   protected $tokenGenerator;
   protected $mailer;
   protected $session;
 
-  public function __construct(SecurityContextInterface $securityContext, UserManagerInterface $userManager, TokenGeneratorInterface $tokenGenerator, MailManager $mailer, SessionInterface $session)
+  public function __construct(ACLUserPermissionHelper $aclHelper, SecurityContextInterface $securityContext, UserManagerInterface $userManager, TokenGeneratorInterface $tokenGenerator, MailManager $mailer)
   {
+    $this->aclHelper = $aclHelper;
     $this->securityContext = $securityContext;
     $this->userManager = $userManager;
     $this->tokenGenerator = $tokenGenerator;
     $this->mailer = $mailer;
-    $this->session = $session;
   }
 
   /**
@@ -57,10 +58,14 @@ class PersonService extends AbstractBusinessService
     $person->setUser($newUser);
     $this->userManager->updateUser($newUser);
 
-    //add the current logged user as "godfather"
-    $person->setInvitedBy($this->securityContext->getToken()->getUser()->getPerson());
+    $user = $this->securityContext->getToken()->getUser();
+    if ($user->getId() != $newUser->getId())
+    {
+      //add the current logged user as "godfather"
+      $person->setInvitedBy($user->getPerson());
+    }
+    $this->$aclHelper->performUpdateUserACL($user, MaskBuilder::MASK_OWNER, $person);
 
-    $this->get('session')->set('_locale', $this->securityContext->getToken()->getUser()->getLangage());
     $this->mailer->sendConfirmationEmailMessage($newUser);
   }
 

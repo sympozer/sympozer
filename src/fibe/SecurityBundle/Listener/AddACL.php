@@ -2,12 +2,7 @@
 namespace fibe\SecurityBundle\Listener;
 
 use Doctrine\ORM\Event\LifecycleEventArgs;
-use fibe\CommunityBundle\Entity\Person;
-use fibe\EventBundle\Entity\MainEvent;
-use FOS\UserBundle\Model\UserInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
-use Symfony\Component\Security\Acl\Permission\MaskBuilder;
 
 /**
  * Post persist listener that add the acl OWNER for the current user
@@ -23,35 +18,35 @@ class AddACL
 
   public function postPersist(LifecycleEventArgs $args)
   {
-    // $entityManager = $args->getEntityManager();
-    $entity = $args->getEntity();
-
-    //just add acl for MainEvent and Person
-    if (!($entity instanceof Person || $entity instanceof MainEvent))
-    {
-      return;
-    }
-
-    $user = null;
-
-    $token = $this->container->get('security.context')->getToken();
-    if (isset($token))
-    {
-      $user = $token->getUser();
-    }
-    if (!$user && $entity instanceof Person)
-    {
-      $user = $entity->getUser();
-    }
-
-    //should happen when creating a MainEvent and
-    if (!($user instanceof UserInterface))
-    {
-      throw new UnauthorizedHttpException('negotiate', 'You must be logged in');
-    }
-
-    $aclHelper = $this->container->get('fibe_security.acl_user_permission_helper');
-    $aclHelper->performUpdateUserACL($user, MaskBuilder::MASK_OWNER, $entity);
+//    // $entityManager = $args->getEntityManager();
+//    $entity = $args->getEntity();
+//
+//    //just add acl for MainEvent and Person
+//    if (!($entity instanceof Person || $entity instanceof MainEvent))
+//    {
+//      return;
+//    }
+//
+//    $user = null;
+//
+//    $token = $this->container->get('security.context')->getToken();
+//    if (isset($token))
+//    {
+//      $user = $token->getUser();
+//    }
+//    if (!$user && $entity instanceof Person)
+//    {
+//      $user = $entity->getUser();
+//    }
+//
+//    //should happen when creating a MainEvent and
+//    if (!($entity instanceof Person) && !($user instanceof UserInterface))
+//    {
+//      throw new UnauthorizedHttpException('negotiate', 'You must be logged in');
+//    }
+//
+//    $aclHelper = $this->container->get('fibe_security.acl_user_permission_helper');
+//    $aclHelper->performUpdateUserACL($user, MaskBuilder::MASK_OWNER, $entity);
 
 //    //only set acl of mainEvent and Person because they are top level in the permission
 //    $aclInfo = ACLHelper::isManaged(get_class($entity));
