@@ -1,25 +1,26 @@
 <form ng-controller="changePwdCtrl" name="changePwdForm" class="form" role="form" ng-submit="changePwdAction(changePwd)" novalidate="">
     <div ng-show="!currentUser.random_pwd">
         <div class="form-group">
-            <label for="inputPassword">{{ 'authentication.labels.current_pwd' | translate }}</label>
+            <label for="inputPassword" class="col-sm-3 control-label">{{ 'authentication.labels.current_pwd' | translate }}</label>
             <input type="password" ng-model="changePwd.current_password" id="inputPassword" name="current_password" placeholder="{{ 'authentication.labels.current_pwd' | translate }}" class="form-control"
                    required="">
         </div>
     </div>
     <div class="form-group">
-        <label for="input_new_password_first">{{ 'authentication.labels.new_pwd' | translate }}</label>
-        <input type="password" ng-model="changePwd.new_password_first" id="input_new_password_first" name="inputNewPasswordFirst" placeholder="{{ 'authentication.labels.new_pwd' | translate }}" class="form-control"
-               required="" ng-minlength="3" ng-maxlength="20"/>
-        <div class="alert alert-danger" role="alert" ng-show="signupForm.password.$error.minlength">{{ 'authentication.validations.pwd_too_short' | translate }}</div>
-        <div class="alert alert-danger" role="alert" ng-show="signupForm.password.$error.maxlength">{{ 'authentication.validations.pwd_too_long' | translate }}</div>
+        <label for="input_new_password_first" class="col-sm-3 control-label">{{ 'authentication.labels.new_pwd' | translate }}</label>
+        <input type="password" required="" name="newPassword" id="inputPassword" class="form-control" placeholder="{{ 'authentication.labels.new_pwd' | translate }}" ng-model="changePwd.new_password_first" ng-minlength="5"
+               ng-maxlength="20" ng-pattern=/(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z].*[a-z].*[a-z])(?=.*[\S])/ required/>
+        <span class="help-block" ng-show="changePwdForm.newPassword.$error.minlength">{{ 'authentication.validations.pwd_too_short' | translate }}</span>
+        <span class="help-block" ng-show="changePwdForm.newPassword.$error.maxlength">{{ 'authentication.validations.pwd_too_long' | translate }}</span>
+        <span class="help-block" ng-show="changePwdForm.newPassword.$error.pattern">{{ 'authentication.validations.pwd_not_enough_strength' | translate }}</span>
     </div>
     <div class="form-group">
-        <label for="input_new_password_second">{{ 'authentication.labels.pwd_verification' | translate }}</label>
-        <input type="password" ng-model="changePwd.new_password_second" id="input_new_password_second" name="inputNewPasswordSecond" placeholder="{{ 'authentication.labels.pwd_check' | translate }}" class="form-control"
+        <label for="input_new_password_second" class="col-sm-3 control-label">{{ 'authentication.labels.pwd_verification' | translate }}</label>
+        <input type="password" ng-model="changePwd.new_password_second" id="input_new_password_second" name="passwordConfirm" placeholder="{{ 'authentication.labels.pwd_check' | translate }}" class="form-control"
                required="" />
-        <div class="alert alert-danger" role="alert" ng-show="signupForm.confirmpassword.$dirty && changePwd.password != changePwd.confirmpassword">{{ 'authentication.validations.pwd_not_match' | translate }}</div>
+        <span class="help-block" ng-show="changePwdForm.passwordConfirm.$dirty && ( changePwdForm.passwordConfirm != changePwdForm.newPassword)">{{ 'authentication.validations.pwd_not_match' | translate }}</span>
     </div>
     <div>
-        <button type="submit" class="btn btn-success">{{ 'global.actions.save' | translate }}</button>
+        <button type="submit" ng-disabled="changePwdForm.$invalid" class="btn btn-success">{{ 'global.actions.save' | translate }}</button>
     </div>
 </form>

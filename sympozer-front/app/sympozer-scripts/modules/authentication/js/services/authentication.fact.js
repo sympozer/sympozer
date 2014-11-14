@@ -9,6 +9,11 @@ angular.module('authenticationApp').factory('authenticationFact', ['$rootScope',
 
     $rootScope.isLoggedIn = false;
 
+    $rootScope.currentUser = localStorage.getItem('currentUser') || null;
+    if($rootScope.currentUser){
+        $rootScope.isLoggedIn = true;
+    }
+
     authenticationFact.addUser = function (newUser){
         $rootScope.currentUser = newUser;
         $rootScope.isLoggedIn = true;

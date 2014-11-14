@@ -22,9 +22,9 @@ angular.module('authenticationApp')
 //          templateUrl: globalConfig.app.modules.authentication.urls.partials + 'signout.html',
 //          controller: 'signoutCtrl'
 //        })
-        .when('/profile', {
-          templateUrl: globalConfig.app.modules.authentication.urls.partials + 'profile.html',
-          controller: 'profileCtrl'
+        .when('/home/authentication/account', {
+          templateUrl: globalConfig.app.modules.authentication.urls.partials + 'account.html',
+          controller: 'accountCtrl'
         })
         .when('/confirm/:token', {
           templateUrl: globalConfig.app.urls.partials + 'home/home.html',

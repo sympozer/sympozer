@@ -21,8 +21,8 @@
                             <span class="input-group-addon"><i class="fa fa-user"></i></span>
                             <input type="text" required="" server-error="serverError" name="username" class="form-control" id="inputUsername" placeholder="{{ 'authentication.labels.username' | translate }}" ng-model="user.username" ng-minlength="3" ng-maxlength="128" required/>
                         </div>
-                        <span class="help-block" role="alert" ng-show="signinForm._username.$error.minlength">{{ 'authentication.validations.username_too_short' | translate }}</span>
-                        <span class="help-block" role="alert" ng-show="signinForm._username.$error.maxlength">{{ 'authentication.validations.username_too_long' | translate }}</span>
+                        <span class="help-block"  ng-show="signinForm._username.$error.minlength">{{ 'authentication.validations.username_too_short' | translate }}</span>
+                        <span class="help-block"  ng-show="signinForm._username.$error.maxlength">{{ 'authentication.validations.username_too_long' | translate }}</span>
                     </div>
                 </div>
                 <div class="form-group">
@@ -51,7 +51,7 @@
                             <span class="input-group-addon"><i class="fa fa-lock"></i></span>
                             <input required="" type="password" name="confirmpassword" id="inputPasswordConfirm" class="form-control" placeholder="{{ 'authentication.labels.pwd_check' | translate }}" ng-model="user.plainPassword.second"/>
                         </div>
-                        <span class="help-block" ng-show="signupForm.confirmpassword.$dirty && user.plainPassword.first != user.plainPassword.second">{{ 'authentication.validations.pwd_not_match' | translate }}</span>
+                        <span class="help-block" ng-show="signupForm.confirmpassword.$dirty && ( signupForm.password != signupForm.confirmpassword)">{{ 'authentication.validations.pwd_not_match' | translate }}</span>
                     </div>
                 </div>
                 <div class="checkbox block" style="text-align:center">

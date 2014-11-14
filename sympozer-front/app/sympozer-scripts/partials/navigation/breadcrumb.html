@@ -1,11 +1,10 @@
 <div ng-controller="breadcrumbCtrl">
 <ol class="breadcrumb">
-    <li ng-repeat="item in breadcrumpArray" ng-class="item.isActive">
+    <li ng-repeat="item in breadcrumbArray" ng-class="item.isActive">
       <a href="#/" ng-if="item.url">
         {{ item.label | translate}}
       </a>
-      {{ !item.url ? item.label : '' }}
+      {{ !item.url ? (item.label | translate) : '' }}
     </li>
-  <li class='active'>Events</li>
 </ol>
 </div>

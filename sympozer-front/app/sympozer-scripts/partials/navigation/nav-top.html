@@ -12,14 +12,14 @@
         <li class="dropdown" ng-show="!isLoggedIn">
             <a href="" ng-click="showSigninPopup()" ng-controller="signinCtrl" style="font-size: 14px"><i class="fa fa-sign-in"></i> {{ 'authentication.actions.signin' | translate }}</a>
         </li>
-        <li class="dropdown" ng-show="isLoggedIn">
+        <li class="dropdown" disabled="disabled" ng-show="isLoggedIn">
             <a href="#" class="dropdown-toggle username"><span class="hidden-xs">Matt Smith</span><img src="forza-assets/demo/avatar/dangerfield.png" alt="Dangerfield"/></a>
             <ul class="dropdown-menu userinfo arrow">
                 <li class="userlinks">
                     <ul class="dropdown-menu">
-                        <li><a href="#/profile">Edit Profile <i class="pull-right fa fa-fw fa-pencil"></i></a></li>
-                        <li><a href="#">Account <i class="pull-right fa fa-fw fa-user"></i></a></li>
-                        <li><a href="#">Settings <i class="pull-right fa fa-fw fa-cog"></i></a></li>
+                        <li><a href="#/home/persons/show/{{currentUser.id}}">Edit Profile <i class="pull-right fa fa-fw fa-pencil"></i></a></li>
+                        <li><a href="#/home/authentication/account">Account <i class="pull-right fa fa-fw fa-user"></i></a></li>
+                        <li><a href="#/home/authentication/settings">Settings <i class="pull-right fa fa-fw fa-cog"></i></a></li>
                         <li class="divider"></li>
                         <li><a href="#">Events <i class="pull-right fa fa-fw fa-calendar"></i></a></li>
                         <li><a href="#">Tickets <i class="pull-right fa fa-fw fa-ticket"></i></a></li>

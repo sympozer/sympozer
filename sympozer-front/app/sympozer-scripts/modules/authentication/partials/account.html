@@ -1,0 +1,45 @@
+<div id="page-heading">
+    <div ng-include="GLOBAL_CONFIG.app.urls.partials+'navigation/breadcrumb.html'"></div>
+
+    <h1>{{ 'authentication.labels.account' | translate }}</h1>
+
+    <div class="options">
+        <div class="btn-toolbar">
+            <div class="btn-group" dropdown>
+                <button type="button" class="btn btn-default dropdown-toggle">
+                    Export as <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a href="#">Action</a></li>
+                    <li><a href="#">Another action</a></li>
+                    <li><a href="#">Something else here</a></li>
+                    <li class="divider"></li>
+                    <li><a href="#">Separated link</a></li>
+                </ul>
+            </div>
+            <a href="#" class="btn btn-default hidden-xs"><i class="fa fa-cog"></i></a>
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+
+    <div ng-if="currentUser.random_pwd">
+        <div class="alert alert-warning" role="alert">{{ 'authentication.messages.pwd_not_set' | translate }}</div>
+        <div ng-include="GLOBAL_CONFIG.app.modules.authentication.urls.partials+'changepwd.html'"></div>
+    </div>
+    <!--<h2>{{ 'authentication.labels.profile' | translate }}</h2>-->
+    <!--<h4>{{ 'authentication.labels.enrich_profile' | translate }}</h4>-->
+    <!--<a ng-repeat="socialnetwork in GLOBAL_CONFIG.api.urls.socialnetworks track by $index"-->
+    <!--class="btn btn-social btn-{{ socialnetwork.name }}{{ socialnetwork.name == 'google' ? '-plus' : '' }}"-->
+    <!--href="{{ socialnetwork.urls.enrich }}">-->
+    <!--&lt;!&ndash;ng-click="socialSignInAction(socialnetwork.url)">&ndash;&gt;-->
+    <!--<i class="fa fa-{{ socialnetwork.name }}{{ socialnetwork.name == 'google' ? '-plus' : '' }}"></i> {{ 'authentication.labels.enrich_with' | translate }} {{ socialnetwork.name | titleize }}-->
+    <!--</a>-->
+
+
+    <div ng-if="!currentUser.random_pwd">
+        <hr/>
+        <h4>{{ 'authentication.labels.change_pwd' | translate }}</h4>
+        <div ng-include="GLOBAL_CONFIG.app.modules.authentication.urls.partials+'change-pwd.html'"></div>
+    </div>
+</div>

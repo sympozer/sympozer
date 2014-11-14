@@ -186,15 +186,15 @@ sympozerApp.config(['$provide', '$routeProvider', function ($provide, $routeProv
                 }]
             }
         })
-        .when('/modules/:module/:file', {
-            templateUrl: function (param)
-            {
-                /**
-                 * REDIRECTION TO A SPECIFIC SYMPOZER MODULE
-                 */
-                return 'views/modules/' + param.module + '/' + param.file + '.html'
-            }
-        })
+//        .when('/modules/:module/:file', {
+//            templateUrl: function (param)
+//            {
+//                /**
+//                 * REDIRECTION TO A SPECIFIC SYMPOZER MODULE
+//                 */
+//                return 'views/modules/' + param.module + '/' + param.file + '.html'
+//            }
+//        })
         .when('/:templateFile', {
             templateUrl: function (param)
             {

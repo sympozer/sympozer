@@ -1,9 +1,4 @@
 'use strict';
-
-/**
- * Global filters
- */
-
 /**
  * Checkmark filter
  *

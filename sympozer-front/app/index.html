@@ -351,12 +351,16 @@
 <script src="sympozer-scripts/js/filters/sympozer-checkmark.fltr.js"></script>
 <script src="sympozer-scripts/js/filters/sympozer-in-array.fltr.js"></script>
 <script src="sympozer-scripts/js/filters/sympozer-titleize.fltr.js"></script>
+<script src="sympozer-scripts/js/filters/safe-html.fltr.js"></script>
 <!--SERVICES -->
 <script src="sympozer-scripts/js/services/form-validation.fact.js"></script>
 <script src="sympozer-scripts/js/services/global-http-interceptor.fact.js"></script>
 <script src="sympozer-scripts/js/services/sympozer-acl-service.fact.js"></script>
 <script src="sympozer-scripts/js/services/template-loader.fact.js"></script>
-<script src="sympozer-scripts/js/services/alert.fact.js"></script>
+<script src="sympozer-scripts/js/services/lazy-load.fact.js"></script>
+<script src="sympozer-scripts/js/services/bootbox.fact.js"></script>
+<script src="sympozer-scripts/js/services/progress-loader.fact.js"></script>
+<script src="sympozer-scripts/js/services/pines-notifications.fact.js"></script>
 
 
 <!-- SYMPOZER AUTHENTICATION APP -->
@@ -366,7 +370,7 @@
 <script src="sympozer-scripts/modules/authentication/js/controllers/change-pwd.ctrl.js"></script>
 <script src="sympozer-scripts/modules/authentication/js/controllers/confirm.ctrl.js"></script>
 <script src="sympozer-scripts/modules/authentication/js/controllers/global-auth.ctrl.js"></script>
-<script src="sympozer-scripts/modules/authentication/js/controllers/profile.ctrl.js"></script>
+<script src="sympozer-scripts/modules/authentication/js/controllers/account.ctrl.js"></script>
 <script src="sympozer-scripts/modules/authentication/js/controllers/reset-pwd.ctrl.js"></script>
 <script src="sympozer-scripts/modules/authentication/js/controllers/reset-pwd-request.ctrl.js"></script>
 <script src="sympozer-scripts/modules/authentication/js/controllers/sign-in.ctrl.js"></script>
@@ -385,6 +389,22 @@
 <!-- SYMPOZER I18N APP -->
 <script src="sympozer-scripts/modules/i18n/i18nApp.js"></script>
 <script src="sympozer-scripts/modules/i18n/controllers/translate.ctrl.js"></script>
+
+
+<!-- SYMPOZER PERSONS APP -->
+<script src="sympozer-scripts/modules/persons/js/routes.js"></script>
+<!--CONTROLLERS-->
+<script src="sympozer-scripts/modules/persons/js/controllers/persons-delete.ctrl.js"></script>
+<script src="sympozer-scripts/modules/persons/js/controllers/persons-edit.ctrl.js"></script>
+<script src="sympozer-scripts/modules/persons/js/controllers/persons-event-list.ctrl.js"></script>
+<script src="sympozer-scripts/modules/persons/js/controllers/persons-list.ctrl.js"></script>
+<script src="sympozer-scripts/modules/persons/js/controllers/persons-list-by-event.ctrl.js"></script>
+<script src="sympozer-scripts/modules/persons/js/controllers/persons-main.ctrl.js"></script>
+<script src="sympozer-scripts/modules/persons/js/controllers/persons-new.ctrl.js"></script>
+<script src="sympozer-scripts/modules/persons/js/controllers/persons-show.ctrl.js"></script>
+<script src="sympozer-scripts/modules/persons/js/controllers/community/persons-community-list.ctrl.js"></script>
+<!--SERVICES -->
+<script src="sympozer-scripts/modules/persons/js/services/persons.fact.js"></script>
 
 <!-- endbuild -->
 <!-- basic client app context definition (just mocking the file) -->
@@ -443,90 +463,90 @@
                 },
                 organizations: {
                     urls: {
-                        base: "{{ asset('bundles/frontend/app/modules/organizations/') }}",
-                        partials: "{{ asset('bundles/frontend/app/modules/organizations/partials/') }}",
-                        communityPartials: "{{ asset('bundles/frontend/app/modules/organizations/partials/community/') }}",
-                        img: "{{ asset('bundles/frontend/app/modules/organizations/img') }}"
+                        base: "sympozer-scripts/modules/organizations/",
+                        partials: "sympozer-scripts/modules/organizations/partials/",
+                        communityPartials: "sympozer-scripts/modules/organizations/community/partials/",
+                        img: "sympozer-scripts/modules/organizations/img/"
                     }
                 },
                 locations: {
                     urls: {
-                        base: "{{ asset('bundles/frontend/app/modules/locations/') }}",
-                        partials: "{{ asset('bundles/frontend/app/modules/locations/partials/') }}",
-                        img: "{{ asset('bundles/frontend/app/modules/locations/img') }}"
+                        base: "sympozer-scripts/modules/locations/",
+                        partials: "sympozer-scripts/modules/locations/partials/}",
+                        img: "sympozer-scripts/modules/locations/img/"
                     }
                 },
                 equipments: {
                     urls: {
-                        base: "{{ asset('bundles/frontend/app/modules/equipments/') }}",
-                        partials: "{{ asset('bundles/frontend/app/modules/equipments/partials/') }}",
-                        img: "{{ asset('bundles/frontend/app/modules/equipments/img') }}"
+                        base: "sympozer-scripts/modules/equipments/",
+                        partials: "sympozer-scripts/modules/equipments/partials/",
+                        img: "sympozer-scripts/modules/equipments/img/"
                     }
                 },
                 events: {
                     urls: {
-                        base: "{{ asset('bundles/frontend/app/modules/events/') }}",
-                        partials: "{{ asset('bundles/frontend/app/modules/events/partials/') }}",
-                        img: "{{ asset('bundles/frontend/app/modules/events/img') }}"
+                        base: "sympozer-scripts/modules/events/",
+                        partials: "sympozer-scripts/modules/events/partials/",
+                        img: "sympozer-scripts/modules/events/img"
                     }
                 },
                 papers: {
                     urls: {
-                        base: "{{ asset('bundles/frontend/app/modules/papers/') }}",
-                        partials: "{{ asset('bundles/frontend/app/modules/papers/partials/') }}",
-                        communityPartials: "{{ asset('bundles/frontend/app/modules/papers/partials/community/') }}",
-                        img: "{{ asset('bundles/frontend/app/modules/papers/img') }}"
+                        base: "sympozer-scripts/modules/papers/",
+                        partials: "sympozer-scripts/modules/papers/partials",
+                        communityPartials: "sympozer-scripts/modules/papers/community/partials/",
+                        img: "sympozer-scripts/modules/papers/img/"
                     }
                 },
                 categories: {
                     urls: {
-                        base: "{{ asset('bundles/frontend/app/modules/categories/') }}",
-                        partials: "{{ asset('bundles/frontend/app/modules/categories/partials/') }}",
-                        img: "{{ asset('bundles/frontend/app/modules/categories/img') }}"
+                        base: "sympozer-scripts/modules/categories/",
+                        partials: "sympozer-scripts/modules/categories/partials/",
+                        img: "sympozer-scripts/modules/categories/img/"
                     }
                 },
                 mainEvents: {
                     urls: {
-                        base: "{{ asset('bundles/frontend/app/modules/main-events/') }}",
-                        partials: "{{ asset('bundles/frontend/app/modules/main-events/partials/') }}",
-                        partialsCommunity: "{{ asset('bundles/frontend/app/modules/main-events/partials/community/') }}",
-                        img: "{{ asset('bundles/frontend/app/modules/main-events/img') }}"
+                        base: "sympozer-scripts/modules/mainEvents/",
+                        partials: "sympozer-scripts/modules/mainEvents/partials/",
+                        partialsCommunity: "sympozer-scripts/modules/mainEvents/community/partials/",
+                        img: "sympozer-scripts/modules/mainEvents/img/"
                     }
                 },
                 persons: {
                     urls: {
-                        base: "{{ asset('bundles/frontend/app/modules/persons/') }}",
-                        partials: "{{ asset('bundles/frontend/app/modules/persons/partials/') }}",
-                        communityPartials: "{{ asset('bundles/frontend/app/modules/persons/partials/community/') }}",
-                        img: "{{ asset('bundles/frontend/app/modules/persons/img') }}"
+                        base: "sympozer-scripts/modules/persons/",
+                        partials: "sympozer-scripts/modules/persons/partials/",
+                        communityPartials: "sympozer-scripts/modules/persons/community/partials/",
+                        img: "sympozer-scripts/modules/persons/img/"
                     }
                 },
                 teammates: {
                     urls: {
-                        base: "{{ asset('bundles/frontend/app/modules/teammates/') }}",
-                        partials: "{{ asset('bundles/frontend/app/modules/teammates/partials/') }}",
-                        img: "{{ asset('bundles/frontend/app/modules/teammates/img') }}"
+                        base: "sympozer-scripts/modules/teammates/",
+                        partials: "sympozer-scripts/modules/teammates/partials/",
+                        img: "sympozer-scripts/modules/teammates/img"
                     }
                 },
                 roles: {
                     urls: {
-                        base: "{{ asset('bundles/frontend/app/modules/roles/') }}",
-                        partials: "{{ asset('bundles/frontend/app/modules/roles/partials/') }}",
-                        img: "{{ asset('bundles/frontend/app/modules/roles/img') }}"
+                        base: "sympozer-scripts/modules/roles/",
+                        partials: "sympozer-scripts/modules/roles/partials/",
+                        img: "sympozer-scripts/modules/roles/img/",
                     }
                 },
                 roleLabelVersions: {
                     urls: {
-                        base: "{{ asset('bundles/frontend/app/modules/roles/') }}",
-                        partials: "{{ asset('bundles/frontend/app/modules/roles/partials/') }}",
-                        img: "{{ asset('bundles/frontend/app/modules/roles/img') }}"
+                        base: "sympozer-scripts/modules/roleLabelVersions/",
+                        partials: "sympozer-scripts/modules/roleLabelVersions/partials/",
+                        img: "sympozer-scripts/modules/roleLabelVersions/img/"
                     }
                 },
                 topics: {
                     urls: {
-                        base: "{{ asset('bundles/frontend/app/modules/topics/') }}",
-                        partials: "{{ asset('bundles/frontend/app/modules/topics/partials/') }}",
-                        img: "{{ asset('bundles/frontend/app/modules/topics/img') }}"
+                        base: "sympozer-scripts/modules/topics/",
+                        partials: "sympozer-scripts/modules/topics/partials/",
+                        img: "sympozer-scripts/modules/topics/img/"
                     }
                 }
             }

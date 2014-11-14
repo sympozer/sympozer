@@ -79,6 +79,9 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 signup_email_in_use : 'Email already in use.',
                 signup_username_in_use : 'Username already in use.',
                 signup_confirm_error : 'Invalid confirmation token.',
+                change_pwd_success : 'Your password has been changed',
+                change_pwd_error : 'Sorry, we couldn\'t change your password',
+                reset_pwd_request_sended : 'The email that will allow you to change your password has been sended',
                 reset_pwd_usernotfound : 'The user has not been found.',
                 reset_pwd_alreadyrequested : 'Password reset has already been requested.',
                 reset_pwd_resetexpired : 'The Password reset request has expired',
@@ -94,6 +97,9 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 reset_pwd_info : 'To reset your password, enter the email address you use to sign in to Sympozer. You will receive an email from Sympozer with the link to use in order to reset your password',
                 pwd_not_set: 'You haven\'t set your password yet',
                 forbidden  : 'You don\'t have the authorization to perform this action'
+            },
+            links :{
+                authentication : 'Authentication'
             },
             labels :{
                 username : 'Username',
@@ -582,6 +588,9 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 signup_email_in_use : 'Email déjà utilisé.',
                 signup_username_in_use : 'nom d\'utilisateur déjà utilisé.',
                 signup_confirm_error : 'Token de confirmation non valide.',
+                change_pwd_success : 'Votre mot de passe a été modifié',
+                change_pwd_error : 'Désolé, nous n\'avons pas pu changer votre mot de passe',
+                reset_pwd_request_sended : 'Un email vous permettant de mettre à jour votre mot de passe vous a été envoyé',
                 reset_pwd_usernotfound : 'Utilisateur non trouvé.',
                 reset_pwd_alreadyrequested : 'La requête de changement de mot de passe a déjà été effectuée.',
                 reset_pwd_resetexpired : 'La requête de changement de mot de passe à expirée',
@@ -597,6 +606,9 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 reset_pwd_info : 'Pour reinitialiser votre mot de passe, entrer votre email ou nom d\'utilisateur. Vous recevrez alors un email pour mettre à jour votre mot de passe',
                 pwd_not_set: 'Vous n\'avez pas encore défini votre mot de passe',
                 forbidden  : 'Vous n\'avez le droit d\'exécuter cette action'
+            },
+            links :{
+                authentication : 'Authentification'
             },
             labels :{
                 username : 'Utilisateur',

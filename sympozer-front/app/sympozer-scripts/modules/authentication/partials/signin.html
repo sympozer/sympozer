@@ -30,7 +30,7 @@
             <div class="clearfix">
                 <div class="pull-right">
                     <label><input type="checkbox" style="margin-bottom: 20px" checked=""> {{ 'authentication.labels.remember_me' | translate }} - </label>
-                    <a ng-click="$modalCancel()" href="#/forgotten_password">{{ 'authentication.labels.forgotten_pwd' | translate }}</a>
+                    <a href="" ng-click="showForgottenPwdPopup()" ng-controller="resetPwdRequestCtrl" >{{ 'authentication.labels.forgotten_pwd' | translate }}</a>
                 </div>
             </div>
             <div class="form-group">

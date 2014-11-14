@@ -112,9 +112,9 @@ var sympozerApp = angular.module('sympozerApp', [
     'authenticationApp',
     'contextualizationApp',
     'i18nApp',
-    'pascalprecht.translate'
+    'pascalprecht.translate',
 //    'organizationsApp',
-//    'personsApp',
+    'personsApp',
 //    'topicsApp',
 //    'locationsApp',
 //    'equipmentsApp',

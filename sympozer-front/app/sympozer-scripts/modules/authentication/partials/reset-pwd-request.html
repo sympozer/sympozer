@@ -1,11 +1,22 @@
-<div class="alert alert-info" role="alert">{{ 'authentication.messages.reset_pwd_info' | translate }}</div>
 
-<form name="resetPwdRequestForm" class="form" role="form" ng-submit="resetPwdRequestAction(resetPwdRequestForm)" novalidate="">
-  <div class="form-group">
-    <label for="inputUsername">{{ 'authentication.labels.username_or_email' | translate }}</label>
-    <input required="" type="text" name="username" class="form-control" id="inputUsername" placeholder="{{ 'authentication.labels.username_or_email' | translate }}" ng-model="user.username"/>
-  </div>
-    <div class="form-group">
-        <button ng-disabled="signinForm.$invalid" type="submit" class="btn btn-default">{{ 'authentication.labels.reset_pwd' | translate }}</button>
+<div class="verticalcenter">
+
+    <div class="modal-header">
+        <a href="#/"><img src="common-assets/img/logo.png" alt="Logo" class="brand"/></a>
     </div>
-</form>
+
+    <div class="modal-body">
+
+        <alert type="info"><span>{{ 'authentication.messages.reset_pwd_info' | translate }}</span></alert>
+
+        <form name="resetPwdRequestForm" class="form" role="form" ng-submit="resetPwdRequestAction(resetPwdRequestForm)" novalidate="">
+            <div class="form-group">
+                <label for="inputUsername">{{ 'authentication.labels.username_or_email' | translate }}</label>
+                <input required="" type="text" name="username" class="form-control" id="inputUsername" placeholder="{{ 'authentication.labels.username_or_email' | translate }}" ng-model="user.username"/>
+            </div>
+            <div class="form-group">
+                <button ng-disabled="signinForm.$invalid" type="submit" class="btn btn-default">{{ 'authentication.labels.reset_pwd' | translate }}</button>
+            </div>
+        </form>
+    </div>
+</div>
