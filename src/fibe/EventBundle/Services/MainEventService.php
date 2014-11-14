@@ -46,6 +46,7 @@ class MainEventService extends AbstractBusinessService
     {
       $mainEvent->setEndAt(clone $mainEvent->getStartAt()->add(new \DateInterval('P2D')));
     }
+    $mainEvent->setOwner($user->getPerson());
     $this->entityManager->persist($mainEvent);
 
 

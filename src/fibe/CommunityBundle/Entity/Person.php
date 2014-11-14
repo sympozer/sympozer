@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use fibe\ContentBundle\Entity\Paper;
 use fibe\ContentBundle\Entity\Role;
 use fibe\ContentBundle\Util\StringTools;
+use fibe\EventBundle\Entity\MainEvent;
 use fibe\SecurityBundle\Entity\Teammate;
 use fibe\SecurityBundle\Entity\User;
 use JMS\Serializer\Annotation\ExclusionPolicy;
@@ -111,6 +112,12 @@ class Person extends AdditionalInformations
    * @ORM\Column(type="string", length=256, nullable=true)
    */
   protected $slug;
+
+  /**
+   * @ORM\OneToMany(targetEntity="fibe\EventBundle\Entity\MainEvent", mappedBy="owner")
+   */
+  protected $ownMainEvents;
+
   /**
    *  Person that invited this person
    * @ORM\ManyToOne(targetEntity="Person",  inversedBy="guests", cascade={"all"})
@@ -390,45 +397,45 @@ class Person extends AdditionalInformations
 
 
   /**
-   * Add papers
+   * Add ownMainEvents
    *
-   * @param Paper $papers
+   * @param MainEvent $ownMainEvents
    *
    * @return $this
    */
-  public function addPaper(Paper $papers)
+  public function addOwnMainEvent(MainEvent $ownMainEvents)
   {
-    $this->papers[] = $papers;
-    $papers->addAuthor($this);
+    $this->ownMainEvents[] = $ownMainEvents;
+    $ownMainEvents->setOwner($this);
     return $this;
   }
 
   /**
-   * Remove papers
+   * Remove ownMainEvents
    *
-   * @param Paper $papers
+   * @param MainEvent $ownMainEvents
    */
-  public function removePaper(Paper $papers)
+  public function removeOwnMainEvent(MainEvent $ownMainEvents)
   {
-    $this->papers->removeElement($papers);
+    $this->ownMainEvents->removeElement($ownMainEvents);
   }
 
   /**
-   * Get papers
+   * Get ownMainEvents
    *
    * @return \Doctrine\Common\Collections\Collection
    */
-  public function getPapers()
+  public function getOwnMainEvents()
   {
-    return $this->papers;
+    return $this->ownMainEvents;
   }
 
   /**
-   * @param mixed $papers
+   * @param mixed $ownMainEvents
    */
-  public function setPapers($papers)
+  public function setOwnMainEvents($ownMainEvents)
   {
-    $this->papers = $papers;
+    $this->ownMainEvents = $ownMainEvents;
   }
 
   /**

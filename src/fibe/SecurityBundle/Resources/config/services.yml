@@ -67,7 +67,7 @@ services:
 
     fibe_security.acl_helper:
         abstract:  true
-        class: fibe\SecurityBundle\Services\Acl\ACL\ACLHelper
+        class: fibe\SecurityBundle\Services\Acl\ACLHelper
         calls:
             - [setEntityManager, ["@doctrine.orm.entity_manager"]]
             - [setAclProvider, ["@security.acl.provider"]]
@@ -78,7 +78,7 @@ services:
         parent: fibe_security.acl_helper
 
     fibe_security.acl_user_permission_helper:
-        class: fibe\SecurityBundle\Services\Acl\ACL\ACLUserPermissionHelper
+        class: fibe\SecurityBundle\Services\Acl\ACLUserPermissionHelper
         parent: fibe_security.acl_helper
 
     security.access.acl_inheritance_voter:

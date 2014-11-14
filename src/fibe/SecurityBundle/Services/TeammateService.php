@@ -3,6 +3,8 @@ namespace fibe\SecurityBundle\Services;
 
 use fibe\RestBundle\Services\AbstractBusinessService;
 use fibe\SecurityBundle\Entity\Teammate;
+use fibe\SecurityBundle\Services\Acl\ACLUserPermissionHelper;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Security\Acl\Permission\MaskBuilder;
 
 /**
@@ -21,6 +23,10 @@ class TeammateService extends AbstractBusinessService
 
   public function post(Teammate $teammate)
   {
+    if ($teammate->getPerson()->getId() == $teammate->getTeam()->getMainEvent()->getOwner()->getId())
+    {
+      throw new BadRequestHttpException("authentication.messages.cannot_add_owner_as_teammate");
+    }
     $this->aclEntityHelper->performUpdateUserACL($teammate->getPerson()->getUser(), MaskBuilder::MASK_MASTER, $teammate->getTeam()->getMainEvent());
 
     return $teammate;

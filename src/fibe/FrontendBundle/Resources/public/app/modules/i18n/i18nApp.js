@@ -84,6 +84,7 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
             messages : {
                 reset_pwd_info : 'To reset your password, enter the email address you use to sign in to Sympozer. You will receive an email from Sympozer with the link to use in order to reset your password',
                 pwd_not_set: 'You haven\'t set your password yet',
+                cannot_add_owner_as_teammate: 'You cannot add the owner to the team.',
                 forbidden  : 'You don\'t have the authorization to perform this action'
             },
             labels :{
@@ -573,6 +574,7 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
             messages : {
                 reset_pwd_info : 'Pour reinitialiser votre mot de passe, entrer votre email ou nom d\'utilisateur. Vous recevrez alors un email pour mettre à jour votre mot de passe',
                 pwd_not_set: 'Vous n\'avez pas encore défini votre mot de passe',
+                cannot_add_owner_as_teammate: 'Vous ne pouvez pas ajouter le créateur à l\'équipe',
                 forbidden  : 'Vous n\'avez le droit d\'exécuter cette action'
             },
             labels :{
