@@ -72,7 +72,7 @@ sympozerApp.config(['$provide', '$routeProvider', function ($provide, $routeProv
                 lazyLoad: ['lazyLoad', function (lazyLoad)
                 {
                     return lazyLoad.load([
-                        'common-assets/plugins/fullcalendar/fullcalendar.js'
+                        'sympozer-scripts/assets/plugins/fullcalendar/fullcalendar.js'
                     ]);
                 }]
             }
@@ -87,8 +87,8 @@ sympozerApp.config(['$provide', '$routeProvider', function ($provide, $routeProv
                 lazyLoad: ['lazyLoad', function (lazyLoad)
                 {
                     return lazyLoad.load([
-                        'common-assets/plugins/form-ckeditor/ckeditor.js',
-                        'common-assets/plugins/form-ckeditor/lang/en.js'
+                        'sympozer-scripts/assets/plugins/form-ckeditor/ckeditor.js',
+                        'sympozer-scripts/assets/plugins/form-ckeditor/lang/en.js'
                     ]);
                 }]
             }
@@ -103,7 +103,7 @@ sympozerApp.config(['$provide', '$routeProvider', function ($provide, $routeProv
                 lazyLoad: ['lazyLoad', function (lazyLoad)
                 {
                     return lazyLoad.load([
-                        'common-assets/plugins/jcrop/js/jquery.Jcrop.js'
+                        'sympozer-scripts/assets/plugins/jcrop/js/jquery.Jcrop.js'
                     ]);
                 }]
             }
