@@ -39,7 +39,7 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
             validations :{
                 error : 'Error',
                 success : 'Success'
-            }
+            },
         },
 
 

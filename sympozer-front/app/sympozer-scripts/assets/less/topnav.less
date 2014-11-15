@@ -43,16 +43,16 @@ header {
 			.btn-mark-unread + .tooltip > .tooltip-inner {min-width: 83px;}
 
 			button.btn-mark-read, button.btn-mark-unread, button{
-				float: right; border: none !important; 
-				padding: 0 !important; 
-				background: none !important; 
+				float: right; border: none !important;
+				padding: 0 !important;
+				background: none !important;
 				 line-height: 0;
-				
+
 				i {
-					color: lighten(@gray, 7%) !important;	
+					color: lighten(@gray, 7%) !important;
 					margin: 0;
 					font-size: 9px !important;
-					padding: 3px !important; 
+					padding: 3px !important;
 					margin-right: -3px;
 					// margin-left: 5px;
 
@@ -89,7 +89,7 @@ header {
 		.notification-failure i {color: @brand-danger;}
 		.notification-order i 	{color: @brand-info;}
 		a {
-			padding: 15px; 
+			padding: 15px;
 			line-height: 16px;
 			i {
 				.pull-left;
@@ -167,6 +167,14 @@ header {
 		padding: 0;
 		input[type="text"] {border:none;height: 38px;}
 	}
+
+  // Menu bar for choosing locale language
+  &.local {padding: 0; z-index: 1300; width: auto;}
+  &.local li {
+    height: 25px;
+    a {height: 25px;}
+    img {height: 15px; width: 20px;border-radius: 12%;}
+  }
 }
 
 #headerbardropdown {

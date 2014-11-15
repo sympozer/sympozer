@@ -11,8 +11,8 @@ angular.module('i18nApp').controller('translateCtrl', [ '$scope', '$rootScope', 
      * @TODO : use a real list of locals
      */
     $scope.locals = [
-        { label: 'EN', code: 'en_US', src: GLOBAL_CONFIG.app.urls.img + '/english-flag.png'},
-        { label: 'FR', code: 'fr_FR', src: GLOBAL_CONFIG.app.urls.img + '/french-flag.png'}
+        { label: 'English', code: 'en_US', src: GLOBAL_CONFIG.app.urls.img + '/english-flag.png'},
+        { label: 'Français', code: 'fr_FR', src: GLOBAL_CONFIG.app.urls.img + '/french-flag.png'}
     ];
 
 
