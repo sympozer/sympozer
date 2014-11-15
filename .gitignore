@@ -34,3 +34,8 @@ web/smlink
 #Symlink files
 src/fibe/FrontendBundle/Resources/public/public
 
+
+sympozer-front/.tmp/*
+sympozer-front/app/sympozer-scripts/js/ws-config.js
+node_modules/*
+sympozer-front/dist
