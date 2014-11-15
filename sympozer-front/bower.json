@@ -52,12 +52,14 @@
     "angular-translate": "~2.4.2",
     "angularjs-modal-service": "*",
     "bootstrap-social": "~4.8.0",
-    "bootstrap-tags": "~1.1.5"
+    "bootstrap-tags": "~1.1.5",
+    "angular-cached-resource": "~1.0.0"
   },
   "resolutions": {
     "jquery": "~1.11.0",
     "angular": "1.2.5",
-    "font-awesome": "~4.2"
+    "font-awesome": "~4.2",
+    "angular-resource": "1.2.5"
   },
   "devDependencies": {
     "twbs-bootstrap-sass": "~3.1.1",

@@ -109,10 +109,12 @@ var sympozerApp = angular.module('sympozerApp', [
     'ngAnimate',
 /** SYMPOZER APPS **/
 //    'sympozer.breadcrumb-controller',
+    'pascalprecht.translate',
+    'ngCachedResource',
     'authenticationApp',
     'contextualizationApp',
     'i18nApp',
-    'pascalprecht.translate',
+
 //    'organizationsApp',
     'personsApp',
 //    'topicsApp',

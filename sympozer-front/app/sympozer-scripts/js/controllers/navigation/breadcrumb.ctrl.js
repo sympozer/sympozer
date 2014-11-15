@@ -40,6 +40,16 @@ sympozerApp.controller('breadcrumbCtrl', ['$scope', '$location', function ($scop
                             label: 'authentication.labels.account'
                         }
                     ]
+                },
+                {
+                    idUrl: 'persons',
+                    label: 'persons.links.persons',
+                    children: [
+                        {
+                            idUrl: 'show',
+                            label: 'global.actions.show'
+                        }
+                    ]
                 }
             ]
         }

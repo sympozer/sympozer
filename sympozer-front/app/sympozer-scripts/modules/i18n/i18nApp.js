@@ -30,7 +30,8 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 save : 'Save',
                 ok : 'Ok',
                 cancel : 'Cancel',
-                details : 'View details &raquo;'
+                details : 'View details &raquo;',
+                show : 'Show'
             },
             labels : {
                 or : 'Or'
@@ -505,7 +506,9 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 my_recommandations : 'My recommandations'
             },
             labels : {
-                contact : 'Contact'
+                contact : 'Contact',
+                social : 'Social',
+                about : 'About'
             },
             validations : {
                 'created' : 'The person has been saved',
@@ -539,7 +542,8 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 save : 'Enregistrer',
                 ok : 'Ok',
                 cancel : 'Annuler',
-                details : 'Détails &raquo;'
+                details : 'Détails &raquo;',
+                show : 'Voir'
             },
             labels : {
                 or : 'Ou'
@@ -1007,7 +1011,12 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 my_recommandations : 'Mes recommandations'
             },
             labels : {
-                contact : 'Contact'
+                contact : 'Contact',
+                social : 'Social',
+                profil : 'Profil',
+
+                about : 'A propos'
+
             },
             validations : {
                 'created' : 'La personne a été enregistrée',

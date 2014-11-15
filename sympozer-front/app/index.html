@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Sympozer">
-    <meta name="author" content="Sympozer Association">
+    <meta name="author" content="Sympozer team">
 
     <!-- Favicons -->
     <link rel="icon" type="image/png" sizes="192x192" href="favicon.ico">
@@ -17,7 +17,8 @@
     <link rel="icon" type="image/png" sizes="32x32" href="favicon.ico">
 
     <!-- prochtml:remove:dist -->
-    <link href="common-assets/less/styles.less" rel="stylesheet/less" media="all">
+    <link href="sympozer-scripts/assets/less/styles.less" rel="stylesheet/less" media="all">
+
     <!-- /prochtml -->
 
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700' rel='stylesheet' type='text/css'>
@@ -27,12 +28,12 @@
     <link rel="stylesheet" href="common-assets/css/ie8.css">
     <script type="text/javascript" src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/respond.js/1.1.0/respond.min.js"></script>
-    <script type="text/javascript" src="common-assets/plugins/charts-flot/excanvas.min.js"></script>
+    <script type="text/javascript" src="sympozer-scripts/assets/plugins/charts-flot/excanvas.min.js"></script>
     <script type='text/javascript' src='bower/placeholdr/placeholdr.min.js'></script>
     <![endif]-->
 
     <!--[if IE 9]>
-    <script type="text/javascript" src="common-assets/plugins/misc/media.match.min.js"></script>
+    <script type="text/javascript" src="sympozer-scripts/assets/plugins/misc/media.match.min.js"></script>
     <![endif]-->
 
     <!-- The following CSS are included as plugins and can be removed if unused-->
@@ -51,32 +52,32 @@
     <link rel="stylesheet" href="bower/pnotify/pnotify.history.css"/>
     <!--<link rel="stylesheet" href="bower/bootstrap-social/bootstrap-social.css"/>-->
     <!-- endbower -->
-    <link rel='stylesheet' type='text/css' href='common-assets/fonts/glyphicons/css/glyphicons.min.css'/>
-    <link rel='stylesheet' type='text/css' href='common-assets/plugins/icheck/all.css'/>
-    <link rel='stylesheet' type='text/css' href='common-assets/plugins/form-multiselect/css/multi-select.css'/>
-    <link rel='stylesheet' type='text/css' href='common-assets/plugins/form-fseditor/fseditor.css'/>
-    <link rel='stylesheet' type='text/css' href='common-assets/plugins/form-tokenfield/bootstrap-tokenfield.css'/>
-    <link rel='stylesheet' type='text/css' href='common-assets/plugins/datepaginator/bootstrap-datepaginator.css'/>
-    <link rel='stylesheet' type='text/css' href='common-assets/plugins/jquery-fileupload/css/jquery.fileupload-ui.css'/>
-    <link rel='stylesheet' type='text/css' href='common-assets/plugins/bootstro.js/bootstro.min.css'/>
-    <link rel='stylesheet' type='text/css' href='common-assets/plugins/progress-skylo/skylo.css'/>
-    <link rel='stylesheet' type='text/css' href='common-assets/plugins/jcrop/css/jquery.Jcrop.min.css'/>
-    <link rel='stylesheet' type='text/css' href='common-assets/plugins/form-daterangepicker/daterangepicker-bs3.css'/>
-    <link rel='stylesheet' type='text/css' href='common-assets/plugins/form-markdown/css/bootstrap-markdown.min.css'/>
-    <link rel='stylesheet' type='text/css' href='common-assets/plugins/codeprettifier/prettify.css'/>
-    <link rel='stylesheet' type='text/css' href='common-assets/plugins/form-select2/select2.css'/>
-    <link rel='stylesheet' type='text/css' href='common-assets/plugins/fullcalendar/fullcalendar.css'/>
+    <link rel='stylesheet' type='text/css' href='sympozer-scripts/assets/fonts/glyphicons/css/glyphicons.min.css'/>
+    <link rel='stylesheet' type='text/css' href='sympozer-scripts/assets/plugins/icheck/all.css'/>
+    <link rel='stylesheet' type='text/css' href='sympozer-scripts/assets/plugins/form-multiselect/css/multi-select.css'/>
+    <link rel='stylesheet' type='text/css' href='sympozer-scripts/assets/plugins/form-fseditor/fseditor.css'/>
+    <link rel='stylesheet' type='text/css' href='sympozer-scripts/assets/plugins/form-tokenfield/bootstrap-tokenfield.css'/>
+    <link rel='stylesheet' type='text/css' href='sympozer-scripts/assets/plugins/datepaginator/bootstrap-datepaginator.css'/>
+    <link rel='stylesheet' type='text/css' href='sympozer-scripts/assets/plugins/jquery-fileupload/css/jquery.fileupload-ui.css'/>
+    <link rel='stylesheet' type='text/css' href='sympozer-scripts/assets/plugins/bootstro.js/bootstro.min.css'/>
+    <link rel='stylesheet' type='text/css' href='sympozer-scripts/assets/plugins/progress-skylo/skylo.css'/>
+    <link rel='stylesheet' type='text/css' href='sympozer-scripts/assets/plugins/jcrop/css/jquery.Jcrop.min.css'/>
+    <link rel='stylesheet' type='text/css' href='sympozer-scripts/assets/plugins/form-daterangepicker/daterangepicker-bs3.css'/>
+    <link rel='stylesheet' type='text/css' href='sympozer-scripts/assets/plugins/form-markdown/css/bootstrap-markdown.min.css'/>
+    <link rel='stylesheet' type='text/css' href='sympozer-scripts/assets/plugins/codeprettifier/prettify.css'/>
+    <link rel='stylesheet' type='text/css' href='sympozer-scripts/assets/plugins/form-select2/select2.css'/>
+    <link rel='stylesheet' type='text/css' href='sympozer-scripts/assets/plugins/fullcalendar/fullcalendar.css'/>
     <!-- endbuild -->
 
-    <!-- build:css({.tmp,app}) sympozer-assets/css/main.css -->
-    <link rel="stylesheet" href="sympozer-assets/css/main.css">
-    <link rel="stylesheet" href="sympozer-assets/css/styles.css">
+    <!-- build:css({.tmp,app}) -->
+    <link rel="stylesheet" href="sympozer-scripts/assets/css/main.css">
+    <link rel="stylesheet" href="sympozer-scripts/assets/css/styles.css">
     <!-- endbuild -->
 
     <!-- prochtml:remove:dist -->
     <script type="text/javascript">less = {};
     less.env = 'development';</script>
-    <script type="text/javascript" src="common-assets/plugins/misc/less.js"></script>
+    <script type="text/javascript" src="sympozer-scripts/assets/plugins/misc/less.js"></script>
     <!-- /prochtml -->
 
     <style type="text/css">
@@ -198,6 +199,7 @@
 <script src="bower/underscore/underscore.js"></script>
 <script src="bower/angular/angular.js"></script>
 <script src="bower/angular-resource/angular-resource.js"></script>
+<script src="bower/angular-cached-resource/angular-cached-resource.js"></script>
 <script src="bower/angular-cookies/angular-cookies.js"></script>
 <script src="bower/angular-sanitize/angular-sanitize.js"></script>
 <script src="bower/angular-route/angular-route.js"></script>
@@ -257,18 +259,18 @@
 <script src="bower/leaflet/dist/leaflet.js"></script>
 
 <!-- endbower -->
-<script type='text/javascript' src='common-assets/plugins/form-daterangepicker/daterangepicker.min.js'></script>
-<script type='text/javascript' src='common-assets/plugins/form-datepicker/js/bootstrap-datepicker.js'></script>
-<script type='text/javascript' src='common-assets/plugins/easypiechart/angular.easypiechart.js'></script>
-<script type='text/javascript' src='common-assets/plugins/datepaginator/bootstrap-datepaginator.js'></script>
-<script type='text/javascript' src='common-assets/plugins/form-multiselect/js/jquery.multi-select.min.js'></script>
-<script type='text/javascript' src='common-assets/plugins/form-colorpicker/js/bootstrap-colorpicker.min.js'></script>
-<script type='text/javascript' src='common-assets/plugins/form-fseditor/jquery.fseditor-min.js'></script>
-<script type='text/javascript' src='common-assets/plugins/form-jasnyupload/fileinput.js'></script>
+<script type='text/javascript' src='sympozer-scripts/assets/plugins/form-daterangepicker/daterangepicker.min.js'></script>
+<script type='text/javascript' src='sympozer-scripts/assets/plugins/form-datepicker/js/bootstrap-datepicker.js'></script>
+<script type='text/javascript' src='sympozer-scripts/assets/plugins/easypiechart/angular.easypiechart.js'></script>
+<script type='text/javascript' src='sympozer-scripts/assets/plugins/datepaginator/bootstrap-datepaginator.js'></script>
+<script type='text/javascript' src='sympozer-scripts/assets/plugins/form-multiselect/js/jquery.multi-select.min.js'></script>
+<script type='text/javascript' src='sympozer-scripts/assets/plugins/form-colorpicker/js/bootstrap-colorpicker.min.js'></script>
+<script type='text/javascript' src='sympozer-scripts/assets/plugins/form-fseditor/jquery.fseditor-min.js'></script>
+<script type='text/javascript' src='sympozer-scripts/assets/plugins/form-jasnyupload/fileinput.js'></script>
 
-<script type='text/javascript' src='common-assets/plugins/progress-skylo/skylo.js'></script>
+<script type='text/javascript' src='sympozer-scripts/assets/plugins/progress-skylo/skylo.js'></script>
 
-<script type='text/javascript' src='common-assets/plugins/bootstro.js/bootstro.min.js'></script>
+<script type='text/javascript' src='sympozer-scripts/assets/plugins/bootstro.js/bootstro.min.js'></script>
 <!-- endbuild -->
 
 <!--
@@ -446,9 +448,9 @@
         app: {
 
             urls: {
-                base: "sympozer-assets",
+                base: "sympozer-scripts/assets/",
                 partials: "sympozer-scripts/partials/",
-                img: "sympozer-assets/img/"
+                img: "sympozer-scripts/assets/img/"
             },
             modules: {
                 authentication: {
@@ -532,7 +534,7 @@
                     urls: {
                         base: "sympozer-scripts/modules/roles/",
                         partials: "sympozer-scripts/modules/roles/partials/",
-                        img: "sympozer-scripts/modules/roles/img/",
+                        img: "sympozer-scripts/modules/roles/img/"
                     }
                 },
                 roleLabelVersions: {

@@ -9,6 +9,6 @@ angular.module('personsApp').controller('personsShowCtrl', [ '$scope', '$rootSco
      * @TODO : restore backend communication
      */
     //$scope.person = personsFact.get({id: $routeParams.personId});
-    $scope.person = { id:1, firstname : 'Tim',  lastname : 'Berners lee'};
+    $scope.person = $rootScope.currentUser.person;
 
 }]);

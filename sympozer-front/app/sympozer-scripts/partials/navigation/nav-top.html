@@ -13,7 +13,7 @@
             <a href="" ng-click="showSigninPopup()" ng-controller="signinCtrl" style="font-size: 14px"><i class="fa fa-sign-in"></i> {{ 'authentication.actions.signin' | translate }}</a>
         </li>
         <li class="dropdown" disabled="disabled" ng-show="isLoggedIn">
-            <a href="#" class="dropdown-toggle username"><span class="hidden-xs">Matt Smith</span><img src="forza-assets/demo/avatar/dangerfield.png" alt="Dangerfield"/></a>
+            <a href="#" class="dropdown-toggle username"><span class="hidden-xs">{{currentUser.username}}</span><img class="img-responsive" no-image ng-src="{{currentUser.person.img}}" alt=""/></a>
             <ul class="dropdown-menu userinfo arrow">
                 <li class="userlinks">
                     <ul class="dropdown-menu">

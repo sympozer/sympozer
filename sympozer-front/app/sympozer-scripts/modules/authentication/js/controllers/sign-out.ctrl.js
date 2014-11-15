@@ -28,6 +28,8 @@ angular.module('authenticationApp').controller('signoutCtrl',
                 text: translateFilter('authentication.validations.signout_success'),
                 type: 'success'
             });
+
+            $location.path('/');
         }
 
         //Send signout request
