@@ -8,76 +8,77 @@
 <!--<hr/>-->
 
 <div class="verticalcenter">
-    <div class="modal-header">
-        <a href="#/"><img ng-src="{{GLOBAL_CONFIG.app.urls.img}}logo.png" alt="Logo" class="brand"/></a>
-    </div>
-    <div class="modal-body">
-        <h4 class="text-center" style="margin-bottom: 25px;">{{ 'authentication.actions.signup' | translate }}</h4>
+  <div class="modal-header">
+    <a href="#/"><img ng-src="{{GLOBAL_CONFIG.app.urls.img}}logo.png" alt="Logo" class="brand"/></a>
+  </div>
+  <div class="modal-body">
+    <h4 class="text-center" style="margin-bottom: 25px;">{{ 'authentication.actions.signup' | translate }}</h4>
 
-            <form name="signupForm" class="form-horizontal" role="form" ng-submit="signupAction(signupForm)" novalidate="">
-                <div class="form-group">
-                    <div class="col-sm-12">
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                            <input type="text" required="" server-error="serverError" name="username" class="form-control" id="inputUsername" placeholder="{{ 'authentication.labels.username' | translate }}" ng-model="user.username" ng-minlength="3" ng-maxlength="128" required/>
-                        </div>
-                        <span class="help-block"  ng-show="signinForm._username.$error.minlength">{{ 'authentication.validations.username_too_short' | translate }}</span>
-                        <span class="help-block"  ng-show="signinForm._username.$error.maxlength">{{ 'authentication.validations.username_too_long' | translate }}</span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-sm-12">
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-envelope-o"></i></span>
-                            <input type="email" class="form-control" server-error="serverError" id="inputEmail" name="mail" placeholder="{{ 'authentication.labels.email' | translate }}" ng-model="user.email" required ng-class="{'ng-dirty': formServerErrors.email, 'ng-valid': !formServerErrors.email,  'ng-invalid': formServerErrors.email}" ng-pattern=/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-sm-12">
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-lock"></i></span>
-                            <input type="password" required="" name="password" id="inputPassword" class="form-control" placeholder="{{ 'authentication.labels.password' | translate }}" ng-model="user.plainPassword.first" ng-minlength="5"
-                                   ng-maxlength="20" ng-pattern=/(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z].*[a-z].*[a-z])(?=.*[\S])/ required/>
-                        </div>
-                        <span class="help-block" ng-show="signupForm._password.$error.minlength">{{ 'authentication.validations.pwd_too_short' | translate }}</span>
-                        <span class="help-block" ng-show="signupForm._password.$error.maxlength">{{ 'authentication.validations.pwd_too_long' | translate }}</span>
-                        <span class="help-block" ng-show="signupForm.password.$error.pattern">{{ 'authentication.validations.pwd_not_enough_strength' | translate }}</span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-sm-12">
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-lock"></i></span>
-                            <input required="" type="password" name="confirmpassword" id="inputPasswordConfirm" class="form-control" placeholder="{{ 'authentication.labels.pwd_check' | translate }}" ng-model="user.plainPassword.second"/>
-                        </div>
-                        <span class="help-block" ng-show="signupForm.confirmpassword.$dirty && ( signupForm.password != signupForm.confirmpassword)">{{ 'authentication.validations.pwd_not_match' | translate }}</span>
-                    </div>
-                </div>
-                <div class="checkbox block" style="text-align:center">
-                    <input icheck type="checkbox">
+    <form name="signupForm" class="form-horizontal" role="form" ng-submit="signupAction(signupForm)" novalidate="">
+      <div class="form-group">
+        <div class="col-sm-12">
+          <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-user"></i></span>
+            <input type="text" required="" server-error="serverError" name="username" class="form-control" id="inputUsername" placeholder="{{ 'authentication.labels.username' | translate }}" ng-model="user.username" ng-minlength="3" ng-maxlength="128" required/>
+          </div>
+          <span class="help-block" ng-show="signinForm._username.$error.minlength">{{ 'authentication.validations.username_too_short' | translate }}</span>
+          <span class="help-block" ng-show="signinForm._username.$error.maxlength">{{ 'authentication.validations.username_too_long' | translate }}</span>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-12">
+          <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-envelope-o"></i></span>
+            <input type="email" class="form-control" server-error="serverError" id="inputEmail" name="mail" placeholder="{{ 'authentication.labels.email' | translate }}" ng-model="user.email" required ng-class="{'ng-dirty': formServerErrors.email, 'ng-valid': !formServerErrors.email,  'ng-invalid': formServerErrors.email}" ng-pattern=/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-12">
+          <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+            <input type="password" required="" name="password" id="inputPassword" class="form-control" placeholder="{{ 'authentication.labels.password' | translate }}" ng-model="user.plainPassword.first" ng-minlength="5"
+                   ng-maxlength="20" ng-pattern=/(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z].*[a-z].*[a-z])(?=.*[\S])/ required/>
+          </div>
+          <span class="help-block" ng-show="signupForm._password.$error.minlength">{{ 'authentication.validations.pwd_too_short' | translate }}</span>
+          <span class="help-block" ng-show="signupForm._password.$error.maxlength">{{ 'authentication.validations.pwd_too_long' | translate }}</span>
+          <span class="help-block" ng-show="signupForm.password.$error.pattern">{{ 'authentication.validations.pwd_not_enough_strength' | translate }}</span>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-12">
+          <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+            <input required="" type="password" name="confirmpassword" id="inputPasswordConfirm" class="form-control" placeholder="{{ 'authentication.labels.pwd_check' | translate }}" ng-model="user.plainPassword.second"/>
+          </div>
+          <span class="help-block" ng-show="signupForm.confirmpassword.$dirty && ( signupForm.password != signupForm.confirmpassword)">{{ 'authentication.validations.pwd_not_match' | translate }}</span>
+        </div>
+      </div>
+      <div class="checkbox block" style="text-align:center">
+        <input icheck type="checkbox">
                 <span>
                     {{ 'authentication.labels.agreement_acceptance' | translate }} <a href="" ng-click="showUserAgreementPopup()">{{ 'authentication.labels.agreement' | translate }}</a>
                 </span>
-                </div>
+      </div>
 
-                <div class="form-group">
-                    <div class="text-center">
-                        <p class="block">{{ 'global.labels.or' | translate }}</p>
-                        <button class="btn btn-social btn-label btn-twitter" style="margin-bottom: 10px;">
-                            <i class="fa fa-twitter"></i> {{ 'authentication.labels.signin_with' | translate }} Twitter
-                        </button>
-                        <button class="btn btn-social btn-label btn-facebook"><i class="fa fa-facebook"></i> {{ 'authentication.labels.signin_with' | translate }} Facebook
-                        </button>
-                    </div>
-                </div>
+      <div class="form-group">
+        <div class="text-center">
+          <p class="block">{{ 'global.labels.or' | translate }}</p>
+          <button class="btn btn-social btn-label btn-twitter">
+            <i class="fa fa-twitter"></i> {{ 'authentication.labels.signin_with' | translate }} Twitter
+          </button>
+          <button class="btn btn-social btn-label btn-facebook">
+            <i class="fa fa-facebook"></i> {{ 'authentication.labels.signin_with' | translate }} Facebook
+          </button>
+        </div>
+      </div>
 
-            </form>
-            <div class="modal-footer">
-                <div class="pull-right">
-                    <a href="" class="btn btn-default" ng-click="$dismiss('cancel')">{{ 'global.actions.cancel' | translate }}</a>
-                    <a href="" class="btn btn-success" ng-disabled="signupForm.$invalid" ng-click="signupAction(signupForm)">{{ 'authentication.actions.signup' | translate }}</a>
-                </div>
-            </div>
+    </form>
+    <div class="modal-footer">
+      <div class="pull-right">
+        <a href="" class="btn btn-default" ng-click="$dismiss('cancel')">{{ 'global.actions.cancel' | translate }}</a>
+        <a href="" class="btn btn-success" ng-disabled="signupForm.$invalid" ng-click="signupAction(signupForm)">{{ 'authentication.actions.signup' | translate }}</a>
+      </div>
     </div>
+  </div>
 </div>

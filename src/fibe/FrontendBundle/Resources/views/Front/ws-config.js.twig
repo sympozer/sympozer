@@ -1,0 +1,45 @@
+var globalConfig = {
+api : {
+urls: {
+{#get_organizations: "{{ path('community_organization_post')  | raw }}",#}
+get_organization_versions: "{{ path('community_organization_versions_post')  | raw }}",
+
+get_persons            : "{{ path('community_persons_post')  | raw }}",
+get_locations          : "{{ path('content_event_locations_post')  | raw }}",
+get_mainEvent_locations: "{{ path('content_mainEvent_locations_post')  | raw }}",
+get_equipments         : "{{ path('content_equipments_post')  | raw }}",
+get_events             : "{{ path('schedule_events_post')  | raw }}",
+
+get_teammates        : "{{ path('security_teammates_post')  | raw }}",
+get_roles            : "{{ path('content_roles_post')  | raw }}",
+get_roleLabel_verions: "{{ path('content_roleLabel_versions_post')  | raw }}",
+get_roleLabels       : "{{ path('content_roleLabels_post')  | raw }}",
+
+get_papers       : "{{ path('content_papers_post')  | raw }}",
+get_topics       : "{{ path('content_topics_post')  | raw }}",
+get_categories   : "{{ path('schedule_category_versions_post')  | raw }}",
+get_mainEvents   : "{{ path('schedule_mainEvents_post')  | raw }}",
+login            : "{{ path('login_check', {_format: 'json'})  | raw }}",
+logout           : "{{ path('logout')  | raw }}",
+registration     : "{{ path('security_signup')  | raw }}",
+confirm          : "{{ path('security_confirm')  | raw }}",
+changepwd        : "{{ path('security_changepwd')  | raw }}",
+reset_pwd_request: "{{ path('security_resetpwdrequest')  | raw }}",
+reset_pwd        : "{{ path('security_resetpwd')  | raw }}",
+socialnetworks   : [
+{#{% for owner in hwi_oauth_resource_owners() %}{% if loop.first %}{% else %},
+{% endif %}
+  {
+  name        : "{{ owner  | raw }}",
+  urls        : {
+  login : "{{ hwi_oauth_login_url(owner)  | raw }}",
+  enrich: "{{ path('enrich_account', { 'socialService': owner })  | raw }}"
+  },
+  &#123;&#35; can't register with twitter as long as they chose to not return user's mail :( &#35;&#125;
+  can_register: {% if owner == 'twitter' %}false{% else %}true{% endif %}
+  }
+{% endfor %}#}
+]
+}
+}
+};
