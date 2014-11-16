@@ -20,6 +20,7 @@ composer.lock
 
 
 */node_modules/*
+node_modules/*
 sympozer-front/app/bower
 ./Gruntfile.js
 ./src/fibe/FrontendBundle/Resources/public/vendors/*
@@ -37,6 +38,5 @@ src/fibe/FrontendBundle/Resources/public/public
 
 sympozer-front/.tmp/*
 sympozer-front/app/sympozer-scripts/js/ws-config.js
-node_modules/*
 sympozer-front/dist/*
 sympozer-front/local-config.json

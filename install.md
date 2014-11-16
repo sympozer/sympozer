@@ -69,12 +69,22 @@ After that, save and add this file to : app/config
 
     php ./vendor/sensio/distribution-bundle/Sensio/Bundle/DistributionBundle/Resources/bin/build_bootstrap.php
 
-##step 2 : FrontEnd dependencies
+##step 2 : FrontEnd
 
-    cd src/fibe/FrontendBundle/Resources/public/
+    cd sympozer-front/
     sudo mkdir vendors
     sudo chmod 777 vendors/
     bower install
+
+####setup your absolute url to app_dev.php
+
+    sudo cp local-config.json.TEMPLATE local-config.json
+    sudo nano local-config.json
+
+####build frontend
+    sudo grunt
+    
+
 
 Start your Apache server and go to :
 
