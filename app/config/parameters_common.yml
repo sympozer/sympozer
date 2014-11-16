@@ -1,5 +1,7 @@
 parameters: 
 
+    default_front_end_path:    http://localhost/sympozer/sympozer-front/app/#/
+    front_end_confirm_path:    confirm
 
     routing_dev_file:  routing_dev.yml
 

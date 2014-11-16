@@ -7,6 +7,11 @@ services:
     fibe.mail_manager:
         class:  "%mail_manager.class%"
         parent: fos_user.mailer.twig_swift
+        calls:
+            - [setFrontEndPath, ["%front_end_path%"]]
+            - [setDefaultFrontEndPath, ["%default_front_end_path%"]]
+            - [setConfirmPath, ["%front_end_confirm_path%"]]
+
 
     fibe.PersonService:
         class:  "%person_service.class%"

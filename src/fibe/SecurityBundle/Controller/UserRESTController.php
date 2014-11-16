@@ -67,7 +67,6 @@ class UserRESTController extends Controller
 
       $this->container->get('fibe.UserService')->post($user);
       $userManager->updateUser($user);
-      var_dump($this->get('session')->get('_locale'));
 
       $successResponse = new Response('Register_success');
 
@@ -130,10 +129,15 @@ class UserRESTController extends Controller
     }
   }
 
+
+
+
+  /**********************************   change & reset password  ***********************************************/
+
   /**
    * validate confirm link sent by mail
    *  => Redirect to the frontend confirmation page.
-   * @Rest\Get("/confirm", name="fos_user_registration_confirm")
+   * @Rest\Get("/confirm", name="fos_user_registration_confirm")fos_user_registration_check_email
    * @Rest\QueryParam(name="token", requirements=".{32,64}", description="The confirmation token from user email provider.")
    */
   public function confirmRedirectAction(Request $request, ParamFetcherInterface $paramFetcher)
@@ -141,11 +145,6 @@ class UserRESTController extends Controller
     $token = $paramFetcher->get('token');
     return $this->redirect($this->generateUrl('fibe_frontend_front_index') . '#/confirm/' . $token);
   }
-
-
-
-
-  /**********************************   change & reset password  ***********************************************/
 
   /**
    * Receive the confirmation token from the front end
@@ -165,7 +164,7 @@ class UserRESTController extends Controller
       throw new NotFoundHttpException(sprintf('The user with confirmation token "%s" does not exist', $token));
     }
     //let the user a way to login if he doesn't change his password
-    if(!$user->isRandomPwd())
+    if (!$user->isRandomPwd())
     {
       $user->setConfirmationToken(null);
     }
@@ -180,7 +179,7 @@ class UserRESTController extends Controller
     $user->setLastLogin(new \DateTime());
     $userManager->updateUser($user);
 
-    $response = new Response($this->container->get('jms_serializer')->serialize( $user, $request->getRequestFormat()));
+    $response = new Response($this->container->get('jms_serializer')->serialize($user, $request->getRequestFormat()));
     $response->headers->set('Content-Type', 'application/json');
     $this->authenticateUser($user, $response);
     return $response;
@@ -269,6 +268,12 @@ class UserRESTController extends Controller
     return new Response('', 204); //No Content
   }
 
+
+
+
+
+/**********************************   utils  ***********************************************/
+
   /**
    * Redirect to the frontend reset password page.
    * @Rest\Get("/reset_pwd", name="fos_user_resetting_reset")
@@ -279,12 +284,6 @@ class UserRESTController extends Controller
     $token = $paramFetcher->get('token');
     return $this->redirect($this->generateUrl('fibe_frontend_front_index') . '#/reset/' . $token);
   }
-
-
-
-
-
-/**********************************   utils  ***********************************************/
 
   /**
    * Redirect to the frontend api confirmation page.
