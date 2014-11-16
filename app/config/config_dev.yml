@@ -1,6 +1,11 @@
 imports:
     - { resource: config.yml }
 
+# CORS Support
+nelmio_cors:
+    paths:
+        '^/':
+
 framework:
     router:   { resource: %kernel.root_dir%/config/%routing_dev_file% }
     profiler: { only_exceptions: false }

@@ -4,15 +4,6 @@ jms_security_extra:
     voters:
         disable_acl: true
 
-# CORS Support
-nelmio_cors:
-    paths:
-        '^/':
-            allow_origin: ['http://localhost','http://127.0.0.1']
-            allow_headers: ['*']
-            allow_methods: ['POST', 'PUT', 'GET', 'DELETE', 'OPTIONS']
-            max_age: 3600
-
 security:
     encoders:
        # Symfony\Component\Security\Core\User\User: plaintext

@@ -13,8 +13,6 @@ class MailManager extends TwigSwiftMailer
 
   protected $frontEndPath;
 
-  protected $defaultFrontEndPath;
-
   protected $confirmPath;
 
   public function sendConfirmationEmailMessage(UserInterface $user)
@@ -26,23 +24,15 @@ class MailManager extends TwigSwiftMailer
 
 
 //    $url = $this->router->generate('fos_user_registration_confirm', array('token' => $user->getConfirmationToken()), true);
-    if ($this->frontEndPath)
-    {
-      $baseUrl = $this->frontEndPath;
-    }
-    else
-    {
-      $baseUrl = $this->defaultFrontEndPath;
-    }
 
-    $url = $baseUrl . $this->confirmPath . "/" . $user->getConfirmationToken();
+    $url = $this->frontEndPath . $this->confirmPath . "/" . $user->getConfirmationToken();
 
     $context = array(
       'user' => $user,
       'confirmationUrl' => $url
     );
 
-    $this->sendMessage($template, $context, $this->parameters['from_email']['confirmation'], $user->getEmail());
+//    $this->sendMessage($template, $context, $this->parameters['from_email']['confirmation'], $user->getEmail());
   }
 
   public function sendConfirmationTokenNoMoreValidEmailMessage(UserInterface $user)
@@ -76,14 +66,6 @@ class MailManager extends TwigSwiftMailer
   public function setFrontEndPath($frontEndPath)
   {
     $this->frontEndPath = $frontEndPath;
-  }
-
-  /**
-   * @param $defaultFrontEndPath
-   */
-  public function setDefaultFrontEndPath($defaultFrontEndPath)
-  {
-    $this->defaultFrontEndPath = $defaultFrontEndPath;
   }
 
   /**

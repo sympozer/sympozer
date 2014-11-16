@@ -41,6 +41,7 @@ Next, create a parameters.yml file with this text :
         mailer_user:       john.doe@gmail.com
         mailer_password:   password
 
+        #used to generate frontend mail url
         front_end_path:    http://localhost/sympozer/sympozer-front/app/
 
 For  "database_user" put your mysql user name, and "database_password" , and use your mysql password.
