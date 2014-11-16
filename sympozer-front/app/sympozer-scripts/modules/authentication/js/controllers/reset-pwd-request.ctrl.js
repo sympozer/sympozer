@@ -46,11 +46,7 @@ angular.module('authenticationApp').controller('resetPwdRequestCtrl', [ '$scope'
         {
             if (resetPwdRequestForm.$valid)
             {
-                /*
-                 * @TODO : restore backend communication
-                 */
-                //usersFact.resetpwdrequest({"username": $scope.user.username}, success, error);
-                success();
+                usersFact.resetpwdrequest({"username": $scope.user.username}, success, error);
             }
         }
     }]);

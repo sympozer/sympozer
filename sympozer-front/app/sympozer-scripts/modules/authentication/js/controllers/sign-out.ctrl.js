@@ -35,10 +35,6 @@ angular.module('authenticationApp').controller('signoutCtrl',
         //Send signout request
         $scope.signoutAction = function ()
         {
-            /*
-             * @TODO : restore backend communication
-             */
-            //usersFact.signout({}, success, error);
-            success();
+            usersFact.signout({}, success, error);
         }
     }]);

@@ -70,7 +70,7 @@ angular.module('sympozerApp').factory('globalHttpInterceptor', [
       {
         if (rejection.status == "401")
         {
-          $rootScope.showLoginPopup();
+            $rootScope.showSigninPopup();
           $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'You need to signin to have access to this page', type: 'warning'});
         }
         else if (rejection.status == "403")

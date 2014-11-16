@@ -57,11 +57,10 @@ angular.module('authenticationApp').controller('signupCtrl',
         //Send signup request
         $scope.signupAction = function (signupForm)
         {
-            /*
-             * @TODO : restore backend communication
-             */
-            //usersFact.signup({fos_user_registration_form: signupForm}, success, error);
-            success({id:1, label:'luke'});
+            if (signupForm.$valid)
+            {
+                usersFact.signup({fos_user_registration_form: $scope.user}, success, error);
+            }
         }
 
 

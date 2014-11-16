@@ -43,7 +43,7 @@ angular.module('authenticationApp').controller('signinCtrl',
         };
 
         //Manage the signin modal
-        $scope.showSigninPopup = function ()
+        $scope.showSigninPopup = $scope.$root.showSigninPopup = function ()
         {
             //Open signin modal
             var modalInstance = $modal.open({
@@ -56,10 +56,6 @@ angular.module('authenticationApp').controller('signinCtrl',
         //Send signin request with signin form information
         $scope.signinAction = function(user)
         {
-            /*
-             * @TODO : restore backend communication
-             */
             usersFact.signin({}, {"_username": $scope.user.username, "_password": $scope.user.password}, success, error);
-//            success({id:1, label:'anakin'});
         };
     }]);

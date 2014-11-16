@@ -35,10 +35,6 @@ angular.module('authenticationApp').controller('changePwdCtrl',
         //Send change password request to server
         $scope.changePwdAction = function (changePwdForm)
         {
-            /*
-             * @TODO : restore backend communication
-             */
-            //usersFact.changepwd(changePwdForm, success, error);
-            success({id:1, label:'yoda'});
+            usersFact.changepwd(changePwdForm, success, error);
         }
     }]);
