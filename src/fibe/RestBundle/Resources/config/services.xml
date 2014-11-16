@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
 
-<container xmlns="http://symfony.com/schema/dic/services"
-           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<container xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns="http://symfony.com/schema/dic/services"
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
   <parameters>
@@ -15,7 +15,6 @@
     <parameter key="fibe.rest.collection.type.class">fibe\RestBundle\Form\GetOrCreateCollectionType</parameter>
     <parameter key="fibe.rest.entity.type.class">fibe\RestBundle\Form\GetOrCreateEntityType</parameter>
     <parameter key="acl_serialize_listener.class">fibe\RestBundle\Listener\ACLSerializationListener</parameter>
-    <!--<parameter key="app.cors_listener.class">fibe\RestBundle\Listener\CorsListener</parameter>-->
   </parameters>
 
   <services>
@@ -81,12 +80,6 @@
       <argument type="service" id="logger"/>
     </service>
 
-
-    <!-- cors support -->
-
-    <!-- <service id="app.cors_listener" class="%app.cors_listener.class%">
-        <tag name="kernel.event_listener" event="kernel.response" method="onKernelResponse"/>
-    </service> -->
   </services>
 
 </container>

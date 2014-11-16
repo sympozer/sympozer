@@ -1,7 +1,7 @@
 <?php
 
-use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Config\Loader\LoaderInterface;
+use Symfony\Component\HttpKernel\Kernel;
 
 class AppKernel extends Kernel
 {
@@ -27,6 +27,7 @@ class AppKernel extends Kernel
       new JMS\DiExtraBundle\JMSDiExtraBundle($this),
       new JMS\SecurityExtraBundle\JMSSecurityExtraBundle(),
       new WhiteOctober\PagerfantaBundle\WhiteOctoberPagerfantaBundle(),
+      new Nelmio\CorsBundle\NelmioCorsBundle(),
 
 
       new fibe\SecurityBundle\fibeSecurityBundle(),

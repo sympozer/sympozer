@@ -2,6 +2,15 @@ jms_security_extra:
     secure_all_services: false
     expressions: true
 
+# CORS Support
+nelmio_cors:
+    paths:
+        '^/':
+            allow_origin: ['http://localhost','http://127.0.0.1']
+            allow_headers: ['*']
+            allow_methods: ['POST', 'PUT', 'GET', 'DELETE', 'OPTIONS']
+            max_age: 3600
+
 security:
     encoders:
        # Symfony\Component\Security\Core\User\User: plaintext
@@ -49,10 +58,10 @@ security:
             anonymous: true
             provider:  main
             form_login:
-               login_path: fos_user_security_login
-               check_path: fos_user_security_check
-#                login_path: /login
-#                check_path: /login/login_check
+#               login_path: fos_user_security_login
+#               check_path: fos_user_security_check
+                login_path: /login
+                check_path: /login/login_check
                 default_target_path: dashboard_index
                 success_handler: authentication_handler
                 failure_handler: authentication_handler
