@@ -13,7 +13,7 @@ sympozerApp.controller('navMainCtrl', ['$scope', '$location', '$timeout', '$glob
     {
       label: "events.links.events",
       iconClasses: 'fa fa-calendar',
-      url: '#/modules/events/index'
+      url: '#/'
     },
     {
       label: 'organizations.links.organizations',
