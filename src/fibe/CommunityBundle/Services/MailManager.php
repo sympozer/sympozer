@@ -19,12 +19,10 @@ class MailManager extends TwigSwiftMailer
   {
     $template = $this->parameters['template']['confirmation'];
 
-    //generate an url like :
-    //   http://localhost/sympozer/sympozer-front/app/#/confirm?token=JUqCFLxukPIDtFlXLufka5YxOtZoX1a8TtgNa41Jvy0
-
-
 //    $url = $this->router->generate('fos_user_registration_confirm', array('token' => $user->getConfirmationToken()), true);
 
+    //generate an url like :
+    //   http://localhost/sympozer/sympozer-front/app/#/confirm?token=JUqCFLxukPIDtFlXLufka5YxOtZoX1a8TtgNa41Jvy0
     $url = $this->frontEndPath . $this->confirmPath . "/" . $user->getConfirmationToken();
 
     $context = array(
@@ -32,7 +30,7 @@ class MailManager extends TwigSwiftMailer
       'confirmationUrl' => $url
     );
 
-//    $this->sendMessage($template, $context, $this->parameters['from_email']['confirmation'], $user->getEmail());
+    $this->sendMessage($template, $context, $this->parameters['from_email']['confirmation'], $user->getEmail());
   }
 
   public function sendConfirmationTokenNoMoreValidEmailMessage(UserInterface $user)

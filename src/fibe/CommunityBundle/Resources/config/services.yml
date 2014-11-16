@@ -9,7 +9,6 @@ services:
         parent: fos_user.mailer.twig_swift
         calls:
             - [setFrontEndPath, ["?%front_end_path%"]]
-            - [setDefaultFrontEndPath, ["%front_end_path%"]]
             - [setConfirmPath, ["%front_end_confirm_path%"]]
 
 
