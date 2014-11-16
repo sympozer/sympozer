@@ -27,18 +27,16 @@ changepwd        : "{{ path('security_changepwd')  | raw }}",
 reset_pwd_request: "{{ path('security_resetpwdrequest')  | raw }}",
 reset_pwd        : "{{ path('security_resetpwd')  | raw }}",
 socialnetworks   : [
-{#{% for owner in hwi_oauth_resource_owners() %}{% if loop.first %}{% else %},
-{% endif %}
+{% for owner in hwi_oauth_resource_owners() %}{% if loop.first %}{% else %},{% endif %}
   {
   name        : "{{ owner  | raw }}",
   urls        : {
-  login : "{{ hwi_oauth_login_url(owner)  | raw }}",
+  login: "{{ path('hwi_oauth_service_redirect', { 'service': owner })  | raw }}",
   enrich: "{{ path('enrich_account', { 'socialService': owner })  | raw }}"
   },
-  &#123;&#35; can't register with twitter as long as they chose to not return user's mail :( &#35;&#125;
-  can_register: {% if owner == 'twitter' %}false{% else %}true{% endif %}
+  can_register: {% if owner == 'twitter' %}false{% else %}true{% endif %}{# can't register with twitter as long as they chose to not return user's mail :( #}
   }
-{% endfor %}#}
+{% endfor %}
 ]
 }
 }

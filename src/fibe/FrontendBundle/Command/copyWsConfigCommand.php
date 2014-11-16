@@ -37,7 +37,6 @@ class copyWsConfigCommand extends ContainerAwareCommand
   /** @var  OutputInterface */
   private $output;
   private $toPath;
-  private $base_dir;
   private $target_dir;
 
   protected function configure()
@@ -63,12 +62,8 @@ class copyWsConfigCommand extends ContainerAwareCommand
 
     $this->toPath = $this->input->getOption('to-path');
 
-    $this->base_dir = $this->container->get('kernel')->getRootDir() . self::DS . '..' . self::DS;
     $this->println("Copying to : ", self::LN_COMMENT);
     $this->println("       " . $this->toPath, self::LN_COMMENT);
-    $this->println($this->base_dir);
-
-    $this->target_dir = $this->base_dir . 'app' . self::DS;
 
 
     $this->performCommand();
@@ -105,12 +100,12 @@ class copyWsConfigCommand extends ContainerAwareCommand
 
     if (true === $content = $this->writeFileContent($this->toPath, $wsConfig))
     {
-      $this->println("Copied ws config to : " . $this->toPath, self::LN_INFO);
+      $this->println("Copied without errors.", self::LN_INFO);
       $this->println();
     }
     else
     {
-      $this->println("Failed to copy ws config to : " . $this->toPath, self::LN_ERROR);
+      $this->println("Failed to copy ws config.", self::LN_ERROR);
       $this->println();
     }
   }

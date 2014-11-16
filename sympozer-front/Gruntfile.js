@@ -334,7 +334,7 @@ module.exports = function (grunt) {
       ],
       dist: [
         'copy:styles',
-        'copy:dist',
+        'copy:dist'
         // 'imagemin',
         // 'svgmin'
       ]
@@ -348,7 +348,7 @@ module.exports = function (grunt) {
           bootstrap: function(module, script) {
             return "angular.module('theme.templates', []).run(['$templateCache', function ($templateCache) {\n"+script+"}])";
           }
-        },
+        }
       }
     },
 
@@ -436,6 +436,72 @@ module.exports = function (grunt) {
       options: {
         mangle: false
       }
+    },
+
+      /****************************************************
+       *
+       *                    SYMFONY TASKS                *
+       *
+       * *************************************************/
+
+      'sf2-console': {
+          options         : {
+              bin: '../app/console'
+          },
+          //Clear the cache of the production environnement
+          cache_clear_prod: {
+              cmd : 'cache:clear',
+              args: {
+                  env: 'prod'
+              }
+          },
+          //Clear the cache of the development environnement
+          cache_clear_dev : {
+              cmd : 'cache:clear',
+              args: {
+                  env: 'dev'
+              }
+          },
+          //Clear the cache of the production/developpement environnement
+          cache_clear     : {
+              cmd: 'cache:clear'
+          },
+          //concat and minimify all assets for prod environnement
+          assets_dump     : {
+              cmd : 'assetic:dump',
+              args: {}
+          },
+          //Install all assets (take everything from Resources directory of each bundle to append it in web/bundle/
+          assets_install  : {
+              cmd : 'assets:install web',
+              args: { symlink: true}
+          },
+          //Remove the database (specified in app/config/parameters.yml)
+          database_drop   : {
+              cmd : 'doctrine:database:drop',
+              args: { force: true}
+          },
+          //Create the database (specified in app/config/parameters.yml)
+          database_create : {
+              cmd: 'doctrine:database:create'
+          },
+          //Create the schema of the database
+          database_update : {
+              cmd : 'doctrine:schema:update',
+              args: { force: true}
+          },
+          //Insert basic data including all default values for categories or roles
+          database_init   : {
+              cmd: 'sympozer:database:init'
+          },
+          //create an admin user on the system
+          admin_create    : {
+              cmd: 'sympozer:admin:create admin admin@admin.fr admin'
+          },
+          //copy the ws config file
+          copy_ws_config  : {
+              cmd: 'sympozer:wsconfig:copy --to-path ../sympozer-front/app/sympozer-scripts/js/ws-config.js'
+          }
     }
   });
 
@@ -485,7 +551,9 @@ module.exports = function (grunt) {
     'rev',
     'usemin',
     'processhtml:dist',
-    // 'htmlmin'
+    'sf2-console:copy_ws_config'
+      // 'htmlmin',
+
   ]);
 
   grunt.registerTask('default', [
