@@ -254,10 +254,10 @@
 <script src="bower/json3/lib/json3.js"></script>
 <script src="bower/placeholdr/placeholdr.js"></script>
 <script src="bower/iCheck/icheck.min.js"></script>
-<script src="bower/angular-mocks/angular-mocks.js"></script>
 <script src="bower/leaflet/dist/leaflet.js"></script>
 <script src="bower/leaflet/dist/leaflet-src.js"></script>
 <script src="bower/angular-leaflet-directive/dist/angular-leaflet-directive.js"></script>
+<script src="bower/angular-mocks/angular-mocks.js"></script>
 <script src="bower/angular-moment/angular-moment.js"></script>
 <script src="bower/angular-translate/angular-translate.js"></script>
 <script src="bower/angularjs-modal-service/src/createDialog.js"></script>
@@ -414,7 +414,22 @@
 <!--SERVICES -->
 <script src="sympozer-scripts/modules/persons/js/services/persons.fact.js"></script>
 
+<!-- SYMPOZER PAPERS APP -->
+<script src="sympozer-scripts/modules/papers/js/routes.js"></script>
+<!-- CONTROLLERS -->
+<script src="sympozer-scripts/modules/papers/js/controllers/papers-index.ctrl.js"></script>
+<!--@TODO <script src="sympozer-scripts/modules/papers/js/controllers/papers-delete.ctrl.js"></script>-->
+<!--@TODO <script src="sympozer-scripts/modules/papers/js/controllers/papers-edit.ctrl.js"></script>-->
+<!--@TODO <script src="sympozer-scripts/modules/papers/js/controllers/papers-list.ctrl.js"></script>-->
+<!--@TODO <script src="sympozer-scripts/modules/papers/js/controllers/papers-main.ctrl.js"></script>-->
+<!--@TODO <script src="sympozer-scripts/modules/papers/js/controllers/papers-new.ctrl.js"></script>-->
+<!--@TODO <script src="sympozer-scripts/modules/papers/js/controllers/papers-show.ctrl.js"></script>-->
+<!--@TODO <script src="sympozer-scripts/modules/papers/js/controllers/community/papers-community-list.ctrl.js"></script>-->
+<!-- SERVICES -->
+<script src="sympozer-scripts/modules/papers/js/services/papers.fact.js"></script>
 <!-- endbuild -->
+
+
 <!-- basic client app context definition (just mocking the file) -->
 <script>
   //@TODO to put in serchService
@@ -501,7 +516,7 @@
         papers           : {
           urls: {
             base             : "sympozer-scripts/modules/papers/",
-            partials         : "sympozer-scripts/modules/papers/partials",
+            partials         : "sympozer-scripts/modules/papers/partials/",
             communityPartials: "sympozer-scripts/modules/papers/community/partials/",
             img              : "sympozer-scripts/modules/papers/img/"
           }

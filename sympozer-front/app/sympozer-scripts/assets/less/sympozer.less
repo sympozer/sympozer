@@ -10,6 +10,11 @@
 @media (min-width: @screen-lg) {
   .text-right-lg {
     text-align: right;
+    // change margin direction for labels
+    & > .labels {
+      margin-left: 5px;
+      margin-right: 0;
+    }
   }
   .text-left-lg {
     text-align: left;
@@ -28,6 +33,11 @@
 @media (min-width: @screen-md) {
   .text-right-md {
     text-align: right;
+    // change margin direction for labels
+    & > .labels {
+      margin-left: 5px;
+      margin-right: 0 !important;
+    }
   }
   .text-left-md {
     text-align: left;
@@ -43,20 +53,12 @@
   }
 }
 
-@media (min-width: @screen-sm) {
-  .text-right-sm {
-    text-align: right;
-  }
-  .text-left-sm {
-    text-align: left;
-  }
-  .text-center-sm {
-    text-align: center;
-  }
-  .text-justify-sm {
-    text-align: justify;
-  }
-  .text-nowrap-sm {
-    white-space: nowrap;
-  }
+/**
+ * Multiple labels
+ *
+ * Description : make possible to add multiple label
+ */
+.labels {
+  .label;
+  margin-right: 5px;
 }

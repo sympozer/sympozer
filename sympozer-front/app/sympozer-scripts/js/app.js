@@ -53,7 +53,7 @@ var sympozerApp = angular.module('sympozerApp', [
 /**
  * Main Sympozer Angular app depedencies
  */
-var sympozerApp = angular.module('sympozerApp', [
+sympozerApp = angular.module('sympozerApp', [
     'easypiechart',
     'toggle-switch',
     'ui.bootstrap',
@@ -126,7 +126,7 @@ var sympozerApp = angular.module('sympozerApp', [
 //    'roleLabelsApp',
 //    'categoriesApp',
 //    'mainEventsApp',
-//    'papersApp',
+    'papersApp'
 ]);
 
 

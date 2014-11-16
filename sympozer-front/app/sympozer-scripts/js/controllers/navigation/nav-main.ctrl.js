@@ -11,7 +11,7 @@ sympozerApp.controller('navMainCtrl', ['$scope', '$location', '$timeout', '$glob
    */
    var basicMenu = [
     {
-      label: "events.links.events",
+      label: 'events.links.events',
       iconClasses: 'fa fa-calendar',
       url: '#/'
     },
@@ -28,7 +28,7 @@ sympozerApp.controller('navMainCtrl', ['$scope', '$location', '$timeout', '$glob
     {
       label: 'papers.links.papers',
       iconClasses: 'glyphicon glyphicon-book',
-      url: '#/' /** @TODO FORZA : TO ALIMENT WITH THE PROPER URL**/
+      url: '#/home/papers/index'
     }
   ];
   // Initialize the basic menu

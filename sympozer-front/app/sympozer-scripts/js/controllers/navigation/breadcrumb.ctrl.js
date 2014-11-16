@@ -50,6 +50,16 @@ sympozerApp.controller('breadcrumbCtrl', ['$scope', '$location', function ($scop
               label: 'global.actions.show'
             }
           ]
+        },
+        {
+          idUrl: 'papers',
+          label: 'papers.links.papers',
+          children: [
+            {
+              idUrl: 'index',
+              label: 'papers.actions.index.subtitle'
+            }
+          ]
         }
       ]
     }
