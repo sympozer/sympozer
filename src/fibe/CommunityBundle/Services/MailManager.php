@@ -19,11 +19,9 @@ class MailManager extends TwigSwiftMailer
   {
     $template = $this->parameters['template']['confirmation'];
 
-//    $url = $this->router->generate('fos_user_registration_confirm', array('token' => $user->getConfirmationToken()), true);
-
     //generate an url like :
     //   http://localhost/sympozer/sympozer-front/app/#/confirm?token=JUqCFLxukPIDtFlXLufka5YxOtZoX1a8TtgNa41Jvy0
-    $url = $this->frontEndPath . $this->confirmPath . "/" . $user->getConfirmationToken();
+    $url = sprintf("%s%s/%s", $this->frontEndPath, $this->confirmPath, $user->getConfirmationToken());
 
     $context = array(
       'user' => $user,
