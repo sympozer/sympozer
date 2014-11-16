@@ -7,8 +7,6 @@ namespace fibe\SecurityBundle\Controller;
 
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Request\ParamFetcherInterface;
-
-use FOS\UserBundle\Controller\ResettingController;
 use FOS\UserBundle\Event\FilterUserResponseEvent;
 use FOS\UserBundle\Event\FormEvent;
 use FOS\UserBundle\Event\GetResponseUserEvent;
@@ -17,9 +15,9 @@ use FOS\UserBundle\Model\UserInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Acl\Permission\MaskBuilder;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\Exception\AccountStatusException;
 
@@ -61,7 +59,7 @@ class UserRESTController extends Controller
     $form = $formFactory->createForm();
     $form->setData($user);
 
-    $form->bind($request);
+    $form->submit($request);
 
     if ($form->isValid()) {
       $event = new FormEvent($form, $request);
@@ -69,6 +67,7 @@ class UserRESTController extends Controller
 
       $this->container->get('fibe.UserService')->post($user);
       $userManager->updateUser($user);
+      var_dump($this->get('session')->get('_locale'));
 
       $successResponse = new Response('Register_success');
 
@@ -111,7 +110,29 @@ class UserRESTController extends Controller
   }
 
   /**
-   * Redirect to the frontend confirmation page.
+   * Authenticate a user with Symfony Security
+   *
+   * @param \FOS\UserBundle\Model\UserInterface $user
+   * @param \Symfony\Component\HttpFoundation\Response $response
+   */
+  protected function authenticateUser(UserInterface $user, Response $response)
+  {
+    try
+    {
+      $this->container->get('fos_user.security.login_manager')->loginUser(
+        $this->container->getParameter('fos_user.firewall_name'),
+        $user,
+        $response);
+    } catch (AccountStatusException $ex)
+    {
+      // We simply do not authenticate users which do not pass the user
+      // checker (not enabled, expired, etc.).
+    }
+  }
+
+  /**
+   * validate confirm link sent by mail
+   *  => Redirect to the frontend confirmation page.
    * @Rest\Get("/confirm", name="fos_user_registration_confirm")
    * @Rest\QueryParam(name="token", requirements=".{32,64}", description="The confirmation token from user email provider.")
    */
@@ -121,8 +142,14 @@ class UserRESTController extends Controller
     return $this->redirect($this->generateUrl('fibe_frontend_front_index') . '#/confirm/' . $token);
   }
 
+
+
+
+  /**********************************   change & reset password  ***********************************************/
+
   /**
-   * Receive the confirmation token from user email provider,enable login the user and .
+   * Receive the confirmation token from the front end
+   *  => authenticate the user and prompt him to change his password
    * @Rest\Post("/user/confirm", name="security_confirm")
    * @Rest\View
    */
@@ -142,6 +169,13 @@ class UserRESTController extends Controller
     {
       $user->setConfirmationToken(null);
     }
+
+    $aclHelper = $this->container->get('fibe_security.acl_user_permission_helper');
+    $aclHelper->performUpdateUserACL($user, MaskBuilder::MASK_OWNER, $user->getPerson());
+    if (null != $invitor = $user->getPerson()->getInvitedBy())
+    {
+      $aclHelper->performDeleteUserACL($invitor->getUser(), $user->getPerson());
+    }
     $user->setEnabled(true);
     $user->setLastLogin(new \DateTime());
     $userManager->updateUser($user);
@@ -152,12 +186,6 @@ class UserRESTController extends Controller
     return $response;
   }
 
-
-
-
-  /**********************************   change & reset password  ***********************************************/
-
-
   /**
    * change the password of an user.
    * If the password is still random, don't ask for it.
@@ -167,27 +195,30 @@ class UserRESTController extends Controller
   {
     /** @var \fibe\SecurityBundle\Entity\User $user */
     $user = $this->getUser();
-    if (!is_object($user) || !$user instanceof UserInterface) {
+    if (!is_object($user) || !$user instanceof UserInterface)
+    {
       throw new AccessDeniedException('This user does not have access to this section.');
     }
 
     //TODO : find a better way to do this ?
-    $changePasswordForm = json_decode($request->getContent(),true);
-    if($changePasswordForm['new_password_first'] !== $changePasswordForm['new_password_second'])
+    $changePasswordForm = json_decode($request->getContent(), true);
+    if ($changePasswordForm['new_password_first'] !== $changePasswordForm['new_password_second'])
     {
       throw new \Exception('Changepwd_mismatch_error');
     }
     $newPassword = $changePasswordForm['new_password_first'];
 
-    if(!$user->isRandomPwd())
+    if (!$user->isRandomPwd())
     {
       $oldPassword = $changePasswordForm['current_password'];
-      if ($oldPassword === $newPassword){
+      if ($oldPassword === $newPassword)
+      {
         throw new \Exception('Changepwd_nochange_error');
       }
       $encoder = $this->get('security.encoder_factory')->getEncoder($user);
       $passwordSecure = $encoder->encodePassword($oldPassword, $user->getSalt());
-      if ($passwordSecure !== $user->getPassword()){
+      if ($passwordSecure !== $user->getPassword())
+      {
         throw new \Exception('Changepwd_currentpwd_error');
       }
     }
@@ -198,7 +229,7 @@ class UserRESTController extends Controller
     $user->setConfirmationToken(null);
     $userManager->updateUser($user);
 
-    $response = new Response($this->container->get('jms_serializer')->serialize( $user, $request->getRequestFormat()));
+    $response = new Response($this->container->get('jms_serializer')->serialize($user, $request->getRequestFormat()));
     $response->headers->set('Content-Type', 'application/json');
     $this->authenticateUser($user, $response);
     return $response;
@@ -208,14 +239,15 @@ class UserRESTController extends Controller
    * Send the reset mail
    * @Rest\Post("/reset_pwd_request", name="security_resetpwdrequest")
    */
-  public function resetPwdRequestAction(Request $request, ParamFetcherInterface $paramFetcher)
+  public function resetPwdRequestAction(Request $request)
   {
     $username = $request->request->get('username');
 
     /** @var $user UserInterface */
     $user = $this->container->get('fos_user.user_manager')->findUserByUsernameOrEmail($username);
 
-    if (null === $user) {
+    if (null === $user)
+    {
       throw new NotFoundHttpException('Resetpwd_usernotfound_error');
     }
 
@@ -223,7 +255,8 @@ class UserRESTController extends Controller
 //      throw new \Exception('Resetpwd_pwdalreadyrequested_error');
 //    }
 
-    if (null === $user->getConfirmationToken()) {
+    if (null === $user->getConfirmationToken())
+    {
       /** @var $tokenGenerator \FOS\UserBundle\Util\TokenGeneratorInterface */
       $tokenGenerator = $this->container->get('fos_user.util.token_generator');
       $user->setConfirmationToken($tokenGenerator->generateToken());
@@ -233,7 +266,7 @@ class UserRESTController extends Controller
     $user->setPasswordRequestedAt(new \DateTime());
     $this->container->get('fos_user.user_manager')->updateUser($user);
 
-    return new Response('',204);//No Content
+    return new Response('', 204); //No Content
   }
 
   /**
@@ -246,6 +279,12 @@ class UserRESTController extends Controller
     $token = $paramFetcher->get('token');
     return $this->redirect($this->generateUrl('fibe_frontend_front_index') . '#/reset/' . $token);
   }
+
+
+
+
+
+/**********************************   utils  ***********************************************/
 
   /**
    * Redirect to the frontend api confirmation page.
@@ -263,7 +302,8 @@ class UserRESTController extends Controller
       throw new NotFoundHttpException(sprintf('The user with confirmation token "%s" does not exist', $token));
     }
 
-    if (!$user->isPasswordRequestNonExpired($this->container->getParameter('fos_user.resetting.token_ttl'))) {
+    if (!$user->isPasswordRequestNonExpired($this->container->getParameter('fos_user.resetting.token_ttl')))
+    {
       throw new \Exception('Resetpwd_pwdresetexpired_error');
     }
 
@@ -274,36 +314,10 @@ class UserRESTController extends Controller
     $user->setRandomPwd(true);
     $userManager->updateUser($user);
 
-    $response = new Response($this->container->get('jms_serializer')->serialize( $user, $request->getRequestFormat()));
+    $response = new Response($this->container->get('jms_serializer')->serialize($user, $request->getRequestFormat()));
     $response->headers->set('Content-Type', 'application/json');
     $this->authenticateUser($user, $response);
 
     return $response;
-  }
-
-
-
-
-
-/**********************************   utils  ***********************************************/
-
-
-/**
- * Authenticate a user with Symfony Security
- *
- * @param \FOS\UserBundle\Model\UserInterface $user
- * @param \Symfony\Component\HttpFoundation\Response $response
- */
-  protected function authenticateUser(UserInterface $user, Response $response)
-  {
-    try {
-      $this->container->get('fos_user.security.login_manager')->loginUser(
-        $this->container->getParameter('fos_user.firewall_name'),
-        $user,
-        $response);
-    } catch (AccountStatusException $ex) {
-      // We simply do not authenticate users which do not pass the user
-      // checker (not enabled, expired, etc.).
-    }
   }
 }

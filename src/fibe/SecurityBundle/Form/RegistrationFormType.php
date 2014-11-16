@@ -2,8 +2,8 @@
 
 namespace fibe\SecurityBundle\Form;
 
-use Symfony\Component\Form\FormBuilderInterface;
 use FOS\UserBundle\Form\Type\RegistrationFormType as BaseType;
+use Symfony\Component\Form\FormBuilderInterface;
 
 /**
  * @TODO    comment
@@ -22,8 +22,8 @@ class RegistrationFormType extends BaseType
     parent::buildForm($builder, $options);
 
     // add your custom field
-//    $builder
-//      ->add('captcha', 'captcha', array('required' => true));
+    $builder
+      ->add('langage');
   }
 
   /**

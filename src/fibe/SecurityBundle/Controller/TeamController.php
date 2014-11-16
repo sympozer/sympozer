@@ -33,7 +33,7 @@ class TeamController extends Controller
 
     $ACLService = $this->get('fibe_security.acl_user_permission_helper');
     //here the access control is on the team and not on the teammate himself
-    $team = $ACLService->getEntityACL('VIEW', 'Team', $currentMainEvent->getTeam());
+    $team = $ACLService->checkEntityACL('VIEW', 'Team', $currentMainEvent->getTeam());
 
     $managers = $team->getTeammates();
 
@@ -70,6 +70,21 @@ class TeamController extends Controller
   }
 
   /**
+   * Creates a form to delete a User entity by id.
+   *
+   * @param mixed $id The entity id
+   *
+   * @throws \Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException
+   * @return Form The form
+   */
+  private function createDeleteForm($id)
+  {
+    return $this->createFormBuilder(array('id' => $id))
+      ->add('id', 'hidden')
+      ->getForm();
+  }
+
+  /**
    * add teammate with his Teammate
    *
    * @Route("/add", name="conference_team_add")
@@ -80,7 +95,7 @@ class TeamController extends Controller
 
     $currentMainEvent = $this->getUser()->getcurrentMainEvent();
     $ACLService = $this->get('fibe_security.acl_user_permission_helper');
-    $team = $ACLService->getEntityACL('CREATE', 'Team', $currentMainEvent->getTeam()->getId());
+    $team = $ACLService->checkEntityACL('CREATE', 'Team', $currentMainEvent->getTeam()->getId());
 
     $teammate = $ACLService->getPermissionForTeammate();
     $form = $this->createForm(new TeammateType($this->getUser()), $teammate);
@@ -115,7 +130,6 @@ class TeamController extends Controller
     return $this->redirect($this->generateUrl('conference_team_index'));
   }
 
-
   /**
    * Displays a form to edit an existing authorization.
    * @Route("/{id}/edit", name="conference_team_edit")
@@ -125,7 +139,7 @@ class TeamController extends Controller
   {
     $currentMainEvent = $this->getUser()->getCurrentMainEvent();
     $ACLService = $this->get('fibe_security.acl_user_permission_helper');
-    $team = $ACLService->getEntityACL('VIEW', 'Team', $currentMainEvent->getTeam()->getId());
+    $team = $ACLService->checkEntityACL('VIEW', 'Team', $currentMainEvent->getTeam()->getId());
 
     $em = $this->getDoctrine()->getManager();
     $entity = $em->getRepository('fibeSecurityBundle:User')->find($id);
@@ -147,7 +161,7 @@ class TeamController extends Controller
   {
     $currentMainEvent = $this->getUser()->getCurrentMainEvent();
     $ACLService = $this->get('fibe_security.acl_user_permission_helper');
-    $team = $ACLService->getEntityACL('VIEW', 'Team', $currentMainEvent->getTeam()->getId());
+    $team = $ACLService->checkEntityACL('VIEW', 'Team', $currentMainEvent->getTeam()->getId());
 
     $em = $this->getDoctrine()->getManager();
     $entity = $em->getRepository('fibeSecurityBundle:User')->find($id);
@@ -172,7 +186,6 @@ class TeamController extends Controller
 
     return $this->redirect($this->generateUrl('conference_team_edit', array('id' => $id)));
   }
-
 
   /**
    * Deletes a teammate entity.
@@ -202,7 +215,7 @@ class TeamController extends Controller
         //cannot delete owner
         $currentMainEvent = $this->getUser()->getcurrentMainEvent();
         $ACLService = $this->get('fibe_security.acl_user_permission_helper');
-        $team = $ACLService->getEntityACL('DELETE', 'Team', $currentMainEvent->getTeam());
+        $team = $ACLService->checkEntityACL('DELETE', 'Team', $currentMainEvent->getTeam());
         if ("OWNER" == $ACLService->getACEByEntity($team, $manager))
         {
           throw new AccessDeniedHttpException("cannot remove the owner");
@@ -225,21 +238,5 @@ class TeamController extends Controller
     }
 
     return $this->redirect($this->generateUrl('conference_team_index'));
-  }
-
-
-  /**
-   * Creates a form to delete a User entity by id.
-   *
-   * @param mixed $id The entity id
-   *
-   * @throws \Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException
-   * @return Form The form
-   */
-  private function createDeleteForm($id)
-  {
-    return $this->createFormBuilder(array('id' => $id))
-      ->add('id', 'hidden')
-      ->getForm();
   }
 }

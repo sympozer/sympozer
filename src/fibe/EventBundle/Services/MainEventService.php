@@ -7,6 +7,8 @@ use fibe\EventBundle\Entity\MainEvent;
 use fibe\RestBundle\Services\AbstractBusinessService;
 use fibe\SecurityBundle\Entity\Team;
 use fibe\SecurityBundle\Entity\User;
+use fibe\SecurityBundle\Services\Acl\ACLUserPermissionHelper;
+use Symfony\Component\Security\Acl\Permission\MaskBuilder;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 
 /**
@@ -17,10 +19,12 @@ class MainEventService extends AbstractBusinessService
 {
 
   protected $securityContext;
+  protected $aclHelper;
 
-  public function __construct(SecurityContextInterface $securityContext)
+  public function __construct(SecurityContextInterface $securityContext, ACLUserPermissionHelper $aclHelper)
   {
     $this->securityContext = $securityContext;
+    $this->aclHelper = $aclHelper;
   }
 
 
@@ -42,6 +46,7 @@ class MainEventService extends AbstractBusinessService
     {
       $mainEvent->setEndAt(clone $mainEvent->getStartAt()->add(new \DateInterval('P2D')));
     }
+    $mainEvent->setOwner($user->getPerson());
     $this->entityManager->persist($mainEvent);
 
 
@@ -155,11 +160,8 @@ class MainEventService extends AbstractBusinessService
     $defaultTeam = new Team();
     $defaultTeam->setMainEvent($mainEvent);
     $mainEvent->setTeam($defaultTeam);
+
     $this->entityManager->persist($defaultTeam);
-
-    //Add conference to current manager
-    $user->addConference($mainEvent);
-
     $this->entityManager->persist($user);
     $this->entityManager->persist($mainEvent);
     $this->entityManager->flush();
@@ -168,6 +170,9 @@ class MainEventService extends AbstractBusinessService
     $mainEvent->slugify();
     $this->entityManager->persist($mainEvent);
     $this->entityManager->flush();
+
+    $this->aclHelper->performUpdateUserACL($user, MaskBuilder::MASK_OWNER, $mainEvent);
+
     return $mainEvent;
   }
 

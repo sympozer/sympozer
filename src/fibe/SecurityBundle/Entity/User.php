@@ -2,10 +2,8 @@
 
 namespace fibe\SecurityBundle\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use fibe\CommunityBundle\Entity\Person;
-use fibe\EventBundle\Entity\MainEvent;
 use FOS\UserBundle\Model\User as BaseUser;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
@@ -25,46 +23,33 @@ class User extends BaseUser
    * @Expose
    */
   protected $id;
-
-
   /**
    * @var string
    * @Type("string")
    * @Expose
    */
   protected $username;
-
   /**
-   * has the user set his own password yet ?
+   * has the user set his password himself ?
    *
    * @ORM\Column(type="boolean")
    * @Expose
    */
   protected $randomPwd;
-
   /**
    * Person
-   *
-   * @ORM\OneToOne(targetEntity="fibe\CommunityBundle\Entity\Person", cascade={"all"})
-   * @Expose
-   */
-  private $person;
-
-
-  /**
-   * @ORM\ManyToOne(targetEntity="fibe\EventBundle\Entity\MainEvent")
-   * @ORM\JoinColumn(name="current_main_event", referencedColumnName="id")
-   */
-  protected $currentMainEvent;
-
-
-  /**
    *
    * @ORM\Column(name="name", type="string", length=255, nullable=true)
    * @Expose
    */
   protected $name;
-
+  /**
+   * Langage
+   *
+   * @ORM\Column(type="string",nullable=true)
+   * @Expose
+   */
+  protected $langage;
   /**
    * @ORM\Column(name="picture", type="string", length=255, nullable=true)
    * @Expose
@@ -77,33 +62,31 @@ class User extends BaseUser
    * SOCIAL NETWORK ID
    * @TODO : put it in the table social_service_account
    ************************************/
-
   /** @ORM\Column(name="google_id", type="string", length=255, nullable=true) */
   protected $google_id;
-
   /** @ORM\Column(name="google_access_token", type="string", length=255, nullable=true) */
   protected $google_access_token;
-
   /** @ORM\Column(name="twitter_id", type="string", length=255, nullable=true) */
   protected $twitter_id;
-
   /** @ORM\Column(name="twitter_access_token", type="string", length=255, nullable=true) */
   protected $twitter_access_token;
-
   /** @ORM\Column(name="twitter_screen_name", type="string", length=255, nullable=true) */
   protected $twitter_screen_name;
-
   /** @ORM\Column(name="facebook_id", type="string", length=255, nullable=true) */
   protected $facebook_id;
-
   /** @ORM\Column(name="facebook_access_token", type="string", length=255, nullable=true) */
   protected $facebook_access_token;
-
   /** @ORM\Column(name="linkedin_id", type="string", length=255, nullable=true) */
   protected $linkedin_id;
-
   /** @ORM\Column(name="linkedin_access_token", type="string", length=255, nullable=true) */
   protected $linkedin_access_token;
+  /**
+   * Person
+   *
+   * @ORM\OneToOne(targetEntity="fibe\CommunityBundle\Entity\Person", cascade={"all"})
+   * @Expose
+   */
+  private $person;
 
   /**
    * Constructor
@@ -111,75 +94,7 @@ class User extends BaseUser
   public function __construct()
   {
     parent::__construct();
-    $this->conferences = new ArrayCollection();
     $this->setRandomPwd(false);
-  }
-
-  /**
-   * Add conferences
-   *
-   * @param MainEvent $conferences
-   *
-   * @return User
-   */
-  public function addConference(MainEvent $conferences)
-  {
-    $this->conferences[] = $conferences;
-
-    return $this;
-  }
-
-  /**
-   * Remove conferences
-   *
-   * @param MainEvent $conferences
-   */
-  public function removeConference(MainEvent $conferences)
-  {
-    $this->conferences->removeElement($conferences);
-  }
-
-  /**
-   * Get conferences
-   *
-   * @return \Doctrine\Common\Collections\Collection
-   */
-  public function getMainEvents()
-  {
-    return $this->conferences;
-  }
-
-  /**
-   * Set currentMainEvent
-   *
-   * @param MainEvent $currentMainEvent
-   *
-   * @return User
-   */
-  public function setCurrentMainEvent(MainEvent $currentMainEvent = null)
-  {
-    $this->currentMainEvent = $currentMainEvent;
-
-    return $this;
-  }
-
-  /**
-   * Get currentMainEvent
-   *
-   * @return MainEvent
-   */
-  public function getCurrentMainEvent()
-  {
-    return $this->currentMainEvent;
-  }
-
-  /**
-   * has the user set his own password yet ?
-   * @return boolean
-   */
-  public function isRandomPwd()
-  {
-    return $this->randomPwd;
   }
 
   /**
@@ -194,6 +109,25 @@ class User extends BaseUser
     return $this;
   }
 
+  /**
+   * has the user set his own password yet ?
+   * @return boolean
+   */
+  public function isRandomPwd()
+  {
+    return $this->randomPwd;
+  }
+
+  /**
+   * Get conferences
+   *
+   * @return \Doctrine\Common\Collections\Collection
+   */
+  public function getMainEvents()
+  {
+    return $this->conferences;
+  }
+
   public function getName()
   {
     return $this->name;
@@ -203,6 +137,19 @@ class User extends BaseUser
   public function setName($name)
   {
     $this->name = $name;
+
+    return $this;
+  }
+
+  public function getLangage()
+  {
+    return $this->langage;
+  }
+
+
+  public function setLangage($langage)
+  {
+    $this->langage = $langage;
 
     return $this;
   }

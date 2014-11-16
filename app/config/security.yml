@@ -1,6 +1,8 @@
 jms_security_extra:
     secure_all_services: false
     expressions: true
+    voters:
+        disable_acl: true
 
 # CORS Support
 nelmio_cors:
@@ -27,7 +29,7 @@ security:
 
     access_decision_manager:
         # La valeur de « Strategy » peut être : affirmative, unanimous ou consensus
-#        strategy: affirmative
+        strategy: affirmative
 
 #        in_memory:
 #            memory:

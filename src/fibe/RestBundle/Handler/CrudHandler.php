@@ -8,6 +8,7 @@ use FOS\RestBundle\Request\ParamFetcherInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class CrudHandler
 {
@@ -83,7 +84,25 @@ class CrudHandler
     //unset($formData['id']);//remove id to avoid form validation error with this unnecessary id
     //unset($formData['dtype']);
     $form->submit($formData, 'PATCH' !== $method);
+    $this->validateAction($method, $entity);
 
+
+    if ($form->isValid())
+    {
+      $entity = $form->getData();
+      $this->callBusinessService($entity, $entityClassName, $method);
+      $this->em->persist($entity);
+      $this->em->flush($entity);
+      return $entity;
+    }
+
+    return array(
+      'form' => $form,
+    );
+  }
+
+  protected function validateAction($method, $entity)
+  {
     switch ($method)
     {
       case "PUT":
@@ -100,20 +119,15 @@ class CrudHandler
         throw new \RuntimeException("method : $method is not mapped in CrudHandler!");
     }
     //perform acl check
-    $entity = $this->container->get("fibe_security.acl_entity_helper")->getEntityACL($right, $entity);
-
-    if ($form->isValid())
+    if (false === $this->container->get("security.context")->isGranted($right, $entity))
     {
-      $entity = $form->getData();
-      $this->callBusinessService($entity, $entityClassName, $method);
-      $this->em->persist($entity);
-      $this->em->flush($entity);
-      return $entity;
+      throw new AccessDeniedException(
+        sprintf('You don\'t have the authorization to perform %s on %s',
+          $right,
+          '#' . $entity->getId()
+        )
+      );
     }
-
-    return array(
-      'form' => $form,
-    );
   }
 
   /**
@@ -142,6 +156,7 @@ class CrudHandler
   public function delete($entityClassName, $id)
   {
     $entity = $this->em->getRepository($entityClassName)->find($id);
+    $this->validateAction("DELETE", $entity);
     $this->callBusinessService($entity, $entityClassName, 'delete');
     $this->em->remove($entity);
     $this->em->flush($entity);

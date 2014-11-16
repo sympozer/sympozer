@@ -12,8 +12,6 @@
     <parameter key="fibe.rest.business_service.class">fibe\RestBundle\Services\AbstractBusinessService</parameter>
 
     <parameter key="fibe.rest.searchservice.class">fibe\RestBundle\Search\SearchService</parameter>
-    <parameter key="fibe.rest.collection.type.class">fibe\RestBundle\Form\GetOrCreateCollectionType</parameter>
-    <parameter key="fibe.rest.entity.type.class">fibe\RestBundle\Form\GetOrCreateEntityType</parameter>
     <parameter key="acl_serialize_listener.class">fibe\RestBundle\Listener\ACLSerializationListener</parameter>
   </parameters>
 
@@ -48,24 +46,6 @@
       <argument type="service" id="annotations.reader"/>
     </service>
 
-    <!--TODO REMOVE-->
-    <!--TODO REMOVE-->
-    <!--TODO REMOVE-->
-    <!-- rest type service for collection -->
-    <service id="fibe.rest.collection.type" class="%fibe.rest.collection.type.class%">
-      <argument type="service" id="doctrine.orm.entity_manager"/>
-      <tag name="form.type" alias="fibe_restbundle_collection_type"/>
-    </service>
-
-    <!-- rest type service for entities -->
-    <service id="fibe.rest.entity.type" class="%fibe.rest.entity.type.class%">
-      <argument type="service" id="doctrine.orm.entity_manager"/>
-      <tag name="form.type" alias="fibe_restbundle_entity_type"/>
-    </service>
-    <!--TODO REMOVE-->
-    <!--TODO REMOVE-->
-    <!--TODO REMOVE-->
-
 
     <service id="serialize_exception_listener" class="%serialize_exception_listener.class%">
       <tag name="kernel.event_listener" event="kernel.exception" method="onKernelException"/>
@@ -77,6 +57,7 @@
     <service id="acl_serialize_listener" class="%acl_serialize_listener.class%">
       <tag name="jms_serializer.event_subscriber" event="serializer.post_serialize" method="onPostSerialize"/>
       <argument type="service" id="fibe_security.acl_entity_helper"/>
+      <argument type="service" id="security.context"/>
       <argument type="service" id="logger"/>
     </service>
 

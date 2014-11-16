@@ -57,6 +57,13 @@ class Team
     return $this->id;
   }
 
+  /**
+   * @return MainEvent
+   */
+  public function getMainEvent()
+  {
+    return $this->mainEvent;
+  }
 
   public function setMainEvent(MainEvent $mainEvent = null)
   {
@@ -64,12 +71,6 @@ class Team
 
     return $this;
   }
-
-  public function getMainEvent()
-  {
-    return $this->mainEvent;
-  }
-
 
   /**
    * Add a mainEvent manager

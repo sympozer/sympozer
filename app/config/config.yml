@@ -93,7 +93,7 @@ fos_user:
     firewall_name: main                             # Le nom du firewall derrière lequel on utilisera ces utilisateurs
     user_class:    fibe\SecurityBundle\Entity\User  # La classe de l'entité User que nous utilisons         
     service:
-        mailer: fos_user.mailer.twig_swift
+        mailer: fibe.mail_manager
     resetting:
         # Permet de définir le template de l'email à envoyer (en html)
         email:

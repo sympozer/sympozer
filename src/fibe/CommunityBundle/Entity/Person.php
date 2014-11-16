@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use fibe\ContentBundle\Entity\Paper;
 use fibe\ContentBundle\Entity\Role;
 use fibe\ContentBundle\Util\StringTools;
+use fibe\EventBundle\Entity\MainEvent;
 use fibe\SecurityBundle\Entity\Teammate;
 use fibe\SecurityBundle\Entity\User;
 use JMS\Serializer\Annotation\ExclusionPolicy;
@@ -28,8 +29,6 @@ class Person extends AdditionalInformations
 {
 
   /**
-   * label
-   *
    * @ORM\Column(type="string")
    * @Expose
    */
@@ -45,14 +44,12 @@ class Person extends AdditionalInformations
   protected $user;
 
   /**
-   *
    * @ORM\OneToMany(targetEntity="fibe\SecurityBundle\Entity\Teammate", mappedBy="person")
    * @Expose
    */
   protected $teammates;
 
   /**
-   * familyName
    * @ORM\Column(type="string", nullable=true,  name="familyName")
    * @Expose
    * @SerializedName("familyName")
@@ -60,8 +57,7 @@ class Person extends AdditionalInformations
   protected $familyName;
 
   /**
-   * firstName
-   * @Assert\NotBlank(message ="Please give a first name")
+   * @Assert\NotBlank(message="Please give a first name")
    * @ORM\Column(type="string", nullable=true,  name="firstName")
    * @Expose
    * @SerializedName("firstName")
@@ -69,35 +65,29 @@ class Person extends AdditionalInformations
   protected $firstName;
 
   /**
-   * description
-   *
    * @ORM\Column(type="string", length=1024, nullable=true, name="description")
    * @Expose
    */
   protected $description;
 
   /**
-   * age
-   *
    * @ORM\Column(type="integer", nullable=true,  name="age")
    * @Expose
    */
   protected $age;
 
   /**
-   * Paper
    * Paper made by this person
    * @Expose
    * @ORM\ManyToMany(targetEntity="fibe\ContentBundle\Entity\Paper",  mappedBy="authors", cascade={"all"})
    */
   protected $papers;
+
   /**
-   * openId
-   *
-   *
    * @ORM\Column(type="string", nullable=true,  name="openId")
    */
   protected $openId;
+
   /**
    *
    * @ORM\OneToMany(targetEntity="fibe\ContentBundle\Entity\Role",  mappedBy="person",cascade={"persist","remove"})
@@ -105,33 +95,45 @@ class Person extends AdditionalInformations
    * @Expose
    */
   protected $roles;
+
   /**
-   * @TODO : Difference avec un utilisateur Sympozer ? Peut appartenir a plusieurs main events
-   *
    * @ORM\ManyToMany(targetEntity="fibe\EventBundle\Entity\MainEvent", inversedBy="persons", cascade={"persist"})
    * @ORM\JoinTable(name="main_event_person",
    *     joinColumns={@ORM\JoinColumn(name="mainevent_id", referencedColumnName="id")},
    *     inverseJoinColumns={@ORM\JoinColumn(name="person_id", referencedColumnName="id")})
    */
   protected $mainEvents;
+
   /**
-   *
    * @ORM\OneToMany(targetEntity="SocialServiceAccount",  mappedBy="owner", cascade={"persist", "remove"})
-   *
    */
   protected $accounts;
   /**
    * @ORM\Column(type="string", length=256, nullable=true)
    */
   protected $slug;
+
   /**
-   *
-   * organization
-   *
+   * @ORM\OneToMany(targetEntity="fibe\EventBundle\Entity\MainEvent", mappedBy="owner")
+   */
+  protected $ownMainEvents;
+
+  /**
+   *  Person that invited this person
+   * @ORM\ManyToOne(targetEntity="Person",  inversedBy="guests", cascade={"all"})
+   * @ORM\JoinColumn(onDelete="CASCADE")
+   */
+  protected $invitedBy;
+  /**
    * @ORM\OneToMany(targetEntity="fibe\CommunityBundle\Entity\OrganizationVersion", mappedBy="organizationVersionOwner", cascade={"all"}, orphanRemoval=true)
    * @Expose
    */
   private $organizations;
+  /**
+   *  Persons invited by this person
+   * @ORM\OneToMany(targetEntity="Person", mappedBy="invitedBy", cascade={"all"}, orphanRemoval=true)
+   */
+  private $guests;
 
   /**
    * Constructor
@@ -144,6 +146,7 @@ class Person extends AdditionalInformations
     $this->roles = new ArrayCollection();
     $this->accounts = new ArrayCollection();
     $this->mainEvents = new ArrayCollection();
+    $this->guests = new ArrayCollection();
   }
 
   /**
@@ -394,45 +397,45 @@ class Person extends AdditionalInformations
 
 
   /**
-   * Add papers
+   * Add ownMainEvents
    *
-   * @param Paper $papers
+   * @param MainEvent $ownMainEvents
    *
    * @return $this
    */
-  public function addPaper(Paper $papers)
+  public function addOwnMainEvent(MainEvent $ownMainEvents)
   {
-    $this->papers[] = $papers;
-    $papers->addAuthor($this);
+    $this->ownMainEvents[] = $ownMainEvents;
+    $ownMainEvents->setOwner($this);
     return $this;
   }
 
   /**
-   * Remove papers
+   * Remove ownMainEvents
    *
-   * @param Paper $papers
+   * @param MainEvent $ownMainEvents
    */
-  public function removePaper(Paper $papers)
+  public function removeOwnMainEvent(MainEvent $ownMainEvents)
   {
-    $this->papers->removeElement($papers);
+    $this->ownMainEvents->removeElement($ownMainEvents);
   }
 
   /**
-   * Get papers
+   * Get ownMainEvents
    *
    * @return \Doctrine\Common\Collections\Collection
    */
-  public function getPapers()
+  public function getOwnMainEvents()
   {
-    return $this->papers;
+    return $this->ownMainEvents;
   }
 
   /**
-   * @param mixed $papers
+   * @param mixed $ownMainEvents
    */
-  public function setPapers($papers)
+  public function setOwnMainEvents($ownMainEvents)
   {
-    $this->papers = $papers;
+    $this->ownMainEvents = $ownMainEvents;
   }
 
   /**
@@ -621,5 +624,63 @@ class Person extends AdditionalInformations
       $user->setPerson($this);
     }
     $this->user = $user;
+  }
+
+  /**
+   * @return Person
+   */
+  public function getInvitedBy()
+  {
+    return $this->invitedBy;
+  }
+
+  /**
+   * @param Person $invitedBy
+   */
+  public function setInvitedBy(Person $invitedBy)
+  {
+    $this->invitedBy = $invitedBy;
+  }
+
+  /**
+   * Add guests
+   *
+   * @param Person $guests
+   *
+   * @return $this
+   */
+  public function addGuest(Person $guests)
+  {
+    $this->guests[] = $guests;
+
+    return $this;
+  }
+
+  /**
+   * Remove guests
+   *
+   * @param Person $guests
+   */
+  public function removeGuest(Person $guests)
+  {
+    $this->guests->removeElement($guests);
+  }
+
+  /**
+   * Get guests
+   *
+   * @return \Doctrine\Common\Collections\Collection
+   */
+  public function getGuests()
+  {
+    return $this->guests;
+  }
+
+  /**
+   * @param mixed $guests
+   */
+  public function setGuests($guests)
+  {
+    $this->guests = $guests;
   }
 }

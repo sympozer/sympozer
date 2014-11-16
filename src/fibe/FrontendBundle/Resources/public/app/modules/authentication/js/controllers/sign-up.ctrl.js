@@ -33,6 +33,8 @@ angular.module('authenticationApp').controller('signupCtrl',
         $scope.signupAction = function (signupForm)
         {
             $scope.busy = true;
+            $scope.user.langage = window.navigator.userLanguage || window.navigator.language;
+            alert($scope.user.langage);
             usersFact.signup({fos_user_registration_form: $scope.user}, success, error);
         }
 

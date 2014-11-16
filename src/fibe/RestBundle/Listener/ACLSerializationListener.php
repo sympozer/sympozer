@@ -6,11 +6,13 @@
 
 namespace fibe\RestBundle\Listener;
 
-use fibe\SecurityBundle\Services\ACLEntityHelper;
+use fibe\SecurityBundle\Services\Acl\ACLEntityHelper;
+use fibe\SecurityBundle\Services\Acl\ACLHelper;
+use FOS\UserBundle\Model\UserInterface;
 use JMS\Serializer\EventDispatcher\EventSubscriberInterface;
 use JMS\Serializer\EventDispatcher\ObjectEvent;
 use Psr\Log\LoggerInterface;
-use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
+use Symfony\Component\Security\Core\SecurityContextInterface;
 
 /**
  * Add data after serialization
@@ -20,10 +22,12 @@ class ACLSerializationListener implements EventSubscriberInterface
 {
   private $logger;
   private $aclHelper;
+  private $securityContext;
 
-  function __construct(ACLEntityHelper $aclHelper, LoggerInterface $logger = null)
+  function __construct(ACLEntityHelper $aclHelper, SecurityContextInterface $securityContext, LoggerInterface $logger = null)
   {
     $this->aclHelper = $aclHelper;
+    $this->securityContext = $securityContext;
     $this->logger = $logger;
   }
 
@@ -38,29 +42,37 @@ class ACLSerializationListener implements EventSubscriberInterface
   }
 
   /**
-   * Add acl field
+   * serialize acl
    * @param ObjectEvent $event
    */
   public function onPostSerialize(ObjectEvent $event)
   {
     $object = $event->getObject();
-    try
+    if (ACLHelper::isManaged(get_class($object)))
+//    if (isset(ACLHelper::$ACLEntityNameArray[ACLHelper::getRepositoryNameByClassName(get_class($object))]))
     {
-      $event->getVisitor()->addData('acl', $this->aclHelper->getACEByEntity($object));
-    } catch (UnauthorizedHttpException $e)
-    {
-      //user not logged : just ignore
-      if (null !== $this->logger)
+      $user = $this->securityContext->getToken()->getUser();
+      if ($user instanceof UserInterface && null != $right = $this->aclHelper->getHierarchicalACEByEntity($object, $user))
       {
-        $this->logger->debug("[ACLSerializationListener]" . $e->getMessage(),array('acl'));
-      }
-    } catch (\Exception $e)
-    {
-      //no ace / acl : just ignore
-      if (null !== $this->logger)
-      {
-        $this->logger->debug("[ACLSerializationListener]" . $e->getMessage(),array('acl'));
+        $event->getVisitor()->addData('acl', $right);
       }
     }
+//    try
+//    {
+//    } catch (UnauthorizedHttpException $e)
+//    {
+//      //user not logged : just ignore
+//      if (null !== $this->logger)
+//      {
+//        $this->logger->debug("[ACLSerializationListener]" . $e->getMessage(),array('acl'));
+//      }
+//    } catch (\Exception $e)
+//    {
+//      //no ace / acl : just ignore
+//      if (null !== $this->logger)
+//      {
+//        $this->logger->debug("[ACLSerializationListener]" . $e->getMessage(),array('acl'));
+//      }
+//    }
   }
 }
