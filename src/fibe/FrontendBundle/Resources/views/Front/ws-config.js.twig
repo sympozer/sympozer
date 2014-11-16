@@ -1,38 +1,37 @@
-var globalConfig = {
+var wsConfig = {
 api : {
 urls: {
-{#get_organizations: "{{ path('community_organization_post')  | raw }}",#}
-get_organization_versions: "{{ path('community_organization_versions_post')  | raw }}",
+get_organization_versions: "{{ serverBasePath | raw }}{{ path('community_organization_versions_post')  | raw }}",
 
-get_persons            : "{{ path('community_persons_post')  | raw }}",
-get_locations          : "{{ path('content_event_locations_post')  | raw }}",
-get_mainEvent_locations: "{{ path('content_mainEvent_locations_post')  | raw }}",
-get_equipments         : "{{ path('content_equipments_post')  | raw }}",
-get_events             : "{{ path('schedule_events_post')  | raw }}",
+get_persons            : "{{ serverBasePath | raw }}{{ path('community_persons_post')  | raw }}",
+get_locations          : "{{ serverBasePath | raw }}{{ path('content_event_locations_post')  | raw }}",
+get_mainEvent_locations: "{{ serverBasePath | raw }}{{ path('content_mainEvent_locations_post')  | raw }}",
+get_equipments         : "{{ serverBasePath | raw }}{{ path('content_equipments_post')  | raw }}",
+get_events             : "{{ serverBasePath | raw }}{{ path('schedule_events_post')  | raw }}",
 
-get_teammates        : "{{ path('security_teammates_post')  | raw }}",
-get_roles            : "{{ path('content_roles_post')  | raw }}",
-get_roleLabel_verions: "{{ path('content_roleLabel_versions_post')  | raw }}",
-get_roleLabels       : "{{ path('content_roleLabels_post')  | raw }}",
+get_teammates        : "{{ serverBasePath | raw }}{{ path('security_teammates_post')  | raw }}",
+get_roles            : "{{ serverBasePath | raw }}{{ path('content_roles_post')  | raw }}",
+get_roleLabel_verions: "{{ serverBasePath | raw }}{{ path('content_roleLabel_versions_post')  | raw }}",
+get_roleLabels       : "{{ serverBasePath | raw }}{{ path('content_roleLabels_post')  | raw }}",
 
-get_papers       : "{{ path('content_papers_post')  | raw }}",
-get_topics       : "{{ path('content_topics_post')  | raw }}",
-get_categories   : "{{ path('schedule_category_versions_post')  | raw }}",
-get_mainEvents   : "{{ path('schedule_mainEvents_post')  | raw }}",
-login            : "{{ path('login_check', {_format: 'json'})  | raw }}",
-logout           : "{{ path('logout')  | raw }}",
-registration     : "{{ path('security_signup')  | raw }}",
-confirm          : "{{ path('security_confirm')  | raw }}",
-changepwd        : "{{ path('security_changepwd')  | raw }}",
-reset_pwd_request: "{{ path('security_resetpwdrequest')  | raw }}",
-reset_pwd        : "{{ path('security_resetpwd')  | raw }}",
+get_papers       : "{{ serverBasePath | raw }}{{ path('content_papers_post')  | raw }}",
+get_topics       : "{{ serverBasePath | raw }}{{ path('content_topics_post')  | raw }}",
+get_categories   : "{{ serverBasePath | raw }}{{ path('schedule_category_versions_post')  | raw }}",
+get_mainEvents   : "{{ serverBasePath | raw }}{{ path('schedule_mainEvents_post')  | raw }}",
+login            : "{{ serverBasePath | raw }}{{ path('login_check', {_format: 'json'})  | raw }}",
+logout           : "{{ serverBasePath | raw }}{{ path('logout')  | raw }}",
+registration     : "{{ serverBasePath | raw }}{{ path('security_signup')  | raw }}",
+confirm          : "{{ serverBasePath | raw }}{{ path('security_confirm')  | raw }}",
+changepwd        : "{{ serverBasePath | raw }}{{ path('security_changepwd')  | raw }}",
+reset_pwd_request: "{{ serverBasePath | raw }}{{ path('security_resetpwdrequest')  | raw }}",
+reset_pwd        : "{{ serverBasePath | raw }}{{ path('security_resetpwd')  | raw }}",
 socialnetworks   : [
 {% for owner in hwi_oauth_resource_owners() %}{% if loop.first %}{% else %},{% endif %}
   {
   name        : "{{ owner  | raw }}",
   urls        : {
-  login: "{{ path('hwi_oauth_service_redirect', { 'service': owner })  | raw }}",
-  enrich: "{{ path('enrich_account', { 'socialService': owner })  | raw }}"
+  login: "{{ serverBasePath | raw }}{{ path('hwi_oauth_service_redirect', { 'service': owner })  | raw }}",
+  enrich: "{{ serverBasePath | raw }}{{ path('enrich_account', { 'socialService': owner })  | raw }}"
   },
   can_register: {% if owner == 'twitter' %}false{% else %}true{% endif %}{# can't register with twitter as long as they chose to not return user's mail :( #}
   }

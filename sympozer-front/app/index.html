@@ -329,8 +329,8 @@
 
 <!-- SYMPOZER GLOBAL FILES -->
 <script src="sympozer-scripts/js/app.js"></script>
-<script src="sympozer-scripts/js/ws-config.js"></script>
 <script src="sympozer-scripts/js/routes.js"></script>
+<script src="sympozer-scripts/js/ws-config.js"></script>
 <!--CONTROLLERS-->
 <script src="sympozer-scripts/js/controllers/navigation/footer.ctrl.js"></script>
 <script src="sympozer-scripts/js/controllers/navigation/breadcrumb.ctrl.js"></script>
@@ -436,37 +436,8 @@
   var queryNb = 0,
       firstQueryNb = 0
       ;
-  //TODO fetch the configuration onload
   var globalConfig = {
-    api      : {
-      urls: {
-        get_organization_versions: "{{ path('community_organization_versions_post') }}",
-
-        get_persons            : "{{ path('community_persons_post') }}",
-        get_locations          : "{{ path('content_event_locations_post') }}",
-        get_mainEvent_locations: "{{ path('content_mainEvent_locations_post') }}",
-        get_equipments         : "{{ path('content_equipments_post') }}",
-        get_events             : "{{ path('schedule_events_post') }}",
-
-        get_teammates        : "{{ path('security_teammates_post') }}",
-        get_roles            : "{{ path('content_roles_post') }}",
-        get_roleLabel_verions: "{{ path('content_roleLabel_versions_post') }}",
-        get_roleLabels       : "{{ path('content_roleLabels_post') }}",
-
-        get_papers       : "{{ path('content_papers_post') }}",
-        get_topics       : "{{ path('content_topics_post') }}",
-        get_categories   : "{{ path('schedule_category_versions_post') }}",
-        get_mainEvents   : "{{ path('schedule_mainEvents_post') }}",
-        login            : "{{ path('login_check', {_format: 'json'}) }}",
-        logout           : "{{ path('logout') }}",
-        registration     : "{{ path('security_signup') }}",
-        confirm          : "{{ path('security_confirm') }}",
-        changepwd        : "{{ path('security_changepwd') }}",
-        reset_pwd_request: "{{ path('security_resetpwdrequest') }}",
-        reset_pwd        : "{{ path('security_resetpwd') }}",
-      }
-    },
-    app      : {
+    app     : {
 
       urls   : {
         base    : "sympozer-scripts/assets/",
@@ -574,10 +545,11 @@
         }
       }
     },
-    language : 'EN',
-    severTime: "{{ 'now'|date('m/d/Y') }}"
+    language: 'EN'
 
   };
+  $.extend(globalConfig, wsConfig);
+
   angular.module('sympozerApp').value('GLOBAL_CONFIG', globalConfig);
 </script>
 </body>

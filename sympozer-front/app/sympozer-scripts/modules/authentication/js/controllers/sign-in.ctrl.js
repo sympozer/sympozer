@@ -59,7 +59,7 @@ angular.module('authenticationApp').controller('signinCtrl',
             /*
              * @TODO : restore backend communication
              */
-            //usersFact.signin({}, {"_username": $scope.user.username, "_password": $scope.user.password}, success, error);
-            success({id:1, label:'anakin'});
+            usersFact.signin({}, {"_username": $scope.user.username, "_password": $scope.user.password}, success, error);
+//            success({id:1, label:'anakin'});
         };
     }]);

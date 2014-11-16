@@ -22,7 +22,9 @@ module.exports = function (grunt) {
     yeoman: {
       // configurable paths
       app: require('./bower.json').appPath || 'app',
-      dist: 'dist'
+        dist            : 'dist',
+        sympozer_scripts: '<%= yeoman.app %>/sympozer-scripts',
+        local_config    : grunt.file.readJSON('local-config.json')
     },
 
     // Watches files for changes and runs tasks based on the changed files
@@ -500,7 +502,7 @@ module.exports = function (grunt) {
           },
           //copy the ws config file
           copy_ws_config  : {
-              cmd: 'sympozer:wsconfig:copy --to-path ../sympozer-front/app/sympozer-scripts/js/ws-config.js'
+              cmd: 'sympozer:wsconfig:copy --to-path <%= yeoman.sympozer_scripts %>/js/ws-config.js --server-base-path <%= yeoman.local_config.serverRootPath %>'
           }
     }
   });

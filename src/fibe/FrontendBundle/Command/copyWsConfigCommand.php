@@ -37,7 +37,7 @@ class copyWsConfigCommand extends ContainerAwareCommand
   /** @var  OutputInterface */
   private $output;
   private $toPath;
-  private $target_dir;
+  private $serverBasePath;
 
   protected function configure()
   {
@@ -50,6 +50,13 @@ class copyWsConfigCommand extends ContainerAwareCommand
         InputOption::VALUE_OPTIONAL,
         'Where to copy the web service file file ?',
         'sympozer-front/app/sympozer-scripts/js/ws-config.js'
+      )
+      ->addOption(
+        'server-base-path',
+        null,
+        InputOption::VALUE_OPTIONAL,
+        'Where to query the server ?',
+        'http://localhost:8000'
       );
   }
 
@@ -61,9 +68,10 @@ class copyWsConfigCommand extends ContainerAwareCommand
     $this->output = $output;
 
     $this->toPath = $this->input->getOption('to-path');
+    $this->serverBasePath = $this->input->getOption('server-base-path');
 
-    $this->println("Copying to : ", self::LN_COMMENT);
-    $this->println("       " . $this->toPath, self::LN_COMMENT);
+    $this->println("Copying to : " . $this->toPath, self::LN_COMMENT);
+    $this->println("Server base path : " . $this->serverBasePath, self::LN_COMMENT);
 
 
     $this->performCommand();
@@ -96,7 +104,7 @@ class copyWsConfigCommand extends ContainerAwareCommand
 
   private function performCommand()
   {
-    $wsConfig = $this->getContainer()->get('templating')->render('FrontendBundle:Front:ws-config.js.twig');
+    $wsConfig = $this->getContainer()->get('templating')->render('FrontendBundle:Front:ws-config.js.twig', array("serverBasePath" => $this->serverBasePath));
 
     if (true === $content = $this->writeFileContent($this->toPath, $wsConfig))
     {
