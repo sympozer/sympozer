@@ -283,20 +283,20 @@
         changepwd        : "{{ path('security_changepwd') }}",
         reset_pwd_request: "{{ path('security_resetpwdrequest') }}",
         reset_pwd        : "{{ path('security_resetpwd') }}",
-        socialnetworks   : [
-          {% for owner in hwi_oauth_resource_owners() %}{% if loop.first %}{% else %},
-          {% endif %}
-          {
-            name        : "{{ owner }}",
-            urls        : {
-              login : "{{ hwi_oauth_login_url(owner) }}",
-              enrich: "{{ path('enrich_account', { 'socialService': owner }) }}"
-            },
-            {# can't register with twitter as long as they chose to not return user's mail :( #}
-            can_register: {% if owner == 'twitter' %}false{% else %}true{% endif %}
-          }
-          {% endfor %}
-        ]
+        {#socialnetworks   : [#}
+          {#{% for owner in hwi_oauth_resource_owners() %}{% if loop.first %}{% else %},#}
+          {#{% endif %}#}
+          {#{#}
+            {#name        : "{{ owner }}",#}
+            {#urls        : {#}
+              {#login : "{{ hwi_oauth_login_url(owner) }}",#}
+              {#enrich: "{{ path('enrich_account', { 'socialService': owner }) }}"#}
+            {#},#}
+            {#&#123;&#35; can't register with twitter as long as they chose to not return user's mail :( &#35;&#125;#}
+            {#can_register: {% if owner == 'twitter' %}false{% else %}true{% endif %}#}
+          {#}#}
+          {#{% endfor %}#}
+        {#]#}
       }
     },
     app      : {

@@ -15,21 +15,21 @@
  *
  */
 angular.module('sympozerApp').directive('elastic', [
-  '$timeout',
-  function($timeout) {
-    return {
-      restrict: 'A',
-      link: function($scope, element) {
-        // Function that resize automaticly every element with the 'elastic' directive
-        var resize = function() {
-          element[0].style.height = "1px";
-          return element[0].style.height = "" + element[0].scrollHeight + "px";
+    '$timeout',
+    function($timeout) {
+        return {
+            restrict: 'A',
+            link: function($scope, element) {
+                // Function that resize automaticly every element with the 'elastic' directive
+                var resize = function() {
+                    element[0].style.height = "1px";
+                    return element[0].style.height = "" + element[0].scrollHeight + "px";
+                };
+                // The events wich trigger the resize function
+                element.on("blur keyup change", resize);
+                // Necessary in order to have the correct scrollHeight
+                $timeout(resize, 0);
+            }
         };
-        // The events wich trigger the resize function
-        element.on("blur keyup change", resize);
-        // Necessary in order to have the correct scrollHeight
-        $timeout(resize, 0);
-      }
-    };
-  }
+    }
 ]);

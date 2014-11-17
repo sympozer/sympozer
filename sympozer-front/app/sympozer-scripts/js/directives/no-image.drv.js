@@ -9,32 +9,36 @@
 angular.module('sympozerApp').directive('noImage', ['$rootScope', function ($rootScope)
 {
 
-  var setDefaultImage = function (el)
-  {
-    el.attr('src', $rootScope.GLOBAL_CONFIG.app.urls.img + 'no-picture.jpg');
-  };
-
-  return {
-    restrict: 'A',
-    link: function (scope, el, attr)
+    //set default src img attribute for an img element that doesn't has a src attribute
+    var setDefaultImage = function (el)
     {
-      scope.$watch(function ()
-      {
-        return attr.ngSrc;
-      }, function ()
-      {
-        var src = attr.ngSrc;
+        el.attr('src', $rootScope.GLOBAL_CONFIG.app.urls.img + 'no-picture.jpg');
+    };
 
-        if (!src)
+    return {
+        restrict: 'A',
+        link: function (scope, el, attr)
         {
-          setDefaultImage(el);
-        }
-      });
+            //Observe ngSrc attribute
+            scope.$watch(function ()
+            {
+                return attr.ngSrc;
+            }, function ()
+            {
 
-      el.bind('error', function ()
-      {
-        setDefaultImage(el);
-      });
-    }
-  };
+                var src = attr.ngSrc;
+
+                //if src not define, set default image
+                if (!src)
+                {
+                    setDefaultImage(el);
+                }
+            });
+
+            el.bind('error', function ()
+            {
+                setDefaultImage(el);
+            });
+        }
+    };
 }]);
