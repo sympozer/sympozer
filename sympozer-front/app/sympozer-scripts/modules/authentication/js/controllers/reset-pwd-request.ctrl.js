@@ -6,6 +6,10 @@
  */
 angular.module('authenticationApp').controller('resetPwdRequestCtrl', [ '$scope', '$window', '$routeParams', 'usersFact', '$location', '$modal', 'pinesNotifications', 'translateFilter', 'GLOBAL_CONFIG', function ($scope, $window, $routeParams, usersFact, $location, $modal, pinesNotifications, translateFilter, GLOBAL_CONFIG)
     {
+
+        //Initialize user
+        $scope.user = {};
+
         var error = function (response, args)
         {
             //Notify of the password change request action error
