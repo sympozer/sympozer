@@ -1,0 +1,99 @@
+<div id="page-heading">
+
+  <div ng-include="GLOBAL_CONFIG.app.urls.partials+'navigation/breadcrumb.html'"></div>
+
+  <h1>{{'teammates.links.teammates' | translate }}</h1>
+
+  <div class="options">
+    <div class="btn-toolbar">
+      <div class="btn-group" dropdown>
+        <button type="button" class="btn btn-default dropdown-toggle">
+          Export as <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" role="menu">
+          <li><a href="#">Action</a></li>
+          <li><a href="#">Another action</a></li>
+          <li><a href="#">Something else here</a></li>
+          <li class="divider"></li>
+          <li><a href="#">Separated link</a></li>
+        </ul>
+      </div>
+      <a href="#" class="btn btn-default hidden-xs"><i class="fa fa-cog"></i></a>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+
+      <div class="panel">
+        <div class="panel-heading">
+          <h4>{{'teammates.actions.index.subtitle' | translate }}</h4>
+        </div>
+        <div class="panel-body">
+          <div class="search-classic">
+            <form action="#">
+              <div class="input-group well w100">
+                <input type="text" placeholder="{{'global.actions.placeHolderSearch' | translate }}" class="form-control"/>
+                  <span class="input-group-btn">
+                    <button type="button" class="btn btn-primary">
+                      <i class="fa fa-search"></i> {{'global.actions.search' | translate }}
+                    </button>
+                  </span>
+              </div>
+            </form>
+            <h3>{{'global.labels.searchResult' | translate }} 'Forza'</h3>
+            <hr>
+            <div class="search-result" ng-repeat-start="teammate in entities  track by $index">
+              <div class="row">
+                <!-- @TODO : DO A PARTIAL TO SHOW CONTENT -->
+                <h4 class="col-lg-8 col-md-12"><a href="#">{{ teammate.label }}</a></h4>
+
+                <h4 class="col-lg-4 col-md-12 text-right-lg">
+                  <span ng-repeat="topic in teammate.topics" class="labels label-primary">{{ topic }}</span>
+                </h4>
+              </div>
+              <div class="row" ng-if="teammate.publisher || teammate.publishDate || teammate.authors">
+                <!-- @TODO : TRANSLATE DATE -->
+                <h5 class="col-lg-8 col-md-12" ng-if="teammate.authors">
+                  {{ (teammate.authors.length > 1) ? 'teammates.labels.authors' : 'teammates.labels.author' | translate }}
+                  <em ng-repeat="author in teammate.authors">{{ author }}{{$last ? '' : ', '}}</em>
+                </h5>
+                <h6 class="{{ teammate.authors ? 'col-lg-4 col-md-12 ' : '' }}text-right-lg" ng-if="teammate.publisher || teammate.publishDate">
+                  <em ng-if="teammate.publisher">{{'teammates.labels.publishedBy' | translate }} {{ teammate.publisher }} </em>
+                  <em ng-if="teammate.publisher && teammate.publishDate">{{ 'global.labels.on' | translate }} </em>
+                  <em ng-if="teammate.publishDate">{{ teammate.publishDate | date:'medium' }}</em>
+                </h6>
+              </div>
+              <div>
+                <a href="{{ teammate.url }}" target="_blank" ng-if="teammate.url">{{ teammate.url }}</a>
+
+                <p ng-if="teammate.abstract">{{ teammate.abstract }}</p>
+
+                <p ng-if="!teammate.abstract">
+                  <small><em>{{ 'teammates.messages.no_abstract' | translate }}</em></small>
+                </p>
+              </div>
+            </div>
+            <hr ng-repeat-end="">
+            <!-- @TODO : PAGINATION ? OR SCROLL-INFINITE ? -->
+            <ol class="pagination text-center pull-right">
+              <li class="prev disabled"><a href="#"><i class="fa fa-long-arrow-left"></i> Previous</a></li>
+              <li class="active"><a href="#">1</a></li>
+              <li><a href="#">2</a></li>
+              <li><a href="#">3</a></li>
+              <li><a href="#">4</a></li>
+              <li><a href="#">5</a></li>
+              <li class="next"><a href="#">Next <i class="fa fa-long-arrow-right"></i></a></li>
+            </ol>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <!-- col-md-12 -->
+  </div>
+  <!-- row -->
+</div> <!-- container -->
+</div>

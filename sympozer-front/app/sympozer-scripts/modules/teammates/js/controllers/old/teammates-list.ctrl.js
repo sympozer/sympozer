@@ -4,9 +4,8 @@
  * @type {controller}
  */
 angular.module('teammatesApp').controller('teammatesListCtrl', [
-    '$scope', 'teammatesFact', '$routeParams', 'GLOBAL_CONFIG', 'createDialog', '$rootScope', '$cachedResource', function ($scope, teammatesFact, $routeParams, GLOBAL_CONFIG, createDialogService, $rootScope, $cachedResource)
+    '$scope', 'teammatesFact', '$routeParams', 'createDialog', '$rootScope', '$cachedResource', function ($scope, teammatesFact, $routeParams, createDialogService, $rootScope, $cachedResource)
     {
-        $scope.GLOBAL_CONFIG = GLOBAL_CONFIG;
         $scope.entities = [];
 
         $scope.filters = {};
@@ -23,8 +22,7 @@ angular.module('teammatesApp').controller('teammatesListCtrl', [
                 $scope.filters.teammateLabelVersionIds.splice(teammateLabelVersionIndex, 1);
             }
             $scope.filter();
-        }
-
+        };
 
         $scope.reload = function ()
         {
@@ -58,7 +56,7 @@ angular.module('teammatesApp').controller('teammatesListCtrl', [
         {
             $scope.index = index;
 
-            createDialogService(GLOBAL_CONFIG.app.modules.teammates.urls.partials + 'teammates-delete.html', {
+            createDialogService(globalConfig.app.modules.teammates.urls.partials + 'teammates-delete.html', {
                 id        : 'complexDialog',
                 title     : 'teammate deletion',
                 backdrop  : true,

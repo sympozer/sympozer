@@ -88,6 +88,11 @@ sympozerApp.controller('navMainCtrl', ['$scope', '$location', '$timeout', '$glob
           iconClasses: 'fa fa-group',
           children: [
             {
+                label      : 'teammates.links.team',
+                iconClasses: 'fa fa-graduation-cap',
+                url        : '#/conference/1/teammates' /** @TODO FORZA : TO ALIMENT WITH THE PROPER URL**/
+            },
+            {
               label: 'organizations.links.organizations',
               iconClasses: 'fa fa-group',
               url: '#/' /** @TODO FORZA : TO ALIMENT WITH THE PROPER URL**/

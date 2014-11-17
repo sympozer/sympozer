@@ -1,0 +1,26 @@
+<div entity-list-handler="teammates" data-order-by="person">
+
+  <div ng-include="GLOBAL_CONFIG.app.modules.teammates.urls.partials+'teammates-actions.html'"></div>
+
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>{{ 'teammates.labels.teammate' | translate}}</th>
+      <th>{{ 'events.links.events' | translate}}</th>
+    </tr>
+    </thead>
+    <tbody infinite-scroll='load()' infinite-scroll-disabled='busy' infinite-scroll-distance='0.5'>
+    <tr ng-repeat="teammate in entities  track by $index">
+      <td>{{ teammate.person.label }}</td>
+
+      <td>
+        <a class="btn btn-warning" href="#teammates/edit/{{ teammate.id }}" role="button"><i class="fa fa-edit fa-1x"></i></a>
+        <a class="btn btn-default" href="#teammates/show/{{ teammate.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>
+        <a class="btn btn-primary" href="" data-ng-click="clone(teammate)" role="button"><i class="fa fa-files-o fa-1x"></i></a>
+        <button class="btn btn-danger" data-ng-click="deleteModal($index, teammate)" role="button">
+          <i class="fa fa-trash-o fa-1x"></i></button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>

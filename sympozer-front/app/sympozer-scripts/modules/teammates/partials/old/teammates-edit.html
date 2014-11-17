@@ -1,0 +1,8 @@
+<div ng-include="GLOBAL_CONFIG.app.modules.teammates.urls.partials+'teammates-actions.html'" ng-controller="teammatesMainCtrl"></div>
+<form name="teammateEditForm" class="form" role="form" ng-submit="update(teammateEditForm)">
+  <div ng-include="GLOBAL_CONFIG.app.modules.teammates.urls.partials+'teammates-form.html'"></div>
+  <hr/>
+  <div class="form-group">
+    <button type="submit" class="btn btn-success">{{ 'global.actions.save' | translate}}</button>
+  </div>
+</form>

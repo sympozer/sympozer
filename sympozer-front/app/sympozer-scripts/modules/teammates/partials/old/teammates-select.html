@@ -6,12 +6,12 @@
   </span>
 </div>
 
-<ui-select ng-model="addedEntity" on-select="change($model)" ng-keyup="keyup($event)"  style="width: 100%;">
+<ui-select ng-model="addedEntity" on-select="change($model)" ng-keyup="keyup($event)" style="width: 100%;">
   <ui-select-match>Add a Participant...</ui-select-match>
   <ui-select-choices repeat="entity in entities">
     <!--<ui-select-choices repeat="entity.email as entity in people | propsFilter: {label: $select.search, age: $select.search}">-->
     <div ng-if="!entity.id ">
-        {{ 'teammates.actions.new' | translate }}...
+      {{ 'teammates.actions.new' | translate }}...
     </div>
     <i class="fa fa-map-marker fa-2x"></i>
     <b ng-bind-html="entity.label | highlight: $select.search"></b>

@@ -5,6 +5,6 @@
  */
 angular.module('teammatesApp').controller('teammatesMainCtrl',
     [function ($scope)
-    {
+     {
 
-    }]);
+     }]);

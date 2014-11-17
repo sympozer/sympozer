@@ -1,0 +1,21 @@
+<div ng-include="GLOBAL_CONFIG.app.modules.teammates.urls.partials+'teammates-actions.html'"></div>
+
+<div class="row" entity-list-handler="teammates" infinite-scroll='load()' infinite-scroll-disabled='busy' infinite-scroll-distance='0.5'>
+  <div ng-repeat="teammate in entities  track by $index" class="col-sm-6 col-md-6 col-lg-4 well">
+    <img class="img-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" style="width: 140px; height: 140px;">
+
+    <h2>{{teammate.person.label }}</h2>
+
+    <p>{{ teammate.event.label }}</p>
+    <a class="btn btn-warning" href="#teammates/edit/{{ teammate.id }}" role="button"><i class="fa fa-edit fa-1x"></i></a>
+    <a class="btn btn-default" href="#teammates/show/{{ teammate.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>
+    <a class="btn btn-primary" href="" data-ng-click="clone(teammate)" role="button"><i class="fa fa-files-o fa-1x"></i></a>
+    <button class="btn btn-danger" data-ng-click="deleteModal($index, teammate)" role="button">
+      <i class="fa fa-trash-o fa-1x"></i></button>
+  </div>
+</div>
+
+
+
+
+
