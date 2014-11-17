@@ -40,3 +40,4 @@ sympozer-front/.tmp/*
 sympozer-front/app/sympozer-scripts/js/ws-config.js
 sympozer-front/dist/*
 sympozer-front/local-config.json
+src/fibe/FrontendBundle/Resources/public/vendors/*
