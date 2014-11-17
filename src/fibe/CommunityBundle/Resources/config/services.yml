@@ -10,6 +10,7 @@ services:
         calls:
             - [setFrontEndPath, ["%front_end_path%"]]
             - [setConfirmPath, ["%front_end_confirm_path%"]]
+            - [setResetPath, ["%front_end_reset_path%"]]
 
 
     fibe.PersonService:

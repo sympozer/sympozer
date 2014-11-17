@@ -26,7 +26,9 @@ angular.module('authenticationApp').controller('resetPwdCtrl', [ '$scope', '$rou
         //Modify current user
         authenticationFact.addUser(user);
 
-        $location.path('/profile');
+        $scope.user = user;
+
+        $location.path('/home/persons/show/' + user.person.id);
     }
 
     //Send reset pwd request to server

@@ -1,2 +1,3 @@
 # messages.en.yml
 registration_confirmation_mail: To finish activating your account - please visit
+registration_confirmation_mail_this_link: this link

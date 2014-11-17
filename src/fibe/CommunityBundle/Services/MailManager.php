@@ -15,12 +15,14 @@ class MailManager extends TwigSwiftMailer
 
   protected $confirmPath;
 
+  protected $resetPath;
+
   public function sendConfirmationEmailMessage(UserInterface $user)
   {
     $template = $this->parameters['template']['confirmation'];
 
     //generate an url like :
-    //   http://localhost/sympozer/sympozer-front/app/#/confirm?token=JUqCFLxukPIDtFlXLufka5YxOtZoX1a8TtgNa41Jvy0
+    //   http://localhost/sympozer/sympozer-front/app/#/confirm/JUqCFLxukPIDtFlXLufka5YxOtZoX1a8TtgNa41Jvy0
     $url = sprintf("%s%s/%s", $this->frontEndPath, $this->confirmPath, $user->getConfirmationToken());
 
     $context = array(
@@ -29,6 +31,22 @@ class MailManager extends TwigSwiftMailer
     );
 
     $this->sendMessage($template, $context, $this->parameters['from_email']['confirmation'], $user->getEmail());
+  }
+
+  public function sendResettingEmailMessage(UserInterface $user)
+  {
+    $template = $this->parameters['template']['resetting'];
+
+    //generate an url like :
+    //   http://localhost/sympozer/sympozer-front/app/#/reset/JUqCFLxukPIDtFlXLufka5YxOtZoX1a8TtgNa41Jvy0
+    $url = sprintf("%s%s/%s", $this->frontEndPath, $this->resetPath, $user->getConfirmationToken());
+
+    $context = array(
+      'user' => $user,
+      'confirmationUrl' => $url
+    );
+
+    $this->sendMessage($template, $context, $this->parameters['from_email']['resetting'], $user->getEmail());
   }
 
   public function sendConfirmationTokenNoMoreValidEmailMessage(UserInterface $user)
@@ -55,7 +73,6 @@ class MailManager extends TwigSwiftMailer
 //
 //      $this->sendMessage($template, $context, $this->parameters['from_email']['confirmation'], $user->getEmail());
   }
-
   /**
    * @param mixed $frontEndPath
    */
@@ -70,5 +87,13 @@ class MailManager extends TwigSwiftMailer
   public function setConfirmPath($confirmPath)
   {
     $this->confirmPath = $confirmPath;
+  }
+
+  /**
+   * @param mixed $resetPath
+   */
+  public function setResetPath($resetPath)
+  {
+    $this->resetPath = $resetPath;
   }
 }

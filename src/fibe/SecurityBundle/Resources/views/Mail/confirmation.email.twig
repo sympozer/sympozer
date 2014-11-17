@@ -20,7 +20,8 @@
 
     <h3>Hello {{ user.username }} !</h3>
 
-    <p>{{ 'registration_confirmation_mail' | trans }} {{ confirmationUrl }}</p>
+    <p>{{ 'registration_confirmation_mail' | trans }}
+      <a href="{{ confirmationUrl }}">{{ 'registration_confirmation_mail_this_link' | trans }}</a></p>
 
     <p>Regards,</p>
     <p><i>the Symposer team</i></p>
