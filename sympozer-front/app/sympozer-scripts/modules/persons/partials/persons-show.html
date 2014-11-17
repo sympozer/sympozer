@@ -7,7 +7,7 @@
 
     <div class="options">
         <div class="btn-toolbar">
-            <a class="btn btn-info" href="#persons/edit/{{person.id}}" role="button">
+            <a class="btn btn-info" href="#/home/persons/edit/{{person.id}}" role="button">
                 <i class="fa fa-edit fa-1x"></i> {{ 'persons.actions.edit_profile' | translate}}
             </a>
             <!--<div class="btn-group hidden-xs" data-dropdown>-->
@@ -30,7 +30,7 @@
         <div class="col-md-12">
             <div class="panel">
                 <div class="panel-body">
-                    <panel panel-class="panel panel-midnightblue"  heading="{{person.firstName || '???'}} {{person.familyName || '???'}}">
+                    <panel panel-class="panel panel-gray"  heading="{{person.firstName || '???'}} {{person.familyName || '???'}}">
                         <div class="row">
                             <div class="col-xs-5 col-sm-5 col-md-3 col-lg-3">
                                 <img  no-image ng-src="{{ person.img }}" alt="" class="pull-left img-responsive img-circle" style="margin: 0 20px 20px 0">

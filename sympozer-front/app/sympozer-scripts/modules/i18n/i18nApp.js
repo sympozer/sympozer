@@ -126,7 +126,8 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
         account: 'Account',
         agreement: 'User Agreement',
         agreement_acceptance: 'I accept the ',
-        username_or_email: 'Username or email'
+        username_or_email: 'Username or email',
+        settings : 'settings'
 
       }
     },
@@ -644,8 +645,8 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
         account: 'Compte',
         agreement: 'Convention d\'utilisation',
         agreement_acceptance: 'J\'accepte les termes',
-        username_or_email: 'Nom d\'utilisateur ou email'
-
+        username_or_email: 'Nom d\'utilisateur ou email',
+        settings : 'parametres'
       }
     },
 
