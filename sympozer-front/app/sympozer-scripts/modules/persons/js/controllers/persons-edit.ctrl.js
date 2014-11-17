@@ -1,10 +1,10 @@
 /**
  * Edit person controller
- *
+ * The profile of a person is managed via a live edit form. Each change is persisted uniquely using patch request
  * @type {controller}
  */
-angular.module('personsApp').controller('personsEditCtrl', [ '$scope', '$filter', '$rootScope', '$modal', 'GLOBAL_CONFIG', '$routeParams', '$location', 'createDialog', 'personsFact', 'organizationsFact', 'papersFact',
-    function ($scope, $filter, $rootScope, $modal, GLOBAL_CONFIG, $routeParams, $location, createDialogService, personsFact, organizationsFact, papersFact)
+angular.module('personsApp').controller('personsEditCtrl', [ '$scope', '$filter', '$rootScope', '$modal', 'GLOBAL_CONFIG', '$routeParams', '$location', 'personsFact', 'organizationsFact', 'papersFact',
+    function ($scope, $filter, $rootScope, $modal, GLOBAL_CONFIG, $routeParams, $location, personsFact, organizationsFact, papersFact)
 {
     $scope.person = personsFact.get({id: $routeParams.personId});
     $scope.GLOBAL_CONFIG = GLOBAL_CONFIG;

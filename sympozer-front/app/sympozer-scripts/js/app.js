@@ -115,7 +115,7 @@ sympozerApp = angular.module('sympozerApp', [
     'contextualizationApp',
     'i18nApp',
 
-//    'organizationsApp',
+    'organizationsApp',
     'personsApp',
 //    'topicsApp',
 //    'locationsApp',
