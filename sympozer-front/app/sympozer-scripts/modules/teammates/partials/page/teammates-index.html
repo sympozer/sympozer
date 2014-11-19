@@ -48,7 +48,7 @@
 
             <h3 ng-show="query">{{'global.labels.searchResult' | translate }} {{ query }}</h3>
             <hr>
-            <div class="search-result" ng-repeat-start="teammate in entities  track by $index" ng-include="GLOBAL_CONFIG.app.modules.teammates.urls.partials+'entity/teammates-actions.html'">
+            <div class="search-result" ng-repeat-start="teammate in entities  track by $index" ng-include="GLOBAL_CONFIG.app.modules.teammates.urls.partials+'page/teammate-entity-list.html'">
             </div>
             <hr ng-repeat-end="">
             <!-- @TODO : PAGINATION ? OR SCROLL-INFINITE ? -->
