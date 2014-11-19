@@ -1,0 +1,17 @@
+<div class="form-group">
+  <label class="col-sm-3 control-label">{{'persons.actions.search' | translate }}</label>
+
+  <div class="col-sm-6">
+    <div sympozer-autocomplete="persons" on-select="addPerson" on-keyup="searchPersons"></div>
+  </div>
+  <div class="col-sm-3">
+    <p class="help-block">Your help text!</p>
+  </div>
+</div>
+<div class="col-sm-1 col-md-1 col-lg-4  well" ng-show="teammate.person">
+  <div class="img-container-lg">
+    <img class="scale-img" no-image ng-src="{{ teammate.person.img }}"/>
+  </div>
+  <h5>{{ teammate.person.label }}</h5>
+  <h5>{{ teammate.person.email }}</h5>
+</div>

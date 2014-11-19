@@ -14,8 +14,6 @@ parameters:
 
     path_to_node:      /usr/local/bin/node
 
-    session.storage.filesystem.class: fibe\RestBundle\Session\Storage
-
 
     # social account
     twitter.client_id:      lPRWT7tKPwkmiFlu3Y8RC69vs

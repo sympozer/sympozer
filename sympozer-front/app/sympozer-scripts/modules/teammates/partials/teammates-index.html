@@ -19,6 +19,8 @@
         </ul>
       </div>
       <a href="#" class="btn btn-default hidden-xs"><i class="fa fa-cog"></i></a>
+      <a href="#/teammates/new" class="btn btn-default"><i class="fa fa-plus"></i> {{ 'teammates.actions.add' | translate}}
+      </a>
     </div>
   </div>
 </div>
@@ -35,46 +37,18 @@
           <div class="search-classic">
             <form action="#">
               <div class="input-group well w100">
-                <input type="text" placeholder="{{'global.actions.placeHolderSearch' | translate }}" class="form-control"/>
-                  <span class="input-group-btn">
-                    <button type="button" class="btn btn-primary">
-                      <i class="fa fa-search"></i> {{'global.actions.search' | translate }}
-                    </button>
-                  </span>
+                <input type="text" placeholder="{{'teammates.actions.search' | translate }}" class="form-control" ng-change="sendQuery(query)" ng-model="query"/>
+                <span class="input-group-btn">
+                  <button type="button" class="btn btn-primary">
+                    <i class="fa fa-search"></i> {{'global.actions.search' | translate }}
+                  </button>
+                </span>
               </div>
             </form>
-            <h3>{{'global.labels.searchResult' | translate }} 'Forza'</h3>
+
+            <h3 ng-show="query">{{'global.labels.searchResult' | translate }} {{ query }}</h3>
             <hr>
-            <div class="search-result" ng-repeat-start="teammate in entities  track by $index">
-              <div class="row">
-                <!-- @TODO : DO A PARTIAL TO SHOW CONTENT -->
-                <h4 class="col-lg-8 col-md-12"><a href="#">{{ teammate.label }}</a></h4>
-
-                <h4 class="col-lg-4 col-md-12 text-right-lg">
-                  <span ng-repeat="topic in teammate.topics" class="labels label-primary">{{ topic }}</span>
-                </h4>
-              </div>
-              <div class="row" ng-if="teammate.publisher || teammate.publishDate || teammate.authors">
-                <!-- @TODO : TRANSLATE DATE -->
-                <h5 class="col-lg-8 col-md-12" ng-if="teammate.authors">
-                  {{ (teammate.authors.length > 1) ? 'teammates.labels.authors' : 'teammates.labels.author' | translate }}
-                  <em ng-repeat="author in teammate.authors">{{ author }}{{$last ? '' : ', '}}</em>
-                </h5>
-                <h6 class="{{ teammate.authors ? 'col-lg-4 col-md-12 ' : '' }}text-right-lg" ng-if="teammate.publisher || teammate.publishDate">
-                  <em ng-if="teammate.publisher">{{'teammates.labels.publishedBy' | translate }} {{ teammate.publisher }} </em>
-                  <em ng-if="teammate.publisher && teammate.publishDate">{{ 'global.labels.on' | translate }} </em>
-                  <em ng-if="teammate.publishDate">{{ teammate.publishDate | date:'medium' }}</em>
-                </h6>
-              </div>
-              <div>
-                <a href="{{ teammate.url }}" target="_blank" ng-if="teammate.url">{{ teammate.url }}</a>
-
-                <p ng-if="teammate.abstract">{{ teammate.abstract }}</p>
-
-                <p ng-if="!teammate.abstract">
-                  <small><em>{{ 'teammates.messages.no_abstract' | translate }}</em></small>
-                </p>
-              </div>
+            <div class="search-result" ng-repeat-start="teammate in entities  track by $index" ng-include="GLOBAL_CONFIG.app.modules.teammates.urls.partials+'entity/teammates-actions.html'">
             </div>
             <hr ng-repeat-end="">
             <!-- @TODO : PAGINATION ? OR SCROLL-INFINITE ? -->
