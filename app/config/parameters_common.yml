@@ -25,9 +25,12 @@ parameters:
             type:                google
             client_id:           7291802335-siqu12kucgd89889v5g5u0mpnd4nf2ff.apps.googleusercontent.com
             client_secret:       go7GBtGXWM8B1csxPOhC_Gbk
-            scope:               "https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile"
-            # options:
-            #     access_type:     offline
+            scope:               "https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile"  
+            options:
+                 access_type:     offline 
+                 approval_prompt: force
+                 display:         popup
+                 login_hint:      email address
         twitter:
             type:                twitter
             client_id:           %twitter.client_id%
@@ -37,6 +40,9 @@ parameters:
             client_id:           302138773286062
             client_secret:       2ff19b48db1508de43e56be63525d0e4 
             scope:               "email"
+            options:
+                 display:         popup
+
         linkedin:
             type:                linkedin
             client_id:           77t2v9vcniqt0s

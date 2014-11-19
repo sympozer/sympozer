@@ -302,7 +302,7 @@ abstract class VEvent
     /**
      * chkTimeline
      *
-     * @ORM\Column(type="string", length=25)
+     * @ORM\Column(type="string", length=25,nullable=true)
      * @Expose
      */
     protected $chkTimeline;
@@ -310,7 +310,7 @@ abstract class VEvent
     /**
      * chkSocial
      *
-     * @ORM\Column(type="string", length=25)
+     * @ORM\Column(type="string", length=25, nullable=true)
      * @Expose
      */
     protected $chkSocial;
