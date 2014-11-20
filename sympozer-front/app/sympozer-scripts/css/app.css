@@ -1,17 +1,17 @@
 /***********    dropdown autocomplete     *************/
 
-ul.dropdown-menu
+[sympozer-autocomplete] ul.dropdown-menu
 {
   position: inherit;
   width: 100%;
 }
 
-ul.dropdown-menu > li
+[sympozer-autocomplete] ul.dropdown-menu > li
 {
   cursor: pointer;
 }
 
-ul.dropdown-menu > li:hover
+[sympozer-autocomplete] ul.dropdown-menu > li:hover
 {
   background-color: #F7F7F7;
 }

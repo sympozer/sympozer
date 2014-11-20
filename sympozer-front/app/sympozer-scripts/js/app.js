@@ -154,4 +154,9 @@ angular.module('sympozerApp').config(['$provide', '$httpProvider', function ($pr
 }]);
 
 
+angular.module('sympozerApp').config(['$httpProvider', function ($httpProvider)
+{
+    $httpProvider.defaults.withCredentials = true;
+}]);
+
 

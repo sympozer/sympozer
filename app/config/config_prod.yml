@@ -3,6 +3,8 @@
 
 # CORS Support
 nelmio_cors:
+    defaults:
+        allow_credentials: true
     paths:
         '^/':
             allow_origin: ['http://localhost','http://127.0.0.1']
