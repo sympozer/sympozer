@@ -3,15 +3,10 @@
 namespace fibe\CommunityBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\Event\PreFlushEventArgs;
 use Doctrine\ORM\Mapping as ORM;
-
-
 use fibe\ContentBundle\Util\StringTools;
-
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
-
 use Symfony\Component\Validator\Constraints as Assert;
 
 
@@ -31,7 +26,10 @@ class Organization extends AdditionalInformations
      * @ORM\OneToMany(targetEntity="fibe\ContentBundle\Entity\Sponsor", mappedBy="organization", cascade={"all"})
      */
     protected $sponsors;
-
+  /**
+   * @ORM\Column(type="string", length=256, nullable=true)
+   */
+  protected $slug;
     /**
      *
      * @ORM\OneToMany(targetEntity="OrganizationVersion",  mappedBy="organization",cascade={"persist","remove"})
@@ -39,11 +37,6 @@ class Organization extends AdditionalInformations
      * @Expose
      */
     private $organizationVersions;
-
-    /**
-     * @ORM\Column(type="string", length=256, nullable=true)
-     */
-    protected $slug;
 
     /**
      * Constructor
@@ -64,38 +57,33 @@ class Organization extends AdditionalInformations
     }
 
     /**
-     * Slugify
-     * @ORM\PrePersist()
-     */
-    public function slugify()
-    {
-        $this->setSlug(StringTools::slugify($this->getId() . $this->getLabel()));
-    }
-
-    /**
      * onUpdate
      *
      * @ORM\PostPersist()
      * @ORM\PreUpdate()
      */
-    public function onUpdate()
+  public function onUpdate()
     {
-        $this->slugify();
+      $this->slugify();
     }
 
+    /**
+     * Slugify
+     * @ORM\PrePersist()
+     */
+  public function slugify()
+    {
+      $this->setSlug(StringTools::slugify($this->getId() . $this->getLabel()));
+    }
 
     /**
-     * Set slug
+     * Get label
      *
-     * @param string $slug
-     *
-     * @return $this
+     * @return string
      */
-    public function setSlug($slug)
+  public function getLabel()
     {
-        $this->slug = $slug;
-
-        return $this;
+      return $this->label;
     }
 
     /**
@@ -111,29 +99,32 @@ class Organization extends AdditionalInformations
     }
 
     /**
+     * Set slug
+     *
+     * @param string $slug
+     *
+     * @return $this
+     */
+  public function setSlug($slug)
+  {
+    $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
      * Set label
      *
      * @param string $label
      *
      * @return $this
      */
-    public function setLabel($label)
+  public function setLabel($label)
     {
-        $this->label = $label;
+      $this->label = $label;
 
-        return $this;
+      return $this;
     }
-
-    /**
-     * Get label
-     *
-     * @return string
-     */
-    public function getLabel()
-    {
-        return $this->label;
-    }
-
 
     /**
      * @return mixed
