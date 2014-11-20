@@ -192,7 +192,7 @@
 <script src="bower/json3/lib/json3.min.js"></script>
 <![endif]-->
 
-<script type='text/javascript' src='http://maps.google.com/maps/api/js?sensor=true'></script>
+<script type='text/javascript' src='http://maps.google.com/maps/api/js?libraries=places&sensor=true'></script>
 
 <!-- build:js scripts/vendor.js -->
 <!-- bower:js -->
@@ -359,6 +359,7 @@
 <script src="sympozer-scripts/js/directives/sympozer-acl-show.drv.js"></script>
 <script src="sympozer-scripts/js/directives/sympozer-autocomplete.drv.js"></script>
 <script src="sympozer-scripts/js/directives/validators/date-before-now.vld.js"></script>
+<script src="sympozer-scripts/js/directives/map/google-place-autocomplete.drv.js"></script>
 <!--FILTERS -->
 <script src="sympozer-scripts/js/filters/sympozer-checkmark.fltr.js"></script>
 <script src="sympozer-scripts/js/filters/sympozer-in-array.fltr.js"></script>
@@ -459,10 +460,25 @@
 <!--@TODO <script src="sympozer-scripts/modules/organizations/js/controllers/organizations-edit.ctrl.js"></script>-->
 <!--@TODO <script src="sympozer-scripts/modules/organizations/js/controllers/organizations-list.ctrl.js"></script>-->
 <!--@TODO <script src="sympozer-scripts/modules/organizations/js/controllers/organizations-main.ctrl.js"></script>-->
-<!--@TODO <script src="sympozer-scripts/modules/organizations/js/controllers/organizations-new.ctrl.js"></script>-->
+<script src="sympozer-scripts/modules/organizations/js/controllers/organizations-new.ctrl.js"></script>
 <!--@TODO <script src="sympozer-scripts/modules/organizations/js/controllers/organizations-show.ctrl.js"></script>-->
 <!-- SERVICES -->
 <script src="sympozer-scripts/modules/organizations/js/services/organizations.fact.js"></script>
+
+
+<!-- SYMPOZER MAIN EVENTS APP -->
+<script src="sympozer-scripts/modules/main-events/js/routes.js"></script>
+<!-- CONTROLLERS -->
+<!--@TODO <script src="sympozer-scripts/modules/main-events/js/controllers/community/main-events-community-list.ctrl.js"></script>-->
+<!--@TODO <script src="sympozer-scripts/modules/main-events/js/controllers/main-events-delete.ctrl.js"></script>-->
+<!--@TODO <script src="sympozer-scripts/modules/main-events/js/controllers/main-events-edit.ctrl.js"></script>-->
+<!--@TODO <script src="sympozer-scripts/modules/main-events/js/controllers/main-events-list.ctrl.js"></script>-->
+<!--@TODO <script src="sympozer-scripts/modules/main-events/js/controllers/main-events-main.ctrl.js"></script>-->
+<script src="sympozer-scripts/modules/main-events/js/controllers/main-events-new.ctrl.js"></script>
+<!--@TODO --><script src="sympozer-scripts/modules/main-events/js/controllers/main-events-show.ctrl.js"></script>
+<!-- SERVICES -->
+<script src="sympozer-scripts/modules/main-events/js/services/main-events.fact.js"></script>
+
 
 <!-- endbuild -->
 
@@ -538,10 +554,10 @@
         },
         mainEvents       : {
           urls: {
-            base             : "sympozer-scripts/modules/mainEvents/",
-            partials         : "sympozer-scripts/modules/mainEvents/partials/",
-            partialsCommunity: "sympozer-scripts/modules/mainEvents/community/partials/",
-            img              : "sympozer-scripts/modules/mainEvents/img/"
+            base             : "sympozer-scripts/modules/main-events/",
+            partials         : "sympozer-scripts/modules/main-events/partials/",
+            partialsCommunity: "sympozer-scripts/modules/main-events/community/partials/",
+            img              : "sympozer-scripts/modules/main-events/img/"
           }
         },
         persons          : {

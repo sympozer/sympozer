@@ -16,9 +16,5 @@
 </div>
 <div>
     <label for="inputDescription">{{ 'organizations.model.description' | translate}}</label>
-    <textarea elastic class="form-control" id="inputDescription" placeholder="{{organization.description}}" ng-model="organization.description"></textarea>
+    <textarea  class="form-control" id="inputDescription" placeholder="{{organization.description}}" ng-model="organization.description"></textarea>
 </div>
-
-<!--Owning side of person - organization is person, impossible to add a person to an organization form organization-->
-<!--<div get-or-create="person" parent-entity="organization" parent-field="member" uniq-field="email"></div>-->
-<!--<div get-or-create="sponsor" parent-entity="organization" parent-field="sponsor" uniq-field="email"></div>-->

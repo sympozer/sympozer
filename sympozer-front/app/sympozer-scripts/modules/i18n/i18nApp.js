@@ -43,7 +43,9 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
             },
             validations: {
                 error: 'Error',
-                success: 'Success'
+                success: 'Success',
+                modifications_saved : 'Modifications saved'
+
             }
         },
 
@@ -128,7 +130,7 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 agreement: 'User Agreement',
                 agreement_acceptance: 'I accept the ',
                 username_or_email: 'Username or email',
-                settings : 'settings'
+                settings : 'Settings'
 
             }
         },
@@ -167,6 +169,8 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 delete_confirm: 'Are you sure you want to delete this conference ?'
             },
             model: {
+                country: 'Country',
+                city: 'City',
                 label: 'Label',
                 startAt: 'Start at',
                 endAt: 'End at',
@@ -235,8 +239,8 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
             },
             validations: {
                 delete_confirm: 'Are you sure you want to delete this paper ?',
-                'created': 'The paper has been saved',
-                'not_created': 'Sorry, the paper has not been saved'
+                created: 'The paper has been saved',
+                not_created: 'Sorry, the paper has not been saved'
             },
             messages: {
                 no_abstract: 'This paper has no abstract.'
@@ -428,6 +432,7 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
             model: {
                 label: 'Label',
                 country: 'Country',
+                city: 'City',
                 website: 'Website',
                 img: 'Image',
                 description: 'Description'
@@ -530,7 +535,10 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
             model: {
                 label: 'Label',
                 website: 'Website',
+                localization : 'Localization',
                 country: 'Country',
+                city: 'City',
+
                 firstname: 'First name',
                 familyname: 'Family name',
                 email: 'Email',
@@ -566,7 +574,8 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
             },
             validations: {
                 error: 'Erreur',
-                success: 'Success'
+                success: 'Success',
+                modifications_saved : 'Modifications sauvegardées'
             }
         },
 
@@ -651,7 +660,7 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 agreement: 'Convention d\'utilisation',
                 agreement_acceptance: 'J\'accepte les termes',
                 username_or_email: 'Nom d\'utilisateur ou email',
-                settings : 'parametres'
+                settings : 'Parametres'
             }
         },
 
@@ -688,6 +697,8 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 delete_confirm: 'Etes-vous sur de vouloir supprimer cette conférence ?'
             },
             model: {
+                country: 'Pays',
+                city: 'Ville',
                 label: 'Label',
                 startAt: 'Début',
                 endAt: 'Fin',
@@ -945,6 +956,7 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
             model: {
                 label: 'Label',
                 country: 'Pays',
+                city: 'Ville',
                 website: 'Site web',
                 img: 'Image',
                 description: 'Description'
@@ -1045,8 +1057,10 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
             },
             model: {
                 label: 'Label',
+                localization : 'Localisation',
                 website: 'Site web',
                 country: 'Pays',
+                city: 'Ville',
                 firstname: 'Prénom',
                 familyname: 'Nom',
                 email: 'Email',

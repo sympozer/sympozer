@@ -125,7 +125,7 @@ sympozerApp = angular.module('sympozerApp', [
 //    'rolesApp',
 //    'roleLabelsApp',
 //    'categoriesApp',
-//    'mainEventsApp',
+    'mainEventsApp',
     'papersApp'
 ]);
 

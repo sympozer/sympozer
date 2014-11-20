@@ -79,7 +79,7 @@ sympozerApp.controller('navMainCtrl', ['$scope', '$location', '$timeout', '$glob
             {
               label: 'navleft.settings',
               iconClasses: 'fa fa-cogs',
-              url: '#/' /** @TODO FORZA : TO ALIMENT WITH THE PROPER URL**/
+              url: '#/home/mainEvents/1/overview/settings'  /** @TODO FORZA : TO ALIMENT WITH THE PROPER URL**/
             }
           ]
         },

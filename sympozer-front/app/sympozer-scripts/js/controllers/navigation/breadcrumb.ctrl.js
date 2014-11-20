@@ -32,6 +32,27 @@ sympozerApp.controller('breadcrumbCtrl', ['$scope', '$location', function ($scop
                     ]
                 },
                 {
+                    idUrl: 'mainEvents',
+                    label: 'mainEvents.links.mainEvents',
+                    children: [
+                        {
+                            idUrl: 'overview',
+                            label: 'navleft.overview',
+                            children: [
+                                {
+                                    idUrl: 'settings',
+                                    label: 'navleft.settings'
+                                }
+                            ]
+                        },
+                        {
+                            idUrl: 'index',
+                            label: 'Index'
+                        }
+
+                    ]
+                },
+                {
                     idUrl: 'authentication',
                     label: 'authentication.links.authentication',
                     children: [
@@ -82,11 +103,15 @@ sympozerApp.controller('breadcrumbCtrl', ['$scope', '$location', function ($scop
         {
             for (var i = 0, length = items.length; i < length; i++)
             {
+
                 if (itemId === items[i].idUrl)
                 {
                     return items[i];
                 }
             }
+
+
+
             console.error('[ERROR] - Breadcrumb.js : \n   children node \'' + itemId + '\' does not exist.\n   The parent node must contains a correct id child.');
             return null;
         }
@@ -117,15 +142,35 @@ sympozerApp.controller('breadcrumbCtrl', ['$scope', '$location', function ($scop
         var tempArray = breadcrumbDefinitions;
         for (var i = 0; i < arrayPath.length; i++)
         {
+
             // If it's the last subpath
             if (i === (arrayPath.length - 1))
             {
                 isLastSubpath = true;
             }
+
+
             subPath = arrayPath[i];
+
+            //@TODO: find a solution for variable in breadcrum (something with the entities label ?). Exclude IDS from lookup for now
+            if( parseInt(subPath)){
+                // Add a "fake" value for the variable on the breacrum
+                breadcrumbArray = breadcrumbArray.concat([
+                    {
+                        label: subPath,
+                        url: "",
+                        isActive: isLastSubpath ? 'active' : ''
+                    }
+                ]);
+                continue;
+            }
+
             tempArray = findItem(tempArray, subPath);
+
             if (tempArray != null)
             {
+
+
                 // For each element, we add the item to the breadcrump line
                 breadcrumbArray = breadcrumbArray.concat([
                     {

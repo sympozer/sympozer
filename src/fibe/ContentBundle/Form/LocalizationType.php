@@ -10,7 +10,7 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
  * Class LocationType
  * @package fibe\ContentBundle\Form
  */
-class LocationType extends LocalizationType
+class LocalizationType extends AbstractType
 {
     /**
      * {@inheritdoc}
@@ -18,19 +18,19 @@ class LocationType extends LocalizationType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('capacity')
-            ->add('description')
-            ->add('accesibility')
-            ->add('mainEvent', 'entity', array(
-                'class' => 'fibeEventBundle:MainEvent',
-                'required' => 'true',
-                'multiple' => false,
-            ))
-            ->add('equipments', 'entity', array(
-                'class' => 'fibeContentBundle:Equipment',
-                'required' => 'false',
-                'multiple' => true,
-            ));
+            ->add('id')
+            ->add('dtype')
+            ->add('label')
+            ->add('latitude')
+            ->add('longitude')
+            ->add('address')
+            ->add('streetNumber')
+            ->add('street')
+            ->add('city')
+            ->add('country')
+            ->add('state')
+            ->add('countryCode')
+            ->add('postalCode');
     }
 
     /**
@@ -40,7 +40,7 @@ class LocationType extends LocalizationType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'fibe\ContentBundle\Entity\Location',
+                'data_class' => 'fibe\ContentBundle\Entity\Localization',
                 'csrf_protection' => false
             )
         );
@@ -53,6 +53,6 @@ class LocationType extends LocalizationType
      */
     public function getName()
     {
-        return 'fibe_bundle_contentbundle_locationtype';
+        return 'fibe_bundle_contentbundle_localizationtype';
     }
 }

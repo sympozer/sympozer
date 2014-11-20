@@ -81,6 +81,16 @@ class AdditionalInformations
      */
     protected $description;
 
+
+    /**
+     * Localization
+     * Localization is a geographic point and geocoding information that indicate where the person/organization resides
+     * @ORM\OneToOne(targetEntity="fibe\ContentBundle\Entity\Localization", cascade={"persist"})
+     * @Expose
+     */
+    protected $localization;
+
+
     /**
      * fix an issue with jms-serializer and form validation when applied to a doctrine InheritanceType("SINGLE_TABLE")
      */
@@ -190,4 +200,21 @@ class AdditionalInformations
     {
         $this->description = $description;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getLocalization()
+    {
+        return $this->localization;
+    }
+
+    /**
+     * @param mixed $localization
+     */
+    public function setLocalization($localization)
+    {
+        $this->localization = $localization;
+    }
+
 }

@@ -2,6 +2,7 @@
 
 namespace fibe\CommunityBundle\Form;
 
+use fibe\ContentBundle\Form\LocalizationType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -22,7 +23,9 @@ class AdditionalInformationsType extends AbstractType
             ->add('country')
             ->add('description')
             ->add('img')
-            ->add('description');
+            ->add('description')
+            ->add('localization', new LocalizationType);
+
     }
 
     /**

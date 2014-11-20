@@ -33,11 +33,6 @@ class Location
      */
     protected $id;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     * @Expose
-     */
-    protected $label;
 
     /**
      * Capacity to welcome atendees
@@ -70,30 +65,6 @@ class Location
      */
     protected $accesibility;
 
-    /**
-     * @ORM\Column(type="decimal", precision=10, scale=6, nullable=true)
-     *
-     * @Assert\Length(
-     *      min = "-90",
-     *      max = "90",
-     *      minMessage = "You must be between -90 and 90.",
-     *      maxMessage = "YYou must be between -90 and 90."
-     * )
-     * @Expose
-     */
-    protected $latitude;
-
-    /**
-     * @ORM\Column(type="decimal", precision=10, scale=6, nullable=true)
-     * @Assert\Length(
-     *      min = "-180",
-     *      max = "180",
-     *      minMessage = "You must be between -180 and 180.",
-     *      maxMessage = "YYou must be between -180 and 180."
-     * )
-     * @Expose
-     */
-    protected $longitude;
 
 
     /**
@@ -119,15 +90,7 @@ class Location
         return $this->getLabel();
     }
 
-    /**
-     * getGeo
-     *
-     * @return string
-     */
-    public function getGeo()
-    {
-        return sprintf('%.6f;%.6f', $this->getLatitude(), $this->getLongitude());
-    }
+
 
     /**
      * Get id
@@ -139,28 +102,8 @@ class Location
         return $this->id;
     }
 
-    /**
-     * Set name
-     *
-     * @param $label
-     * @return Location
-     */
-    public function setLabel($label)
-    {
-        $this->label = $label;
 
-        return $this;
-    }
 
-    /**
-     * Get name
-     *
-     * @return string
-     */
-    public function getLabel()
-    {
-        return $this->label;
-    }
 
     /** Set capacity
      *
@@ -247,44 +190,6 @@ class Location
 
         return $this;
     }
-
-    /**
-     * Get latitude
-     *
-     * @return float
-     */
-    public function getLatitude()
-    {
-        return $this->latitude;
-    }
-
-    /**
-     * Set longitude
-     *
-     * @param float $longitude
-     *
-     * @return Location
-     */
-    public function setLongitude($longitude)
-    {
-        $this->longitude = $longitude;
-
-        return $this;
-    }
-
-    /**
-     * Get longitude
-     *
-     * @return float
-     */
-    public function getLongitude()
-    {
-        return $this->longitude;
-    }
-
-
-
-
 
 
     /**

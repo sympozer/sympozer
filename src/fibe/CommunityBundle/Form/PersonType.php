@@ -2,6 +2,8 @@
 
 namespace fibe\CommunityBundle\Form;
 
+use fibe\ContentBundle\Entity\Localization;
+use fibe\ContentBundle\Form\LocalizationType;
 use fibe\RestBundle\Form\PatchSubscriber;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;

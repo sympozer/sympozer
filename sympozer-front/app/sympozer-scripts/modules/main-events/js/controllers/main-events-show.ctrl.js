@@ -8,6 +8,8 @@ angular.module('mainEventsApp').controller('mainEventsShowCtrl', [ '$scope', '$r
     //initialize map zoom
     $scope.center = { zoom: 2 }
 
+    $scope.geoCodingMapInstance;
+
     $scope.mainEvent = mainEventsFact.get({id: $routeParams.mainEventId});
 
     //Context change
