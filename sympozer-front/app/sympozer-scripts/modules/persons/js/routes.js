@@ -10,13 +10,13 @@ angular.module('personsApp')
         function ($routeProvider)
         {
             $routeProvider
+                .when('/home/persons/index', {
+                    templateUrl: globalConfig.app.modules.persons.urls.communityPartials + 'persons-index.html',
+                    controller : 'personsCommunityIndexCtrl'
+                })
                 .when('/home/conference/:mainEventId/persons/list', {
                     templateUrl: globalConfig.app.modules.persons.urls.partials + 'persons-list.html',
                     controller : 'personsListCtrl'
-                })
-                .when('/home/persons/list', {
-                    templateUrl: globalConfig.app.modules.persons.urls.communityPartials + 'persons-community-thumbnail.html',
-                    controller : 'personsCommunityListCtrl'
                 })
                 .when('/home/conference/:mainEventId/persons/thumbnail', {
                     templateUrl: globalConfig.app.modules.persons.urls.partials + 'persons-thumbnail.html',

@@ -55,7 +55,6 @@
   <link rel="stylesheet" href="bower/bootstrap-social/bootstrap-social.css" />
   <link rel="stylesheet" href="bower/bootstrap-tags/dist/css/bootstrap-tags.css" />
   <!-- endbower -->
-  <link rel='stylesheet' type='text/css' href='sympozer-scripts/assets/fonts/glyphicons/css/glyphicons.min.css'/>
   <link rel='stylesheet' type='text/css' href='sympozer-scripts/assets/plugins/icheck/all.css'/>
   <link rel='stylesheet' type='text/css' href='sympozer-scripts/assets/plugins/form-multiselect/css/multi-select.css'/>
   <link rel='stylesheet' type='text/css' href='sympozer-scripts/assets/plugins/form-fseditor/fseditor.css'/>
@@ -278,11 +277,7 @@
 <script type='text/javascript' src='sympozer-scripts/assets/plugins/bootstro.js/bootstro.min.js'></script>
 <!-- endbuild -->
 
-<!--
-  Sympozer Angular stylesheets
--->
 
-<link rel="stylesheet" href="sympozer-scripts/css/app.css"/>
 
 <!--
   Sympozer Angular scripts
@@ -360,6 +355,7 @@
 <script src="sympozer-scripts/js/directives/sympozer-autocomplete.drv.js"></script>
 <script src="sympozer-scripts/js/directives/validators/date-before-now.vld.js"></script>
 <script src="sympozer-scripts/js/directives/map/google-place-autocomplete.drv.js"></script>
+<script src="sympozer-scripts/js/directives/map/gmap.drv.js"></script>
 <!--FILTERS -->
 <script src="sympozer-scripts/js/filters/sympozer-checkmark.fltr.js"></script>
 <script src="sympozer-scripts/js/filters/sympozer-in-array.fltr.js"></script>
@@ -374,6 +370,8 @@
 <script src="sympozer-scripts/js/services/bootbox.fact.js"></script>
 <script src="sympozer-scripts/js/services/progress-loader.fact.js"></script>
 <script src="sympozer-scripts/js/services/pines-notifications.fact.js"></script>
+<script src="sympozer-scripts/js/services/search.fact.js"></script>
+<script src="sympozer-scripts/js/services/gmaps.fact.js"></script>
 
 
 <!-- SYMPOZER AUTHENTICATION APP -->
@@ -415,7 +413,7 @@
 <script src="sympozer-scripts/modules/persons/js/controllers/persons-main.ctrl.js"></script>
 <script src="sympozer-scripts/modules/persons/js/controllers/persons-new.ctrl.js"></script>
 <script src="sympozer-scripts/modules/persons/js/controllers/persons-show.ctrl.js"></script>
-<script src="sympozer-scripts/modules/persons/js/controllers/community/persons-community-list.ctrl.js"></script>
+<script src="sympozer-scripts/modules/persons/js/controllers/community/persons-community-index.ctrl.js"></script>
 <!--SERVICES -->
 <script src="sympozer-scripts/modules/persons/js/services/persons.fact.js"></script>
 
@@ -469,7 +467,7 @@
 <!-- SYMPOZER MAIN EVENTS APP -->
 <script src="sympozer-scripts/modules/main-events/js/routes.js"></script>
 <!-- CONTROLLERS -->
-<!--@TODO <script src="sympozer-scripts/modules/main-events/js/controllers/community/main-events-community-list.ctrl.js"></script>-->
+<script src="sympozer-scripts/modules/main-events/js/controllers/community/main-events-community-index.ctrl.js"></script>
 <!--@TODO <script src="sympozer-scripts/modules/main-events/js/controllers/main-events-delete.ctrl.js"></script>-->
 <!--@TODO <script src="sympozer-scripts/modules/main-events/js/controllers/main-events-edit.ctrl.js"></script>-->
 <!--@TODO <script src="sympozer-scripts/modules/main-events/js/controllers/main-events-list.ctrl.js"></script>-->
@@ -479,6 +477,20 @@
 <!-- SERVICES -->
 <script src="sympozer-scripts/modules/main-events/js/services/main-events.fact.js"></script>
 
+
+
+<!-- SYMPOZER LOCATIONS APP -->
+<script src="sympozer-scripts/modules/locations/js/routes.js"></script>
+<!-- CONTROLLERS -->
+<!--@TODO <script src="sympozer-scripts/modules/locations/js/controllers/locations-delete.ctrl.js"></script>-->
+<!--@TODO <script src="sympozer-scripts/modules/locations/js/controllers/locations-edit.ctrl.js"></script>-->
+<!--@TODO <script src="sympozer-scripts/modules/locations/js/controllers/locations-list.ctrl.js"></script>-->
+<!--@TODO <script src="sympozer-scripts/modules/locations/js/controllers/locations-main.ctrl.js"></script>-->
+<script src="sympozer-scripts/modules/locations/js/controllers/locations-new.ctrl.js"></script>
+<!--@TODO --><script src="sympozer-scripts/modules/locations/js/controllers/locations-show.ctrl.js"></script>
+<!-- SERVICES -->
+<script src="sympozer-scripts/modules/locations/js/services/locations.fact.js"></script>
+<script src="sympozer-scripts/modules/locations/js/services/main-event-locations.fact.js"></script>
 
 <!-- endbuild -->
 
@@ -512,7 +524,7 @@
           urls: {
             base             : "sympozer-scripts/modules/organizations/",
             partials         : "sympozer-scripts/modules/organizations/partials/",
-            communityPartials: "sympozer-scripts/modules/organizations/community/partials/",
+            communityPartials: "sympozer-scripts/modules/organizations/partials/community/",
             img              : "sympozer-scripts/modules/organizations/img/"
           }
         },
@@ -541,7 +553,7 @@
           urls: {
             base             : "sympozer-scripts/modules/papers/",
             partials         : "sympozer-scripts/modules/papers/partials/",
-            communityPartials: "sympozer-scripts/modules/papers/community/partials/",
+            communityPartials: "sympozer-scripts/modules/papers/partials/community/",
             img              : "sympozer-scripts/modules/papers/img/"
           }
         },
@@ -556,7 +568,7 @@
           urls: {
             base             : "sympozer-scripts/modules/main-events/",
             partials         : "sympozer-scripts/modules/main-events/partials/",
-            partialsCommunity: "sympozer-scripts/modules/main-events/community/partials/",
+            partialsCommunity: "sympozer-scripts/modules/main-events/partials/community/",
             img              : "sympozer-scripts/modules/main-events/img/"
           }
         },
@@ -564,7 +576,7 @@
           urls: {
             base             : "sympozer-scripts/modules/persons/",
             partials         : "sympozer-scripts/modules/persons/partials/",
-            communityPartials: "sympozer-scripts/modules/persons/community/partials/",
+            communityPartials: "sympozer-scripts/modules/persons/partials/community/",
             img              : "sympozer-scripts/modules/persons/img/"
           }
         },

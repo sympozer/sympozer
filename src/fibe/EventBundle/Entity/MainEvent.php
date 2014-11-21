@@ -3,6 +3,7 @@
 namespace fibe\EventBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Event\PreFlushEventArgs;
 use Doctrine\ORM\Mapping as ORM;
 use fibe\CommunityBundle\Entity\Person;
 use fibe\ContentBundle\Entity\Paper;
@@ -101,17 +102,9 @@ class MainEvent extends VEvent
    * @ORM\Column(type="string", length=128, nullable=true)
    */
   private $acronym;
+
   /**
-   * main event location
-   *
-   * @ORM\OneToOne(targetEntity="fibe\ContentBundle\Entity\MainEventLocation", cascade={"all"})
-   * @ORM\JoinColumn(name="main_event_location_id", referencedColumnName="id")
-   * @Expose
-   * @SerializedName("mainEventLocation")
-   */
-  private $mainEventLocation;
-  /**
-   * @ORM\OneToMany(targetEntity="fibe\ContentBundle\Entity\EventLocation", mappedBy="mainEvent",cascade={"persist", "remove"})
+   * @ORM\OneToMany(targetEntity="fibe\ContentBundle\Entity\Location", mappedBy="mainEvent",cascade={"persist", "remove"})
    * @Expose
    * @SerializedName("eventLocations")
    */
@@ -425,21 +418,7 @@ class MainEvent extends VEvent
     $this->categoryVersions = $categoryVersions;
   }
 
-  /**
-   * @return mixed
-   */
-  public function getMainEventLocation()
-  {
-    return $this->mainEventLocation;
-  }
 
-  /**
-   * @param mixed $mainEventLocation
-   */
-  public function setMainEventLocation($mainEventLocation)
-  {
-    $this->mainEventLocation = $mainEventLocation;
-  }
 
   /**
    * @return mixed
@@ -488,5 +467,25 @@ class MainEvent extends VEvent
   {
     $this->owner = $owner;
   }
+
+
+    /**
+     * auto persist of embedded data
+     * @TODO find a better solution to persist linked object
+     * @ORM\PreFlush
+     */
+    public function updateSomething(PreFlushEventArgs $eventArgs)
+    {
+        if (!$this->getId() || !$this->getLocation())
+        {
+            return;
+        }
+        $em = $eventArgs->getEntityManager();
+        $uow = $em->getUnitOfWork();
+        $uow->recomputeSingleEntityChangeSet(
+            $em->getClassMetadata(get_class($this->getLocation())),
+            $this->getLocation()
+        );
+    }
 
 }

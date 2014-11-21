@@ -27,14 +27,9 @@ class MainEventType extends VEventType
             ->add('label' )
             ->add('logo')
             ->add('eventLocations', 'entity', array(
-                'class' => 'fibeContentBundle:EventLocation',
+                'class' => 'fibeContentBundle:Location',
                 'required' => 'false',
                 'multiple' => true,
-            ))
-            ->add('mainEventlocation', 'entity', array(
-                'class' => 'fibeContentBundle:MainEventLocation',
-                'required' => 'true',
-                'multiple' => false,
             ))
             ->add('startAt', 'datetime', array(
                 'widget' => 'single_text',

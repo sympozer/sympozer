@@ -154,7 +154,7 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 from: 'From'
             },
             links: {
-                mainEvents: 'Conference'
+                mainEvents: 'Conferences'
             },
             validations: {
                 'EventFormValidation_start_is_after_end_error': 'the start date must not be after the end date.',
@@ -166,7 +166,8 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
 
             },
             messages: {
-                delete_confirm: 'Are you sure you want to delete this conference ?'
+                delete_confirm: 'Are you sure you want to delete this conference ?',
+                no_description : 'The conference doesn\'t have a decritpion yet'
             },
             model: {
                 country: 'Country',
@@ -530,7 +531,8 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 'not_created': 'Sorry, the person has not been saved'
             },
             messages: {
-                delete_confirm: 'Are you sure you want to delete this person ?'
+                delete_confirm: 'Are you sure you want to delete this person ?',
+                no_description : 'This person has no description yet'
             },
             model: {
                 label: 'Label',
@@ -683,7 +685,7 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 from: 'Depuis'
             },
             links: {
-                mainEvents: 'Conférence'
+                mainEvents: 'Conférences'
             },
             validations: {
                 'EventFormValidation_start_is_after_end_error': 'La date de début doit être avant la date de fin',
@@ -694,7 +696,8 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 'not_created': 'Désolé, la conférence n\'a pas été sauvegardée'
             },
             messages: {
-                delete_confirm: 'Etes-vous sur de vouloir supprimer cette conférence ?'
+                delete_confirm: 'Etes-vous sur de vouloir supprimer cette conférence ?',
+                no_description : 'Cette conférence n\'a pas de description pour le moment'
             },
             model: {
                 country: 'Pays',
@@ -1053,7 +1056,9 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 'not_created': 'Désolé, La personne n\'a pas été sauvegardée'
             },
             messages: {
-                delete_confirm: 'Etes-vous sur de vouloir supprimer cette personne ?'
+                delete_confirm: 'Etes-vous sur de vouloir supprimer cette personne ?',
+                no_description : 'Aucune description disponible pour le moment'
+
             },
             model: {
                 label: 'Label',

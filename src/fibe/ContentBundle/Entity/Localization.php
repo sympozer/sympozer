@@ -113,7 +113,6 @@ class Localization
 
     /**
      * country
-     *
      * @ORM\Column(type="string", nullable=true)
      * @Expose
      */
@@ -122,7 +121,6 @@ class Localization
 
     /**
      * country code
-     *
      * @ORM\Column(type="string", nullable=true)
      * @Expose
      */
@@ -131,7 +129,6 @@ class Localization
 
     /**
      * postalCode code
-     *
      * @ORM\Column(type="string", nullable=true)
      * @Expose
      */
@@ -142,6 +139,7 @@ class Localization
     /**
      * @ORM\OneToOne(targetEntity="fibe\CommunityBundle\Entity\Person", cascade={"all"})
      * @ORM\JoinColumn(name="uid", referencedColumnName="id", onDelete="cascade")
+     * @Expose
      */
     protected $person;
 

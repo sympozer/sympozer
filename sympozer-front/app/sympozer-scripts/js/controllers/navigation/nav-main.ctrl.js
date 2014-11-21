@@ -11,9 +11,9 @@ sympozerApp.controller('navMainCtrl', ['$scope', '$location', '$timeout', '$glob
    */
    var basicMenu = [
     {
-      label: 'events.links.events',
+      label: 'mainEvents.links.mainEvents',
       iconClasses: 'fa fa-calendar',
-      url: '#/'
+      url: '#/home/mainEvents/index'
     },
     {
       label: 'organizations.links.organizations',
@@ -23,7 +23,7 @@ sympozerApp.controller('navMainCtrl', ['$scope', '$location', '$timeout', '$glob
     {
       label: 'persons.links.persons',
       iconClasses: 'fa fa-user',
-      url: '#/' /** @TODO FORZA : TO ALIMENT WITH THE PROPER URL**/
+      url: '#/home/persons/index'
     },
     {
       label: 'papers.links.papers',
