@@ -5,6 +5,7 @@ namespace fibe\ContentBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
+use JMS\Serializer\Annotation\SerializedName;
 use Symfony\Component\Validator\Constraints as Assert;
 
 use JMS\Serializer\Annotation\ExclusionPolicy;
@@ -12,18 +13,11 @@ use JMS\Serializer\Annotation\Expose;
 
 /**
  * Location entity
- *
- * @ORM\Table(name="location")
  * @ORM\Entity(repositoryClass="fibe\ContentBundle\Repository\LocationRepository")
- * @ORM\InheritanceType("SINGLE_TABLE")
- * @ORM\DiscriminatorMap({
- *     "Location"="Location",
- *     "MainEventLocation"="MainEventLocation",
- *     "EventLocation"="EventLocation"
- * })
+ * @ORM\HasLifecycleCallbacks
  * @ExclusionPolicy("all")
  */
-class Location
+class Location extends Localization
 {
     /**
      * @ORM\Id
@@ -64,6 +58,26 @@ class Location
      * @Expose
      */
     protected $accesibility;
+
+
+    /**
+     *
+     * mainEvent
+     *
+     * @ORM\ManyToOne(targetEntity="fibe\EventBundle\Entity\MainEvent", inversedBy="eventLocations", cascade={"persist"})
+     * @ORM\JoinColumn(name="main_event_id", referencedColumnName="id")
+     * @Expose
+     * @SerializedName("mainEvent")
+     */
+    protected $mainEvent;
+
+
+    /**
+     * Events
+     *
+     * @ORM\OneToMany(targetEntity="fibe\EventBundle\Entity\Vevent", mappedBy="location",cascade={"persist"})
+     */
+    protected $events;
 
 
 
@@ -243,4 +257,39 @@ class Location
     {
         $this->dtype = $dtype;
     }
+
+
+
+    /**
+     * @return mixed
+     */
+    public function getEvents()
+    {
+        return $this->events;
+    }
+
+    /**
+     * @param mixed $events
+     */
+    public function setEvents($events)
+    {
+        $this->events = $events;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMainEvent()
+    {
+        return $this->mainEvent;
+    }
+
+    /**
+     * @param mixed $mainEvent
+     */
+    public function setMainEvent($mainEvent)
+    {
+        $this->mainEvent = $mainEvent;
+    }
+
 }

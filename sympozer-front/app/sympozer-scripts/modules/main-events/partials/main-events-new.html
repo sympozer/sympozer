@@ -1,6 +1,48 @@
-<form name="conferenceForm" class="form" role="form" ng-submit="create(conferenceForm)">
-    <div ng-include="GLOBAL_CONFIG.app.modules.mainEvents.urls.partials+'main-events-form.html'"></div>
-    <div class="form-group">
-        <button type="submit" class="btn btn-success">{{ 'global.actions.save' | translate}}</button>
+<div id="page-heading">
+
+    <div ng-include="GLOBAL_CONFIG.app.urls.partials+'navigation/breadcrumb.html'"></div>
+
+    <h1>{{'mainEvents.actions.new' | translate }}</h1>
+
+    <!--Options bar containing possible actions-->
+    <div class="options">
+        <div class="btn-toolbar">
+            <a sympozer-acl-show="mainEvent" class="btn btn-info" href="#/home/mainEvents/edit/{{mainEvent.id}}" role="button">
+                <i class="fa fa-edit fa-1x"></i> {{ 'persons.actions.edit_profile' | translate}}
+            </a>
+            <!--<div class="btn-group hidden-xs" data-dropdown>-->
+            <!--<button class="btn btn-default dropdown-toggle" data-toggle='dropdown'>-->
+            <!--<i class="fa fa-cloud-download"></i><span class="hidden-sm"> Export as  </span><span class="caret"></span>-->
+            <!--</button>-->
+            <!--<ul class="dropdown-menu">-->
+            <!--<li><a href="#">Text File (*.txt)</a></li>-->
+            <!--<li><a href="#">Excel File (*.xlsx)</a></li>-->
+            <!--<li><a href="#">PDF File (*.pdf)</a></li>-->
+            <!--</ul>-->
+            <!--</div>-->
+            <!--<a href="#" class="btn btn-default"><i class="fa fa-cog"></i></a>-->
+        </div>
     </div>
-</form>
+</div>
+<!--Page content-->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-gray">
+                <div class="panel-body">
+                    <div class="row">
+                        <form name="conferenceForm" class="form-horizontal row-border" role="form" ng-submit="create(conferenceForm)">
+                            <div ng-include="GLOBAL_CONFIG.app.modules.mainEvents.urls.partials+'main-events-form.html'"></div>
+                            <div class="form-group">
+                                <div  class="col-sm-3 control-label"></div>
+                                <div class="col-sm-6">
+                                    <button type="submit" ng-disabled="conferenceForm.$invalid" class="btn btn-success">{{ 'global.actions.save' | translate}}</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

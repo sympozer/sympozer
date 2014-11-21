@@ -17,6 +17,7 @@ class LocationType extends LocalizationType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        parent::buildForm($builder, $options);
         $builder
             ->add('capacity')
             ->add('description')
@@ -30,6 +31,16 @@ class LocationType extends LocalizationType
                 'class' => 'fibeContentBundle:Equipment',
                 'required' => 'false',
                 'multiple' => true,
+            ))
+            ->add('events', 'entity', array(
+                'class' => 'fibeEventBundle:Vevent',
+                'required' => 'false',
+                'multiple' => true,
+            ))
+            ->add('mainEvent', 'entity', array(
+                'class' => 'fibeEventBundle:MainEvent',
+                'required' => 'false',
+                'multiple' => false,
             ));
     }
 

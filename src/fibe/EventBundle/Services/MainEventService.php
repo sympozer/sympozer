@@ -2,7 +2,7 @@
 
 namespace fibe\EventBundle\Services;
 
-use fibe\ContentBundle\Entity\MainEventLocation;
+use fibe\ContentBundle\Entity\Location;
 use fibe\EventBundle\Entity\MainEvent;
 use fibe\RestBundle\Services\AbstractBusinessService;
 use fibe\SecurityBundle\Entity\Team;
@@ -49,12 +49,6 @@ class MainEventService extends AbstractBusinessService
     $mainEvent->setOwner($user->getPerson());
     $this->entityManager->persist($mainEvent);
 
-
-    // conference location
-    $mainEventLocation = new MainEventLocation();
-    $mainEventLocation->setLabel("Conference's location");
-    $mainEventLocation->setMainEvent($mainEvent);
-    $this->entityManager->persist($mainEventLocation);
     //$mainEvent->addLocation($mainEventLocation);
     $this->entityManager->persist($mainEvent);
 

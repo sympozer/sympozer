@@ -3,6 +3,7 @@
 namespace fibe\EventBundle\Form;
 
 use Doctrine\ORM\EntityRepository;
+use fibe\ContentBundle\Form\LocationType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -40,7 +41,8 @@ class VEventType extends AbstractType
                 'class' => 'fibeContentBundle:Sponsor',
                 'required' => 'false',
                 'multiple' => true,
-            ));
+            ))
+            ->add('location', new LocationType());
 
     }
 

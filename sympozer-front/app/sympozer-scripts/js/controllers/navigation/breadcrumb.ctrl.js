@@ -47,7 +47,11 @@ sympozerApp.controller('breadcrumbCtrl', ['$scope', '$location', function ($scop
                         },
                         {
                             idUrl: 'index',
-                            label: 'Index'
+                            label: 'global.actions.search'
+                        },
+                        {
+                            idUrl: 'new',
+                            label: 'mainEvents.actions.new'
                         }
 
                     ]

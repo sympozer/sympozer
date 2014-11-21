@@ -55,7 +55,6 @@
   <link rel="stylesheet" href="bower/bootstrap-social/bootstrap-social.css" />
   <link rel="stylesheet" href="bower/bootstrap-tags/dist/css/bootstrap-tags.css" />
   <!-- endbower -->
-  <link rel='stylesheet' type='text/css' href='sympozer-scripts/assets/fonts/glyphicons/css/glyphicons.min.css'/>
   <link rel='stylesheet' type='text/css' href='sympozer-scripts/assets/plugins/icheck/all.css'/>
   <link rel='stylesheet' type='text/css' href='sympozer-scripts/assets/plugins/form-multiselect/css/multi-select.css'/>
   <link rel='stylesheet' type='text/css' href='sympozer-scripts/assets/plugins/form-fseditor/fseditor.css'/>
@@ -356,6 +355,7 @@
 <script src="sympozer-scripts/js/directives/sympozer-autocomplete.drv.js"></script>
 <script src="sympozer-scripts/js/directives/validators/date-before-now.vld.js"></script>
 <script src="sympozer-scripts/js/directives/map/google-place-autocomplete.drv.js"></script>
+<script src="sympozer-scripts/js/directives/map/gmap.drv.js"></script>
 <!--FILTERS -->
 <script src="sympozer-scripts/js/filters/sympozer-checkmark.fltr.js"></script>
 <script src="sympozer-scripts/js/filters/sympozer-in-array.fltr.js"></script>
@@ -371,6 +371,7 @@
 <script src="sympozer-scripts/js/services/progress-loader.fact.js"></script>
 <script src="sympozer-scripts/js/services/pines-notifications.fact.js"></script>
 <script src="sympozer-scripts/js/services/search.fact.js"></script>
+<script src="sympozer-scripts/js/services/gmaps.fact.js"></script>
 
 
 <!-- SYMPOZER AUTHENTICATION APP -->
@@ -466,7 +467,7 @@
 <!-- SYMPOZER MAIN EVENTS APP -->
 <script src="sympozer-scripts/modules/main-events/js/routes.js"></script>
 <!-- CONTROLLERS -->
-<!--@TODO <script src="sympozer-scripts/modules/main-events/js/controllers/community/main-events-community-list.ctrl.js"></script>-->
+<script src="sympozer-scripts/modules/main-events/js/controllers/community/main-events-community-index.ctrl.js"></script>
 <!--@TODO <script src="sympozer-scripts/modules/main-events/js/controllers/main-events-delete.ctrl.js"></script>-->
 <!--@TODO <script src="sympozer-scripts/modules/main-events/js/controllers/main-events-edit.ctrl.js"></script>-->
 <!--@TODO <script src="sympozer-scripts/modules/main-events/js/controllers/main-events-list.ctrl.js"></script>-->
@@ -476,6 +477,20 @@
 <!-- SERVICES -->
 <script src="sympozer-scripts/modules/main-events/js/services/main-events.fact.js"></script>
 
+
+
+<!-- SYMPOZER LOCATIONS APP -->
+<script src="sympozer-scripts/modules/locations/js/routes.js"></script>
+<!-- CONTROLLERS -->
+<!--@TODO <script src="sympozer-scripts/modules/locations/js/controllers/locations-delete.ctrl.js"></script>-->
+<!--@TODO <script src="sympozer-scripts/modules/locations/js/controllers/locations-edit.ctrl.js"></script>-->
+<!--@TODO <script src="sympozer-scripts/modules/locations/js/controllers/locations-list.ctrl.js"></script>-->
+<!--@TODO <script src="sympozer-scripts/modules/locations/js/controllers/locations-main.ctrl.js"></script>-->
+<script src="sympozer-scripts/modules/locations/js/controllers/locations-new.ctrl.js"></script>
+<!--@TODO --><script src="sympozer-scripts/modules/locations/js/controllers/locations-show.ctrl.js"></script>
+<!-- SERVICES -->
+<script src="sympozer-scripts/modules/locations/js/services/locations.fact.js"></script>
+<script src="sympozer-scripts/modules/locations/js/services/main-event-locations.fact.js"></script>
 
 <!-- endbuild -->
 

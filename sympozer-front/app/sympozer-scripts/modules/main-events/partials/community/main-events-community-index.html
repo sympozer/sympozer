@@ -1,0 +1,119 @@
+<!--@TODO : TO DELETE ONCE PAGE IS FINISHED-->
+<!--<div class="row">-->
+<!--<input type="text" class="form-control" placeholder="{{'mainEvents.actions.search' | translate}}" ng-change="sendQuery(query)" ng-model="query">-->
+<!--</div>-->
+<!--<hr/>-->
+<!--<div class="row" entity-list-handler="mainEvents" infinite-scroll='load()' infinite-scroll-disabled='busy' infinite-scroll-distance='0.5'>-->
+<!--<div ng-repeat="conference in entities  track by $index" class="col-sm-6 col-md-6 col-lg-4 well">-->
+<!--<div class="img-container-md">-->
+<!--<img class="scale-img img-circle" no-image ng-src="{{ conference.logo }}"/>-->
+<!--</div>-->
+
+<!--<h2>{{conference.label}}</h2>-->
+
+<!--&lt;!&ndash;<p>{{conference.start_at}}</p>&ndash;&gt;-->
+
+<!--&lt;!&ndash;<p>{{conference.end_at}}</p>&ndash;&gt;-->
+
+<!--&lt;!&ndash;<p>{{conference.url}}</p>&ndash;&gt;-->
+
+<!--&lt;!&ndash;<p>{{conference.description}}</p>&ndash;&gt;-->
+<!--&lt;!&ndash;<a class="btn btn-warning" href="#mainEvents/edit/{{ conference.id }}" role="button"><i class="fa fa-edit fa-1x"></i></a>&ndash;&gt;-->
+<!--<a class="btn btn-default" href="#mainEvents/show/{{ conference.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>-->
+<!--&lt;!&ndash;<a class="btn btn-primary" href="" data-ng-click="clone(conference)" role="button"><i class="fa fa-files-o fa-1x"></i></a>&ndash;&gt;-->
+<!--&lt;!&ndash;<button class="btn btn-danger" data-ng-click="deleteModal($index, conference)" role="button">&ndash;&gt;-->
+<!--&lt;!&ndash;<i class="fa fa-trash-o fa-1x"></i></button>&ndash;&gt;-->
+<!--</div>-->
+<!--</div>-->
+
+
+<div id="page-heading">
+
+    <div ng-include="GLOBAL_CONFIG.app.urls.partials+'navigation/breadcrumb.html'"></div>
+
+    <h1>{{'mainEvents.links.mainEvents' | translate }}</h1>
+
+    <div class="options">
+        <div class="btn-toolbar">
+            <a href="#/home/mainEvents/new" class="btn btn-primary"><i class="fa fa-plus"></i> {{ 'mainEvents.actions.new' | translate}}</a>
+            <div class="btn-group" dropdown>
+
+                <button type="button" class="btn btn-default dropdown-toggle">
+                    Export as <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a href="#">Action</a></li>
+                    <li><a href="#">Another action</a></li>
+                    <li><a href="#">Something else here</a></li>
+                    <li class="divider"></li>
+                    <li><a href="#">Separated link</a></li>
+                </ul>
+            </div>
+            <a href="#" class="btn btn-default hidden-xs"><i class="fa fa-cog"></i></a>
+
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+
+            <div class="panel">
+                <div class="panel-heading">
+                    <h4>{{'mainEvents.actions.search' | translate }}</h4>
+                </div>
+                <div class="panel-body" entity-list-handler="mainEvents" >
+                    <div class="search-classic">
+                        <form action="#">
+                            <div class="input-group well w100">
+                                <input type="text"  ng-model="query" placeholder="{{'global.actions.placeHolderSearch' | translate }}" class="form-control"/>
+                                  <span class="input-group-btn">
+                                    <button ng-click="sendQuery(query)" type="button" class="btn btn-primary">
+                                        <i class="fa fa-search"></i> {{'global.actions.search' | translate }}
+                                    </button>
+                                  </span>
+                            </div>
+                        </form>
+                        <h3 ng-if="query">{{'global.labels.searchResult' | translate }} '{{query}}'</h3>
+                        <hr>
+                        <div class="search-result" ng-repeat-start="mainEvent in entities  track by $index" infinite-scroll='load()' infinite-scroll-disabled='busy' infinite-scroll-distance='0.5'>
+                            <div class="row">
+                                <div class="col-xs-4 col-sm-2 col-md-2 col-lg-1">
+                                    <img  no-image ng-src="{{ mainEvent.logo }}" alt="" class="pull-left img-responsive " style="margin: 0 20px 20px 0">
+
+                                </div>
+                                <div class="col-xs-8 col-sm-10 col-md-10 col-lg-11">
+                                    <div class="row">
+                                        <!-- @TODO : DO A PARTIAL TO SHOW CONTENT -->
+                                        <h4 class="col-lg-8 col-md-12"><a href="#/home/mainEvents/show/{{ mainEvent.id }}">{{ mainEvent.label }}</a></h4>
+                                        <h5 class="col-lg-4 col-md-12 text-right-lg"><em>{{ mainEvent.location.city }}{{mainEvent.location.city ? ', ' : ''}}{{ mainEvent.location.country }}</em></h5>
+                                    </div>
+
+                                    <div>
+                                        <a href="{{ mainEvent.url}}" target="_blank" ng-if="mainEvent.url">{{ mainEvent.url }}</a>
+
+                                        <p class="ellipsis" ng-if="mainEvent.description">{{ mainEvent.description}}</p>
+                                        <p ng-if="!mainEvent.description"><small><em>{{ 'mainEvents.messages.no_description' | translate }}</em></small></p>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <hr ng-repeat-end="">
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- col-md-12 -->
+    </div>
+    <!-- row -->
+</div> <!-- container -->
+</div>
+
+
+
+
+
