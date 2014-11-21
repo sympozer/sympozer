@@ -73,6 +73,10 @@ sympozerApp.controller('breadcrumbCtrl', ['$scope', '$location', function ($scop
                         {
                             idUrl: 'edit',
                             label: 'global.actions.edit'
+                        },
+                        {
+                            idUrl: 'index',
+                            label: 'global.actions.search'
                         }
                     ]
                 },

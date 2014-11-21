@@ -62,3 +62,79 @@
   .label;
   margin-right: 5px;
 }
+
+
+
+/**
+* Ellipsis
+* Description : add '...' on box overflow
+*/
+.ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100%;
+}
+
+
+
+/**
+* Autcomplete dropdown
+* @author : Benoit
+*/
+[sympozer-autocomplete] ul {
+  .dropdown-menu {
+    position: inherit;
+    width: 100%;
+
+    li
+    {
+      cursor: pointer;
+    }
+    li:hover
+    {
+      background-color: #F7F7F7;
+    }
+  }
+
+}
+
+
+/**
+* Image container
+* @description : image standard size for responsive behaviour
+*/
+.img-container-xs
+{
+  max-width: 30px;
+  max-height: 30px;
+}
+
+.img-container-sm
+{
+  max-width: 45px;
+  max-height: 45px;
+}
+
+.img-container-md
+{
+  max-width: 60px;
+  max-height: 60px;
+}
+
+.img-container-lg
+{
+  max-width: 96px;
+  max-height: 96px;
+}
+
+.scale-img
+{
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+}
+
+

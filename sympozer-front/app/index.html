@@ -278,11 +278,7 @@
 <script type='text/javascript' src='sympozer-scripts/assets/plugins/bootstro.js/bootstro.min.js'></script>
 <!-- endbuild -->
 
-<!--
-  Sympozer Angular stylesheets
--->
 
-<link rel="stylesheet" href="sympozer-scripts/css/app.css"/>
 
 <!--
   Sympozer Angular scripts
@@ -374,6 +370,7 @@
 <script src="sympozer-scripts/js/services/bootbox.fact.js"></script>
 <script src="sympozer-scripts/js/services/progress-loader.fact.js"></script>
 <script src="sympozer-scripts/js/services/pines-notifications.fact.js"></script>
+<script src="sympozer-scripts/js/services/search.fact.js"></script>
 
 
 <!-- SYMPOZER AUTHENTICATION APP -->
@@ -415,7 +412,7 @@
 <script src="sympozer-scripts/modules/persons/js/controllers/persons-main.ctrl.js"></script>
 <script src="sympozer-scripts/modules/persons/js/controllers/persons-new.ctrl.js"></script>
 <script src="sympozer-scripts/modules/persons/js/controllers/persons-show.ctrl.js"></script>
-<script src="sympozer-scripts/modules/persons/js/controllers/community/persons-community-list.ctrl.js"></script>
+<script src="sympozer-scripts/modules/persons/js/controllers/community/persons-community-index.ctrl.js"></script>
 <!--SERVICES -->
 <script src="sympozer-scripts/modules/persons/js/services/persons.fact.js"></script>
 
@@ -512,7 +509,7 @@
           urls: {
             base             : "sympozer-scripts/modules/organizations/",
             partials         : "sympozer-scripts/modules/organizations/partials/",
-            communityPartials: "sympozer-scripts/modules/organizations/community/partials/",
+            communityPartials: "sympozer-scripts/modules/organizations/partials/community/",
             img              : "sympozer-scripts/modules/organizations/img/"
           }
         },
@@ -541,7 +538,7 @@
           urls: {
             base             : "sympozer-scripts/modules/papers/",
             partials         : "sympozer-scripts/modules/papers/partials/",
-            communityPartials: "sympozer-scripts/modules/papers/community/partials/",
+            communityPartials: "sympozer-scripts/modules/papers/partials/community/",
             img              : "sympozer-scripts/modules/papers/img/"
           }
         },
@@ -556,7 +553,7 @@
           urls: {
             base             : "sympozer-scripts/modules/main-events/",
             partials         : "sympozer-scripts/modules/main-events/partials/",
-            partialsCommunity: "sympozer-scripts/modules/main-events/community/partials/",
+            partialsCommunity: "sympozer-scripts/modules/main-events/partials/community/",
             img              : "sympozer-scripts/modules/main-events/img/"
           }
         },
@@ -564,7 +561,7 @@
           urls: {
             base             : "sympozer-scripts/modules/persons/",
             partials         : "sympozer-scripts/modules/persons/partials/",
-            communityPartials: "sympozer-scripts/modules/persons/community/partials/",
+            communityPartials: "sympozer-scripts/modules/persons/partials/community/",
             img              : "sympozer-scripts/modules/persons/img/"
           }
         },

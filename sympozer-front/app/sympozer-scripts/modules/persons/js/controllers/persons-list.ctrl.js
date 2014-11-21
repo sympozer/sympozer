@@ -3,7 +3,7 @@
  *
  * @type {controller}
  */
-angular.module('personsApp').controller('personsListCtrl', ['$scope', '$routeParams', 'GLOBAL_CONFIG', 'createDialog', '$rootScope', 'personsFact', '$cachedResource', function ($scope, $routeParams, GLOBAL_CONFIG, createDialogService, $rootScope, personsFact, $cachedResource)
+angular.module('personsApp').controller('personsListCtrl', ['$scope', '$routeParams', 'GLOBAL_CONFIG', '$rootScope', 'personsFact', function ($scope, $routeParams, GLOBAL_CONFIG, $rootScope, personsFact, $modal)
 {
     $scope.GLOBAL_CONFIG = GLOBAL_CONFIG;
 
@@ -40,23 +40,25 @@ angular.module('personsApp').controller('personsListCtrl', ['$scope', '$routePar
     };
 
 
+
     $scope.deleteModal = function (index, person)
     {
         $scope.index = index;
 
-        createDialogService(GLOBAL_CONFIG.app.modules.persons.urls.partials + 'persons-delete.html', {
-            id: 'complexDialog',
-            title: 'Person deletion',
-            backdrop: true,
+        var modalInstance = $modal.open({
+            templateUrl: GLOBAL_CONFIG.app.modules.persons.urls.partials + 'persons-delete.html',
             controller: 'personsDeleteCtrl',
-            success: {label: 'Ok', fn: function ()
-            {
-                personsFact.delete({id: person.id},function(data){
-                    $scope.entities.splice(index, 1);
-                });
-            }}
-        }, {
-            personModel: person
+            size: "large",
+            resolve: {
+                personModel : function(){
+                    return person;
+                }
+            }
         });
+
+        modalInstance.resolve = function(data){
+            $scope.entities.splice(index, 1);
+        }
+
     }
 }]);

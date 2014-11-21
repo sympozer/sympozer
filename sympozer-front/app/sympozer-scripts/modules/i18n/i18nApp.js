@@ -530,7 +530,8 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 'not_created': 'Sorry, the person has not been saved'
             },
             messages: {
-                delete_confirm: 'Are you sure you want to delete this person ?'
+                delete_confirm: 'Are you sure you want to delete this person ?',
+                no_description : 'This person has no description yet'
             },
             model: {
                 label: 'Label',
@@ -1053,7 +1054,9 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 'not_created': 'Désolé, La personne n\'a pas été sauvegardée'
             },
             messages: {
-                delete_confirm: 'Etes-vous sur de vouloir supprimer cette personne ?'
+                delete_confirm: 'Etes-vous sur de vouloir supprimer cette personne ?',
+                no_description : 'Aucune description disponible pour le moment'
+
             },
             model: {
                 label: 'Label',
