@@ -1,0 +1,17 @@
+<div class="verticalcenter">
+
+  <div class="modal-header">
+    <a href="#/"><img ng-src="{{GLOBAL_CONFIG.app.urls.img}}logo.png" no-image alt="Logo" class="brand"/></a>
+  </div>
+  {{teammate.label}}
+  <h4> {{ 'teammates.messages.delete_confirm' | translate}}</h4>
+
+  <div class="container" ng-include="GLOBAL_CONFIG.app.modules.teammates.urls.partials+'teammate-entity-row-lg.html'">
+  </div>
+  <div class="modal-footer">
+    <div class="pull-right">
+      <a href="" class="btn btn-default" ng-click="$dismiss('cancel')">{{ 'global.actions.cancel' | translate }}</a>
+      <a href="" class="btn btn-primary" ng-click="confirmDelete(teammate)">{{ 'global.actions.ok' | translate }}</a>
+    </div>
+  </div>
+</div>

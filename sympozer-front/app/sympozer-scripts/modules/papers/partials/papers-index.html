@@ -73,7 +73,7 @@
                   </span>
               </div>
             </form>
-            <h3>{{'global.labels.searchResult' | translate }} 'Forza'</h3>
+            <h3>{{'global.labels.search.displaying' | translate }} 'Forza'</h3>
             <hr>
             <div class="search-result" ng-repeat-start="paper in entities  track by $index">
               <div class="row">
@@ -87,7 +87,8 @@
               <div class="row" ng-if="paper.publisher || paper.publishDate || paper.authors">
                 <!-- @TODO : TRANSLATE DATE -->
                 <h5 class="col-lg-8 col-md-12" ng-if="paper.authors">
-                  {{ (paper.authors.length > 1) ? 'papers.labels.authors' : 'papers.labels.author' | translate }} <em ng-repeat="author in paper.authors">{{ author }}{{$last ? '' : ', '}}</em>
+                  {{ (paper.authors.length > 1) ? 'papers.labels.authors' : 'papers.labels.author' | translate }}
+                  <em ng-repeat="author in paper.authors">{{ author }}{{$last ? '' : ', '}}</em>
                 </h5>
                 <h6 class="{{ paper.authors ? 'col-lg-4 col-md-12 ' : '' }}text-right-lg" ng-if="paper.publisher || paper.publishDate">
                   <em ng-if="paper.publisher">{{'papers.labels.publishedBy' | translate }} {{ paper.publisher }} </em>
@@ -99,7 +100,10 @@
                 <a href="{{ paper.url }}" target="_blank" ng-if="paper.url">{{ paper.url }}</a>
 
                 <p ng-if="paper.abstract">{{ paper.abstract }}</p>
-                <p ng-if="!paper.abstract"><small><em>{{ 'papers.messages.no_abstract' | translate }}</em></small></p>
+
+                <p ng-if="!paper.abstract">
+                  <small><em>{{ 'papers.messages.no_abstract' | translate }}</em></small>
+                </p>
               </div>
             </div>
             <hr ng-repeat-end="">

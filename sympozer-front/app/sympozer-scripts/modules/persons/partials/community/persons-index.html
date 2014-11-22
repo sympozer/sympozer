@@ -1,83 +1,83 @@
 <!-- @TODO : TO DELETE ONCE PAGE IS FINISHED
 <!--<div class="row">-->
-    <!--<input type="text" class="form-control" placeholder="{{ 'persons.actions.search' | translate}}" ng-change="sendQuery(query)" ng-model="query">-->
+<!--<input type="text" class="form-control" placeholder="{{ 'persons.actions.search' | translate}}" ng-change="sendQuery(query)" ng-model="query">-->
 <!--</div>-->
 <!--<hr/>-->
 <!--<div class="row" entity-list-handler="persons" infinite-scroll='load()' infinite-scroll-disabled='busy' infinite-scroll-distance='0.5'>-->
-    <!--<div ng-repeat="person in entities  track by $index" class="col-sm-6 col-md-6 col-lg-4 well">-->
-        <!--<div class="img-container-lg">-->
-            <!--<img  class="scale-img" no-image ng-src="{{ person.img }}"/>-->
-        <!--</div>-->
+<!--<div ng-repeat="person in entities  track by $index" class="col-sm-6 col-md-6 col-lg-4 well">-->
+<!--<div class="img-container-lg">-->
+<!--<img  class="scale-img" no-image ng-src="{{ person.img }}"/>-->
+<!--</div>-->
 
-        <!--<h2>{{ person.label }}</h2>-->
+<!--<h2>{{ person.label }}</h2>-->
 
-        <!--<p>{{ person.website }}</p>-->
+<!--<p>{{ person.website }}</p>-->
 
-        <!--<p>{{ person.country }}</p>-->
-        <!--<a class="btn btn-default" href="#persons/show/{{ person.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>-->
-    <!--</div>-->
+<!--<p>{{ person.country }}</p>-->
+<!--<a class="btn btn-default" href="#persons/show/{{ person.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>-->
+<!--</div>-->
 <!--</div>-->
 
 <div id="page-heading">
 
-    <div ng-include="GLOBAL_CONFIG.app.urls.partials+'navigation/breadcrumb.html'"></div>
+  <div ng-include="GLOBAL_CONFIG.app.urls.partials+'navigation/breadcrumb.html'"></div>
 
-    <h1>{{'persons.links.persons' | translate }}</h1>
+  <h1>{{'persons.links.persons' | translate }}</h1>
 
-    <div class="options">
-        <div class="btn-toolbar">
-            <div class="btn-group" dropdown>
-                <button type="button" class="btn btn-default dropdown-toggle">
-                    Export as <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu" role="menu">
-                    <li><a href="#">Action</a></li>
-                    <li><a href="#">Another action</a></li>
-                    <li><a href="#">Something else here</a></li>
-                    <li class="divider"></li>
-                    <li><a href="#">Separated link</a></li>
-                </ul>
-            </div>
-            <a href="#" class="btn btn-default hidden-xs"><i class="fa fa-cog"></i></a>
-        </div>
+  <div class="options">
+    <div class="btn-toolbar">
+      <div class="btn-group" dropdown>
+        <button type="button" class="btn btn-default dropdown-toggle">
+          Export as <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" role="menu">
+          <li><a href="#">Action</a></li>
+          <li><a href="#">Another action</a></li>
+          <li><a href="#">Something else here</a></li>
+          <li class="divider"></li>
+          <li><a href="#">Separated link</a></li>
+        </ul>
+      </div>
+      <a href="#" class="btn btn-default hidden-xs"><i class="fa fa-cog"></i></a>
     </div>
+  </div>
 </div>
 
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-md-12">
+  <div class="row">
+    <div class="col-md-12">
 
-            <div class="panel">
-                <div class="panel-heading">
-                    <h4>{{'persons.actions.search' | translate }}</h4>
-                </div>
-                <div class="panel-body" entity-list-handler="persons" >
-                    <div class="search-classic">
-                        <form action="#">
-                            <div class="input-group well w100">
-                                <input type="text"  ng-model="query" placeholder="{{'global.actions.placeHolderSearch' | translate }}" class="form-control"/>
+      <div class="panel">
+        <div class="panel-heading">
+          <h4>{{'persons.actions.search' | translate }}</h4>
+        </div>
+        <div class="panel-body" entity-list-handler="persons">
+          <div class="search-classic">
+            <form action="#">
+              <div class="input-group well w100">
+                <input type="text" ng-model="query" placeholder="{{'global.actions.placeHolderSearch' | translate }}" class="form-control"/>
                                   <span class="input-group-btn">
                                     <button ng-click="sendQuery(query)" type="button" class="btn btn-primary">
-                                        <i class="fa fa-search"></i> {{'global.actions.search' | translate }}
+                                      <i class="fa fa-search"></i> {{'global.actions.search' | translate }}
                                     </button>
                                   </span>
-                            </div>
-                        </form>
-                        <h3 ng-if="query">{{'global.labels.searchResult' | translate }} '{{query}}'</h3>
-                        <hr>
-                        <div class="search-result" ng-repeat-start="person in entities  track by $index" infinite-scroll='load()' infinite-scroll-disabled='busy' infinite-scroll-distance='0.5'>
-                          <div class="row" ng-include="GLOBAL_CONFIG.app.modules.persons.urls.partials+'persons-entity-row-lg.html'"></div>
-                        </div>
-                        <hr ng-repeat-end="">
-
-                    </div>
-                </div>
+              </div>
+            </form>
+            <h3 ng-if="query">{{'global.labels.search.displaying' | translate }} '{{query}}'</h3>
+            <hr>
+            <div class="search-result" ng-repeat-start="person in entities  track by $index" infinite-scroll='load()' infinite-scroll-disabled='busy' infinite-scroll-distance='0.5'>
+              <div class="row" ng-include="GLOBAL_CONFIG.app.modules.persons.urls.partials+'persons-entity-row-lg.html'"></div>
             </div>
+            <hr ng-repeat-end="">
 
+          </div>
         </div>
-        <!-- col-md-12 -->
+      </div>
+
     </div>
-    <!-- row -->
+    <!-- col-md-12 -->
+  </div>
+  <!-- row -->
 </div> <!-- container -->
 </div>
 

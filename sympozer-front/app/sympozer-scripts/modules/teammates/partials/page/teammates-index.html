@@ -2,7 +2,7 @@
 
   <div ng-include="GLOBAL_CONFIG.app.urls.partials+'navigation/breadcrumb.html'"></div>
 
-  <h1>{{'teammates.links.teammates' | translate }}</h1>
+  <h1>{{'teammates.links.team' | translate }}</h1>
 
   <div class="options">
     <div class="btn-toolbar">
@@ -46,9 +46,15 @@
               </div>
             </form>
 
-            <h3 ng-show="query">{{'global.labels.searchResult' | translate }} {{ query }}</h3>
+            <h3 ng-show="query">{{'global.labels.search.displaying' | translate }} '{{ query }}'</h3>
             <hr>
-            <div class="search-result" ng-repeat-start="teammate in entities  track by $index" ng-include="GLOBAL_CONFIG.app.modules.teammates.urls.partials+'teammate-entity-row-lg.html'">
+            <h3 ng-show="entities.length == 0">{{'global.labels.search.no_result' | translate }}</h3>
+
+            <div class="search-result" ng-repeat-start="teammate in entities  track by $index">
+              <div ng-include="GLOBAL_CONFIG.app.modules.teammates.urls.partials+'teammate-entity-row-lg.html'"></div>
+              <button class="btn btn-danger" data-ng-click="deleteTeammateModal($index, teammate)" role="button">
+                <i class="fa fa-trash-o fa-1x"></i>
+              </button>
             </div>
             <hr ng-repeat-end="">
             <!-- @TODO : PAGINATION ? OR SCROLL-INFINITE ? -->

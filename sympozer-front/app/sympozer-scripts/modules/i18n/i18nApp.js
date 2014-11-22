@@ -38,7 +38,10 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
             },
             labels: {
                 or: 'Or',
-                searchResult: 'Displaying results for',
+                search: {
+                    displaying: 'Displaying results for',
+                    no_result : 'No results.'
+                },
                 on: 'on'
             },
             validations: {
@@ -274,7 +277,10 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 edit: 'Edit the teammate',
                 import: 'Import teammate',
                 export: 'Export teammate',
-                print: 'Print teammate'
+                print: 'Print teammate',
+                index: {
+                    subtitle: 'Search in the team'
+                }
             },
             links: {
                 team: 'Team'
@@ -284,6 +290,7 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
             },
             validations: {
                 'created': 'The teammate has been saved',
+                'deleted': 'The teammate has been deleted',
                 'not_created': 'Sorry, the teammate has not been saved'
             },
             messages: {
@@ -576,6 +583,10 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
             labels: {
                 or: 'Ou',
                 searchResult: 'Résultat pour',
+                search: {
+                    displaying: 'Résultat pour',
+                    no_result : 'Aucun résultat.'
+                },
                 on: 'le'
             },
             validations: {
@@ -809,7 +820,10 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 edit: 'Editer l\'équipier',
                 import: 'Importer équipiers',
                 export: 'Exporter équipiers',
-                print: 'Imprimer équipiers'
+                print: 'Imprimer équipiers',
+                index: {
+                    subtitle: 'Consulter l\'équipe'
+                }
             },
             links: {
                 team: 'Equipe'
@@ -819,6 +833,7 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
             },
             validations: {
                 'created': 'L\'équipier a été enregistrée',
+                'deleted': 'L\'équipier a été supprimé',
                 'not_created': 'Désolé, l\'équipier n\'a pas été sauvegardée'
             },
             messages: {
