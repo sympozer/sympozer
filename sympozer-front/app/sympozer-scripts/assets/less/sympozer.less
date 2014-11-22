@@ -7,48 +7,70 @@
  *
  * @Author Vincent Sébille
  */
-@media (min-width: @screen-lg) {
-  .text-right-lg {
+@media (min-width: @screen-lg)
+{
+  .text-right-lg
+  {
     text-align: right;
     // change margin direction for labels
-    & > .labels {
+    & > .labels
+    {
       margin-left: 5px;
       margin-right: 0;
     }
   }
-  .text-left-lg {
+
+  .text-left-lg
+  {
     text-align: left;
   }
-  .text-center-lg {
+
+  .text-center-lg
+  {
     text-align: center;
   }
-  .text-justify-lg {
+
+  .text-justify-lg
+  {
     text-align: justify;
   }
-  .text-nowrap-lg {
+
+  .text-nowrap-lg
+  {
     white-space: nowrap;
   }
 }
 
-@media (min-width: @screen-md) {
-  .text-right-md {
+@media (min-width: @screen-md)
+{
+  .text-right-md
+  {
     text-align: right;
     // change margin direction for labels
-    & > .labels {
+    & > .labels
+    {
       margin-left: 5px;
       margin-right: 0 !important;
     }
   }
-  .text-left-md {
+
+  .text-left-md
+  {
     text-align: left;
   }
-  .text-center-md {
+
+  .text-center-md
+  {
     text-align: center;
   }
-  .text-justify-md {
+
+  .text-justify-md
+  {
     text-align: justify;
   }
-  .text-nowrap-md {
+
+  .text-nowrap-md
+  {
     white-space: nowrap;
   }
 }
@@ -58,18 +80,18 @@
  *
  * Description : make possible to add multiple label
  */
-.labels {
+.labels
+{
   .label;
   margin-right: 5px;
 }
-
-
 
 /**
 * Ellipsis
 * Description : add '...' on box overflow
 */
-.ellipsis {
+.ellipsis
+{
   overflow: hidden;
   text-overflow: ellipsis;
   -o-text-overflow: ellipsis;
@@ -77,29 +99,24 @@
   width: 100%;
 }
 
-
-
 /**
-* Autcomplete dropdown
+* Autocomplete dropdown
 * @author : Benoit
 */
-[sympozer-autocomplete] ul {
-  .dropdown-menu {
-    position: inherit;
-    width: 100%;
+[sympozer-autocomplete] ul.dropdown-menu
+{
+  position: inherit;
+  width: 100%;
 
-    li
-    {
-      cursor: pointer;
-    }
-    li:hover
-    {
-      background-color: #F7F7F7;
-    }
+  li
+  {
+    cursor: pointer;
   }
-
+  li:hover
+  {
+    background-color: #F7F7F7;
+  }
 }
-
 
 /**
 * Image container

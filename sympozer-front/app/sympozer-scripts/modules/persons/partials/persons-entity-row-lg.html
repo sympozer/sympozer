@@ -1,0 +1,26 @@
+<div class="col-xs-4 col-sm-2 col-md-2 col-lg-1">
+  <img no-image ng-src="{{ person.img }}" alt="" class="pull-left img-responsive " style="margin: 0 20px 20px 0">
+
+</div>
+<div class="col-xs-8 col-sm-10 col-md-10 col-lg-11">
+  <div class="row">
+    <h4 class="col-lg-8 col-md-12"><a href="#/home/persons/show/{{ person.id }}">{{ person.label }}</a></h4>
+    <h5 class="col-lg-4 col-md-12 text-right-lg">
+      <em>{{ person.localization.city }}{{person.localization.city ? ', ' : ''}}{{ person.localization.country }}</em>
+    </h5>
+  </div>
+  <div class="row" ng-if="person.localization.country || person.localization.city">
+    <h5 class="col-lg-8 col-md-12">
+
+    </h5>
+  </div>
+  <div>
+    <a href="{{ persons.website}}" target="_blank" ng-if="person.website">{{ person.website }}</a>
+
+    <p class="ellipsis" ng-if="person.description">{{ person.description}}</p>
+
+    <p ng-if="!person.description">
+      <small><em>{{ 'persons.messages.no_description' | translate }}</em></small>
+    </p>
+  </div>
+</div>
