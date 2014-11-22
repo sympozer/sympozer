@@ -146,7 +146,9 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 import: 'Import conference',
                 export: 'Export conference',
                 print: 'Print conference',
-                view: 'View the conference'
+                view: 'View the conference',
+                add_logo: 'Add a logo',
+                choose_logo: 'Choose a logo'
 
             },
             labels: {
@@ -679,7 +681,10 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 import: 'Importer conférence',
                 export: 'Exporter conférence',
                 print: 'Imprimer conférence',
-                view: 'Voir la conférence'
+                view: 'Voir la conférence',
+                add_logo: 'Ajouter un logo',
+                choose_logo: 'Choix du logo'
+
 
             },
             labels: {

@@ -46,8 +46,6 @@
     "placeholdr": "*",
     "iCheck": "~1.0.2",
     "angular-mocks": "1.2.5",
-    "angular-leaflet-directive": "~0.7.9",
-    "leaflet": "~0.7.3",
     "angular-moment": "~0.8.2",
     "angular-translate": "~2.4.2",
     "angularjs-modal-service": "*",
