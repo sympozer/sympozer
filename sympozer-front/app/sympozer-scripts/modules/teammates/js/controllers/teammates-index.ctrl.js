@@ -5,33 +5,41 @@
  *
  * @type {controller}
  */
-angular.module('teammatesApp').controller(
-    'teammatesIndexCtrl',
-    ['$scope', '$routeParams', '$rootScope', 'teammatesFact', '$cachedResource',
-     function ($scope, $routeParams, $rootScope, teammatesFact, $cachedResource)
+angular.module('teammatesApp').controller('teammatesIndexCtrl',
+    ['$scope', '$routeParams', '$rootScope', 'teammatesFact', '$cachedResource', '$modal', 'pinesNotifications', 'translateFilter',
+     function ($scope, $routeParams, $rootScope, teammatesFact, $cachedResource, $modal, pinesNotifications, translateFilter)
      {
          $scope.request = teammatesFact.allByConference;
          $scope.entities = $scope.request();
-         //@TODO : TO REPLACE BY REAL RESULTS
 
 
-         $scope.deleteModal = function (index, teammateModel)
+         $scope.deleteTeammateModal = function (index, teammateModel)
          {
-             var modalInstance = $modal.open({
-                 templateUrl: globalConfig.app.modules.teammates.urls.partials + 'teammates-delete.html',
-                 controller : 'teammatesIndexCtrl',
-                 size       : "large",
+             $modal.open({
+                 templateUrl: globalConfig.app.modules.teammates.urls.partials + 'page/teammates-modal-delete.html',
+                 controller : 'teammatesDeleteCtrl',
                  resolve    : {
+                     teammateModel: function ()
+                     {
+                         return teammateModel;
+                     }
                  }
-             });
-             modalInstance.result.then(function (newCategory)
-             {
-                 teammatesFact.delete({id: teammate.id});
-                 $scope.entities.splice(index, 1);
-             }, function ()
-             {
-                 //$log.info('Modal dismissed at: ' + new Date());
-             });
+             })
+                 .result.then(function ()
+                 {
+                     teammatesFact.delete({id: teammateModel.id});
+                     $scope.entities.splice(index, 1);
+                 }, function ()
+                 {
+                     //action canceled
+                 });
+         };
+
+         $scope.deleteTeammate = function (teammate)
+         {
+             teammatesFact.delete({id: teammate.id});
+             var index = $scope.entities.indexOf(teammate);
+             $scope.entities.splice(index, 1);
          };
 
 //  $scope.entities = [
