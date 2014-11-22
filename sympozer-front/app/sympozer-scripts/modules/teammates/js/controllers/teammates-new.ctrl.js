@@ -41,7 +41,8 @@ angular.module('teammatesApp').controller('teammatesNewCtrl',
           {
               if (form.$valid)
               {
-                  $scope.teammate.team = $scope.$root.currentMainEvent.team;
+//                  $scope.teammate.team = $scope.$root.currentMainEvent.team;
+                  $scope.teammate.team = {id: 3};
                   $scope.teammate.$create({}, success, error);
               }
           };

@@ -34,7 +34,7 @@
           <h4>{{'teammates.actions.index.subtitle' | translate }}</h4>
         </div>
         <div class="panel-body">
-          <div class="search-classic">
+          <div class="search-classic" entity-list-handler="teammates" data-order-by="person">
             <form action="#">
               <div class="input-group well w100">
                 <input type="text" placeholder="{{'teammates.actions.search' | translate }}" class="form-control" ng-change="sendQuery(query)" ng-model="query"/>
@@ -48,7 +48,7 @@
 
             <h3 ng-show="query">{{'global.labels.searchResult' | translate }} {{ query }}</h3>
             <hr>
-            <div class="search-result" ng-repeat-start="teammate in entities  track by $index" ng-include="GLOBAL_CONFIG.app.modules.teammates.urls.partials+'page/teammate-entity-list.html'">
+            <div class="search-result" ng-repeat-start="teammate in entities  track by $index" ng-include="GLOBAL_CONFIG.app.modules.teammates.urls.partials+'teammate-entity-row-lg.html'">
             </div>
             <hr ng-repeat-end="">
             <!-- @TODO : PAGINATION ? OR SCROLL-INFINITE ? -->

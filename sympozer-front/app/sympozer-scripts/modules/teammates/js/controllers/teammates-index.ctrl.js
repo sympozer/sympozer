@@ -10,9 +10,30 @@ angular.module('teammatesApp').controller(
     ['$scope', '$routeParams', '$rootScope', 'teammatesFact', '$cachedResource',
      function ($scope, $routeParams, $rootScope, teammatesFact, $cachedResource)
      {
-         $scope.mainEventId = $routeParams.mainEventId;
-         $scope.entities = teammatesFact.allByConference();
+         $scope.request = teammatesFact.allByConference;
+         $scope.entities = $scope.request();
          //@TODO : TO REPLACE BY REAL RESULTS
+
+
+         $scope.deleteModal = function (index, teammateModel)
+         {
+             var modalInstance = $modal.open({
+                 templateUrl: globalConfig.app.modules.teammates.urls.partials + 'teammates-delete.html',
+                 controller : 'teammatesIndexCtrl',
+                 size       : "large",
+                 resolve    : {
+                 }
+             });
+             modalInstance.result.then(function (newCategory)
+             {
+                 teammatesFact.delete({id: teammate.id});
+                 $scope.entities.splice(index, 1);
+             }, function ()
+             {
+                 //$log.info('Modal dismissed at: ' + new Date());
+             });
+         };
+
 //  $scope.entities = [
 //    {
 //      label: 'Forza - With the powers of Bootstrap, jQuery and AngularJS combined',

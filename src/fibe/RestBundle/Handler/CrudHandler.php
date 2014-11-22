@@ -84,8 +84,8 @@ class CrudHandler
     //unset($formData['id']);//remove id to avoid form validation error with this unnecessary id
     //unset($formData['dtype']);
     $form->submit($formData, 'PATCH' !== $method);
+    //perform acl check
     $this->validateAction($method, $entity);
-
 
     if ($form->isValid())
     {

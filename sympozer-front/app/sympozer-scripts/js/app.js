@@ -153,7 +153,11 @@ angular.module('sympozerApp').config(['$provide', '$httpProvider', function ($pr
     $httpProvider.interceptors.push('globalHttpInterceptor');
 }]);
 
-
+/**
+ * Enable cors authentication (otherwise doesn't set session cookie)
+ *
+ * @type {config}
+ */
 angular.module('sympozerApp').config(['$httpProvider', function ($httpProvider)
 {
     $httpProvider.defaults.withCredentials = true;
