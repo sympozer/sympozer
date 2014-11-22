@@ -8,7 +8,7 @@
     <div class="options">
         <div class="btn-toolbar">
             <a sympozer-acl-show="mainEvent" class="btn btn-info" href="#/home/mainEvents/edit/{{mainEvent.id}}" role="button">
-                <i class="fa fa-edit fa-1x"></i> {{ 'persons.actions.edit_profile' | translate}}
+                <i class="fa fa-edit fa-1x"></i> {{ 'mainEvents.actions.edit' | translate}}
             </a>
             <!--<div class="btn-group hidden-xs" data-dropdown>-->
             <!--<button class="btn btn-default dropdown-toggle" data-toggle='dropdown'>-->
@@ -79,30 +79,23 @@
 
                     <div class="row">
                         <div class="col-md-6">
-                            <panel panel-class="panel panel-gray" heading="">
+                            <panel panel-class="panel panel-gray" heading="{{ 'mainEvents.labels.time_localization' | translate}}">
                                 <panel-controls>
                                     <a href=""><panel-control-collapse class="fa fa-chevron-down"></panel-control-collapse></a>
                                 </panel-controls>
                                 <div class="row">
-                                    <h1>{{ 'mainEvents.labels.from' | translate}} : {{mainEvent.startAt}}</h1>
+                                    <h4>{{mainEvent.location.label}}</h4>
 
-                                    <h1>{{ 'mainEvents.labels.to' | translate}} : {{mainEvent.endAt}}</h1>
-                                </div>
-                            </panel>
-                        </div>
-                        <div class="col-md-6">
-                            <panel panel-class="panel panel-gray" heading="">
-                                <panel-controls>
-                                    <a href=""><panel-control-collapse class="fa fa-chevron-down"></panel-control-collapse></a>
-                                </panel-controls>
-                                <div class="row">
+                                    <h5>{{ 'mainEvents.labels.from' | translate}} : {{mainEvent.startAt}}</h5>
+
+                                    <h5>{{ 'mainEvents.labels.to' | translate}} : {{mainEvent.endAt}}</h5>
                                     <div style="height: 300px" gmap options="{ lat: -12.043333,lng: -77.028333}" instance="geoCodingMapInstance"></div>
                                 </div>
                             </panel>
+
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-6">
+
                             <panel panel-class="panel panel-gray" heading="{{mainEvent.events.length}} {{'events.links.events' | translate }}">
                                 <panel-controls>
                                     <a href=""><panel-control-collapse class="fa fa-chevron-down"></panel-control-collapse></a>
@@ -115,26 +108,21 @@
                                     </div>
                                 </div>
                             </panel>
-                        </div>
 
-                        <div class="col-md-4">
-                            <panel panel-class="panel panel-gray" heading="{{mainEvent.roles.length}} {{'events.links.events' | translate }}">
+                            <panel panel-class="panel panel-gray" heading="{{mainEvent.persons.length}} {{'persons.links.persons' | translate }}">
                                 <panel-controls>
                                     <a href=""><panel-control-collapse class="fa fa-chevron-down"></panel-control-collapse></a>
                                 </panel-controls>
                                 <div class="row">
 
-                                    <div class="well col-md-4  col-lg-4" ng-repeat="role in mainEvent.roles  track by $index" class="col-sm-6 col-md-6 col-lg-4" ng-if="person.roles">
+                                    <div class="well col-md-4  col-lg-4" ng-repeat="person in mainEvent.persons  track by $index" class="col-sm-6 col-md-6 col-lg-4" ng-if="person.roles">
                                         <i class="fa fa-calendar fa-2x"></i>
-                                        <h4>{{ role.roleLabelVersion.label }} @ {{ role.event.label}} </h4>
-                                        <a class="btn  btn-default" href="#mainEvents/show/{{ role.mainEvent.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>
+                                        <a href="#persons/show/{{person.id}}"><img ng-src="{{person.img}}" class="img-responsive" alt="{{person.label}}"/></a>
                                     </div>
                                 </div>
 
                             </panel>
-                        </div>
 
-                        <div class="col-md-4">
                             <panel panel-class="panel panel-gray" heading="{{mainEvent.papers.length}} {{'papers.links.papers' | translate }}">
                                 <panel-controls>
                                     <a href=""><panel-control-collapse class="fa fa-chevron-down"></panel-control-collapse></a>
@@ -147,59 +135,29 @@
                                     </div>
                                 </div>
                             </panel>
+
+
+                            <panel panel-class="panel panel-gray" heading="{{mainEvent.topics.length}} {{'topics.links.topics' | translate }}">
+                                <panel-controls>
+                                    <a href=""><panel-control-collapse class="fa fa-chevron-down"></panel-control-collapse></a>
+                                </panel-controls>
+                                <div class="row">
+
+                                    <div class="well col-md-4  col-lg-4" ng-repeat="person in mainEvent.persons  track by $index" class="col-sm-6 col-md-6 col-lg-4" ng-if="person.roles">
+                                        <i class="fa fa-calendar fa-2x"></i>
+                                        <a href="#persons/show/{{person.id}}"><img ng-src="{{person.img}}" class="img-responsive" alt="{{person.label}}"/></a>
+                                    </div>
+                                </div>
+
+                            </panel>
                         </div>
+
                     </div>
-
-
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-
-
-
-<!--<div class="row">-->
-<!--<div class=" col-md-6 col-lg-6">-->
-<!--<h1>{{ 'mainEvents.labels.from' | translate}} : {{mainEvent.startAt}}</h1>-->
-
-<!--<h1>{{ 'mainEvents.labels.to' | translate}} : {{mainEvent.endAt}}</h1>-->
-<!--</div>-->
-<!--<div class=" col-md-6 col-lg-6">-->
-<!--<leaflet center="center" markers="markers" height="300px" width="100%"></leaflet>-->
-
-<!--</div>-->
-<!--</div>-->
-
-
-<!--<div class="row">-->
-<!--<div class=" col-md-6 col-lg-6">-->
-<!--<div class="row">-->
-<!--<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">-->
-<!--<h1>{{mainEvent.events.length}} {{ 'events.links.events' | translate}} </h1>-->
-<!--</div>-->
-<!--</div>-->
-<!--<div ng-repeat="event in mainEvent.events | limitTo: 5  track by $index" class="col-sm-6 col-md-6 col-lg-4  well">-->
-<!--<i class="fa fa-calendar fa-3x"></i>-->
-
-<!--<h2>{{ event.label }}</h2>-->
-<!--<a class="btn btn-default" href="#conference/{{mainEvent.id}}/events/show/{{ event.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>-->
-<!--</div>-->
-<!--</div>-->
-<!--<div class=" col-md-6 col-lg-6">-->
-<!--<div class="row">-->
-<!--<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">-->
-<!--<h1>{{mainEvent.papers.length}} {{ 'papers.links.papers' | translate}} </h1>-->
-<!--</div>-->
-<!--</div>-->
-<!--<div ng-repeat="paper in mainEvent.papers | limitTo: 5  track by $index" class="col-sm-6 col-md-6 col-lg-4  well">-->
-<!--<i class="fa fa-book fa-3x"></i>-->
-
-<!--<h2>{{ paper.label }}</h2>-->
-<!--<a class="btn btn-default" href="#conference/{{mainEvent.id}}/papers/show/{{paper.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>-->
-<!--</div>-->
-<!--</div>-->
-<!--</div>-->
 
 

@@ -5,52 +5,31 @@
  */
 angular.module('mainEventsApp').controller('mainEventsEditCtrl', [ '$scope', '$rootScope', '$routeParams', '$location', 'mainEventsFact', '$modal', function ($scope, $rootScope, $routeParams, $location, mainEventsFact, $modal)
 {
-    $scope.mainEvent = mainEventsFact.get({id: $routeParams.mainEventId});
-
-    //initialize map zoom
-    $scope.center = { zoom: 2 }
-
-    $scope.markers = [];
-    var updateMarkers = function(marker){
-        $scope.markers.splice(0, $scope.markers.length);
-        $scope.markers.push(marker);
-    };
-
-    if($scope.mainEvent.mainEventLocation){
-        updateMarkers({
-            lat: $scope.mainEvent.mainEventLocation.latitude,
-            lng: $scope.mainEvent.mainEventLocation.longitude,
-            message: "Your event"
-        })
+    var fetchSuccess = function(mainEvent){
+        geoCode(mainEvent.location.label);
     }
 
-    $scope.editLocation = function()
-    {
-        var locationCtrl = 'mainEventLocationsEditCtrl';
-        if(!$scope.mainEvent.mainEventLocation){
-            locationCtrl = 'mainEventLocationsNewCtrl';
-        }
-        var modalInstance = $modal.open({
-            templateUrl: $rootScope.GLOBAL_CONFIG.app.modules.locations.urls.partials + 'locations-modal-form.html',
-            controller: locationCtrl,
-            size: "large",
-            resolve: {
-                locationModel: function () {
-                    return $scope.mainEvent.mainEventLocation;
-                }
-            }
-        });
-        modalInstance.result.then(function (newLocation) {
-            $scope.mainEvent.mainEventLocation = newLocation;
-            if(newLocation.latitude){
-                updateMarkers({
-                    lat: newLocation.latitude,
-                    lng: newLocation.longitude,
-                    message: "Your event"
-                })
-            }
-        });
-    };
+    $scope.mainEvent = mainEventsFact.get({id: $routeParams.mainEventId}, fetchSuccess);
+
+    //Mandatory for the map plugin gmap to work
+    $scope.geoCodingMapInstance;
+
+    //Set default options for map rendering (mandatory)
+    $scope.mapInstanceOption = {
+        lat: -12.043333,
+        lng: -77.028333,
+        zoom: 12
+    }
+
+    //On address defintion
+    $scope.setAddress = function(selectedAddress){
+        //trigger map rendering of the selected address
+        geoCode(selectedAddress.label);
+        //Set new conference address
+        $scope.mainEvent.location = selectedAddress;
+    }
+
+
 
     var error = function (response, args)
     {
@@ -61,6 +40,24 @@ angular.module('mainEventsApp').controller('mainEventsEditCtrl', [ '$scope', '$r
     {
         $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'field saved', type: 'success'});
     };
+
+    var geoCode = function(address){
+        GMaps.geocode({
+            address: address,
+            callback: function (results, status)
+            {
+                if (status == 'OK')
+                {
+                    var latlng = results[0].geometry.location;
+                    $scope.geoCodingMapInstance.setCenter(latlng.lat(), latlng.lng());
+                    $scope.geoCodingMapInstance.addMarker({
+                        lat: latlng.lat(),
+                        lng: latlng.lng()
+                    });
+                }
+            }
+        });
+    }
 
     $scope.updateMainEvent = function(field, data){
         var updateMainEvent = {id: $scope.mainEvent.id};
@@ -88,4 +85,12 @@ angular.module('mainEventsApp').controller('mainEventsEditCtrl', [ '$scope', '$r
             $scope.updateMainEvent('endAt', newDate);
         }
     }
+
+
+    //Bind new map instance from plugin to scope
+    $scope.$on('GMaps:created', function (event, mapInstance) {
+        if (mapInstance.key) {
+            $scope[mapInstance.key] = mapInstance.map;
+        }
+    });
 }]);
