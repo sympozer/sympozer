@@ -145,7 +145,9 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 edit: 'Edit the conference',
                 import: 'Import conference',
                 export: 'Export conference',
-                print: 'Print conference'
+                print: 'Print conference',
+                view: 'View the conference'
+
             },
             labels: {
                 general_info: 'General informations',
@@ -676,7 +678,9 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 edit: 'Editer la conférence',
                 import: 'Importer conférence',
                 export: 'Exporter conférence',
-                print: 'Imprimer conférence'
+                print: 'Imprimer conférence',
+                view: 'Voir la conférence'
+
             },
             labels: {
                 general_info: 'Informations générales',

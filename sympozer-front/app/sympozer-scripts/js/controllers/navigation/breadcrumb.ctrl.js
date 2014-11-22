@@ -34,6 +34,7 @@ sympozerApp.controller('breadcrumbCtrl', ['$scope', '$location', function ($scop
                 {
                     idUrl: 'mainEvents',
                     label: 'mainEvents.links.mainEvents',
+                    url: '#/home/mainEvents/index',
                     children: [
                         {
                             idUrl: 'overview',
@@ -52,6 +53,14 @@ sympozerApp.controller('breadcrumbCtrl', ['$scope', '$location', function ($scop
                         {
                             idUrl: 'new',
                             label: 'mainEvents.actions.new'
+                        },
+                        {
+                            idUrl: 'show',
+                            label: 'global.actions.show'
+                        },
+                        {
+                            idUrl: 'edit',
+                            label: 'global.actions.edit'
                         }
 
                     ]
