@@ -7,7 +7,7 @@
  *
  */
 angular.module('sympozerApp').factory('globalHttpInterceptor', [
-    '$q', '$rootScope', function ($q, $rootScope)
+    '$q', '$rootScope', 'pinesNotifications', 'translateFilter', function ($q, $rootScope, pinesNotifications, translateFilter)
     {
 
         /**
@@ -72,7 +72,7 @@ angular.module('sympozerApp').factory('globalHttpInterceptor', [
 
 
             //Executed whenever a request is made by the client
-            'request': function (config)
+            'request'      : function (config)
             {
                 //post or put & no "no_clean" arg set to true
                 if (["POST", "PUT"].indexOf(config.method) >= 0 && !(config.params && config.params.no_clean))
@@ -85,7 +85,7 @@ angular.module('sympozerApp').factory('globalHttpInterceptor', [
             },
 
             //Executed whenever a valid request is received by the client
-            'response': function (response)
+            'response'     : function (response)
             {
                 return response || $q.when(response);
             },
@@ -99,13 +99,23 @@ angular.module('sympozerApp').factory('globalHttpInterceptor', [
                 if (rejection.status == "401")
                 {
                     $rootScope.showSigninPopup();
-                    $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'You need to signin to have access to this page', type: 'warning'});
+                    pinesNotifications.notify({
+                        title: translateFilter('global.validations.error'),
+                        text : translateFilter('authentication.messages.signin_required'),
+                        type : 'info'
+                    });
+//                    $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'You need to signin to have access to this page', type: 'warning'});
                 }
 
                 //Watch for forbidden status
                 else if (rejection.status == "403")
                 {
-                    $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'authentication.messages.forbidden', type: 'warning'});
+                    //Notify of the field update action error
+                    pinesNotifications.notify({
+                        title: translateFilter('global.validations.error'),
+                        text : translateFilter('authentication.messages.forbidden'),
+                        type : 'error'
+                    });
                 }
 //                else if (rejection.data.error)
 //                {

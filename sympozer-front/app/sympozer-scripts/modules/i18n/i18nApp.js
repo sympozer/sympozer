@@ -105,6 +105,7 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
 
             },
             messages: {
+                signin_required: 'This action needs you to be connected.',
                 reset_pwd_info: 'To reset your password, enter the email address you use to sign in to Sympozer. You will receive an email from Sympozer with the link to use in order to reset your password',
                 pwd_not_set: 'You haven\'t set your password yet',
                 forbidden: 'You don\'t have the authorization to perform this action'
@@ -652,6 +653,7 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
 
             },
             messages: {
+                signin_required: 'Cette action nécessite d\'être connecté.',
                 reset_pwd_info: 'Pour reinitialiser votre mot de passe, entrer votre email ou nom d\'utilisateur. Vous recevrez alors un email pour mettre à jour votre mot de passe',
                 pwd_not_set: 'Vous n\'avez pas encore défini votre mot de passe',
                 forbidden: 'Vous n\'avez le droit d\'exécuter cette action'

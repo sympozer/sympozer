@@ -15,16 +15,17 @@ angular.module('teammatesApp').controller('teammatesIndexCtrl',
 
          $scope.deleteTeammateModal = function (index, teammateModel)
          {
-             $modal.open({
-                 templateUrl: globalConfig.app.modules.teammates.urls.partials + 'page/teammates-modal-delete.html',
-                 controller : 'teammatesDeleteCtrl',
-                 resolve    : {
-                     teammateModel: function ()
-                     {
-                         return teammateModel;
+             $modal
+                 .open({
+                     templateUrl: globalConfig.app.modules.teammates.urls.partials + 'page/teammates-modal-delete.html',
+                     controller : 'teammatesDeleteCtrl',
+                     resolve    : {
+                         teammateModel: function ()
+                         {
+                             return teammateModel;
+                         }
                      }
-                 }
-             })
+                 })
                  .result.then(function (teammate)
                  {
                      var index = $.grep($scope.entities, function (e)
