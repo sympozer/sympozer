@@ -14,7 +14,7 @@
 
 </div>
 <div class="modal-footer">
-    <button class="btn btn-primary" ng-click="setLogo(url)">{{ 'global.actions.ok' | translate}}</button>
-    <button class="btn btn-default" ng-click="$close()">{{ 'global.actions.cancel' | translate}}</button>
+    <button ng-disabled="mainEventLogoForm.$invalid" class="btn btn-primary" ng-click="$close(mainEvent.logo)">{{ 'global.actions.ok' | translate}}</button>
+    <button class="btn btn-default" ng-click="$dismiss('cancel')">{{ 'global.actions.cancel' | translate}}</button>
 </div>
 
