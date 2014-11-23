@@ -126,7 +126,7 @@ angular.module('mainEventsApp').controller('mainEventsEditCtrl', [ '$scope', '$r
     $scope.showLogoModal = function(){
         // Open modal with main event logo form
         var modalInstance = $modal.open({
-            templateUrl: GLOBAL_CONFIG.app.modules.mainEvents.urls.partials + 'main-events-select-logo.html',
+            templateUrl: GLOBAL_CONFIG.app.modules.mainEvents.urls.partials + 'main-events-select-logo-modal.html',
             //The edit controller is responsible for it
             controller: 'mainEventsEditCtrl',
             size: "large",

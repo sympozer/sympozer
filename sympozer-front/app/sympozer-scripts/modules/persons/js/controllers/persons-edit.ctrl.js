@@ -123,4 +123,36 @@ angular.module('personsApp').controller('personsEditCtrl', [ '$scope', '$filter'
 //                $scope.addRelationship("papers", paperModel);
 //            }
 //        }
+
+        //Send patch request to server to update a given field
+        $scope.updateMainEvent = function(field, data){
+            debugger;
+            var updateMainEvent = {id: $scope.mainEvent.id};
+            updateMainEvent[field] = data;
+            return mainEventsFact.patch(updateMainEvent, success, error);
+        };
+
+
+        //Select img modal workflow
+        $scope.showImgModal = function(){
+            // Open modal with main event logo form
+            var modalInstance = $modal.open({
+                templateUrl: GLOBAL_CONFIG.app.modules.persons.urls.partials + 'persons-select-logo-modal.html',
+                //The edit controller is responsible for it
+                controller: 'personsEditCtrl',
+                size: "large",
+                resolve : {
+                    //Passing current person as a parameter
+                    person :function() {
+                        return $scope.person;
+                    }
+                }
+            });
+
+            //On success modal $close function call, resolve the promise
+            modalInstance.result.then(function (imgUrl) {
+                $scope.person.img= imgUrl;
+                $scope.updatePerson('img', imgUrl);
+            })
+        }
     }]);

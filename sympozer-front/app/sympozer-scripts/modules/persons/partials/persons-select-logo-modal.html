@@ -1,0 +1,20 @@
+<div class="modal-header">
+    <h3 class="modal-title">{{ 'persons.actions.choose_picture' | translate}}</h3>
+</div>
+<div class="modal-body">
+    <form name="personImgForm" class="form-horizontal row-border" role="form">
+        <input type="url" required="" no-image class="form-control" id="inputLogo" placeholder="http://..." ng-model="person.img">
+        <hr/>
+        <div class="row">
+            <div class="col-lg-3"></div>
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6"><img class='img-responsive' ng-src="{{person.img}}"/></div>
+            <div class="col-lg-3"></div>
+        </div>
+    </form>
+
+</div>
+<div class="modal-footer">
+    <button ng-disabled="personImgForm.$invalid" class="btn btn-primary" ng-click="$close(person.img)">{{ 'global.actions.ok' | translate}}</button>
+    <button class="btn btn-default" ng-click="$dismiss('cancel')">{{ 'global.actions.cancel' | translate}}</button>
+</div>
+
