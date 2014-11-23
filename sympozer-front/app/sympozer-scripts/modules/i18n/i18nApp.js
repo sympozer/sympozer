@@ -523,7 +523,9 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 print: 'Print person',
                 edit_account: 'Edit account',
                 edit_profile: 'Edit profile',
-                view_profile: 'View my profile'
+                view_profile  : 'View my profile',
+                add_picture   : 'Add a picture',
+                choose_picture: 'Choose a picture'
 
             },
             links: {
@@ -1060,7 +1062,9 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 print: 'Imprimer personnes',
                 edit_account: 'Modifier mon compte',
                 edit_profile: 'Editer mon profile',
-                view_profile: 'voir mon profile'
+                view_profile  : 'voir mon profile',
+                add_picture   : 'Ajouter une photo',
+                choose_picture: 'Choisir une photo'
             },
             links: {
                 persons: 'Personnes',
