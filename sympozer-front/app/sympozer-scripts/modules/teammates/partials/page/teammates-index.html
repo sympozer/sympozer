@@ -34,7 +34,7 @@
           <h4>{{'teammates.actions.index.subtitle' | translate }}</h4>
         </div>
         <div class="panel-body">
-          <div class="search-classic" entity-list-handler="teammates" data-order-by="person">
+          <div class="search-classic" entity-list-handler="teammates" limit="2" data-order-by="person">
             <form action="#">
               <div class="input-group well w100">
                 <input type="text" placeholder="{{'teammates.actions.search' | translate }}" class="form-control" ng-change="sendQuery(query)" ng-model="query"/>
@@ -48,8 +48,12 @@
 
             <h3 ng-show="query">{{'global.labels.search.displaying' | translate }} '{{ query }}'</h3>
             <hr>
-            <h3 ng-show="entities.length == 0">{{'global.labels.search.no_result' | translate }}</h3>
+            <h3>{{ count }} {{'global.labels.search.results' | translate }}
+              <small ng-show="count > entities.length"> - Displaying {{(currentPage-1) * limit}} to {{ currentPage * limit > count ? count : currentPage * limit }}</small>
+            </h3>
 
+
+            <pagination ng-show="count > entities.length" total-items="count" ng-model="currentPage" items-per-page="limit" ng-change="fetchPage(currentPage, true)"></pagination>
             <div class="search-result" ng-repeat-start="teammate in entities  track by $index">
               <div ng-include="GLOBAL_CONFIG.app.modules.teammates.urls.partials+'teammate-entity-row-lg.html'"></div>
               <button class="btn btn-danger" data-ng-click="deleteTeammateModal($index, teammate)" role="button">
@@ -57,16 +61,6 @@
               </button>
             </div>
             <hr ng-repeat-end="">
-            <!-- @TODO : PAGINATION ? OR SCROLL-INFINITE ? -->
-            <ol class="pagination text-center pull-right">
-              <li class="prev disabled"><a href="#"><i class="fa fa-long-arrow-left"></i> Previous</a></li>
-              <li class="active"><a href="#">1</a></li>
-              <li><a href="#">2</a></li>
-              <li><a href="#">3</a></li>
-              <li><a href="#">4</a></li>
-              <li><a href="#">5</a></li>
-              <li class="next"><a href="#">Next <i class="fa fa-long-arrow-right"></i></a></li>
-            </ol>
           </div>
         </div>
       </div>

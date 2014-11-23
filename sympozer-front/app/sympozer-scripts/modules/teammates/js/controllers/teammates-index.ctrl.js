@@ -25,22 +25,39 @@ angular.module('teammatesApp').controller('teammatesIndexCtrl',
                      }
                  }
              })
-                 .result.then(function ()
+                 .result.then(function (teammate)
                  {
-                     teammatesFact.delete({id: teammateModel.id});
-                     $scope.entities.splice(index, 1);
+                     var index = $.grep($scope.entities, function (e)
+                     {
+                         return e.id == teammate.id;
+                     });
+                     //find teammate in $scope.entities
+                     for (var i = 0; i < $scope.entities.length; i++)
+                     {
+                         if ($scope.entities[i].id == teammate.id)
+                         {
+                             $scope.entities.splice(i, 1);
+                             if ($scope.entities.length == 0)
+                             {
+                                 $scope.currentPage--;
+                             }
+                             $scope.fetchPage($scope.currentPage);
+                             return;
+                         }
+                     }
+
                  }, function ()
                  {
-                     //action canceled
+                     //delete canceled
                  });
          };
 
-         $scope.deleteTeammate = function (teammate)
-         {
-             teammatesFact.delete({id: teammate.id});
-             var index = $scope.entities.indexOf(teammate);
-             $scope.entities.splice(index, 1);
-         };
+//         $scope.deleteTeammate = function (teammate)
+//         {
+//             teammatesFact.delete({id: teammate.id});
+//             var index = $scope.entities.indexOf(teammate);
+//             $scope.entities.splice(index, 1);
+//         };
 
 //  $scope.entities = [
 //    {

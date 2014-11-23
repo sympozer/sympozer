@@ -19,14 +19,10 @@ class SerializeExceptionListener
     $this->logger = $logger;
   }
 
-  public function getSerializer()
-  {
-    return $this->serializer;
-  }
-
   public function onKernelException(GetResponseForExceptionEvent $event)
   {
     $format = $event->getRequest()->getRequestFormat();
+    //if html : just display the symfony exception's page
     if (!$format || $format === "html")
     {
       return;
@@ -52,5 +48,10 @@ class SerializeExceptionListener
       $response->setStatusCode($error->getStatusCode());
     }
     $event->setResponse($response);
+  }
+
+  public function getSerializer()
+  {
+    return $this->serializer;
   }
 }

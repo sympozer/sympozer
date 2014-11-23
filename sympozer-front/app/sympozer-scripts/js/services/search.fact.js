@@ -10,14 +10,14 @@ angular.module('sympozerApp').factory('searchService', [
 
             /**
              * Send a request to the backend according to a configuration passed in parameters
-             * @param arg, callback to execute when responses comes back from the server
-             * @param searchConfig, JSON object containing :
+             * @param arg callback to execute when responses comes back from the server
+             * @param searchConfig JSON object containing :
              *   searchService.doSearch({
              *      entitiesLbl: childEntityLbl,
              *      callback: callback
              *  }, {
              *       request: a resource request function (example personsFact.all / organizationFact.all).
-             *       query: a string to search for on label fiels,
+             *       query: a string to search for on label fields,
              *       offset: the offset to get results from,
              *       limit: the size of the result set,
              *       orderBy: the field name to order by,
@@ -37,16 +37,14 @@ angular.module('sympozerApp').factory('searchService', [
                 function doSearch()
                 {
                     //Initialize request parameters
-                    var requestParams = {};
+                    var requestParams = {
+                        query : searchConfig.query,
+                        offset: searchConfig.offset,
+                        limit : searchConfig.limit
+                    };
 
                     //Serialize the order param
                     requestParams["order[" + searchConfig.orderBy + "]"] = searchConfig.orderSide || null;
-                    //Serialize query param
-                    requestParams["query"] = searchConfig.query || null;
-                    //Serialize offset param
-                    requestParams["offset"] = searchConfig.offset || null;
-                    //Serialize offset param
-                    requestParams["limit"] = searchConfig.limit || null;
 
                     //Add route parameters to request parameters
                     for (var param in searchConfig.routeParams)

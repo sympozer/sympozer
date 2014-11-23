@@ -2,14 +2,10 @@
 
 namespace fibe\CommunityBundle\Entity;
 
+use Doctrine\ORM\Event\PreFlushEventArgs;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
-use JMS\Serializer\Annotation\SerializedName;
-use JMS\Serializer\Annotation\Discriminator;
-use JMS\Serializer\Annotation\Groups;
-use JMS\Serializer\Annotation\VirtualProperty;
-
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -19,6 +15,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(name="additional_informations")
  * @ORM\Entity(repositoryClass="fibe\CommunityBundle\Repository\AdditionalInformationsRepository")
  * @ORM\InheritanceType("SINGLE_TABLE")
+ * @ORM\HasLifecycleCallbacks
  * @ORM\DiscriminatorMap({
  *     "Organization"="Organization",
  *     "OrganizationVersion"="OrganizationVersion",
@@ -28,193 +25,207 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class AdditionalInformations
 {
-    /**
-     * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue()
-     * @Expose
-     */
-    protected $id;
+  /**
+   * fix an issue with jms-serializer and form validation when applied to a doctrine InheritanceType("SINGLE_TABLE")
+   */
+  public $dtype;
+  /**
+   * @ORM\Id
+   * @ORM\Column(type="integer")
+   * @ORM\GeneratedValue()
+   * @Expose
+   */
+  protected $id;
+  /**
+   * label
+   *
+   * @ORM\Column(type="string")
+   * @Expose
+   */
+  protected $label;
+  /**
+   * Url of the website
+   *
+   * @ORM\Column(type="string", nullable=true)
+   * @Expose
+   */
+  protected $website;
+  /**
+   * @TODO Enum : I18N (CodeInfo/JS/...)
+   *
+   * country
+   * @ORM\Column(type="string", nullable=true)
+   * @Expose
+   */
+  protected $country;
+  /**
+   * img
+   * @ORM\Column(type="text", nullable=true, length=2056, name="img")
+   * @Expose
+   */
+  protected $img;
+  /**
+   * email
+   * @ORM\Column(type="string", nullable=true,  name="email")
+   * @Expose
+   */
+  protected $email;
+  /**
+   * @ORM\Column(type="text", length=2056, nullable=true)
+   * @Expose
+   */
+  protected $description;
+  /**
+   * Localization
+   * Localization is a geographic point and geocoding information that indicate where the person/organization resides
+   * @ORM\OneToOne(targetEntity="fibe\ContentBundle\Entity\Localization", cascade={"persist"})
+   * @Expose
+   */
+  protected $localization;
 
-    /**
-     * label
-     *
-     * @ORM\Column(type="string")
-     * @Expose
-     */
-    protected $label;
+  public function __toString()
+  {
+    //@TODO : méthode to String fonctionnel
+    return 'toString @TODO in AdditionalInformation Entity';
+  }
 
-    /**
-     * Url of the website
-     *
-     * @ORM\Column(type="string", nullable=true)
-     * @Expose
-     */
-    protected $website;
-
-    /**
-     * @TODO Enum : I18N (CodeInfo/JS/...)
-     *
-     * country
-     * @ORM\Column(type="string", nullable=true)
-     * @Expose
-     */
-    protected $country;
-
-    /**
-     * img
-     * @ORM\Column(type="text", nullable=true, length=2056, name="img")
-     * @Expose
-     */
-    protected $img;
-
-    /**
-     * email
-     * @ORM\Column(type="string", nullable=true,  name="email")
-     * @Expose
-     */
-    protected $email;
-
-    /**
-     * @ORM\Column(type="text", length=2056, nullable=true)
-     * @Expose
-     */
-    protected $description;
-
-
-    /**
-     * Localization
-     * Localization is a geographic point and geocoding information that indicate where the person/organization resides
-     * @ORM\OneToOne(targetEntity="fibe\ContentBundle\Entity\Localization", cascade={"persist"})
-     * @Expose
-     */
-    protected $localization;
-
-
-    /**
-     * fix an issue with jms-serializer and form validation when applied to a doctrine InheritanceType("SINGLE_TABLE")
-     */
-    public $dtype;
-
-
-    public function __toString()
+  /**
+   * cascade updates on localization
+   * @ORM\PreFlush
+   */
+  public function updateLocalization(PreFlushEventArgs $eventArgs)
+  {
+    if (!$this->getId() || !$this->getLocalization())
     {
-        //@TODO : méthode to String fonctionnel
-        return 'toString @TODO in AdditionalInformation Entity';
+      return;
     }
-
-    /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
+    $em = $eventArgs->getEntityManager();
+    $uow = $em->getUnitOfWork();
+    try
     {
-        return $this->id;
-    }
 
-    /**
-     * @param mixed $id
-     */
-    public function setId($id)
+      $uow->recomputeSingleEntityChangeSet(
+        $em->getClassMetadata(get_class($this->getLocalization())),
+        $this->getLocalization()
+      );
+    } catch (\RuntimeException $e)
     {
-        $this->id = $id;
+      //append in sonata admin bundle
     }
+  }
 
-    /**
-     * @return mixed
-     */
-    public function getWebsite()
-    {
-        return $this->website;
-    }
+  /**
+   * Get id
+   *
+   * @return integer
+   */
+  public function getId()
+  {
+    return $this->id;
+  }
 
-    /**
-     * @param mixed $website
-     */
-    public function setWebsite($website)
-    {
-        $this->website = $website;
-    }
+  /**
+   * @param mixed $id
+   */
+  public function setId($id)
+  {
+    $this->id = $id;
+  }
 
-    /**
-     * @return mixed
-     */
-    public function getCountry()
-    {
-        return $this->country;
-    }
+  /**
+   * @return mixed
+   */
+  public function getLocalization()
+  {
+    return $this->localization;
+  }
 
-    /**
-     * @param mixed $country
-     */
-    public function setCountry($country)
-    {
-        $this->country = $country;
-    }
+  /**
+   * @param mixed $localization
+   */
+  public function setLocalization($localization)
+  {
+    $this->localization = $localization;
+  }
 
-    /**
-     * @return mixed
-     */
-    public function getImg()
-    {
-        return $this->img;
-    }
+  /**
+   * @return mixed
+   */
+  public function getWebsite()
+  {
+    return $this->website;
+  }
 
-    /**
-     * @param mixed $img
-     */
-    public function setImg($img)
-    {
-        $this->img = $img;
-    }
+  /**
+   * @param mixed $website
+   */
+  public function setWebsite($website)
+  {
+    $this->website = $website;
+  }
 
-    /**
-     * @return mixed
-     */
-    public function getEmail()
-    {
-        return $this->email;
-    }
+  /**
+   * @return mixed
+   */
+  public function getCountry()
+  {
+    return $this->country;
+  }
 
-    /**
-     * @param mixed $email
-     */
-    public function setEmail($email)
-    {
-        $this->email = $email;
-    }
+  /**
+   * @param mixed $country
+   */
+  public function setCountry($country)
+  {
+    $this->country = $country;
+  }
 
-    /**
-     * @return mixed
-     */
-    public function getDescription()
-    {
-        return $this->description;
-    }
+  /**
+   * @return mixed
+   */
+  public function getImg()
+  {
+    return $this->img;
+  }
 
-    /**
-     * @param mixed $description
-     */
-    public function setDescription($description)
-    {
-        $this->description = $description;
-    }
+  /**
+   * @param mixed $img
+   */
+  public function setImg($img)
+  {
+    $this->img = $img;
+  }
 
-    /**
-     * @return mixed
-     */
-    public function getLocalization()
-    {
-        return $this->localization;
-    }
+  /**
+   * @return mixed
+   */
+  public function getEmail()
+  {
+    return $this->email;
+  }
 
-    /**
-     * @param mixed $localization
-     */
-    public function setLocalization($localization)
-    {
-        $this->localization = $localization;
-    }
+  /**
+   * @param mixed $email
+   */
+  public function setEmail($email)
+  {
+    $this->email = $email;
+  }
+
+  /**
+   * @return mixed
+   */
+  public function getDescription()
+  {
+    return $this->description;
+  }
+
+  /**
+   * @param mixed $description
+   */
+  public function setDescription($description)
+  {
+    $this->description = $description;
+  }
 
 }

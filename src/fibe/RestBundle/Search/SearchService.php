@@ -8,7 +8,7 @@ namespace fibe\RestBundle\Search;
 
 use Doctrine\Common\Annotations\Reader;
 use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\Query\Expr\OrderBy;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 
 class SearchService implements SearchServiceInterface
 {
@@ -35,13 +35,14 @@ class SearchService implements SearchServiceInterface
     {
         $searchFields = $this->getSearchFields($entityClassName);
         $entityRepository = $this->em->getRepository($entityClassName);
-        $qb = $entityRepository->createQueryBuilder('qb')  //add select and array for JSON
+      $qb = $entityRepository->createQueryBuilder('qb')
         ->setMaxResults($limit)
-            ->setFirstResult($offset);
+        ->setFirstResult($offset);
 
         //Add filter from input query
         if($query != null) {
 
+          //searches on some entities must be case insensitive
             $forceCI = in_array($entityClassName, $this->forceCIon);
             foreach ($searchFields as $searchField) {
                 if ($forceCI) {
@@ -68,7 +69,16 @@ class SearchService implements SearchServiceInterface
         }
 
 
-        return $qb->getQuery()->getResult();
+      $results = $qb->getQuery()->getResult();
+
+      $count = count(new Paginator($qb->getQuery(), true));
+      return array(
+        'query' => $query,
+        'results' => $results,
+        'count' => $count,
+        'limit' => $limit,
+        'offset' => $offset
+      );
     }
 
     /**

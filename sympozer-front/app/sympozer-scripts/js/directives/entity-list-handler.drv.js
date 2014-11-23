@@ -31,7 +31,10 @@ angular.module('sympozerApp').directive('entityListHandler', ['GLOBAL_CONFIG', '
 
             //The type of entity to load (papers/events/persons...)
             var childEntityLbl = attrs.entityListHandler,
-                reset = false
+                reset = false,
+                //offset is the row number to start the results set from
+                //use fetchPage(pageNb, reset) to change this value for infinitescroll and pagination
+                offset = parseInt(attrs.offset) || 0
                 ;
 
             //Initialize the options
@@ -41,21 +44,20 @@ angular.module('sympozerApp').directive('entityListHandler', ['GLOBAL_CONFIG', '
             scope.orderBy = attrs.orderBy || "label";
             //orderSide is ASC (for ascendent) or DESC (for descendant)
             scope.orderSide = attrs.orderSide || "ASC";
-            //offset is the row number to start the results set from
-            scope.offset = parseInt(attrs.offset) || -20;
             //Limit is the results set size
             scope.limit = parseInt(attrs.limit) || 20;
+            //currentPage is the page to fetch. must be exposed to be watched by bootstrap ui pagination
+            scope.currentPage = 1;
             //Busy is use by the infinite-scroll directive to manage scroll event listenning
             scope.busy = false;
 
             //scope.load is the search function triggered by infinite-scroll directive when a scroll event is detected and busy is false
             scope.load = search;
 
-            //Initialize reset all parameters
-            scope.initialize = initialize;
-
             //put sendQuery function in scope for reuse
             scope.sendQuery = sendQuery;
+            //put goToPage function in scope for reuse
+            scope.fetchPage = fetchPage;
             //put order function in scope for reuse
             scope.order = order;
             //put filter function in scope for reuse
@@ -66,21 +68,29 @@ angular.module('sympozerApp').directive('entityListHandler', ['GLOBAL_CONFIG', '
             scope.sendQuery();
             function initialize()
             {
-                scope.offset = -(scope.limit);
+                offset = 0;
             }
 
             //Called when a query is type
             function sendQuery(query)
             {
-                scope.initialize();
+                initialize();
                 scope.query = query;
                 search(true);
+            }
+
+            //called by pagination && ininiteScroll
+            function fetchPage(page, reset)
+            {
+                scope.currentPage = page;
+                offset = (page - 1) * scope.limit;
+                search(reset);
             }
 
             //Called when an order parameters is changed
             function order(orderBy, orderSide)
             {
-                scope.initialize();
+                initialize();
                 scope.orderBy = orderBy;
                 scope.orderSide = orderSide;
                 search(true);
@@ -89,7 +99,7 @@ angular.module('sympozerApp').directive('entityListHandler', ['GLOBAL_CONFIG', '
             //Called when a filter changes (scope.filters are managed by the list controller)
             function filter()
             {
-                scope.initialize();
+                initialize();
                 search(true);
             }
 
@@ -103,9 +113,6 @@ angular.module('sympozerApp').directive('entityListHandler', ['GLOBAL_CONFIG', '
                 //a request is now pending, infinite-scroll stops listenning on scroll event
                 scope.busy = true;
 
-                //increasing offset
-                scope.offset = scope.offset + scope.limit;
-
                 //send request to search service with parameters
                 searchService.doSearch({
                     entitiesLbl: childEntityLbl,
@@ -113,38 +120,36 @@ angular.module('sympozerApp').directive('entityListHandler', ['GLOBAL_CONFIG', '
                 }, {
                     request: scope.request,
                     query: scope.query,
-                    offset: scope.offset,
+                    offset: offset,
                     limit: scope.limit,
                     orderBy: scope.orderBy,
                     filters: scope.filters,
                     routeParams: $routeParams,
                     orderSide: scope.orderSide
                 });
+
+                //increasing offset
+                offset = offset + scope.limit;
             }
 
             //Manage the results set coming back from the server
             function callback(data)
             {
+                var items = data.results;
+                scope.count = data.count;
+
+                //Copy results set into scope.entities for display
                 //if reset specified, clear the data object entities
                 if (reset)
                 {
-                    scope.entities = [];
+                    scope.entities = items;
                 }
-
-
-                var items = data;
-
-                //Copy results set into scope.entities for display
-                for (var i = 0; i < items.length; i++)
+                else
                 {
-                    scope.entities.push(items[i]);
+                    angular.extend(scope.entities, items);
                 }
 
-                //Infinite scroll directive starts listening on scroll event again
-                if (items.length > 1)
-                {
-                    scope.busy = false;
-                }
+                scope.busy = false;
             }
         }
     };

@@ -6,7 +6,7 @@
 angular.module('teammatesApp').controller('teammatesDeleteCtrl',
     [ '$scope', 'teammateModel', 'teammatesFact', 'pinesNotifications', 'translateFilter', function ($scope, teammateModel, teammatesFact, pinesNotifications, translateFilter)
     {
-        $scope.teammate = teammateModel;
+        $scope.teammate = new teammatesFact(teammateModel);
 
         var success = function (response, args)
         {

@@ -16,9 +16,9 @@ angular.module('sympozerApp').directive('sympozerAutocomplete', [
     {
         return {
             template: '<div ng-include="templateUrl" ></div>',
-            scope: {
+            scope   : {
                 onSelect: "=",
-                onKeyup: "="
+                onKeyup : "="
             },
 
             link: function (scope, element, attrs)
@@ -50,9 +50,10 @@ angular.module('sympozerApp').directive('sympozerAutocomplete', [
 
                     //Promise needed by the typeahead directive, resolved when something is selected
                     var deferred = $q.defer();
-                    scope.onKeyup(requestParams, function(data) {
-                        data.push({label : ""});
-                        deferred.resolve(data);
+                    scope.onKeyup(requestParams, function (data)
+                    {
+                        data.results.push({label: ""});
+                        deferred.resolve(data.results);
                     });
                     return deferred.promise;
                 };

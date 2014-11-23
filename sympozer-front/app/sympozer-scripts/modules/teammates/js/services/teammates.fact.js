@@ -19,8 +19,8 @@ angular.module('teammatesApp').factory('teammatesFact',
                  update         : {method: 'PUT', url: globalConfig.api.urls.get_teammates + '/:id', params: {id: '@id'}, isArray: false},
                  patch          : {method: 'PATCH', url: globalConfig.api.urls.get_teammates + '/:id', params: {id: '@id'}, isArray: false},
                  delete         : {method: 'DELETE', url: globalConfig.api.urls.get_teammates + '/:id', params: {id: '@id'}, isArray: false},
-                 all            : {method: 'GET', params: {}, isArray: true},
-                 allByConference: {method: 'GET', url: globalConfig.api.urls.get_mainEvents + '/:mainEventId/teammates', params: {'mainEventId': '@mainEventId'}, isArray: true}
+                 all            : {method: 'GET', params: {}},
+                 allByConference: {method: 'GET', url: globalConfig.api.urls.get_mainEvents + '/:mainEventId/teammates', params: {'mainEventId': '@mainEventId'}}
 
              }
          );

@@ -3,7 +3,6 @@
 namespace fibe\CommunityBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\Event\PreFlushEventArgs;
 use Doctrine\ORM\Mapping as ORM;
 use fibe\ContentBundle\Entity\Paper;
 use fibe\ContentBundle\Entity\Role;
@@ -149,31 +148,6 @@ class Person extends AdditionalInformations
     $this->accounts = new ArrayCollection();
     $this->mainEvents = new ArrayCollection();
     $this->guests = new ArrayCollection();
-  }
-
-  /**
-   * cascade updates on localization
-   * @ORM\PreFlush
-   */
-  public function updateLocalization(PreFlushEventArgs $eventArgs)
-  {
-    if (!$this->getId() || !$this->getLocalization())
-    {
-      return;
-    }
-    $em = $eventArgs->getEntityManager();
-    $uow = $em->getUnitOfWork();
-    try
-    {
-
-      $uow->recomputeSingleEntityChangeSet(
-        $em->getClassMetadata(get_class($this->getLocalization())),
-        $this->getLocalization()
-      );
-    } catch (\RuntimeException $e)
-    {
-      //append in sonata admin bundle
-    }
   }
 
   /**

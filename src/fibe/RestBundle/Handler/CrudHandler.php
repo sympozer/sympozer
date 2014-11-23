@@ -8,6 +8,7 @@ use FOS\RestBundle\Request\ParamFetcherInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class CrudHandler
@@ -103,6 +104,10 @@ class CrudHandler
 
   protected function validateAction($method, $entity)
   {
+    if (!$entity)
+    {
+      throw new NotFoundHttpException("entity not found");
+    }
     switch ($method)
     {
       case "PUT":
@@ -161,4 +166,5 @@ class CrudHandler
     $this->em->remove($entity);
     $this->em->flush($entity);
   }
+
 }
