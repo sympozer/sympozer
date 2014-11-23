@@ -443,6 +443,7 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
             },
             model: {
                 label: 'Label',
+                localization: 'localization',
                 country: 'Country',
                 city: 'City',
                 website: 'Website',
@@ -985,6 +986,7 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
             },
             model: {
                 label: 'Label',
+                localization: 'localization',
                 country: 'Pays',
                 city: 'Ville',
                 website: 'Site web',

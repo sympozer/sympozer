@@ -124,8 +124,8 @@
                 <div class="panel-body">
                     <panel panel-class="panel panel-gray"  heading="{{person.firstName || '???'}} {{person.familyName || '???'}}">
                         <div class="row">
-                            <div class="col-xs-5 col-sm-4 col-md-3 col-lg-2">
-                                <div ng-click="showImgModal()" class="caption-img" ng-mouseleave="showImgCaption=false" ng-show="showImgCaption">
+                            <div  ng-click="showImgModal()" class="col-xs-5 col-sm-4 col-md-3 col-lg-2">
+                                <div class="caption-img" ng-mouseleave="showImgCaption=false" ng-show="showImgCaption">
                                     <i class="fa fa-plus-circle fa-3x"></i>
                                     <p>{{'persons.actions.add_picture' | translate }}</p>
                                 </div>
