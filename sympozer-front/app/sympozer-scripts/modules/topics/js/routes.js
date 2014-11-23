@@ -4,24 +4,24 @@
 // *
 // * @type {config}
 // */
-//angular.module('topicsApp')
-//  .config(
-//  ['$routeProvider',
-//    function ($routeProvider)
-//    {
-//      $routeProvider
-//        .when('/topics/list', {
-//          templateUrl: globalConfig.app.modules.topics.urls.partials + 'topics-list.html',
-//          controller: 'topicsListCtrl'
-//        })
+angular.module('topicsApp')
+  .config(
+  ['$routeProvider',
+    function ($routeProvider)
+    {
+      $routeProvider
+        .when('/home/topics/show/:topicId', {
+          templateUrl: globalConfig.app.modules.topics.urls.partials + 'topics-show.html',
+          controller: 'topicShowCtrl'
+        })
 //        .when('/topics/thumbnail', {
 //          templateUrl: globalConfig.app.modules.topics.urls.partials + 'topics-thumbnail.html',
 //          controller: 'topicsListCtrl'
 //        })
-//        .when('/topics/new', {
-//          templateUrl: globalConfig.app.modules.topics.urls.partials + 'topics-new.html',
-//          controller: 'topicsNewCtrl'
-//        })
+        .when('/home/topics/new', {
+          templateUrl: globalConfig.app.modules.topics.urls.partials + 'topics-new.html',
+          controller: 'topicsNewCtrl'
+        });
 //        .when('/topics/edit/:topicId', {
 //          templateUrl: globalConfig.app.modules.topics.urls.partials + 'topics-edit.html',
 //          controller: 'topicsEditCtrl'
@@ -33,5 +33,5 @@
 //        .otherwise({
 //          redirectTo: '/topics/list'
 //        });
-//    }
-//  ]);
+  }
+ ]);

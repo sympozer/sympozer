@@ -29,6 +29,11 @@ sympozerApp.controller('navMainCtrl', ['$scope', '$location', '$timeout', '$glob
       label: 'papers.links.papers',
       iconClasses: 'glyphicon glyphicon-book',
       url: '#/home/papers/index'
+    },
+    {
+      label: 'topics.links.topics',
+      iconClasses: 'glyphicon glyphicon-tags',
+      url: '#/home/topics/index'
     }
   ];
   // Initialize the basic menu

@@ -1,4 +1,12 @@
-<div>
-    <label for="inputLabel">{{ 'topics.model.label' | translate }}</label>
-    <input type="text" class="form-control" id="inputLabel" placeholder="{{ 'topics.model.label' | translate }}" ng-model="topic.label" required>
+<div id="page-heading">
+ <div ng-include="GLOBAL_CONFIG.app.urls.partials+'navigation/breadcrumb.html'"></div>
+	<div>
+	    <label for="inputLabel">{{ 'topics.model.label' | translate }}</label>
+	    <input type="text" class="form-control" id="inputLabel" placeholder="{{ 'topics.model.label' | translate }}" ng-model="topic.label" required>
+	</div>
 </div>
+
+
+   
+
+    
