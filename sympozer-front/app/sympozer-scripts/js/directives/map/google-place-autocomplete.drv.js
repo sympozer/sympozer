@@ -23,7 +23,7 @@ angular.module('sympozerApp').directive('googlePlaceAutocomplete', function() {
                 componentRestrictions: {}
             };
 
-            //Declare new google map object and trigger the search with entered text (element[0])
+            //Declare new google map object and attach it to the dom element (element[0])
             scope.gPlace = new google.maps.places.Autocomplete(element[0], options);
 
             //Transform google raw results into a controlled object containing localization info

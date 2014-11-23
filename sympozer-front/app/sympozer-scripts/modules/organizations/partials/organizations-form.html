@@ -1,20 +1,32 @@
-<div>
-    <label for="inputLabel">{{ 'organizations.model.label' | translate}}</label>
-    <input type="text" class="form-control" id="inputLabel" required placeholder="{{organization.label}}" ng-model="organization.label">
-</div>
-<div>
-    <label for="inputWebsite">{{ 'organizations.model.website' | translate}}</label>
-    <input type="text" class="form-control" id="inputWebsite" placeholder="{{organization.website}}" ng-model="organization.website">
+<div class="form-group">
+    <label  class="col-sm-3 control-label"  for="inputImg">{{ 'organizations.model.img' | translate}}</label>
+    <div class="col-sm-6">
+        <img ng-src="{{organization.img}}" class="img-responsive">
+        <input type="url" class="form-control" id="inputImg" placeholder="http://" ng-model="organization.img">
+    </div>
 </div>
 <div class="form-group">
-    <label for="inputCountry">{{ 'organizations.model.country' | translate}}</label>
-    <input type="text" class="form-control" id="inputCountry" placeholder="{{organization.country}}" ng-model="organization.country">
+    <label  class="col-sm-3 control-label"  for="inputLabel">{{ 'organizations.model.label' | translate}}</label>
+    <div class="col-sm-6">
+        <input type="text" class="form-control" id="inputLabel" required="" placeholder="{{ 'organizations.model.label' | translate }}" ng-model="organization.label">
+    </div>
+</div>
+
+<div class="form-group">
+    <label  class="col-sm-3 control-label"  for="inputWebsite">{{ 'organizations.model.website' | translate}}</label>
+    <div class="col-sm-6">
+        <input type="url" class="form-control" id="inputWebsite" placeholder="http://" ng-model="organization.website">
+    </div>
 </div>
 <div class="form-group">
-    <label for="inputImg">{{ 'organizations.model.img' | translate}}</label>
-    <input type="text" class="form-control" id="inputImg" placeholder="{{organization.img}}" ng-model="organization.img">
+    <label  class="col-sm-3 control-label"  name="inputLocalization" for="inputLocalization">{{ 'organizations.model.localization' | translate}}</label>
+    <div class="col-sm-6">
+        <input google-place-autocomplete  type="text"  on-select="setLocalization" class="form-control" id="inputLocalization" placeholder="{{ 'organizations.model.localization' | translate}}" ng-model="organization.localization.label">
+    </div>
 </div>
-<div>
-    <label for="inputDescription">{{ 'organizations.model.description' | translate}}</label>
-    <textarea  class="form-control" id="inputDescription" placeholder="{{organization.description}}" ng-model="organization.description"></textarea>
+<div class="form-group">
+    <label  class="col-sm-3 control-label"  for="inputDescription">{{ 'organizations.model.description' | translate}}</label>
+    <div class="col-sm-6">
+        <textarea  class="form-control fullscreen" autosize id="inputDescription" placeholder="{{ 'organizations.model.description' | translate}}" ng-model="organization.description"></textarea>
+    </div>
 </div>
