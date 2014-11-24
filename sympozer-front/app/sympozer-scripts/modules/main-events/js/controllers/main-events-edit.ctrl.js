@@ -8,12 +8,13 @@ angular.module('mainEventsApp').controller('mainEventsEditCtrl', [ '$scope', '$r
     //Execute only if not in a modal context
     if(!$scope.$close){
 
-        //Fetch the mainEvent
-        $scope.mainEvent = mainEventsFact.get({id: $routeParams.mainEventId}, fetchSuccess);
-
         var fetchSuccess = function(mainEvent){
             geoCode(mainEvent.location.label);
         }
+
+
+        //Fetch the mainEvent
+        $scope.mainEvent = mainEventsFact.get({id: $routeParams.mainEventId}, fetchSuccess);
 
 
         //Mandatory for the map plugin gmap to work

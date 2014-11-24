@@ -1,0 +1,138 @@
+<!--&lt;!&ndash;<div ng-include="GLOBAL_CONFIG.app.modules.organizations.urls.partials+'organizations-actions.html'" ng-controller="organizationsMainCtrl"></div>&ndash;&gt;-->
+
+<!--<div class="well">-->
+    <!--<div class="row">-->
+        <!--<div class="col-sm-1 col-md-1 col-lg-1">-->
+            <!--<div class="img-container-lg">-->
+                <!--<img class="scale-img " no-image ng-src="{{ organization.img }}" alt="organization image">-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="col-sm-4 col-md-4 col-lg-4">-->
+            <!--<h3>{{organization.label || '???'}}</h3> <h5>{{organization.country || '???'}} {{organization.email || '???'}}</h5>-->
+            <!--<pre>{{organization.description || 'add a description'}}</pre>-->
+            <!--<a class="btn btn-info" href="#organizations/edit/{{organization.id}}" role="button">-->
+                <!--<i class="fa fa-edit fa-1x"></i> {{ 'organizations.actions.edit' | translate}}-->
+            <!--</a>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</div>-->
+
+<!--<div class="row">-->
+    <!--<div class="col-md-6 col-lg-6">-->
+        <!--<h1>{{organization.organizationVersions.organizationVersionOwner.length}} {{ 'organizations.labels.member' | translate}}</h1>-->
+        <!--<div ng-repeat="person in organization.organizationVersions.organizationVersionOwner track by $index" class="col-sm-6 col-md-6 col-lg-4 well">-->
+            <!--<div class="img-container-lg">-->
+                <!--<img class="scale-img " no-image ng-src="{{ person.img}}" alt="person img">-->
+            <!--</div>-->
+            <!--<h3>{{ person.label }}</h3>-->
+
+            <!--<p>{{ person.email }}</p>-->
+
+            <!--<p>{{ person.country }}</p>-->
+            <!--<a class="btn btn-warning" href="#persons/edit/{{ person.id }}" role="button"><i class="fa fa-edit fa-1x"></i></a>-->
+            <!--<a class="btn btn-default" href="#persons/show/{{ person.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<div class="col-md-3 col-lg-3">-->
+        <!--<h1>{{organization.sponsors.length}} Sponsors</h1>-->
+        <!--<div ng-repeat="sponsor in organization.sponsors track by $index" class="col-sm-6 col-md-6 col-lg-4 well">-->
+            <!--<div class="img-container-lg">-->
+                <!--<img class="scale-img " no-image ng-src="{{sponsor.logoPath}}" alt="Sponsor image">-->
+            <!--</div>-->
+            <!--<h3>{{ sponsor.label }}</h3>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</div>-->
+   <!---->
+
+
+<div id="page-heading">
+
+    <div ng-include="GLOBAL_CONFIG.app.urls.partials+'navigation/breadcrumb.html'"></div>
+
+    <h1>{{'organizations.links.organization' | translate }}</h1>
+
+    <div class="options">
+        <div class="btn-toolbar">
+            <!--<a class="btn btn-info" href="#/home/organizations/edit/{{organization.id}}" role="button">-->
+                <!--<i class="fa fa-edit fa-1x"></i> {{ 'organizations.actions.edit' | translate}}-->
+            <!--</a>-->
+            <!--<div class="btn-group hidden-xs" data-dropdown>-->
+            <!--<button class="btn btn-default dropdown-toggle" data-toggle='dropdown'>-->
+            <!--<i class="fa fa-cloud-download"></i><span class="hidden-sm"> Export as  </span><span class="caret"></span>-->
+            <!--</button>-->
+            <!--<ul class="dropdown-menu">-->
+            <!--<li><a href="#">Text File (*.txt)</a></li>-->
+            <!--<li><a href="#">Excel File (*.xlsx)</a></li>-->
+            <!--<li><a href="#">PDF File (*.pdf)</a></li>-->
+            <!--</ul>-->
+            <!--</div>-->
+            <!--<a href="#" class="btn btn-default"><i class="fa fa-cog"></i></a>-->
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel">
+                <div class="panel-body">
+                    <panel panel-class="panel panel-gray"  heading="{{organization.label}}">
+                        <div class="row">
+                            <div class="col-xs-5 col-sm-4 col-md-3 col-lg-2">
+                                <img  no-image ng-src="{{ organization.img }}" alt="" class="pull-left img-responsive img-circle" style="margin: 0 20px 20px 0">
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-10">
+                                <h3>{{'organizations.model.description' | translate }}</h3>
+                                <p>{{organization.description || '????'}}</p>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                <div class="table-responsive">
+                                    <table class="table table-condensed">
+                                        <tbody>
+                                        <tr>
+                                            <td>{{'organizations.model.city' | translate }}</td>
+                                            <td><span>{{organization.localization.city}}</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>{{'organizations.model.country' | translate }}</td>
+                                            <td><span>{{organization.localization.country}}</span></td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>{{'organizations.model.website' | translate }}</td>
+                                            <td><a href="{{organization.website}}">{{organization.website}}</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td>{{'organizations.model.email' | translate }}</td>
+                                            <td><a href="mailTo:{{organization.email}}">{{organization.email}}</a></td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>{{'persons.labels.social' | translate }}</td>
+                                            <td>
+                                                <!--<a href="#" class="btn btn-xs"><i class="fa fa-skype"></i></a>-->
+                                                <a href="#" class="btn btn-xs"><i class="fa fa-facebook"></i>{{person.facebook || ''}}</a>
+                                                <a href="#" class="btn btn-xs"><i class="fa fa-twitter"></i>{{person.twitter}}</a>
+                                                <!--<a href="#" class="btn btn-xs"><i class="fa fa-dribbble"></i></a>-->
+                                                <!--<a href="#" class="btn btn-xs"><i class="fa fa-tumblr"></i></a>-->
+                                                <a href="#" class="btn btn-xs"><i class="fa fa-linkedin"></i>{{person.linkedIn || ''}}</a>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </panel>
+                    <hr>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div> <!-- container -->
+
+

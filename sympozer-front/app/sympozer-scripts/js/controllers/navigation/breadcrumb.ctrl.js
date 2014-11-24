@@ -102,6 +102,16 @@ sympozerApp.controller('breadcrumbCtrl', ['$scope', '$location', function ($scop
                             label: 'papers.actions.index.subtitle'
                         }
                     ]
+                },
+                {
+                    idUrl: 'organizations',
+                    label: 'organizations.links.organizations',
+                    children: [
+                        {
+                            idUrl: 'index',
+                            label: 'organizations.actions.search'
+                        }
+                    ]
                 }
             ]
         }

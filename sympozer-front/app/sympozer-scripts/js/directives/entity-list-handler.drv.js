@@ -138,7 +138,7 @@ angular.module('sympozerApp').directive('entityListHandler', ['GLOBAL_CONFIG', '
                 var items = data.results;
                 scope.count = data.count;
 
-                //Copy results set into scope.entities for display
+                //Copy results set into scope.entities fœor display
                 //if reset specified, clear the data object entities
                 if (reset)
                 {

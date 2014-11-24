@@ -3,26 +3,40 @@
  *
  * @type {controller}
  */
-angular.module('organizationsApp').controller('organizationsEditCtrl', [ '$scope', '$window', '$rootScope', '$routeParams', '$location', 'organizationsFact', function ($scope, $window, $rootScope, $routeParams, $location, organizationsFact)
+angular.module('organizationsApp').controller('organizationsEditCtrl', [ '$scope', '$window', '$rootScope', '$routeParams', '$location', 'organizationsFact', 'pinesNotifications', 'translateFilter', function ($scope, $window, $rootScope, $routeParams, $location, organizationsFact, pinesNotifications, translateFilter)
 {
+    //Fetching organization
     $scope.organization = organizationsFact.get({id: $routeParams.organizationId});
 
+
+    //On error
     var error = function (response, args)
     {
-        $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'organizations.validations.not_created', type: 'danger'});
+        //Notify of error on organization post request
+        pinesNotifications.notify({
+            title: translateFilter('global.validations.error'),
+            text: translateFilter('organizations.validations.not_created'),
+            type: 'error'
+        });
     }
 
     var success = function (response, args)
     {
-        $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'organizations.validations.created', type: 'success'});
+        //Notify of error on post request
+        pinesNotifications.notify({
+            title: translateFilter('global.validations.success'),
+            text: translateFilter('organizations.validations.created'),
+            type: 'success'
+        });
         $window.history.back();
     }
 
+    //Send put request if organization form valid
     $scope.update = function (form)
     {
         if (form.$valid)
         {
-            $scope.organization.$update({}, success, error);
+            $scope.organization.$updateVersions({}, success, error);
         }
     }
 }]);
