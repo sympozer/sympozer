@@ -46,7 +46,7 @@ angular.module('sympozerApp').directive('entityListHandler', ['GLOBAL_CONFIG', '
             scope.orderSide = attrs.orderSide || "ASC";
             //Limit is the results set size
             scope.limit = parseInt(attrs.limit) || 20;
-            //currentPage is the page to fetch. must be exposed to be watched by bootstrap ui pagination
+            //currentPage is the page to fetch when use fetchPage(page). must be exposed to be watched by bootstrap ui pagination
             scope.currentPage = 1;
             //Busy is use by the infinite-scroll directive to manage scroll event listenning
             scope.busy = false;
@@ -110,7 +110,7 @@ angular.module('sympozerApp').directive('entityListHandler', ['GLOBAL_CONFIG', '
                 //param specifying if results set has to be cleared when new data received
                 reset = resetResults;
 
-                //a request is now pending, infinite-scroll stops listenning on scroll event
+                //a request is now pending, infinite-scroll stops listening on scroll event
                 scope.busy = true;
 
                 //send request to search service with parameters
