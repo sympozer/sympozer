@@ -1,0 +1,13 @@
+<div class="row" ng-controller="TwitterController">
+    <div class="col-xs-12" id="results">
+        <div class="row" ng-repeat="t in tweets">
+            <div class="col-xs-2 col-sm-1">
+                <img ng-src="{{t.user.profile_image_url}}" class="img-circle">
+            </div>
+            <div class="col-xs-10 col-sm-11">
+                <small>{{t.user.name}}</small>
+                <br>{{t.text}}
+            </div>
+        </div>
+    </div>
+</div>
