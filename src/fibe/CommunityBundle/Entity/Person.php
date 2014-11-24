@@ -105,27 +105,32 @@ class Person extends AdditionalInformations
   protected $mainEvents;
 
   /**
+   *
    * @ORM\OneToMany(targetEntity="SocialServiceAccount",  mappedBy="owner", cascade={"persist", "remove"})
    */
   protected $accounts;
+
   /**
+   *
    * @ORM\Column(type="string", length=256, nullable=true)
    */
   protected $slug;
 
   /**
-
-  * @ORM\Column(type="string", length=256, nullable=true)
-  * @Expose
-  */
+   *
+   * @ORM\Column(type="string", length=256, nullable=true)
+   * @Expose
+   */
   protected $twitterid;
 
   /**
-  * @ORM\Column(type="string", length=25, nullable=true)
-  * @Expose
-  */
+   *
+   * @ORM\Column(type="string", length=25, nullable=true)
+   * @Expose
+   */
   protected $chkTimeline;
 
+   /**
    * @ORM\OneToMany(targetEntity="fibe\EventBundle\Entity\MainEvent", mappedBy="owner")
    */
   protected $ownMainEvents;
@@ -741,4 +746,22 @@ class Person extends AdditionalInformations
   {
     $this->guests = $guests;
   }
+
+    /**
+     * Get papers
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPapers()
+    {
+        return $this->papers;
+    }
+
+    /**
+     * @param mixed $papers
+     */
+    public function setPapers($papers)
+    {
+        $this->papers = $papers;
+    }
 }
