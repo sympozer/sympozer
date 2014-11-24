@@ -3,18 +3,14 @@
  *
  * @type {controller}
  */
-angular.module('twitterApp').controller('twitterTimelineCtrl', [ '$scope', '$rootScope', '$routeParams', 'twitterFact',  function ($scope, $rootScope, $routeParams, twitterFact )
+angular.module('twitterApp').controller('twitterTimelineCtrl',
+    [ '$scope', '$rootScope', '$routeParams', 'twitterFact',
+        function ($scope, $rootScope, $routeParams, twitterFact )
 {
-    $scope.tweets; //array of tweets
+    console.log("init service twitter");
 
-    twitterFact.initialize();
+    console.log(globalConfig.app.modules.twitter.urls.getTimeline);
+    console.log(globalConfig.app.modules.twitter);
 
-    //using the OAuth authorization result get the latest 20 tweets from twitter for the user
-    $scope.refreshTimeline = function() {
-        twitterFact.getLatestTweets().then(function(data) {
-            $scope.tweets = data;
-            console.log($scope.tweets.length);
-        });
-    }
-
+    $scope.tweets = twitterFact.get({tag: "test"}); //array of tweets
 }]);

@@ -71,7 +71,6 @@ output='js/compiled/main.js' %}
 'bundles/frontend/app/js/controllers/nav-right.ctrl.js'
 'bundles/frontend/app/js/controllers/nav-top.ctrl.js'
 'bundles/frontend/app/js/controllers/home.ctrl.js'
-'bundles/frontend/app/js/controllers/twittertimeline.ctrl.js'
 
 'bundles/frontend/app/js/routes.js'
 
@@ -211,6 +210,9 @@ output='js/compiled/main.js' %}
 'bundles/frontend/app/modules/authentication/js/controllers/sign-out.ctrl.js'
 'bundles/frontend/app/modules/authentication/js/controllers/sign-up.ctrl.js'
 'bundles/frontend/app/modules/authentication/js/services/users.fact.js'
+
+'bundles/frontend/app/modules/twitterTimeline/js/controllers/twittertimeline.ctrl.js'
+'bundles/frontend/app/modules/twitterTimeline/js/services/twitter.fact.js'
 
 
 output='js/compiled/app.js' %}
@@ -367,6 +369,13 @@ output='js/compiled/app.js' %}
                         base: "{{ asset('bundles/frontend/app/modules/authentication/') }}",
                         partials: "{{ asset('bundles/frontend/app/modules/authentication/partials/') }}",
                         img: "{{ asset('bundles/frontend/app/modules/authentication/img') }}"
+                    }
+                },
+                twitter: {
+                    urls: {
+                        base: "{{ asset('bundles/frontend/app/modules/twitterTimeline/') }}",
+                        partials: "{{ asset('bundles/frontend/app/modules/twitterTimeline/partials/') }}",
+                        getTimeline: "{{ path('fibe_security_twitterapisearchtag_api') }}"
                     }
                 }
             }

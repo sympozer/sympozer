@@ -67,8 +67,5 @@
     </div>
 </div>
 
-
 <!-- Appel de la timeline correspondant a l'identifiant Twitter (# ou @) -->
-<div class="well" ng-if="person.chk_timeline && person.twitterid" ng-include="GLOBAL_CONFIG.app.urls.partials+'layout/twittertimeline.html'"
-     ng-controller="twitterTimelineCtrl"
-     ng-init="getTweets(person.twitterid)"></div>
+<div class="well" ng-include="GLOBAL_CONFIG.app.modules.twitter.urls.partials + 'twitterTimeline-show.html'"/>
