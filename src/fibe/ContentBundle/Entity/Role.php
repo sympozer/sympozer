@@ -2,15 +2,14 @@
 namespace fibe\ContentBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use fibe\CommunityBundle\Entity\Person;
+use fibe\EventBundle\Entity\MainEvent;
+use fibe\EventBundle\Entity\VEvent;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
 use JMS\Serializer\Annotation\SerializedName;
-use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use fibe\EventBundle\Entity\MainEvent;
-use fibe\EventBundle\Entity\VEvent;
-
-use fibe\CommunityBundle\Entity\Person;
+use Symfony\Component\Validator\Constraints as Assert;
 
 
 /**
@@ -89,46 +88,21 @@ class Role
     {
         $eventLabel = $this->getEvent() ? $this->getEvent()->getlabel(): $this->getMainEvent()->getlabel();
         $this->setLabel(sprintf("%s is %s at %s",
-            $this->getPerson()->getlabel(),
+          $this->getPerson()->getLabel(),
             $this->getRoleLabelVersion()->getlabel(),
             $eventLabel
 
         ));
     }
 
-
     /**
-     * Get id
+     * Get event
      *
-     * @return integer
+     * @return VEvent
      */
-    public function getId()
+  public function getEvent()
     {
-        return $this->id;
-    }
-
-    /**
-     * Set person
-     *
-     * @param Person $person
-     *
-     * @return Role
-     */
-    public function setPerson(Person $person = null)
-    {
-        $this->person = $person;
-
-        return $this;
-    }
-
-    /**
-     * Get person
-     *
-     * @return Person
-     */
-    public function getPerson()
-    {
-        return $this->person;
+      return $this->event;
     }
 
     /**
@@ -140,57 +114,9 @@ class Role
      *
      * @return Role
      */
-    public function setEvent(VEvent $event = null)
-    {
-        $this->event = $event;
-
-        return $this;
-    }
-
-    /**
-     * Get event
-     *
-     * @return VEvent
-     */
-    public function getEvent()
-    {
-        return $this->event;
-    }
-
-    /**
-     * Set type
-     *
-     * @param String $label
-     *
-     * @return String
-     */
-    public function setLabel($label)
-    {
-        $this->label = $label;
-
-        return $this;
-    }
-
-    /**
-     * Get type
-     *
-     * @return String
-     */
-    public function getLabel()
-    {
-        return $this->label;
-    }
-
-    /**
-     * Set mainEvent
-     *
-     * @param MainEvent $mainEvent
-     *
-     * @return Role
-     */
-    public function setMainEvent(MainEvent $mainEvent)
-    {
-        $this->mainEvent = $mainEvent;
+  public function setEvent(VEvent $event = null)
+  {
+    $this->event = $event;
 
         return $this;
     }
@@ -200,27 +126,98 @@ class Role
      *
      * @return MainEvent
      */
-    public function getMainEvent()
+  public function getMainEvent()
     {
-        return $this->mainEvent;
+      return $this->mainEvent;
+    }
+
+    /**
+     * Set mainEvent
+     *
+     * @param MainEvent $mainEvent
+     *
+     * @return Role
+     */
+  public function setMainEvent(MainEvent $mainEvent)
+    {
+      $this->mainEvent = $mainEvent;
+
+        return $this;
+    }
+
+    /**
+     * Get person
+     *
+     * @return Person
+     */
+  public function getPerson()
+    {
+      return $this->person;
+    }
+
+    /**
+     * Set person
+     *
+     * @param Person $person
+     *
+     * @return Role
+     */
+  public function setPerson(Person $person = null)
+  {
+    $this->person = $person;
+
+        return $this;
     }
 
     /**
      * @return mixed
      */
-    public function getRoleLabelVersion()
+  public function getRoleLabelVersion()
     {
-        return $this->roleLabelVersion;
+      return $this->roleLabelVersion;
     }
 
     /**
      * @param mixed $roleLabelVersion
      */
-    public function setRoleLabelVersion($roleLabelVersion)
+  public function setRoleLabelVersion($roleLabelVersion)
     {
-        $this->roleLabelVersion = $roleLabelVersion;
+      $this->roleLabelVersion = $roleLabelVersion;
     }
 
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+  public function getId()
+    {
+      return $this->id;
+    }
+
+    /**
+     * Get type
+     *
+     * @return String
+     */
+  public function getLabel()
+    {
+      return $this->label;
+    }
+
+    /**
+     * Set type
+     *
+     * @param String $label
+     *
+     * @return String
+     */
+  public function setLabel($label)
+    {
+      $this->label = $label;
+
+      return $this;
+    }
 
     public function __toString()
     {

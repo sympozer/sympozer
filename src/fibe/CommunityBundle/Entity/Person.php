@@ -197,7 +197,7 @@ class Person extends AdditionalInformations
    *
    * @return string
    */
-  public function getlabel()
+  public function getLabel()
   {
     return $this->label;
   }

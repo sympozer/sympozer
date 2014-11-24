@@ -2,9 +2,8 @@
 
 namespace fibe\SecurityBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
-
+use Doctrine\ORM\Mapping as ORM;
 use fibe\CommunityBundle\Entity\Person;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
@@ -12,11 +11,18 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="fibe\SecurityBundle\Repository\TeammateRepository")
+ * @ORM\HasLifecycleCallbacks
  * @ORM\Table
  * @ExclusionPolicy("ALL")
  */
 class Teammate
 {
+
+  /**
+   * @ORM\Column(type="string")
+   */
+  protected $label;
+
   /**
    * @ORM\Id
    * @ORM\Column(type="integer")
@@ -53,6 +59,25 @@ class Teammate
     $this->confPermissions = new ArrayCollection();
   }
 
+  /**
+   * @ORM\PrePersist()
+   * @ORM\PreUpdate()
+   */
+  public function labelize()
+  {
+    $this->setLabel(
+      sprintf("%s (%s)", $this->getPerson()->getLabel(), $this->getPerson()->getEmail())
+    );
+  }
+
+  /**
+   * @return Person
+   */
+  public function getPerson()
+  {
+    return $this->person;
+  }
+
   public function setPerson(Person $user)
   {
     $this->person = $user;
@@ -77,11 +102,19 @@ class Teammate
   }
 
   /**
-   * @return Person
+   * @return mixed
    */
-  public function getPerson()
+  public function getLabel()
   {
-    return $this->person;
+    return $this->label;
+  }
+
+  /**
+   * @param mixed $label
+   */
+  public function setLabel($label)
+  {
+    $this->label = $label;
   }
 
   /**
