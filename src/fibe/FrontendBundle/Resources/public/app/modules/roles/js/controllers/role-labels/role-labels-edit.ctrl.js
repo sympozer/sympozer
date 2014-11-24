@@ -10,12 +10,12 @@ angular.module('roleLabelsApp').controller('roleLabelsEditCtrl',
 
         var error = function (response, args)
         {
-            $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'the roleLabel has not been saved', type: 'danger'});
+            $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'roleLabelVersions.validations.not_created', type: 'danger'});
         };
 
         var success = function (response, args)
         {
-            $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'roleLabel saved', type: 'success'});
+            $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'roleLabelVersions.validations.created', type: 'success'});
             $window.history.back();
         };
 

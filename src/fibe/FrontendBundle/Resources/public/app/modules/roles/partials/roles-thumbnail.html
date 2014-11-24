@@ -1,5 +1,5 @@
 <div ng-include="GLOBAL_CONFIG.app.modules.roles.urls.partials+'roles-actions.html'"></div>
-<div ng-include="GLOBAL_CONFIG.app.modules.roleLabels.urls.partials+'roleLabels-filter.html'" ></div>
+<div ng-include="GLOBAL_CONFIG.app.modules.roleLabelVersions.urls.partials+'roleLabelVersions-filter.html'" ></div>
 
 <div class="row" entity-list-handler="roles" infinite-scroll='load()' infinite-scroll-disabled='busy' infinite-scroll-distance='0.5'>
     <div ng-repeat="role in entities  track by $index" class="col-sm-6 col-md-6 col-lg-4 well">

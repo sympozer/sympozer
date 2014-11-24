@@ -10,12 +10,12 @@ angular.module('rolesApp').controller('rolesEditCtrl',
 
         var error = function (response, args)
         {
-            $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'the role has not been saved', type: 'danger'});
+            $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'roles.validations.not_created', type: 'danger'});
         };
 
         var success = function (response, args)
         {
-            $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'role saved', type: 'success'});
+            $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'roles.validations.created', type: 'success'});
             $window.history.back();
         };
 
@@ -55,7 +55,7 @@ angular.module('rolesApp').controller('rolesEditCtrl',
         $scope.addRoleLabel = function(roleLabelModel){
             if(!roleLabelModel.id) {
                 var modalInstance = $modal.open({
-                    templateUrl: GLOBAL_CONFIG.app.modules.roleLabels.urls.partials + 'roleLabels-modal-form.html',
+                    templateUrl: GLOBAL_CONFIG.app.modules.roleLabelVersions.urls.partials + 'roleLabelVersions-modal-form.html',
                     controller: 'roleLabelsNewCtrl',
                     size: "large",
                     resolve: {

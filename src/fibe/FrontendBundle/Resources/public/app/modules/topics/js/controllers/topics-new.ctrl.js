@@ -10,12 +10,12 @@ angular.module('topicsApp').controller('topicsNewCtrl', [ '$scope', '$rootScope'
         $scope.topic = new topicsFact();
         var error = function (response, args)
         {
-            $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'the topic has not been created', type: 'danger'});
+            $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'topics.validations.not_created', type: 'danger'});
         }
 
         var success = function (response, args)
         {
-            $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'topic created', type: 'success'});
+            $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'topics.validations.created', type: 'success'});
             if($scope.$close){
                 $scope.$close($scope.topic);
             }else{

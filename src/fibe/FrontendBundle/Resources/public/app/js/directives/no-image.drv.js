@@ -6,26 +6,35 @@
  *  <img no-image ng-src="{product.imageUrl}}" />
  *
  */
-angular.module('sympozerApp').directive('noImage', ['$rootScope', function ($rootScope) {
+angular.module('sympozerApp').directive('noImage', ['$rootScope', function ($rootScope)
+{
 
-    var setDefaultImage = function (el) {
-        el.attr('src', $rootScope.GLOBAL_CONFIG.app.urls.img+'no-picture.jpg');
-    };
+  var setDefaultImage = function (el)
+  {
+    el.attr('src', $rootScope.GLOBAL_CONFIG.app.urls.img + 'no-picture.jpg');
+  };
 
-    return {
-        restrict: 'A',
-        link: function (scope, el, attr) {
-            scope.$watch(function() {
-                return attr.ngSrc;
-            }, function () {
-                var src = attr.ngSrc;
+  return {
+    restrict: 'A',
+    link: function (scope, el, attr)
+    {
+      scope.$watch(function ()
+      {
+        return attr.ngSrc;
+      }, function ()
+      {
+        var src = attr.ngSrc;
 
-                if (!src) {
-                    setDefaultImage(el);
-                }
-            });
-
-            el.bind('error', function() { setDefaultImage(el); });
+        if (!src)
+        {
+          setDefaultImage(el);
         }
-    };
+      });
+
+      el.bind('error', function ()
+      {
+        setDefaultImage(el);
+      });
+    }
+  };
 }]);

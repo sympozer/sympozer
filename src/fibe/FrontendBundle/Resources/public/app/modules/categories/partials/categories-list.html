@@ -3,9 +3,9 @@
     <table class="table table-striped">
         <thead>
         <tr>
-            <th>Label<i class="fa fa-sort-asc" ng-click="order('label','ASC')"></i><i class="fa fa-sort-desc" ng-click="order('label','DESC')"></i></th>
-            <th>Description</th>
-            <th>Color</th>
+            <th>{{ 'categories.model.label' | translate }}<i class="fa fa-sort-asc" ng-click="order('label','ASC')"></i><i class="fa fa-sort-desc" ng-click="order('label','DESC')"></i></th>
+            <th>{{ 'categories.model.description' | translate }}</th>
+            <th>{{ 'categories.model.color' | translate }}</th>
         </tr>
         </thead>
         <tbody infinite-scroll='load()' infinite-scroll-disabled='busy' infinite-scroll-distance='0.5'>

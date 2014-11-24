@@ -8,6 +8,7 @@ Sympozer is an Angular/Symfony web application allowing event organizers to mana
 	Apache Server, php, database (mysql postgres).
 	Git : http://git-scm.com/.
 	Composer :  http://getcomposer.org/download/.
+	Grunt
 
 #Installation guide
 	
@@ -43,13 +44,13 @@ Next, create a parameters.yml file with this text :
 For  "database_user" put your mysql user name, and "database_password" , and use your mysql password.
 After that, save and add this file to : app/config
 
-##Quick initialize (linux)
+##step 1 : Quick initialize (linux)
 
-    ./reset.sh
     php ./vendor/sensio/distribution-bundle/Sensio/Bundle/DistributionBundle/Resources/bin/build_bootstrap.php
+    ./reset.sh
     ./cache.sh
 
-##Step-by-step initialize
+##step 1 : Step-by-step initialize
 ####Initialize db, generate assets
 
     php app/console doctrine:database:create
@@ -67,6 +68,13 @@ After that, save and add this file to : app/config
 ####generate bootstrap.php.cache
 
     php ./vendor/sensio/distribution-bundle/Sensio/Bundle/DistributionBundle/Resources/bin/build_bootstrap.php
+
+##step 2 : FrontEnd dependencies
+
+    cd src/fibe/FrontendBundle/Resources/public/
+    sudo mkdir vendors
+    sudo chmod 777 vendors/
+    bower install
 
 Start your Apache server and go to :
 

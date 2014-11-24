@@ -1,65 +1,73 @@
 <?xml version="1.0" ?>
 
-<container xmlns="http://symfony.com/schema/dic/services"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+<container xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns="http://symfony.com/schema/dic/services"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
-    <parameters>
-        <parameter key="serialize_exception_listener.class">fibe\RestBundle\Listener\SerializeExceptionListener</parameter>
-        <parameter key="authentication_handler.class">fibe\RestBundle\Handler\AuthenticationHandler</parameter>
+  <parameters>
+    <parameter key="serialize_exception_listener.class">fibe\RestBundle\Listener\SerializeExceptionListener</parameter>
+    <parameter key="authentication_handler.class">fibe\RestBundle\Handler\AuthenticationHandler</parameter>
 
-        <parameter key="fibe.rest.crudhandler.class">fibe\RestBundle\Handler\CrudHandler</parameter>
-        <parameter key="fibe.rest.searchservice.class">fibe\RestBundle\Search\SearchService</parameter>
-        <parameter key="fibe.rest.collection.type.class">fibe\RestBundle\Form\GetOrCreateCollectionType</parameter>
-        <parameter key="fibe.rest.entity.type.class">fibe\RestBundle\Form\GetOrCreateEntityType</parameter>
-        <!--<parameter key="app.cors_listener.class">fibe\RestBundle\Listener\CorsListener</parameter>-->
-    </parameters>
+    <parameter key="fibe.rest.crudhandler.class">fibe\RestBundle\Handler\CrudHandler</parameter>
+    <parameter key="fibe.rest.business_service.class">fibe\RestBundle\Services\AbstractBusinessService</parameter>
 
-    <services>
-        <!-- ajax login -->
-        <service id="authentication_handler" class="%authentication_handler.class%">
-            <argument type="service" id="router" />
-            <argument type="service" id="security.context" />
-            <argument type="service" id="fos_user.user_manager" />
-            <argument type="service" id="translator" />
-            <argument type="service" id="jms_serializer" />
-        </service>
+    <parameter key="fibe.rest.searchservice.class">fibe\RestBundle\Search\SearchService</parameter>
+    <parameter key="acl_serialize_listener.class">fibe\RestBundle\Listener\ACLSerializationListener</parameter>
+    <!--<parameter key="app.cors_listener.class">fibe\RestBundle\Listener\CorsListener</parameter>-->
+  </parameters>
 
-        <!-- generic crud handler-->
-        <service id="fibe.rest.crudhandler" class="%fibe.rest.crudhandler.class%">
-            <argument type="service" id="service_container" />
-        </service>
+  <services>
+    <!-- ajax login -->
+    <service id="authentication_handler" class="%authentication_handler.class%">
+      <argument type="service" id="router"/>
+      <argument type="service" id="security.context"/>
+      <argument type="service" id="fos_user.user_manager"/>
+      <argument type="service" id="translator"/>
+      <argument type="service" id="jms_serializer"/>
+    </service>
 
-        <!-- search service-->
-        <service id="fibe.rest.searchservice" class="%fibe.rest.searchservice.class%">
-            <argument type="service" id="doctrine.orm.entity_manager" />
-            <argument type="service" id="annotations.reader" />
-        </service>
+    <!-- generic crud handler-->
+    <service id="fibe.rest.crudhandler" class="%fibe.rest.crudhandler.class%">
+      <argument type="service" id="service_container"/>
+    </service>
 
-        <!-- rest type service for collection -->
-        <service id="fibe.rest.collection.type" class="%fibe.rest.collection.type.class%">
-            <argument type="service" id="doctrine.orm.entity_manager" />
-            <tag name="form.type" alias="fibe_restbundle_collection_type" />
-        </service>
+    <!-- abstract business service-->
+    <service id="fibe.rest.business_service" class="%fibe.rest.business_service.class%" abstract="true">
+      <call method="setEntityManager">
+        <argument type="service" id="doctrine.orm.entity_manager"/>
+      </call>
+      <call method="setReader">
+        <argument type="service" id="annotations.reader"/>
+      </call>
+    </service>
 
-        <!-- rest type service for entities -->
-        <service id="fibe.rest.entity.type" class="%fibe.rest.entity.type.class%">
-            <argument type="service" id="doctrine.orm.entity_manager" />
-            <tag name="form.type" alias="fibe_restbundle_entity_type" />
-        </service>
-
-
-        <service id="serialize_exception_listener" class="%serialize_exception_listener.class%">
-            <tag name="kernel.event_listener" event="kernel.exception" method="onKernelException"/>
-            <argument type="service" id="serializer" />
-        </service>
+    <!-- search service-->
+    <service id="fibe.rest.searchservice" class="%fibe.rest.searchservice.class%">
+      <argument type="service" id="doctrine.orm.entity_manager"/>
+      <argument type="service" id="annotations.reader"/>
+    </service>
 
 
-        <!-- cors support -->
+    <service id="serialize_exception_listener" class="%serialize_exception_listener.class%">
+      <tag name="kernel.event_listener" event="kernel.exception" method="onKernelException"/>
+      <argument type="service" id="serializer"/>
+      <argument type="service" id="logger"/>
+    </service>
 
-        <!-- <service id="app.cors_listener" class="%app.cors_listener.class%">
-            <tag name="kernel.event_listener" event="kernel.response" method="onKernelResponse"/>
-        </service> -->
-    </services>
+
+    <service id="acl_serialize_listener" class="%acl_serialize_listener.class%">
+      <tag name="jms_serializer.event_subscriber" event="serializer.post_serialize" method="onPostSerialize"/>
+      <argument type="service" id="fibe_security.acl_entity_helper"/>
+      <argument type="service" id="security.context"/>
+      <argument type="service" id="logger"/>
+    </service>
+
+
+    <!-- cors support -->
+
+    <!-- <service id="app.cors_listener" class="%app.cors_listener.class%">
+        <tag name="kernel.event_listener" event="kernel.response" method="onKernelResponse"/>
+    </service> -->
+  </services>
 
 </container>

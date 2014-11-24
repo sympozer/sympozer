@@ -1,13 +1,19 @@
-<ui-select ng-model="entities.selected" on-select="onSelect($model)" ng-keyup="keyup($event)" style="width: 100%;">
-    <ui-select-match>Person...</ui-select-match>
-    <ui-select-choices repeat="entity in entities">
-        <div ng-if="!entity.id ">
-            <i class="fa fa-plus"></i> Add a new person...
-        </div>
-        <div class="img-container-sm inline">
-            <img  ng-show="entity.id" class="scale-img" no-image ng-src="{{ entity.img }}"/>
-        </div>
-        <b ng-bind-html="entity.label | highlight: $select.search"></b>
-    </ui-select-choices>
-</ui-select>
-<br/>
+
+<input type="text" ng-model="entity" typeahead-template-url="persons-typeahead.html" typeahead-on-select="select($item, $model)"  placeholder="{{ 'persons.actions.search' | translate }} ..." typeahead-wait-ms="500" typeahead="entity as entity.label  for entity in keyup($viewValue)"  typeahead-loading="loading"  class="form-control">
+<i ng-show="loading" class="fa fa-spinner fa-spin"></i>
+
+
+<script type="text/ng-template" id="persons-typeahead.html">
+    <div style="width:100%">
+        <span ng-if="!match.model.id">
+            <hr/>
+             <i class="fa fa-plus"></i> {{ 'persons.actions.new' | translate}} ...
+         </span>
+        <span ng-if="match.model.id">
+             <div class="img-container-sm inline">
+                 <img class="scale-img" no-image ng-src="{{ match.model.img }}"/>
+             </div>
+            <span bind-html-unsafe="match.model.label | typeaheadHighlight:query"></span>
+        </span>
+    </div>
+</script>

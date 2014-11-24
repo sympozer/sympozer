@@ -2,11 +2,11 @@
 <table class="table table-striped">
   <thead>
   <tr>
-    <th>Label<i class="fa fa-sort-asc" ng-click="order('label','ASC')"></i><i class="fa fa-sort-desc" ng-click="order('label','DESC')"></i>
-    <th>Capacity</th>
-    <th>Description</th>
-    <th>Latitude</th>
-    <th>Longitude</th>
+    <th>{{'locations.model.label' | translate}}<i class="fa fa-sort-asc" ng-click="order('label','ASC')"></i><i class="fa fa-sort-desc" ng-click="order('label','DESC')"></i>
+    <th>{{'locations.model.capacity' | translate}}</th>
+    <th>{{'locations.model.description' | translate}}</th>
+    <th>{{'locations.model.latitude' | translate}}</th>
+    <th>{{'locations.model.longitude' | translate}}</th>
   </tr>
   </thead>
   <tbody entity-list-handler="locations" infinite-scroll='load()' infinite-scroll-disabled='busy' infinite-scroll-distance='0.5'>

@@ -1,6 +1,8 @@
 jms_security_extra:
     secure_all_services: false
     expressions: true
+    voters:
+        disable_acl: true
 
 security:
     encoders:

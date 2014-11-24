@@ -1,58 +1,54 @@
 <div class="navbar navbar-default navbar-fixed-top" role="navigation">
 
-  <div class="navbar-header">
-
-
-    <div style="float:left">
-      <a id="sidebar-left-toggle" ng-click="toggleNavLeft()" class="btn btn-info" data-toggle="offcanvas" data-target=".sidebar-nav">
-        <i class="fa fa-bars fa-1x"></i>
-      </a>
-    </div>
-    <div style="float:left">
-      <a href="#" title="Go back to Index" style="float:left">
-        <img style="height:45px; width:auto;" ng-src="{{GLOBAL_CONFIG.app.urls.img+'sympozer-logo.png'}}"/></a>
-    </div>
-
-  </div>
-
-
-  <div class="navbar-collapse collapse navbar-ex1-collapse">
-    <ul class="nav navbar-nav navbar-right">
-      <li>
-        <a href="#signout" title="logout" ng-click="signout()" ng-if="currentUser.id" ng-controller="signoutCtrl">Logout</a>
-      </li>
-
-      <li>
-        <a href="#/persons/show/{{currentUser.person.id}}" title="profile" ng-if="currentUser.person.id">{{currentUser.username}}</a>
-      </li>
-
-      <li>
-        <a href="javascript:void(0)" title="login" ng-if="currentUser.id == null" ng-click="showLoginPopup()" ng-controller="signinCtrl">login</a>
-      </li>
-
-      <li>
-        <a href="#signup" title="login" ng-if="currentUser.id == null" ng-controller="signupCtrl">register</a>
-      </li>
-      <!-- <li>
-          <a id="sidebar-right-toggle"  class="btn btn-info" data-toggle="offcanvas" data-target=".sidebar-nav">
-              <i class="fa fa-user fa-1x"></i>
-          </a>
-      </li>-->
-      <li>
-        <div class="dropdown">
-          <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenuLang" data-toggle="dropdown">
-            Lang
-            <span class="caret"></span>
-          </button>
-          <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenuLang">
-            <li ng-repeat="local in locals" role="presentation">
-              <a ng-click="changeLocal(local)" role="menuitem" tabindex="-1" href="#"><img ng-src="{{ local.src }}"/></a>
-            </li>
-          </ul>
+    <div class="navbar-header">
+        <div style="float:left">
+            <a id="sidebar-left-toggle" ng-click="toggleNavLeft()" class="btn btn-info" data-toggle="offcanvas" data-target=".sidebar-nav">
+                <i class="fa fa-bars fa-1x"></i>
+            </a>
         </div>
-      </li>
+        <div style="float:left">
+            <a href="#" title="{{ 'global.actions.go_home' | translate }}" style="float:left">
+                <img style="height:45px; width:auto;" ng-src="{{GLOBAL_CONFIG.app.urls.img+'sympozer-logo.png'}}"/>
+            </a>
+        </div>
+    </div>
 
 
-    </ul>
-  </div>
+    <div class="navbar-collapse collapse navbar-ex1-collapse">
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                <a href="#signout" title="{{ 'authentication.actions.signout' | translate }}" ng-click="signout()" ng-if="currentUser.id" ng-controller="signoutCtrl">{{ 'authentication.actions.signout' | translate }}</a>
+            </li>
+
+            <li>
+                <a href="#/persons/show/{{currentUser.person.id}}" title="profile" ng-if="currentUser.person.id">{{currentUser.username}}</a>
+            </li>
+
+            <li>
+                <a href="javascript:void(0)" title="{{ 'authentication.actions.signin' | translate }}" ng-if="currentUser.id == null" ng-click="showLoginPopup()" ng-controller="signinCtrl">{{ 'authentication.actions.signin' | translate }}</a>
+            </li>
+
+            <li>
+                <a href="#signup" title="{{ 'authentication.actions.signup' | translate }}" ng-if="currentUser.id == null" ng-controller="signupCtrl">{{ 'authentication.actions.signup' | translate }}</a>
+            </li>
+            <!-- <li>
+                <a id="sidebar-right-toggle"  class="btn btn-info" data-toggle="offcanvas" data-target=".sidebar-nav">
+                    <i class="fa fa-user fa-1x"></i>
+                </a>
+            </li>-->
+            <li>
+                <div class="dropdown">
+                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenuLang" data-toggle="dropdown">
+                        {{ 'global.actions.lang' | translate }}
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenuLang">
+                        <li ng-repeat="local in locals" role="presentation">
+                            <a ng-click="changeLocal(local)" role="menuitem" tabindex="-1" href="#"><img ng-src="{{ local.src }}"/></a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </div>
 </div>

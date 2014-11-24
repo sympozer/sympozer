@@ -1,0 +1,39 @@
+{
+  "name": "sympozer",
+  "version": "0.1",
+  "dependencies": {
+    "jquery": "~2.0.3",
+    "angular": "1.2.5",
+    "angular-resource": "~1.2.5",
+    "angular-cookies": "1.2.5",
+    "angular-route": "1.2.5",
+    "angular-animate": "1.2.5",
+    "angular-mocks": "1.2.5",
+    "angular-leaflet-directive": "~0.7.9",
+    "angular-moment": "~0.8.2",
+    "angular-sanitize": "~1.2.5",
+    "angular-translate": "~2.4.2",
+    "angular-boostrap-ui": "~0.11.2",
+    "angularjs-crypto": "*",
+    "bootstrap": "~3.2.0",
+    "angularjs-modal-service": "*",
+    "angular-bootstrap-datetimepicker": "~0.3.0",
+    "leaflet": "~0.7.3",
+    "angular-loading-bar": "~0.6.0",
+    "moment": "~2.8.3",
+    "angular-xeditable": "~0.1.8",
+    "angular-ui-router": "~0.2.11",
+    "angular-cached-resource": "~1.0.0",
+    "select2": "~3.5.2",
+    "bootstrap-social": "~4.8.0",
+    "bootstrap-tags": "~1.1.5",
+    "angular-ui-select": "0.8.0",
+    "angular-bootstrap-colorpicker": "~3.0.8",
+    "angular-ui-bootstrap-bower": "~0.11.2"
+  },
+  "resolutions": {
+    "angular": "1.2.5",
+    "angular-cookies": "1.2.5",
+    "angular-route": "1.2.5"
+  }
+}

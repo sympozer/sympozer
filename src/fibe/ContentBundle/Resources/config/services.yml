@@ -1,4 +1,4 @@
 services:
     fibe.RoleLabelVersionService:
         class:  fibe\ContentBundle\Services\RoleLabelVersionService
-        arguments: ["@doctrine.orm.entity_manager","@security.context", "@annotations.reader"]
+        parent: fibe.rest.business_service

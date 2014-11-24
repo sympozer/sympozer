@@ -1,5 +1,5 @@
 <div class="modal-header">
-    <h3 class="modal-title">New role</h3>
+    <h3 class="modal-title">{{ 'persons.actions.new' | translate}}</h3>
 </div>
 <div class="modal-body">
     <form name="personEditForm" class="form" role="form">
@@ -7,7 +7,7 @@
     </form>
 </div>
 <div class="modal-footer">
-    <button class="btn btn-primary" ng-click="create(personEditForm)">OK</button>
-    <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+    <button class="btn btn-primary" ng-click="create(personEditForm)">{{ 'globals.actions.ok' | translate}}</button>
+    <button class="btn btn-warning" ng-click="cancel()">{{ 'globals.actions.cancel' | translate}}</button>
 </div>
 

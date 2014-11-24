@@ -1,13 +1,18 @@
 parameters:
     mail_manager.class: fibe\CommunityBundle\Services\MailManager
+    person_service.class: fibe\CommunityBundle\Services\PersonService
+    organization_version_service.class: fibe\CommunityBundle\Services\OrganizationVersionService
 services:
-    fibe.PersonService:
-        class:  fibe\CommunityBundle\Services\PersonService
-        arguments: ["@doctrine.orm.entity_manager", "@security.context", "@fos_user.user_manager", "@fos_user.util.token_generator", "@fibe.mail_manager"]
+
     fibe.mail_manager:
         class:  "%mail_manager.class%"
         parent: fos_user.mailer.twig_swift
 
+    fibe.PersonService:
+        class:  "%person_service.class%"
+        parent: fibe.rest.business_service
+        arguments: ["@fibe_security.acl_user_permission_helper", "@security.context", "@fos_user.user_manager", "@fos_user.util.token_generator", "@fibe.mail_manager", "@session"]
+
     fibe.OrganizationVersionService:
-        class:  fibe\CommunityBundle\Services\OrganizationVersionService
-        arguments: ["@doctrine.orm.entity_manager","@security.context", "@annotations.reader"]
+        class:  "%organization_version_service.class%"
+        parent: fibe.rest.business_service

@@ -2,20 +2,12 @@
 namespace fibe\EventBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
-
-use fibe\ContentBundle\Entity\Location;
-use fibe\ContentBundle\Entity\Role;
+use Doctrine\ORM\Mapping as ORM;
 use fibe\ContentBundle\Entity\Sponsor;
+use fibe\ContentBundle\Entity\Topic;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
 use JMS\Serializer\Annotation\SerializedName;
-use JMS\Serializer\Annotation\Discriminator;
-use JMS\Serializer\Annotation\Groups;
-use JMS\Serializer\Annotation\VirtualProperty;
-
-use fibe\ContentBundle\Entity\Topic;
-
-use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -57,15 +49,6 @@ abstract class VEvent
    */
   protected $id;
 
-  /**
-   * label -> summary
-   *
-   * This property defines a short summary or subject for the
-   * calendar component.
-   * @ORM\Column(type="string", length=255)
-   * @Expose
-   */
-  protected $label;
 
   /**
    * dtstart
@@ -73,6 +56,7 @@ abstract class VEvent
    * This property specifies when the calendar component begins.
    *
    * @ORM\Column(type="datetime", name="start_at")
+   * @Assert\NotBlank()
    * @SerializedName("startAt")
    * @Expose
    */
@@ -85,20 +69,12 @@ abstract class VEvent
    * component ends.
    *
    * @ORM\Column(type="datetime", name="end_at")
+   * @Assert\NotBlank()
    * @SerializedName("endAt")
    * @Expose
    */
   protected $endAt;
 
-  /**
-   * Locations for the event
-   * @Expose
-   * @ORM\ManyToMany(targetEntity="fibe\ContentBundle\Entity\Location", inversedBy="events", cascade={"all"})
-   * @ORM\JoinTable(name="event_location",
-   *     joinColumns={@ORM\JoinColumn(name="event_id", referencedColumnName="id")},
-   *     inverseJoinColumns={@ORM\JoinColumn(name="location_id", referencedColumnName="id")})
-   */
-  protected $locations;
 
   /**
    * description
@@ -220,10 +196,11 @@ abstract class VEvent
   /**
    * Topic
    *
-   * @ORM\ManyToMany(targetEntity="fibe\ContentBundle\Entity\Topic", inversedBy="vEvents", cascade={"persist"})
+   * @ORM\ManyToMany(targetEntity="fibe\ContentBundle\Entity\Topic", inversedBy="vEvents", cascade={"all"})
    * @ORM\JoinTable(name="vevent_topic",
-   *     joinColumns={@ORM\JoinColumn(name="venvt_id", referencedColumnName="id")},
+   *     joinColumns={@ORM\JoinColumn(name="vevent_id", referencedColumnName="id")},
    *     inverseJoinColumns={@ORM\JoinColumn(name="topic_id", referencedColumnName="id")})
+   * @Expose
    */
   protected $topics;
 
@@ -243,6 +220,7 @@ abstract class VEvent
    * associated with the iCalendar object.
    *
    * @ORM\Column(type="string", length=255, nullable=true)
+   * @expose
    */
   protected $url;
 
@@ -343,9 +321,23 @@ abstract class VEvent
   }
 
   /**
-   * computeEndAt
+   * Validates start is before end
+   *  don't perform the check if one date is missing
+   * @Assert\True(message = "{'field' : 'endAt', 'msg' : 'EventFormValidation_start_is_after_end_error'}")
    *
-   * @TODO EVENT : à corriger
+   * @return bool
+   */
+  public function isDatesValid()
+  {
+    if ($this->startAt && $this->endAt)
+    {
+      return $this->startAt < $this->endAt;
+    }
+    return true;
+  }
+
+  /**
+   * computeEndAt
    *
    * @ORM\PrePersist()
    * @ORM\PreUpdate()
@@ -948,21 +940,6 @@ abstract class VEvent
     $this->topics->removeElement($topic);
   }
 
-  /**
-   * @return mixed
-   */
-  public function getLabel()
-  {
-    return $this->label;
-  }
-
-  /**
-   * @param mixed $label
-   */
-  public function setLabel($label)
-  {
-    $this->label = $label;
-  }
 
   /**
    * @return mixed
@@ -1012,19 +989,4 @@ abstract class VEvent
     $this->topics = $topics;
   }
 
-  /**
-   * @return mixed
-   */
-  public function getLocations()
-  {
-    return $this->locations;
-  }
-
-  /**
-   * @param mixed $locations
-   */
-  public function setLocations($locations)
-  {
-    $this->locations = $locations;
-  }
 }

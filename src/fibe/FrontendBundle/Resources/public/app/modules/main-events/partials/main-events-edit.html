@@ -1,11 +1,11 @@
 <div class="well">
     <div class="row">
-        <div class="col-sm-3 col-md-3 col-lg-3">
+        <div class="col-sm-2 col-md-2 col-lg-2">
             <div class="img-container-lg">
-                <div ng-click="showAddImg= !showAddImg">
-                    <img  class="scale-img" no-image ng-src="{{ mainEvent.logo }}"/>
-                    <span ng-show="showAddImg" editable-text="mainEvent.logo" onbeforesave="updateMainEvent('logo', $data)">{{mainEvent.logo || ' Add an image'}}</span>
-                </div>
+
+                <img  class="scale-img" no-image ng-src="{{ mainEvent.logo }}"/>
+                <span editable-text="mainEvent.logo" onbeforesave="updateMainEvent('logo', $data)">{{'change logo'}}</span>
+
             </div>
             <p ng-if="mainEvent.country">{{mainEvent.country}}</p>
         </div>
@@ -23,37 +23,43 @@
             <a href="#" e-placeholder="description" onbeforesave="updateMainEvent('description', $data)" editable-textarea="mainEvent.description" e-rows="7" e-cols="60">
                 <pre>{{mainEvent.description || 'add a description'}}</pre>
             </a>
+            <span editable-text="mainEvent.url" onbeforesave="updateMainEvent('url', $data)">{{mainEvent.url || 'http://...'}}</span>
         </div>
     </div>
+</div>
+</br>
+<div class="row">
+
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+        <h1>{{ 'mainEvents.labels.from' | translate}} :  </h1>
+        <div class="alert alert-danger" role="alert" ng-show="mainEvent.startAt > mainEvent.endAt">{{ 'mainEvents.validations.end_date_after_start' | translate}}</div>
+
+      <datetimepicker style="font-size:15px" data-ng-model="mainEvent.startAt" on-set-time="onSelectStart(newDate, oldDate)" data-datetimepicker-config="{ minView:'day' }"/>
+
+    </div>
+
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+        <h1>{{ 'mainEvents.labels.to' | translate}} :</h1>
+        <div class="alert alert-danger" role="alert" ng-show="mainEvent.startAt > mainEvent.endAt">{{ 'mainEvents.validations.start_date_before_end' | translate}}</div>
+
+      <datetimepicker style="font-size:15px" data-ng-model="mainEvent.endAt" on-set-time="onSelectEnd(newDate, oldDate)"
+                        data-datetimepicker-config="{ minView:'day' }" />
+    </div>
+</div>
 </div>
 
 <div class="row">
-    <div class=" col-md-6 col-lg-6">
-        <div clas="row">
-            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                <h1>From :  </h1>
-                <datetimepicker style="font-size:15px" data-ng-model="mainEvent.startAt" on-set-time="onSelectStart"
-                                data-datetimepicker-config="{ minView:'day' }" />
-            </div>
-            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                <h1>To :</h1>
-                <datetimepicker style="font-size:15px" data-ng-model="mainEvent.enAt" on-set-time="onSelectEnd"
-                                data-datetimepicker-config="{ minView:'day' }" />
-            </div>
-        </div>
-    </div>
-    <div class=" col-md-6 col-lg-6">
-        <leaflet  center="center" markers="markers" height="300px" width="100%"></leaflet>
+    <div class=" col-md-12 col-lg-12">
+        <leaflet  ng-click="editLocation()" center="center" markers="markers" height="300px" width="100%"></leaflet>
     </div>
 </div>
-
 
 <div class="row">
 
     <div class=" col-md-6 col-lg-6">
         <div class="row">
             <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
-                <h1>{{mainEvent.events.length}} Events </h1>
+                <h1>{{mainEvent.events.length}} {{ 'events.links.events' | translate}} </h1>
             </div>
         </div>
         <div ng-repeat="event in mainEvent.events | limitTo: 5  track by $index" class="col-sm-6 col-md-6 col-lg-4  well">
@@ -66,7 +72,7 @@
     <div class=" col-md-6 col-lg-6">
         <div class="row">
             <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
-                <h1>{{mainEvent.papers.length}} Papers </h1>
+                <h1>{{mainEvent.papers.length}} {{ 'papers.links.papers' | translate}} </h1>
             </div>
         </div>
         <div ng-repeat="paper in mainEvent.papers | limitTo: 5  track by $index" class="col-sm-6 col-md-6 col-lg-4  well">

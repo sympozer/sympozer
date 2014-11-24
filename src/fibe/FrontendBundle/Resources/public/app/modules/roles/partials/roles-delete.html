@@ -1,11 +1,11 @@
 <div class="row">
-  <h4> Are you sure you want to delete this roleLabel ?</h4>
+  <h4> {{ 'roles.messages.delete_confirm' | translate}}</h4>
 
   <div class="well">
     <ul>
-      <li>Label : <span ng-bind="roleLabel.label"></span></li>
-      <li>Publisher : <span ng-bind="roleLabel.publisher"></span></li>
-      <li>Publish Date : <span ng-bind="roleLabel.publishDate"></span></li>
+      <li>{{ 'roles.model.person' | translate}} : <span ng-bind="role.person.email"></span></li>
+      <li>{{ 'roles.model.event' | translate}} : <span ng-bind="role.event.label"></span></li>
+      <li>{{ 'roles.model.role_label_version' | translate}} : <span ng-bind="role.roleLabelVersion"></span></li>
     </ul>
   </div>
 </div>

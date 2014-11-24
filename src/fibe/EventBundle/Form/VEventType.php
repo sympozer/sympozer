@@ -25,7 +25,6 @@ class VEventType extends AbstractType
     {
         $builder
             ->add('id')
-            ->add('label')
             ->add('priority')
             ->add('startAt', 'datetime', array(
                 'widget' => 'single_text',
@@ -40,11 +39,6 @@ class VEventType extends AbstractType
             ->add('chkTimeline')
             ->add('chkSocial')
             ->add('dtype')
-            ->add('locations', 'entity', array(
-                'class' => 'fibeContentBundle:Location',
-                'required' => 'false',
-                'multiple' => true,
-            ))
             ->add('sponsors', 'entity', array(
                 'class' => 'fibeContentBundle:Sponsor',
                 'required' => 'false',

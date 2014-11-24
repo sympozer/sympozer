@@ -1,18 +1,18 @@
 
 <form name="equipmentNewForm" class="form" role="form" ng-submit="create(equipmentNewForm)">
   <div>
-    <label for="inputLabel">Label</label>
+    <label for="inputLabel">{{ 'equipments.model.label' | translate }}</label>
     <input type="text" class="form-control" id="inputLabel" required placeholder="Label" ng-model="equipment.label">
   </div>
   <div>
-    <label for="inputDescription">Description</label>
+    <label for="inputDescription">{{ 'equipments.model.description' | translate }}</label>
     <input type="text" class="form-control" id="inputDescription" placeholder="Description" ng-model="equipment.description">
   </div>
   <div>
-    <label for="inputIcon">Icon</label>
+    <label for="inputIcon">{{ 'equipments.model.icon' | translate }}</label>
     <input type="text" class="form-control" id="inputIcon" placeholder="Icon" ng-model="equipment.icon">
   </div>
   <div class="form-group">
-    <button type="submit" class="btn btn-success">Save</button>
+    <button type="submit" class="btn btn-success">{{ 'global.actions.save' | translate }}</button>
   </div>
 </form>

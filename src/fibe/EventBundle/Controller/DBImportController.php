@@ -2,25 +2,19 @@
 namespace fibe\EventBundle\Controller;
 
 use fibe\CommunityBundle\Entity\Organization;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-
-use fibe\EventBundle\Entity\VEvent as Event;
 use fibe\CommunityBundle\Entity\Person;
-use fibe\ContentBundle\Entity\Topic;
-use fibe\ContentBundle\Entity\Paper;
-use fibe\ContentBundle\Entity\Role;
-use fibe\ContentBundle\Entity\RoleLabel;
 use fibe\CommunityBundle\Entity\SocialService;
 use fibe\CommunityBundle\Entity\SocialServiceAccount;
-use fibe\EventBundle\Entity\Category;
 use fibe\ContentBundle\Entity\Location;
-
+use fibe\ContentBundle\Entity\Paper;
+use fibe\ContentBundle\Entity\Role;
+use fibe\ContentBundle\Entity\Topic;
 use fibe\ContentBundle\Util\StringTools;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use fibe\EventBundle\Entity\Category;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 
 /**
@@ -46,7 +40,7 @@ class DBImportController extends Controller
   public function importAction(Request $request)
   {
     //Authorization Verification conference sched manager
-    $this->get('fibe_security.acl_entity_helper')->getEntityACL('CREATE', 'MainEvent');
+    $this->get('fibe_security.acl_entity_helper')->checkEntityACL('CREATE', 'MainEvent');
 
     $JSONFile = json_decode($request->request->get('dataArray'), true);
 
@@ -397,6 +391,16 @@ class DBImportController extends Controller
     return new Response("ok");
   }
 
+  private function doArray($entityArray, $entity, $setter, $valArray)
+  {
+    foreach ($valArray as $e)
+    {
+
+      $val = $entityArray[$e];
+      call_user_func_array(array($entity, $setter), array($val));
+    }
+  }
+
   private function doEvent($entity, $data, $isMainConfEvent)
   {
     foreach ($data as $setter => $value)
@@ -516,15 +520,5 @@ class DBImportController extends Controller
 
     $entity->setMainEvent($this->conference);
     array_push($this->eventEntities, $entity);
-  }
-
-  private function doArray($entityArray, $entity, $setter, $valArray)
-  {
-    foreach ($valArray as $e)
-    {
-
-      $val = $entityArray[$e];
-      call_user_func_array(array($entity, $setter), array($val));
-    }
   }
 }

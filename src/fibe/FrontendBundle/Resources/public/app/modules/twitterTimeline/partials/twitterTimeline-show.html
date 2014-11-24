@@ -1,6 +1,6 @@
 <div class="row" ng-controller="twitterTimelineCtrl">
     <div class="col-xs-12" id="results">
-        <div class="row" ng-repeat="t in tweets">
+        <div class="row" ng-repeat="t in tweets.statuses">
             <div class="col-xs-2 col-sm-1">
                 <img ng-src="{{t.user.profile_image_url}}" class="img-circle">
             </div>

@@ -13,15 +13,10 @@
  *
  * @type {filter}
  */
-angular.module('sympozerFilters', []).filter('sympozerCheckmark', function ()
+angular.module('sympozerApp').filter('sympozerCheckmark', function ()
 {
   return function (input)
   {
     return input ? '\u2713' : '\u2718';
   };
-}).filter('titleize', function() {
-  return function(input, scope) {
-    if (input!=null)
-      return input.substring(0,1).toUpperCase()+input.substring(1);
-  }
-});
+})

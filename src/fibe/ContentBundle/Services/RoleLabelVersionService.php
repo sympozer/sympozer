@@ -14,7 +14,7 @@ class RoleLabelVersionService extends AbstractBusinessService
 
     public function post(RoleLabelVersion $roleLabelVersion = null,  $roleLabelVersionClassName)
     {
-        $this->createGlobalEntity($this->entityManager, $roleLabelVersion, $roleLabelVersionClassName, "setRoleLabel");
+        $this->createGlobalEntity( $roleLabelVersion, $roleLabelVersionClassName, "setRoleLabel");
     }
 
 }

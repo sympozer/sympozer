@@ -1,4 +1,4 @@
-<div ng-include="GLOBAL_CONFIG.app.modules.organizations.urls.partials+'organizations-actions.html'" ng-controller="organizationsMainCtrl"></div>
+<!--<div ng-include="GLOBAL_CONFIG.app.modules.organizations.urls.partials+'organizations-actions.html'" ng-controller="organizationsMainCtrl"></div>-->
 
 <div class="well">
     <div class="row">
@@ -10,8 +10,8 @@
         <div class="col-sm-4 col-md-4 col-lg-4">
             <h3>{{organization.label || '???'}}</h3> <h5>{{organization.country || '???'}} {{organization.email || '???'}}</h5>
             <pre>{{organization.description || 'add a description'}}</pre>
-            <a class="btn btn-info" href="#organization/edit/{{organization.id}}" role="button">
-                <i class="fa fa-edit fa-1x"></i> Edit the organization
+            <a class="btn btn-info" href="#organizations/edit/{{organization.id}}" role="button">
+                <i class="fa fa-edit fa-1x"></i> {{ 'organizations.actions.edit' | translate}}
             </a>
         </div>
     </div>
@@ -19,7 +19,7 @@
 
 <div class="row">
     <div class="col-md-6 col-lg-6">
-        <h1>{{organization.organizationVersions.organizationVersionOwner.length}} Members</h1>
+        <h1>{{organization.organizationVersions.organizationVersionOwner.length}} {{ 'organizations.labels.member' | translate}}</h1>
         <div ng-repeat="person in organization.organizationVersions.organizationVersionOwner track by $index" class="col-sm-6 col-md-6 col-lg-4 well">
             <div class="img-container-lg">
                 <img class="scale-img " no-image ng-src="{{ person.img}}" alt="person img">

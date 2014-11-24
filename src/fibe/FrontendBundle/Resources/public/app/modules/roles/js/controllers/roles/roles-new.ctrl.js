@@ -4,20 +4,30 @@
  * @type {controller}
  */
 angular.module('rolesApp').controller('rolesNewCtrl',
-    [ '$scope', '$window', 'GLOBAL_CONFIG', '$routeParams', '$rootScope', '$location', 'rolesFact', 'personsFact', 'roleLabelsFact', 'eventsFact','$modal',
-        function ($scope, $window, GLOBAL_CONFIG, $routeParams, $rootScope, $location, rolesFact, personsFact, roleLabelsFact, eventsFact, $modal)
+    [ '$scope', '$window', 'GLOBAL_CONFIG', '$routeParams', '$rootScope', '$location', 'rolesFact', 'personsFact', 'roleLabelsFact', 'eventsFact','$modal','formValidation',
+        function ($scope, $window, GLOBAL_CONFIG, $routeParams, $rootScope, $location, rolesFact, personsFact, roleLabelsFact, eventsFact, $modal, formValidation)
         {
             $scope.role = new rolesFact;
 
-            debugger;
             var error = function (response, args)
             {
-                $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'the role has not been created', type: 'danger'});
+                $scope.busy = false;
+
+
+
+                if ("Validation Failed" == response.data.message)
+                {
+                    formValidation.transformFromServer(response);
+                }
+                else
+                {
+                    $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'roles.validations.not_created', type: 'danger'});
+                }
             };
 
             var success = function (response, args)
             {
-                $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'role created', type: 'success'});
+                $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'roles.validations.created', type: 'success'});
                 if($scope.$close){
                     $scope.$close($scope.role);
                 }else{
@@ -67,7 +77,7 @@ angular.module('rolesApp').controller('rolesNewCtrl',
             $scope.addRoleLabel = function(roleLabelModel){
                 if(!roleLabelModel.id) {
                     var modalInstance = $modal.open({
-                        templateUrl: GLOBAL_CONFIG.app.modules.roleLabels.urls.partials + 'roleLabels-modal-form.html',
+                        templateUrl: GLOBAL_CONFIG.app.modules.roleLabelVersions.urls.partials + 'roleLabelVersions-modal-form.html',
                         controller: 'roleLabelsNewCtrl',
                         size: "large",
                         resolve: {

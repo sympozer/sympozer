@@ -4,25 +4,34 @@
  * @type {controller}
  */
 
-angular.module('eventsApp').controller('eventsNewCtrl', [ '$scope', '$window', 'GLOBAL_CONFIG', '$routeParams', '$rootScope', '$location', 'eventsFact', 'categoriesFact', 'topicsFact', 'locationsFact', 'papersFact', '$modal',
-    function ($scope, $window, GLOBAL_CONFIG, $routeParams, $rootScope, $location, eventsFact, categoriesFact, topicsFact, locationsFact, papersFact, $modal )
+angular.module('eventsApp').controller('eventsNewCtrl', [ '$scope', '$window', 'GLOBAL_CONFIG', '$routeParams', '$rootScope', '$location', 'eventsFact', 'categoriesFact', 'topicsFact', 'locationsFact', 'papersFact', '$modal', 'formValidation', '$filter',
+    function ($scope, $window, GLOBAL_CONFIG, $routeParams, $rootScope, $location, eventsFact, categoriesFact, topicsFact, locationsFact, papersFact, $modal, formValidation, $filter)
     {
         $scope.event = new eventsFact;
 
         var error = function (response, args)
         {
-            $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'the event has not been created', type: 'danger'});
-        }
+            $scope.busy = false;
+
+            if ("Validation Failed" == response.data.message)
+            {
+                formValidation.transformFromServer(response);
+            }
+            else
+            {
+                $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'events.validations.not_created', type: 'danger'});
+            }
+        };
 
         var success = function (response, args)
         {
-            $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'event created', type: 'success'});
+            $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'events.validations.created', type: 'success'});
             if($scope.$close){
                 $scope.$close($scope.event);
             }else{
                 $window.history.back();
             }
-        }
+        };
 
         $scope.create = function (form)
         {
@@ -31,11 +40,29 @@ angular.module('eventsApp').controller('eventsNewCtrl', [ '$scope', '$window', '
             {
                 $scope.event.$create({}, success, error);
             }
-        }
+        };
 
         $scope.cancel = function () {
             $scope.$dismiss('cancel');
         };
+
+        //Populate array of a specific linked entity
+        $scope.addRelationship = function(key, model){
+            //Check if array available for the linked entity
+            if(!$scope.event[key]){
+                $scope.event[key] = [];
+            }
+
+            //Stop if the object selected is already in array (avoid duplicates)
+            if(! $filter('inArray')('id', model.id, $scope.event[key])){
+                //If no duplicate add the selected object to the specified array
+                $scope.event[key].push(model);
+            };
+        }
+
+        $scope.removeRelationship = function(key, index){
+            $scope.event[key].splice(index, 1);
+        }
 
         //Autocomplete and add paper workflow
         $scope.searchCategories = categoriesFact.allByConference;
@@ -49,7 +76,6 @@ angular.module('eventsApp').controller('eventsNewCtrl', [ '$scope', '$window', '
                     }
                 });
                 modalInstance.result.then(function (newCategory) {
-                    debugger;
                     $scope.event.category = newCategory;
                 }, function () {
                     //$log.info('Modal dismissed at: ' + new Date());
@@ -57,11 +83,10 @@ angular.module('eventsApp').controller('eventsNewCtrl', [ '$scope', '$window', '
             }else{
                 $scope.event.category = categoryModel;
             }
-        }
+        };
 
         //Autocomplete and add topic workflow
         $scope.searchTopics = topicsFact.all;
-        $scope.event.topics = [];
         $scope.addTopic = function(topicModel){
             if(!topicModel.id) {
                 var modalInstance = $modal.open({
@@ -72,19 +97,19 @@ angular.module('eventsApp').controller('eventsNewCtrl', [ '$scope', '$window', '
                     }
                 });
                 modalInstance.result.then(function (newTopic) {
-                    $scope.event.topics.push(newTopic);
+                    $scope.addRelationship('topics', newTopic);
                 }, function () {
                     //$log.info('Modal dismissed at: ' + new Date());
                 });
             }else{
-                $scope.event.topics.push(topicModel);
+                $scope.addRelationship('topics', topicModel);
             }
-        }
+        };
+
 
 
         //Autocomplete and add location workflow
         $scope.searchLocations = locationsFact.allByConference;
-        $scope.event.locations = [];
         $scope.addLocation = function(locationModel){
             if(!locationModel.id) {
                 var modalInstance = $modal.open({
@@ -95,19 +120,20 @@ angular.module('eventsApp').controller('eventsNewCtrl', [ '$scope', '$window', '
                     }
                 });
                 modalInstance.result.then(function (newLocation) {
-                    $scope.event.locations.push(newLocation);
+                    $scope.addRelationship('eventLocations', locationModel);
                 }, function () {
                     //$log.info('Modal dismissed at: ' + new Date());
                 });
             }else{
-                $scope.event.locations.push(locationModel);
+                $scope.addRelationship('eventLocations', locationModel);
             }
-        }
+        };
+
+
 
 
         //Autocomplete and add paper workflow
         $scope.searchPapers = papersFact.all;
-        $scope.event.papers = [];
         $scope.addPaper = function(paperModel){
             if(!paperModel.id) {
                 var modalInstance = $modal.open({
@@ -118,15 +144,14 @@ angular.module('eventsApp').controller('eventsNewCtrl', [ '$scope', '$window', '
                     }
                 });
                 modalInstance.result.then(function (newPaper) {
-                    $scope.event.papers.push(newPaper);
+                    $scope.addRelationship('papers', paperModel);
                 }, function () {
                     //$log.info('Modal dismissed at: ' + new Date());
                 });
             }else{
-                $scope.event.papers.push(paperModel);
+                $scope.addRelationship('papers', paperModel);
             }
-        }
-
+        };
 
         //Autocomplete and add role workflow
         $scope.event.roles = [];
@@ -140,11 +165,12 @@ angular.module('eventsApp').controller('eventsNewCtrl', [ '$scope', '$window', '
                 }
             });
             modalInstance.result.then(function (newRole) {
-                $scope.event.roles.push(newRole);
+                $scope.addRelationship('roles', newRole);
             }, function () {
                 //$log.info('Modal dismissed at: ' + new Date());
             });
 
-        }
+        };
+
     }
 ]);

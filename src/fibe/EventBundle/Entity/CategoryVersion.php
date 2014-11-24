@@ -30,7 +30,6 @@ class CategoryVersion
      */
     private $id;
 
-
     /**
      * @ORM\Column(type="string", length=128)
      */
@@ -60,7 +59,7 @@ class CategoryVersion
     /**
      * Main Event
      *
-     * @ORM\ManyToOne(targetEntity="fibe\EventBundle\Entity\MainEvent", inversedBy="categories", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="fibe\EventBundle\Entity\MainEvent", inversedBy="categoryVersions", cascade={"persist"})
      * @ORM\JoinColumn(name="mainevent_id", referencedColumnName="id")
      * @Expose
      * @MaxDepth(1)

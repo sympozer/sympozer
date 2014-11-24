@@ -12,12 +12,12 @@
         </div>
         <div class="col-sm-8 col-md-8 col-lg-8">
             <h3>{{person.firstName || '???'}} {{person.familyName || '???'}}</h3>
-            <pre>{{person.description || 'add a descrption'}}</pre>
+            <pre>{{person.description || '????'}}</pre>
             <a ng-if="currentUser.person.id === person.id" class="btn btn-info" href="#profile" role="button">
-                <i class="fa fa-edit fa-1x"></i> Edit my account
+                <i class="fa fa-edit fa-1x"></i> {{ 'persons.actions.edit_account' | translate}}
             </a>
             <a ng-if="currentUser.person.id === person.id" class="btn btn-info" href="#persons/edit/{{person.id}}" role="button">
-                <i class="fa fa-edit fa-1x"></i> Edit my profile
+                <i class="fa fa-edit fa-1x"></i> {{ 'persons.actions.edit_profile' | translate}}
             </a>
         </div>
     </div>
@@ -39,29 +39,29 @@
 
 <div class="row">
     <div class=" col-md-6 col-lg-6">
-        <h1>{{person.organizations.length}} Organizations</h1>
+        <h1>{{person.organizations.length}} {{ 'organizations.links.organizations' | translate}}</h1>
         <div ng-repeat="organization in person.organizations  track by $index" class="col-sm-6 col-md-6 col-lg-4  well">
             <i class="fa fa-users fa-3x"></i>
             <h2>{{ organization.label }}</h2>
             <a class="btn btn-default" href="#organizations/show/{{ organization.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>
         </div>
     </div>
-    <div class="col-md-6 col-lg-6">
-        <h1>{{person.papers.length}} Papers</h1>
+    <div class="col-md-1 col-lg-6">
+        <h1>{{person.papers.length}} {{ 'papers.links.papers' | translate}}</h1>
         <div ng-repeat="paper in person.papers  track by $index" class="col-sm-6 col-md-6 col-lg-4  well">
-            <i class="fa fa-book fa-3x"></i>
-            <h2>{{ paper.label }}</h2>
+            <i class="fa fa-book fa-2x"></i>
+            <h4>{{ paper.label }}</h4>
             <a class="btn btn-default" href="#papers/show/{{ paper.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>
         </div>
     </div>
 </div>
 
 <div class="row">
-    <div class=" col-md-6 col-lg-6">
-        <h1>{{person.roles.length}} Events</h1>
+    <div class=" col-md-1 col-lg-6">
+        <h1>{{person.roles.length}} {{ 'events.links.events' | translate}}</h1>
         <div ng-repeat="role in person.roles  track by $index" class="col-sm-6 col-md-6 col-lg-4  well" ng-if="person.roles">
-            <h2>{{ role.roleLabelVersion.label }} @ </h2>
-            <div class="img-container-sm"><img  class="scale-img img-circle" src="{{ role.mainEvent.logo }}"/></div>
+        <i class="fa fa-calendar fa-2x"></i>
+            <h4>{{ role.roleLabelVersion.label }} @ {{ role.event.label}} </h4>
             <a class="btn  btn-default" href="#mainEvents/show/{{ role.mainEvent.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>
         </div>
     </div>

@@ -3,21 +3,15 @@
 namespace fibe\EventBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
-
-use fibe\CommunityBundle\Entity\Organization;
+use Doctrine\ORM\Mapping as ORM;
 use fibe\CommunityBundle\Entity\Person;
-use fibe\ContentBundle\Entity\Location;
 use fibe\ContentBundle\Entity\Paper;
 use fibe\ContentBundle\Entity\Role;
-use fibe\ContentBundle\Entity\Sponsor;
-use fibe\ContentBundle\Entity\Topic;
 use fibe\ContentBundle\Util\StringTools;
-use fibe\EventBundle\Entity\VEvent;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
-
-use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation\SerializedName;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -27,9 +21,25 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="fibe\EventBundle\Repository\MainEventRepository")
  * @ORM\HasLifecycleCallbacks
  * @ExclusionPolicy("ALL")
+ * @UniqueEntity("label", message="Label_already_used")
  */
 class MainEvent extends VEvent
 {
+
+  /**
+   *  Person that created this mainEvent
+   * @ORM\ManyToOne(targetEntity="fibe\CommunityBundle\Entity\Person",  inversedBy="ownMainEvents")
+   */
+  protected $owner;
+  /**
+   * label -> summary
+   *
+   * This property defines a short summary or subject for the
+   * calendar component.
+   * @ORM\Column(type="string", length=255, unique=true, nullable=false)
+   * @Expose
+   */
+  private $label;
   /**
    * Events
    *
@@ -37,7 +47,6 @@ class MainEvent extends VEvent
    * @Expose
    */
   private $events;
-
   /**
    * Papers
    *
@@ -45,74 +54,85 @@ class MainEvent extends VEvent
    * @Expose
    */
   private $papers;
-
   /**
    * Roles
    *
    * @ORM\OneToMany(targetEntity="fibe\ContentBundle\Entity\Role", mappedBy="mainEvent",cascade={"persist", "remove"})
    */
   private $roles;
-
   /**
-   * Organizations
-   *
-   * @ORM\OneToMany(targetEntity="fibe\CommunityBundle\Entity\Organization", mappedBy="mainEvent",cascade={"persist", "remove"})
+   * @ORM\OneToMany(targetEntity="fibe\ContentBundle\Entity\RoleLabelVersion", mappedBy="mainEvent",cascade={"persist", "remove"})
    */
-  private $organizations;
-
+  private $roleLabelVersions;
   /**
    * Categories
-   * @ORM\OneToMany(targetEntity="CategoryVersion", mappedBy="mainEvent",cascade={"persist", "remove"})
+   * @ORM\OneToMany(targetEntity="fibe\EventBundle\Entity\CategoryVersion", mappedBy="mainEvent",cascade={"persist", "remove"})
    */
   private $categoryVersions;
-
-
   /**
    *
    * @ORM\ManyToMany(targetEntity="fibe\CommunityBundle\Entity\Person",  mappedBy="mainEvents", cascade={"persist","merge","remove"})
    * @Expose
    */
   private $persons;
-
   /**
    * Team
    *
-   * @ORM\OneToOne(targetEntity="fibe\SecurityBundle\Entity\Team",cascade={"persist", "remove"})
+   * @ORM\OneToOne(targetEntity="fibe\SecurityBundle\Entity\Team", mappedBy="mainEvent", cascade={"all"})
    * @Expose
    */
   private $team;
-
   /**
    * mappingFiles
    * @ORM\OneToOne(targetEntity="fibe\EventBundle\Entity\MainEventSettings", mappedBy="mainEvent", cascade={"all"})
    */
   private $setting;
-
   /**
    * @ORM\Column(type="string", length=256, nullable=true)
    * @Expose
    */
   private $logo;
-
-
   /**
    * @ORM\Column(type="string", length=256, nullable=true)
    */
   private $slug;
-
   /**
    *
    * @ORM\Column(type="string", length=128, nullable=true)
    */
   private $acronym;
+  /**
+   * main event location
+   *
+   * @ORM\OneToOne(targetEntity="fibe\ContentBundle\Entity\MainEventLocation", cascade={"all"})
+   * @ORM\JoinColumn(name="main_event_location_id", referencedColumnName="id")
+   * @Expose
+   * @SerializedName("mainEventLocation")
+   */
+  private $mainEventLocation;
+  /**
+   * @ORM\OneToMany(targetEntity="fibe\ContentBundle\Entity\EventLocation", mappedBy="mainEvent",cascade={"persist", "remove"})
+   * @Expose
+   * @SerializedName("eventLocations")
+   */
+  private $eventLocations;
 
 
   /**
-   * Slugify
+   * Constructor
    */
-  public function slugify()
+  public function __construct()
   {
-    $this->setSlug(StringTools::slugify($this->getId() . $this->getLabel()));
+    parent::__construct();
+    $this->setIsAllDay(true);
+    $this->events = new ArrayCollection();
+    $this->roles = new ArrayCollection();
+    $this->eventLocations = new ArrayCollection();
+    $this->papers = new ArrayCollection();
+    $this->persons = new ArrayCollection();
+    $this->topics = new ArrayCollection();
+    $this->sponsors = new ArrayCollection();
+    $this->organizations = new ArrayCollection();
   }
 
   /**
@@ -124,6 +144,40 @@ class MainEvent extends VEvent
   public function slugifyOnUpdate()
   {
     $this->slugify();
+  }
+
+  /**
+   * Slugify
+   */
+  public function slugify()
+  {
+    $this->setSlug(StringTools::slugify($this->getId() . $this->getLabel()));
+  }
+
+  /**
+   * @return mixed
+   */
+  public function getLabel()
+  {
+    return $this->label;
+  }
+
+  /**
+   * @param mixed $label
+   */
+  public function setLabel($label)
+  {
+    $this->label = $label;
+  }
+
+  /**
+   * Get slug
+   *
+   * @return string
+   */
+  public function getSlug()
+  {
+    return $this->slug;
   }
 
   /**
@@ -141,13 +195,13 @@ class MainEvent extends VEvent
   }
 
   /**
-   * Get slug
+   * Get file.
    *
-   * @return string
+   * @return String
    */
-  public function getSlug()
+  public function getLogo()
   {
-    return $this->slug;
+    return $this->logo;
   }
 
   /**
@@ -163,46 +217,6 @@ class MainEvent extends VEvent
 
     return $this;
   }
-
-  /**
-   * Get file.
-   *
-   * @return String
-   */
-  public function getLogo()
-  {
-    return $this->logo;
-  }
-
-
-  /**
-   * Constructor
-   */
-  public function __construct()
-  {
-    parent::__construct();
-    $this->setIsAllDay(true);
-    $this->events = new ArrayCollection();
-    $this->roles = new ArrayCollection();
-    $this->locations = new ArrayCollection();
-    $this->papers = new ArrayCollection();
-    $this->persons = new ArrayCollection();
-    $this->topics = new ArrayCollection();
-    $this->sponsors = new ArrayCollection();
-    $this->organizations = new ArrayCollection();
-  }
-
-
-  /**
-   * Get locations
-   *
-   * @return \Doctrine\Common\Collections\Collection
-   */
-  public function getLocations()
-  {
-    return $this->locations;
-  }
-
 
   /**
    * Get papers
@@ -222,7 +236,6 @@ class MainEvent extends VEvent
     $this->papers = $papers;
   }
 
-
   /**
    * Get papers
    *
@@ -240,7 +253,6 @@ class MainEvent extends VEvent
   {
     $this->roles = $roles;
   }
-
 
   /**
    * Get persons
@@ -262,6 +274,15 @@ class MainEvent extends VEvent
 
   /**
    *
+   * @return \fibe\SecurityBundle\Entity\Team
+   */
+  public function getTeam()
+  {
+    return $this->team;
+  }
+
+  /**
+   *
    * @param \fibe\SecurityBundle\Entity\Team $team
    *
    * @return $this
@@ -274,16 +295,6 @@ class MainEvent extends VEvent
   }
 
   /**
-   *
-   * @return \fibe\SecurityBundle\Entity\Team
-   */
-  public function getTeam()
-  {
-    return $this->team;
-  }
-
-
-  /**
    * Get sponsors
    *
    * @return \Doctrine\Common\Collections\Collection
@@ -292,7 +303,6 @@ class MainEvent extends VEvent
   {
     return $this->sponsors;
   }
-
 
   /**
    * Get organizations
@@ -327,14 +337,6 @@ class MainEvent extends VEvent
   }
 
   /**
-   * @param mixed $events
-   */
-  public function setEvents($events)
-  {
-    $this->events = $events;
-  }
-
-  /**
    * Get events
    *
    * @return \Doctrine\Common\Collections\Collection
@@ -345,6 +347,14 @@ class MainEvent extends VEvent
   }
 
   /**
+   * @param mixed $events
+   */
+  public function setEvents($events)
+  {
+    $this->events = $events;
+  }
+
+  /**
    * @TODO comment
    *
    * @return bool
@@ -352,12 +362,22 @@ class MainEvent extends VEvent
   public function isEmpty()
   {
     return (count($this->events) <= 1)
-    and (count($this->locations) <= 1)
+    and (count($this->eventLocations) <= 1)
     and (count($this->papers) == 0)
     and (count($this->persons) == 0)
     and (count($this->organizations) == 0)
     and (count($this->topics) == 0);
 
+  }
+
+  /**
+   * Get acronym
+   *
+   * @return string
+   */
+  public function getAcronym()
+  {
+    return $this->acronym;
   }
 
   /**
@@ -372,16 +392,6 @@ class MainEvent extends VEvent
     $this->acronym = $acronym;
 
     return $this;
-  }
-
-  /**
-   * Get acronym
-   *
-   * @return string
-   */
-  public function getAcronym()
-  {
-    return $this->acronym;
   }
 
   /**
@@ -415,4 +425,69 @@ class MainEvent extends VEvent
   {
     $this->categoryVersions = $categoryVersions;
   }
+
+  /**
+   * @return mixed
+   */
+  public function getMainEventLocation()
+  {
+    return $this->mainEventLocation;
+  }
+
+  /**
+   * @param mixed $mainEventLocation
+   */
+  public function setMainEventLocation($mainEventLocation)
+  {
+    $this->mainEventLocation = $mainEventLocation;
+  }
+
+  /**
+   * @return mixed
+   */
+  public function getEventLocations()
+  {
+    return $this->eventLocations;
+  }
+
+  /**
+   * @param mixed $eventLocations
+   */
+  public function setEventLocations($eventLocations)
+  {
+    $this->eventLocations = $eventLocations;
+  }
+
+  /**
+   * @return mixed
+   */
+  public function getRoleLabelVersions()
+  {
+    return $this->roleLabelVersions;
+  }
+
+  /**
+   * @param mixed $roleLabelVersions
+   */
+  public function setRoleLabelVersions($roleLabelVersions)
+  {
+    $this->roleLabelVersions = $roleLabelVersions;
+  }
+
+  /**
+   * @return Person
+   */
+  public function getOwner()
+  {
+    return $this->owner;
+  }
+
+  /**
+   * @param Person $owner
+   */
+  public function setOwner(Person $owner)
+  {
+    $this->owner = $owner;
+  }
+
 }

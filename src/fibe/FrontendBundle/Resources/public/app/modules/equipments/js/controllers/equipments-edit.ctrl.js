@@ -9,12 +9,12 @@ angular.module('equipmentsApp').controller('equipmentsEditCtrl', [ '$scope', '$r
 
     var error = function (response, args)
     {
-        $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'the equipment has not been saved', type: 'danger'});
+        $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'equipments.validations.not_created', type: 'danger'});
     }
 
     var success = function (response, args)
     {
-        $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'equipment saved', type: 'success'});
+        $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'equipments.validations.created', type: 'success'});
         $location.path('/equipments/list');
     }
 

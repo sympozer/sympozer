@@ -35,7 +35,9 @@ class GenericAdmin extends AdminSympozerInherit
     //@TODO : faire le typage logo
     $this->excluded = array(
       'id',
-      'logo'
+      'logo',
+      'organizations',
+      'dtype'
     );
   }
 

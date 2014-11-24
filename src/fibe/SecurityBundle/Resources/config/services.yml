@@ -1,7 +1,6 @@
 
 
 parameters:
-    security.acl.dbal.provider.class: fibe\SecurityBundle\Services\AclProvider
     fos_user.registration.confirmation.enabled: true
     my_user_provider.class: fibe\SecurityBundle\Services\FOSUBUserProvider
     twitter.api_url: "https://api.twitter.com/1.1/"
@@ -28,6 +27,8 @@ parameters:
         All the sympozer's team welcomes you and wishes you will enjoy using our service.
         Regards,
         the Symposer team
+
+
 services:
     my_user_provider:
         class: "%my_user_provider.class%"
@@ -45,7 +46,12 @@ services:
 
     fibe.UserService:
         class:  fibe\SecurityBundle\Services\UserService
-        arguments: ["@doctrine.orm.entity_manager"]
+        parent: fibe.rest.business_service
+
+    fibe.TeammateService:
+        class:  fibe\SecurityBundle\Services\TeammateService
+        parent: fibe.rest.business_service
+        arguments: ["@fibe_security.acl_user_permission_helper"]
 
     fibe_user.registration.form.type:
         class: fibe\SecurityBundle\Form\RegistrationFormType
@@ -59,27 +65,21 @@ services:
         tags:
             - { name: form.type, alias: fibe_user_profile }
 
+    fibe_security.acl_helper:
+        abstract:  true
+        class: fibe\SecurityBundle\Services\Acl\ACLHelper
+        calls:
+            - [setEntityManager, ["@doctrine.orm.entity_manager"]]
+            - [setAclProvider, ["@security.acl.provider"]]
+            - [setLogger, ["@?logger"]]
+
     fibe_security.acl_entity_helper:
-        class: fibe\SecurityBundle\Services\ACLEntityHelper
-        arguments: ["@security.context","@doctrine.orm.entity_manager","@security.acl.provider"]
+        class: fibe\SecurityBundle\Services\Acl\ACLEntityHelper
+        parent: fibe_security.acl_helper
 
     fibe_security.acl_user_permission_helper:
-        class: fibe\SecurityBundle\Services\ACLUserPermissionHelper
-        arguments: ["@security.context","@doctrine.orm.entity_manager","@security.acl.provider","@fibe_user.user_conf_permissions.form.type"]
-
-    fibe_user.user_conf_permissions.form.type:
-        class: fibe\SecurityBundle\Form\UserConfPermissionType
-        arguments: ["@fibe_security.acl_entity_helper"]
-        tags: 
-            - { name: form.type, alias: user_conf_permissions }
-
-    entityAddACL:
-        class: fibe\SecurityBundle\Listener\AddACL
-        arguments: ["@service_container"]
-        tags:
-            - { name: doctrine.event_listener, event: postPersist }
-    # TODO POST DELETE
-    # TODO POST DELETE
+        class: fibe\SecurityBundle\Services\Acl\ACLUserPermissionHelper
+        parent: fibe_security.acl_helper
 
     security.access.acl_inheritance_voter:
         class:      fibe\SecurityBundle\Voter\ACLInheritanceVoter
@@ -88,11 +88,11 @@ services:
             - { name: security.voter }
             - { name: security.voter , priority: 1 }
             - { name: monolog.logger , channel: security }
-        arguments: 
+        arguments:
             - '@security.acl.provider'
             - '@security.acl.object_identity_retrieval_strategy'
             - '@security.acl.security_identity_retrieval_strategy'
-            - '@security.acl.permission.map' 
+            - '@security.acl.permission.map'
             - '@?logger'
 
     fibe_security.mailer:
@@ -106,7 +106,7 @@ services:
                     from_email  : "%fos_user.registration.confirmation.from_email%"
                     subject     : "%fibe_security.mailer.random_pwd_email_message.subject%"
                     html_body   : "%fibe_security.mailer.random_pwd_email_message.html_body%"
-                    text_body   : "%fibe_security.mailer.random_pwd_email_message.text_body%"  
+                    text_body   : "%fibe_security.mailer.random_pwd_email_message.text_body%"
 
     fibe_security.twitter:
         class: fibe\SecurityBundle\Services\TwitterAPI

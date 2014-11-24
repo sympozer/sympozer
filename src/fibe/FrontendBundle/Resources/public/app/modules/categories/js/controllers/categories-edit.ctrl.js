@@ -9,12 +9,12 @@ angular.module('categoriesApp').controller('categoriesEditCtrl', [ '$scope', '$w
 
     var error = function (response, args)
     {
-        $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'the category has not been saved', type: 'danger'});
+        $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'categories.validations.not_created', type: 'danger'});
     };
 
     var success = function (response, args)
     {
-        $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'category saved', type: 'success'});
+        $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'categories.validations.created', type: 'success'});
         $window.history.back();
     };
 

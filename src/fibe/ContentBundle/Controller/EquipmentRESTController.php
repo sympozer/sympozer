@@ -143,7 +143,7 @@ class EquipmentRESTController extends FOSRestController
     public function deleteEquipmentAction($id)
     {
 
-        return $this->get('fibe.rest.crudhandler')->delete(
+        $this->get('fibe.rest.crudhandler')->delete(
             $this::ENTITY_CLASSNAME,
             $id
         );;

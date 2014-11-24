@@ -1,6 +1,6 @@
 <div ng-include="GLOBAL_CONFIG.app.modules.categories.urls.partials+'categories-actions.html'"></div>
 
-<input type="text" class="form-control" placeholder="Search" ng-change="load()" ng-model="query">
+<input type="text" class="form-control" placeholder="{{ 'categories.actions.search' | translate }}" ng-change="load()" ng-model="query">
 
 <div class="row" entity-list-handler="categories" infinite-scroll='load()' infinite-scroll-disabled='busy' infinite-scroll-distance='0.5'>
   <div ng-repeat="category in categories  track by $index" class="col-sm-6 col-md-6 col-lg-4 well">

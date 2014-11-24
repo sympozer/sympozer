@@ -55,7 +55,6 @@ class Role
     private $person;
 
     /**
-     *
      * @ORM\ManyToOne(targetEntity="fibe\EventBundle\Entity\Event", inversedBy="roles")
      *
      * @Expose
@@ -81,17 +80,12 @@ class Role
      */
     private $roleLabelVersion;
 
-
-
     /**
-     * computeEndAt
-     *
-     * @TODO EVENT : à corriger
      *
      * @ORM\PrePersist()
      * @ORM\PreUpdate()
      */
-    public function computeEndAt()
+    public function computeLabel()
     {
         $eventLabel = $this->getEvent() ? $this->getEvent()->getlabel(): $this->getMainEvent()->getlabel();
         $this->setLabel(sprintf("%s is %s at %s",
@@ -225,5 +219,11 @@ class Role
     public function setRoleLabelVersion($roleLabelVersion)
     {
         $this->roleLabelVersion = $roleLabelVersion;
+    }
+
+
+    public function __toString()
+    {
+        return $this->label;
     }
 }

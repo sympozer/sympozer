@@ -10,12 +10,12 @@ angular.module('roleLabelsApp').controller('roleLabelsNewCtrl',
 
         var error = function (response, args)
         {
-            $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'the roleLabel has not been created', type: 'danger'});
+            $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'roleLabelVersions.validations.not_created', type: 'danger'});
         };
 
         var success = function (response, args)
         {
-            $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'roleLabel created', type: 'success'});
+            $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'roleLabelVersions.validations.created', type: 'success'});
             if($scope.$close){
                 $scope.$close($scope.roleLabel);
             }else{

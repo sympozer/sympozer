@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use fibe\ContentBundle\Util\StringTools;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
+use JMS\Serializer\Annotation\SerializedName;
 use Symfony\Component\Validator\Constraints as Assert;
 
 
@@ -44,7 +45,8 @@ class OrganizationVersion extends AdditionalInformations
    *
    * @ORM\ManyToOne(targetEntity="fibe\CommunityBundle\Entity\Person",  inversedBy="organizations", cascade={"all"})
    * @ORM\JoinColumn(onDelete="CASCADE")
-   *
+   * @Expose
+   * @SerializedName("organizationVersionOwner")
    */
   protected $organizationVersionOwner;
 
@@ -165,7 +167,7 @@ class OrganizationVersion extends AdditionalInformations
   /**
    * @param Person $organizationVersionOwner
    */
-  public function setOrganizationVersionOwner(Person $organizationVersionOwner)
+  public function setOrganizationVersionOwner($organizationVersionOwner)
   {
     $this->organizationVersionOwner = $organizationVersionOwner;
   }
