@@ -35,12 +35,12 @@
         </div>
         <div class="panel-body">
           <div class="search-classic" entity-list-handler="teammates" limit="2" data-order-by="person">
-            <form action="#">
+            <form ng-submit="sendQuery(query)">
               <div class="input-group well w100">
                 <input type="text" placeholder="{{'teammates.actions.search' | translate }}" class="form-control" ng-change="sendQuery(query)" ng-model="query"/>
                 <span class="input-group-btn">
-                  <button type="button" class="btn btn-primary">
-                    <i class="fa fa-search"></i> {{'global.actions.search' | translate }}
+                  <button role="submit" type="submit" class="btn btn-primary">
+                  <i class="fa fa-search"></i> {{'global.actions.search' | translate }}
                   </button>
                 </span>
               </div>
@@ -48,12 +48,10 @@
 
             <h3 ng-show="query">{{'global.labels.search.displaying' | translate }} '{{ query }}'</h3>
             <hr>
+            <pagination ng-show="count > entities.length" total-items="count" ng-model="currentPage" items-per-page="limit" ng-change="fetchPage(currentPage, true)"></pagination>
             <h3>{{ count }} {{'global.labels.search.results' | translate }}
               <small ng-show="count > entities.length"> - Displaying {{(currentPage-1) * limit}} to {{ currentPage * limit > count ? count : currentPage * limit }}</small>
             </h3>
-
-
-            <pagination ng-show="count > entities.length" total-items="count" ng-model="currentPage" items-per-page="limit" ng-change="fetchPage(currentPage, true)"></pagination>
             <div class="search-result" ng-repeat-start="teammate in entities  track by $index">
               <div ng-include="GLOBAL_CONFIG.app.modules.teammates.urls.partials+'teammate-entity-row-lg.html'"></div>
               <button class="btn btn-danger" data-ng-click="deleteTeammateModal($index, teammate)" role="button">
@@ -61,6 +59,7 @@
               </button>
             </div>
             <hr ng-repeat-end="">
+            <pagination ng-show="count > entities.length" total-items="count" ng-model="currentPage" items-per-page="limit" ng-change="fetchPage(currentPage, true)"></pagination>
           </div>
         </div>
       </div>

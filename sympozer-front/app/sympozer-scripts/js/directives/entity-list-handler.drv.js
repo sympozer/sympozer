@@ -39,7 +39,7 @@ angular.module('sympozerApp').directive('entityListHandler', ['GLOBAL_CONFIG', '
 
             //Initialize the options
             //Query is a string
-            scope.query = attrs.query || null;
+            scope.query = attrs.query;
             //orderBy is the attribute on which order has to be applied
             scope.orderBy = attrs.orderBy || "label";
             //orderSide is ASC (for ascendent) or DESC (for descendant)
