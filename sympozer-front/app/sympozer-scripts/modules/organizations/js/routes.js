@@ -10,9 +10,9 @@ angular.module('organizationsApp')
         function ($routeProvider)
         {
             $routeProvider
-                .when('/organizations/list', {
-                    templateUrl: globalConfig.app.modules.organizations.urls.communityPartials + 'organizations-community-thumbnail.html',
-                    controller : 'organizationsCommunityListCtrl'
+                .when('/home/organizations/index', {
+                    templateUrl: globalConfig.app.modules.organizations.urls.partials + 'pages/organizations-index.html',
+                    controller : 'organizationsCommunityIndexCtrl'
                 })
                 .when('/organizations/thumbnail', {
                     templateUrl: globalConfig.app.modules.organizations.urls.partials + 'organizations-thumbnail.html',
@@ -27,15 +27,15 @@ angular.module('organizationsApp')
                     controller : 'organizationsListCtrl'
                 })
                 .when('/organizations/new', {
-                    templateUrl: globalConfig.app.modules.organizations.urls.partials + 'organizations-new.html',
+                    templateUrl: globalConfig.app.modules.organizations.urls.partials + 'pages/organizations-new.html',
                     controller : 'organizationsNewCtrl'
                 })
-                .when('/organizations/edit/:organizationId', {
-                    templateUrl: globalConfig.app.modules.organizations.urls.partials + 'organizations-edit.html',
+                .when('/home/organizations/edit/:organizationId', {
+                    templateUrl: globalConfig.app.modules.organizations.urls.partials + 'pages/organizations-edit.html',
                     controller : 'organizationsEditCtrl'
                 })
-                .when('/organizations/show/:organizationId', {
-                    templateUrl: globalConfig.app.modules.organizations.urls.partials + 'organizations-show.html',
+                .when('/home/organizations/show/:organizationId', {
+                    templateUrl: globalConfig.app.modules.organizations.urls.partials + 'pages/organizations-show.html',
                     controller : 'organizationsShowCtrl'
                 })
                 .otherwise({

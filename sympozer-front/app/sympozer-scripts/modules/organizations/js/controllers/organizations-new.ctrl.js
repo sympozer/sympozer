@@ -54,7 +54,7 @@ angular.module('organizationsApp').controller('organizationsNewCtrl', [ '$scope'
         if (form.$valid)
         {
             //New organization version creation
-            $scope.organization.$create({}, success, error);
+            $scope.organization.$createVersions({}, success, error);
         }
     }
 

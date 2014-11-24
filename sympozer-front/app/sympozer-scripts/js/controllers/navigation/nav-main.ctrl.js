@@ -18,7 +18,7 @@ sympozerApp.controller('navMainCtrl', ['$scope', '$location', '$timeout', '$glob
     {
       label: 'organizations.links.organizations',
       iconClasses: 'fa fa-group',
-      url: '#/' /** @TODO FORZA : TO ALIMENT WITH THE PROPER URL**/
+      url: '#/home/organizations/index'
     },
     {
       label: 'persons.links.persons',

@@ -3,13 +3,12 @@
  *
  * @type {controller}
  */
-angular.module('personsApp').controller('personsCommunityIndexCtrl', ['$scope', '$routeParams', 'GLOBAL_CONFIG', '$rootScope', 'personsFact', function ($scope, $routeParams, GLOBAL_CONFIG, $rootScope, personsFact)
+angular.module('personsApp').controller('personsCommunityIndexCtrl', ['$scope', 'personsFact', function ($scope, personsFact)
 {
-    $scope.GLOBAL_CONFIG = GLOBAL_CONFIG;
-
+    //Prepare entitties object for list entity handler directive
     $scope.entities = [];
 
+    //Fetch all persons
     $scope.request = personsFact.all;
-
 
 }]);

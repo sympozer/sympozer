@@ -50,7 +50,7 @@ angular.module('personsApp').controller('personsEditCtrl', [ '$scope', '$filter'
             }
 
             //Stop if the object selected is already in array (avoid duplicates)
-            if(! $filter('inArray')('id', model.id, $scope.person[key])){
+            if(! $filter('inArray')('label', model.label, $scope.person[key])){
                 //If no duplicate add the selected object to the specified array
                 $scope.person[key].push(model);
                 $scope.updatePerson(key, $scope.person[key]);

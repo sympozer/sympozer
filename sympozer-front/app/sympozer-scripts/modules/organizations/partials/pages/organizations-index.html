@@ -1,0 +1,91 @@
+<!--<div class="row">-->
+    <!--<input type="text" class="form-control" placeholder="{{ 'organizations.actions.search' | translate}}" ng-change="sendQuery(query)" ng-model="query">-->
+<!--</div>-->
+<!--<hr/>-->
+<!--<div class="row" entity-list-handler="organizations" infinite-scroll='load()' infinite-scroll-disabled='busy' infinite-scroll-distance='0.5'>-->
+    <!--<div ng-repeat="organization in entities  track by $index" class="col-sm-6 col-md-6 col-lg-4 well">-->
+        <!--<div class="img-container-md">-->
+            <!--<img class="scale-img img-circle" no-image ng-src="{{ organization.img }}"/>-->
+        <!--</div>-->
+        <!--<h2>{{ organization.label }}</h2>-->
+
+        <!--<p>{{ organization.website }}</p>-->
+
+        <!--<p>{{ organization.country }}</p>-->
+        <!--<a class="btn btn-default" href="#organizations/show/{{ organization.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>-->
+
+    <!--</div>-->
+<!--</div>-->
+
+
+
+<div id="page-heading">
+
+    <div ng-include="GLOBAL_CONFIG.app.urls.partials+'navigation/breadcrumb.html'"></div>
+
+    <h1>{{'organizations.links.organizations' | translate }}</h1>
+
+    <div class="options">
+        <div class="btn-toolbar">
+            <div class="btn-group" dropdown>
+                <button type="button" class="btn btn-default dropdown-toggle">
+                    Export as <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a href="#">Action</a></li>
+                    <li><a href="#">Another action</a></li>
+                    <li><a href="#">Something else here</a></li>
+                    <li class="divider"></li>
+                    <li><a href="#">Separated link</a></li>
+                </ul>
+            </div>
+            <a href="#" class="btn btn-default hidden-xs"><i class="fa fa-cog"></i></a>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+
+            <div class="panel">
+                <div class="panel-heading">
+                    <h4>{{'organizations.actions.search' | translate }}</h4>
+                </div>
+                <div class="panel-body" entity-list-handler="organizations">
+                    <div class="search-classic">
+                        <form action="#">
+                            <div class="input-group well w100">
+                                <input type="text" ng-model="query" placeholder="{{'global.actions.placeHolderSearch' | translate }}" class="form-control"/>
+                                  <span class="input-group-btn">
+                                    <button ng-click="sendQuery(query)" type="button" class="btn btn-primary">
+                                        <i class="fa fa-search"></i> {{'global.actions.search' | translate }}
+                                    </button>
+                                  </span>
+                            </div>
+                        </form>
+                        <h3 ng-if="query">{{'global.labels.search.displaying' | translate }} '{{query}}'</h3>
+                        <hr>
+                        <div class="search-result" ng-repeat-start="organization in entities  track by $index" infinite-scroll='load()' infinite-scroll-disabled='busy' infinite-scroll-distance='0.5'>
+                            <div class="row" ng-include="GLOBAL_CONFIG.app.modules.organizations.urls.partials+'views/organizations-views-row-lg.html'"></div>
+                        </div>
+                        <hr ng-repeat-end="">
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- col-md-12 -->
+    </div>
+    <!-- row -->
+</div> <!-- container -->
+</div>
+
+
+
+
+
+
+
+

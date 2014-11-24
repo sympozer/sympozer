@@ -42,13 +42,14 @@ class OrganizationRESTController extends FOSRestController
     }
 
     /**
-     * Lists all Organization entities.
+     * Lists all Organizations entities.
      * @Rest\Get("/organizations", name="community_organizations_all")
      * @Rest\View
      * @Rest\QueryParam(name="offset", requirements="\d+", nullable=true, description="Offset from which to start listing pages.")
      * @Rest\QueryParam(name="limit", requirements="\d+", default="70", description="How many entity to return.")
      * @Rest\QueryParam(name="query", requirements=".{1,64}", nullable=true, description="the query to search.")
      * @Rest\QueryParam(name="order", nullable=true, array=true, description="an array of order.")
+     * @Rest\QueryParam(name="filters", nullable=true, array=true, description="an array of filters.")
      */
     public function getOrganizationsAction(Request $request, ParamFetcherInterface $paramFetcher)
     {

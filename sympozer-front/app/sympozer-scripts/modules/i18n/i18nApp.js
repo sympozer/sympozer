@@ -430,7 +430,8 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 print: 'Print organization'
             },
             links: {
-                organizations: 'Organizations'
+                organizations: 'Organizations',
+                organization : 'Organization'
             },
             labels: {
                 member: 'Members'
@@ -440,7 +441,8 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 'not_created': 'Sorry, the organization has not been saved'
             },
             messages: {
-                delete_confirm: 'Are you sure you want to delete this organization ?'
+                delete_confirm: 'Are you sure you want to delete this organization ?',
+                no_description : 'This organization has no description yet'
             },
             model: {
                 label: 'Label',
@@ -973,7 +975,9 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 print: 'Imprimer organisations'
             },
             links: {
-                organizations: 'Organisations'
+                organizations: 'Organisations',
+                organization : 'Organisation'
+
             },
             labels: {
                 member: 'Membres'
@@ -983,7 +987,9 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 'not_created': 'Désolé, l\'organization n\'a pas été sauvegardée'
             },
             messages: {
-                delete_confirm: 'Etes-vous sur de vouloir supprimer cette organisation ?'
+                delete_confirm: 'Etes-vous sur de vouloir supprimer cette organisation ?',
+                no_description : 'Cette organization n\'a pas de description pour le moment'
+
             },
             model: {
                 label: 'Label',

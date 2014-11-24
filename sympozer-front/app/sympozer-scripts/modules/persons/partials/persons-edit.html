@@ -169,7 +169,9 @@
                                             </td>
                                             <td>
                                                 <span ng-repeat="organization in person.organizations  track by $index">
-                                                    <a class="btn btn-default" href="#organizations/show/{{ organization.id }}" role="button">{{ organization.label }}</a>
+                                                    <a class="btn btn-default" href="#organizations/show/{{ organization.id }}" role="button">{{ organization.label }} <i class="fa fa-times" ng-click="removeRelationship('organizations', $index)" ></i></a>
+
+
                                                 </span>
                                                 <span>
                                                     <div sympozer-autocomplete="organizations" on-select="addOrganization" on-keyup="searchOrganizations"></div>
