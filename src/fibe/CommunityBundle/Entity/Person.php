@@ -3,20 +3,16 @@
 namespace fibe\CommunityBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\Event\PreFlushEventArgs;
 use Doctrine\ORM\Mapping as ORM;
 use fibe\ContentBundle\Entity\Paper;
 use fibe\ContentBundle\Entity\Role;
 use fibe\ContentBundle\Util\StringTools;
+use fibe\EventBundle\Entity\MainEvent;
+use fibe\SecurityBundle\Entity\Teammate;
 use fibe\SecurityBundle\Entity\User;
-use FOS\UserBundle\Model\UserInterface;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
-use JMS\Serializer\Annotation\Groups;
-use JMS\Serializer\Annotation\MaxDepth;
 use JMS\Serializer\Annotation\SerializedName;
-use JMS\Serializer\Annotation\VirtualProperty;
-
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -33,8 +29,6 @@ class Person extends AdditionalInformations
 {
 
   /**
-   * label
-   *
    * @ORM\Column(type="string")
    * @Expose
    */
@@ -50,7 +44,12 @@ class Person extends AdditionalInformations
   protected $user;
 
   /**
-   * familyName
+   * @ORM\OneToMany(targetEntity="fibe\SecurityBundle\Entity\Teammate", mappedBy="person")
+   * @Expose
+   */
+  protected $teammates;
+
+  /**
    * @ORM\Column(type="string", nullable=true,  name="familyName")
    * @Expose
    * @SerializedName("familyName")
@@ -58,8 +57,7 @@ class Person extends AdditionalInformations
   protected $familyName;
 
   /**
-   * firstName
-   * @Assert\NotBlank(message ="Please give a first name")
+   * @Assert\NotBlank(message="Please give a first name")
    * @ORM\Column(type="string", nullable=true,  name="firstName")
    * @Expose
    * @SerializedName("firstName")
@@ -67,42 +65,25 @@ class Person extends AdditionalInformations
   protected $firstName;
 
   /**
-   * description
-   *
    * @ORM\Column(type="string", length=1024, nullable=true, name="description")
    * @Expose
    */
   protected $description;
 
   /**
-   * age
-   *
    * @ORM\Column(type="integer", nullable=true,  name="age")
    * @Expose
    */
   protected $age;
 
   /**
-   * Paper
    * Paper made by this person
    * @Expose
-   * @ORM\ManyToMany(targetEntity="fibe\ContentBundle\Entity\Paper",  mappedBy="authors", cascade={"persist","merge", "remove"})
+   * @ORM\ManyToMany(targetEntity="fibe\ContentBundle\Entity\Paper",  mappedBy="authors", cascade={"all"})
    */
   protected $papers;
 
   /**
-   *
-   * organization
-   *
-   * @ORM\OneToMany(targetEntity="fibe\CommunityBundle\Entity\OrganizationVersion", mappedBy="organizationVersionOwner", cascade={"persist", "merge", "remove"})
-   * @Expose
-   */
-  private $organizations;
-
-  /**
-   * openId
-   *
-   *
    * @ORM\Column(type="string", nullable=true,  name="openId")
    */
   protected $openId;
@@ -116,8 +97,6 @@ class Person extends AdditionalInformations
   protected $roles;
 
   /**
-   * @TODO : Difference avec un utilisateur Sympozer ? Peut appartenir a plusieurs main events
-   *
    * @ORM\ManyToMany(targetEntity="fibe\EventBundle\Entity\MainEvent", inversedBy="persons", cascade={"persist"})
    * @ORM\JoinTable(name="main_event_person",
    *     joinColumns={@ORM\JoinColumn(name="mainevent_id", referencedColumnName="id")},
@@ -126,18 +105,16 @@ class Person extends AdditionalInformations
   protected $mainEvents;
 
   /**
-   *
    * @ORM\OneToMany(targetEntity="SocialServiceAccount",  mappedBy="owner", cascade={"persist", "remove"})
-   *
    */
   protected $accounts;
-
   /**
    * @ORM\Column(type="string", length=256, nullable=true)
    */
   protected $slug;
 
   /**
+
   * @ORM\Column(type="string", length=256, nullable=true)
   * @Expose
   */
@@ -149,16 +126,39 @@ class Person extends AdditionalInformations
   */
   protected $chkTimeline;
 
+   * @ORM\OneToMany(targetEntity="fibe\EventBundle\Entity\MainEvent", mappedBy="owner")
+   */
+  protected $ownMainEvents;
+
+  /**
+   *  Person that invited this person
+   * @ORM\ManyToOne(targetEntity="Person",  inversedBy="guests", cascade={"all"})
+   * @ORM\JoinColumn(onDelete="CASCADE")
+   */
+  protected $invitedBy;
+  /**
+   * @ORM\OneToMany(targetEntity="fibe\CommunityBundle\Entity\OrganizationVersion", mappedBy="organizationVersionOwner", cascade={"all"}, orphanRemoval=true)
+   * @Expose
+   */
+  private $organizations;
+  /**
+   *  Persons invited by this person
+   * @ORM\OneToMany(targetEntity="Person", mappedBy="invitedBy", cascade={"all"}, orphanRemoval=true)
+   */
+  private $guests;
+
   /**
    * Constructor
    */
   public function __construct()
   {
+    $this->teammates = new ArrayCollection();
     $this->papers = new ArrayCollection();
     $this->organizations = new ArrayCollection();
     $this->roles = new ArrayCollection();
     $this->accounts = new ArrayCollection();
     $this->mainEvents = new ArrayCollection();
+    $this->guests = new ArrayCollection();
   }
 
   /**
@@ -184,15 +184,6 @@ class Person extends AdditionalInformations
   }
 
   /**
-   * Slugify
-   * @ORM\PrePersist()
-   */
-  public function slugify()
-  {
-    $this->setSlug(StringTools::slugify($this->getId() . $this->getLabel()));
-  }
-
-  /**
    * onUpdate
    *
    * @ORM\PostPersist()
@@ -204,15 +195,34 @@ class Person extends AdditionalInformations
   }
 
   /**
-   * Set slug
+   * Slugify
+   * @ORM\PrePersist()
+   */
+  public function slugify()
+  {
+    $this->setSlug(StringTools::slugify($this->getId() . $this->getLabel()));
+  }
+
+  /**
+   * Get label
    *
-   * @param string $slug
+   * @return string
+   */
+  public function getlabel()
+  {
+    return $this->label;
+  }
+
+  /**
+   * Set label
+   *
+   * @param string $label
    *
    * @return $this
    */
-  public function setSlug($slug)
+  public function setLabel($label)
   {
-    $this->slug = $slug;
+    $this->label = $label;
 
     return $this;
   }
@@ -276,27 +286,27 @@ class Person extends AdditionalInformations
     }
 
   /**
-   * Set label
+   * Set slug
    *
-   * @param string $label
+   * @param string $slug
    *
    * @return $this
    */
-  public function setLabel($label)
+  public function setSlug($slug)
   {
-    $this->label = $label;
+    $this->slug = $slug;
 
     return $this;
   }
 
   /**
-   * Get label
+   * Get familyName
    *
    * @return string
    */
-  public function getlabel()
+  public function getFamilyName()
   {
-    return $this->label;
+    return $this->familyName;
   }
 
   /**
@@ -314,13 +324,13 @@ class Person extends AdditionalInformations
   }
 
   /**
-   * Get familyName
+   * Get firstName
    *
    * @return string
    */
-  public function getFamilyName()
+  public function getFirstName()
   {
-    return $this->familyName;
+    return $this->firstName;
   }
 
   /**
@@ -338,13 +348,13 @@ class Person extends AdditionalInformations
   }
 
   /**
-   * Get firstName
+   * Get description
    *
    * @return string
    */
-  public function getFirstName()
+  public function getDescription()
   {
-    return $this->firstName;
+    return $this->description;
   }
 
   /**
@@ -362,13 +372,13 @@ class Person extends AdditionalInformations
   }
 
   /**
-   * Get description
+   * Get age
    *
-   * @return string
+   * @return integer
    */
-  public function getDescription()
+  public function getAge()
   {
-    return $this->description;
+    return $this->age;
   }
 
   /**
@@ -386,13 +396,13 @@ class Person extends AdditionalInformations
   }
 
   /**
-   * Get age
+   * Get openId
    *
-   * @return integer
+   * @return string
    */
-  public function getAge()
+  public function getOpenId()
   {
-    return $this->age;
+    return $this->openId;
   }
 
   /**
@@ -410,69 +420,80 @@ class Person extends AdditionalInformations
   }
 
   /**
-   * Get openId
+   * Add teammate
    *
-   * @return string
+   * @param Teammate $teammate
+   *
+   * @return User
    */
-  public function getOpenId()
+  public function addTeammate(Teammate $teammate)
   {
-    return $this->openId;
-  }
+    $this->teammates[] = $teammate;
 
-  /**
-   * Add papers
-   *
-   * @param Paper $papers
-   *
-   * @return $this
-   */
-  public function addPaper(Paper $papers)
-  {
-    $this->papers[] = $papers;
-    $papers->addAuthor($this);
     return $this;
   }
 
   /**
-   * Remove papers
+   * Remove teammates
    *
-   * @param Paper $papers
+   * @param Teammate $teammate
    */
-  public function removePaper(Paper $papers)
+  public function removeTeammate(Teammate $teammate)
   {
-    $this->papers->removeElement($papers);
+    $this->teammates->removeElement($teammate);
   }
 
   /**
-   * Get papers
+   * Get teammates
    *
    * @return \Doctrine\Common\Collections\Collection
    */
-  public function getPapers()
+  public function getTeammates()
   {
-    return $this->papers;
+    return $this->teammates;
   }
 
-  /**
-   * @param mixed $papers
-   */
-  public function setPapers($papers)
-  {
-    $this->papers = $papers;
-  }
 
   /**
-   * Add organization
+   * Add ownMainEvents
    *
-   * @param OrganizationVersion $organization
+   * @param MainEvent $ownMainEvents
    *
    * @return $this
    */
-  public function addOrganization(OrganizationVersion $organization)
+  public function addOwnMainEvent(MainEvent $ownMainEvents)
   {
-    $this->organizations[] = $organization;
-    $organization->setOrganizationVersionOwner($this);
+    $this->ownMainEvents[] = $ownMainEvents;
+    $ownMainEvents->setOwner($this);
     return $this;
+  }
+
+  /**
+   * Remove ownMainEvents
+   *
+   * @param MainEvent $ownMainEvents
+   */
+  public function removeOwnMainEvent(MainEvent $ownMainEvents)
+  {
+    $this->ownMainEvents->removeElement($ownMainEvents);
+  }
+
+  /**
+   * Get ownMainEvents
+   *
+   * @return \Doctrine\Common\Collections\Collection
+   */
+  public function getOwnMainEvents()
+  {
+    return $this->ownMainEvents;
+  }
+
+  /**
+   * @param mixed $ownMainEvents
+   */
+  public function setOwnMainEvents($ownMainEvents)
+  {
+    $this->ownMainEvents = $ownMainEvents;
   }
 
   /**
@@ -482,6 +503,8 @@ class Person extends AdditionalInformations
    */
   public function removeOrganization(OrganizationVersion $organization)
   {
+//    echo $organization->getLabel();die;
+    $organization->setOrganizationVersionOwner(null);
     $this->organizations->removeElement($organization);
   }
 
@@ -509,6 +532,20 @@ class Person extends AdditionalInformations
       $this->addOrganization($organization);
     }
 
+    return $this;
+  }
+
+  /**
+   * Add organization
+   *
+   * @param OrganizationVersion $organization
+   *
+   * @return $this
+   */
+  public function addOrganization(OrganizationVersion $organization)
+  {
+    $this->organizations[] = $organization;
+    $organization->setOrganizationVersionOwner($this);
     return $this;
   }
 
@@ -636,7 +673,7 @@ class Person extends AdditionalInformations
   }
 
   /**
-   * @param UserInterface $user
+   * @param \fibe\SecurityBundle\Entity\User $user
    */
   public function setUser(User $user = null)
   {
@@ -645,5 +682,63 @@ class Person extends AdditionalInformations
       $user->setPerson($this);
     }
     $this->user = $user;
+  }
+
+  /**
+   * @return Person
+   */
+  public function getInvitedBy()
+  {
+    return $this->invitedBy;
+  }
+
+  /**
+   * @param Person $invitedBy
+   */
+  public function setInvitedBy(Person $invitedBy)
+  {
+    $this->invitedBy = $invitedBy;
+  }
+
+  /**
+   * Add guests
+   *
+   * @param Person $guests
+   *
+   * @return $this
+   */
+  public function addGuest(Person $guests)
+  {
+    $this->guests[] = $guests;
+
+    return $this;
+  }
+
+  /**
+   * Remove guests
+   *
+   * @param Person $guests
+   */
+  public function removeGuest(Person $guests)
+  {
+    $this->guests->removeElement($guests);
+  }
+
+  /**
+   * Get guests
+   *
+   * @return \Doctrine\Common\Collections\Collection
+   */
+  public function getGuests()
+  {
+    return $this->guests;
+  }
+
+  /**
+   * @param mixed $guests
+   */
+  public function setGuests($guests)
+  {
+    $this->guests = $guests;
   }
 }

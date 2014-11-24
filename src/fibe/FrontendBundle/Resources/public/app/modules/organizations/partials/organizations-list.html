@@ -2,19 +2,25 @@
 <table class="table table-striped">
     <thead>
     <tr>
-        <th>Label<i class="fa fa-sort-asc" ng-click="order('label','ASC')"></i><i class="fa fa-sort-desc" ng-click="order('label','DESC')"></i>
+        <th></th>
+        <th>{{ 'organizations.model.label' | translate}}<i class="fa fa-sort-asc" ng-click="order('label','ASC')"></i><i class="fa fa-sort-desc" ng-click="order('label','DESC')"></i>
         </th>
-        <th>website
+        <th>{{ 'organizations.model.website' | translate}}
             <i class="fa fa-sort-asc" ng-click="order('website','ASC')"></i><i class="fa fa-sort-desc" ng-click="order('website','DESC')"></i>
         </th>
-        <th>Country
+        <th>{{ 'organizations.model.country' | translate}}
             <i class="fa fa-sort-asc" ng-click="order('country','ASC')"></i><i class="fa fa-sort-desc" ng-click="order('country','DESC')"></i>
         </th>
-        <th>Actions</th>
+        <th>{{ 'global.actions.actions' | translate}}</th>
     </tr>
     </thead>
     <tbody entity-list-handler="organizations" infinite-scroll='load()' infinite-scroll-disabled='busy' infinite-scroll-distance='0.5'>
     <tr ng-repeat="organization in entities  track by $index">
+        <td>
+            <div class="img-container-sm">
+                <img class="scale-img img-circle" no-image ng-src="{{ organization.img }}"/>
+            </div>
+        </td>
         <td>{{ organization.label }}</td>
         <td>{{ organization.website }}</td>
         <td>{{ organization.country }}</td>

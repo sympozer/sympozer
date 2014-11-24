@@ -120,7 +120,7 @@ class MainEventRESTController extends FOSRestController
   public function deleteMainEventAction($id)
   {
 
-    return $this->get('fibe.rest.crudhandler')->delete(
+    $this->get('fibe.rest.crudhandler')->delete(
       $this::ENTITY_CLASSNAME,
       $id
     );;

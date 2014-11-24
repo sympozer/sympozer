@@ -42,7 +42,7 @@ class Topic
   private $label;
 
   /**
-   * Papers related to thise topic
+   * Papers related to this topic
    *
    * @ORM\ManyToMany(targetEntity="Paper", mappedBy="topics" , cascade={"persist","merge","remove"})
    */

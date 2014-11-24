@@ -41,8 +41,8 @@ sympozerAnimations.animation('.pageChange', function ()
       {
         element.stop();
       }
-    };
-  }
+    }
+  };
 
   var animateDown = function (element, className, done)
   {
@@ -67,7 +67,7 @@ sympozerAnimations.animation('.pageChange', function ()
         element.stop();
       }
     };
-  }
+  };
 
   return {
     addClass: animateUp,

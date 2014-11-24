@@ -4,7 +4,8 @@
  * @TODO implement a directive for the map handling to remove code duplication
  * @type {controller}
  */
-angular.module('locationsApp').controller('locationsEditCtrl', [ '$scope', '$rootScope', '$routeParams', '$location','equipmentsFact', 'locationsFact', function ($scope, $rootScope, $routeParams, $location, equipmentsFact, locationsFact)
+angular.module('locationsApp').controller('locationsEditCtrl', [ '$scope', '$filter', '$rootScope', '$routeParams', '$location','equipmentsFact', 'locationsFact',
+    function ($scope, $filter, $rootScope, $routeParams, $location, equipmentsFact, locationsFact)
 {
     //initialize map zoom
     $scope.center = { zoom: 2 };
@@ -17,37 +18,46 @@ angular.module('locationsApp').controller('locationsEditCtrl', [ '$scope', '$roo
         $scope.markers.push($scope.center);
     });
 
-    if(!$scope.location.equipments){
-        $scope.location.equipments =[];
-    }
-
     var error = function (response, args)
     {
-        $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'the location has not been saved', type: 'danger'});
-    }
+        $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'locations.validations.not_created', type: 'danger'});
+    };
 
     var success = function (response, args)
     {
-        $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'location saved', type: 'success'});
+        $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'locations.validations.created', type: 'success'});
         $location.path('/conference/'+$rootScope.currentMainEvent.id+'/locations/list');
-    }
+    };
 
-    $scope.update = function (form)
+    $scope.save = function (form)
     {
         if (form.$valid)
         {
             $scope.location.$update({}, success, error);
         }
+    };
+
+    //Populate array of a specific linked entity
+    $scope.addRelationship = function(key, model){
+        //Check if array available for the linked entity
+        if(!$scope.location[key]){
+            $scope.location[key] = [];
+        }
+
+        //Stop if the object selected is already in array (avoid duplicates)
+        if(! $filter('inArray')('id', model.id, $scope.location[key])){
+            //If no duplicate add the selected object to the specified array
+            $scope.location[key].push(model);
+        };
     }
+
 
     //Autocomplete and add equipment workflow
     $scope.searchEquipments = equipmentsFact.all;
     $scope.addEquipment = function (equipmentModel)
     {
-            $scope.location.equipments.push(equipmentModel);            
-    }
-
-
+        $scope.addRelationship('equipments',equipmentModel)
+    };
 
     $scope.markers = new Array();
     $scope.$on("leafletDirectiveMap.click", function (event, args)
@@ -64,5 +74,9 @@ angular.module('locationsApp').controller('locationsEditCtrl', [ '$scope', '$roo
         $scope.location.longitude = leafEvent.latlng.lng;
 
     });
+
+    $scope.deleteEquipment= function(index){
+        $scope.location.equipments.splice(index, 1);
+    };
 
 }]);

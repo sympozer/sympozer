@@ -5,9 +5,11 @@
   {% autoescape false %}
   Hello {{ user.username }} !
 
-  To finish activating your account - please visit {{ confirmationUrl }}
+  {{ 'registration'}}
 
-  Regards,
+ {{ 'registration_confirmation_mail' | trans }} {{ confirmationUrl }}
+
+  Regards,{{ user.langage }}
   the Symposer team
   {% endautoescape %}
 {% endblock %}
@@ -18,7 +20,7 @@
 
     <h3>Hello {{ user.username }} !</h3>
 
-    <p>To finish activating your account - please visit {{ confirmationUrl }}</p>
+    <p>{{ 'registration_confirmation_mail' | trans }} {{ confirmationUrl }}</p>
 
     <p>Regards,</p>
     <p><i>the Symposer team</i></p>

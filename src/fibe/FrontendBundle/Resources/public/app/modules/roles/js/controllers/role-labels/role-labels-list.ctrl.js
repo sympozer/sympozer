@@ -10,13 +10,7 @@ angular.module('roleLabelsApp').controller('roleLabelsListCtrl', [
 
         $scope.entities = [];
 
-        var baseFilters;
-        if ($routeParams.mainEventId)
-        {
-            $scope.filters = baseFilters = {
-                mainEventId: $routeParams.mainEventId
-            };
-        }
+        $scope.request = roleLabelsFact.allByConference;
 
         $scope.reload = function ()
         {
@@ -50,7 +44,7 @@ angular.module('roleLabelsApp').controller('roleLabelsListCtrl', [
         {
             $scope.index = index;
 
-            createDialogService(GLOBAL_CONFIG.app.modules.roleLabels.urls.partials + 'roleLabels-delete.html', {
+            createDialogService(GLOBAL_CONFIG.app.modules.roleLabelVersions.urls.partials + 'roleLabelVersions-delete.html', {
                 id        : 'complexDialog',
                 title     : 'roleLabel deletion',
                 backdrop  : true,

@@ -2,40 +2,55 @@
 
 namespace fibe\RestBundle\Listener;
 
-use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
-use Symfony\Component\HttpFoundation\Response;
 use JMS\Serializer\SerializerInterface;
+use Psr\Log\LoggerInterface;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 
 //return json error instead of symfony's error
 class SerializeExceptionListener
 {
-    protected $serializer;
+  protected $serializer;
+  private $logger;
 
-    public function __construct(SerializerInterface $serializer)
+  public function __construct(SerializerInterface $serializer, LoggerInterface $logger = null)
+  {
+    $this->serializer = $serializer;
+    $this->logger = $logger;
+  }
+
+  public function getSerializer()
+  {
+    return $this->serializer;
+  }
+
+  public function onKernelException(GetResponseForExceptionEvent $event)
+  {
+    $format = $event->getRequest()->getRequestFormat();
+    if (!$format || $format === "html")
     {
-        $this->serializer = $serializer;
+      return;
+    }
+    $error = $event->getException();
+    $datas = array('error' => $error->getMessage(), 'stack_trace' => explode("\n", $error->getTraceAsString()));
+    // NEVER DO THIS! it's causing awkward errors like doctrine annotation not imported o_O
+    // $datas[] = array('stacktrace' => $error->getTrace());
+
+    if (null !== $this->logger)
+    {
+      $this->logger->critical($error->getMessage());
+      foreach (explode("\n", $error->getTraceAsString()) as $trace)
+      {
+        $this->logger->critical($trace);
+      }
     }
 
-    public function getSerializer()
+    $content = $this->getSerializer()->serialize($datas, $format);
+    $response = new Response($content, 400);
+    if (method_exists($error, 'getStatusCode'))
     {
-        return $this->serializer;
+      $response->setStatusCode($error->getStatusCode());
     }
-
-    public function onKernelException(GetResponseForExceptionEvent $event)
-    {
-         $format = $event->getRequest()->getRequestFormat();
-         if(!$format || $format === "html"){
-             return;
-         }
-         $error = $event->getException();
-         $data = array('error' => $error->getMessage(),'stack_trace' => explode("\n", $error->getTraceAsString()));
-         // NEVER DO THIS! it's causing awkward errors like doctrine annotation not imported o_O
-         // $data[] = array('stacktrace' => $error->getTrace());
-         $content = $this->getSerializer()->serialize($data, $format);
-         $response = new Response($content, 400);
-         if(method_exists($error,'getStatusCode')){
-             $response->setStatusCode($error->getStatusCode());
-         }
-         $event->setResponse($response);
-    }
+    $event->setResponse($response);
+  }
 }

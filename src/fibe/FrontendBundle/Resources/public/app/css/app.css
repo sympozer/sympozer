@@ -5,6 +5,10 @@ body
   padding-top: 50px;
 }
 
+.inline {
+    display : inline-block;
+}
+
 #wrapper
 {
   padding-left: 260px;
@@ -351,19 +355,24 @@ input.ng-dirty.ng-valid
   border-left: 5px solid #3c763d;
 }
 
-[get-or-create]:last-child
+[sympozer-autocomplete]:last-child
 {
   margin-bottom: 15px;
 }
 
-
-[ui-select-bootstrap] .ng-hide,
+.ui-select-bootstrap .ng-hide
 {
   display: none;
 }
 
 .ui-select-bootstrap > .ui-select-match > .caret {
    top: auto !important;
+}
+
+textarea.form-control
+{
+  min-height: 10em;
+  max-height: 25em;
 }
 
 /*************** MODAL *******************/
@@ -421,3 +430,13 @@ input.ng-dirty.ng-valid
   width:auto;*/
 }
 
+
+/*************** datetimepicker *****************/
+
+.datetimepicker tbody td, .datetimepicker tbody td span{
+  border: #EEE 1px solid;
+}
+
+.datetimepicker table{
+  outline: #DDD 1px solid;
+}

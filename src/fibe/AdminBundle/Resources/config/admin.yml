@@ -91,16 +91,6 @@ services:
             - ~
         calls:
             - [ setTranslationDomain, [CommunityBundle]]
-    sonata.admin.socialService:
-        class: fibe\AdminBundle\Admin\GenericAdmin
-        tags:
-            - { name: sonata.admin, manager_type: orm, group: "CommunityBundle", label: "SocialService" }
-        arguments:
-            - ~
-            - fibe\CommunityBundle\Entity\SocialService
-            - ~
-        calls:
-            - [ setTranslationDomain, [CommunityBundle]]
     sonata.admin.socialServiceAccount:
         class: fibe\AdminBundle\Admin\GenericAdmin
         tags:

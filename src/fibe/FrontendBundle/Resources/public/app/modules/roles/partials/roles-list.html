@@ -1,7 +1,7 @@
 <div entity-list-handler="roles">
 
     <div ng-include="GLOBAL_CONFIG.app.modules.roles.urls.partials+'roles-actions.html'"></div>
-    <!--<div ng-include="GLOBAL_CONFIG.app.modules.roleLabels.urls.partials+'roleLabels-filter.html'"></div>-->
+    <!--<div ng-include="GLOBAL_CONFIG.app.modules.roleLabelVersions.urls.partials+'roleLabelVersions-filter.html'"></div>-->
 
     <ul class="nav nav-pills">
         <li class="active" ng-repeat="roleLabelVersion in roleLabelVersions track by $index">
@@ -19,9 +19,9 @@
     <table class="table table-striped">
         <thead>
         <tr>
-            <th>User</th>
-            <th>Role</th>
-            <th>Event</th>
+            <th>{{ 'roles.model.person' | translate}}</th>
+            <th>{{ 'roles.model.role_label_version' | translate}}</th>
+            <th>{{ 'roles.model.event' | translate}}</th>
         </tr>
         </thead>
         <tbody infinite-scroll='load()' infinite-scroll-disabled='busy' infinite-scroll-distance='0.5'>

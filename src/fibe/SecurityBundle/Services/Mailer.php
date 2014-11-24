@@ -25,7 +25,6 @@
 
     public function sendRandomPwdEmailMessage(UserInterface $user,$serviceName)
     {
-//TODO hard coded template 
       $subject = "Sympozer";
       $subject  = $this->parameters['random_pwd_email_message']['subject'];
       $htmlBody = str_replace("#password#", $user->getPlainPassword(), 

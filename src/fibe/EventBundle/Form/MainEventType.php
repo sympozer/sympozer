@@ -24,8 +24,18 @@ class MainEventType extends VEventType
         parent::buildForm($builder, $options);
         $builder
             ->add('acronym')
-            ->add('label')
+            ->add('label' )
             ->add('logo')
+            ->add('eventLocations', 'entity', array(
+                'class' => 'fibeContentBundle:EventLocation',
+                'required' => 'false',
+                'multiple' => true,
+            ))
+            ->add('mainEventlocation', 'entity', array(
+                'class' => 'fibeContentBundle:MainEventLocation',
+                'required' => 'true',
+                'multiple' => false,
+            ))
             ->add('startAt', 'datetime', array(
                 'widget' => 'single_text',
             ))

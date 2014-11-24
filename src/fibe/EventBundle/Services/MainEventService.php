@@ -2,30 +2,29 @@
 
 namespace fibe\EventBundle\Services;
 
-use Doctrine\ORM\EntityManager;
-
-use fibe\ContentBundle\Entity\Location;
+use fibe\ContentBundle\Entity\MainEventLocation;
 use fibe\EventBundle\Entity\MainEvent;
+use fibe\RestBundle\Services\AbstractBusinessService;
 use fibe\SecurityBundle\Entity\Team;
 use fibe\SecurityBundle\Entity\User;
-use FOS\UserBundle\Model\UserInterface;
-use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
+use fibe\SecurityBundle\Services\Acl\ACLUserPermissionHelper;
+use Symfony\Component\Security\Acl\Permission\MaskBuilder;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 
 /**
  * Class MainEventService
  * @package fibe\EventBundle\Services
  */
-class MainEventService
+class MainEventService extends AbstractBusinessService
 {
 
-  protected $entityManager;
   protected $securityContext;
+  protected $aclHelper;
 
-  public function __construct(EntityManager $entityManager, SecurityContextInterface $securityContext)
+  public function __construct(SecurityContextInterface $securityContext, ACLUserPermissionHelper $aclHelper)
   {
-    $this->entityManager = $entityManager;
     $this->securityContext = $securityContext;
+    $this->aclHelper = $aclHelper;
   }
 
 
@@ -33,23 +32,26 @@ class MainEventService
   {
     /** @var $user User */
     $user = $this->securityContext->getToken()->getUser();
-    if (!$user instanceof UserInterface)
-    {
-      throw new UnauthorizedHttpException('negotiate', 'You must be logged in to create a new event');
-    }
     if (null == $mainEvent)
     {
       $mainEvent = new MainEvent();
       $mainEvent->setLabel("Sympozer New Conference");
     }
     //$mainEvent->setLogoPath("sympozer-logo.png");
-    $mainEvent->setStartAt(new \DateTime('now'));
-    $mainEvent->setEndAt(clone $mainEvent->getStartAt()->add(new \DateInterval('P2D')));
+    if (!$mainEvent->getStartAt())
+    {
+      $mainEvent->setStartAt(new \DateTime('now'));
+    }
+    if (!$mainEvent->getEndAt())
+    {
+      $mainEvent->setEndAt(clone $mainEvent->getStartAt()->add(new \DateInterval('P2D')));
+    }
+    $mainEvent->setOwner($user->getPerson());
     $this->entityManager->persist($mainEvent);
 
 
     // conference location
-    $mainEventLocation = new Location();
+    $mainEventLocation = new MainEventLocation();
     $mainEventLocation->setLabel("Conference's location");
     $mainEventLocation->setMainEvent($mainEvent);
     $this->entityManager->persist($mainEventLocation);
@@ -156,16 +158,10 @@ class MainEventService
 
     //Team
     $defaultTeam = new Team();
-    $defaultTeam->addTeammate($user);
-    $user->addTeam($defaultTeam);
     $defaultTeam->setMainEvent($mainEvent);
     $mainEvent->setTeam($defaultTeam);
+
     $this->entityManager->persist($defaultTeam);
-
-    //Add conference to current manager
-    $user->setCurrentMainEvent($mainEvent);
-    $user->addConference($mainEvent);
-
     $this->entityManager->persist($user);
     $this->entityManager->persist($mainEvent);
     $this->entityManager->flush();
@@ -174,6 +170,9 @@ class MainEventService
     $mainEvent->slugify();
     $this->entityManager->persist($mainEvent);
     $this->entityManager->flush();
+
+    $this->aclHelper->performUpdateUserACL($user, MaskBuilder::MASK_OWNER, $mainEvent);
+
     return $mainEvent;
   }
 
@@ -193,40 +192,15 @@ class MainEventService
 //      $mainEvent->addCategorie($this->entityManager->getRepository('fibeEventBundle:Category')->findOneByName("ConferenceEvent"));
 
     //recreate main event location
-    $mainEventLocation = new Location();
+    $mainEventLocation = new MainEventLocation();
     $mainEventLocation->setLabel("Conference's location");
-    $mainEvent->setLocation($mainEventLocation);
+    $mainEvent->setMainEventLocation($mainEventLocation);
     $mainEventLocation->setMainEvent($mainEvent);
     $this->entityManager->persist($mainEventLocation);
 
     $this->entityManager->remove($mainEvent);
     $this->entityManager->flush();
   }
-
-  /**
-   * delete everything linked to a main but but the main event itself
-   *
-   * @param MainEvent $mainEvent
-   */
-  public function delete(MainEvent $mainEvent)
-  {
-    $this->removeObjects($mainEvent);
-
-    //team
-    $team = $mainEvent->getTeam();
-    if ($team)
-    {
-      $mainEvent->setTeam(null);
-      $this->entityManager->flush();
-      $this->entityManager->remove($team);
-      $this->entityManager->flush();
-    }
-
-    $this->entityManager->flush();
-    $this->entityManager->remove($mainEvent);
-    $this->entityManager->flush();
-  }
-
 
   protected function removeObjects(MainEvent $mainEvent)
   {
@@ -252,7 +226,7 @@ class MainEventService
     }
 
     //  locations
-    $locations = $mainEvent->getLocations();
+    $locations = $mainEvent->getEventLocations();
     foreach ($locations as $location)
     {
       $mainEvent->removeLocation($location);
@@ -272,6 +246,30 @@ class MainEventService
       $mainEvent->removeEvent($event);
       $this->entityManager->remove($event);
     }
+  }
+
+  /**
+   * delete everything linked to a main but but the main event itself
+   *
+   * @param MainEvent $mainEvent
+   */
+  public function delete(MainEvent $mainEvent)
+  {
+    $this->removeObjects($mainEvent);
+
+    //team
+    $team = $mainEvent->getTeam();
+    if ($team)
+    {
+      $mainEvent->setTeam(null);
+      $this->entityManager->flush();
+      $this->entityManager->remove($team);
+      $this->entityManager->flush();
+    }
+
+    $this->entityManager->flush();
+    $this->entityManager->remove($mainEvent);
+    $this->entityManager->flush();
   }
 
 }

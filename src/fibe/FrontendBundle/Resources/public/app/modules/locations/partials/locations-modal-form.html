@@ -1,5 +1,5 @@
 <div class="modal-header">
-    <h3 class="modal-title">New location</h3>
+    <h3 class="modal-title">{{'locations.actions.new' | translate}}</h3>
 </div>
 <div class="modal-body">
     <form name="locationEditForm" class="form" role="form">
@@ -7,7 +7,7 @@
     </form>
 </div>
 <div class="modal-footer">
-    <button class="btn btn-primary" ng-click="create(locationEditForm)">OK</button>
-    <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+    <button class="btn btn-primary" ng-click="save(locationEditForm)">{{'global.actions.save' | translate}}</button>
+    <button class="btn btn-warning" ng-click="cancel()">{{'locations.actions.cancel' | translate}}</button>
 </div>
 

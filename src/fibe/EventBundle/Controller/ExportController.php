@@ -3,15 +3,13 @@
 namespace fibe\EventBundle\Controller;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-
 use IDCI\Bundle\ExporterBundle\Export\ExportFactory;
 use IDCI\Bundle\ExporterBundle\Service\Manager;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Exporter controller.
@@ -29,7 +27,7 @@ class ExportController extends Controller
   public function indexAction()
   {
     $wwwConf = $this->getUser()->getCurrentMainEvent();
-    $this->get('fibe_security.acl_entity_helper')->getEntityACL('VIEW', 'MainEvent', $wwwConf);
+    $this->get('fibe_security.acl_entity_helper')->checkEntityACL('VIEW', 'MainEvent', $wwwConf);
 
     $export_form = $this->createFormBuilder()
       ->add(
@@ -61,7 +59,7 @@ class ExportController extends Controller
    */
   public function processAction(Request $request)
   {
-    $this->get('fibe_security.acl_entity_helper')->getEntityACL('VIEW', 'MainEvent');
+    $this->get('fibe_security.acl_entity_helper')->checkEntityACL('VIEW', 'MainEvent');
     $export_form = $this->createFormBuilder()
       ->add(
         'export_format',

@@ -12,16 +12,16 @@
  *    @param on-keyup             : Function to trigger when the user type a research
  */
 angular.module('sympozerApp').directive('sympozerAutocomplete', [
-    'GLOBAL_CONFIG','$routeParams', function (GLOBAL_CONFIG, $routeParams)
+    'GLOBAL_CONFIG', '$q', '$routeParams', function (GLOBAL_CONFIG, $q, $routeParams)
     {
         return {
-            template: '<div ng-include="templateUrl"></div>',
-            scope   : {
+            template: '<div ng-include="templateUrl" ></div>',
+            scope: {
                 onSelect: "=",
                 onKeyup: "="
             },
 
-            link : function (scope, element, attrs)
+            link: function (scope, element, attrs)
             {
                 if (!attrs.sympozerAutocomplete)
                 {
@@ -34,17 +34,13 @@ angular.module('sympozerApp').directive('sympozerAutocomplete', [
 
                 /**
                  * fired when the keyboard is hit
-                 * @param $event
+                 * @param query
                  */
-                scope.keyup = function ($event)
+                scope.keyup = function (query)
                 {
-                    if ($event.target.value === "")
-                    {
-                        return;
-                    }
-
+                    //Prepare the parameters for the request
                     var requestParams = {};
-                    requestParams.query = $event.target.value;
+                    requestParams.query = query;
 
                     //Add route parameters to object for request
                     for (var param in $routeParams)
@@ -52,25 +48,30 @@ angular.module('sympozerApp').directive('sympozerAutocomplete', [
                         requestParams[param] = $routeParams[param];
                     }
 
-                    scope.onKeyup(requestParams, function(data){
-                        addResults(data);
+                    //Promise needed by the typeahead directive, resolved when something is selected
+                    var deferred = $q.defer();
+                    scope.onKeyup(requestParams, function(data) {
+                        data.push({label : ""});
+                        deferred.resolve(data);
                     });
+                    return deferred.promise;
                 };
 
                 /**
-                 * add fetched results to the select menu
-                 * @param data  results
+                 * fired when a selection is done on the autocomplete list
+                 * @param $item represents the selected item
+                 * @param $model represents the selected item
                  */
-                function addResults(data)
+                scope.select = function ($item, $model)
                 {
-                    scope.entities = [];
-                    scope.entities.push("new");
-                    for (var i = 0; i < data.length; i++)
-                    {
-                        scope.entities.push(data[i]);
-                    }
+                    //Trigger the onSelect from the controller responsible for the view
+                    scope.onSelect($model);
+
                 }
             }
         };
+
+
     }]);
+
 

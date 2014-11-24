@@ -142,7 +142,7 @@ class CategoryVersionRESTController extends FOSRestController
     public function deleteCategoryVersionAction($id)
     {
 
-        return $this->get('fibe.rest.crudhandler')->delete(
+        $this->get('fibe.rest.crudhandler')->delete(
             $this::ENTITY_CLASSNAME,
             $id
         );;

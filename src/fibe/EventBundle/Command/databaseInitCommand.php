@@ -199,8 +199,6 @@ class databaseInitCommand extends ContainerAwareCommand
     $em->flush();
 
 
-    $em->flush();
-
     $output->writeln("rows inserted successfully");
   }
 }

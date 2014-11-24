@@ -7,384 +7,335 @@ use Doctrine\ORM\Mapping as ORM;
 
 use Symfony\Component\Validator\Constraints as Assert;
 
-use fibe\EventBundle\Entity\VEvent;
-use fibe\EventBundle\Entity\MainEvent;
-
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
-use JMS\Serializer\Annotation\Groups;
-use JMS\Serializer\Annotation\SerializedName;
-use JMS\Serializer\Annotation\VirtualProperty;
 
 /**
  * Location entity
  *
  * @ORM\Table(name="location")
  * @ORM\Entity(repositoryClass="fibe\ContentBundle\Repository\LocationRepository")
+ * @ORM\InheritanceType("SINGLE_TABLE")
+ * @ORM\DiscriminatorMap({
+ *     "Location"="Location",
+ *     "MainEventLocation"="MainEventLocation",
+ *     "EventLocation"="EventLocation"
+ * })
  * @ExclusionPolicy("all")
  */
 class Location
 {
-  /**
-   * @ORM\Id
-   * @ORM\Column(type="integer")
-   * @ORM\GeneratedValue(strategy="AUTO")
-   * @Expose
-   */
-  private $id;
+    /**
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     * @Expose
+     */
+    protected $id;
 
-  /**
-   * @ORM\Column(type="string", length=255)
-   * @Expose
-   */
-  private $label;
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Expose
+     */
+    protected $label;
 
-  /**
-   * Capacity to welcome atendees
-   *
-   * @ORM\Column(type="integer", nullable=true)
-   * @Expose
-   */
-  private $capacity;
+    /**
+     * Capacity to welcome atendees
+     *
+     * @ORM\Column(type="integer", nullable=true)
+     * @Expose
+     */
+    protected $capacity;
 
-  /**
-   * Equipments who are in the location
-   * @ORM\ManyToMany(targetEntity="fibe\ContentBundle\Entity\Equipment",  cascade={"all"})
-   * @Expose
-   */
-  private $equipments;
+    /**
+     * Equipments who are in the location
+     * @ORM\ManyToMany(targetEntity="fibe\ContentBundle\Entity\Equipment",  cascade={"all"})
+     * @Expose
+     */
+    protected $equipments;
 
-  /**
-   * Description of the location
-   *
-   * @ORM\Column(type="text", nullable=true)
-   * @Expose
-   */
-  private $description;
+    /**
+     * Description of the location
+     *
+     * @ORM\Column(type="text", nullable=true)
+     * @Expose
+     */
+    protected $description;
 
-  /**
-   * Accesibility of the location
-   *
-   * @ORM\Column(type="text", nullable=true)
-   * @Expose
-   */
-  private $accesibility;
+    /**
+     * Accesibility of the location
+     *
+     * @ORM\Column(type="text", nullable=true)
+     * @Expose
+     */
+    protected $accesibility;
 
-  /**
-   * @ORM\Column(type="decimal", precision=10, scale=6, nullable=true)
-   *
-   * @Assert\Length(
-   *      min = "-90",
-   *      max = "90",
-   *      minMessage = "You must be between -90 and 90.",
-   *      maxMessage = "YYou must be between -90 and 90."
-   * )
-   * @Expose
-   */
-  private $latitude;
+    /**
+     * @ORM\Column(type="decimal", precision=10, scale=6, nullable=true)
+     *
+     * @Assert\Length(
+     *      min = "-90",
+     *      max = "90",
+     *      minMessage = "You must be between -90 and 90.",
+     *      maxMessage = "YYou must be between -90 and 90."
+     * )
+     * @Expose
+     */
+    protected $latitude;
 
-  /**
-   * @ORM\Column(type="decimal", precision=10, scale=6, nullable=true)
-   * @Assert\Length(
-   *      min = "-180",
-   *      max = "180",
-   *      minMessage = "You must be between -180 and 180.",
-   *      maxMessage = "YYou must be between -180 and 180."
-   * )
-   * @Expose
-   */
-  private $longitude;
-
-  /**
-   *
-   * mainEvent
-   *
-   * @ORM\ManyToOne(targetEntity="fibe\EventBundle\Entity\MainEvent", inversedBy="locations", cascade={"persist"})
-   * @ORM\JoinColumn(name="main_event_id", referencedColumnName="id")
-   * @Expose
-   * @SerializedName("mainEvent")
-   */
-  private $mainEvent;
-
-  /**
-   * Events
-   *
-   * @ORM\ManyToMany(targetEntity="fibe\EventBundle\Entity\VEvent", mappedBy="locations",cascade={"persist"})
-   */
-  private $events;
+    /**
+     * @ORM\Column(type="decimal", precision=10, scale=6, nullable=true)
+     * @Assert\Length(
+     *      min = "-180",
+     *      max = "180",
+     *      minMessage = "You must be between -180 and 180.",
+     *      maxMessage = "YYou must be between -180 and 180."
+     * )
+     * @Expose
+     */
+    protected $longitude;
 
 
-  /**
-   * Constructor
-   */
-  public function __construct()
-  {
-    $this->equipments = new ArrayCollection();
-    $this->events = new ArrayCollection();
-  }
+    /**
+     * fix an issue with jms-serializer and form validation when applied to a doctrine InheritanceType("SINGLE_TABLE")
+     */
+    public $dtype;
 
-  /**
-   * toString
-   *
-   * @return string
-   */
-  public function __toString()
-  {
-    return $this->getLabel();
-  }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->equipments = new ArrayCollection();
+    }
 
-  /**
-   * getGeo
-   *
-   * @return string
-   */
-  public function getGeo()
-  {
-    return sprintf('%.6f;%.6f', $this->getLatitude(), $this->getLongitude());
-  }
+    /**
+     * toString
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getLabel();
+    }
 
-  /**
-   * Get id
-   *
-   * @return integer
-   */
-  public function getId()
-  {
-    return $this->id;
-  }
+    /**
+     * getGeo
+     *
+     * @return string
+     */
+    public function getGeo()
+    {
+        return sprintf('%.6f;%.6f', $this->getLatitude(), $this->getLongitude());
+    }
 
-  /**
-   * Set name
-   *
-   * @param $label
-   * @return Location
-   */
-  public function setLabel($label)
-  {
-    $this->label = $label;
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 
-    return $this;
-  }
+    /**
+     * Set name
+     *
+     * @param $label
+     * @return Location
+     */
+    public function setLabel($label)
+    {
+        $this->label = $label;
 
-  /**
-   * Get name
-   *
-   * @return string
-   */
-  public function getLabel()
-  {
-    return $this->label;
-  }
+        return $this;
+    }
 
-  /** Set capacity
-   *
-   * @param string $capacity
-   *
-   * @return Location
-   */
-  public function setCapacity($capacity)
-  {
-    $this->capacity = $capacity;
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getLabel()
+    {
+        return $this->label;
+    }
 
-    return $this;
-  }
+    /** Set capacity
+     *
+     * @param string $capacity
+     *
+     * @return Location
+     */
+    public function setCapacity($capacity)
+    {
+        $this->capacity = $capacity;
 
-  /**
-   * Get capacity
-   *
-   * @return integer
-   */
-  public function getCapacity()
-  {
-    return $this->capacity;
-  }
+        return $this;
+    }
 
-  /**
-   * Set description
-   *
-   * @param string $description
-   *
-   * @return Location
-   */
-  public function setDescription($description)
-  {
-    $this->description = $description;
+    /**
+     * Get capacity
+     *
+     * @return integer
+     */
+    public function getCapacity()
+    {
+        return $this->capacity;
+    }
 
-    return $this;
-  }
+    /**
+     * Set description
+     *
+     * @param string $description
+     *
+     * @return Location
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
 
-  /**
-   * Get description
-   *
-   * @return string
-   */
-  public function getDescription()
-  {
-    return $this->description;
-  }
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
 
 
-  /**
-   * Set accesibility
-   *
-   * @param string $accesibility
-   *
-   * @return Location
-   */
-  public function setAccesibility($accesibility)
-  {
-    $this->accesibility = $accesibility;
+    /**
+     * Set accesibility
+     *
+     * @param string $accesibility
+     *
+     * @return Location
+     */
+    public function setAccesibility($accesibility)
+    {
+        $this->accesibility = $accesibility;
 
-    return $this;
-  }
+        return $this;
+    }
 
-  /**
-   * Get accesibility
-   *
-   * @return string
-   */
-  public function getAccesibility()
-  {
-    return $this->accesibility;
-  }
+    /**
+     * Get accesibility
+     *
+     * @return string
+     */
+    public function getAccesibility()
+    {
+        return $this->accesibility;
+    }
 
-  /**
-   * Set latitude
-   *
-   * @param float $latitude
-   *
-   * @return Location
-   */
-  public function setLatitude($latitude)
-  {
-    $this->latitude = $latitude;
+    /**
+     * Set latitude
+     *
+     * @param float $latitude
+     *
+     * @return Location
+     */
+    public function setLatitude($latitude)
+    {
+        $this->latitude = $latitude;
 
-    return $this;
-  }
+        return $this;
+    }
 
-  /**
-   * Get latitude
-   *
-   * @return float
-   */
-  public function getLatitude()
-  {
-    return $this->latitude;
-  }
+    /**
+     * Get latitude
+     *
+     * @return float
+     */
+    public function getLatitude()
+    {
+        return $this->latitude;
+    }
 
-  /**
-   * Set longitude
-   *
-   * @param float $longitude
-   *
-   * @return Location
-   */
-  public function setLongitude($longitude)
-  {
-    $this->longitude = $longitude;
+    /**
+     * Set longitude
+     *
+     * @param float $longitude
+     *
+     * @return Location
+     */
+    public function setLongitude($longitude)
+    {
+        $this->longitude = $longitude;
 
-    return $this;
-  }
+        return $this;
+    }
 
-  /**
-   * Get longitude
-   *
-   * @return float
-   */
-  public function getLongitude()
-  {
-    return $this->longitude;
-  }
+    /**
+     * Get longitude
+     *
+     * @return float
+     */
+    public function getLongitude()
+    {
+        return $this->longitude;
+    }
 
-  /**
-   * Add event
-   *
-   * @param VEvent $event
-   *
-   * @return Location
-   */
-  public function addEvent(VEvent $event)
-  {
-    $this->events[] = $event;
 
-    return $this;
-  }
 
-  /**
-   * Remove event
-   *
-   * @param VEvent $event
-   */
-  public function removeEvent(VEvent $event)
-  {
-    $this->events->removeElement($event);
-  }
 
-  /**
-   * Get event
-   *
-   * @return \Doctrine\Common\Collections\Collection
-   */
-  public function getEvents()
-  {
-    return $this->events;
-  }
 
-  /**
-   * Add Equipment
-   *
-   * @param $equipments
-   *
-   * @return $this
-   */
-  public function addEquipment($equipments)
-  {
-    $this->equipments[] = $equipments;
 
-    return $this;
-  }
+    /**
+     * Add Equipment
+     *
+     * @param $equipments
+     *
+     * @return $this
+     */
+    public function addEquipment($equipments)
+    {
+        $this->equipments[] = $equipments;
 
-  /**
-   * Remove Equipment
-   *
-   * @param Equipment $equipments
-   */
-  public function removeEquipment(Equipment $equipments)
-  {
-    $this->equipments->removeElement($equipments);
-  }
+        return $this;
+    }
 
-  /**
-   * Get Equipments
-   *
-   * @return \Doctrine\Common\Collections\Collection
-   */
-  public function getEquipments()
-  {
-    return $this->equipments;
-  }
+    /**
+     * Remove Equipment
+     *
+     * @param Equipment $equipments
+     */
+    public function removeEquipment(Equipment $equipments)
+    {
+        $this->equipments->removeElement($equipments);
+    }
 
-  /**
-   * Set mainEvent
-   *
-   * @param MainEvent $mainEvent
-   *
-   * @return $this
-   */
-  public function setMainEvent(MainEvent $mainEvent)
-  {
-    $this->mainEvent = $mainEvent;
+    /**
+     * Get Equipments
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getEquipments()
+    {
+        return $this->equipments;
+    }
 
-    return $this;
-  }
 
-  /**
-   * Get mainEvent
-   *
-   * @return MainEvent
-   */
-  public function getMainEvent()
-  {
-    return $this->mainEvent;
-  }
+
+    /**
+     * @return mixed
+     */
+    public function getDtype()
+    {
+        return $this->dtype;
+    }
+
+    /**
+     * @param mixed $dtype
+     */
+    public function setDtype($dtype)
+    {
+        $this->dtype = $dtype;
+    }
 }

@@ -19,6 +19,7 @@ class LocationType extends AbstractType
     {
         $builder
             ->add('id')
+            ->add('dtype')
             ->add('label', 'text')
             ->add('capacity')
             ->add('description')

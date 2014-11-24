@@ -141,7 +141,7 @@ class RoleRESTController extends FOSRestController
     public function deleteRoleAction($id)
     {
 
-        return $this->get('fibe.rest.crudhandler')->delete(
+        $this->get('fibe.rest.crudhandler')->delete(
             $this::ENTITY_CLASSNAME,
             $id
         );;

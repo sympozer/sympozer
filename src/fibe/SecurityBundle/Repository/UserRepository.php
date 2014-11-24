@@ -4,6 +4,7 @@
 namespace fibe\SecurityBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use fibe\SecurityBundle\Entity\Team;
 
 /**
  * UserRepository
@@ -25,7 +26,7 @@ class UserRepository extends EntityRepository
    *
    * @return \Doctrine\ORM\QueryBuilder
    */
-  public function ManagerForSelectTeamQuery($team, $excludedId = -1)
+  public function ManagerForSelectTeamQuery(Team $team, $excludedId = -1)
   {
 
     //Init array with all id of managers actually in the team.

@@ -12,7 +12,7 @@ use JMS\Serializer\Annotation\Expose;
  * This entity define a team
  *
  * @ORM\Table(name="team")
- * @ORM\Entity
+ * @ORM\Entity()
  * @ORM\HasLifecycleCallbacks
  * @ExclusionPolicy("ALL")
  */
@@ -24,22 +24,22 @@ class Team
    * @ORM\Column(name="id", type="integer")
    * @ORM\Id
    * @ORM\GeneratedValue(strategy="AUTO")
+   * @Expose
    */
   private $id;
 
   /**
    * Conference
    *
-   * @ORM\OneToOne(targetEntity="fibe\EventBundle\Entity\MainEvent",cascade={"persist","remove"})
-   * @ORM\JoinColumn(name="conference", referencedColumnName="id",onDelete="CASCADE")
+   * @ORM\OneToOne(targetEntity="fibe\EventBundle\Entity\MainEvent", inversedBy="team", cascade={"all"})
    */
-  private $conference;
+  private $mainEvent;
 
 
   /**
    * teammate
    *
-   * @ORM\ManyToMany(targetEntity="fibe\SecurityBundle\Entity\User", mappedBy="teams",cascade={"persist"})
+   * @ORM\OneToMany(targetEntity="fibe\SecurityBundle\Entity\Teammate", mappedBy="team", cascade={"all"})
    * @Expose
    */
   private $teammates;
@@ -57,22 +57,23 @@ class Team
     return $this->id;
   }
 
-
-  public function setMainEvent(MainEvent $conference = null)
+  /**
+   * @return MainEvent
+   */
+  public function getMainEvent()
   {
-    $this->conference = $conference;
+    return $this->mainEvent;
+  }
+
+  public function setMainEvent(MainEvent $mainEvent = null)
+  {
+    $this->mainEvent = $mainEvent;
 
     return $this;
   }
 
-  public function getMainEvent()
-  {
-    return $this->conference;
-  }
-
-
   /**
-   * Add a conference manager
+   * Add a mainEvent manager
    *
    * @param User $teammate
    *
@@ -86,7 +87,7 @@ class Team
   }
 
   /**
-   * Remove a conference manager
+   * Remove a mainEvent manager
    *
    * @param User $teammate
    */
@@ -97,7 +98,7 @@ class Team
 
 
   /**
-   * Return all conference managers
+   * Return all mainEvent managers
    *
    * @return ArrayCollection
    */

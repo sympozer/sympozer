@@ -51,31 +51,31 @@ angular.module('roleLabelsApp')
         {
             $routeProvider
                 .when('/conference/:mainEventId/roleLabels/list', {
-                    templateUrl: globalConfig.app.modules.roleLabels.urls.partials + 'roleLabels-list.html',
+                    templateUrl: globalConfig.app.modules.roleLabelVersions.urls.partials + 'roleLabelVersions-list.html',
                     controller : 'roleLabelsListCtrl'
                 })
                 .when('/conference/:mainEventId/roleLabels/thumbnail', {
-                    templateUrl: globalConfig.app.modules.roleLabels.urls.partials + 'roleLabels-thumbnail.html',
+                    templateUrl: globalConfig.app.modules.roleLabelVersions.urls.partials + 'roleLabelVersions-thumbnail.html',
                     controller : 'roleLabelsListCtrl'
                 })
                 .when('/roleLabels/list', {
-                    templateUrl: globalConfig.app.modules.roleLabels.urls.partials + 'roleLabels-list.html',
+                    templateUrl: globalConfig.app.modules.roleLabelVersions.urls.partials + 'roleLabelVersions-list.html',
                     controller : 'roleLabelsListCtrl'
                 })
                 .when('/roleLabels/thumbnail', {
-                    templateUrl: globalConfig.app.modules.roleLabels.urls.partials + 'roleLabels-thumbnail.html',
+                    templateUrl: globalConfig.app.modules.roleLabelVersions.urls.partials + 'roleLabelVersions-thumbnail.html',
                     controller : 'roleLabelsListCtrl'
                 })
                 .when('/conference/:mainEventId/roleLabels/new', {
-                    templateUrl: globalConfig.app.modules.roleLabels.urls.partials + 'roleLabels-new.html',
+                    templateUrl: globalConfig.app.modules.roleLabelVersions.urls.partials + 'roleLabelVersions-new.html',
                     controller : 'roleLabelsNewCtrl'
                 })
                 .when('/roleLabels/edit/:roleLabelId', {
-                    templateUrl: globalConfig.app.modules.roleLabels.urls.partials + 'roleLabels-edit.html',
+                    templateUrl: globalConfig.app.modules.roleLabelVersions.urls.partials + 'roleLabelVersions-edit.html',
                     controller : 'roleLabelsEditCtrl'
                 })
                 .when('/roleLabels/show/:roleLabelId', {
-                    templateUrl: globalConfig.app.modules.roleLabels.urls.partials + 'roleLabels-show.html',
+                    templateUrl: globalConfig.app.modules.roleLabelVersions.urls.partials + 'roleLabelVersions-show.html',
                     controller : 'roleLabelsShowCtrl'
                 })
                 .otherwise({

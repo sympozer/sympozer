@@ -3,60 +3,62 @@
 
 <div class="container">
 
-  <div class="row">
-    <div class="col-sm-8 col-md-8 col-lg-8">
-      <div class="thumbnail">
-        <div class="caption well">
-          <div class="form-group">
-            <div class="input-group">
-              <input type="text" class="form-control" placeholder="Search an upcoming event" ng-change="search()" ng-model="query">
+  <div>IN CONSTRUCTION...</div>
 
-              <div class="input-group-btn">
-                <button type="button" class="btn btn-default" tabindex="-1"><i class="fa fa-search"></i></button>
-              </div>
-            </div>
-          </div>
-          <table class="table table-striped">
+  <!--<div class="row">-->
+    <!--<div class="col-sm-8 col-md-8 col-lg-8">-->
+      <!--<div class="thumbnail">-->
+        <!--<div class="caption well">-->
+          <!--<div class="form-group">-->
+            <!--<div class="input-group">-->
+              <!--<input type="text" class="form-control" placeholder="Search an upcoming event" ng-change="search()" ng-model="query">-->
 
-            <tbody>
-            <tr ng-repeat="conference in mainEvents  track by $index">
-              <td>{{ conference.label }}</td>
-              <td>{{ conference.start_at }}</td>
-              <td>{{ conference.end_at }}</td>
-              <td>
-                <a class="btn btn-default" href="#mainEvents/show/{{ conference.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>
-              </td>
-            </tr>
-            </tbody>
-          </table>
+              <!--<div class="input-group-btn">-->
+                <!--<button type="button" class="btn btn-default" tabindex="-1"><i class="fa fa-search"></i></button>-->
+              <!--</div>-->
+            <!--</div>-->
+          <!--</div>-->
+          <!--<table class="table table-striped">-->
 
-        </div>
+            <!--<tbody>-->
+            <!--<tr ng-repeat="conference in mainEvents  track by $index">-->
+              <!--<td>{{ conference.label }}</td>-->
+              <!--<td>{{ conference.start_at }}</td>-->
+              <!--<td>{{ conference.end_at }}</td>-->
+              <!--<td>-->
+                <!--<a class="btn btn-default" href="#mainEvents/show/{{ conference.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>-->
+              <!--</td>-->
+            <!--</tr>-->
+            <!--</tbody>-->
+          <!--</table>-->
 
-      </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-sm-8 col-md-8 col-lg-8">
-      <div class="thumbnail">
-        <div class="caption well">
-          <leaflet defaults="defaults" center="center" height="300px" width="100%"></leaflet>
-          <p>Events next to you</p>
-        </div>
-      </div>
-    </div>
-  </div>
+        <!--</div>-->
 
-  <div class="row">
-    <div class="col-sm-8 col-md-8 col-lg-8">
-      <div class="thumbnail">
-        <div class="caption well">
-          <img style="height:350px;" src="http://www.infovis-wiki.net/images/thumb/8/8e/Infovis-wiki_tagcloud_20090827.png/800px-Infovis-wiki_tagcloud_20090827.png"/>
+      <!--</div>-->
+    <!--</div>-->
+  <!--</div>-->
+  <!--<div class="row">-->
+    <!--<div class="col-sm-8 col-md-8 col-lg-8">-->
+      <!--<div class="thumbnail">-->
+        <!--<div class="caption well">-->
+          <!--<leaflet defaults="defaults" center="center" height="300px" width="100%"></leaflet>-->
+          <!--<p>Events next to you</p>-->
+        <!--</div>-->
+      <!--</div>-->
+    <!--</div>-->
+  <!--</div>-->
 
-          <p>Find a topic</p>
-        </div>
-      </div>
-    </div>
-  </div>
+  <!--<div class="row">-->
+    <!--<div class="col-sm-8 col-md-8 col-lg-8">-->
+      <!--<div class="thumbnail">-->
+        <!--<div class="caption well">-->
+          <!--<img style="height:350px;" src="http://www.infovis-wiki.net/images/thumb/8/8e/Infovis-wiki_tagcloud_20090827.png/800px-Infovis-wiki_tagcloud_20090827.png"/>-->
+
+          <!--<p>Find a topic</p>-->
+        <!--</div>-->
+      <!--</div>-->
+    <!--</div>-->
+  <!--</div>-->
 
 
 </div>
