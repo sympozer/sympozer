@@ -4,15 +4,16 @@
  * @type {controller}
  */
 angular.module('twitterApp').controller('twitterTimelineCtrl',
-    [ '$scope', '$rootScope', '$routeParams', 'twitterFact',
-        function ($scope, $rootScope, $routeParams, twitterFact )
+    [ '$scope', '$rootScope', '$routeParams', 'GLOBAL_CONFIG', 'twitterFact',
+        function ($scope, $rootScope, $routeParams, GLOBAL_CONFIG, twitterFact )
 {
-    console.log("init service twitter");
 
-    console.log(globalConfig.app.modules.twitter.urls.getTimeline);
-    console.log(globalConfig.app.modules.twitter);
+    $scope.info = GLOBAL_CONFIG.app.modules.socials.getInfo(GLOBAL_CONFIG.app.modules.socials.mapping, "person");
 
-    console.log($scope.currentMainEvent);
+    console.log($scope.info);
+    console.log($scope[$scope.info.varName]);
+    console.log( ($scope[$scope.info.varName])["dType"] );
+    $scope.ret = $scope[$scope.info.varName];
 
     $scope.tweets = twitterFact.get({tag: "test"}); //array of tweets
 }]);
