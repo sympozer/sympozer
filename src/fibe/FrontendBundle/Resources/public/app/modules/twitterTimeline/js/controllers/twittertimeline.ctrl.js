@@ -14,5 +14,5 @@ angular.module('twitterApp').controller('twitterTimelineCtrl',
 
     console.log($scope.currentMainEvent);
 
-    $scope.tweets = twitterFact.get({tag: $scope.currentMainEvent.twitterid}); //array of tweets
+    $scope.tweets = twitterFact.get({tag: "test"}); //array of tweets
 }]);
