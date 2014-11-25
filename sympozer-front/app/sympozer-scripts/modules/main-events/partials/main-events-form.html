@@ -62,7 +62,7 @@
             </div>
         </div>
     </div>
-        <span class="help-block" ng-show="inputStartAtconferenceForm.inputStartAt.$dirty && conferenceForm.endAt < eventNewForm.startAt ">{{ 'mainEvents.validations.end_date_after_start' | translate}}</span>
+    <span class="help-block" ng-show="inputEndAt.endAt.$dirty && conferenceForm.endAt < eventNewForm.startAt ">{{ 'mainEvents.validations.end_date_after_start' | translate}}</span>
         <span class="help-block" ng-if="formServerErrors.endAt" ng-repeat="error in formServerErrors.endAt">
             {{ error | translate }}
         </span>

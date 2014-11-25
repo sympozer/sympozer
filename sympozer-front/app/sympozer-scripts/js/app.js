@@ -42,7 +42,6 @@ var sympozerApp = angular.module('sympozerApp', [
     'ngCachedResource',
 
     'angularMoment',
-    'leaflet-directive',
     'ui.bootstrap.datetimepicker',
     'ngSanitize',
     'ui.select',
@@ -108,7 +107,6 @@ sympozerApp = angular.module('sympozerApp', [
     'ngRoute',
     'ngAnimate',
 /** SYMPOZER APPS **/
-//    'sympozer.breadcrumb-controller',
     'pascalprecht.translate',
     'ngCachedResource',
     'authenticationApp',
