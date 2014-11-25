@@ -5,20 +5,13 @@
  */
 angular.module('personsApp').controller('personsListCtrl', ['$scope', '$routeParams', 'GLOBAL_CONFIG', '$rootScope', 'personsFact', function ($scope, $routeParams, GLOBAL_CONFIG, $rootScope, personsFact, $modal)
 {
+
     $scope.GLOBAL_CONFIG = GLOBAL_CONFIG;
 
     $scope.entities = [];
 
     $scope.request = personsFact.allByConference;
 
-
-    $scope.reload = function ()
-    {
-        $scope.entities.$promise.then(function ()
-        {
-            console.log('From cache:', $scope.persons);
-        });
-    };
 
     $scope.clone = function (person)
     {

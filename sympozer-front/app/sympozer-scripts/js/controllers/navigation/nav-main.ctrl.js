@@ -82,7 +82,7 @@ sympozerApp.controller('navMainCtrl', ['$scope', '$rootScope', '$location', '$ti
                             {
                                 label: 'persons.links.persons',
                                 iconClasses: 'fa fa-user',
-                                url: '#/' /** @TODO FORZA : TO ALIMENT WITH THE PROPER URL**/
+                                url: '#/home/conference/'+$rootScope.currentMainEvent.id+'/roles/list'
                             }
                         ]
                     },

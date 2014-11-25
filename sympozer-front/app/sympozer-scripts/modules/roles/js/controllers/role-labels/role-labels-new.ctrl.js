@@ -26,7 +26,7 @@ angular.module('roleLabelsApp').controller('roleLabelsNewCtrl',
 
         $scope.create = function (form)
         {
-            $scope.roleLabel.mainEvent = $routeParams.mainEventId;
+            $scope.roleLabel.mainEvent = { 'id': $routeParams.mainEventId};
             if (form.$valid)
             {
                 $scope.roleLabel.$create({}, success, error);

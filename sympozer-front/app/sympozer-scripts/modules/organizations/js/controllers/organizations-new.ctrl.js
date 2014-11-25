@@ -47,6 +47,7 @@ angular.module('organizationsApp').controller('organizationsNewCtrl', [ '$scope'
 
         //If organization version created from person, then set the owner
         if(personModel){
+            //personModel.acl.delete();
             $scope.organization.organizationVersionOwner = personModel;
         }
 

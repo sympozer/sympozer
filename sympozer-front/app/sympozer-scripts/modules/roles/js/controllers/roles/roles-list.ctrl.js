@@ -4,7 +4,7 @@
  * @type {controller}
  */
 angular.module('rolesApp').controller('rolesListCtrl', [
-    '$scope', 'roleLabelsFact', '$routeParams', 'GLOBAL_CONFIG', 'createDialog', '$rootScope', 'rolesFact', '$cachedResource', function ($scope, roleLabelsFact, $routeParams, GLOBAL_CONFIG, createDialogService, $rootScope, rolesFact, $cachedResource)
+    '$scope', 'roleLabelsFact', '$routeParams', 'GLOBAL_CONFIG', '$rootScope', 'rolesFact', '$cachedResource', function ($scope, roleLabelsFact, $routeParams, GLOBAL_CONFIG, $rootScope, rolesFact, $cachedResource)
     {
         $scope.GLOBAL_CONFIG = GLOBAL_CONFIG;
         $scope.entities = [];

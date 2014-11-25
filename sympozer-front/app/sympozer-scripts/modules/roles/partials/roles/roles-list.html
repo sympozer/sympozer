@@ -1,0 +1,135 @@
+<!--<div entity-list-handler="roles">-->
+
+<!--<div ng-include="GLOBAL_CONFIG.app.modules.roles.urls.partials+'roles-actions.html'"></div>-->
+<!--&lt;!&ndash;<div ng-include="GLOBAL_CONFIG.app.modules.roleLabelVersions.urls.partials+'roleLabelVersions-filter.html'"></div>&ndash;&gt;-->
+
+<!--<ul class="nav nav-pills">-->
+<!--<li class="active" ng-repeat="roleLabelVersion in roleLabelVersions track by $index">-->
+<!--<a href="javascript:void(0)" filter="roleLabelVersionIds" ng-click="addRoleLabelsFilter(roleLabelVersion.id)">-->
+<!--<span class="badge pull-right">{{roleLabelVersion.roles.length}}</span>-->
+<!--{{ roleLabelVersion.label }}-->
+<!--</a>-->
+<!--</li>-->
+<!--<li>-->
+<!--<a class="btn" href="#conference/{{currentMainEvent.id}}/roleLabels/new/" title="Add a role">-->
+<!--<i class="fa fa-plus"></i><span class="visible-sm-inline visible-lg-inline visible-md-inline"> New role label</span>-->
+<!--</a>-->
+<!--</li>-->
+<!--</ul>-->
+<!--<table class="table table-striped">-->
+<!--<thead>-->
+<!--<tr>-->
+<!--<th>{{ 'roles.model.person' | translate}}</th>-->
+<!--<th>{{ 'roles.model.role_label_version' | translate}}</th>-->
+<!--<th>{{ 'roles.model.event' | translate}}</th>-->
+<!--</tr>-->
+<!--</thead>-->
+<!--<tbody infinite-scroll='load()' infinite-scroll-disabled='busy' infinite-scroll-distance='0.5'>-->
+<!--<tr ng-repeat="role in entities  track by $index">-->
+<!--<td>{{ role.person.label }}</td>-->
+<!--<td>{{ role.roleLabelVersion.label }}</td>-->
+<!--<td>{{ role.event.label }}</td>-->
+
+<!--<td>-->
+<!--<a class="btn btn-warning" href="#conference/{{ role.mainEvent.id }}/roles/edit/{{ role.id }}" role="button"><i class="fa fa-edit fa-1x"></i></a>-->
+<!--<a class="btn btn-default" href="#conference/{{ role.mainEvent.id }}/roles/show/{{ role.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>-->
+<!--<a class="btn btn-primary" href="" data-ng-click="clone(role)" role="button"><i class="fa fa-files-o fa-1x"></i></a>-->
+<!--<button class="btn btn-danger" data-ng-click="deleteModal($index, role)" role="button">-->
+<!--<i class="fa fa-trash-o fa-1x"></i></button>-->
+<!--</td>-->
+<!--</tr>-->
+<!--</tbody>-->
+<!--</table>-->
+<!--</div>-->
+
+
+
+
+<div id="page-heading">
+
+    <div ng-include="GLOBAL_CONFIG.app.urls.partials+'navigation/breadcrumb.html'"></div>
+
+    <h1>{{'authentication.labels.profile' | translate }}</h1>
+
+    <div class="options">
+        <div class="btn-toolbar">
+
+            <div ng-include="GLOBAL_CONFIG.app.modules.roles.urls.partials+'roles-actions.html'"></div>
+
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel">
+                <div class="panel-body">
+                    <div class="search-classic">
+                        <form ng-submit="sendQuery(query)">
+                            <div class="input-group well w100">
+                                <input type="text" ng-model="query" placeholder="{{'global.actions.placeHolderSearch' | translate }}" class="form-control"/>
+                                  <span class="input-group-btn">
+                                    <button role="submit" type="submit" class="btn btn-primary">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                  </span>
+                            </div>
+                        </form>
+                        <h3 ng-if="query">{{'global.labels.search.displaying' | translate }} '{{query}}'</h3>
+                        <hr>
+
+                        <div class="search-result" ng-repeat-start="person in entities  track by $index" infinite-scroll='load()' infinite-scroll-disabled='busy' infinite-scroll-distance='0.5'>
+                            <div class="row" ng-include="GLOBAL_CONFIG.app.modules.persons.urls.partials+'persons-entity-row-lg.html'"></div>
+                        </div>
+                        <hr ng-repeat-end="">
+
+                    </div>
+
+                    <ul class="nav nav-pills">
+                        <li class="active" ng-repeat="roleLabelVersion in roleLabelVersions track by $index">
+                            <a href="javascript:void(0)" filter="roleLabelVersionIds" ng-click="addRoleLabelsFilter(roleLabelVersion.id)">
+                                <span class="badge pull-right">{{roleLabelVersion.roles.length}}</span>
+                                {{ roleLabelVersion.label }}
+                            </a>
+                        </li>
+                        <li>
+                            <a class="btn" href="#conference/{{currentMainEvent.id}}/roleLabels/new/" title="Add a role">
+                                <i class="fa fa-plus"></i><span class="visible-sm-inline visible-lg-inline visible-md-inline"> New role label</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="row">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>{{ 'roles.model.person' | translate}}</th>
+                                <th>{{ 'roles.model.role_label_version' | translate}}</th>
+                                <th>{{ 'roles.model.event' | translate}}</th>
+                            </tr>
+                            </thead>
+                            <tbody infinite-scroll='load()' infinite-scroll-disabled='busy' infinite-scroll-distance='0.5'>
+                            <tr ng-repeat="role in entities  track by $index">
+                                <td>{{ role.person.label }}</td>
+                                <td>{{ role.roleLabelVersion.label }}</td>
+                                <td>{{ role.event.label }}</td>
+
+                                <td>
+                                    <a class="btn btn-warning" href="#conference/{{ role.mainEvent.id }}/roles/edit/{{ role.id }}" role="button"><i class="fa fa-edit fa-1x"></i></a>
+                                    <a class="btn btn-default" href="#conference/{{ role.mainEvent.id }}/roles/show/{{ role.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>
+                                    <a class="btn btn-primary" href="" data-ng-click="clone(role)" role="button"><i class="fa fa-files-o fa-1x"></i></a>
+                                    <button class="btn btn-danger" data-ng-click="deleteModal($index, role)" role="button">
+                                        <i class="fa fa-trash-o fa-1x"></i></button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div> <!-- container -->
