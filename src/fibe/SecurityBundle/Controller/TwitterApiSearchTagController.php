@@ -26,7 +26,7 @@ class TwitterApiSearchTagController extends Controller
         $parameters = array();
 
         // Get the tag
-        $parameters["q"] = "%23".$tag;
+        $parameters["q"] = $tag;
 
         // Retrieve the tweets
 
