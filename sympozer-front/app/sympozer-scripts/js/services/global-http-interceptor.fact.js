@@ -45,7 +45,7 @@ angular.module('sympozerApp').factory('globalHttpInterceptor', [
                         }
                         else
                         {
-                            entityClone[property] = getObjectId(entity[property]);
+                            entityClone[property] = entity[property];
                         }
                         break;
                     default:
@@ -75,7 +75,7 @@ angular.module('sympozerApp').factory('globalHttpInterceptor', [
             'request'      : function (config)
             {
                 //post or put & no "no_clean" arg set to true
-                if (["POST", "PUT"].indexOf(config.method) >= 0 && !(config.params && config.params.no_clean))
+                if (["POST", "PUT", "PATCH"].indexOf(config.method) >= 0 && !(config.params && config.params.no_clean))
                 {
                     {
                         config.data = cleanEntity(config.data);

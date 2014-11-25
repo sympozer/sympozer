@@ -2,6 +2,7 @@
 
 namespace fibe\ContentBundle\Form;
 
+use fibe\EventBundle\Form\MainEventType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -34,11 +35,7 @@ class RoleLabelVersionType extends AbstractType
                 'multiple' => true
             ))
 
-            ->add('mainEvent', 'entity', array(
-                'class' => 'fibeEventBundle:MainEvent',
-                'required' => 'true',
-                'multiple' => false
-            ));
+            ->add('mainEvent', new MainEventType());
     }
 
     /**

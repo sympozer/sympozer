@@ -3,7 +3,7 @@
  *
  * @type {controller}
  */
-angular.module('mainEventsApp').controller('mainEventsShowCtrl', [ '$scope', '$rootScope', '$routeParams', 'mainEventsFact', function ($scope, $rootScope, $routeParams, mainEventsFact)
+angular.module('mainEventsApp').controller('mainEventsShowCtrl', [ '$scope', '$rootScope', '$routeParams', 'mainEventsFact', 'contextFact', function ($scope, $rootScope, $routeParams, mainEventsFact, contextFact)
 {
 
     //Mandatory for the map plugin gmap to work
@@ -38,7 +38,7 @@ angular.module('mainEventsApp').controller('mainEventsShowCtrl', [ '$scope', '$r
     $scope.mainEvent = mainEventsFact.get({id: $routeParams.mainEventId}, success, error);
 
     //Context change
-    $rootScope.$broadcast('contextCtrl:changeContext', {mainEventId: $routeParams.mainEventId});
+    contextFact.changeContext($routeParams.mainEventId);
 
 
     //Bind new map instance from plugin to scope

@@ -390,7 +390,7 @@
 <!-- SYMPOZER CONTEXTUALIZATION APP -->
 <script src="sympozer-scripts/modules/contextualization/js/routes.js"></script>
 <!--CONTROLLERS-->
-<script src="sympozer-scripts/modules/contextualization/js/controllers/context.ctrl.js"></script>
+<script src="sympozer-scripts/modules/contextualization/js/services/context.fact.js"></script>
 
 
 <!-- SYMPOZER I18N APP -->
@@ -499,6 +499,41 @@
 <!-- endbuild -->
 
 
+<!-- SYMPOZER ROLES APP -->
+<script src="sympozer-scripts/modules/roles/js/routes.js"></script>
+<!-- CONTROLLERS -->
+<script src="sympozer-scripts/modules/roles/js/controllers/role-labels/role-labels-delete.ctrl.js"></script>
+<script src="sympozer-scripts/modules/roles/js/controllers/role-labels/role-labels-edit.ctrl.js"></script>
+<script src="sympozer-scripts/modules/roles/js/controllers/role-labels/role-labels-list.ctrl.js"></script>
+<script src="sympozer-scripts/modules/roles/js/controllers/role-labels/role-labels-new.ctrl.js"></script>
+<script src="sympozer-scripts/modules/roles/js/controllers/role-labels/role-labels-show.ctrl.js"></script>
+<script src="sympozer-scripts/modules/roles/js/controllers/roles/roles-delete.ctrl.js"></script>
+<script src="sympozer-scripts/modules/roles/js/controllers/roles/roles-edit.ctrl.js"></script>
+<script src="sympozer-scripts/modules/roles/js/controllers/roles/roles-list.ctrl.js"></script>
+<script src="sympozer-scripts/modules/roles/js/controllers/roles/roles-new.ctrl.js"></script>
+<script src="sympozer-scripts/modules/roles/js/controllers/roles/roles-show.ctrl.js"></script>
+<!-- SERVICES -->
+<script src="sympozer-scripts/modules/roles/js/services/role-labels.fact.js"></script>
+<script src="sympozer-scripts/modules/roles/js/services/roles.fact.js"></script>
+<!-- endbuild -->
+
+
+
+<!-- SYMPOZER EVENTS APP -->
+<!-- @TODO <script src="sympozer-scripts/modules/events/js/routes.js"></script>-->
+<!-- CONTROLLERS -->
+<!-- @TODO <script src="sympozer-scripts/modules/events/js/controllers/events-delete.ctrl.js"></script>-->
+<!-- @TODO <script src="sympozer-scripts/modules/events/js/controllers/events-edit.ctrl.js"></script>-->
+<!-- @TODO <script src="sympozer-scripts/modules/events/js/controllers/events-list.ctrl.js"></script>-->
+<!-- @TODO <script src="sympozer-scripts/modules/events/js/controllers/events-new.ctrl.js"></script>-->
+<!-- @TODO <script src="sympozer-scripts/modules/events/js/controllers/events-show.ctrl.js"></script>-->
+
+<!-- SERVICES -->
+<script src="sympozer-scripts/modules/events/js/services/events.fact.js"></script>
+<!-- endbuild -->
+
+
+
 <!-- basic client app context definition (just mocking the file) -->
 <script>
   //@TODO to put in serchService
@@ -593,15 +628,15 @@
         roles            : {
           urls: {
             base    : "sympozer-scripts/modules/roles/",
-            partials: "sympozer-scripts/modules/roles/partials/",
+            partials: "sympozer-scripts/modules/roles/partials/roles/",
             img     : "sympozer-scripts/modules/roles/img/"
           }
         },
         roleLabelVersions: {
           urls: {
-            base    : "sympozer-scripts/modules/roleLabelVersions/",
-            partials: "sympozer-scripts/modules/roleLabelVersions/partials/",
-            img     : "sympozer-scripts/modules/roleLabelVersions/img/"
+            base    : "sympozer-scripts/modules/roles/",
+            partials: "sympozer-scripts/modules/roles/partials/role-labels/",
+            img     : "sympozer-scripts/modules/roles/img/"
           }
         },
         topics           : {
