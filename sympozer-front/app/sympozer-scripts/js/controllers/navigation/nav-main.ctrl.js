@@ -6,6 +6,8 @@
 sympozerApp.controller('navMainCtrl', ['$scope', '$rootScope', '$location', '$timeout', '$global', function ($scope, $rootScope, $location, $timeout, $global)
 {
 
+
+
     /**
      * This menu is always present
      * @type {{label: string, iconClasses: string, url: string}[]}
@@ -35,18 +37,8 @@ sympozerApp.controller('navMainCtrl', ['$scope', '$rootScope', '$location', '$ti
             label: 'topics.links.topics',
             iconClasses: 'glyphicon glyphicon-tags',
             url: '#/home/topics/index'
-        },
-//        {
-//            label: 'separator',
-//            iconClasses: '',
-//            url: ''
-//        }
+        }
     ];
-
-
-    // Initialize the basic menu
-    $scope.menu = basicMenu;
-
 
 
     /**
@@ -132,12 +124,6 @@ sympozerApp.controller('navMainCtrl', ['$scope', '$rootScope', '$location', '$ti
         ];
     }
 
-    // Initialize the User menu (if the user is logged In)
-    if ($scope.currentMainEvent)
-    {
-        $scope.menu = $scope.menu.concat(menuCurrentConference);
-    }
-
     /**
      * Set hierarchy among the menu items
      *
@@ -185,12 +171,6 @@ sympozerApp.controller('navMainCtrl', ['$scope', '$rootScope', '$location', '$ti
     };
 
     /**
-     * Set hierarchy for a menu item
-     */
-    setParent($scope.menu, null);
-
-
-    /**
      * Default opened menus
      *
      * @type {Array}
@@ -210,8 +190,6 @@ sympozerApp.controller('navMainCtrl', ['$scope', '$rootScope', '$location', '$ti
      */
     $scope.select = function (item)
     {
-
-
         // close open nodes
         if (item.open)
         {
@@ -250,12 +228,23 @@ sympozerApp.controller('navMainCtrl', ['$scope', '$rootScope', '$location', '$ti
         }
     };
 
+    /**
+     * Select item according to the current url
+     */
+    var initSelected = function(){
+        //Find current item from url
+        var currentItem = $scope.findItemByUrl($scope.menu, $location.path());
+        if(currentItem){
+            //Mark as selected
+            $scope.select(currentItem);
+        }
+    }
 
     /**
-     * Compile menu object with current conference variable
+     * Initialize menu with current mainEvent and current url path
      * @returns {string}
      */
-    var updateMenu = function ()
+    var initMenu = function ()
     {
         /**
          * Each time there is a change, the menu is actualize
@@ -275,9 +264,16 @@ sympozerApp.controller('navMainCtrl', ['$scope', '$rootScope', '$location', '$ti
          */
         setParent($scope.menu, null);
 
+        /**
+         * Set selected item
+         */
+        initSelected();
 
         return $location.path();
     }
+
+    //Trigger init
+    initMenu();
 
     /**
      * Menu search form
@@ -308,11 +304,12 @@ sympozerApp.controller('navMainCtrl', ['$scope', '$rootScope', '$location', '$ti
      */
     $scope.$on('contextFact:changeContext', function(){
         //Update conference menu with new conference infos
-        updateMenu();
-        //Set current menu to the "show" (settings) link of the new conference
-        $scope.select($scope.menu[5].children[0].children[0]);
-
+        initMenu();
     });
+
+
+
+
 
 }]);
 

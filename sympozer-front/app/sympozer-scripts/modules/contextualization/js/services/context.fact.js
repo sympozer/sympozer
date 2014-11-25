@@ -10,9 +10,6 @@ angular.module('contextualizationApp').factory('contextFact', [ '$rootScope', '$
     function ( $rootScope, $routeParams, GLOBAL_CONFIG, mainEventsFact, $location, pinesNotifications, translateFilter)
     {
 
-        //Get The current conference from localstorage
-        $rootScope.currentMainEvent = JSON.parse(localStorage.getItem('currentMainEvent')) || "";
-
         /**
          * Triggered whenever the current conference has to change. The id of the new conference is given as an argument and the conference fetched
          * @param mainEventId
@@ -43,5 +40,15 @@ angular.module('contextualizationApp').factory('contextFact', [ '$rootScope', '$
                 });
             }
         }
+
+        //Get The current conference from localstorage
+        $rootScope.currentMainEvent = JSON.parse(localStorage.getItem('currentMainEvent')) || "";
+
+        //If a current mainEvent exist at init, trigger changes
+        if($rootScope.currentMainEvent){
+            $rootScope.$broadcast('contextFact:changeContext', {'newMainEvent' : $rootScope.currentMainEvent });
+
+        }
+
         return this;
     }]);
