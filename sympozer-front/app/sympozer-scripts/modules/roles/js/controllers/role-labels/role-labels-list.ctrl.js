@@ -12,14 +12,6 @@ angular.module('roleLabelsApp').controller('roleLabelsListCtrl', [
 
         $scope.request = roleLabelsFact.allByConference;
 
-        $scope.reload = function ()
-        {
-            $scope.entities.$promise.then(function ()
-            {
-                console.log('From cache:', $scope.entities);
-            });
-        };
-
         $scope.clone = function (roleLabel)
         {
             cloneroleLabel = angular.copy(roleLabel);

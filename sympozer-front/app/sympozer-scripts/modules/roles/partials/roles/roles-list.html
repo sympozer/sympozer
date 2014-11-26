@@ -86,19 +86,34 @@
 
                     </div>
 
-                    <ul class="nav nav-pills">
-                        <li class="active" ng-repeat="roleLabelVersion in roleLabelVersions track by $index">
-                            <a href="javascript:void(0)" filter="roleLabelVersionIds" ng-click="addRoleLabelsFilter(roleLabelVersion.id)">
-                                <span class="badge pull-right">{{roleLabelVersion.roles.length}}</span>
-                                {{ roleLabelVersion.label }}
-                            </a>
-                        </li>
-                        <li>
+                    <!--<ul class="nav nav-pills">-->
+                        <!--<li class="active" ng-repeat="roleLabelVersion in roleLabelVersions track by $index">-->
+                            <!--<a href="javascript:void(0)" filter="roleLabelVersionIds" ng-click="addRoleLabelsFilter(roleLabelVersion.id)">-->
+                                <!--<span class="badge pull-right">{{roleLabelVersion.roles.length}}</span>-->
+                                <!--{{ roleLabelVersion.label }}-->
+                            <!--</a>-->
+                        <!--</li>-->
+                        <!--<li>-->
+                            <!---->
+                        <!--</li>-->
+                    <!--</ul>-->
+
+
+                    <div class="row">
+                        <div  ng-repeat="roleLabelVersion in roleLabelVersions track by $index"  class="col-sm-2 col-md-2 col-lg-2 ellipsis">
+                            <label class="checkbox-inline icheck-label">
+                                <div class="btn btn-primary icheckbox_minimal-blue"><input icheck="" type="checkbox" id="inlinecheckbox1" value="option1" ><ins class="iCheck-helper"></ins></div> {{ roleLabelVersion.label }} <span class="badge pull-right"> {{roleLabelVersion.roles.length}}</span>
+                            </label>
+                        </div>
+                        <div  class="col-sm-2 col-md-2 col-lg-2 ellipsis">
                             <a class="btn" href="#conference/{{currentMainEvent.id}}/roleLabels/new/" title="Add a role">
                                 <i class="fa fa-plus"></i><span class="visible-sm-inline visible-lg-inline visible-md-inline"> New role label</span>
                             </a>
-                        </li>
-                    </ul>
+                        </div>
+                     </div>
+
+
+
                     <div class="row">
                         <table class="table table-striped">
                             <thead>

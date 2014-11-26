@@ -83,7 +83,6 @@ class CrudHandler
 
     $form = $this->container->get("form.factory")->create(new $formClassName(), $entity, array('method' => $method));
     //unset($formData['id']);//remove id to avoid form validation error with this unnecessary id
-    //unset($formData['dtype']);
     $form->submit($formData, 'PATCH' !== $method);
     //perform acl check
     $this->validateAction($method, $entity);

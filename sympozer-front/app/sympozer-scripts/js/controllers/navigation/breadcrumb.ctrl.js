@@ -112,6 +112,22 @@ sympozerApp.controller('breadcrumbCtrl', ['$scope', '$location', function ($scop
                             label: 'organizations.actions.search'
                         }
                     ]
+                },
+                {
+                    idUrl: 'conference',
+                    label: 'mainEvents.links.mainEvents',
+                    children: [
+                        {
+                            idUrl: 'roles',
+                            label: 'roles.links.roles',
+                            children: [
+                                {
+                                    idUrl: 'list',
+                                    label: 'global.labels.list'
+                                }
+                            ]
+                        }
+                    ]
                 }
             ]
         }
