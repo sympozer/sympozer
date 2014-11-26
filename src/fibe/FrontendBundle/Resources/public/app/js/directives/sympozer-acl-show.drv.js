@@ -19,28 +19,30 @@ angular.module('sympozerApp').directive('sympozerAclShow', [
             },
             link    : function (scope, element, attrs)
             {
-                //default is to hide button
-                element.hide();
-                //watch acl attribute
-                var fieldToWatch = "$parent." + scope.promiseName + ".acl";
+                if(element.hasOwnProperty('hide')){
+                    //default is to hide button
+                    element.hide();
+                    //watch acl attribute
+                    var fieldToWatch = "$parent." + scope.promiseName + ".acl";
 
-                scope.$watch(fieldToWatch, function (newValue, oldValue, $scope)
-                {
-                    //not at initialization
-                    if (!newValue)
+                    scope.$watch(fieldToWatch, function (newValue, oldValue, $scope)
                     {
-                        return;
-                    }
+                        //not at initialization
+                        if (!newValue)
+                        {
+                            return;
+                        }
 
-                    if (sympozerAclService.isGranted($scope.promise, $scope.right || defaultRightToAsk))
-                    {
-                        element.show();
-                    }
-                    else
-                    {
-                        element.hide();
-                    }
-                })
+                        if (sympozerAclService.isGranted($scope.promise, $scope.right || defaultRightToAsk))
+                        {
+                            element.show();
+                        }
+                        else
+                        {
+                            element.hide();
+                        }
+                    })
+                }
             }
         }
     }

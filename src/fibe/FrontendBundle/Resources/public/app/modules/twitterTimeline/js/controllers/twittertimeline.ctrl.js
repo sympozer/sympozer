@@ -4,23 +4,15 @@
  * @type {controller}
  */
 angular.module('twitterApp').controller('twitterTimelineCtrl',
-    [ '$scope', '$rootScope', '$routeParams', 'GLOBAL_CONFIG', 'twitterFact',
-        function ($scope, $rootScope, $routeParams, GLOBAL_CONFIG, twitterFact )
+    [ '$scope', '$rootScope', '$routeParams', 'GLOBAL_CONFIG', 'twitterFact', '$location',
+        function ($scope, $rootScope, $routeParams, GLOBAL_CONFIG, twitterFact, $location)
 {
 
-    $scope.info = GLOBAL_CONFIG.app.modules.socials.getInfo(GLOBAL_CONFIG.app.modules.socials.mapping, "person");
+    $scope.info = GLOBAL_CONFIG.app.modules.socials.getInfo(GLOBAL_CONFIG.app.modules.socials.mapping, $location.$$path.split('/')[1]);
 
-    /*console.log($scope.info);
-    console.log($scope[$scope.info.varName]);
-    console.log( ($scope[$scope.info.varName])["firstName"] );*/
-
-    console.log("console.log($scope.person);");
-    var ret1 = $scope.person;
-    console.log(ret1);
-    console.log("console.log($scope.person.id);");
-    var ret2 = $scope.person.id;
-    console.log(ret2);
-
-
-    $scope.tweets = twitterFact.get({tag: "test"}); //array of tweets
+    $scope.$watch($scope.info.varName+'.'+$scope.info.tags, function(newtag, oldtag) {
+        if(newtag != undefined){
+            $scope.tweets = twitterFact.get({tag: newtag});
+        }
+    });
 }]);
