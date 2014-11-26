@@ -38,11 +38,13 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
             },
             labels: {
                 or: 'Or',
+                on: 'on',
                 search: {
                     displaying: 'Displaying results for',
                     no_result : 'No results.'
                 },
-                on: 'on'
+                list : 'List'
+
             },
             validations: {
                 error: 'Error',
@@ -557,7 +559,7 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 localization : 'Localization',
                 country: 'Country',
                 city: 'City',
-
+                description : 'Description',
                 firstname: 'First name',
                 familyname: 'Family name',
                 email: 'Email',
@@ -593,7 +595,9 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                     displaying: 'Résultat pour',
                     no_result : 'Aucun résultat.'
                 },
-                on: 'le'
+                on: 'le',
+                list : 'Liste'
+
             },
             validations: {
                 error: 'Erreur',
@@ -1104,6 +1108,7 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 website: 'Site web',
                 country: 'Pays',
                 city: 'Ville',
+                description : 'Description',
                 firstname: 'Prénom',
                 familyname: 'Nom',
                 email: 'Email',

@@ -482,10 +482,16 @@ class MainEvent extends VEvent
         }
         $em = $eventArgs->getEntityManager();
         $uow = $em->getUnitOfWork();
-        $uow->recomputeSingleEntityChangeSet(
-            $em->getClassMetadata(get_class($this->getLocation())),
-            $this->getLocation()
-        );
+
+        if($this->getLocation()->getLabel() != null){
+           // $uow->computeChangeSets();
+            $uow->persist($this->getLocation());
+//            $uow->recomputeSingleEntityChangeSet(
+//                $em->getClassMetadata(get_class($this->getLocation())),
+//                $this->getLocation()
+//            );
+        }
+
     }
 
 }

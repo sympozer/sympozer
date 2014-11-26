@@ -23,7 +23,12 @@ angular.module('eventsApp', ['categoriesApp']);
 angular.module('mainEventsApp', []);
 angular.module('angularTranslateApp', ['pascalprecht.translate']);
 angular.module('authenticationApp', ['ngCookies', 'personsApp']);
-angular.module('contextualizationApp', ['mainEventsApp']);
+
+angular.module('contextualizationApp', ['mainEventsApp']).run(function(contextFact){
+    //Initialize context factory with current mainEvent
+    //@TODO: change .run function to contextualization app module
+    contextFact.initContext();
+});
 
 
 /**
@@ -134,6 +139,7 @@ sympozerApp = angular.module('sympozerApp', [
  */
 sympozerApp.run(function (editableOptions, editableThemes)
 {
+    //Set bootstrap 3 theme
     editableOptions.theme = 'bs3';
     // overwrite submit button template
     editableThemes['bs3'].submitTpl = '<button type="submit" class="btn btn-primary"><i class="fa fa-check"></i></button>';
@@ -145,20 +151,15 @@ sympozerApp.run(function (editableOptions, editableThemes)
  *
  * @type {config}
  */
-angular.module('sympozerApp').config(['$provide', '$httpProvider', function ($provide, $httpProvider)
+angular.module('sympozerApp').config(['$provide', '$httpProvider',  function ($provide, $httpProvider)
 {
     //Add our custom interceptor on AJAX requests
     $httpProvider.interceptors.push('globalHttpInterceptor');
+
+    //Enable cors authentication (otherwise doesn't set session cookie)
+    $httpProvider.defaults.withCredentials = true;
+
 }]);
 
-/**
- * Enable cors authentication (otherwise doesn't set session cookie)
- *
- * @type {config}
- */
-angular.module('sympozerApp').config(['$httpProvider', function ($httpProvider)
-{
-    $httpProvider.defaults.withCredentials = true;
-}]);
 
 

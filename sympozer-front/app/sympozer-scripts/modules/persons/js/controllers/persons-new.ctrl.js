@@ -3,30 +3,45 @@
  *
  * @type {controller}
  */
-angular.module('personsApp').controller('personsNewCtrl', [ '$scope', '$filter', '$window', '$rootScope', '$location', 'personsFact', 'papersFact', 'organizationsFact',
-    function ($scope, $filter, $window, $rootScope, $location, personsFact, papersFact, organizationsFact)
+angular.module('personsApp').controller('personsNewCtrl', [ '$scope', 'GLOBAL_CONFIG', '$filter', '$window', '$rootScope', '$location', 'personsFact', 'papersFact', 'organizationsFact',  'pinesNotifications', 'translateFilter', '$modal',
+    function ($scope, GLOBAL_CONFIG, $filter, $window, $rootScope, $location, personsFact, papersFact, organizationsFact, pinesNotifications, translateFilter, $modal)
     {
         $scope.person = new personsFact();
 
         var error = function (response, args)
         {
-            $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'persons.validations.not_created', type: 'danger'});
+            //Notify of the new role label post action error
+            pinesNotifications.notify({
+                title: translateFilter('global.validations.error'),
+                text: translateFilter('persons.validations.not_created'),
+                type: 'error'
+            });
         }
 
         var success = function (response, args)
         {
-            $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'persons.validations.created', type: 'success'});
+            //Notify of the creation action success
+            pinesNotifications.notify({
+                title: translateFilter('global.validations.success'),
+                text: translateFilter('persons.validations.created'),
+                type: 'success'
+            });
+
+            //close modal if view is a modal instance (resolve promise with the new person)
             if($scope.$close){
                 $scope.$close($scope.person);
             }else{
+                //Go back to previous page otherwise
                 $window.history.back();
             }
         }
 
+        //Fct to close the modal if the view is a modal instance
         $scope.cancel = function () {
             $scope.$dismiss('cancel');
         };
 
+        //Send post request with new person info
         $scope.create = function (form)
         {
             if (form.$valid)

@@ -11,7 +11,10 @@ angular.module('rolesApp').controller('rolesListCtrl', [
 
         $scope.filters = {};
 
-        $scope.roleLabelVersions = roleLabelsFact.allByConference({'mainEventId': $routeParams.mainEventId});
+         roleLabelsFact.allByConference({'mainEventId': $routeParams.mainEventId}, function(response){
+             $scope.roleLabelVersions = response.results;
+        });
+
         $scope.request = rolesFact.allByConference;
         $scope.filters.roleLabelVersionIds = [];
 
