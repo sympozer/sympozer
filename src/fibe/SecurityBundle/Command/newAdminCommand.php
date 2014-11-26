@@ -7,6 +7,7 @@
   use Symfony\Component\Console\Input\InputInterface;
   use Symfony\Component\Console\Input\InputOption;
   use Symfony\Component\Console\Output\OutputInterface;
+  use Symfony\Component\Security\Acl\Permission\MaskBuilder;
 
   /**
    * Command who create a new admin in database
@@ -73,6 +74,8 @@ EOT
       $em = $this->getContainer()->get('doctrine')->getManager('default');
       $this->getContainer()->get('fibe.UserService')->post($newUser);
       $em->flush();
+      $aclHelper = $this->getContainer()->get('fibe_security.acl_user_permission_helper');
+      $aclHelper->performUpdateUserACL($newUser, MaskBuilder::MASK_OWNER, $newUser->getPerson());
 
       $output->writeln(sprintf('Created user <comment>%s</comment>', $username));
     }
