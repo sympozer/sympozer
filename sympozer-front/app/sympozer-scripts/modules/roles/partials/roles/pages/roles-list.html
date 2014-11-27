@@ -49,12 +49,12 @@
 
     <div ng-include="GLOBAL_CONFIG.app.urls.partials+'navigation/breadcrumb.html'"></div>
 
-    <h1>{{'authentication.labels.profile' | translate }}</h1>
+    <h1>{{'roles.links.roles' | translate }}</h1>
 
     <div class="options">
         <div class="btn-toolbar">
 
-            <div ng-include="GLOBAL_CONFIG.app.modules.roles.urls.partials+'roles-actions.html'"></div>
+            <div ng-include="GLOBAL_CONFIG.app.modules.roles.urls.partials+'views/roles-actions.html'"></div>
 
         </div>
     </div>
@@ -106,7 +106,7 @@
                             </label>
                         </div>
                         <div  class="col-sm-2 col-md-2 col-lg-2 ellipsis">
-                            <a class="btn" href="#conference/{{currentMainEvent.id}}/roleLabels/new/" title="Add a role">
+                            <a class="btn" href="#/home/conference/{{currentMainEvent.id}}/roleLabels/new/" title="Add a role">
                                 <i class="fa fa-plus"></i><span class="visible-sm-inline visible-lg-inline visible-md-inline"> New role label</span>
                             </a>
                         </div>

@@ -33,7 +33,7 @@ angular.module('rolesApp').controller('rolesEditCtrl',
         $scope.addPerson = function(personModel){
             if(!personModel.id) {
                 var modalInstance = $modal.open({
-                    templateUrl: GLOBAL_CONFIG.app.modules.persons.urls.partials + 'persons-modal-form.html',
+                    templateUrl: GLOBAL_CONFIG.app.modules.persons.urls.partials + 'modals/persons-modal-form.html',
                     controller: 'personsNewCtrl',
                     size: "large",
                     resolve: {
@@ -55,7 +55,7 @@ angular.module('rolesApp').controller('rolesEditCtrl',
         $scope.addRoleLabel = function(roleLabelModel){
             if(!roleLabelModel.id) {
                 var modalInstance = $modal.open({
-                    templateUrl: GLOBAL_CONFIG.app.modules.roleLabelVersions.urls.partials + 'roleLabelVersions-modal-form.html',
+                    templateUrl: GLOBAL_CONFIG.app.modules.roleLabelVersions.urls.partials + 'modals/roleLabelVersions-modal-form.html',
                     controller: 'roleLabelsNewCtrl',
                     size: "large",
                     resolve: {
@@ -76,7 +76,7 @@ angular.module('rolesApp').controller('rolesEditCtrl',
         $scope.addEvent = function(eventModel){
             if(!eventModel.id) {
                 var modalInstance = $modal.open({
-                    templateUrl: GLOBAL_CONFIG.app.modules.events.urls.partials + 'events-modal-form.html',
+                    templateUrl: GLOBAL_CONFIG.app.modules.events.urls.partials + 'modals/events-modal-form.html',
                     controller: 'eventsNewCtrl',
                     size: "large",
                     resolve: {

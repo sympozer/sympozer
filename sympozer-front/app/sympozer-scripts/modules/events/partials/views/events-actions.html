@@ -1,0 +1,21 @@
+
+<a class="btn btn-info" href="#/home/conference/{{currentMainEvent.id}}/events/new/" title="{{ 'events.actions.add' | translate }}">
+    <i class="fa fa-plus"></i><span class="visible-sm-inline visible-lg-inline visible-md-inline"> {{ 'events.actions.new' | translate }}</span>
+</a>
+
+<a class="btn btn-info" href="#conference/:confId/events/import/" title="{{ 'events.actions.import' | translate }}" disabled="disabled">
+    <i class="fa fa-caret-square-o-down"></i>
+    <span class="visible-sm-inline visible-lg-inline visible-md-inline"> {{ 'events.actions.import' | translate }}</span>
+</a>
+
+<a class="btn btn-info" href="#conference/:confId/events/export/" title="{{ 'events.actions.export' | translate }}" disabled="disabled">
+    <i class="fa fa-caret-square-o-up"></i><span class="visible-sm-inline visible-lg-inline  visible-md-inline "> {{ 'events.actions.export' | translate }}</span>
+</a>
+
+<a class="btn btn-info" href="#conference/:confId/events/print/" title="{{ 'events.actions.print' | translate }}" disabled="disabled">
+    <i class="fa fa-print"></i>
+    <span class="visible-sm-inline visible-lg-inline visible-md-inline "> {{ 'events.actions.print' | translate }}</span></a>
+
+<a class="btn btn-default" href="#conference/{{currentMainEvent.id}}/events/list/" role="button"><i class="fa fa-list fa-1x"></i></a>
+<a class="btn btn-default" href="#conference/{{currentMainEvent.id}}/events/thumbnail/" role="button"><i class="fa fa-th fa-1x"></i></a>
+

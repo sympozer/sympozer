@@ -56,7 +56,5 @@ angular.module('contextualizationApp').factory('contextFact', [ '$rootScope', '$
             }
         }
 
-
-
         return this;
     }]);

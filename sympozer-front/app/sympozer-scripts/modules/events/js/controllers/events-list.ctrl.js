@@ -4,7 +4,7 @@
  * @type {controller}
  */
 angular.module('eventsApp').controller('eventsListCtrl', [
-    '$scope', 'categoriesFact', '$routeParams', 'GLOBAL_CONFIG', 'createDialog', '$rootScope', 'eventsFact', function ($scope, categoriesFact, $routeParams, GLOBAL_CONFIG, createDialogService, $rootScope, eventsFact)
+    '$scope', 'categoriesFact', '$routeParams', 'GLOBAL_CONFIG', '$rootScope', 'eventsFact', function ($scope, categoriesFact, $routeParams, GLOBAL_CONFIG, $rootScope, eventsFact)
     {
 
         //Context change
@@ -12,7 +12,9 @@ angular.module('eventsApp').controller('eventsListCtrl', [
 
         $scope.entities = [];
 
-        $scope.categories = categoriesFact.allByConference({'mainEventId': $routeParams.mainEventId});
+        categoriesFact.allByConference({'mainEventId': $routeParams.mainEventId}, function(response){
+            $scope.categories = response.results;
+        });
 
         $scope.request = eventsFact.allByConference;
 
@@ -64,23 +66,23 @@ angular.module('eventsApp').controller('eventsListCtrl', [
             cloneEvent.$create({}, success, error);
         };
 
-        $scope.deleteModal = function (index, event)
-        {
-            $scope.index = index;
-
-            createDialogService(GLOBAL_CONFIG.app.modules.events.urls.partials + 'events-delete.html', {
-                id        : 'complexDialog',
-                title     : 'Event deletion',
-                backdrop  : true,
-                controller: 'eventsDeleteCtrl',
-                success   : {label: 'Ok', fn: function ()
-                {
-                    eventsFact.delete({id: event.id});
-                    $scope.entities.splice(index, 1);
-                }}
-            }, {
-                eventModel: event
-            });
-        }
+//        $scope.deleteModal = function (index, event)
+//        {
+//            $scope.index = index;
+//
+//            createDialogService(GLOBAL_CONFIG.app.modules.events.urls.partials + 'events-delete.html', {
+//                id        : 'complexDialog',
+//                title     : 'Event deletion',
+//                backdrop  : true,
+//                controller: 'eventsDeleteCtrl',
+//                success   : {label: 'Ok', fn: function ()
+//                {
+//                    eventsFact.delete({id: event.id});
+//                    $scope.entities.splice(index, 1);
+//                }}
+//            }, {
+//                eventModel: event
+//            });
+//        }
 
     }]);

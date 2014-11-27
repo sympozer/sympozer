@@ -104,8 +104,8 @@ sympozerApp.controller('navMainCtrl', ['$scope', '$rootScope', '$location', '$ti
                             {
                                 label: 'events.links.events',
                                 html: '<span class="badge badge-indigo">4</span>', /** menu notification **/
-                            iconClasses: 'fa fa-clock-o',
-                                url: '#/calendar'
+                                iconClasses: 'fa fa-clock-o',
+                                url: '#/home/conference/'+$rootScope.currentMainEvent.id+'/events/list'
                             },
                             {
                                 label: 'locations.links.locations',

@@ -10,36 +10,36 @@ angular.module('eventsApp')
         function ($routeProvider)
         {
             $routeProvider
-                .when('/events/list', {
-                    templateUrl: globalConfig.app.modules.events.urls.partials + 'events-list.html',
+                .when('/home/events/list', {
+                    templateUrl: globalConfig.app.modules.events.urls.partials + 'pages/events-list.html',
                     controller : 'eventsListCtrl'
                 })
-                .when('/events/thumbnail', {
+                .when('/home/events/thumbnail', {
                     templateUrl: globalConfig.app.modules.events.urls.partials + 'events-thumbnail.html',
                     controller : 'eventsListCtrl'
                 })
-                .when('/conference/:mainEventId/events/list', {
-                    templateUrl: globalConfig.app.modules.events.urls.partials + 'events-list.html',
+                .when('/home/conference/:mainEventId/events/list', {
+                    templateUrl: globalConfig.app.modules.events.urls.partials + 'pages/events-list.html',
                     controller : 'eventsListCtrl'
                 })
-                .when('/conference/:mainEventId/events/thumbnail', {
+                .when('/home/conference/:mainEventId/events/thumbnail', {
                     templateUrl: globalConfig.app.modules.events.urls.partials + 'events-thumbnail.html',
                     controller : 'eventsListCtrl'
                 })
-                .when('/conference/:mainEventId/events/new', {
-                    templateUrl: globalConfig.app.modules.events.urls.partials + 'events-new.html',
+                .when('/home/conference/:mainEventId/events/new', {
+                    templateUrl: globalConfig.app.modules.events.urls.partials + 'pages/events-new.html',
                     controller : 'eventsNewCtrl'
                 })
-                .when('/conference/:mainEventId/events/edit/:eventId', {
-                    templateUrl: globalConfig.app.modules.events.urls.partials + 'events-edit.html',
+                .when('/home/conference/:mainEventId/events/edit/:eventId', {
+                    templateUrl: globalConfig.app.modules.events.urls.partials + 'pages/events-edit.html',
                     controller : 'eventsEditCtrl'
                 })
-                .when('/conference/:mainEventId/events/show/:eventId', {
-                    templateUrl: globalConfig.app.modules.events.urls.partials + 'events-show.html',
+                .when('/home/conference/:mainEventId/events/show/:eventId', {
+                    templateUrl: globalConfig.app.modules.events.urls.partials + 'pages/events-show.html',
                     controller : 'eventsShowCtrl'
                 })
                 .otherwise({
-                    redirectTo: '/events/list'
+                    redirectTo: '/home/events/list'
                 });
         }
     ]);

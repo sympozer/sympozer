@@ -1,0 +1,98 @@
+<div id="page-heading">
+
+    <div ng-include="GLOBAL_CONFIG.app.urls.partials+'navigation/breadcrumb.html'"></div>
+
+    <h1>{{'events.links.events' | translate }}</h1>
+
+    <div class="options">
+        <div class="btn-toolbar">
+            <div class="btn-group" dropdown>
+                <div ng-include="GLOBAL_CONFIG.app.modules.events.urls.partials+'views/events-actions.html'"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+
+            <div class="panel">
+                <div class="panel-heading">
+                    <h4>{{'events.actions.search' | translate }}</h4>
+                </div>
+                <div class="panel-body" entity-list-handler="persons">
+                    <div class="search-classic">
+                        <form ng-submit="sendQuery(query)">
+                            <div class="input-group well w100">
+                                <input type="text" ng-model="query" placeholder="{{'global.actions.placeHolderSearch' | translate }}" class="form-control"/>
+                              <span class="input-group-btn">
+                                <button role="submit" type="submit" class="btn btn-primary">
+                                    <i class="fa fa-search"></i> {{'global.actions.search' | translate }}
+                                </button>
+                              </span>
+                            </div>
+                        </form>
+                        <hr>
+                        <div ng-include="GLOBAL_CONFIG.app.modules.categories.urls.partials+'categories-filter.html'"></div>
+
+
+                        <div class="search-result" ng-repeat-start="event in entities  track by $index" infinite-scroll='load()' infinite-scroll-disabled='busy' infinite-scroll-distance='0.5'>
+                            <div class="row" ng-include="GLOBAL_CONFIG.app.modules.events.urls.partials+'events-entity-list-md.html'"></div>
+                        </div>
+                        <hr ng-repeat-end="">
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- col-md-12 -->
+    </div>
+    <!-- row -->
+</div> <!-- container -->
+</div>
+
+
+
+
+<!--<div entity-list-handler="events">-->
+<!--<div ng-include="GLOBAL_CONFIG.app.modules.events.urls.partials+'views/events-actions.html'"></div>-->
+<!--<div ng-include="GLOBAL_CONFIG.app.modules.categories.urls.partials+'categories-filter.html'"></div>-->
+<!--<div ng-include="GLOBAL_CONFIG.app.modules.events.urls.partials+'views/events-entity-list-md.html'"></div>-->
+
+<!--&lt;!&ndash;<table class="table table-striped">&ndash;&gt;-->
+<!--&lt;!&ndash;<thead>&ndash;&gt;-->
+<!--&lt;!&ndash;<tr>&ndash;&gt;-->
+<!--&lt;!&ndash;<th>{{ 'events.model.label' | translate }}<i class="fa fa-sort-asc" ng-click="order('label','ASC')"></i><i class="fa fa-sort-desc" ng-click="order('label','DESC')"></i>&ndash;&gt;-->
+<!--&lt;!&ndash;</th>&ndash;&gt;-->
+<!--&lt;!&ndash;<th>{{ 'events.model.startAt' | translate }}&ndash;&gt;-->
+<!--&lt;!&ndash;<i class="fa fa-sort-asc" ng-click="order('website','ASC')"></i><i class="fa fa-sort-desc" ng-click="order('website','DESC')"></i>&ndash;&gt;-->
+<!--&lt;!&ndash;</th>&ndash;&gt;-->
+<!--&lt;!&ndash;<th>{{ 'events.model.endAt' | translate }}&ndash;&gt;-->
+<!--&lt;!&ndash;<i class="fa fa-sort-asc" ng-click="order('country','ASC')"></i><i class="fa fa-sort-desc" ng-click="order('country','DESC')"></i>&ndash;&gt;-->
+<!--&lt;!&ndash;</th>&ndash;&gt;-->
+<!--&lt;!&ndash;<th>{{ 'global.actions.actions' | translate }}</th>&ndash;&gt;-->
+<!--&lt;!&ndash;</tr>&ndash;&gt;-->
+<!--&lt;!&ndash;</thead>&ndash;&gt;-->
+<!--&lt;!&ndash;<tbody offset="-20" limit="20" orderBy="label" orderSide="ASC" query="" infinite-scroll='load()' infinite-scroll-disabled='busy' infinite-scroll-distance='0.5'>&ndash;&gt;-->
+<!--&lt;!&ndash;<tr ng-repeat="event in entities  track by $index">&ndash;&gt;-->
+<!--&lt;!&ndash;<td>{{ event.label }}</td>&ndash;&gt;-->
+<!--&lt;!&ndash;<td>{{ event.startAt }}</td>&ndash;&gt;-->
+<!--&lt;!&ndash;<td>{{ event.endAt }}</td>&ndash;&gt;-->
+<!--&lt;!&ndash;<td>&ndash;&gt;-->
+<!--&lt;!&ndash;<a class="btn btn-warning" href="#conference/{{ event.mainEvent.id }}/events/edit/{{ event.id }}" role="button"><i class="fa fa-edit fa-1x"></i></a>&ndash;&gt;-->
+<!--&lt;!&ndash;<a class="btn btn-default" href="#conference/{{ event.mainEvent.id }}/events/show/{{ event.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>&ndash;&gt;-->
+<!--&lt;!&ndash;<a class="btn btn-primary" href="" data-ng-click="clone(event, $index)" role="button"><i class="fa fa-files-o fa-1x"></i></a>&ndash;&gt;-->
+<!--&lt;!&ndash;<button class="btn btn-danger" data-ng-click="deleteModal($index, event)" role="button">&ndash;&gt;-->
+<!--&lt;!&ndash;<i class="fa fa-trash-o fa-1x"></i></button>&ndash;&gt;-->
+<!--&lt;!&ndash;</td>&ndash;&gt;-->
+<!--&lt;!&ndash;</tr>&ndash;&gt;-->
+<!--&lt;!&ndash;</tbody>&ndash;&gt;-->
+<!--&lt;!&ndash;</table>&ndash;&gt;-->
+<!--</div>-->
+
+
+

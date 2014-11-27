@@ -3,7 +3,7 @@
 /**
  * Breadcrumb controller (or also called 'fil d'ariane')
  */
-sympozerApp.controller('breadcrumbCtrl', ['$scope', '$location', function ($scope, $location)
+sympozerApp.controller('breadcrumbCtrl', ['$scope', '$rootScope', '$location', function ($scope, $rootScope, $location)
 {
     /**
      * Definitions for breadcrump
@@ -116,14 +116,20 @@ sympozerApp.controller('breadcrumbCtrl', ['$scope', '$location', function ($scop
                 {
                     idUrl: 'conference',
                     label: 'mainEvents.links.mainEvents',
+                    url : '#/home/mainEvents/index',
                     children: [
                         {
                             idUrl: 'roles',
                             label: 'roles.links.roles',
+                            url : '#/home/conference/'+$rootScope.currentMainEvent.id+'/roles/list',
                             children: [
                                 {
                                     idUrl: 'list',
                                     label: 'global.labels.list'
+                                },
+                                {
+                                    idUrl: 'new',
+                                    label: 'roles.actions.new'
                                 }
                             ]
                         }

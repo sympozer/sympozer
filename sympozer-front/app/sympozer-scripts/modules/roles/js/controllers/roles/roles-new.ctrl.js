@@ -1,6 +1,5 @@
 /**
  * New role controller
- *
  * @type {controller}
  */
 angular.module('rolesApp').controller('rolesNewCtrl',
@@ -9,41 +8,57 @@ angular.module('rolesApp').controller('rolesNewCtrl',
         {
             $scope.role = new rolesFact;
 
+            //On post new role error
             var error = function (response, args)
             {
-                $scope.busy = false;
-
-
-
+                //Display error from server
                 if ("Validation Failed" == response.data.message)
                 {
                     formValidation.transformFromServer(response);
                 }
                 else
                 {
-                    $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'roles.validations.not_created', type: 'danger'});
+                    //Notify of the creation action error
+                    pinesNotifications.notify({
+                        title: translateFilter('global.validations.error'),
+                        text: translateFilter('roles.validations.not_created'),
+                        type: 'error'
+                    });
                 }
             };
 
+            //On post new role success
             var success = function (response, args)
             {
-                $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'roles.validations.created', type: 'success'});
+                //Notify of the creation action success
+                pinesNotifications.notify({
+                    title: translateFilter('global.validations.success'),
+                    text: translateFilter('roles.validations.created'),
+                    type: 'success'
+                });
+
+                //If view is a modal instance then close (resolve promise with new role)
                 if($scope.$close){
                     $scope.$close($scope.role);
                 }else{
+                    //If view is a page, go back to previous page
                     $window.history.back();
                 }
             };
 
+            //Send role POST request to server
             $scope.create = function (form)
             {
+                //Check form validity
                 if (form.$valid)
                 {
+                    //Set main event of the new role
                     $scope.role.mainEvent = $routeParams.mainEventId;
                     $scope.role.$create({}, success, error);
                 }
             }
 
+            //close modal function (useless if view is not a modal instance
             $scope.cancel = function () {
                 $scope.$dismiss('cancel');
             };
@@ -55,7 +70,7 @@ angular.module('rolesApp').controller('rolesNewCtrl',
             $scope.addPerson = function(personModel){
                 if(!personModel.id) {
                     var modalInstance = $modal.open({
-                        templateUrl: GLOBAL_CONFIG.app.modules.persons.urls.partials + 'persons-modal-form.html',
+                        templateUrl: GLOBAL_CONFIG.app.modules.persons.urls.partials + 'modals/persons-modal-form.html',
                         controller: 'personsNewCtrl',
                         size: "large",
                         resolve: {
@@ -77,7 +92,7 @@ angular.module('rolesApp').controller('rolesNewCtrl',
             $scope.addRoleLabel = function(roleLabelModel){
                 if(!roleLabelModel.id) {
                     var modalInstance = $modal.open({
-                        templateUrl: GLOBAL_CONFIG.app.modules.roleLabelVersions.urls.partials + 'roleLabelVersions-modal-form.html',
+                        templateUrl: GLOBAL_CONFIG.app.modules.roleLabelVersions.urls.partials + 'modals/roleLabelVersions-modal-form.html',
                         controller: 'roleLabelsNewCtrl',
                         size: "large",
                         resolve: {
@@ -98,7 +113,7 @@ angular.module('rolesApp').controller('rolesNewCtrl',
             $scope.addEvent = function(eventModel){
                 if(!eventModel.id) {
                     var modalInstance = $modal.open({
-                        templateUrl: GLOBAL_CONFIG.app.modules.events.urls.partials + 'events-modal-form.html',
+                        templateUrl: GLOBAL_CONFIG.app.modules.events.urls.partials + 'modals/events-modal-form.html',
                         controller: 'eventsNewCtrl',
                         size: "large",
                         resolve: {

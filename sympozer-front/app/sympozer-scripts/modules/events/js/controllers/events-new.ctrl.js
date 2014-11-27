@@ -9,9 +9,45 @@ angular.module('eventsApp').controller('eventsNewCtrl', [ '$scope', '$window', '
     {
         $scope.event = new eventsFact;
 
+        //Initialize date pickers visibility
+        $scope.endAtOpened = false;
+        $scope.startAtOpened= false;
+
+        //Set today
+        $scope.today = new Date();
+
+        //Set min date to today if not defined (see html)
+        $scope.toggleMin = function ()
+        {
+            $scope.minDate = $scope.minDate ? null : new Date();
+        };
+        $scope.toggleMin();
+
+        //Manage start at datepicker visibility
+        $scope.openStartAtDatePicker = function (event)
+        {
+            event.preventDefault();
+            event.stopPropagation();
+            $scope.startAtOpened = true;
+        };
+
+        //Manage end at datepicker visibility
+        $scope.openEndAtDatePicker = function (event)
+        {
+            event.preventDefault();
+            event.stopPropagation();
+            $scope.endAtOpened = true;
+        };
+
+
+        //Set init date
+        $scope.initDate = $scope.today;
+        //@TODO : Define one format
+        $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
+        $scope.format = $scope.formats[0];
+
         var error = function (response, args)
         {
-            $scope.busy = false;
 
             if ("Validation Failed" == response.data.message)
             {
