@@ -53,68 +53,64 @@
 
 <h2>{{ 'events.labels.time_localization' | translate }}</h2>
 <div class="form-group">
-    <label class="col-sm-3 control-label">Day</label>
-
+    <label class="col-sm-3 control-label">{{ 'events.model.startAt' | translate }} & {{ 'events.model.endAt' | translate }}</label>
     <div class="col-sm-6">
-        <select class="form-control" id="source">
-            <optgroup label="Alaskan/Hawaiian Time Zone">
-                <option value="AK">Day 1</option>
-                <option value="HI">Day 2</option>
-            </optgroup>
-        </select>
+        <div class="input-group">
+            <span name="daterangepicker3" class="input-group-addon"><i class="fa fa-calendar"></i></span>
+            <input type="text" class="form-control" id="dateRange" name="dateRange" daterangepicker="{ timePicker: true, timePickerIncrement: 15, format: 'MM/DD/YYYY h:mm A' }">
+        </div>
     </div>
 </div>
-<div class="form-group">
+<!--<div class="form-group">-->
 
 
-        <label class="col-sm-3 control-label" for="inputStartAt">{{ 'events.model.startAt' | translate}}</label>
-        <div class="col-sm-6">
-            <timepicker ng-model="mytime" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian" class="timepicker"></timepicker>
-        </div>
-        <!--<div class="col-md-6">-->
-        <!--<div class="input-group">-->
-        <!--<input type="text" class="form-control datepicker" datepicker-popup="{{format}}" ng-model="event.startAt" is-open="startAtOpened" min-date="today"  datepicker-options="dateOptions"  ng-required="true"/>-->
+        <!--<label class="col-sm-3 control-label" for="inputStartAt">{{ 'events.model.startAt' | translate}}</label>-->
+        <!--<div class="col-sm-6">-->
+            <!--<timepicker ng-model="mytime" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian" class="timepicker"></timepicker>-->
+        <!--</div>-->
+        <!--&lt;!&ndash;<div class="col-md-6">&ndash;&gt;-->
+        <!--&lt;!&ndash;<div class="input-group">&ndash;&gt;-->
+        <!--&lt;!&ndash;<input type="text" class="form-control datepicker" datepicker-popup="{{format}}" ng-model="event.startAt" is-open="startAtOpened" min-date="today"  datepicker-options="dateOptions"  ng-required="true"/>&ndash;&gt;-->
 
-        <!--<div class="input-group-btn">-->
-        <!--<button type="button" class="btn btn-default" ng-click="openStartAtDatePicker($event)"><i class="fa fa-calendar"></i>-->
-        <!--</button>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--</div>-->
+        <!--&lt;!&ndash;<div class="input-group-btn">&ndash;&gt;-->
+        <!--&lt;!&ndash;<button type="button" class="btn btn-default" ng-click="openStartAtDatePicker($event)"><i class="fa fa-calendar"></i>&ndash;&gt;-->
+        <!--&lt;!&ndash;</button>&ndash;&gt;-->
+        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+        <!--&lt;!&ndash;</div>&ndash;&gt;-->
 
-        <span class="help-block" ng-show="inputStartAt.startAt.$dirty && eventForm.startAt > eventForm.endAt">{{ 'events.validations.start_date_before_end' | translate }}</span>
-    <span class="help-block" ng-if="formServerErrors.startAt" ng-repeat="error in formServerErrors.startAt">
-        {{ error | translate }}
-    </span>
-    </div>
-<div class="form-group">
-        <label  class="col-sm-3 control-label" for="inputEndAt">{{ 'events.model.endAt' | translate}}</label>
-        <div class="col-sm-6">
-            <timepicker ng-model="mytime" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian" class="timepicker"></timepicker>
-        </div>
-        <!--<div class="col-md-6">-->
-        <!--<div class="input-group">-->
-        <!--<input type="text" class="form-control datepicker" datepicker-popup="{{format}}" ng-model="event.endAt" is-open="endAtOpened" min-date="event.startAt"  datepicker-options="dateOptions"  ng-required="true"/>-->
+        <!--<span class="help-block" ng-show="inputStartAt.startAt.$dirty && eventForm.startAt > eventForm.endAt">{{ 'events.validations.start_date_before_end' | translate }}</span>-->
+    <!--<span class="help-block" ng-if="formServerErrors.startAt" ng-repeat="error in formServerErrors.startAt">-->
+        <!--{{ error | translate }}-->
+    <!--</span>-->
+    <!--</div>-->
+<!--<div class="form-group">-->
+        <!--<label  class="col-sm-3 control-label" for="inputEndAt">{{ 'events.model.endAt' | translate}}</label>-->
+        <!--<div class="col-sm-6">-->
+            <!--<timepicker ng-model="mytime" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian" class="timepicker"></timepicker>-->
+        <!--</div>-->
+        <!--&lt;!&ndash;<div class="col-md-6">&ndash;&gt;-->
+        <!--&lt;!&ndash;<div class="input-group">&ndash;&gt;-->
+        <!--&lt;!&ndash;<input type="text" class="form-control datepicker" datepicker-popup="{{format}}" ng-model="event.endAt" is-open="endAtOpened" min-date="event.startAt"  datepicker-options="dateOptions"  ng-required="true"/>&ndash;&gt;-->
 
-        <!--<div class="input-group-btn">-->
-        <!--<button type="button" class="btn btn-default" ng-click="openEndAtDatePicker($event)"><i class="fa fa-calendar"></i>-->
-        <!--</button>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--</div>-->
-        <span class="help-block" ng-show="inputEndAt.endAt.$dirty && eventForm.endAt < eventNewForm.startAt ">{{ 'events.validations.end_date_after_start' | translate}}</span>
-        <span class="help-block" ng-if="formServerErrors.endAt" ng-repeat="error in formServerErrors.endAt">
-            {{ error | translate }}
-        </span>
-    </div>
+        <!--&lt;!&ndash;<div class="input-group-btn">&ndash;&gt;-->
+        <!--&lt;!&ndash;<button type="button" class="btn btn-default" ng-click="openEndAtDatePicker($event)"><i class="fa fa-calendar"></i>&ndash;&gt;-->
+        <!--&lt;!&ndash;</button>&ndash;&gt;-->
+        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+        <!--<span class="help-block" ng-show="inputEndAt.endAt.$dirty && eventForm.endAt < eventNewForm.startAt ">{{ 'events.validations.end_date_after_start' | translate}}</span>-->
+        <!--<span class="help-block" ng-if="formServerErrors.endAt" ng-repeat="error in formServerErrors.endAt">-->
+            <!--{{ error | translate }}-->
+        <!--</span>-->
+    <!--</div>-->
 
-</div>
+<!--</div>-->
 <div class="form-group">
     <label class="col-sm-3 control-label">{{ 'locations.links.locations' | translate }}</label>
     <div class="col-sm-6">
         <div sympozer-autocomplete="locations" on-select="addLocation" on-keyup="searchLocations"></div>
     </div>
-</div>
 </div>
 
 <h2>{{ 'papers.links.papers' | translate }}</h2>

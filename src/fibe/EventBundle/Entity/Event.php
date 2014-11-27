@@ -110,12 +110,6 @@ class Event extends VEvent
         $this->slugify();
         //$this->setIsInstant($this->getEndAt()->format('U') == $this->getStartAt()->format('U'));
 
-        //events that aren't leaf in the hierarchy can't have a location
-        if ($this->hasChildren() && $this->getLocations() != null)
-        {
-            $this->setLocations(null);
-        }
-
         //ensure main conf has correct properties
 //    if ($this->isMainVEvent) //@TODO EVENT
 //    {
@@ -165,23 +159,7 @@ class Event extends VEvent
         return count($this->children) != 0;
     }
 
-    /**
-     * auto persist of embedded data
-     * @ORM\PreFlush
-     */
-    public function updateSomething(PreFlushEventArgs $eventArgs)
-    {
-//        if (!$this->getId() || !$this->getEventLocations()->first())
-//        {
-//            return;
-//        }
-//        $em = $eventArgs->getEntityManager();
-//        $uow = $em->getUnitOfWork();
-//        $uow->recomputeSingleEntityChangeSet(
-//            $em->getClassMetadata(get_class($this->getEventLocations()->first())),
-//            $this->getEventLocations()
-//        );
-    }
+
 
     /**
      * Get slug

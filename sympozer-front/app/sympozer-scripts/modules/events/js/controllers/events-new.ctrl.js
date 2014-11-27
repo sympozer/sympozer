@@ -8,43 +8,11 @@ angular.module('eventsApp').controller('eventsNewCtrl', [ '$scope', '$window', '
     function ($scope, $window, GLOBAL_CONFIG, $routeParams, $rootScope, $location, eventsFact, categoriesFact, topicsFact, locationsFact, papersFact, $modal, formValidation, $filter)
     {
         $scope.event = new eventsFact;
-
+        $scope.dateRange = "";
         //Initialize date pickers visibility
         $scope.endAtOpened = false;
         $scope.startAtOpened= false;
 
-        //Set today
-        $scope.today = new Date();
-
-        //Set min date to today if not defined (see html)
-        $scope.toggleMin = function ()
-        {
-            $scope.minDate = $scope.minDate ? null : new Date();
-        };
-        $scope.toggleMin();
-
-        //Manage start at datepicker visibility
-        $scope.openStartAtDatePicker = function (event)
-        {
-            event.preventDefault();
-            event.stopPropagation();
-            $scope.startAtOpened = true;
-        };
-
-        //Manage end at datepicker visibility
-        $scope.openEndAtDatePicker = function (event)
-        {
-            event.preventDefault();
-            event.stopPropagation();
-            $scope.endAtOpened = true;
-        };
-
-
-        //Set init date
-        $scope.initDate = $scope.today;
-        //@TODO : Define one format
-        $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
-        $scope.format = $scope.formats[0];
 
         var error = function (response, args)
         {
@@ -55,24 +23,49 @@ angular.module('eventsApp').controller('eventsNewCtrl', [ '$scope', '$window', '
             }
             else
             {
-                $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'events.validations.not_created', type: 'danger'});
+                //Notify of the creation action error
+                pinesNotifications.notify({
+                    title: translateFilter('global.validations.error'),
+                    text: translateFilter('events.validations.not_created'),
+                    type: 'error'
+                });
             }
         };
 
         var success = function (response, args)
         {
-            $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'events.validations.created', type: 'success'});
+            //Notify of the creation action success
+            pinesNotifications.notify({
+                title: translateFilter('global.validations.success'),
+                text: translateFilter('events.validations.created'),
+                type: 'success'
+            });
+
+            //If view is a modal instance then close (resolve promise with new role)
             if($scope.$close){
                 $scope.$close($scope.event);
             }else{
+                //If view is a page, go back to previous page
                 $window.history.back();
             }
         };
 
+        var setDateRange = function(dateRange){
+            var dateTab = $('#dateRange').val().split('-');
+            $scope.event.startAt = new Date(dateTab[0]);
+            $scope.event.endAt= new Date(dateTab[1]);
+
+            if($scope.event.startAt > $scope.event.endAt ){
+                return false;
+            }
+            return true;
+        }
+
         $scope.create = function (form)
         {
             $scope.event.mainEvent = $routeParams.mainEventId;
-            if (form.$valid)
+
+            if (form.$valid && setDateRange())
             {
                 $scope.event.$create({}, success, error);
             }

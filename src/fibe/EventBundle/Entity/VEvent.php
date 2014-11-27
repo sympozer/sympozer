@@ -2,6 +2,7 @@
 namespace fibe\EventBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Event\PreFlushEventArgs;
 use Doctrine\ORM\Mapping as ORM;
 use fibe\ContentBundle\Entity\Sponsor;
 use fibe\ContentBundle\Entity\Topic;
@@ -919,6 +920,31 @@ abstract class VEvent
     public function setLocation($location)
     {
         $this->location = $location;
+    }
+
+
+
+    /**
+     * auto persist of embedded data
+     * @ORM\PreFlush
+     */
+    public function updateSomething(PreFlushEventArgs $eventArgs)
+    {
+        if (!$this->getId() || !$this->getLocation())
+        {
+            return;
+        }
+        $em = $eventArgs->getEntityManager();
+        $uow = $em->getUnitOfWork();
+
+        if($this->getLocation()->getLabel() != null){
+            // $uow->computeChangeSets();
+            $uow->persist($this->getLocation());
+//            $uow->recomputeSingleEntityChangeSet(
+//                $em->getClassMetadata(get_class($this->getLocation())),
+//                $this->getLocation()
+//            );
+        }
     }
 
 
