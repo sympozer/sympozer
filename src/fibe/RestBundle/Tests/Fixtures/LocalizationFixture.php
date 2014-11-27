@@ -5,10 +5,11 @@ namespace fibe\RestBundle\Tests;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
+use fibe\ContentBundle\Entity\Localization;
 use fibe\ContentBundle\Entity\Location;
 
 
-class LocationFixture extends AbstractFixture implements FixtureInterface
+class LocalizationFixture extends AbstractFixture implements FixtureInterface
 {
   static public $entities = array();
 
@@ -22,7 +23,7 @@ class LocationFixture extends AbstractFixture implements FixtureInterface
       self::$entities[] = $entity;
     }
 
-    $entity = new Location();
+    $entity = new Localization();
     $entity->setLabel('label999-test-search'); // must be placed lexicographically at the end to pass sort test
     $manager->persist($entity);
     self::$entities[] = $entity;

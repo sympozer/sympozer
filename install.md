@@ -36,9 +36,9 @@ Next, create a parameters.yml file with this text :
         mailer_transport:  smtp
         mailer_encryption: ssl
         mailer_auth_mode:  login
-        mailer_host:       127.0.0.1
         mailer_host:       smtp.gmail.com
         mailer_user:       john.doe@gmail.com
+        mailer_username:   John Doe
         mailer_password:   password
 
         #used to generate frontend mail url
@@ -53,7 +53,7 @@ After that, save and add this file to : app/config
     ./reset.sh
     ./cache.sh
 
-##step 1 : Step-by-step initialize
+###step 1 : Step-by-step initialize
 ####Initialize db, generate assets
 
     php app/console doctrine:database:create

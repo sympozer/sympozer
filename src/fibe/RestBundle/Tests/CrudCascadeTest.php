@@ -2,24 +2,209 @@
 
 namespace fibe\RestBundle\Tests\Controller;
 
-use Liip\FunctionalTestBundle\Test\WebTestCase as WebTestCase;
+use fibe\ContentBundle\Entity\Localization;
+use fibe\ContentBundle\Form\LocalizationType;
+use fibe\RestBundle\Tests\LocalizationFixture;
+use Liip\FunctionalTestBundle\Test\WebTestCase;
+use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
 
-class LocationCrudTest extends WebTestCase
+class CrudCascadeTest extends WebTestCase
 {
 
-  const LOCATION_CLASS = 'fibe\RestBundle\Tests\LocalizationFixture';
-  const API_URL = "/api/locations";
-
   private $client;
+  private $container;
+  /** @var  \Doctrine\ORM\EntityManager */
+  private $em;
 
   function __construct()
   {
     // Create a new client to browse the application
     $this->client = static::createClient();
+    $this->container = $this->client->getContainer();
+    $this->em = $this->container->get("doctrine.orm.entity_manager");
+  }
+
+  /********** TEST OneToOne & manyToOne owning side ( MainEvent -> Location ) ***********/
+
+  /**
+   * linked entity without id must be persisted
+   */
+  public function testOneToOneOwningPostWithNewLinkedEntity()
+  {
+    $formData = array(
+      "label" => "jkuiytki",
+      "startAt" => "2014-12-02T23:00:00.000Z",
+      "endAt" => "2014-12-05T23:00:00.000Z",
+      "location" => array(
+        "country" => "Jersey",
+        "countryCode" => "JE",
+        "address" => "Jersey",
+        "label" => "Jersey"
+      )
+    );
+    $entity = new Localization();
+//    $entity = $this->em->getRepository($entityClassName)->find($id);
+    $form = new LocalizationType();
+    $method = "POST";
+
+    $form = $this->container->get("form.factory")->create($form, $entity, array('method' => $method));
+    $form->submit($formData, 'PATCH' !== $method);
+
+    if ($form->isValid())
+    {
+      $entity = $form->getData();
+      $this->callBusinessService($entity, get_class($entity), $method);
+      $this->em->persist($entity);
+      $this->em->flush($entity);
+    }
+    assertNotNull($entity->getId(), "should have an id ");
+  }
+
+  protected function callBusinessService($entity, $entityClassName, $method)
+  {
+    try
+    {
+      if ($entityService = $this->container->get('fibe.' . substr($entityClassName, strrpos($entityClassName, '\\') + 1) . 'Service'))
+      {
+        if (method_exists($entityService, strtolower($method)))
+        {
+          call_user_func_array(array($entityService, strtolower($method)), array($entity, $entityClassName));
+        }
+      }
+    } catch (ServiceNotFoundException $e)
+    {
+      //no business service defined, just do nothing
+    }
   }
 
   /**
-   * test to be placed before any array_pop otherwise we loose indexes
+   * linked entity with id must be updated
+   */
+  public function testOneToOneOwningPostWithUpdateLinkedEntity()
+  {
+
+  }
+
+  /**
+   * linked entity with id must be updated
+   */
+  public function testOneToOneOwningPutWithNewLinkedEntity()
+  {
+
+  }
+
+  /************ TEST OneToOne reverse side ************/
+
+  /**
+   * linked entity with id must be updated
+   */
+  public function testOneToOneOwningPutWithUpdateLinkedEntity()
+  {
+
+  }
+
+  /**
+   * linked entity without id must be persisted
+   */
+  public function testOneToOneReversePostWithNewLinkedEntity()
+  {
+
+  }
+
+  /**
+   * linked entity with id must be updated
+   */
+  public function testOneToOneReversePostWithUpdateLinkedEntity()
+  {
+
+  }
+
+  /**
+   * linked entity with id must be updated
+   */
+  public function testOneToOneReversePutWithNewLinkedEntity()
+  {
+
+  }
+
+  /************** TEST OneToMany & ManyToMany owning side *************/
+
+  /**
+   * linked entity with id must be updated
+   */
+  public function testOneToOneReversePutWithUpdateLinkedEntity()
+  {
+
+  }
+
+  /**
+   * linked entity without id must be persisted
+   */
+  public function testManyToManyOwningPostWithNewLinkedEntity()
+  {
+
+  }
+
+  /**
+   * linked entity with id must be updated
+   */
+  public function testManyToManyOwningPostWithUpdateLinkedEntity()
+  {
+
+  }
+
+  /**
+   * linked entity with id must be updated
+   */
+  public function testManyToManyOwningPutWithNewLinkedEntity()
+  {
+
+  }
+
+  /************** TEST ManyToMany reverse side *************/
+
+  /**
+   * linked entity with id must be updated
+   */
+  public function testManyToManyOwningPutWithUpdateLinkedEntity()
+  {
+
+  }
+
+  /**
+   * linked entity without id must be persisted
+   */
+  public function testManyToManyReversePostWithNewLinkedEntity()
+  {
+
+  }
+
+  /**
+   * linked entity with id must be updated
+   */
+  public function testManyToManyReversePostWithUpdateLinkedEntity()
+  {
+
+  }
+
+  /**
+   * linked entity with id must be updated
+   */
+  public function testManyToManyReversePutWithNewLinkedEntity()
+  {
+
+  }
+
+  /**
+   * linked entity with id must be updated
+   */
+  public function testManyToManyReversePutWithUpdateLinkedEntity()
+  {
+
+  }
+
+  /**
+   * test to be placed before any array_pop
    */
   public function testGetAndPagination()
   {
@@ -160,9 +345,6 @@ class LocationCrudTest extends WebTestCase
     $this->assertJsonResponse($this->client->getResponse(), 400, false);
   }
 
-
-  // @TODO : change by an entity with two text field so we can perform this test
-
   public function testPutLocationActionShouldModify()
   {
     $fixtures = array(static::LOCATION_CLASS);
@@ -202,124 +384,5 @@ class LocationCrudTest extends WebTestCase
       ),
       $this->client->getResponse()->headers
     );*/
-  }
-
-  public function testPatch()
-  {
-    $fixtures = array(static::LOCATION_CLASS);
-    $this->loadFixtures($fixtures);
-    $entities = LocalizationFixture::$entities;
-
-    $entity = array_pop($entities);
-    $newDesc = "def";
-
-    $this->client->request(
-      'PATCH',
-      sprintf(static::API_URL . '/%d', $entity->getId()),
-      array(),
-      array(),
-      array('HTTP_ACCEPT' => 'application/json',
-        'CONTENT_TYPE' => 'application/json'),
-      '{"description":"' . $newDesc . '"}'
-    );
-
-    $this->assertJsonResponse($this->client->getResponse());
-
-    $this->client->request(
-      'GET',
-      sprintf(static::API_URL . '/%d', $entity->getId()),
-      array(),
-      array(),
-      array('HTTP_ACCEPT' => 'application/json'));
-    $response = $this->client->getResponse();
-
-    $decoded = json_decode($response->getContent(), true);
-    $this->assertTrue(isset($decoded['id']));
-    $this->assertEquals($decoded['label'], $entity->getLabel(), $response);
-    $this->assertEquals($decoded['description'], $newDesc, $response);
-  }
-
-  public function testSort()
-  {
-    $fixtures = array(static::LOCATION_CLASS);
-    $this->loadFixtures($fixtures);
-    $entities = LocalizationFixture::$entities;
-
-    $order = "label";
-
-    $this->client->request(
-      'GET',
-      sprintf(static::API_URL . '?order[%s]=DESC', $order),
-      array(),
-      array(),
-      array('HTTP_ACCEPT' => 'application/json')
-    );
-    $this->assertJsonResponse($this->client->getResponse());
-    $decoded = json_decode($this->client->getResponse()->getContent(), true);
-    $this->assertEquals(
-      $entities[count($entities) - 1]->getId(),
-      $decoded[0]['id'],
-      $this->client->getResponse()
-    );
-  }
-
-  // @TODO : test linked entity
-  // @TODO : test search
-  // @TODO : test search on linked entity
-
-  /*
-  not implemented : responds 400 not found instead of create a new entity
-  public function testPutLocationActionShouldCreate()
-  {
-      $id = 0;
-      $this->client->request('GET',
-        sprintf(static::API_URL.'/%d', $id),
-        array(),
-        array(),
-        array('HTTP_ACCEPT' => 'application/json')
-      );
-
-      $this->assertEquals(
-          404,
-          $this->client->getResponse()->getStatusCode(),
-          $this->client->getResponse()->getContent()
-      );
-
-      $this->client->request(
-          'PUT',
-          sprintf(static::API_URL.'/%d', $id),
-          array(),
-          array(),
-          array('HTTP_ACCEPT' => 'application/json',
-            'CONTENT_TYPE' => 'application/json'),
-        '{"label":"abc"}'
-      );
-
-      $this->assertJsonResponse($this->client->getResponse(), 201, false);
-  }*/
-
-  public function testSearch()
-  {
-    $fixtures = array(static::LOCATION_CLASS);
-    $this->loadFixtures($fixtures);
-    $entities = LocalizationFixture::$entities;
-
-    $expectedLabel = "label-test-search";
-    $testSearch = "st-se";
-
-    $this->client->request(
-      'GET',
-      sprintf(static::API_URL . '?query=%s', $testSearch),
-      array(),
-      array(),
-      array('HTTP_ACCEPT' => 'application/json')
-    );
-    $this->assertJsonResponse($this->client->getResponse());
-    $decoded = json_decode($this->client->getResponse()->getContent(), true);
-    $this->assertEquals(
-      $entities[count($entities) - 1]->getLabel(),
-      $decoded[0]['label'],
-      $this->client->getResponse()
-    );
   }
 }
