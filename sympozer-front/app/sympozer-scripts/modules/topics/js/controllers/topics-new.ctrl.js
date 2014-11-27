@@ -3,8 +3,8 @@
  *
  * @type {controller}
  */
-angular.module('topicsApp').controller('topicsNewCtrl', [ '$scope', '$rootScope', 'topicsFact','$modal','pinesNotifications',
-    function ($scope, $rootScope, topicsFact,$modal,pinesNotifications)
+angular.module('topicsApp').controller('topicsNewCtrl', [ '$scope', '$rootScope', 'GLOBAL_CONFIG', 'topicsFact','$modal','pinesNotifications',
+    function ($scope, $rootScope,GLOBAL_CONFIG,topicsFact,$modal,pinesNotifications)
     {
 
         $scope.topic = new topicsFact();
