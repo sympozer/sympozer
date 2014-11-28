@@ -922,7 +922,8 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 print: 'Imprimer localisations'
             },
             links: {
-                locations: 'Localisations'
+                locations: 'Locations',
+                location : 'Location'
             },
             validations: {
                 'created': 'La localisation a été enregistré',
