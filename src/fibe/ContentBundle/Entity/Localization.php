@@ -121,13 +121,6 @@ class Localization
   protected $person;
 
   /**
-   * Constructor
-   */
-  public function __construct()
-  {
-  }
-
-  /**
    * toString
    *
    * @return string

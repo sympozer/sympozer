@@ -2,29 +2,28 @@
 
 namespace fibe\RestBundle\Tests\Controller;
 
-use fibe\ContentBundle\Entity\Localization;
-use fibe\ContentBundle\Form\LocalizationType;
+use Doctrine\ORM\EntityManager;
 use fibe\RestBundle\Tests\LocalizationFixture;
-use Liip\FunctionalTestBundle\Test\WebTestCase;
+use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
+use Symfony\Component\Form\FormInterface;
 
 class CrudCascadeTest extends WebTestCase
 {
-
-  private $client;
-  private $container;
-  /** @var  \Doctrine\ORM\EntityManager */
+  /** @var EntityManager */
   private $em;
+  /** @var ContainerInterface */
+  private $container;
 
-  function __construct()
+  /**
+   * Rollback changes.
+   */
+  public function tearDown()
   {
-    // Create a new client to browse the application
-    $this->client = static::createClient();
-    $this->container = $this->client->getContainer();
-    $this->em = $this->container->get("doctrine.orm.entity_manager");
+    $this->em->rollback();
+    parent::tearDown();
   }
-
-  /********** TEST OneToOne & manyToOne owning side ( MainEvent -> Location ) ***********/
 
   /**
    * linked entity without id must be persisted
@@ -42,11 +41,12 @@ class CrudCascadeTest extends WebTestCase
         "label" => "Jersey"
       )
     );
-    $entity = new Localization();
+    $entity = new \fibe\ContentBundle\Entity\Localization();
 //    $entity = $this->em->getRepository($entityClassName)->find($id);
-    $form = new LocalizationType();
     $method = "POST";
+    $this->em->getRepository("fibe\\ContentBundle\\Entity\\Localization");
 
+    /** @var FormInterface */
     $form = $this->container->get("form.factory")->create($form, $entity, array('method' => $method));
     $form->submit($formData, 'PATCH' !== $method);
 
@@ -59,6 +59,8 @@ class CrudCascadeTest extends WebTestCase
     }
     assertNotNull($entity->getId(), "should have an id ");
   }
+
+  /********** TEST OneToOne & manyToOne owning side ( MainEvent -> Location ) ***********/
 
   protected function callBusinessService($entity, $entityClassName, $method)
   {
@@ -93,8 +95,6 @@ class CrudCascadeTest extends WebTestCase
 
   }
 
-  /************ TEST OneToOne reverse side ************/
-
   /**
    * linked entity with id must be updated
    */
@@ -102,6 +102,8 @@ class CrudCascadeTest extends WebTestCase
   {
 
   }
+
+  /************ TEST OneToOne reverse side ************/
 
   /**
    * linked entity without id must be persisted
@@ -127,8 +129,6 @@ class CrudCascadeTest extends WebTestCase
 
   }
 
-  /************** TEST OneToMany & ManyToMany owning side *************/
-
   /**
    * linked entity with id must be updated
    */
@@ -136,6 +136,8 @@ class CrudCascadeTest extends WebTestCase
   {
 
   }
+
+  /************** TEST OneToMany & ManyToMany owning side *************/
 
   /**
    * linked entity without id must be persisted
@@ -161,8 +163,6 @@ class CrudCascadeTest extends WebTestCase
 
   }
 
-  /************** TEST ManyToMany reverse side *************/
-
   /**
    * linked entity with id must be updated
    */
@@ -170,6 +170,8 @@ class CrudCascadeTest extends WebTestCase
   {
 
   }
+
+  /************** TEST ManyToMany reverse side *************/
 
   /**
    * linked entity without id must be persisted
@@ -384,5 +386,14 @@ class CrudCascadeTest extends WebTestCase
       ),
       $this->client->getResponse()->headers
     );*/
+  }
+
+  protected function setUp()
+  {
+    $kernel = static::createKernel();
+    $kernel->boot();
+    $this->container = $kernel->getContainer();
+    $this->em = $this->container->get('doctrine.orm.entity_manager');
+    $this->em->beginTransaction();
   }
 }
