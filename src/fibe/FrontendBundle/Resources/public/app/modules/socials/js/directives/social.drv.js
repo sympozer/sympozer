@@ -84,12 +84,14 @@ angular.module('socials').directive('ngSocialButtons', ['GLOBAL_CONFIG', '$compi
                         //urlOptions.image = getImage();
 
                         if(containsPath('mainEvents')){
-                            if(options.track.name == 'twitter')
+                            if(options.track.name == 'twitter'){
                                 urlOptions.title = gestionHashTag($scope.currentMainEvent.twitterid) + "  " +
                                     $scope.currentMainEvent.label+ "  " +
                                     $scope.currentMainEvent.description || '';
-                            else
+                            }else{
                                 urlOptions.title = $scope.currentMainEvent.label || '';
+                            }
+
                             urlOptions.description = $scope.currentMainEvent.description || '';
                         }
 
@@ -102,10 +104,10 @@ angular.module('socials').directive('ngSocialButtons', ['GLOBAL_CONFIG', '$compi
                             urlOptions.title = $scope.event.label || '';
                             urlOptions.description = $scope.event.description || '';
                         }
-
+/*
                         urlOptions.title = "ret";
                         urlOptions.description = "rett";
-
+*/
                         return ctrl.makeUrl(options.clickUrl || options.popup.url, urlOptions);
                     },
                     clickShare: function (e, options) {

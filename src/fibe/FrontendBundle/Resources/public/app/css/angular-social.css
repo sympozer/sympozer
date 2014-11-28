@@ -17,7 +17,7 @@
     list-style: none
 }
 
-.ng-social li {
+.ng-social li {   
     display: inline-block;
     margin: 0 5px;
     *zoom: 1;
