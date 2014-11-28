@@ -24,7 +24,7 @@ angular.module('mainEventsApp', ['fundoo.services']);
 angular.module('angularTranslateApp', ['pascalprecht.translate']);
 angular.module('authenticationApp', ['ngCookies', 'personsApp']);
 angular.module('contextualizationApp', ['mainEventsApp']);
-angular.module('twitterApp', ['ngResource']);
+angular.module('socials', ['ngResource']);
 
 /**
  * Main App Module
@@ -62,8 +62,7 @@ var sympozerApp = angular.module('sympozerApp', [
     'ui.select',
     'xeditable',
     'colorpicker.module',
-    'twitterApp'
-
+    'socials',
 ]);
 
 

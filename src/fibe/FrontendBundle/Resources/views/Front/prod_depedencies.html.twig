@@ -238,8 +238,10 @@ output='js/compiled/main.js' %}
 'bundles/frontend/app/modules/authentication/js/controllers/change-pwd.ctrl.js'
 'bundles/frontend/app/modules/authentication/js/controllers/confirm.ctrl.js'
 
-'bundles/frontend/app/modules/twitterTimeline/js/controllers/twittertimeline.ctrl.js'
-'bundles/frontend/app/modules/twitterTimeline/js/services/twitter.fact.js'
+'bundles/frontend/app/modules/socials/js/controllers/twittertimeline.ctrl.js'
+'bundles/frontend/app/modules/socials/js/services/twitter.fact.js'
+'bundles/frontend/app/modules/socials/js/directives/social-buttons.drv.js'
+'bundles/frontend/app/modules/socials/js/directives/social.drv.js'
 
 output='js/compiled/app.js' %}
 <script src="{{ asset_url }}" type="text/javascript"></script>
@@ -409,14 +411,14 @@ output='js/compiled/app.js' %}
                         img: "{{ asset('bundles/frontend/app/modules/authentication/img') }}"
                     }
                 },
-                twitter: {
-                    urls: {
-                        base: "{{ asset('bundles/frontend/app/modules/twitterTimeline/') }}",
-                        partials: "{{ asset('bundles/frontend/app/modules/twitterTimeline/partials/') }}",
-                        getTimeline: "{{ path('fibe_security_twitterapisearchtag_api') }}"
-                    }
-                },
                 socials: {
+                    twitter: {
+                        urls: {
+                            base: "{{ asset('bundles/frontend/app/modules/socials/') }}",
+                            partials: "{{ asset('bundles/frontend/app/modules/socials/partials/') }}",
+                            getTimeline: "{{ path('fibe_security_twitterapisearchtag_api') }}"
+                        }
+                    },
                     getInfo: function(mapping, selector){
                         var info = {};
                         info.varName = (mapping[selector])["varName"];

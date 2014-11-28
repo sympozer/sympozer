@@ -77,7 +77,7 @@ angular.module('sympozerApp').factory('globalHttpInterceptor', [
         {
             $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'authentication.messages.forbidden', type: 'warning'});
         }
-        else if (rejection.data.error)
+        else if (rejection.data != undefined && rejection.data.error)
         {
           $rootScope.$broadcast('AlertCtrl:addAlert', {code: rejection.data.error, type: 'warning'});
         }

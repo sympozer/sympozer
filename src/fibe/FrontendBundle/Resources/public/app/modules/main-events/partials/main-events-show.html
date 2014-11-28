@@ -1,63 +1,73 @@
 <div class="well">
-  <div class="row">
-    <div class="col-sm-3 col-md-3 col-lg-3">
-      <div class="img-container-lg">
-        <img class="scale-img" no-image ng-src="{{ mainEvent.logo }}"/>
-      </div>
-      <p ng-if="mainEvent.country">{{mainEvent.country}}</p>
+    <div class="row">
+        <div class="col-sm-3 col-md-3 col-lg-3">
+            <div class="img-container-lg">
+                <img class="scale-img" no-image ng-src="{{ mainEvent.logo }}"/>
+            </div>
+            <p ng-if="mainEvent.country">{{mainEvent.country}}</p>
+        </div>
+        <div class="col-sm-8 col-md-8 col-lg-8">
+            <h3>{{mainEvent.label}}</span></h3>
+
+            <div style="text-align: right; margin-bottom: 5px;"><img src="https://g.twimg.com/twitter-bird-16x16.png"
+                                                                     alt=""> {{mainEvent.twitterid }}
+            </div>
+            <pre>{{mainEvent.description}}</pre>
+            <a sympozer-acl-show="mainEvent" class="btn btn-info" href="#mainEvents/edit/{{mainEvent.id}}"
+               role="button">
+                <i class="fa fa-edit fa-1x"></i> Edit my conference
+            </a>
+            <div ng-social-buttons></div>
+        </div>
     </div>
-    <div class="col-sm-8 col-md-8 col-lg-8">
-      <h3>{{mainEvent.label}}</span></h3>
-      <div style="text-align: right; margin-bottom: 5px;"><img src="https://g.twimg.com/twitter-bird-16x16.png" alt="">  {{mainEvent.twitterid }}</div>
-      <pre>{{mainEvent.description}}</pre>
-      <a sympozer-acl-show="mainEvent" class="btn btn-info" href="#mainEvents/edit/{{mainEvent.id}}" role="button">
-        <i class="fa fa-edit fa-1x"></i> Edit my conference
-      </a>
-    </div>
-  </div>
 </div>
 
 <div class="row">
-  <div class=" col-md-6 col-lg-6">
-    <h1>{{ 'mainEvents.labels.from' | translate}} : {{mainEvent.startAt}}</h1>
+    <div class=" col-md-6 col-lg-6">
+        <h1>{{ 'mainEvents.labels.from' | translate}} : {{mainEvent.startAt}}</h1>
 
-    <h1>{{ 'mainEvents.labels.to' | translate}} : {{mainEvent.endAt}}</h1>
-  </div>
-  <div class=" col-md-6 col-lg-6">
-    <leaflet center="center" markers="markers" height="300px" width="100%"></leaflet>
+        <h1>{{ 'mainEvents.labels.to' | translate}} : {{mainEvent.endAt}}</h1>
+    </div>
+    <div class=" col-md-6 col-lg-6">
+        <leaflet center="center" markers="markers" height="300px" width="100%"></leaflet>
 
-  </div>
+    </div>
 </div>
 
 
 <div class="row">
-  <div class=" col-md-6 col-lg-6">
-    <div class="row">
-      <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
-        <h1>{{mainEvent.events.length}} {{ 'events.links.events' | translate}} </h1>
-      </div>
-    </div>
-    <div ng-repeat="event in mainEvent.events | limitTo: 5  track by $index" class="col-sm-6 col-md-6 col-lg-4  well">
-      <i class="fa fa-calendar fa-3x"></i>
+    <div class=" col-md-6 col-lg-6">
+        <div class="row">
+            <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                <h1>{{mainEvent.events.length}} {{ 'events.links.events' | translate}} </h1>
+            </div>
+        </div>
+        <div ng-repeat="event in mainEvent.events | limitTo: 5  track by $index"
+             class="col-sm-6 col-md-6 col-lg-4  well">
+            <i class="fa fa-calendar fa-3x"></i>
 
-      <h2>{{ event.label }}</h2>
-      <a class="btn btn-default" href="#conference/{{mainEvent.id}}/events/show/{{ event.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>
+            <h2>{{ event.label }}</h2>
+            <a class="btn btn-default" href="#conference/{{mainEvent.id}}/events/show/{{ event.id }}" role="button"><i
+                    class="fa fa-eye fa-1x"></i></a>
+        </div>
     </div>
-  </div>
-  <div class=" col-md-6 col-lg-6">
-    <div class="row">
-      <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
-        <h1>{{mainEvent.papers.length}} {{ 'papers.links.papers' | translate}} </h1>
-      </div>
-    </div>
-    <div ng-repeat="paper in mainEvent.papers | limitTo: 5  track by $index" class="col-sm-6 col-md-6 col-lg-4  well">
-      <i class="fa fa-book fa-3x"></i>
+    <div class=" col-md-6 col-lg-6">
+        <div class="row">
+            <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                <h1>{{mainEvent.papers.length}} {{ 'papers.links.papers' | translate}} </h1>
+            </div>
+        </div>
+        <div ng-repeat="paper in mainEvent.papers | limitTo: 5  track by $index"
+             class="col-sm-6 col-md-6 col-lg-4  well">
+            <i class="fa fa-book fa-3x"></i>
 
-      <h2>{{ paper.label }}</h2>
-      <a class="btn btn-default" href="#conference/{{mainEvent.id}}/papers/show/{{paper.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>
+            <h2>{{ paper.label }}</h2>
+            <a class="btn btn-default" href="#conference/{{mainEvent.id}}/papers/show/{{paper.id }}" role="button"><i
+                    class="fa fa-eye fa-1x"></i></a>
+        </div>
     </div>
-  </div>
 </div>
 
 <!-- Appel de la timeline correspondant a l'identifiant Twitter (# ou @) -->
-<div class="well" ng-show="currentMainEvent.chk_timeline" ng-include="GLOBAL_CONFIG.app.modules.twitter.urls.partials + 'twitterTimeline-show.html'"/>
+<div class="well" ng-show="currentMainEvent.chk_timeline"
+     ng-include="GLOBAL_CONFIG.app.modules.socials.twitter.urls.partials + 'twitterTimeline-show.html'"/>
