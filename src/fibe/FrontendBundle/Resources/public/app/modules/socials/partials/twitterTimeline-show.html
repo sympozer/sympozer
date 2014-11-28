@@ -1,0 +1,28 @@
+<div class="row" ng-controller="twitterTimelineCtrl">
+    <div class="col-xs-12" id="results" ng-switch="info.varName">
+        <div ng-switch-when="person">
+            <div class="row" ng-repeat="t in tweets">
+                <div class="col-xs-2 col-sm-1">
+                    <img ng-src="{{t.user.profile_image_url}}" class="img-circle">
+                </div>
+                <div class="col-xs-10 col-sm-11">
+                    <small>{{t.user.name}}</small>
+                    <br/>{{t.text}}
+                    <br/>{{t.created_at}}
+                </div>
+            </div>
+        </div>
+        <div ng-switch-default>
+            <div class="row" ng-repeat="t in tweets.statuses">
+                <div class="col-xs-2 col-sm-1">
+                    <img ng-src="{{t.user.profile_image_url}}" class="img-circle">
+                </div>
+                <div class="col-xs-10 col-sm-11">
+                    <small>{{t.user.name}}</small>
+                    <br/>{{t.text}}
+                    <br/>{{t.created_at}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
