@@ -68,6 +68,8 @@ class MainEvent extends VEvent
   /**
    * Categories
    * @ORM\OneToMany(targetEntity="fibe\EventBundle\Entity\CategoryVersion", mappedBy="mainEvent",cascade={"persist", "remove"})
+   * @Expose
+   * @SerializedName("categoryVersions")
    */
   private $categoryVersions;
   /**
@@ -120,6 +122,8 @@ class MainEvent extends VEvent
     $this->events = new ArrayCollection();
     $this->roles = new ArrayCollection();
     $this->eventLocations = new ArrayCollection();
+    $this->categoryVersions = new ArrayCollection();
+
     $this->papers = new ArrayCollection();
     $this->persons = new ArrayCollection();
     $this->topics = new ArrayCollection();

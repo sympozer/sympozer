@@ -39,10 +39,8 @@
                         <div ng-include="GLOBAL_CONFIG.app.modules.categories.urls.partials+'categories-filter.html'"></div>
 
 
-                        <div class="search-result" ng-repeat-start="event in entities  track by $index" infinite-scroll='load()' infinite-scroll-disabled='busy' infinite-scroll-distance='0.5'>
-                            <div class="row" ng-include="GLOBAL_CONFIG.app.modules.events.urls.partials+'events-entity-list-md.html'"></div>
-                        </div>
-                        <hr ng-repeat-end="">
+                        <div class="row" ng-include="GLOBAL_CONFIG.app.modules.events.urls.partials+'views/events-entity-list-md.html'"></div>
+
 
                     </div>
                 </div>

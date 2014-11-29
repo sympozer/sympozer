@@ -5,6 +5,7 @@ namespace fibe\ContentBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
+use JMS\Serializer\Annotation\SerializedName;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -78,6 +79,7 @@ class Localization
    * street number
    *
    * @ORM\Column(type="integer", nullable=true)
+   * @SerializedName("streetNumbe")
    * @Expose
    */
   protected $streetNumber;
@@ -104,12 +106,14 @@ class Localization
   /**
    * country code
    * @ORM\Column(type="string", nullable=true)
+   * @SerializedName("countryCode")
    * @Expose
    */
   protected $countryCode;
   /**
    * postalCode code
    * @ORM\Column(type="string", nullable=true)
+   * @SerializedName("postalCode")
    * @Expose
    */
   protected $postalCode;

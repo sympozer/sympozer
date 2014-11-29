@@ -4,8 +4,8 @@
  * @type {controller}
  */
 
-angular.module('eventsApp').controller('eventsNewCtrl', [ '$scope', '$window', 'GLOBAL_CONFIG', '$routeParams', '$rootScope', '$location', 'eventsFact', 'categoriesFact', 'topicsFact', 'locationsFact', 'papersFact', '$modal', 'formValidation', '$filter',
-    function ($scope, $window, GLOBAL_CONFIG, $routeParams, $rootScope, $location, eventsFact, categoriesFact, topicsFact, locationsFact, papersFact, $modal, formValidation, $filter)
+angular.module('eventsApp').controller('eventsNewCtrl', [ '$scope', '$window', 'GLOBAL_CONFIG', '$routeParams', '$rootScope', '$location', 'eventsFact', 'categoriesFact', 'topicsFact', 'locationsFact', 'papersFact', '$modal', 'formValidation', '$filter', 'pinesNotifications', 'translateFilter',
+    function ($scope, $window, GLOBAL_CONFIG, $routeParams, $rootScope, $location, eventsFact, categoriesFact, topicsFact, locationsFact, papersFact, $modal, formValidation, $filter, pinesNotifications, translateFilter)
     {
         $scope.event = new eventsFact;
         $scope.dateRange = "";
@@ -149,12 +149,12 @@ angular.module('eventsApp').controller('eventsNewCtrl', [ '$scope', '$window', '
                     }
                 });
                 modalInstance.result.then(function (newLocation) {
-                    $scope.addRelationship('eventLocations', locationModel);
+                    $scope.event.location = newLocation;
                 }, function () {
                     //$log.info('Modal dismissed at: ' + new Date());
                 });
             }else{
-                $scope.addRelationship('eventLocations', locationModel);
+                $scope.event.location = locationModel;
             }
         };
 

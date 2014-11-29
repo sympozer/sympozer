@@ -3,8 +3,8 @@
  * @type {controller}
  */
 angular.module('rolesApp').controller('rolesNewCtrl',
-    [ '$scope', '$window', 'GLOBAL_CONFIG', '$routeParams', '$rootScope', '$location', 'rolesFact', 'personsFact', 'roleLabelsFact', 'eventsFact','$modal','formValidation',
-        function ($scope, $window, GLOBAL_CONFIG, $routeParams, $rootScope, $location, rolesFact, personsFact, roleLabelsFact, eventsFact, $modal, formValidation)
+    [ '$scope', '$window', 'GLOBAL_CONFIG', '$routeParams', '$rootScope', '$location', 'rolesFact', 'personsFact', 'roleLabelsFact', 'eventsFact','$modal','formValidation', 'pinesNotifications', 'translateFilter',
+        function ($scope, $window, GLOBAL_CONFIG, $routeParams, $rootScope, $location, rolesFact, personsFact, roleLabelsFact, eventsFact, $modal, formValidation, pinesNotifications, translateFilter)
         {
             $scope.role = new rolesFact;
 
@@ -54,6 +54,9 @@ angular.module('rolesApp').controller('rolesNewCtrl',
                 {
                     //Set main event of the new role
                     $scope.role.mainEvent = $routeParams.mainEventId;
+                    $scope.role.person = $scope.role.person.id;
+                    $scope.role.event = $scope.role.event ? $scope.role.event.id : null;
+                    $scope.role.roleLabelVersion = $scope.role.roleLabelVersion.id;
                     $scope.role.$create({}, success, error);
                 }
             }

@@ -4,18 +4,29 @@
  * @type {controller}
  */
 angular.module('rolesApp').controller('rolesEditCtrl',
-    [ '$scope', '$window', 'GLOBAL_CONFIG', 'createDialog', '$rootScope', '$routeParams', '$location', 'rolesFact',  'personsFact', 'roleLabelsFact', 'eventsFact', '$modal', function ($scope, $window,  GLOBAL_CONFIG, createDialogService, $rootScope, $routeParams, $location, rolesFact,  personsFact, roleLabelsFact, eventsFact, $modal)
+    [ '$scope', '$window', 'GLOBAL_CONFIG', '$rootScope', '$routeParams', '$location', 'rolesFact',  'personsFact', 'roleLabelsFact', 'eventsFact', '$modal', 'pinesNotifications', 'translateFilter', function ($scope, $window,  GLOBAL_CONFIG, $rootScope, $routeParams, $location, rolesFact,  personsFact, roleLabelsFact, eventsFact, $modal, pinesNotifications, translateFilter)
     {
+        //Fetch the role to edit
         $scope.role = rolesFact.get({id: $routeParams.roleId});
 
         var error = function (response, args)
         {
-            $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'roles.validations.not_created', type: 'danger'});
+            //Notify of the creation action error
+            pinesNotifications.notify({
+                title: translateFilter('global.validations.error'),
+                text: translateFilter('roles.validations.not_created'),
+                type: 'error'
+            });
         };
 
         var success = function (response, args)
         {
-            $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'roles.validations.created', type: 'success'});
+            //Notify of the creation action success
+            pinesNotifications.notify({
+                title: translateFilter('global.validations.success'),
+                text: translateFilter('roles.validations.created'),
+                type: 'success'
+            });
             $window.history.back();
         };
 
@@ -23,7 +34,7 @@ angular.module('rolesApp').controller('rolesEditCtrl',
         {
             if (form.$valid)
             {
-                $scope.role.$update({}, success, error);
+                rolesFact.$update(rolesFact.serialize($scope.role), success, error);
             }
         }
 

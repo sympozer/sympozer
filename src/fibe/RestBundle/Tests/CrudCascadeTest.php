@@ -5,7 +5,7 @@ namespace fibe\RestBundle\Tests\Controller;
 use fibe\ContentBundle\Entity\Localization;
 use fibe\ContentBundle\Form\LocalizationType;
 use fibe\RestBundle\Tests\LocalizationFixture;
-use Liip\FunctionalTestBundle\Test\WebTestCase;
+use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
 
 class CrudCascadeTest extends WebTestCase
