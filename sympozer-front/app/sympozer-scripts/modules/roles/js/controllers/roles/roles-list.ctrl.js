@@ -4,7 +4,7 @@
  * @type {controller}
  */
 angular.module('rolesApp').controller('rolesListCtrl', [
-    '$scope', 'roleLabelsFact', '$routeParams', 'GLOBAL_CONFIG', '$rootScope', 'rolesFact', '$cachedResource', function ($scope, roleLabelsFact, $routeParams, GLOBAL_CONFIG, $rootScope, rolesFact, $cachedResource)
+    '$scope', 'roleLabelsFact', '$routeParams', 'GLOBAL_CONFIG', '$rootScope', 'rolesFact', '$cachedResource', '$modal', function ($scope, roleLabelsFact, $routeParams, GLOBAL_CONFIG, $rootScope, rolesFact, $cachedResource, $modal)
     {
         $scope.GLOBAL_CONFIG = GLOBAL_CONFIG;
         $scope.entities = [];
@@ -57,23 +57,44 @@ angular.module('rolesApp').controller('rolesListCtrl', [
         };
 
 
+
         $scope.deleteModal = function (index, role)
         {
             $scope.index = index;
 
-            createDialogService(GLOBAL_CONFIG.app.modules.roles.urls.partials + 'roles-delete.html', {
-                id        : 'complexDialog',
-                title     : 'role deletion',
-                backdrop  : true,
+            var modalInstance = $modal.open({
+                templateUrl: GLOBAL_CONFIG.app.modules.roles.urls.partials + 'modals/roles-delete-modal.html',
                 controller: 'rolesDeleteCtrl',
-                success   : {label: 'Ok', fn: function ()
-                {
-                    rolesFact.delete({id: role.id});
-                    $scope.entities.splice(index, 1);
-                }}
-            }, {
-                roleModel: role
+                size: "large",
+                resolve: {
+                   roleModel : function(){
+                        return $modal;
+                    }
+                }
             });
+
+            modalInstance.resolve = function(data){
+                $scope.entities.splice(index, 1);
+            }
         }
+
+//        $scope.deleteModal = function (index, role)
+//        {
+//            $scope.index = index;
+//
+//            createDialogService(GLOBAL_CONFIG.app.modules.roles.urls.partials + 'roles-delete.html', {
+//                id        : 'complexDialog',
+//                title     : 'role deletion',
+//                backdrop  : true,
+//                controller: 'rolesDeleteCtrl',
+//                success   : {label: 'Ok', fn: function ()
+//                {
+//                    rolesFact.delete({id: role.id});
+//                    $scope.entities.splice(index, 1);
+//                }}
+//            }, {
+//                roleModel: role
+//            });
+//        }
 
     }]);

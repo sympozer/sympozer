@@ -662,7 +662,7 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 signin_required: 'Cette action nécessite d\'être connecté.',
                 reset_pwd_info: 'Pour reinitialiser votre mot de passe, entrer votre email ou nom d\'utilisateur. Vous recevrez alors un email pour mettre à jour votre mot de passe',
                 pwd_not_set: 'Vous n\'avez pas encore défini votre mot de passe',
-                forbidden: 'Vous n\'avez le droit d\'exécuter cette action'
+                forbidden: 'Vous n\'avez pas le droit d\'exécuter cette action'
             },
             links: {
                 authentication: 'Authentification'
@@ -922,7 +922,8 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 print: 'Imprimer localisations'
             },
             links: {
-                locations: 'Localisations'
+                locations: 'Locations',
+                location : 'Location'
             },
             validations: {
                 'created': 'La localisation a été enregistré',

@@ -132,6 +132,21 @@ sympozerApp.controller('breadcrumbCtrl', ['$scope', '$rootScope', '$location', f
                                     label: 'roles.actions.new'
                                 }
                             ]
+                        },
+                        {
+                            idUrl: 'events',
+                            label: 'events.links.events',
+                            url : '#/home/conference/'+$rootScope.currentMainEvent.id+'/events/list',
+                            children: [
+                                {
+                                    idUrl: 'list',
+                                    label: 'global.labels.list'
+                                },
+                                {
+                                    idUrl: 'new',
+                                    label: 'events.actions.new'
+                                }
+                            ]
                         }
                     ]
                 }

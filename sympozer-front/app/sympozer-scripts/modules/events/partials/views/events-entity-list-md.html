@@ -12,14 +12,14 @@
         <th>{{ 'global.actions.actions' | translate }}</th>
     </tr>
     </thead>
-    <tbody offset="-20" limit="20" orderBy="label" orderSide="ASC" query="" infinite-scroll='load()' infinite-scroll-disabled='busy' infinite-scroll-distance='0.5'>
+    <tbody  infinite-scroll='load()' infinite-scroll-disabled='busy' infinite-scroll-distance='0.5'>
     <tr ng-repeat="event in entities  track by $index">
         <td>{{ event.label }}</td>
         <td>{{ event.startAt }}</td>
         <td>{{ event.endAt }}</td>
         <td>
-            <a class="btn btn-warning" href="#conference/{{ event.mainEvent.id }}/events/edit/{{ event.id }}" role="button"><i class="fa fa-edit fa-1x"></i></a>
-            <a class="btn btn-default" href="#conference/{{ event.mainEvent.id }}/events/show/{{ event.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>
+            <a class="btn btn-warning" href="#/home/conference/{{ event.mainEvent.id }}/events/edit/{{ event.id }}" role="button"><i class="fa fa-edit fa-1x"></i></a>
+            <a class="btn btn-default" href="#/home/conference/{{ event.mainEvent.id }}/events/show/{{ event.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>
             <a class="btn btn-primary" href="" data-ng-click="clone(event, $index)" role="button"><i class="fa fa-files-o fa-1x"></i></a>
             <button class="btn btn-danger" data-ng-click="deleteModal($index, event)" role="button">
                 <i class="fa fa-trash-o fa-1x"></i></button>

@@ -32,8 +32,6 @@ angular.module('personsApp').controller('personsListCtrl', ['$scope', '$routePar
         clonePerson.$create({}, success, error);
     };
 
-
-
     $scope.deleteModal = function (index, person)
     {
         $scope.index = index;

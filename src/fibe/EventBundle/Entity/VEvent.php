@@ -4,6 +4,7 @@ namespace fibe\EventBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Event\PreFlushEventArgs;
 use Doctrine\ORM\Mapping as ORM;
+use fibe\ContentBundle\Entity\Location;
 use fibe\ContentBundle\Entity\Sponsor;
 use fibe\ContentBundle\Entity\Topic;
 use JMS\Serializer\Annotation\ExclusionPolicy;
@@ -733,29 +734,29 @@ abstract class VEvent
         return $this->status;
     }
 
-//  /**
-//   * Set location
-//   *
-//   * @param Location $location
-//   *
-//   * @return $this
-//   */
-//  public function setLocation(Location $location = null)
-//  {
-//    $this->location = $location;
-//
-//    return $this;
-//  }
-//
-//  /**
-//   * Get location
-//   *
-//   * @return Location
-//   */
-//  public function getLocation()
-//  {
-//    return $this->location;
-//  }
+  /**
+   * Set location
+   *
+   * @param Location $location
+   *
+   * @return $this
+   */
+  public function setLocation(Location $location = null)
+  {
+    $this->location = $location;
+
+    return $this;
+  }
+
+  /**
+   * Get location
+   *
+   * @return Location
+   */
+  public function getLocation()
+  {
+    return $this->location;
+  }
 //  /**
 //   * Add roles
 //   *
@@ -906,23 +907,6 @@ abstract class VEvent
     }
 
 
-    /**
-     * @return mixed
-     */
-    public function getLocation()
-    {
-        return $this->location;
-    }
-
-    /**
-     * @param mixed $location
-     */
-    public function setLocation($location)
-    {
-        $this->location = $location;
-    }
-
-
 
     /**
      * auto persist of embedded data
@@ -930,21 +914,21 @@ abstract class VEvent
      */
     public function updateSomething(PreFlushEventArgs $eventArgs)
     {
-        if (!$this->getId() || !$this->getLocation())
-        {
-            return;
-        }
-        $em = $eventArgs->getEntityManager();
-        $uow = $em->getUnitOfWork();
-
-        if($this->getLocation()->getLabel() != null){
-            // $uow->computeChangeSets();
-            $uow->persist($this->getLocation());
-//            $uow->recomputeSingleEntityChangeSet(
-//                $em->getClassMetadata(get_class($this->getLocation())),
-//                $this->getLocation()
-//            );
-        }
+//        if (!$this->getId() || !$this->getLocation())
+//        {
+//            return;
+//        }
+//        $em = $eventArgs->getEntityManager();
+//        $uow = $em->getUnitOfWork();
+//
+//        if($this->getLocation()->getLabel() != null){
+//            // $uow->computeChangeSets();
+//            $uow->persist($this->getLocation());
+////            $uow->recomputeSingleEntityChangeSet(
+////                $em->getClassMetadata(get_class($this->getLocation())),
+////                $this->getLocation()
+////            );
+//        }
     }
 
 

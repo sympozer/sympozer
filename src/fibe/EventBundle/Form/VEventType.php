@@ -26,6 +26,7 @@ class VEventType extends AbstractType
     {
         $builder
             ->add('id')
+            ->add('label')
             ->add('priority')
             ->add('startAt', 'datetime', array(
                 'widget' => 'single_text',

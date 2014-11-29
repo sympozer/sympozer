@@ -129,18 +129,19 @@
 </div>
 
 
-<h2>{{ 'persons.links.persons' | translate }}</h2>
-<div class="form-group">
-    <a class="btn btn-primary btn-inline" ng-click="addRole"><i class="fa fa-plus"></i></a>
-    <div ng-repeat="role in event.roles  track by $index" class="col-sm-3 col-md-3 col-lg-3  well">
-        <a ng-click="deleteRole($index)" >
-            <i class="fa fa-close" ></i>
-        </a>
-        <div class="img-container-lg">
-            <img  class="scale-img" no-image ng-src="{{ role.person.img }}"/>
-        </div>
-        <h2>{{ role.person.label }}</h2>
-        <h2>{{ role.person.email }}</h2>
-        <h3>{{ role.roleLabelVersion.label }}</h3>
-    </div>
-</div>
+<!-- @TODO: restore person management for event-->
+<!--<h2>{{ 'persons.links.persons' | translate }}</h2>-->
+<!--<div class="form-group">-->
+    <!--<a class="btn btn-primary btn-inline" ng-click="addRole"><i class="fa fa-plus"></i></a>-->
+    <!--<div ng-repeat="role in event.roles  track by $index" class="col-sm-3 col-md-3 col-lg-3  well">-->
+        <!--<a ng-click="deleteRole($index)" >-->
+            <!--<i class="fa fa-close" ></i>-->
+        <!--</a>-->
+        <!--<div class="img-container-lg">-->
+            <!--<img  class="scale-img" no-image ng-src="{{ role.person.img }}"/>-->
+        <!--</div>-->
+        <!--<h2>{{ role.person.label }}</h2>-->
+        <!--<h2>{{ role.person.email }}</h2>-->
+        <!--<h3>{{ role.roleLabelVersion.label }}</h3>-->
+    <!--</div>-->
+<!--</div>-->

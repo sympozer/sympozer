@@ -37,6 +37,8 @@ class Role
      */
     private $id;
 
+
+
     /**
      * label
      * @ORM\Column(type="string", name="label", nullable=false)
@@ -88,7 +90,7 @@ class Role
     {
         $eventLabel = $this->getEvent() ? $this->getEvent()->getlabel(): $this->getMainEvent()->getlabel();
         $this->setLabel(sprintf("%s is %s at %s",
-          $this->getPerson()->getLabel(),
+            $this->getPerson()->getLabel(),
             $this->getRoleLabelVersion()->getlabel(),
             $eventLabel
 
@@ -100,9 +102,9 @@ class Role
      *
      * @return VEvent
      */
-  public function getEvent()
+    public function getEvent()
     {
-      return $this->event;
+        return $this->event;
     }
 
     /**
@@ -114,9 +116,9 @@ class Role
      *
      * @return Role
      */
-  public function setEvent(VEvent $event = null)
-  {
-    $this->event = $event;
+    public function setEvent(VEvent $event = null)
+    {
+        $this->event = $event;
 
         return $this;
     }
@@ -126,9 +128,9 @@ class Role
      *
      * @return MainEvent
      */
-  public function getMainEvent()
+    public function getMainEvent()
     {
-      return $this->mainEvent;
+        return $this->mainEvent;
     }
 
     /**
@@ -138,9 +140,9 @@ class Role
      *
      * @return Role
      */
-  public function setMainEvent(MainEvent $mainEvent)
+    public function setMainEvent(MainEvent $mainEvent)
     {
-      $this->mainEvent = $mainEvent;
+        $this->mainEvent = $mainEvent;
 
         return $this;
     }
@@ -150,9 +152,9 @@ class Role
      *
      * @return Person
      */
-  public function getPerson()
+    public function getPerson()
     {
-      return $this->person;
+        return $this->person;
     }
 
     /**
@@ -162,9 +164,9 @@ class Role
      *
      * @return Role
      */
-  public function setPerson(Person $person = null)
-  {
-    $this->person = $person;
+    public function setPerson(Person $person = null)
+    {
+        $this->person = $person;
 
         return $this;
     }
@@ -172,37 +174,28 @@ class Role
     /**
      * @return mixed
      */
-  public function getRoleLabelVersion()
+    public function getRoleLabelVersion()
     {
-      return $this->roleLabelVersion;
+        return $this->roleLabelVersion;
     }
 
     /**
      * @param mixed $roleLabelVersion
      */
-  public function setRoleLabelVersion($roleLabelVersion)
+    public function setRoleLabelVersion($roleLabelVersion)
     {
-      $this->roleLabelVersion = $roleLabelVersion;
+        $this->roleLabelVersion = $roleLabelVersion;
     }
 
-    /**
-     * Get id
-     *
-     * @return integer
-     */
-  public function getId()
-    {
-      return $this->id;
-    }
 
     /**
      * Get type
      *
      * @return String
      */
-  public function getLabel()
+    public function getLabel()
     {
-      return $this->label;
+        return $this->label;
     }
 
     /**
@@ -212,15 +205,30 @@ class Role
      *
      * @return String
      */
-  public function setLabel($label)
+    public function setLabel($label)
     {
-      $this->label = $label;
+        $this->label = $label;
 
-      return $this;
+        return $this;
     }
 
     public function __toString()
     {
         return $this->label;
+    }
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param mixed $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
     }
 }

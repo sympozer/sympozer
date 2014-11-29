@@ -103,19 +103,21 @@ sympozerApp.controller('navMainCtrl', ['$scope', '$rootScope', '$location', '$ti
                         children: [
                             {
                                 label: 'events.links.events',
-                                html: '<span class="badge badge-indigo">4</span>', /** menu notification **/
+                                html: '<span class="badge badge-indigo">'+$rootScope.currentMainEvent.events.length+'</span>', /** menu notification **/
                                 iconClasses: 'fa fa-clock-o',
                                 url: '#/home/conference/'+$rootScope.currentMainEvent.id+'/events/list'
                             },
                             {
                                 label: 'locations.links.locations',
+                                html: '<span class="badge badge-magenta">'+$rootScope.currentMainEvent.eventLocations.length+'</span>',
                                 iconClasses: 'fa fa-map-marker red',
                                 url: '#/' /** @TODO FORZA : TO ALIMENT WITH THE PROPER URL**/
                             },
                             {
                                 label: 'categories.links.categories',
                                 iconClasses: 'fa fa-tag',
-                                url: '#/' /** @TODO FORZA : TO ALIMENT WITH THE PROPER URL**/
+                                html: '<span class="badge badge-orange">'+$rootScope.currentMainEvent.categoryVersions.length+'</span>',
+//                                url: '#/' /** @TODO FORZA : TO ALIMENT WITH THE PROPER URL**/
                             }
                         ]
                     }
