@@ -42,6 +42,18 @@ class ACLInheritanceVoter implements VoterInterface
     $this->logger = $logger;
   }
 
+  /**
+   * grant object on "certain_condition"
+   * if no "certain_condition" is set,
+   *    call $this->isGranted to perform a hierarchical check
+   *
+   * @param TokenInterface $token
+   * @param null|object $entity
+   * @param array $attributes
+   * @return int
+   * @throws \Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException
+   * @throws \Symfony\Component\Security\Core\Exception\InvalidArgumentException
+   */
   public function vote(TokenInterface $token, $entity, array $attributes)
   {
     // check if class of this object is supported by this voter
@@ -150,19 +162,14 @@ class ACLInheritanceVoter implements VoterInterface
       {
         throw $e;
       }
+
       //check parent if no permission on child
       if (null !== $parent = ACLHelper::getParent($entity))
       {
         $this->log(sprintf('[ACLInheritanceVoter] ACL not found, looking for parent : %s', get_class($parent)));
         return $this->isGranted($sids, $mask, $parent);
       }
-//      $ACLEntityInfo = $this->supportsClass(get_class($entity));
-//      if ($ACLEntityInfo && isset($ACLEntityInfo['parent']))
-//      {
-//        $parent = call_user_func_array(array($entity, $ACLEntityInfo['parent']), array());
-//        $this->log(sprintf('[ACLInheritanceVoter] ACL not found, looking for parent : %s', get_class($parent)));
-//        return $this->isGranted($sids, $mask, $parent);
-//      }
+
       //no more parent
       $this->log(sprintf('[ACLInheritanceVoter][DENY] ACL not found, no more parent, permission denied for %s.', get_class($entity)));
       return self::ACCESS_DENIED;

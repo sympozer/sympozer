@@ -2,7 +2,7 @@
 
 namespace fibe\RestBundle\Tests\Controller;
 
-use Liip\FunctionalTestBundle\Test\WebTestCase as WebTestCase;
+use Liip\FunctionalTestBundle\Test\WebTestCase;
 
 class LocationCrudTest extends WebTestCase
 {
@@ -17,6 +17,7 @@ class LocationCrudTest extends WebTestCase
     // Create a new client to browse the application
     $this->client = static::createClient();
   }
+
 
   /**
    * test to be placed before any array_pop otherwise we loose indexes

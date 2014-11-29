@@ -1,20 +1,24 @@
 <?php
 
-namespace fibe\RestBundle\Tests\Controller;
+namespace fibe\RestBundle\Tests;
 
-use Doctrine\ORM\EntityManager;
-use fibe\RestBundle\Tests\LocalizationFixture;
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
-use Symfony\Component\Form\FormInterface;
+use Liip\FunctionalTestBundle\Test\WebTestCase;
 
 class CrudCascadeTest extends WebTestCase
 {
-  /** @var EntityManager */
+  const LOCATION_CLASS = "fibe/RestBundle/Tests/Fixtures/LocalizationFixture";
+
+  /**
+   * @var \Doctrine\ORM\EntityManager
+   */
   private $em;
-  /** @var ContainerInterface */
-  private $container;
+
+  public function __construct()
+  {
+    static::$kernel = static::createKernel();
+    static::$kernel->boot();
+    $this->em = static::$kernel->getContainer()->get('doctrine.orm.entity_manager');
+  }
 
   /**
    * Rollback changes.
@@ -41,10 +45,15 @@ class CrudCascadeTest extends WebTestCase
         "label" => "Jersey"
       )
     );
+    $fixtures = array(static::LOCATION_CLASS);
+    $this->loadFixtures($fixtures);
+    $entities = LocalizationFixture::$entities;
+
     $entity = new \fibe\ContentBundle\Entity\Localization();
 //    $entity = $this->em->getRepository($entityClassName)->find($id);
     $method = "POST";
     $this->em->getRepository("fibe\\ContentBundle\\Entity\\Localization");
+    $form = new LocalizationType();
 
     /** @var FormInterface */
     $form = $this->container->get("form.factory")->create($form, $entity, array('method' => $method));
@@ -205,43 +214,9 @@ class CrudCascadeTest extends WebTestCase
 
   }
 
-  /**
-   * test to be placed before any array_pop
-   */
-  public function testGetAndPagination()
-  {
-    $fixtures = array(static::LOCATION_CLASS);
-    $this->loadFixtures($fixtures);
-    $entities = LocalizationFixture::$entities;
 
-    $offset = 0;
-    $limit = 3;
+  /*************** helper functions *******************/
 
-    $this->client->request(
-      'GET',
-      sprintf(static::API_URL . '?offset=%d&limit=%d', $offset, $limit),
-      array(),
-      array(),
-      array('HTTP_ACCEPT' => 'application/json')
-    );
-    $this->assertJsonResponse($this->client->getResponse());
-    $decoded = json_decode($this->client->getResponse()->getContent(), true);
-    $this->assertEquals(count($decoded), $limit, $decoded);
-
-    $offset = $limit;
-
-    $this->client->request(
-      'GET',
-      sprintf(static::API_URL . '?offset=%d&limit=%d', $offset, $limit),
-      array(),
-      array(),
-      array('HTTP_ACCEPT' => 'application/json')
-    );
-    $this->assertJsonResponse($this->client->getResponse());
-    $decoded = json_decode($this->client->getResponse()->getContent(), true);
-    $this->assertEquals(count($decoded), $limit, $decoded);
-    $this->assertEquals($entities[$offset]->getId(), $decoded[0]['id'], $this->client->getResponse());
-  }
 
   protected function assertJsonResponse(
     $response,
@@ -269,123 +244,6 @@ class CrudCascadeTest extends WebTestCase
         $response->getContent()
       );
     }
-  }
-
-  public function testGet()
-  {
-    $fixtures = array(static::LOCATION_CLASS);
-    $this->loadFixtures($fixtures);
-    $entities = LocalizationFixture::$entities;
-
-    $entity = array_pop($entities);
-    $this->client->request(
-      'GET',
-      sprintf(static::API_URL . '/%d', $entity->getId()),
-      array(),
-      array(),
-      array('HTTP_ACCEPT' => 'application/json'));
-    $response = $this->client->getResponse();
-
-    $this->assertJsonResponse($response);
-    $content = $response->getContent();
-
-    $decoded = json_decode($content, true);
-    $this->assertTrue(isset($decoded['id']));
-    $this->assertEquals($decoded['id'], $entity->getId(), $decoded);
-  }
-
-  public function testHeadRoute()
-  {
-    $fixtures = array(static::LOCATION_CLASS);
-    $this->loadFixtures($fixtures);
-    $entities = LocalizationFixture::$entities;
-
-    $entity = array_pop($entities);
-
-    $this->client->request(
-      'HEAD',
-      sprintf(static::API_URL . '/%d', $entity->getId()),
-      array(),
-      array(),
-      array('HTTP_ACCEPT' => 'application/json')
-    );
-    $response = $this->client->getResponse();
-    $this->assertJsonResponse($response, 200, false);
-  }
-
-  public function testPost()
-  {
-    $this->client->request(
-      'POST',
-      static::API_URL,
-      array(),
-      array(),
-      array('HTTP_ACCEPT' => 'application/json',
-        'CONTENT_TYPE' => 'application/json'),
-      '{"label":"body1"}'
-    );
-
-    $this->assertJsonResponse($this->client->getResponse());
-    $this->assertContains(
-      'label":"body1',
-      $this->client->getResponse()->getContent()
-    );
-  }
-
-  public function testPostLocationActionShouldReturn400WithBadParameters()
-  {
-    $this->client->request(
-      'POST',
-      static::API_URL . '',
-      array(),
-      array(),
-      array('HTTP_ACCEPT' => 'application/json',
-        'CONTENT_TYPE' => 'application/json'),
-      '{"labels":"body1"}'
-    );
-
-    $this->assertJsonResponse($this->client->getResponse(), 400, false);
-  }
-
-  public function testPutLocationActionShouldModify()
-  {
-    $fixtures = array(static::LOCATION_CLASS);
-    $this->loadFixtures($fixtures);
-    $entities = LocalizationFixture::$entities;
-
-    $entity = array_pop($entities);
-    $this->client->request(
-      'GET',
-      sprintf(static::API_URL . '/%d', $entity->getId()),
-      array(),
-      array(),
-      array('HTTP_ACCEPT' => 'application/json')
-    );
-    $this->assertEquals(
-      200,
-      $this->client->getResponse()->getStatusCode(),
-      $this->client->getResponse()->getContent()
-    );
-    $this->client->request(
-      'PUT',
-      sprintf(static::API_URL . '/%d', $entity->getId()),
-      array(),
-      array(),
-      array(
-        'HTTP_ACCEPT' => 'application/json',
-        'CONTENT_TYPE' => 'application/json'),
-      '{"label":"abc"}'
-    );
-    $this->assertJsonResponse($this->client->getResponse());
-
-    /* not implemented : responds 400 not found
-    $this->assertTrue(
-      $this->client->getResponse()->headers->contains(
-        'Location',
-        sprintf('http://localhost'.static::API_URL.'/%d', $entity->getId())
-      ),
-      $this->client->getResponse()->headers
-    );*/
   }
 
   protected function setUp()

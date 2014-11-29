@@ -35,7 +35,7 @@
     },
     "require-dev"      : {
         "doctrine/doctrine-fixtures-bundle": "dev-master",
-        "phpunit/phpunit"                  : "3.7.*",
+        "phpunit/phpunit"                  : "4.0.*",
         "liip/functional-test-bundle"      : "dev-master",
         "guzzle/plugin"                    : "3.7.*"
     },
