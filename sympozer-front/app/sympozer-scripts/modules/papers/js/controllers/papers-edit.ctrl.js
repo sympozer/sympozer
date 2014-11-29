@@ -94,27 +94,12 @@ angular.module('papersApp').controller('papersEditCtrl', [
         $scope.paper.topics = [];
         $scope.addTopic = function (topicModel)
         {
+            //If the topic selected doesn't exist, it is created and added to the paper
             if (!topicModel.id)
             {
-                var modalInstance = $modal.open({
-                    templateUrl: GLOBAL_CONFIG.app.modules.topics.urls.partials + 'topics-modal-form.html',
-                    controller : 'topicsNewCtrl',
-                    size       : "large",
-                    resolve    : {
-                    }
-                });
-                modalInstance.result.then(function (newTopic)
-                {
-                    $scope.addRelationship('topics', newTopic)
-                }, function ()
-                {
-                    //$log.info('Modal dismissed at: ' + new Date());
-                });
+                topicModel = topicsFact.create({label:topicModel.label})
             }
-            else
-            {
-                $scope.addRelationship('topics', topicModel)
-            }
+            $scope.addRelationship('topics', topicModel)
         };
 
     }]);

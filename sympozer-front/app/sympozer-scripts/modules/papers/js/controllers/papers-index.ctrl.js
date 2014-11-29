@@ -98,15 +98,4 @@ angular.module('papersApp').controller(
   }
    */
 
-    //Manage the signin modal
-        $scope.showNewTopicsPopup = $scope.$root.showNewTopicsPopup = function ()
-        {
-            //Open topic creation modal
-            var modalInstance = $modal.open({
-                templateUrl: GLOBAL_CONFIG.app.modules.topics.urls.partials + 'topics-new.html',
-                controller : 'topicsNewCtrl',
-                size       : "large"
-            });
-        };
-
 }]);
