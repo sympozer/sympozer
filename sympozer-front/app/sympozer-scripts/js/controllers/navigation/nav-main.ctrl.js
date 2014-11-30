@@ -49,6 +49,10 @@ sympozerApp.controller('navMainCtrl', ['$scope', '$rootScope', '$location', '$ti
      * @type {{label: string, iconClasses: string, children: *[]}[]}
      */
     var menuCurrentConference = function(){
+        debugger;
+        var badgeEvents = $rootScope.currentMainEvent.events ? $rootScope.currentMainEvent.events.length : 0;
+        var badgeLocations = $rootScope.currentMainEvent.eventLocations ? $rootScope.currentMainEvent.eventLocations.length : 0;
+        var badgeCategories =$rootScope.currentMainEvent.categoryVersions ? $rootScope.currentMainEvent.categoryVersions.length : 0;
         return [
             {
                 label: $rootScope.currentMainEvent ? $rootScope.currentMainEvent.label : '' ,
@@ -103,20 +107,20 @@ sympozerApp.controller('navMainCtrl', ['$scope', '$rootScope', '$location', '$ti
                         children: [
                             {
                                 label: 'events.links.events',
-                                html: '<span class="badge badge-indigo">'+$rootScope.currentMainEvent.events.length+'</span>', /** menu notification **/
+                                html: '<span class="badge badge-indigo">'+ badgeEvents +'</span>', /** menu notification **/
                                 iconClasses: 'fa fa-clock-o',
                                 url: '#/home/conference/'+$rootScope.currentMainEvent.id+'/events/list'
                             },
                             {
                                 label: 'locations.links.locations',
-                                html: '<span class="badge badge-magenta">'+$rootScope.currentMainEvent.eventLocations.length+'</span>',
+                                html: '<span class="badge badge-magenta">'+ badgeLocations +'</span>',
                                 iconClasses: 'fa fa-map-marker red',
                                 url: '#/' /** @TODO FORZA : TO ALIMENT WITH THE PROPER URL**/
                             },
                             {
                                 label: 'categories.links.categories',
                                 iconClasses: 'fa fa-tag',
-                                html: '<span class="badge badge-orange">'+$rootScope.currentMainEvent.categoryVersions.length+'</span>',
+                                html: '<span class="badge badge-orange">'+ badgeCategories +'</span>'
 //                                url: '#/' /** @TODO FORZA : TO ALIMENT WITH THE PROPER URL**/
                             }
                         ]
