@@ -1,0 +1,17 @@
+<div class="modal-header">
+    <h3 class="modal-title">{{'locations.messages.delete_confirm' | translate}}</h3>
+</div>
+
+<div class="modal-body">
+    <div class="well">
+        <ul>
+            <li>{{'locations.model.label' | translate}} : <span ng-bind="location.label"></span></li>
+            <li>{{'locations.model.capacity' | translate}} : <span ng-bind="location.capacity"></span></li>
+            <li>{{'locations.model.description' | translate}} : <span ng-bind="location.description"></span></li>
+        </ul>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-default" ng-click="cancel()">{{ 'global.actions.cancel' | translate}}</button>
+    <button class="btn btn-primary" ng-click="delete()">{{ 'global.actions.ok' | translate}}</button>
+</div>

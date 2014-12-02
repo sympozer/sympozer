@@ -49,10 +49,12 @@ sympozerApp.controller('navMainCtrl', ['$scope', '$rootScope', '$location', '$ti
      * @type {{label: string, iconClasses: string, children: *[]}[]}
      */
     var menuCurrentConference = function(){
-        debugger;
+
+        //Set number off object on nav barre
         var badgeEvents = $rootScope.currentMainEvent.events ? $rootScope.currentMainEvent.events.length : 0;
         var badgeLocations = $rootScope.currentMainEvent.eventLocations ? $rootScope.currentMainEvent.eventLocations.length : 0;
         var badgeCategories =$rootScope.currentMainEvent.categoryVersions ? $rootScope.currentMainEvent.categoryVersions.length : 0;
+
         return [
             {
                 label: $rootScope.currentMainEvent ? $rootScope.currentMainEvent.label : '' ,
@@ -115,7 +117,7 @@ sympozerApp.controller('navMainCtrl', ['$scope', '$rootScope', '$location', '$ti
                                 label: 'locations.links.locations',
                                 html: '<span class="badge badge-magenta">'+ badgeLocations +'</span>',
                                 iconClasses: 'fa fa-map-marker red',
-                                url: '#/' /** @TODO FORZA : TO ALIMENT WITH THE PROPER URL**/
+                                url: '#/home/conference/'+$rootScope.currentMainEvent.id+'/locations/list'
                             },
                             {
                                 label: 'categories.links.categories',

@@ -7,15 +7,12 @@
 angular.module('locationsApp').controller('locationsEditCtrl', [ '$scope', '$filter', '$rootScope', '$routeParams', '$location','equipmentsFact', 'locationsFact',
     function ($scope, $filter, $rootScope, $routeParams, $location, equipmentsFact, locationsFact)
 {
-    //initialize map zoom
-    $scope.center = { zoom: 2 };
 
     $scope.location = locationsFact.get({id: $routeParams.locationId}, function(location){
         //initialize map with current location
-        $scope.center.lat = location.latitude || 48;
-        $scope.center.long = location.longitude  || 8;
-        $scope.center.zoom = 4;
-        $scope.markers.push($scope.center);
+        $scope.mapInstanceOption.lat = location.localization ? location.localization.latitude : 48;
+        $scope.mapInstanceOption.long = location.localization ? location.localization.longitude.latitude  : 8;
+        $scope.mapInstanceOption.zoom = 4;
     });
 
     var error = function (response, args)
@@ -33,7 +30,7 @@ angular.module('locationsApp').controller('locationsEditCtrl', [ '$scope', '$fil
     {
         if (form.$valid)
         {
-            $scope.location.$update({}, success, error);
+            locationsFact.$update(locationsFact.serialize($scope.location), success, error);
         }
     };
 
@@ -59,24 +56,30 @@ angular.module('locationsApp').controller('locationsEditCtrl', [ '$scope', '$fil
         $scope.addRelationship('equipments',equipmentModel)
     };
 
-    $scope.markers = new Array();
-    $scope.$on("leafletDirectiveMap.click", function (event, args)
-    {
-        var leafEvent = args.leafletEvent;
-        $scope.markers.splice(0,$scope.markers.length)
-        $scope.markers.push({
-            lat: leafEvent.latlng.lat,
-            lng: leafEvent.latlng.lng,
-            message: "Event Marker"
-        });
 
-        $scope.location.latitude = leafEvent.latlng.lat;
-        $scope.location.longitude = leafEvent.latlng.lng;
-
-    });
 
     $scope.deleteEquipment= function(index){
         $scope.location.equipments.splice(index, 1);
     };
 
+    //Mandatory for the map plugin gmap to work
+    $scope.geoCodingMapInstance;
+
+    //Bind new map instance from plugin to scope
+    $scope.$on('GMaps:created', function (event, mapInstance) {
+        if (mapInstance.key) {
+            $scope[mapInstance.key] = mapInstance.map;
+        }
+    });
+
+    //Set default options for map
+    $scope.mapInstanceOption = {
+        lat: -12.043333,
+        lng: -77.028333,
+        zoom: 12,
+        click: function (e)
+        {
+            console.log(e);
+        }
+    }
 }]);

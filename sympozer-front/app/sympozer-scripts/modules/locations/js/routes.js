@@ -10,28 +10,28 @@ angular.module('locationsApp')
     function ($routeProvider)
     {
       $routeProvider
-        .when('/conference/:mainEventId/locations/list', {
-          templateUrl: globalConfig.app.modules.locations.urls.partials + 'locations-list.html',
+        .when('/home/conference/:mainEventId/locations/list', {
+          templateUrl: globalConfig.app.modules.locations.urls.partials + 'pages/locations-list.html',
           controller: 'locationsListCtrl'
         })
-        .when('/conference/:mainEventId/locations/thumbnail', {
+        .when('/home/conference/:mainEventId/locations/thumbnail', {
           templateUrl: globalConfig.app.modules.locations.urls.partials + 'locations-thumbnail.html',
           controller: 'locationsListCtrl'
         })
-        .when('/conference/:mainEventId/locations/new', {
-          templateUrl: globalConfig.app.modules.locations.urls.partials + 'locations-new.html',
+        .when('/home/conference/:mainEventId/locations/new', {
+          templateUrl: globalConfig.app.modules.locations.urls.partials + 'pages/locations-new.html',
           controller: 'locationsNewCtrl'
         })
-        .when('/conference/:mainEventId/locations/edit/:locationId', {
-          templateUrl: globalConfig.app.modules.locations.urls.partials + 'locations-edit.html',
+        .when('/home/conference/:mainEventId/locations/edit/:locationId', {
+          templateUrl: globalConfig.app.modules.locations.urls.partials + 'pages/locations-edit.html',
           controller: 'locationsEditCtrl'
         })
-        .when('/conference/:mainEventId/locations/show/:locationId', {
-          templateUrl: globalConfig.app.modules.locations.urls.partials + 'locations-show.html',
+        .when('/home/conference/:mainEventId/locations/show/:locationId', {
+          templateUrl: globalConfig.app.modules.locations.urls.partials + 'pages/locations-show.html',
           controller: 'locationsShowCtrl'
         })
         .otherwise({
-          redirectTo: '/locations/list'
+          redirectTo: '/home/locations/list'
         });
     }
   ]);

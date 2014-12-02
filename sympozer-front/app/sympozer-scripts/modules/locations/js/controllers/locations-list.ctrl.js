@@ -1,26 +1,18 @@
-
-
 /**
  * List location controller
  *
  * @type {controller}
  */
-angular.module('locationsApp').controller('locationsListCtrl', ['$scope', '$routeParams', 'GLOBAL_CONFIG', 'createDialog', '$rootScope', 'locationsFact', '$cachedResource', function ($scope, $routeParams, GLOBAL_CONFIG, createDialogService, $rootScope, locationsFact, $cachedResource)
+angular.module('locationsApp').controller('locationsListCtrl', ['$scope', '$routeParams', 'GLOBAL_CONFIG', 'locationsFact', '$modal', 'pinesNotifications', 'translateFilter', function ($scope, $routeParams, GLOBAL_CONFIG, locationsFact, $modal, pinesNotifications, translateFilter)
 {
-    $scope.GLOBAL_CONFIG = GLOBAL_CONFIG;
-
+    //Prepare entity list for the locations list handling
     $scope.entities = [];
 
+    //Declare request to execute on search query
     $scope.request = locationsFact.allByConference;
 
-    $scope.reload = function ()
-    {
-        $scope.entities.$promise.then(function ()
-        {
-            console.log('From cache:', $scope.entities);
-        });
-    }
 
+    //Clone a specific location in the entity list
     $scope.clone = function (location)
     {
         var clonelocation = angular.copy(location);
@@ -28,36 +20,52 @@ angular.module('locationsApp').controller('locationsListCtrl', ['$scope', '$rout
 
         var error = function (response, args)
         {
-            $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'Clone not completed', type: 'danger'});
+            //Notify of error on delete request
+            pinesNotifications.notify({
+                title: translateFilter('global.validations.error'),
+                text: translateFilter('Clone not completed'),
+                type: 'error'
+            });
         }
 
         var success = function (response, args)
         {
-            $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'location saved', type: 'success'});
+            //Notify of success on post request
+            pinesNotifications.notify({
+                title: translateFilter('global.validations.error'),
+                text: translateFilter('location saved'),
+                type: 'success'
+            });
             $scope.entities.push(response);
         }
 
-        clonelocation.$create({}, success, error);
+        locationsFact.$create(locationsFact.serialize(clonelocation), success, error);
+
     }
 
-
+    //Delete modal to remove location
     $scope.deleteModal = function (index, location)
     {
+        //Store location index in list for further actions
         $scope.index = index;
 
-        createDialogService(GLOBAL_CONFIG.app.modules.locations.urls.partials + 'locations-delete.html', {
-            id: 'complexDialog',
-            title: 'Location deletion',
-            backdrop: true,
+        //Open the new modal with specific ctrl and view
+        var modalInstance = $modal.open({
+            templateUrl: GLOBAL_CONFIG.app.modules.locations.urls.partials + 'modals/locations-delete-modal.html',
             controller: 'locationsDeleteCtrl',
-            success: {label: 'Ok', fn: function ()
-            {
-                locationsFact.delete({id: location.id});
-                $scope.entities.splice(index, 1);
-            }}
-        }, {
-            locationModel: location
+            size: "large",
+            resolve: {
+                //Pass the clicked location to the modal
+                locationModel : function(){
+                    return location;
+                }
+            }
         });
+
+        //When modal promise resolved, remove location from the list
+        modalInstance.resolve = function(){
+            $scope.entities.splice(index, 1);
+        }
     }
 
 }]);

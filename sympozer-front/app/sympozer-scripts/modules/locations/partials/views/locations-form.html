@@ -22,6 +22,16 @@
         <textarea class="form-control fullscreen" autosize id="inputAccesibility" placeholder="{{'locations.model.accessibility' | translate}}" ng-model="location.accesibility"></textarea>
     </div>
 </div>
+
+<div class="form-group">
+    <label  class="col-sm-3 control-label">{{ 'locations.links.locations' | translate}} </label>
+
+    <div class="col-sm-6">
+        <input google-place-autocomplete="" type="text" class="form-control"  on-select="selectAddress" ng-model="conference.location.label" /></td>
+        <div style="height: 300px" gmap options="mapInstanceOption" instance="geoCodingMapInstance"></div>
+    </div>
+</div>
+
 <div class="form-group">
     <label class="col-sm-3 control-label">{{'equipments.links.equipments' | translate}}</label>
     <div class="col-sm-6">

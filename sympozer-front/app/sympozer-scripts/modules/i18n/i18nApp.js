@@ -43,7 +43,8 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                     displaying: 'Displaying results for',
                     no_result : 'No results.'
                 },
-                list : 'List'
+                list : 'List',
+                http : 'http://...'
 
             },
             validations: {
@@ -504,7 +505,8 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
             labels: {},
             validations: {
                 'created': 'The role has been saved',
-                'not_created': 'Sorry, the role has not been saved'
+                'not_created': 'Sorry, the role has not been saved',
+                'deletion_success': 'The role had been deleted'
             },
             messages: {
                 delete_confirm: 'Are you sure you want to delete this role ?'
@@ -1051,7 +1053,9 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
             labels: {},
             validations: {
                 'created': 'Le rôle a été enregistré',
-                'not_created': 'Désolé, le rôle n\'a pas été sauvegardée'
+                'not_created': 'Désolé, le rôle n\'a pas été sauvegardée',
+                'deletion_success': 'Le rôle a été supprimé'
+
             },
             messages: {
                 delete_confirm: 'Etes-vous sur de vouloir supprimer ce rôle ?'
