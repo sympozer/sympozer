@@ -3,7 +3,7 @@
  * Responsible for the deletion of the role injected in a modal instance. The role to remove is injected as roleModel.
  * @type {controller}
  */
-angular.module('rolesApp').controller('rolesDeleteCtrl', [ '$scope', 'roleModel', 'pinesNotifications', 'translateFilter', function ($scope, roleModel, pinesNotifications, translateFilter)
+angular.module('rolesApp').controller('rolesDeleteCtrl', [ '$scope', 'roleModel', 'rolesFact', 'pinesNotifications', 'translateFilter', function ($scope, roleModel, rolesFact, pinesNotifications, translateFilter)
 {
     $scope.role = roleModel;
 
@@ -25,7 +25,7 @@ angular.module('rolesApp').controller('rolesDeleteCtrl', [ '$scope', 'roleModel'
         //Notify of success on delete request
         pinesNotifications.notify({
             title: translateFilter('global.validations.success'),
-            text: translateFilter('response.data.error.message'),
+            text: translateFilter('roles.validations.deletion_success'),
             type: 'success'
         });
 
@@ -45,7 +45,7 @@ angular.module('rolesApp').controller('rolesDeleteCtrl', [ '$scope', 'roleModel'
     //Send delete request
     $scope.delete = function ()
     {
-        $scope.role.$delete({}, success, error);
+        rolesFact.delete($scope.role, success, error);
     }
 
 }]);

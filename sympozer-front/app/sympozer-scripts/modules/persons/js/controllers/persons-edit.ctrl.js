@@ -9,9 +9,6 @@ angular.module('personsApp').controller('personsEditCtrl', [ '$scope', '$filter'
         //Fetch person info
         $scope.person = personsFact.get({id: $routeParams.personId});
 
-        if(!$scope.person.localization){
-
-        }
 
         //Error on patch request
         var error = function (response, args)
@@ -126,7 +123,6 @@ angular.module('personsApp').controller('personsEditCtrl', [ '$scope', '$filter'
 
         //Send patch request to server to update a given field
         $scope.updateMainEvent = function(field, data){
-            debugger;
             var updateMainEvent = {id: $scope.mainEvent.id};
             updateMainEvent[field] = data;
             return mainEventsFact.patch(updateMainEvent, success, error);

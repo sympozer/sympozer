@@ -1,7 +1,7 @@
 <div ng-controller="breadcrumbCtrl">
 <ol class="breadcrumb">
     <li ng-repeat="item in breadcrumbArray" ng-class="item.isActive">
-      <a href="#/" ng-if="item.url">
+      <a ng-href="{{item.url}}" ng-if="item.url">
         {{ item.label | translate}}
       </a>
       {{ !item.url ? (item.label | translate) : '' }}

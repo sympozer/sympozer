@@ -68,33 +68,15 @@ angular.module('rolesApp').controller('rolesListCtrl', [
                 size: "large",
                 resolve: {
                    roleModel : function(){
-                        return $modal;
+                        return role;
                     }
                 }
             });
 
-            modalInstance.resolve = function(data){
+            modalInstance.resolve = function(){
                 $scope.entities.splice(index, 1);
             }
         }
 
-//        $scope.deleteModal = function (index, role)
-//        {
-//            $scope.index = index;
-//
-//            createDialogService(GLOBAL_CONFIG.app.modules.roles.urls.partials + 'roles-delete.html', {
-//                id        : 'complexDialog',
-//                title     : 'role deletion',
-//                backdrop  : true,
-//                controller: 'rolesDeleteCtrl',
-//                success   : {label: 'Ok', fn: function ()
-//                {
-//                    rolesFact.delete({id: role.id});
-//                    $scope.entities.splice(index, 1);
-//                }}
-//            }, {
-//                roleModel: role
-//            });
-//        }
 
     }]);
