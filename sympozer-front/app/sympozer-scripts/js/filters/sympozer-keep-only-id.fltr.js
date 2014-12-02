@@ -1,8 +1,16 @@
 /**
- * sympozerKeepOnlyId filter
- * remove everything except ids from an entire JSON object
- * @param entity, the entity to delete properties from
- * @type {filter}
+ * sympozerKeepOnlyId directive
+ * Remove every links in the given entity to keep only ids. For instance a person with papers like :
+ *
+ * person : {
+         *  papers : [ { id :1, label : blahblah }, { id:2, label : blohbloh } ]
+         * }
+ *
+ * becomes :  person : { papers :[ 1, 2 ] }
+ *
+ * This is mandatory for backend persistence on "entity" form fields in symfony where only IDs has to be given
+ * @param entity
+ * @returns {{}}
  */
 
 'use strict';

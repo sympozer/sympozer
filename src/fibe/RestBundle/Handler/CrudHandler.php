@@ -48,7 +48,7 @@ class CrudHandler
     $query = $paramFetcher->get('query');
     $filters = $paramFetcher->get('filters');
 
-    if (null != $routeParams && null != $filters)
+    if (!empty($routeParams) && null != $filters)
     {
       $filters = array_merge($filters, $routeParams);
     }

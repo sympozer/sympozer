@@ -226,7 +226,40 @@ abstract class VEvent
      */
     protected $url;
 
+
     /**
+     * twitter hashtag
+     *
+     * This property defines the hashtag of the event resource
+     *
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @expose
+     */
+    protected $twitter;
+
+
+    /**
+     * youtube
+     * This property defines the youtube id of the event resource
+     *
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @expose
+     */
+    protected $youtube;
+
+
+    /**
+     * facebook
+     *
+     * This property defines the facebook id of the event resource
+     *
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @expose
+     */
+    protected $facebook;
+
+
+    /*
      * Is an all day event
      * Used for ui representation in the calendar view
      *
@@ -905,6 +938,57 @@ abstract class VEvent
     {
         $this->topics = $topics;
     }
+
+
+    /**
+     * @return mixed
+     */
+    public function getFacebook()
+    {
+        return $this->facebook;
+    }
+
+    /**
+     * @param mixed $facebook
+     */
+    public function setFacebook($facebook)
+    {
+        $this->facebook = $facebook;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTwitter()
+    {
+        return $this->twitter;
+    }
+
+    /**
+     * @param mixed $twitter
+     */
+    public function setTwitter($twitter)
+    {
+        $this->twitter = $twitter;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getYoutube()
+    {
+        return $this->youtube;
+    }
+
+    /**
+     * @param mixed $youtube
+     */
+    public function setYoutube($youtube)
+    {
+        $this->youtube = $youtube;
+    }
+
+
 
 
 

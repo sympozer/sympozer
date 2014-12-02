@@ -33,6 +33,9 @@ angular.module('mainEventsApp').controller('mainEventsEditCtrl', [ '$scope', '$r
             geoCode(selectedAddress.label);
             //Set new conference address
             $scope.mainEvent.location = selectedAddress;
+            //Update main event
+            $scope.updateMainEvent('location', $scope.mainEvent.location);
+
         }
 
 

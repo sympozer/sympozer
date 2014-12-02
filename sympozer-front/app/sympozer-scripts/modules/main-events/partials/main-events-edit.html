@@ -92,7 +92,7 @@
     <div class="options">
         <div class="btn-toolbar">
             <a  class="btn btn-info" href="#/home/mainEvents/show/{{mainEvent.id}}" role="button">
-                <i class="fa fa-edit fa-1x"></i> {{ 'mainEvents.actions.view' | translate}}
+                <i class="fa fa-eye fa-1x"></i> <span class="visible-sm-inline visible-lg-inline visible-md-inline">{{ 'mainEvents.actions.view' | translate}}</span>
             </a>
             <!--<div class="btn-group hidden-xs" data-dropdown>-->
             <!--<button class="btn btn-default dropdown-toggle" data-toggle='dropdown'>-->
@@ -122,7 +122,7 @@
                                     <i class="fa fa-plus-circle fa-3x"></i>
                                     <p>{{'mainEvents.actions.add_logo' | translate }}</p>
                                 </div>
-                                <img ng-mouseenter="showImgCaption=true"  no-image ng-src="{{ mainEvent.logo }}" alt="" class="pull-left img-responsive img-circle" style="margin: 0 20px 20px 0">
+                                <img ng-mouseenter="showImgCaption=true"  no-image ng-src="{{ mainEvent.logo }}" alt="" class="pull-left img-responsive" style="margin: 0 20px 20px 0">
                             </div>
                             <div class="col-xs-12 col-sm-5 col-md-9 col-lg-9">
                                 <h3>{{'mainEvents.model.description' | translate }}</h3>
@@ -134,36 +134,33 @@
                                 <div class="table-responsive">
                                     <table class="table table-condensed">
                                         <tbody>
-
                                         <tr>
                                             <td>{{'mainEvents.model.url' | translate }}</td>
                                             <td>
-                                                <span editable-text="mainEvent.url" onbeforesave="updateMainEvent('url', $data)">{{mainEvent.url || 'http://...'}}</span>
+                                                <span editable-url="mainEvent.url" onbeforesave="updateMainEvent('url', $data)" e-placeholder="http://...">{{mainEvent.url || 'http://...'}}</span>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td><i class="fa fa-twitter"></i></td>
                                             <td>
                                                 <!--<a href="#" class="btn btn-xs"><i class="fa fa-skype"></i></a>-->
-                                                <span editable-text="person.twitter" onbeforesave="updateMainEvent('twitter', $data)" class="btn btn-xs">{{mainEvent.twitter || '?'}}</span>
+                                                <span editable-text="mainEvent.twitter" onbeforesave="updateMainEvent('twitter', $data)" class="btn btn-xs" e-placeholder="http://twitter.com/...">{{mainEvent.twitter || 'http://twitter/...'}}</span>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td><i class="fa fa-facebook"></i></td>
                                             <td>
                                                 <!--<a href="#" class="btn btn-xs"><i class="fa fa-skype"></i></a>-->
-                                                <span editable-text="person.facebook" onbeforesave="updateMainEvent('facebook', $data)" class="btn btn-xs">{{mainEvent.facebook || '?'}}</span>
+                                                <span editable-url="mainEvent.facebook" onbeforesave="updateMainEvent('facebook', $data)" class="btn btn-xs" e-placeholder="http://facebook.com/..." >{{mainEvent.facebook || 'http://facebook.com/...'}}</span>
                                             </td>
                                         </tr>
-
                                         <tr>
-                                            <td><i class="fa fa-linkedin"></i></td>
+                                            <td><i class="fa fa-youtube"></i></td>
                                             <td>
                                                 <!--<a href="#" class="btn btn-xs"><i class="fa fa-skype"></i></a>-->
-                                                <span editable-text="person.linkedIn" onbeforesave="updateMainEvent('linkedIn', $data)" class="btn btn-xs">{{mainEvent.linkedIn || '?'}}</span>
+                                                <span editable-url="mainEvent.youtube" onbeforesave="updateMainEvent('youtube', $data)" class="btn btn-xs" e-placeholder="http://youtube.com/...">{{mainEvent.youtube || 'http://youtube.com/...'}}</span>
                                             </td>
                                         </tr>
-
                                         </tbody>
                                     </table>
                                 </div>
@@ -188,9 +185,9 @@
 
                                     <!--<datepicker style="width:50px" ng-model="mainEvent.startAt" min-date="minDate" show-weeks="true" class="datepicker" datepicker-options="dateOptions"></datepicker>-->
                                     <!--<datepicker ng-model="mainEvent.endAte" min-date="minDate" show-weeks="true" class="datepicker" datepicker-options="dateOptions"></datepicker>-->
-                                    <h3>{{ 'mainEvents.labels.from' | translate}} :<a editable-date="mainEvent.startAt" onbeforesave="onSelectStart($data)" > {{ (mainEvent.startAt | date:"dd/MM/yyyy") || '?' }}</a></h3>
+                                    <h3>{{ 'mainEvents.labels.from' | translate}} :<a editable-date="mainEvent.startAt" onbeforesave="onSelectStart($data)" > {{ (mainEvent.startAt | date:"shortDate") || '?' }}</a></h3>
                                     <div class="alert alert-danger" role="alert" ng-show="mainEvent.startAt > mainEvent.endAt">{{ 'mainEvents.validations.end_date_after_start' | translate}}</div>
-                                    <h3>{{ 'mainEvents.labels.to' | translate}} :<a editable-date="mainEvent.endAt" onbeforesave="onSelectEnd($data)"> {{ (mainEvent.endAt | date:"dd/MM/yyyy") || '?' }}</a></h3>
+                                    <h3>{{ 'mainEvents.labels.to' | translate}} :<a editable-date="mainEvent.endAt" onbeforesave="onSelectEnd($data)"> {{ (mainEvent.endAt | date:"shortDate") || '?' }}</a></h3>
                                     <div class="alert alert-danger" role="alert" ng-show="mainEvent.startAt > mainEvent.endAt">{{ 'mainEvents.validations.start_date_before_end' | translate}}</div>
 
                                     <input google-place-autocomplete="" type="text" class="form-control"  on-select="setAddress" ng-model="mainEvent.location.label" /></td>

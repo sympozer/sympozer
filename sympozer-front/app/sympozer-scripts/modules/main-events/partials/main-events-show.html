@@ -9,7 +9,7 @@
         <div class="btn-toolbar">
             <!--@TODO : add ACL-->
             <a class="btn btn-info" href="#/home/mainEvents/edit/{{mainEvent.id}}" role="button">
-                <i class="fa fa-edit fa-1x"></i> {{ 'mainEvents.actions.edit' | translate}}
+                <i class="fa fa-edit fa-1x"></i>  <span class="visible-sm-inline visible-lg-inline visible-md-inline">{{ 'mainEvents.actions.edit' | translate}}</span>
             </a>
             <!--<div class="btn-group hidden-xs" data-dropdown>-->
             <!--<button class="btn btn-default dropdown-toggle" data-toggle='dropdown'>-->
@@ -35,7 +35,7 @@
                     <panel panel-class="panel panel-gray"  heading="{{mainEvent.label}}">
                         <div class="row">
                             <div class="col-xs-5 col-sm-5 col-md-3 col-lg-3">
-                                <img  no-image ng-src="{{ mainEvent.logo }}" alt="" class="pull-left img-responsive img-circle" style="margin: 0 20px 20px 0">
+                                <img  no-image ng-src="{{ mainEvent.logo }}" alt="" class="pull-left img-responsive" style="margin: 0 20px 20px 0">
                             </div>
                             <div class="col-xs-12 col-sm-5 col-md-5 col-lg-5">
                                 <h3>{{'mainEvents.model.description' | translate }}</h3>
@@ -61,11 +61,11 @@
                                             <td>{{'persons.labels.social' | translate }}</td>
                                             <td>
                                                 <!--<a href="#" class="btn btn-xs"><i class="fa fa-skype"></i></a>-->
-                                                <a href="#" class="btn btn-xs"><i class="fa fa-facebook"></i>{{person.facebook || ''}}</a>
-                                                <a href="#" class="btn btn-xs"><i class="fa fa-twitter"></i>{{person.twitter}}</a>
+                                                <a href="{{mainEvent.facebook}}" ng-disabled="!mainEvent.facebook" target="_blank" class="btn btn-xs"><i class="fa fa-facebook"></i>{{mainEvent.facebook || ''}}</a>
+                                                <a href="{{mainEvent.twitter}}" ng-disabled="!mainEvent.twitter" target="_blank" class="btn btn-xs"><i class="fa fa-twitter"></i>{{mainEvent.twitter}}</a>
                                                 <!--<a href="#" class="btn btn-xs"><i class="fa fa-dribbble"></i></a>-->
                                                 <!--<a href="#" class="btn btn-xs"><i class="fa fa-tumblr"></i></a>-->
-                                                <a href="#" class="btn btn-xs"><i class="fa fa-linkedin"></i>{{person.linkedIn || ''}}</a>
+                                                <a href="{{mainEvent.youtube}}" ng-disabled="!mainEvent.youtube" target="_blank"  class="btn btn-xs"><i class="fa fa-youtube"></i>{{mainEvent.youtube || ''}}</a>
                                             </td>
                                         </tr>
                                         </tbody>

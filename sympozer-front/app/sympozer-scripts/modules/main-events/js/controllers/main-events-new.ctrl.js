@@ -42,7 +42,7 @@ angular.module('mainEventsApp').controller('mainEventsNewCtrl', [ '$scope', '$ro
     //Set init date
     $scope.initDate = $scope.today;
     //@TODO : Define one format
-    $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
+    $scope.formats = ['shortDate', 'dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy'];
     $scope.format = $scope.formats[0];
 
 
@@ -142,7 +142,7 @@ angular.module('mainEventsApp').controller('mainEventsNewCtrl', [ '$scope', '$ro
         //Form validity verification
         if (form.$valid)
         {
-            $scope.conference.$create({}, success, error);
+            mainEventsFact.create(mainEventsFact.serialize($scope.conference), success, error);
         }
     }
 
