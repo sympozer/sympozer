@@ -28,7 +28,7 @@ class LocationRESTController extends FOSRestController
      * @Rest\QueryParam(name="limit", requirements="\d+", default="10", description="How many entity to return.")
      * @Rest\QueryParam(name="query", requirements=".{1,128}", nullable=true, description="the query to search.")
      * @Rest\QueryParam(name="order", nullable=true, array=true, description="an array of order.")
-     * @Rest\QueryParam(name="filters", nullable=true, array=true, description="an array of filters.")
+     * @Rest\QueryParam(name="filters", nullable=true, default="[]",array=true, description="an array of filters.")
      */
     public function getLocationsByConferenceAction(Request $request, ParamFetcherInterface $paramFetcher, $mainEventId)
     {
