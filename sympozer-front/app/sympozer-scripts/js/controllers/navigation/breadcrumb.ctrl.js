@@ -171,6 +171,29 @@ sympozerApp.controller('breadcrumbCtrl', ['$scope', '$rootScope', '$location', f
                                     label: 'global.actions.show'
                                 }
                             ]
+                        },
+                        {
+                            idUrl: 'categories',
+                            label: 'categories.links.categories',
+                            url : '#/home/conference/'+$rootScope.currentMainEvent.id+'/categories/list',
+                            children: [
+                                {
+                                    idUrl: 'list',
+                                    label: 'global.labels.list'
+                                },
+                                {
+                                    idUrl: 'new',
+                                    label: 'categories.actions.new'
+                                },
+                                {
+                                    idUrl: 'edit',
+                                    label: 'global.actions.edit'
+                                },
+                                {
+                                    idUrl: 'show',
+                                    label: 'global.actions.show'
+                                }
+                            ]
                         }
                     ]
                 }

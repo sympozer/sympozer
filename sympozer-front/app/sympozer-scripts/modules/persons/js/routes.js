@@ -11,36 +11,36 @@ angular.module('personsApp')
         {
             $routeProvider
                 .when('/home/persons/index', {
-                    templateUrl: globalConfig.app.modules.persons.urls.communityPartials + 'persons-index.html',
+                    templateUrl: globalConfig.app.modules.persons.urls.partials + 'pages/persons-index.html',
                     controller : 'personsCommunityIndexCtrl'
                 })
                 .when('/home/conference/:mainEventId/persons/list', {
-                    templateUrl: globalConfig.app.modules.persons.urls.partials + 'persons-list.html',
+                    templateUrl: globalConfig.app.modules.persons.urls.partials + 'pages/persons-list.html',
                     controller : 'personsListCtrl'
                 })
                 .when('/home/conference/:mainEventId/persons/thumbnail', {
-                    templateUrl: globalConfig.app.modules.persons.urls.partials + 'persons-thumbnail.html',
+                    templateUrl: globalConfig.app.modules.persons.urls.partials + 'pages/persons-thumbnail.html',
                     controller : 'personsListCtrl'
                 })
                 .when('/home/persons/:personId/events', {
-                    templateUrl: globalConfig.app.modules.persons.urls.partials + 'persons-events.html',
+                    templateUrl: globalConfig.app.modules.persons.urls.partials + 'pages/persons-events.html',
                     controller : 'personsEventListCtrl'
                 })
 
                 .when('/home/persons/thumbnail', {
-                    templateUrl: globalConfig.app.modules.persons.urls.partials + 'persons-thumbnail.html',
+                    templateUrl: globalConfig.app.modules.persons.urls.partials + 'views/persons-thumbnail.html',
                     controller : 'personsListCtrl'
                 })
                 .when('/home/persons/new', {
-                    templateUrl: globalConfig.app.modules.persons.urls.partials + 'persons-new.html',
+                    templateUrl: globalConfig.app.modules.persons.urls.partials + 'pages/persons-new.html',
                     controller : 'personsNewCtrl'
                 })
                 .when('/home/persons/edit/:personId', {
-                    templateUrl: globalConfig.app.modules.persons.urls.partials + 'persons-edit.html',
+                    templateUrl: globalConfig.app.modules.persons.urls.partials + 'pages/persons-edit.html',
                     controller : 'personsEditCtrl'
                 })
                 .when('/home/persons/show/:personId', {
-                    templateUrl: globalConfig.app.modules.persons.urls.partials + 'persons-show.html',
+                    templateUrl: globalConfig.app.modules.persons.urls.partials + 'pages/persons-show.html',
                     controller : 'personsShowCtrl'
                 })
                 .otherwise({

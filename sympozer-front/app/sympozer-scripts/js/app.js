@@ -75,7 +75,6 @@ sympozerApp = angular.module('sympozerApp', [
     'theme.layout-boxed',
     'theme.vector_maps',
     'theme.google_maps',
-    'theme.calendars',
     'theme.gallery',
     'theme.tasks',
     'theme.ui-tables-basic',

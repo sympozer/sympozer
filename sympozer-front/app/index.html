@@ -260,6 +260,7 @@
 <script src="bower/angular-cached-resource/angular-cached-resource.js"></script>
 <!-- endbower -->
 <script type='text/javascript' src='sympozer-scripts/assets/plugins/form-daterangepicker/daterangepicker.min.js'></script>
+<script type='text/javascript' src='sympozer-scripts/assets/plugins/fullcalendar/fullcalendar.min.js'></script>
 <script type='text/javascript' src='sympozer-scripts/assets/plugins/form-datepicker/js/bootstrap-datepicker.js'></script>
 <script type='text/javascript' src='sympozer-scripts/assets/plugins/easypiechart/angular.easypiechart.js'></script>
 <script type='text/javascript' src='sympozer-scripts/assets/plugins/datepaginator/bootstrap-datepaginator.js'></script>
@@ -285,7 +286,6 @@
 <script src="forza-scripts/shared/Directives.js"></script>
 <script src="forza-scripts/maps/VectorMaps.js"></script>
 <script src="forza-scripts/maps/GoogleMaps.js"></script>
-<script src="forza-scripts/calendar/Calendar.js"></script>
 <script src="forza-scripts/gallery/Gallery.js"></script>
 <script src="forza-scripts/task/Tasks.js"></script>
 <script src="forza-scripts/ui-components/Ratings.js"></script>
@@ -465,7 +465,6 @@
 <script src="sympozer-scripts/modules/main-events/js/controllers/community/main-events-community-index.ctrl.js"></script>
 <!--@TODO <script src="sympozer-scripts/modules/main-events/js/controllers/main-events-delete.ctrl.js"></script>-->
 <script src="sympozer-scripts/modules/main-events/js/controllers/main-events-edit.ctrl.js"></script>
-<!--@TODO <script src="sympozer-scripts/modules/main-events/js/controllers/main-events-list.ctrl.js"></script>-->
 <!--@TODO <script src="sympozer-scripts/modules/main-events/js/controllers/main-events-main.ctrl.js"></script>-->
 <script src="sympozer-scripts/modules/main-events/js/controllers/main-events-new.ctrl.js"></script>
 <!--@TODO -->
@@ -525,20 +524,23 @@
 <!-- @TODO <script src="sympozer-scripts/modules/events/js/controllers/events-edit.ctrl.js"></script>-->
 <script src="sympozer-scripts/modules/events/js/controllers/events-list.ctrl.js"></script>
 <script src="sympozer-scripts/modules/events/js/controllers/events-new.ctrl.js"></script>
+<script src="sympozer-scripts/modules/events/js/controllers/events-schedule.ctrl.js"></script>
 <!-- @TODO <script src="sympozer-scripts/modules/events/js/controllers/events-show.ctrl.js"></script>-->
-
+<!-- DIRECTIVES -->
+<script src="sympozer-scripts/modules/events/js/directives/fullCalendar.drv.js"></script>
+<script src="sympozer-scripts/modules/events/js/directives/draggableEvent.drv.js"></script>
 <!-- SERVICES -->
 <script src="sympozer-scripts/modules/events/js/services/events.fact.js"></script>
 
 
 
 <!-- SYMPOZER EVENTS APP -->
-<!-- @TODO <script src="sympozer-scripts/modules/categories/js/routes.js"></script>-->
+<script src="sympozer-scripts/modules/categories/js/routes.js"></script>
 <!-- CONTROLLERS -->
 <!-- @TODO <script src="sympozer-scripts/modules/categories/js/controllers/categories-delete.ctrl.js"></script>-->
-<!-- @TODO <script src="sympozer-scripts/modules/categories/js/controllers/categories-edit.ctrl.js"></script>-->
-<!-- @TODO <script src="sympozer-scripts/modules/categories/js/controllers/categories-list.ctrl.js"></script>-->
-<!-- @TODO <script src="sympozer-scripts/modules/categories/js/controllers/categories-new.ctrl.js"></script>-->
+<script src="sympozer-scripts/modules/categories/js/controllers/categories-edit.ctrl.js"></script>
+<script src="sympozer-scripts/modules/categories/js/controllers/categories-list.ctrl.js"></script>
+<script src="sympozer-scripts/modules/categories/js/controllers/categories-new.ctrl.js"></script>
 <!-- @TODO <script src="sympozer-scripts/modules/categories/js/controllers/categories-show.ctrl.js"></script>-->
 
 <!-- SERVICES -->
@@ -642,7 +644,6 @@
           urls: {
             base             : "sympozer-scripts/modules/persons/",
             partials         : "sympozer-scripts/modules/persons/partials/",
-            communityPartials: "sympozer-scripts/modules/persons/partials/community/",
             img              : "sympozer-scripts/modules/persons/img/"
           }
         },

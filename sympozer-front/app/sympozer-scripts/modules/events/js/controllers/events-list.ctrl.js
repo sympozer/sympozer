@@ -66,6 +66,32 @@ angular.module('eventsApp').controller('eventsListCtrl', [
             cloneEvent.$create({}, success, error);
         };
 
+
+        //Handle remove a category from the list
+        $scope.deleteModal = function (index, event)
+        {
+            //Store index of the object in the tab for further deletion
+            $scope.index = index;
+
+            //Open a new modal with delete template
+            var modalInstance = $modal.open({
+                templateUrl: GLOBAL_CONFIG.app.modules.events.urls.partials + 'modals/events-delete-modal.html',
+                controller: 'eventsDeleteCtrl',
+                size: "large",
+                resolve: {
+                    eventModel : function(){
+                        return event;
+                    }
+                }
+            });
+
+            //When modal instance promise is resolved with 'ok' then remove the cateogy from the list
+            modalInstance.resolve = function(){
+                $scope.entities.splice(index, 1);
+            }
+        }
+
+
 //        $scope.deleteModal = function (index, event)
 //        {
 //            $scope.index = index;

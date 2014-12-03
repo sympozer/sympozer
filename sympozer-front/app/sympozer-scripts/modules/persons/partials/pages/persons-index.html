@@ -49,7 +49,7 @@
               <small ng-show="count > entities.length"> - Displaying {{(currentPage-1) * limit}} to {{ currentPage * limit > count ? count : currentPage * limit }}</small>
             </h3>
             <div class="search-result" ng-repeat-start="person in entities  track by $index" infinite-scroll='load()' infinite-scroll-disabled='busy' infinite-scroll-distance='0.5'>
-              <div class="row" ng-include="GLOBAL_CONFIG.app.modules.persons.urls.partials+'persons-entity-row-lg.html'"></div>
+              <div class="row" ng-include="GLOBAL_CONFIG.app.modules.persons.urls.partials+'views/persons-entity-row-lg.html'"></div>
             </div>
             <hr ng-repeat-end="">
 

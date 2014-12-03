@@ -15,16 +15,24 @@ angular.module('eventsApp')
                     controller : 'eventsListCtrl'
                 })
                 .when('/home/events/thumbnail', {
-                    templateUrl: globalConfig.app.modules.events.urls.partials + 'events-thumbnail.html',
+                    templateUrl: globalConfig.app.modules.events.urls.partials + 'pages/events-thumbnail.html',
                     controller : 'eventsListCtrl'
+                })
+                .when('/home/events/schedule', {
+                    templateUrl: globalConfig.app.modules.events.urls.partials + 'pages/events-schedule.html',
+                    controller : 'eventsScheduleCtrl'
                 })
                 .when('/home/conference/:mainEventId/events/list', {
                     templateUrl: globalConfig.app.modules.events.urls.partials + 'pages/events-list.html',
                     controller : 'eventsListCtrl'
                 })
                 .when('/home/conference/:mainEventId/events/thumbnail', {
-                    templateUrl: globalConfig.app.modules.events.urls.partials + 'events-thumbnail.html',
+                    templateUrl: globalConfig.app.modules.events.urls.partials + 'pages/events-thumbnail.html',
                     controller : 'eventsListCtrl'
+                })
+                .when('/home/conference/:mainEventId/events/schedule', {
+                    templateUrl: globalConfig.app.modules.events.urls.partials + 'pages/events-schedule.html',
+                    controller : 'eventsScheduleCtrl'
                 })
                 .when('/home/conference/:mainEventId/events/new', {
                     templateUrl: globalConfig.app.modules.events.urls.partials + 'pages/events-new.html',

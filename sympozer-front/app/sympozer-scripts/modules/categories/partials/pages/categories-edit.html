@@ -1,0 +1,7 @@
+<div ng-include="GLOBAL_CONFIG.app.modules.categories.urls.partials+'views/categories-actions.html'"></div>
+<form name="categoryEditForm" class="form-horizontal" role="form" ng-submit="update(categoryEditForm)">
+  <div ng-include="GLOBAL_CONFIG.app.modules.categories.urls.partials+'views/categories-form.html'"></div>
+  <div>
+    <button type="submit" ng-disabled="categoryEditForm.$invalid" class="btn btn-success">{{ 'global.actions.save' | translate }}</button>
+  </div>
+</form>

@@ -2,12 +2,12 @@
 
     <div ng-include="GLOBAL_CONFIG.app.urls.partials+'navigation/breadcrumb.html'"></div>
 
-    <h1>{{'events.links.events' | translate }}</h1>
+    <h1>{{'categories.links.categories' | translate }}</h1>
 
     <div class="options">
         <div class="btn-toolbar">
             <div class="btn-group" dropdown>
-                <div ng-include="GLOBAL_CONFIG.app.modules.events.urls.partials+'views/events-actions.html'"></div>
+                <div ng-include="GLOBAL_CONFIG.app.modules.categories.urls.partials+'views/categories-actions.html'"></div>
             </div>
         </div>
     </div>
@@ -21,7 +21,7 @@
 
             <div class="panel">
                 <div class="panel-heading">
-                    <h4>{{'events.actions.search' | translate }}</h4>
+                    <h4>{{'categories.actions.search' | translate }}</h4>
                 </div>
                 <div class="panel-body" entity-list-handler="persons">
                     <div class="search-classic">
@@ -36,11 +36,8 @@
                             </div>
                         </form>
                         <hr>
-                        <div ng-include="GLOBAL_CONFIG.app.modules.categories.urls.partials+'categories-filter.html'"></div>
 
-
-                        <div class="row" ng-include="GLOBAL_CONFIG.app.modules.events.urls.partials+'views/events-entity-list-md.html'"></div>
-
+                        <div class="row" ng-include="GLOBAL_CONFIG.app.modules.categories.urls.partials+'views/categories-entity-list-md.html'"></div>
 
                     </div>
                 </div>

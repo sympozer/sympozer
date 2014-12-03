@@ -4,33 +4,45 @@
  * @TODO implement a directive for the map handling to remove code duplication
  * @type {controller}
  */
-angular.module('locationsApp').controller('locationsEditCtrl', [ '$scope', '$filter', '$rootScope', '$routeParams', '$location','equipmentsFact', 'locationsFact',
-    function ($scope, $filter, $rootScope, $routeParams, $location, equipmentsFact, locationsFact)
+angular.module('locationsApp').controller('locationsEditCtrl', [ '$scope', '$window', '$filter', '$rootScope', '$routeParams', '$location','equipmentsFact', 'locationsFact', 'pinesNotifications', 'translateFilter',
+    function ($scope, $window, $filter, $rootScope, $routeParams, $location, equipmentsFact, locationsFact, pinesNotifications, translateFilter)
 {
 
     $scope.location = locationsFact.get({id: $routeParams.locationId}, function(location){
         //initialize map with current location
-        $scope.mapInstanceOption.lat = location.localization ? location.localization.latitude : 48;
-        $scope.mapInstanceOption.long = location.localization ? location.localization.longitude.latitude  : 8;
+        $scope.mapInstanceOption.lat = location.latitude || 48;
+        $scope.mapInstanceOption.long = location.longitude || 8;
         $scope.mapInstanceOption.zoom = 4;
     });
 
+
     var error = function (response, args)
     {
-        $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'locations.validations.not_created', type: 'danger'});
+        //Notify of error on delete request
+        pinesNotifications.notify({
+            title: translateFilter('global.validations.error'),
+            text: translateFilter('locations.validations.not_created'),
+            type: 'error'
+        });
     };
 
     var success = function (response, args)
     {
-        $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'locations.validations.created', type: 'success'});
-        $location.path('/conference/'+$rootScope.currentMainEvent.id+'/locations/list');
+        //Notify of error on delete request
+        pinesNotifications.notify({
+            title: translateFilter('global.validations.success'),
+            text: translateFilter('locations.validations.created'),
+            type: 'success'
+        });
+
+        $window.history.back();
     };
 
     $scope.save = function (form)
     {
         if (form.$valid)
         {
-            locationsFact.$update(locationsFact.serialize($scope.location), success, error);
+            locationsFact.update(locationsFact.serialize($scope.location), success, error);
         }
     };
 

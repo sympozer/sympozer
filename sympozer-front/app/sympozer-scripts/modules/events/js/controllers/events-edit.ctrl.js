@@ -3,26 +3,39 @@
  *
  * @type {controller}
  */
-angular.module('eventsApp').controller('eventsEditCtrl', [
-    '$scope', '$filter', '$window', 'GLOBAL_CONFIG', '$routeParams', '$rootScope', '$location', 'eventsFact', 'categoriesFact', 'topicsFact', 'locationsFact', 'papersFact', '$modal',
-    function ($scope, $filter, $window, GLOBAL_CONFIG, $routeParams, $rootScope, $location, eventsFact, categoriesFact, topicsFact, locationsFact, papersFact, $modal)
+angular.module('eventsApp').controller('eventsEditCtrl', ['$scope', '$filter', '$window', 'GLOBAL_CONFIG', '$routeParams', '$rootScope', '$location', 'eventsFact', 'categoriesFact', 'topicsFact', 'locationsFact', 'papersFact', '$modal', 'pinesNotifications', 'translateFilter',
+    function ($scope, $filter, $window, GLOBAL_CONFIG, $routeParams, $rootScope, $location, eventsFact, categoriesFact, topicsFact, locationsFact, papersFact, $modal, pinesNotifications, translateFilter)
     {
         $scope.event = eventsFact.get({id: $routeParams.eventId});
 
+        //Error on event edit request
         var error = function (response, args)
         {
-            $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'events.validations.not_created', type: 'danger'});
+            //Notify of the creation action error
+            pinesNotifications.notify({
+                title: translateFilter('global.validations.error'),
+                text: translateFilter('events.validations.not_created'),
+                type: 'error'
+            });
         };
 
+        //Success on event request
         var success = function (response, args)
         {
-            $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'events.validations.created', type: 'success'});
-            $location.path('/conference/' + $rootScope.currentMainEvent.id + '/events/list');
+            //Notify of the creation action success
+            pinesNotifications.notify({
+                title: translateFilter('global.validations.success'),
+                text: translateFilter('events.validations.created'),
+                type: 'success'
+            });
+            //Go back to previous page
+            $window.history.back();
         };
 
+        //Send put request to the server
         $scope.update = function (form)
         {
-            //$scope.event.mainEvent = $rootScope.currentMainEvent;
+            //Verify form validity
             if (form.$valid)
             {
                 $scope.event.$update({}, success, error);

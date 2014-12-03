@@ -26,10 +26,10 @@ angular.module('locationsApp').factory('locationsFact', ['$resource', '$cachedRe
             'id' : object.id,
             'capacity' : object.capacity,
             'label' : object.label,
-            'accessibility' : object.accessibility,
+            'accesibility' : object.accesibility,
+            'description' : object.description,
             'equipments': object.equipments,
-            'mainEvent': object.mainEvent.id,
-            'localization' : object.localization
+            'mainEvent': object.mainEvent.id || object.mainEvent,
         }
 
         //create the new resource object from DTObject

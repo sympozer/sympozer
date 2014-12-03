@@ -8,8 +8,8 @@ angular.module('locationsApp').controller('locationsNewCtrl', [ '$scope', '$filt
     {
         $scope.location = new locationsFact;
         $scope.location.equipments = [];
-        $scope.location.localization = {};
 
+        //On new location request error
         var error = function (response, args)
         {
             //Notify of error on delete request
@@ -20,6 +20,7 @@ angular.module('locationsApp').controller('locationsNewCtrl', [ '$scope', '$filt
             });
         };
 
+        //On new location request success
         var success = function (response, args)
         {
             //Notify of error on delete request
@@ -29,20 +30,25 @@ angular.module('locationsApp').controller('locationsNewCtrl', [ '$scope', '$filt
                 type: 'success'
             });
 
+            //Close modal if the view is a modal
             if ($scope.$close)
             {
                 $scope.$close($scope.location);
             }
+            //Go to the previous page if view is not a modal
             else
             {
                 $window.history.back();
             }
         };
 
+        //Submit form with a post request to the server
         $scope.save = function (form)
         {
+            //Check form validity
             if (form.$valid)
             {
+                //Set main event based on the url parameters
                 $scope.location.mainEvent = $routeParams.mainEventId;
                 locationsFact.create(locationsFact.serialize($scope.location), success, error);
             }
@@ -113,10 +119,16 @@ angular.module('locationsApp').controller('locationsNewCtrl', [ '$scope', '$filt
             //trigger map rendering of the selected address
             submitGeocoding(selectedAddress);
             //Set new conference address
-            $scope.location.localization = selectedAddress;
+            $scope.location.streetNumber = selectedAddress.streetNumber;
+            $scope.location.street = selectedAddress.street;
+            $scope.location.city = selectedAddress.city;
+            $scope.location.postalCode = selectedAddress.postalCode;
+            $scope.location.state = selectedAddress.state;
+            $scope.location.country = selectedAddress.country;
+            $scope.location.countryCode = selectedAddress.countryCode;
         }
 
-        //Define a localization on map from an address string
+        //Define a location on map from an address string
         var submitGeocoding = function (address)
         {
             GMaps.geocode({
@@ -127,9 +139,9 @@ angular.module('locationsApp').controller('locationsNewCtrl', [ '$scope', '$filt
                     {
                         var latlng = results[0].geometry.location;
 
-                        //Store latitude and longitude in localization object
-                        $scope.location.localization.latitude = latlng.lat();
-                        $scope.location.localization.longitude = latlng.lng();
+                        //Store latitude and longitude in location object
+                        $scope.location.latitude = latlng.lat();
+                        $scope.location.longitude = latlng.lng();
 
                         $scope.geoCodingMapInstance.setCenter(latlng.lat(), latlng.lng());
                         $scope.geoCodingMapInstance.addMarker({

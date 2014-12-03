@@ -122,8 +122,8 @@ sympozerApp.controller('navMainCtrl', ['$scope', '$rootScope', '$location', '$ti
                             {
                                 label: 'categories.links.categories',
                                 iconClasses: 'fa fa-tag',
-                                html: '<span class="badge badge-orange">'+ badgeCategories +'</span>'
-//                                url: '#/' /** @TODO FORZA : TO ALIMENT WITH THE PROPER URL**/
+                                html: '<span class="badge badge-orange">'+ badgeCategories +'</span>',
+                                url: '#/home/conference/'+$rootScope.currentMainEvent.id+'/categories/list'
                             }
                         ]
                     }
