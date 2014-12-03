@@ -98,7 +98,7 @@ angular.module('eventsApp').controller('eventsNewCtrl', [ '$scope', '$window', '
         $scope.addCategory = function(categoryModel){
             if(!categoryModel.id) {
                 var modalInstance = $modal.open({
-                    templateUrl: GLOBAL_CONFIG.app.modules.categories.urls.partials + 'categories-modal-form.html',
+                    templateUrl: GLOBAL_CONFIG.app.modules.categories.urls.partials + 'modals/categories-modal-form.html',
                     controller: 'categoriesNewCtrl',
                     size: "large",
                     resolve: {
@@ -119,7 +119,7 @@ angular.module('eventsApp').controller('eventsNewCtrl', [ '$scope', '$window', '
         $scope.addTopic = function(topicModel){
             if(!topicModel.id) {
                 var modalInstance = $modal.open({
-                    templateUrl: GLOBAL_CONFIG.app.modules.topics.urls.partials + 'topics-modal-form.html',
+                    templateUrl: GLOBAL_CONFIG.app.modules.topics.urls.partials + 'modals/topics-modal-form.html',
                     controller: 'topicsNewCtrl',
                     size: "large",
                     resolve: {
@@ -142,7 +142,7 @@ angular.module('eventsApp').controller('eventsNewCtrl', [ '$scope', '$window', '
         $scope.addLocation = function(locationModel){
             if(!locationModel.id) {
                 var modalInstance = $modal.open({
-                    templateUrl: GLOBAL_CONFIG.app.modules.locations.urls.partials + 'locations-modal-form.html',
+                    templateUrl: GLOBAL_CONFIG.app.modules.locations.urls.partials + 'modals/locations-modal-form.html',
                     controller: 'locationsNewCtrl',
                     size: "large",
                     resolve: {
@@ -166,7 +166,7 @@ angular.module('eventsApp').controller('eventsNewCtrl', [ '$scope', '$window', '
         $scope.addPaper = function(paperModel){
             if(!paperModel.id) {
                 var modalInstance = $modal.open({
-                    templateUrl: GLOBAL_CONFIG.app.modules.papers.urls.partials + 'papers-modal-form.html',
+                    templateUrl: GLOBAL_CONFIG.app.modules.papers.urls.partials + 'modals/papers-modal-form.html',
                     controller: 'papersNewCtrl',
                     size: "large",
                     resolve: {
@@ -186,7 +186,7 @@ angular.module('eventsApp').controller('eventsNewCtrl', [ '$scope', '$window', '
         $scope.event.roles = [];
         $scope.addRole = function(){
             var modalInstance = $modal.open({
-                templateUrl: GLOBAL_CONFIG.app.modules.roles.urls.partials + 'roles-modal-form.html',
+                templateUrl: GLOBAL_CONFIG.app.modules.roles.urls.partials + 'modals/roles-modal-form.html',
                 controller: 'rolesNewCtrl',
                 size: "large",
                 resolve: {
