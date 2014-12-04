@@ -23,15 +23,13 @@ class SponsorType extends AbstractType
       ->add('logo', 'file', ['required' => false,
         'label' => 'Logo (jpeg - png - 2MO)',
         'attr' => ['placeholder' => 'logoPath']])
-      ->add('organization', 'entity', array(
+      ->add('organization', 'sympozer_collection_type', array(
         'class' => 'fibeCommunityBundle:Organization',
-        'required' => 'false',
-        'multiple' => true,
+        'required' => 'false'
       ))
-      ->add('vEvent', 'entity', array(
+      ->add('vEvent', 'sympozer_collection_type', array(
         'class' => 'fibeEventBundle:VEvent',
-        'required' => 'false',
-        'multiple' => true,
+        'required' => 'false'
       ))
       ->add('description', 'textarea', ['required' => false]);
   }

@@ -12,8 +12,8 @@ angular.module('authenticationApp').controller('signoutCtrl',
             //Notify of the signout action error
             pinesNotifications.notify({
                 title: translateFilter('global.validations.error'),
-                text: translateFilter('response.data.error'),
-                type: 'error'
+                text : translateFilter('response.data.error'),
+                type : 'error'
             });
         }
 
@@ -25,11 +25,11 @@ angular.module('authenticationApp').controller('signoutCtrl',
             //Notify of the signout action success
             pinesNotifications.notify({
                 title: translateFilter('global.validations.success'),
-                text: translateFilter('authentication.validations.signout_success'),
-                type: 'success'
+                text : translateFilter('authentication.validations.signout_success'),
+                type : 'success'
             });
 
-            $location.path('/');
+//            $location.path('/');
         }
 
         //Send signout request

@@ -40,7 +40,7 @@ class Teammate
   protected $person;
 
   /**
-   * @ORM\ManyToOne(targetEntity="fibe\SecurityBundle\Entity\Team", inversedBy="teammates")
+   * @ORM\ManyToOne(targetEntity="Team", inversedBy="teammates")
    * @ORM\JoinColumn(onDelete="Set Null")
    * @Assert\NotBlank()
    * @Expose

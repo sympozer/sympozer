@@ -16,15 +16,13 @@ class TeammateType extends AbstractType
   {
     $builder
       ->add('id')
-      ->add('person', 'entity', array(
+      ->add('person', 'sympozer_entity_type', array(
         'class' => 'fibeCommunityBundle:Person',
         'required' => 'true',
-        'multiple' => false,
       ))
-      ->add('team', 'entity', array(
+      ->add('team', 'sympozer_entity_type', array(
         'class' => 'fibeSecurityBundle:Team',
         'required' => 'true',
-        'multiple' => false,
       ));
   }
 
@@ -33,6 +31,6 @@ class TeammateType extends AbstractType
    */
   public function getName()
   {
-    return 'fibe_user_conf_permission';
+    return 'fibe_user_teammate';
   }
 }

@@ -24,6 +24,7 @@ angular.module('rolesApp').factory('rolesFact', ['$resource', function ($resourc
 
     //Construct a DTO object to send to server (Data Transfert Object)
     resource.serialize = function(object){
+        return object; //embedded entities test
         var DTObject = {
             'id' : object.id,
             'event' : object.event ? object.event.id : null,

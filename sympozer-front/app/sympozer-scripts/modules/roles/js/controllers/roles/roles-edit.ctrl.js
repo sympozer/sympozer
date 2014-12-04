@@ -36,7 +36,7 @@ angular.module('rolesApp').controller('rolesEditCtrl',
             {
                 rolesFact.$update(rolesFact.serialize($scope.role), success, error);
             }
-        }
+        };
 
 
         //Autocomplete and add person workflow

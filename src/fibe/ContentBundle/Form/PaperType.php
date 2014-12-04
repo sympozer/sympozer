@@ -2,7 +2,6 @@
 
 namespace fibe\ContentBundle\Form;
 
-use fibe\CommunityBundle\Form\PersonType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -15,59 +14,55 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 class PaperType extends AbstractType
 {
 
-    /**
-     * {@inheritdoc}
-     */
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
-        $builder
-            ->add('id')
-            ->add('label')
-            ->add('abstract', 'textarea', array('required' => true))
-            ->add('publisher', 'text', array('label' => 'Publisheur', 'required' => false))
-            ->add('publishDate', 'text', array('label' => 'Published date', 'required' => false))
-            ->add('url')
-            ->add('authors', 'entity', array(
-                'class' => 'fibeCommunityBundle:Person',
-                'required' => 'false',
-                'multiple' => true,
-            ))
-            ->add('mainEvent', 'entity', array(
-                'class' => 'fibeEventBundle:MainEvent',
-                'required' => 'true',
-                'multiple' => false,
-            ))
-            ->add('topics', 'entity', array(
-                'class' => 'fibeContentBundle:Topic',
-                'required' => 'false',
-                'multiple' => true,
-            ))
-            ->add('events', 'entity', array(
-                'class' => 'fibeEventBundle:Event',
-                'required' => 'false',
-                'multiple' => true,
-            ));
-    }
+  /**
+   * {@inheritdoc}
+   */
+  public function buildForm(FormBuilderInterface $builder, array $options)
+  {
+    $builder
+      ->add('id')
+      ->add('label')
+      ->add('abstract', 'textarea', array('required' => true))
+      ->add('publisher', 'text', array('label' => 'Publisheur', 'required' => false))
+      ->add('publishDate', 'text', array('label' => 'Published date', 'required' => false))
+      ->add('url')
+      ->add('mainEvent', 'sympozer_entity_type', array(
+        'class' => 'fibeEventBundle:MainEvent',
+        'required' => 'true',
+      ))
+      ->add('authors', 'sympozer_collection_type', array(
+        'class' => 'fibeCommunityBundle:Person',
+        'required' => 'false'
+      ))
+      ->add('topics', 'sympozer_collection_type', array(
+        'class' => 'fibeContentBundle:Topic',
+        'required' => 'false'
+      ))
+      ->add('events', 'sympozer_collection_type', array(
+        'class' => 'fibeEventBundle:Event',
+        'required' => 'false'
+      ));
+  }
 
 
-    /**
-     * {@inheritdoc}
-     */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
-    {
-        $resolver->setDefaults(array(
-            'data_class' => 'fibe\ContentBundle\Entity\Paper',
-            'csrf_protection' => false
-        ));
-    }
+  /**
+   * {@inheritdoc}
+   */
+  public function setDefaultOptions(OptionsResolverInterface $resolver)
+  {
+    $resolver->setDefaults(array(
+      'data_class' => 'fibe\ContentBundle\Entity\Paper',
+      'csrf_protection' => false
+    ));
+  }
 
-    /**
-     * Returns the name of this type.
-     *
-     * @return string The name of this type
-     */
-    public function getName()
-    {
-        return 'fibe_contentbundle_papertype';
-    }
+  /**
+   * Returns the name of this type.
+   *
+   * @return string The name of this type
+   */
+  public function getName()
+  {
+    return 'fibe_contentbundle_papertype';
+  }
 }

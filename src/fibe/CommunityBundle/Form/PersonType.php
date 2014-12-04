@@ -2,8 +2,6 @@
 
 namespace fibe\CommunityBundle\Form;
 
-use fibe\ContentBundle\Entity\Localization;
-use fibe\ContentBundle\Form\LocalizationType;
 use fibe\RestBundle\Form\PatchSubscriber;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -26,26 +24,24 @@ class PersonType extends AdditionalInformationsType
       ->add('firstName')
       ->add('familyName')
       ->add('email', 'email')
-      ->add('organizations', 'entity', array(
+      ->add('organizations', 'sympozer_collection_type', array(
         'class' => 'fibeCommunityBundle:OrganizationVersion',
-        'required' => false,
-        'multiple' => true,
-        'by_reference' => false,
+        'type' => new OrganizationVersionType(),
       ))
-      ->add('papers', 'entity', array(
+//      ->add('organizations', 'sympozer_collection_type', array(
+//        'class' => 'fibeCommunityBundle:OrganizationVersion'
+//      ))
+      ->add('papers', 'sympozer_collection_type', array(
         'class' => 'fibeContentBundle:Paper',
-        'required' => false,
-        'multiple' => true
+        'required' => false
       ))
-      ->add('roles', 'entity', array(
+      ->add('roles', 'sympozer_collection_type', array(
         'class' => 'fibeContentBundle:Role',
         'required' => false,
-        'multiple' => true
       ))
-      ->add('teammates', 'entity', array(
+      ->add('teammates', 'sympozer_collection_type', array(
         'class' => 'fibeSecurityBundle:Teammate',
         'required' => false,
-        'multiple' => true
       ))
 //      ->add('firstName', 'text', array('label' => "First name"))
 //      ->add('familyName', 'text', array('label' => "Family Name"))
@@ -56,19 +52,17 @@ class PersonType extends AdditionalInformationsType
 //      ->add('openId', 'text', array('required' => false))
 //      ->add('description', 'textarea', array('required' => false, 'label' => 'Description'))
 //      // ->add('nick', 'text', array('required' => false))
-//      ->add('organizations', 'entity', array(
+//      ->add('organizations', 'sympozer_entity_type', array(
 //        'class'    => 'fibeCommunityBundle:Organization',
 //        'label'    => 'Organizations',
 //        'choices'  => $this->user->getCurrentMainEvent()->getOrganizations()->toArray(),
 //        'required' => false,
-//        'multiple' => true
 //      ))
-//      ->add('papers', 'entity', array(
+//      ->add('papers', 'sympozer_entity_type', array(
 //        'class'    => 'fibeCommunityBundle:Paper',
 //        'label'    => 'Publications',
 //        'choices'  => $this->user->getCurrentMainEvent()->getPapers()->toArray(),
 //        'required' => false,
-//        'multiple' => true
 //      ))
 //      ->add('accounts', 'collection', array('type'         => new SocialServiceAccountType(),
 //                                            'allow_add'    => true,

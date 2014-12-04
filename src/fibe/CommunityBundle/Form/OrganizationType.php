@@ -2,9 +2,6 @@
 
 namespace fibe\CommunityBundle\Form;
 
-use fibe\CommunityBundle\Entity\AdditionalInformations;
-use JMS\Serializer\Tests\Fixtures\Person;
-use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
@@ -21,10 +18,9 @@ class OrganizationType extends AdditionalInformationsType
     parent::buildForm($builder, $options);
     $builder
       ->add('label')
-      ->add('sponsors', 'entity', array(
+      ->add('sponsors', 'sympozer_collection_type', array(
         'class' => 'fibeContentBundle:Sponsor',
         'required' => 'false',
-        'multiple' => true,
       ));
   }
 
