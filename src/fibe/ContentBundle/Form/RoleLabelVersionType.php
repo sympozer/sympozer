@@ -28,7 +28,6 @@ class RoleLabelVersionType extends AbstractType
       ))
       ->add('roles', 'sympozer_collection_type', array(
         'class' => 'fibeContentBundle:Role',
-        'property' => 'label',
         'required' => 'true'
       ))
       ->add('mainEvent', 'sympozer_entity_type', array(

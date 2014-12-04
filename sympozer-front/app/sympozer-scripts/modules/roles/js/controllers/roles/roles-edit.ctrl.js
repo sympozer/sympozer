@@ -4,7 +4,7 @@
  * @type {controller}
  */
 angular.module('rolesApp').controller('rolesEditCtrl',
-    [ '$scope', '$window', 'GLOBAL_CONFIG', '$rootScope', '$routeParams', '$location', 'rolesFact',  'personsFact', 'roleLabelsFact', 'eventsFact', '$modal', 'pinesNotifications', 'translateFilter', function ($scope, $window,  GLOBAL_CONFIG, $rootScope, $routeParams, $location, rolesFact,  personsFact, roleLabelsFact, eventsFact, $modal, pinesNotifications, translateFilter)
+    [ '$scope', '$window', 'GLOBAL_CONFIG', '$rootScope', '$routeParams', '$location', 'rolesFact', 'personsFact', 'roleLabelsFact', 'eventsFact', '$modal', 'pinesNotifications', 'translateFilter', 'rolesSerializer', function ($scope, $window, GLOBAL_CONFIG, $rootScope, $routeParams, $location, rolesFact, personsFact, roleLabelsFact, eventsFact, $modal, pinesNotifications, translateFilter, rolesSerializer)
     {
         //Fetch the role to edit
         $scope.role = rolesFact.get({id: $routeParams.roleId});
@@ -34,7 +34,7 @@ angular.module('rolesApp').controller('rolesEditCtrl',
         {
             if (form.$valid)
             {
-                rolesFact.$update(rolesFact.serialize($scope.role), success, error);
+                rolesSerializer($scope.role).$update(success, error);
             }
         };
 
