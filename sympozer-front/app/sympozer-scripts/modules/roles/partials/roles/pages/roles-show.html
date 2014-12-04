@@ -1,8 +1,32 @@
-<div ng-include="GLOBAL_CONFIG.app.modules.roleLabelVersions.urls.partials+'views/roleLabelVersions-actions.html'" ng-controller="roleLabelsMainCtrl"></div>
-<div class="well">
-  <img class="img-circle" data-src="holder.js/140x140" alt="140x140" src="http://blog.getjobber.com/wp-content/uploads/2013/01/Users-Image.png" style="width: 70px; height: 70px;"/>
+<div id="page-heading">
 
-  <h3>{{roleLabel.label}}</h3>
+    <div ng-include="GLOBAL_CONFIG.app.urls.partials+'navigation/breadcrumb.html'"></div>
 
-  <p>{{roleLabel.additional_information.country}}</p>
+    <h1>{{'roles.links.role' | translate }}</h1>
+
+    <div class="options">
+        <div class="btn-toolbar">
+
+            <div ng-include="GLOBAL_CONFIG.app.modules.roles.urls.partials+'views/roles-actions.html'"></div>
+
+        </div>
+    </div>
 </div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-gray">
+                <div class="panel-body">
+
+                    <img class="img-circle" data-src="holder.js/140x140" alt="140x140" src="http://blog.getjobber.com/wp-content/uploads/2013/01/Users-Image.png" style="width: 70px; height: 70px;"/>
+
+                    <h3>{{roleLabel.label}}</h3>
+
+                    <p>{{roleLabel.additional_information.country}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

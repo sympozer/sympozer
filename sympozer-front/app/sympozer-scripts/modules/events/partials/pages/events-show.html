@@ -1,105 +1,128 @@
-<div ng-include="GLOBAL_CONFIG.app.modules.events.urls.partials+'views/events-actions.html'" ng-controller="eventsMainCtrl"></div>
+<div id="page-heading">
 
-<div class="well">
-    <div class="row">
-        <div class="col-sm-1 col-md-1 col-lg-1">
-            <div class="img-container-lg">
-                <i class="fa fa-calendar fa-5x"></i>
+    <div ng-include="GLOBAL_CONFIG.app.urls.partials+'navigation/breadcrumb.html'"></div>
+
+    <h1>{{'events.links.event' | translate }}</h1>
+
+    <div class="options">
+        <div class="btn-toolbar">
+            <div class="btn-group" dropdown>
+                <div ng-include="GLOBAL_CONFIG.app.modules.events.urls.partials+'views/events-actions.html'"></div>
             </div>
-
         </div>
-        <div class="col-sm-5 col-md-5 col-lg-5">
-            <h2>{{event.label || '???'}}</h2> </br>
-            <div  ng-show="event.category">
-            <ul class="nav nav-pills">
-                <li class="active">
-                     <a>
+    </div>
+</div>
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-gray">
+                <div class="panel-body">
+
+                    <div class="col-sm-1 col-md-1 col-lg-1">
+                        <div class="img-container-lg">
+                            <i class="fa fa-calendar fa-5x"></i>
+                        </div>
+
+                    </div>
+                    <div class="col-sm-5 col-md-5 col-lg-5">
+                        <h2>{{event.label || '???'}}</h2> </br>
+                        <div  ng-show="event.category">
+                            <ul class="nav nav-pills">
+                                <li class="active">
+                                    <a>
                         <span class="badge pull-right"> 
                             <div style="width:10px;height:10px;border:1px solid #222;background:{{ category.color }}" title="{{ event.category.color }}"></div>
                         </span>
-                            {{ event.category.label }}
-                    </a>
-                </li>
-            </ul>
-        </div>
-            <h3>{{ 'events.labels.from' | translate }} : {{event.startAt}}</h3>
-            <h3>{{ 'events.labels.to' | translate }}  : {{event.endAt}}</h3>
-                <ul class="nav nav-pills" ng-show="event.eventLocations.length > 0">
-                  <li ng-repeat="location in event.eventLocations  track by $index"  class="active">
-                    <a href="javascript:void(0)" > <i class="fa fa-map-marker"></i>  {{location.label}}</a>
-                  </li>
-                </ul>
-            <div>Is contains in <a href="#events/show/{{event.parent.id}}">{{event.parent.label || '???'}}</a></div>
-            <pre>{{event.description || 'add a description'}}</pre>
-            <pre>{{event.comment || 'add a comment'}}</pre>
-            <a class="btn btn-info" href="#conference/{{event.mainEvent.id}}/events/edit/{{event.id}}" role="button">
-                <i class="fa fa-edit fa-1x"></i> {{ 'events.actions.edit' | translate }}
-            </a>
-        </div>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-md-3 col-lg-3">
-        <h1>{{event.topics.length}} Topics</h1>
-        <ul class="nav nav-pills" ng-repeat="topic in event.topics track by $index">
-            <li class="active" >
-                <a>
-                    <span class="badge pull-right">{{topic.vEvents.length}}</span>
-                    {{ topic.label }}
-                </a>
-            </li>
-        </ul>
-    </div>
-    <div class="col-md-3 col-lg-3">
-        <h1>{{event.roles.length || 0}} Actors</h1>
-        <div ng-repeat="role in event.roles track by $index" class="col-sm-6 col-md-6 col-lg-4 well">
-            <div class="img-container-md">
-                <img class="scale-img "  no-image ng-src="{{person.img}}" alt="person image" style="width: 70px; height: 70px;">
+                                        {{ event.category.label }}
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <h3>{{ 'events.labels.from' | translate }} : {{event.startAt}}</h3>
+                        <h3>{{ 'events.labels.to' | translate }}  : {{event.endAt}}</h3>
+                        <ul class="nav nav-pills" ng-show="event.eventLocations.length > 0">
+                            <li ng-repeat="location in event.eventLocations  track by $index"  class="active">
+                                <a href="javascript:void(0)" > <i class="fa fa-map-marker"></i>  {{location.label}}</a>
+                            </li>
+                        </ul>
+                        <div>Is contains in <a href="#events/show/{{event.parent.id}}">{{event.parent.label || '???'}}</a></div>
+                        <pre>{{event.description || 'add a description'}}</pre>
+                        <pre>{{event.comment || 'add a comment'}}</pre>
+                        <a class="btn btn-info" href="#/home/conference/{{event.mainEvent.id}}/events/edit/{{event.id}}" role="button">
+                            <i class="fa fa-edit fa-1x"></i> {{ 'events.actions.edit' | translate }}
+                        </a>
+                    </div>
+                </div>
             </div>
-            <h3>{{ role.person.label }}</h3>
 
-            <h3>
-                {{ role.roleLabelVersion.label}}
-            </h3>
+            <div class="row">
+                <div class="col-md-3 col-lg-3">
+                    <h1>{{event.topics.length}} Topics</h1>
+                    <ul class="nav nav-pills" ng-repeat="topic in event.topics track by $index">
+                        <li class="active" >
+                            <a>
+                                <span class="badge pull-right">{{topic.vEvents.length}}</span>
+                                {{ topic.label }}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-3 col-lg-3">
+                    <h1>{{event.roles.length || 0}} Actors</h1>
+                    <div ng-repeat="role in event.roles track by $index" class="col-sm-6 col-md-6 col-lg-4 well">
+                        <div class="img-container-md">
+                            <img class="scale-img "  no-image ng-src="{{person.img}}" alt="person image" style="width: 70px; height: 70px;">
+                        </div>
+                        <h3>{{ role.person.label }}</h3>
 
-            <p>{{ role.person.email }}</p>
+                        <h3>
+                            {{ role.roleLabelVersion.label}}
+                        </h3>
 
-            <p>{{ role.person.country }}</p>
+                        <p>{{ role.person.email }}</p>
 
-        </div>
-    </div>
-    <div class="col-md-6 col-lg-6">
-        <h1>{{event.papers.length || 0}} Papers</h1>
-        <div ng-repeat="paper in event.papers  track by $index" class="col-sm-6 col-md-6 col-lg-4 well">
+                        <p>{{ role.person.country }}</p>
 
-            <i class="fa fa-book fa-2x"></i>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-6">
+                    <h1>{{event.papers.length || 0}} Papers</h1>
+                    <div ng-repeat="paper in event.papers  track by $index" class="col-sm-6 col-md-6 col-lg-4 well">
 
-            <h2>{{paper.label}}</h2>
-            <pre>{{paper.abstract}}</pre>
+                        <i class="fa fa-book fa-2x"></i>
 
-            <a class="btn btn-warning" href="#conference/{{event.mainEvent.id}}/papers/edit/{{paper.id}}" role="button"><i class="fa fa-edit fa-1x"></i></a>
-            <a class="btn btn-default" href="#conference/{{event.mainEvent.id}}/papers/show/{{paper.id}}" role="button"><i class="fa fa-eye fa-1x"></i></a>
-        </div>
-    </div>
+                        <h2>{{paper.label}}</h2>
+                        <pre>{{paper.abstract}}</pre>
 
-</div>
+                        <a class="btn btn-warning" href="#/home/conference/{{event.mainEvent.id}}/papers/edit/{{paper.id}}" role="button"><i class="fa fa-edit fa-1x"></i></a>
+                        <a class="btn btn-default" href="#/home/conference/{{event.mainEvent.id}}/papers/show/{{paper.id}}" role="button"><i class="fa fa-eye fa-1x"></i></a>
+                    </div>
+                </div>
 
-<div class="row">
-    <div class="col-md-6 col-lg-6">
-        <h1>{{event.children.length || 0 }}Event contain</h1>
-        <div ng-repeat="event in event.children  track by $index" class="col-sm-6 col-md-6 col-lg-4 well">
 
-            <i class="fa fa-calendar fa-2x"></i>
 
-            <h2>{{event.label}}</h2>
+                <div class="row">
+                    <div class="col-md-6 col-lg-6">
+                        <h1>{{event.children.length || 0 }}Event contain</h1>
+                        <div ng-repeat="event in event.children  track by $index" class="col-sm-6 col-md-6 col-lg-4 well">
 
-            <h1>From : {{event.startAt}}</h1>
-            <h1>To : {{event.endAt}}</h1>
+                            <i class="fa fa-calendar fa-2x"></i>
 
-            <pre>{{event.description}}</pre>
-            <a class="btn btn-warning" href="#conference/{{event.mainEvent.id}}/events/edit/{{event.id}}" role="button"><i class="fa fa-edit fa-1x"></i></a>
-            <a class="btn btn-default" href="#conference/{{event.mainEvent.id}}/events/show/{{event.id}}" role="button"><i class="fa fa-eye fa-1x"></i></a>
+                            <h2>{{event.label}}</h2>
+
+                            <h1>From : {{event.startAt}}</h1>
+                            <h1>To : {{event.endAt}}</h1>
+
+                            <pre>{{event.description}}</pre>
+                            <a class="btn btn-warning" href="#conference/{{event.mainEvent.id}}/events/edit/{{event.id}}" role="button"><i class="fa fa-edit fa-1x"></i></a>
+                            <a class="btn btn-default" href="#conference/{{event.mainEvent.id}}/events/show/{{event.id}}" role="button"><i class="fa fa-eye fa-1x"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
         </div>
     </div>
 </div>

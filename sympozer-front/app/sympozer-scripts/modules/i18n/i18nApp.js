@@ -165,7 +165,8 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 from: 'From'
             },
             links: {
-                mainEvents: 'Conferences'
+                mainEvents: 'Conferences',
+                mainEvent: 'Conference'
             },
             validations: {
                 'EventFormValidation_start_is_after_end_error': 'the start date must not be after the end date.',
@@ -205,6 +206,7 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
             },
             links: {
                 events: 'Events',
+                event: 'Event',
                 schedule: 'Schedule',
                 calendar: 'Calendar'
             },
@@ -217,8 +219,10 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
             validations: {
                 start_before_end: 'The start date must be before the end date',
                 end_after_start: 'The end date must be after the start date',
-                'created': 'The event has been saved',
-                'not_created': 'Sorry, the event has not been saved'
+                created: 'The event has been saved',
+                not_created : 'Sorry, the event has not been saved',
+                deletion_success : 'Event deleted',
+                deletion_error : 'Sorry, we couldn\'nt delete this event'
             },
             messages: {
                 delete_confirm: 'Are you sure you want to delete this event ?'
@@ -247,7 +251,8 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 }
             },
             links: {
-                papers: 'Papers'
+                papers: 'Papers',
+                paper: 'Paper'
             },
             validations: {
                 delete_confirm: 'Are you sure you want to delete this paper ?',
@@ -317,7 +322,8 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 print: 'Print topics'
             },
             links: {
-                topics: 'Topics'
+                topics: 'Topics',
+                topic: 'Topic'
             },
             labels: {},
             validations: {
@@ -346,7 +352,8 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 print: 'Print categories'
             },
             links: {
-                categories: 'Categories'
+                categories: 'Categories',
+                category: 'Category'
             },
             validations: {
                 'created': 'The category has been saved',
@@ -375,7 +382,8 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 print: 'Print location'
             },
             links: {
-                locations: 'Locations'
+                locations: 'Locations',
+                location: 'Location'
             },
             validations: {
                 'created': 'The location has been saved',
@@ -404,7 +412,8 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 add: 'Add an equipment'
             },
             links: {
-                equipments: 'Equipments'
+                equipments: 'Equipments',
+                equipment: 'Equipment'
             },
             validations: {
                 'created': 'The equipment has been saved',
@@ -471,7 +480,8 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 print: 'Print role label'
             },
             links: {
-                roleLabelVersions: 'role label'
+                roleLabelVersions: 'roles labels',
+                roleLabelVersion: 'role label'
             },
             labels: {},
             validations: {
@@ -500,7 +510,8 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 print: 'Print role'
             },
             links: {
-                roles: 'Roles'
+                roles: 'Roles',
+                role: 'Role'
             },
             labels: {},
             validations: {
@@ -537,6 +548,7 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
             },
             links: {
                 persons: 'Persons',
+                person: 'Person',
                 my_events: 'My events',
                 my_bookmarks: 'My bookmarks',
                 my_tickets: 'My tickets',
@@ -718,7 +730,8 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 from: 'Depuis'
             },
             links: {
-                mainEvents: 'Conférences'
+                mainEvents: 'Conférences',
+                mainEvent : 'Conférence'
             },
             validations: {
                 'EventFormValidation_start_is_after_end_error': 'La date de début doit être avant la date de fin',
@@ -757,6 +770,7 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
             },
             links: {
                 events: 'Evènements',
+                event: 'Evènement',
                 schedule: 'Calendrier',
                 calendar: 'Planning'
             },
@@ -770,7 +784,9 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 start_before_end: 'La date de fin doit être après la date de début',
                 end_after_start: 'La date de début doit être avant la date de fin',
                 'created': 'L\'évènement a été enregistrée',
-                'not_created': 'Désolé, l\'évènement n\'a pas été sauvegardée'
+                'not_created': 'Désolé, l\'évènement n\'a pas été sauvegardée',
+                deletion_success : 'Event supprimé',
+                deletion_error : 'Désolé,  nous n\'avons pas pu supprimer l\'évènement'
             },
             messages: {
                 delete_confirm: 'Etes-vous sur de vouloir supprimer cet évènement ?'
@@ -799,7 +815,8 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 }
             },
             links: {
-                papers: 'Publications'
+                papers: 'Publications',
+                paper: 'Publication'
             },
             validations: {
                 delete_confirm: 'Etes-vous sur de vouloir supprimer cette publication ?',
@@ -868,7 +885,8 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 print: 'Imprimer tags'
             },
             links: {
-                topics: 'Tags'
+                topics: 'Tags',
+                topic: 'Tag'
             },
             labels: {},
             validations: {
@@ -896,7 +914,8 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 print: 'Imprimer catégories'
             },
             links: {
-                categories: 'Catégories'
+                categories: 'Catégories',
+                category: 'Catégory'
             },
             validations: {
                 'created': 'La catégorie a été enregistré',
@@ -953,7 +972,8 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 add: 'Ajouter un équipement'
             },
             links: {
-                equipments: 'Equipements'
+                equipments: 'Equipements',
+                equipment: 'Equipement'
             },
             validations: {
                 'created': 'L\'équipement a été enregistré',
@@ -1022,7 +1042,8 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 print: 'Imprimer types de rôles'
             },
             links: {
-                roleLabelVersions: 'Types de roles'
+                roleLabelVersions: 'Types de roles',
+                roleLabelVersion: 'Type de role'
             },
             labels: {},
             validations: {},
@@ -1048,7 +1069,8 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 print: 'Imprimer rôles'
             },
             links: {
-                roles: 'Roles'
+                roles: 'Roles',
+                role: 'Role'
             },
             labels: {},
             validations: {
@@ -1085,6 +1107,7 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
             },
             links: {
                 persons: 'Personnes',
+                person: 'Personne',
                 my_events: 'Mes évènements',
                 my_bookmarks: 'Mes marques page',
                 my_tickets: 'Mes tickets',

@@ -6,6 +6,7 @@
 angular.module('eventsApp').controller('eventsEditCtrl', ['$scope', '$filter', '$window', 'GLOBAL_CONFIG', '$routeParams', '$rootScope', '$location', 'eventsFact', 'categoriesFact', 'topicsFact', 'locationsFact', 'papersFact', '$modal', 'pinesNotifications', 'translateFilter',
     function ($scope, $filter, $window, GLOBAL_CONFIG, $routeParams, $rootScope, $location, eventsFact, categoriesFact, topicsFact, locationsFact, papersFact, $modal, pinesNotifications, translateFilter)
     {
+        //Get the event
         $scope.event = eventsFact.get({id: $routeParams.eventId});
 
         //Error on event edit request
@@ -38,7 +39,7 @@ angular.module('eventsApp').controller('eventsEditCtrl', ['$scope', '$filter', '
             //Verify form validity
             if (form.$valid)
             {
-                $scope.event.$update({}, success, error);
+                eventsFact.update( eventsFact.serialize($scope.event), success, error);
             }
         };
 
@@ -68,7 +69,7 @@ angular.module('eventsApp').controller('eventsEditCtrl', ['$scope', '$filter', '
         $scope.createLocationModal = function ()
         {
             //TODO : fix this
-            createDialogService(GLOBAL_CONFIG.app.modules.locations.urls.partials + 'locations-new.html', {
+            createDialogService(GLOBAL_CONFIG.app.modules.locations.urls.partials + 'modals/locations-new.html', {
                 id        : 'complexDialog',
                 title     : 'New location',
                 backdrop  : true,
@@ -87,7 +88,7 @@ angular.module('eventsApp').controller('eventsEditCtrl', ['$scope', '$filter', '
             if (!categoryModel.id)
             {
                 var modalInstance = $modal.open({
-                    templateUrl: GLOBAL_CONFIG.app.modules.categories.urls.partials + 'categories-modal-form.html',
+                    templateUrl: GLOBAL_CONFIG.app.modules.categories.urls.partials + 'modals/categories-modal-form.html',
                     controller : 'categoriesNewCtrl',
                     size       : "large",
                     resolve    : {
@@ -114,7 +115,7 @@ angular.module('eventsApp').controller('eventsEditCtrl', ['$scope', '$filter', '
             if (!topicModel.id)
             {
                 var modalInstance = $modal.open({
-                    templateUrl: GLOBAL_CONFIG.app.modules.topics.urls.partials + 'topics-modal-form.html',
+                    templateUrl: GLOBAL_CONFIG.app.modules.topics.urls.partials + 'modals/topics-modal-form.html',
                     controller : 'topicsNewCtrl',
                     size       : "large",
                     resolve    : {
@@ -143,7 +144,7 @@ angular.module('eventsApp').controller('eventsEditCtrl', ['$scope', '$filter', '
             if (!locationModel.id)
             {
                 var modalInstance = $modal.open({
-                    templateUrl: GLOBAL_CONFIG.app.modules.locations.urls.partials + 'locations-modal-form.html',
+                    templateUrl: GLOBAL_CONFIG.app.modules.locations.urls.partials + 'modals/locations-modal-form.html',
                     controller : 'locationsNewCtrl',
                     size       : "large",
                     resolve    : {
@@ -172,7 +173,7 @@ angular.module('eventsApp').controller('eventsEditCtrl', ['$scope', '$filter', '
             if (!paperModel.id)
             {
                 var modalInstance = $modal.open({
-                    templateUrl: GLOBAL_CONFIG.app.modules.papers.urls.partials + 'papers-modal-form.html',
+                    templateUrl: GLOBAL_CONFIG.app.modules.papers.urls.partials + 'modals/papers-modal-form.html',
                     controller : 'papersNewCtrl',
                     size       : "large",
                     resolve    : {
@@ -200,7 +201,7 @@ angular.module('eventsApp').controller('eventsEditCtrl', ['$scope', '$filter', '
         {
             alert("role");
             var modalInstance = $modal.open({
-                templateUrl: GLOBAL_CONFIG.app.modules.roles.urls.partials + 'roles-modal-form.html',
+                templateUrl: GLOBAL_CONFIG.app.modules.roles.urls.partials + 'modals/roles-modal-form.html',
                 controller : 'rolesNewCtrl',
                 size       : "large",
                 resolve    : {
