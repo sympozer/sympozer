@@ -26,8 +26,8 @@ class PersonType extends AdditionalInformationsType
       ->add('firstName')
       ->add('familyName')
       ->add('email', 'email')
-      ->add('organizations', 'entity', array(
-        'class' => 'fibeCommunityBundle:OrganizationVersion',
+      ->add('positions', 'entity', array(
+        'class' => 'fibeCommunityBundle:Position',
         'required' => false,
         'multiple' => true,
         'by_reference' => false,

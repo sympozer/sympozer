@@ -48,7 +48,7 @@ angular.module('sympozerApp').directive('sympozerAutocomplete', [
                         requestParams[param] = $routeParams[param];
                     }
 
-                    //Promise needed by the typeahead directive, resolved when something is selected
+                    //Promise needed by the typeahead directive, resolved when something is typed
                     var deferred = $q.defer();
                     scope.onKeyup(requestParams, function (data)
                     {

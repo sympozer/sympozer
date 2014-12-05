@@ -102,17 +102,6 @@
             <a class="btn btn-info" href="#/home/persons/show/{{person.id}}" role="button">
                 <i class="fa fa-eye fa-1x"></i> {{ 'persons.actions.view_profile' | translate}}
             </a>
-            <!--<div class="btn-group hidden-xs" data-dropdown>-->
-            <!--<button class="btn btn-default dropdown-toggle" data-toggle='dropdown'>-->
-            <!--<i class="fa fa-cloud-download"></i><span class="hidden-sm"> Export as  </span><span class="caret"></span>-->
-            <!--</button>-->
-            <!--<ul class="dropdown-menu">-->
-            <!--<li><a href="#">Text File (*.txt)</a></li>-->
-            <!--<li><a href="#">Excel File (*.xlsx)</a></li>-->
-            <!--<li><a href="#">PDF File (*.pdf)</a></li>-->
-            <!--</ul>-->
-            <!--</div>-->
-            <!--<a href="#" class="btn btn-default"><i class="fa fa-cog"></i></a>-->
         </div>
     </div>
 </div>
@@ -168,12 +157,47 @@
                                                 <span>{{ 'organizations.links.organizations' | translate}}</span>
                                             </td>
                                             <td>
-                                                 <span>
-                                                    <div sympozer-autocomplete="organizations" on-select="addOrganization" on-keyup="searchOrganizations"></div>
-                                                </span>
-                                                <span ng-repeat="organization in person.organizations  track by $index">
-                                                    <a class="btn btn-default" href="#organizations/show/{{ organization.id }}" role="button">{{ organization.label }} <i class="fa fa-times" ng-click="removeRelationship('organizations', $index)" ></i></a>
-                                                </span>
+                                                <!-- table -->
+
+                                                <table class="table table-hover">
+                                                    <tr>
+                                                        <td>
+                                                            <input type="text" class="form-control" ng-required ng-model="position.label" class="form-control" placeholder="CEO/developer...">
+                                                        </td>
+                                                        <td>
+                                                            <span>@</span>
+                                                        </td>
+                                                        <td>
+                                                            <div class="input-group">
+                                                                <input type="text" ng-required ng-model="position.organization" typeahead-template-url="organizations-typeahead.html" typeahead-on-select="select($item, $model)"  placeholder="{{ 'persons.actions.search' | translate }} ..." typeahead-wait-ms="500" typeahead="organization as organization.label  for organization in getOrganizations($viewValue)"  typeahead-loading="loading"  class="form-control">
+                                                                <i ng-show="loading" class="fa fa-spinner fa-spin"></i>
+                                                                <script type="text/ng-template" id="organizations-typeahead.html">
+                                                                    <div style="width:100%">
+                                                                        <span bind-html-unsafe="match.model.label | typeaheadHighlight:query"></span>
+                                                                    </div>
+                                                                </script>
+                                                                <!--<div sympozer-autocomplete="organizations" on-select="addOrganization" on-keyup="searchOrganizations"></div>-->
+
+                                                                <div class="input-group-btn">
+                                                                    <button ng-disabled="!position.organization || !position.label" ng-click="addPosition(position.label, position.organization)" type="button" class="btn btn-success"><i class="fa fa-plus"></i></button>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr ng-repeat="position in person.positions track by $index">
+                                                        <td>
+                                                            <span>{{position.person.label}}</span>
+                                                        </td>
+                                                        <td>
+                                                            <span> @ </span>
+                                                        </td>
+                                                        <td>
+                                                            <span>{{position.organization.label}}</span>
+                                                        </td>
+                                                    </tr>
+
+                                                </table>
 
                                             </td>
                                         </tr>

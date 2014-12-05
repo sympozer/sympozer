@@ -3,12 +3,12 @@
 namespace fibe\CommunityBundle\Form;
 
 
+use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class OrganizationVersionType extends AdditionalInformationsType
+class PositionType extends AbstractType
 {
-
 
     /**
      * @param FormBuilderInterface $builder
@@ -16,15 +16,14 @@ class OrganizationVersionType extends AdditionalInformationsType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        parent::buildForm($builder, $options);
         $builder
             ->add('label')
-            ->add('sponsors', 'entity', array(
-                'class' => 'fibeContentBundle:Sponsor',
+            ->add('position')
+            ->add('person', 'entity', array(
+                'class' => 'fibeCommunityBundle:Person',
                 'required' => 'false',
-                'multiple' => true,
+                'multiple' => false,
             ))
-            ->add('organizationVersionOwner', new PersonType())
             ->add('organization', 'entity', array(
                 'class' => 'fibeCommunityBundle:Organization',
                 'required' => 'false',
@@ -38,7 +37,7 @@ class OrganizationVersionType extends AdditionalInformationsType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'fibe\CommunityBundle\Entity\OrganizationVersion',
+            'data_class' => 'fibe\CommunityBundle\Entity\Position',
             'csrf_protection' => false,
             'cascade_validation' => true,
         ));
