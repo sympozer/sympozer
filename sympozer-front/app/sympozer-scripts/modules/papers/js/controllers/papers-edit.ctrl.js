@@ -1,11 +1,9 @@
 /**
  * Edit paper controller
- *
  * @type {controller}
  */
 
-angular.module('papersApp').controller('papersEditCtrl', [
-    '$scope', '$filter', 'GLOBAL_CONFIG', '$window', '$rootScope', '$routeParams', '$location', 'papersFact', 'personsFact', 'topicsFact', '$modal', 'pinesNotifications', 'translateFilter',
+angular.module('papersApp').controller('papersEditCtrl', ['$scope', '$filter', 'GLOBAL_CONFIG', '$window', '$rootScope', '$routeParams', '$location', 'papersFact', 'personsFact', 'topicsFact', '$modal', 'pinesNotifications', 'translateFilter',
     function ($scope, $filter, GLOBAL_CONFIG, $window, $rootScope, $routeParams, $location, papersFact, personsFact, topicsFact, $modal, pinesNotifications, translateFilter)
     {
 

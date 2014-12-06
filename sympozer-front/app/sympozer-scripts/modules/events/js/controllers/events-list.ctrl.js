@@ -92,7 +92,7 @@ angular.module('eventsApp').controller('eventsListCtrl', ['$scope', 'categoriesF
             }
         });
 
-        //When modal instance promise is resolved with 'ok' then remove the cateogy from the list
+        //When modal instance promise is resolved with 'ok' then remove the event from the list
         modalInstance.resolve = function(event){
             $scope.entities.splice($scope.index, 1);
         }

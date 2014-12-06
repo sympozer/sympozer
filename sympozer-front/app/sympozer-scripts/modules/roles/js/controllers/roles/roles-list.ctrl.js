@@ -60,25 +60,25 @@ angular.module('rolesApp').controller('rolesListCtrl', [
 
 
 
-//        $scope.deleteModal = function (index, role)
-//        {
-//            $scope.index = index;
-//
-//            var modalInstance = $modal.open({
-//                templateUrl: GLOBAL_CONFIG.app.modules.roles.urls.partials + 'modals/roles-delete-modal.html',
-//                controller: 'rolesDeleteCtrl',
-//                size: "large",
-//                resolve: {
-//                   roleModel : function(){
-//                        return role;
-//                    }
-//                }
-//            });
-//
-//            modalInstance.resolve = function(){
-//                $scope.entities.splice(index, 1);
-//            }
-//        }
+        $scope.deleteModal = function (index, role)
+        {
+            $scope.index = index;
+
+            var modalInstance = $modal.open({
+                templateUrl: GLOBAL_CONFIG.app.modules.roles.urls.partials + 'modals/roles-delete-modal.html',
+                controller: 'rolesDeleteCtrl',
+                size: "large",
+                resolve: {
+                   roleModel : function(){
+                        return role;
+                    }
+                }
+            });
+
+            modalInstance.resolve = function(){
+                $scope.entities.splice(index, 1);
+            }
+        }
 
 
     }]);
