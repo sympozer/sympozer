@@ -3,8 +3,8 @@
  * The profile of a person is managed via a live edit form. Each change is persisted uniquely using patch request
  * @type {controller}
  */
-angular.module('personsApp').controller('personsEditCtrl', [ '$scope', '$filter', '$rootScope', '$modal', 'GLOBAL_CONFIG', '$routeParams', '$location', 'personsFact', 'organizationsFact', 'papersFact', 'pinesNotifications', 'translateFilter',
-    function ($scope, $filter, $rootScope, $modal, GLOBAL_CONFIG, $routeParams, $location, personsFact, organizationsFact, papersFact, pinesNotifications, translateFilter)
+angular.module('personsApp').controller('personsEditCtrl', [ '$scope', '$q','$filter', '$rootScope', '$modal', 'GLOBAL_CONFIG', '$routeParams', '$location', 'personsFact', 'organizationsFact', 'papersFact', 'pinesNotifications', 'translateFilter',
+    function ($scope, $q, $filter, $rootScope, $modal, GLOBAL_CONFIG, $routeParams, $location, personsFact, organizationsFact, papersFact, pinesNotifications, translateFilter)
     {
         //Fetch person info
         $scope.person = personsFact.get({id: $routeParams.personId});
@@ -55,10 +55,10 @@ angular.module('personsApp').controller('personsEditCtrl', [ '$scope', '$filter'
         }
 
         /**
-        * Remove a linked entity form the person
-        * @param key, the array containing the linked entities (papers, organizations, events..)
-        * @param index, index of the entity to remove on the key array
-        */
+         * Remove a linked entity form the person
+         * @param key, the array containing the linked entities (papers, organizations, events..)
+         * @param index, index of the entity to remove on the key array
+         */
         $scope.removeRelationship = function(key, index){
             //Delete the specified index in the "key" array
             $scope.person[key].splice(index, 1);
@@ -66,28 +66,23 @@ angular.module('personsApp').controller('personsEditCtrl', [ '$scope', '$filter'
             $scope.updatePerson(key, $scope.person[key]);
         }
 
-        //Autocomplete and add organization workflow
-        $scope.searchOrganizations = organizationsFact.all;
-        $scope.addOrganization = function(organizationModel){
-            if(!organizationModel.id) {
-                //Open modal with new organization form
-                var modalInstance = $modal.open({
-                    templateUrl: GLOBAL_CONFIG.app.modules.organizations.urls.partials + 'organizations-modal-form.html',
-                    controller: 'organizationsNewCtrl',
-                    size: "large",
-                    resolve: {
-                        personModel : function(){
-                            return $scope.person;
-                        }
-                    }
-                });
-                modalInstance.result.then(function (newOrganization) {
-                    $scope.addRelationship("organizations", newOrganization);
-                }, function () {
-                    //$log.info('Modal dismissed at: ' + new Date());
-                });
-            }else{
-                $scope.addRelationship("organizations", organizationModel);
+
+        //Promise needed by the typeahead directive, resolved when something is selected
+        var deferred = $q.defer();
+        $scope.getOrganizations = function(val){
+            organizationsFact.all({query : val}, deferred.resolve);
+            return deferred.promise;
+        };
+
+        $scope.addPosition = function(label, organization){
+            if(label && organization){
+                var position = {
+                    person : $scope.person.id,
+                    organization : organization.id ? organization.id : { label : organization },
+                    position : position,
+                    label : label
+                }
+                $scope.addRelationship('positions', position);
             }
         }
 
@@ -100,40 +95,13 @@ angular.module('personsApp').controller('personsEditCtrl', [ '$scope', '$filter'
             //$scope.updatePerson("localization", formattedLocalization);
         }
 
-        //Autocomplete and add paper workflow
-//        $scope.searchPapers = papersFact.all;
-//        $scope.addPaper = function(paperModel){
-//            if(!paperModel.id) {
-//                var modalInstance = $modal.open({
-//                    templateUrl: GLOBAL_CONFIG.app.modules.papers.urls.partials + 'papers-modal-form.html',
-//                    controller: 'papersNewCtrl',
-//                    size: "large",
-//                    resolve: {
-//                    }
-//                });
-//                modalInstance.result.then(function (newPaper) {
-//                    $scope.addRelationship("papers", newPaper);
-//                }, function () {
-//                    //$log.info('Modal dismissed at: ' + new Date());
-//                });
-//            }else{
-//                $scope.addRelationship("papers", paperModel);
-//            }
-//        }
-
-        //Send patch request to server to update a given field
-        $scope.updateMainEvent = function(field, data){
-            var updateMainEvent = {id: $scope.mainEvent.id};
-            updateMainEvent[field] = data;
-            return mainEventsFact.patch(updateMainEvent, success, error);
-        };
 
 
         //Select img modal workflow
         $scope.showImgModal = function(){
             // Open modal with main event logo form
             var modalInstance = $modal.open({
-                templateUrl: GLOBAL_CONFIG.app.modules.persons.urls.partials + 'persons-select-logo-modal.html',
+                templateUrl: GLOBAL_CONFIG.app.modules.persons.urls.partials + 'modals/persons-select-logo-modal.html',
                 //The edit controller is responsible for it
                 controller: 'personsEditCtrl',
                 size: "large",

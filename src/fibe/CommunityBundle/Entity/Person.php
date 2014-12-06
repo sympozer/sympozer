@@ -125,11 +125,13 @@ class Person extends AdditionalInformations
    * @ORM\JoinColumn(onDelete="CASCADE")
    */
   protected $invitedBy;
+
   /**
-   * @ORM\OneToMany(targetEntity="fibe\CommunityBundle\Entity\OrganizationVersion", mappedBy="organizationVersionOwner", cascade={"all"}, orphanRemoval=true)
+   * @ORM\OneToMany(targetEntity="fibe\CommunityBundle\Entity\Position", mappedBy="person", cascade={"all"}, orphanRemoval=true)
    * @Expose
    */
-  private $organizations;
+  private $positions;
+
   /**
    *  Persons invited by this person
    * @ORM\OneToMany(targetEntity="Person", mappedBy="invitedBy", cascade={"all"}, orphanRemoval=true)
@@ -143,7 +145,7 @@ class Person extends AdditionalInformations
   {
     $this->teammates = new ArrayCollection();
     $this->papers = new ArrayCollection();
-    $this->organizations = new ArrayCollection();
+    $this->positions = new ArrayCollection();
     $this->roles = new ArrayCollection();
     $this->accounts = new ArrayCollection();
     $this->mainEvents = new ArrayCollection();
@@ -440,57 +442,18 @@ class Person extends AdditionalInformations
   }
 
   /**
-   * Remove organization
+   * Remove position
    *
-   * @param OrganizationVersion $organization
+   * @param Position $position
    */
-  public function removeOrganization(OrganizationVersion $organization)
+  public function removeOrganization(Position $position)
   {
-//    echo $organization->getLabel();die;
-    $organization->setOrganizationVersionOwner(null);
-    $this->organizations->removeElement($organization);
+//    echo $position->getLabel();die;
+    $position->setPerson(null);
+    $this->positions->removeElement($position);
   }
 
-  /**
-   * Get organization
-   *
-   * @return \Doctrine\Common\Collections\Collection
-   */
-  public function getOrganizations()
-  {
-    return $this->organizations;
-  }
 
-  /**
-   * Set organizations
-   *
-   * @param ArrayCollection $organizations
-   * @return $this
-   */
-  public function setOrganizations(ArrayCollection $organizations)
-  {
-    $this->organizations->clear();
-    foreach ($organizations as $organization)
-    {
-      $this->addOrganization($organization);
-    }
-
-    return $this;
-  }
-
-  /**
-   * Add organization
-   *
-   * @param OrganizationVersion $organization
-   *
-   * @return $this
-   */
-  public function addOrganization(OrganizationVersion $organization)
-  {
-    $this->organizations[] = $organization;
-    $organization->setOrganizationVersionOwner($this);
-    return $this;
-  }
 
   /**
    * Add roles
@@ -702,4 +665,20 @@ class Person extends AdditionalInformations
   {
     $this->guests = $guests;
   }
+
+    /**
+     * @return mixed
+     */
+    public function getPositions()
+    {
+        return $this->positions;
+    }
+
+    /**
+     * @param mixed $positions
+     */
+    public function setPositions($positions)
+    {
+        $this->positions = $positions;
+    }
 }

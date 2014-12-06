@@ -110,7 +110,15 @@
     <label class="col-sm-3 control-label">{{ 'locations.links.locations' | translate }}</label>
     <div class="col-sm-6">
         <div sympozer-autocomplete="locations" on-select="addLocation" on-keyup="searchLocations"></div>
+        <ul class="nav nav-pills">
+            <li class="active" ng-show="event.location">
+                <a href="javascript:void(0)">
+                    {{ event.location.label }}
+                </a>
+            </li>
+        </ul>
     </div>
+
 </div>
 
 <h2>{{ 'papers.links.papers' | translate }}</h2>

@@ -31,7 +31,7 @@ angular.module('eventsApp').controller('eventsDeleteCtrl', [ '$scope', 'eventMod
 
         //If view is a modal, resolve modal promise with role object
         if($scope.$close){
-            $scope.$close($scope.role);
+            $scope.$close('ok');
         }else{
             $window.history.back();
         }
@@ -45,7 +45,7 @@ angular.module('eventsApp').controller('eventsDeleteCtrl', [ '$scope', 'eventMod
     //Send delete request
     $scope.delete = function ()
     {
-        eventsFact.delete($scope.role, success, error);
+        eventsFact.delete($scope.event, success, error);
     }
 }]);
 

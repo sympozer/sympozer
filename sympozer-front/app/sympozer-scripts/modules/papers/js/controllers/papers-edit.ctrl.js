@@ -5,25 +5,37 @@
  */
 
 angular.module('papersApp').controller('papersEditCtrl', [
-    '$scope', '$filter', 'GLOBAL_CONFIG', 'createDialog', '$rootScope', '$routeParams', '$location', 'papersFact', 'personsFact', 'topicsFact', '$modal',
-    function ($scope, $filter, GLOBAL_CONFIG, createDialogService, $rootScope, $routeParams, $location, papersFact, personsFact, topicsFact, $modal)
+    '$scope', '$filter', 'GLOBAL_CONFIG', '$window', '$rootScope', '$routeParams', '$location', 'papersFact', 'personsFact', 'topicsFact', '$modal', 'pinesNotifications', 'translateFilter',
+    function ($scope, $filter, GLOBAL_CONFIG, $window, $rootScope, $routeParams, $location, papersFact, personsFact, topicsFact, $modal, pinesNotifications, translateFilter)
     {
 
         $scope.paper = papersFact.get({id: $routeParams.paperId});
 
         var error = function (response, args)
         {
-            $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'papers.validations.not_created', type: 'danger'});
+            //Notify of the creation action error
+            pinesNotifications.notify({
+                title: translateFilter('global.validations.error'),
+                text: translateFilter('papers.validations.not_created'),
+                type: 'error'
+            });
         };
 
         var success = function (response, args)
         {
-            $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'papers.validations.created', type: 'success'});
-            $location.path('/conference/' + $rootScope.currentMainEvent.id + '/papers/list');
+            //Notify of the creation action success
+            pinesNotifications.notify({
+                title: translateFilter('global.validations.success'),
+                text: translateFilter('papers.validations.created'),
+                type: 'success'
+            });
+            $window.history.back();
         };
 
+        //Send put request to persist paper
         $scope.update = function (form)
         {
+            //verify form validity
             if (form.$valid)
             {
                 $scope.paper.$update({}, success, error);

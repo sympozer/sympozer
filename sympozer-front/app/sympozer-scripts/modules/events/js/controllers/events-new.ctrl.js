@@ -67,7 +67,7 @@ angular.module('eventsApp').controller('eventsNewCtrl', [ '$scope', '$window', '
 
             if (form.$valid && setDateRange())
             {
-                $scope.event.$create({}, success, error);
+                eventsFact.create( eventsFact.serialize($scope.event), success, error);
             }
         };
 

@@ -145,6 +145,14 @@ sympozerApp.controller('breadcrumbCtrl', ['$scope', '$rootScope', '$location', f
                                 {
                                     idUrl: 'new',
                                     label: 'events.actions.new'
+                                },
+                                {
+                                    idUrl: 'edit',
+                                    label: 'global.actions.edit'
+                                },
+                                {
+                                    idUrl: 'show',
+                                    label: 'global.actions.show'
                                 }
                             ]
                         },
@@ -184,6 +192,29 @@ sympozerApp.controller('breadcrumbCtrl', ['$scope', '$rootScope', '$location', f
                                 {
                                     idUrl: 'new',
                                     label: 'categories.actions.new'
+                                },
+                                {
+                                    idUrl: 'edit',
+                                    label: 'global.actions.edit'
+                                },
+                                {
+                                    idUrl: 'show',
+                                    label: 'global.actions.show'
+                                }
+                            ]
+                        },
+                        {
+                            idUrl: 'papers',
+                            label: 'papers.links.papers',
+                            url : '#/home/conference/'+$rootScope.currentMainEvent.id+'/papers/list',
+                            children: [
+                                {
+                                    idUrl: 'list',
+                                    label: 'global.labels.list'
+                                },
+                                {
+                                    idUrl: 'new',
+                                    label: 'papers.actions.new'
                                 },
                                 {
                                     idUrl: 'edit',

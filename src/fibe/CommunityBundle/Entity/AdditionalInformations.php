@@ -18,7 +18,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\HasLifecycleCallbacks
  * @ORM\DiscriminatorMap({
  *     "Organization"="Organization",
- *     "OrganizationVersion"="OrganizationVersion",
  *     "Person"="Person"
  * })
  * @ExclusionPolicy("all")

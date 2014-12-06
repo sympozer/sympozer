@@ -1,4 +1,4 @@
-<div ng-include="GLOBAL_CONFIG.app.modules.papers.urls.partials+'papers-actions.html'" ></div>
+
 <table class="table table-striped">
     <thead>
     <tr>
@@ -17,8 +17,8 @@
         <td>{{ paper.publisher }}</td>
         <td>{{ paper.publishDate }}</td>
         <td>
-            <a class="btn btn-warning" href="#conference/{{ paper.mainEvent.id }}/papers/edit/{{ paper.id }}" role="button"><i class="fa fa-edit fa-1x"></i></a>
-            <a class="btn btn-default" href="#conference/{{ paper.mainEvent.id }}/papers/show/{{ paper.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>
+            <a class="btn btn-warning" href="#/home/conference/{{ paper.mainEvent.id }}/papers/edit/{{ paper.id }}" role="button"><i class="fa fa-edit fa-1x"></i></a>
+            <a class="btn btn-default" href="#/home/conference/{{ paper.mainEvent.id }}/papers/show/{{ paper.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>
             <a class="btn btn-primary" href="" data-ng-click="clone(paper)" role="button"><i class="fa fa-files-o fa-1x"></i></a>
             <button class="btn btn-danger" data-ng-click="deleteModal($index, paper)" role="button">
                 <i class="fa fa-trash-o fa-1x"></i></button>

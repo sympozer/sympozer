@@ -26,17 +26,17 @@ class Organization extends AdditionalInformations
      * @ORM\OneToMany(targetEntity="fibe\ContentBundle\Entity\Sponsor", mappedBy="organization", cascade={"all"})
      */
     protected $sponsors;
-  /**
-   * @ORM\Column(type="string", length=256, nullable=true)
-   */
-  protected $slug;
+    /**
+     * @ORM\Column(type="string", length=256, nullable=true)
+     */
+    protected $slug;
     /**
      *
-     * @ORM\OneToMany(targetEntity="OrganizationVersion",  mappedBy="organization",cascade={"persist","remove"})
+     * @ORM\OneToMany(targetEntity="Position",  mappedBy="position",cascade={"persist","remove"})
      * @ORM\JoinColumn(onDelete="CASCADE")
      * @Expose
      */
-    private $organizationVersions;
+    private $positions;
 
     /**
      * Constructor
@@ -62,18 +62,18 @@ class Organization extends AdditionalInformations
      * @ORM\PostPersist()
      * @ORM\PreUpdate()
      */
-  public function onUpdate()
+    public function onUpdate()
     {
-      $this->slugify();
+        $this->slugify();
     }
 
     /**
      * Slugify
      * @ORM\PrePersist()
      */
-  public function slugify()
+    public function slugify()
     {
-      $this->setSlug(StringTools::slugify($this->getId() . $this->getLabel()));
+        $this->setSlug(StringTools::slugify($this->getId() . $this->getLabel()));
     }
 
     /**
@@ -81,9 +81,9 @@ class Organization extends AdditionalInformations
      *
      * @return string
      */
-  public function getLabel()
+    public function getLabel()
     {
-      return $this->label;
+        return $this->label;
     }
 
     /**
@@ -105,9 +105,9 @@ class Organization extends AdditionalInformations
      *
      * @return $this
      */
-  public function setSlug($slug)
-  {
-    $this->slug = $slug;
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
 
         return $this;
     }
@@ -119,11 +119,11 @@ class Organization extends AdditionalInformations
      *
      * @return $this
      */
-  public function setLabel($label)
+    public function setLabel($label)
     {
-      $this->label = $label;
+        $this->label = $label;
 
-      return $this;
+        return $this;
     }
 
     /**
@@ -145,17 +145,18 @@ class Organization extends AdditionalInformations
     /**
      * @return mixed
      */
-    public function getOrganizationVersions()
+    public function getPositions()
     {
-        return $this->organizationVersions;
+        return $this->positions;
     }
 
     /**
-     * @param mixed $organizationVersions
+     * @param mixed $positions
      */
-    public function setOrganizationVersions($organizationVersions)
+    public function setPositions($positions)
     {
-        $this->organizationVersions = $organizationVersions;
+        $this->positions = $positions;
     }
+
 
 }
