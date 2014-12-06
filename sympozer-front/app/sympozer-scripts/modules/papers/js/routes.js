@@ -11,37 +11,37 @@ angular.module('papersApp')
     {
       $routeProvider
         .when('/home/papers/index', {
-          templateUrl: globalConfig.app.modules.papers.urls.partials + 'papers-index.html',
+          templateUrl: globalConfig.app.modules.papers.urls.partials + 'pages/papers-index.html',
           controller: 'papersIndexCtrl'
         })
-        //.when('/papers/list', {
-        //  templateUrl: globalConfig.app.modules.papers.urls.communityPartials + 'papers-community-thumb.html',
-        //  controller: 'papersCommunityListCtrl'
-        //})
-        //.when('/papers/thumbnail', {
-        //  templateUrl: globalConfig.app.modules.papers.urls.partials + 'papers-thumbnail.html',
-        //  controller: 'papersListCtrl'
-        //})
-        //.when('/conference/:mainEventId/papers/list', {
-        //  templateUrl: globalConfig.app.modules.papers.urls.partials + 'papers-index.html',
-        //  controller: 'papersListCtrl'
-        //})
-        //.when('/conference/:mainEventId/papers/thumbnail', {
-        //  templateUrl: globalConfig.app.modules.papers.urls.partials + 'papers-thumbnail.html',
-        //  controller: 'papersListCtrl'
-        //})
-        //.when('/conference/:mainEventId/papers/new', {
-        //  templateUrl: globalConfig.app.modules.papers.urls.partials + 'papers-new.html',
-        //  controller: 'papersNewCtrl'
-        //})
-        //.when('/conference/:mainEventId/papers/edit/:paperId', {
-        //  templateUrl: globalConfig.app.modules.papers.urls.partials + 'papers-edit.html',
-        //  controller: 'papersEditCtrl'
-        //})
-        //.when('/conference/:mainEventId/papers/show/:paperId', {
-        //  templateUrl: globalConfig.app.modules.papers.urls.partials + 'papers-show.html',
-        //  controller: 'papersShowCtrl'
-        //})
+        .when('/home/papers/list', {
+          templateUrl: globalConfig.app.modules.papers.urls.communityPartials + 'papers-community-thumb.html',
+          controller: 'papersCommunityListCtrl'
+        })
+        .when('/home/papers/thumbnail', {
+          templateUrl: globalConfig.app.modules.papers.urls.partials + 'pages/papers-thumbnail.html',
+          controller: 'papersListCtrl'
+        })
+        .when('/home/conference/:mainEventId/papers/list', {
+          templateUrl: globalConfig.app.modules.papers.urls.partials + 'pages/papers-list.html',
+          controller: 'papersListCtrl'
+        })
+        .when('/home/conference/:mainEventId/papers/thumbnail', {
+          templateUrl: globalConfig.app.modules.papers.urls.partials + 'pages/papers-thumbnail.html',
+          controller: 'papersListCtrl'
+        })
+        .when('/home/conference/:mainEventId/papers/new', {
+          templateUrl: globalConfig.app.modules.papers.urls.partials + 'pages/papers-new.html',
+          controller: 'papersNewCtrl'
+        })
+        .when('/home/conference/:mainEventId/papers/edit/:paperId', {
+          templateUrl: globalConfig.app.modules.papers.urls.partials + 'pages/papers-edit.html',
+          controller: 'papersEditCtrl'
+        })
+        .when('/home/conference/:mainEventId/papers/show/:paperId', {
+          templateUrl: globalConfig.app.modules.papers.urls.partials + 'pages/papers-show.html',
+          controller: 'papersShowCtrl'
+        })
         .otherwise({
           redirectTo: '/home/papers/index'
         });

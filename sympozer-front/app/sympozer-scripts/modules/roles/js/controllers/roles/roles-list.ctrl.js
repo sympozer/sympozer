@@ -4,15 +4,15 @@
  * @type {controller}
  */
 angular.module('rolesApp').controller('rolesListCtrl', [
-    '$scope', 'roleLabelsFact', '$routeParams', 'GLOBAL_CONFIG', '$rootScope', 'rolesFact', '$cachedResource', '$modal', function ($scope, roleLabelsFact, $routeParams, GLOBAL_CONFIG, $rootScope, rolesFact, $cachedResource, $modal)
+    '$scope', 'roleLabelsFact', '$routeParams', 'GLOBAL_CONFIG', '$rootScope', 'rolesFact', '$cachedResource', '$modal', 'pinesNotifications', 'translateFilter', function ($scope, roleLabelsFact, $routeParams, GLOBAL_CONFIG, $rootScope, rolesFact, $cachedResource, $modal, pinesNotifications, translateFilter)
     {
         $scope.GLOBAL_CONFIG = GLOBAL_CONFIG;
         $scope.entities = [];
 
         $scope.filters = {};
 
-         roleLabelsFact.allByConference({'mainEventId': $routeParams.mainEventId}, function(response){
-             $scope.roleLabelVersions = response.results;
+        roleLabelsFact.allByConference({'mainEventId': $routeParams.mainEventId}, function(response){
+            $scope.roleLabelVersions = response.results;
         });
 
         $scope.request = rolesFact.allByConference;
@@ -29,14 +29,6 @@ angular.module('rolesApp').controller('rolesListCtrl', [
         }
 
 
-        $scope.reload = function ()
-        {
-            $scope.entities.$promise.then(function ()
-            {
-                console.log('From cache:', $scope.entities);
-            });
-        };
-
         $scope.clone = function (role)
         {
             var clonerole = angular.copy(role);
@@ -44,12 +36,22 @@ angular.module('rolesApp').controller('rolesListCtrl', [
 
             var error = function (response, args)
             {
-                $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'Clone not completed', type: 'danger'});
+                //Notify of the creation action error
+                pinesNotifications.notify({
+                    title: translateFilter('global.validations.error'),
+                    text: translateFilter('roles.validations.not_created'),
+                    type: 'error'
+                });
             };
 
             var success = function (response, args)
             {
-                $rootScope.$broadcast('AlertCtrl:addAlert', {code: 'role saved', type: 'success'});
+                //Notify of the creation action success
+                pinesNotifications.notify({
+                    title: translateFilter('global.validations.success'),
+                    text: translateFilter('roles.validations.created'),
+                    type: 'success'
+                });
                 $scope.entities.push(response);
             };
 
@@ -58,25 +60,25 @@ angular.module('rolesApp').controller('rolesListCtrl', [
 
 
 
-        $scope.deleteModal = function (index, role)
-        {
-            $scope.index = index;
-
-            var modalInstance = $modal.open({
-                templateUrl: GLOBAL_CONFIG.app.modules.roles.urls.partials + 'modals/roles-delete-modal.html',
-                controller: 'rolesDeleteCtrl',
-                size: "large",
-                resolve: {
-                   roleModel : function(){
-                        return role;
-                    }
-                }
-            });
-
-            modalInstance.resolve = function(){
-                $scope.entities.splice(index, 1);
-            }
-        }
+//        $scope.deleteModal = function (index, role)
+//        {
+//            $scope.index = index;
+//
+//            var modalInstance = $modal.open({
+//                templateUrl: GLOBAL_CONFIG.app.modules.roles.urls.partials + 'modals/roles-delete-modal.html',
+//                controller: 'rolesDeleteCtrl',
+//                size: "large",
+//                resolve: {
+//                   roleModel : function(){
+//                        return role;
+//                    }
+//                }
+//            });
+//
+//            modalInstance.resolve = function(){
+//                $scope.entities.splice(index, 1);
+//            }
+//        }
 
 
     }]);

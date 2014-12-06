@@ -99,7 +99,7 @@ sympozerApp.controller('navMainCtrl', ['$scope', '$rootScope', '$location', '$ti
                             {
                                 label: 'papers.links.papers',
                                 iconClasses: 'glyphicon glyphicon-book',
-                                url: '#/' /** @TODO FORZA : TO ALIMENT WITH THE PROPER URL**/
+                                url: '#/home/conference/'+$rootScope.currentMainEvent.id+'/papers/list'
                             }
                         ]
                     },

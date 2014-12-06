@@ -39,6 +39,7 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
             labels: {
                 or: 'Or',
                 on: 'on',
+                at: 'at',
                 search: {
                     displaying: 'Displaying results for',
                     no_result : 'No results.'
@@ -604,6 +605,7 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
             },
             labels: {
                 or: 'Ou',
+                at: 'à',
                 searchResult: 'Résultat pour',
                 search: {
                     displaying: 'Résultat pour',

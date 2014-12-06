@@ -161,13 +161,13 @@
 
                                                 <table class="table table-hover">
                                                     <tr>
-                                                        <td>
+                                                        <td style="width:30%">
                                                             <input type="text" class="form-control" ng-required ng-model="position.label" class="form-control" placeholder="CEO/developer...">
                                                         </td>
-                                                        <td>
-                                                            <span>@</span>
+                                                        <td style="width:10%">
+                                                            <span>{{'global.labels.at' | translate }}</span>
                                                         </td>
-                                                        <td>
+                                                        <td style="width:30%">
                                                             <div class="input-group">
                                                                 <input type="text" ng-required ng-model="position.organization" typeahead-template-url="organizations-typeahead.html" typeahead-on-select="select($item, $model)"  placeholder="{{ 'persons.actions.search' | translate }} ..." typeahead-wait-ms="500" typeahead="organization as organization.label  for organization in getOrganizations($viewValue)"  typeahead-loading="loading"  class="form-control">
                                                                 <i ng-show="loading" class="fa fa-spinner fa-spin"></i>
@@ -186,14 +186,27 @@
                                                     </tr>
 
                                                     <tr ng-repeat="position in person.positions track by $index">
-                                                        <td>
-                                                            <span>{{position.person.label}}</span>
+                                                        <td style="width:30%">
+                                                            <input type="text" class="form-control" ng-required ng-model="position.label" class="form-control" placeholder="CEO/developer...">
                                                         </td>
-                                                        <td>
-                                                            <span> @ </span>
+                                                        <td style="width:10%">
+                                                            <span>{{'global.labels.at' | translate }}</span>
                                                         </td>
-                                                        <td>
-                                                            <span>{{position.organization.label}}</span>
+                                                        <td style="width:30%">
+                                                            <div class="input-group">
+                                                                <input type="text" ng-required ng-model="position.organization" typeahead-template-url="organizations-typeahead.html" typeahead-on-select="select($item, $model)"  placeholder="{{ 'persons.actions.search' | translate }} ..." typeahead-wait-ms="500" typeahead="organization as organization.label  for organization in getOrganizations($viewValue)"  typeahead-loading="loading"  class="form-control">
+                                                                <i ng-show="loading" class="fa fa-spinner fa-spin"></i>
+                                                                <script type="text/ng-template" id="organizations-typeahead.html">
+                                                                    <div style="width:100%">
+                                                                        <span bind-html-unsafe="match.model.label | typeaheadHighlight:query"></span>
+                                                                    </div>
+                                                                </script>
+                                                                <!--<div sympozer-autocomplete="organizations" on-select="addOrganization" on-keyup="searchOrganizations"></div>-->
+
+                                                                <div class="input-group-btn">
+                                                                    <button ng-disabled="!position.organization || !position.label" ng-click="addPosition(position.label, position.organization)" type="button" class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
+                                                                </div>
+                                                            </div>
                                                         </td>
                                                     </tr>
 
