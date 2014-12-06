@@ -23,7 +23,7 @@ class RoleLabelType extends AbstractType
       ->add('label')
       ->add('description');
 //            ->add('mainEvent', 'sympozer_entity_type', array(
-//                'class' => 'fibeEventBundle:MainEvent',
+//                'type' => new MainEventType(),
 //                'required' => 'true',
 //            ));
 //            ->add('roles', 'collection', array(

@@ -10,29 +10,26 @@ class EventType extends VEventType
 
   protected $categoriesLevels;
 
-  public function __construct()
-  {
-  }
-
   /**
    * @param FormBuilderInterface $builder
    * @param array $options
    */
   public function buildForm(FormBuilderInterface $builder, array $options)
+
   {
     parent::buildForm($builder, $options);
     $builder
-      ->add('papers', 'sympozer_collection_type', array(
-        'class' => 'fibeContentBundle:Paper',
-        'required' => 'false'
-      ))
       ->add('category', 'sympozer_entity_type', array(
-        'class' => 'fibeEventBundle:CategoryVersion',
+        'type' => new CategoryVersionType(),
         'required' => 'true',
       ))
       ->add('mainEvent', 'sympozer_entity_type', array(
-        'class' => 'fibeEventBundle:MainEvent',
+        'type' => new MainEventType(),
         'required' => 'true',
+      ))
+      ->add('papers', 'sympozer_collection_type', array(
+        'class' => 'fibeContentBundle:Paper',
+        'required' => 'false'
       ))
       ->add('roles', 'sympozer_collection_type', array(
         'class' => 'fibeContentBundle:Role',

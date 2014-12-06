@@ -17,7 +17,7 @@ class CategoryVersionType extends AbstractType
       ->add('description')
       ->add('color')
       ->add('mainEvent', 'sympozer_entity_type', array(
-        'class' => 'fibeEventBundle:MainEvent',
+        'type' => new MainEventType(),
         'required' => 'true'
       ))
       ->add('events', 'sympozer_collection_type', array(
@@ -25,7 +25,7 @@ class CategoryVersionType extends AbstractType
         'required' => 'false'
       ))
       ->add('category', 'sympozer_entity_type', array(
-        'class' => 'fibeEventBundle:Category',
+        'type' => new CategoryType(),
         'required' => 'true'
       ));
 

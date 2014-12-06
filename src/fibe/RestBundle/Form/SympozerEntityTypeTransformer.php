@@ -52,28 +52,51 @@ class SympozerEntityTypeTransformer implements DataTransformerInterface
     {
       return null;
     }
-    $entityId = isset($input["id"]) ? $input["id"] : $input;
 
-    $output = $this->getEntity($this->options["class"], $entityId);
+    $entityId = isset($input["id"]) ? $input["id"] : (is_string($input) ? $input : null);
 
-    return $output;
+    /** @var \Symfony\Component\Form\FormTypeInterface $form */
+    $form = $this->options['type'];
+    $entityClassName = $this->getEntityClassName($form);
+
+    if (!$entityId)
+    {
+      $entity = new $entityClassName();
+      foreach ($input as $field => $value)
+      {
+        $setter = "set" . ucwords($field);
+        $entity->$setter($value);
+      }
+    }
+    else
+    {
+      $entity = $this->om
+        ->getRepository($entityClassName)
+        ->findOneBy(array('id' => $entityId));
+
+      if (null === $entity)
+      {
+        throw new InvalidArgumentException(sprintf(
+          'The entity "%s" with id %s cannot be found!',
+          $entityClassName,
+          $entityId
+        ));
+      }
+    }
+    return $entity;
   }
 
-  protected function getEntity($className, $id)
+  public function getEntityClassName()
   {
+    //transform fibe\ContentBundle\Form\LocationType
+    //       to fibe\ContentBundle\Entity\LocationType
+    $className = preg_replace('/\\\\Form\\\\/', '\\Entity\\', get_class($this->options['type']), 1);
 
-    $output = $this->om
-      ->getRepository($className)
-      ->findOneBy(array('id' => $id));
+    //transform fibe\ContentBundle\Entity\LocationType
+    //       to fibe\ContentBundle\Entity\Location
+    $className = preg_replace('/\\\\Form\\\\/', '\\Entity\\', get_class($this->options['type']), 1);
+    $className = substr($className, 0, count($className) - 5);
+    return $className;
 
-    if (null === $output)
-    {
-      throw new InvalidArgumentException(sprintf(
-        'The entity "%s" with id %s cannot be found!',
-        $this->options["class"],
-        $id
-      ));
-    }
-    return $output;
   }
 }

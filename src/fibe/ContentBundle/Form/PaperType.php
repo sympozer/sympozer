@@ -2,6 +2,7 @@
 
 namespace fibe\ContentBundle\Form;
 
+use fibe\EventBundle\Form\MainEventType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -27,7 +28,7 @@ class PaperType extends AbstractType
       ->add('publishDate', 'text', array('label' => 'Published date', 'required' => false))
       ->add('url')
       ->add('mainEvent', 'sympozer_entity_type', array(
-        'class' => 'fibeEventBundle:MainEvent',
+        'type' => new MainEventType(), ,
         'required' => 'true',
       ))
       ->add('authors', 'sympozer_collection_type', array(
