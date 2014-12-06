@@ -3,7 +3,7 @@
  *
  * @type {controller}
  */
-angular.module('papersApp').controller('papersListCtrl', ['$scope', '$routeParams', 'GLOBAL_CONFIG', '$rootScope', 'papersFact', '$cachedResource', 'pinesNotifications', 'translateFilter', function ($scope, $routeParams, GLOBAL_CONFIG, $rootScope, papersFact, $cachedResource, pinesNotifications, translateFilter)
+angular.module('papersApp').controller('papersListCtrl', ['$scope', '$routeParams', 'GLOBAL_CONFIG', '$rootScope', 'papersFact', '$cachedResource', 'pinesNotifications', 'translateFilter', '$modal', function ($scope, $routeParams, GLOBAL_CONFIG, $rootScope, papersFact, $cachedResource, pinesNotifications, translateFilter, $modal)
 {
 
     //Initialize papers list array
@@ -39,28 +39,35 @@ angular.module('papersApp').controller('papersListCtrl', ['$scope', '$routeParam
             });
             $scope.entities.push(response);
         };
+
+        //Send post request to server
         clonePaper.$create({}, success, error);
     };
 
 
-//    $scope.deleteModal = function (index, paper)
-//    {
-//        $scope.index = index;
-//
-//        createDialogService(GLOBAL_CONFIG.app.modules.papers.urls.partials + 'papers-delete.html', {
-//            id        : 'complexDialog',
-//            title     : 'paper deletion',
-//            backdrop  : true,
-//            controller: 'papersDeleteCtrl',
-//            success   : {label: 'Ok', fn: function ()
-//            {
-//                papersFact.delete({id: paper.id});
-//                $scope.entities.splice(index, 1);
-//            }}
-//        }, {
-//            paperModel: paper
-//        });
-//    }
+    //Handle remove a category from the list
+    $scope.deleteModal = function (index, paper)
+    {
+        //Store index of the object in the tab for further deletion
+        $scope.index = index;
+
+        //Open a new modal with delete template
+        var modalInstance = $modal.open({
+            templateUrl: GLOBAL_CONFIG.app.modules.papers.urls.partials + 'modals/papers-delete-modal.html',
+            controller: 'papersDeleteCtrl',
+            size: "large",
+            resolve: {
+                paperModel : function(){
+                    return paper;
+                }
+            }
+        });
+
+        //When modal instance promise is resolved with 'ok' then remove the paper from the list
+        modalInstance.resolve = function(paper){
+            $scope.entities.splice($scope.index, 1);
+        }
+    }
 
 
 }]);
