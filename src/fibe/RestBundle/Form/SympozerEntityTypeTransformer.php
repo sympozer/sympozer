@@ -6,31 +6,15 @@
 
 namespace fibe\RestBundle\Form;
 
-use Doctrine\Common\Persistence\ObjectManager;
-use Doctrine\Common\Proxy\Exception\InvalidArgumentException;
-use Symfony\Component\Form\DataTransformerInterface;
-use Symfony\Component\Form\Exception\TransformationFailedException;
 
-
-class SympozerEntityTypeTransformer implements DataTransformerInterface
+class SympozerEntityTypeTransformer extends AbstractSympozerTypeTransformer
 {
 
   /**
-   * @var ObjectManager
+   * transform model to view (entity to id)
+   * @param object $input
+   * @return string
    */
-  private $om;
-  private $options;
-
-  /**
-   * @param ObjectManager $om
-   * @param array $options
-   */
-  public function __construct(ObjectManager $om, array $options)
-  {
-    $this->om = $om;
-    $this->options = $options;
-  }
-
   public function transform($input)
   {
 //    echo "transform : entity";
@@ -43,37 +27,20 @@ class SympozerEntityTypeTransformer implements DataTransformerInterface
   }
 
   /**
-   * @throws TransformationFailedException if object is not found.
+   * transform view to model (array to entity)
+   * @param array $input
+   * @return object
    */
   public function reverseTransform($input)
   {
-
     if (!$input)
     {
       return null;
     }
-    $entityId = isset($input["id"]) ? $input["id"] : $input;
 
-    $output = $this->getEntity($this->options["class"], $entityId);
+    $formType = $this->options['type'];
 
-    return $output;
-  }
-
-  protected function getEntity($className, $id)
-  {
-
-    $output = $this->om
-      ->getRepository($className)
-      ->findOneBy(array('id' => $id));
-
-    if (null === $output)
-    {
-      throw new InvalidArgumentException(sprintf(
-        'The entity "%s" with id %s cannot be found!',
-        $this->options["class"],
-        $id
-      ));
-    }
-    return $output;
+    $entity = $this->getOrCreateEntityFromArray($input, $formType);
+    return $entity;
   }
 }

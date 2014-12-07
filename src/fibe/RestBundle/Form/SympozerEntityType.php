@@ -30,10 +30,10 @@ class SympozerEntityType extends AbstractType
   public function setDefaultOptions(OptionsResolverInterface $resolver)
   {
     $resolver->setDefaults(array(
-      'required' => true,
+      'required' => true
     ));
     $resolver->setRequired(array(
-      'class',
+      'type'
     ));
   }
 

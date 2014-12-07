@@ -2,11 +2,11 @@
 
 namespace fibe\SecurityBundle\Form;
 
-use fibe\CommunityBundle\Form\PersonType;
+use fibe\EventBundle\Form\MainEventType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class TeammateType extends AbstractType
+class TeamType extends AbstractType
 {
 
   /**
@@ -17,12 +17,11 @@ class TeammateType extends AbstractType
   {
     $builder
       ->add('id')
-      ->add('person', 'sympozer_entity_type', array(
-        'type' => new PersonType(),
-        'required' => 'true',
+      ->add('mainEvent', 'sympozer_entity_type', array(
+        'type' => new MainEventType(),
       ))
-      ->add('team', 'sympozer_entity_type', array(
-        'type' => new TeamType(),
+      ->add('team', 'sympozer_collection_type', array(
+        'type' => new TeammateType(),
         'required' => 'true',
       ));
   }

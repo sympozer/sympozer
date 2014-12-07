@@ -2,6 +2,7 @@
 
 namespace fibe\ContentBundle\Form;
 
+use fibe\EventBundle\Form\MainEventType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
@@ -22,10 +23,10 @@ class LocationType extends LocalizationType
       ->add('description')
       ->add('accesibility')
       ->add('mainEvent', 'sympozer_entity_type', array(
-        'class' => 'fibeEventBundle:MainEvent',
+        'type' => new MainEventType(),
       ))
       ->add('equipments', 'sympozer_entity_type', array(
-        'class' => 'fibeContentBundle:Equipment',
+        'type' => new EquipmentType(),
         'required' => 'false',
       ))
       ->add('events', 'sympozer_collection_type', array(

@@ -8,7 +8,7 @@
 angular.module('rolesApp').factory('rolesFact', ['$resource', function ($resource)
 {
     //Declare new resource object with crud functions
-    return $resource(
+    var resource = $resource(
         globalConfig.api.urls.get_roles,
         {},
         {
@@ -21,25 +21,21 @@ angular.module('rolesApp').factory('rolesFact', ['$resource', function ($resourc
 
         }
     );
-}]);
-
-
-angular.module('rolesApp').factory('rolesSerializer', ['$resource', function ($resource)
-{
 
     //Construct a DTO object to send to server (Data Transfert Object)
-    return function (object)
+    resource.serialize = function (object)
     {
-        return object; //test embedded entities persist
-        return {
+        return object; //embedded entities test
+        var DTObject = {
             'id' : object.id,
             'event' : object.event ? object.event.id : null,
             'person' : object.person.id,
             'roleLabelVersions': object.roleLabelVersion.id
-        }
+        };
 
         //create the new resource object from DTObject
-        return new $resource(DTObject);
-    }
-}]);
+        return new resource(DTObject);
+    };
 
+    return resource;
+}]);

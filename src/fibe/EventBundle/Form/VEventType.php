@@ -2,6 +2,7 @@
 
 namespace fibe\EventBundle\Form;
 
+use fibe\ContentBundle\Form\LocationType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -44,7 +45,7 @@ class VEventType extends AbstractType
         'required' => 'false'
       ))
       ->add('location', 'sympozer_entity_type', array(
-        'class' => 'fibeContentBundle:Location',
+        'type' => new LocationType(),
         'required' => 'true',
       ));
   }
