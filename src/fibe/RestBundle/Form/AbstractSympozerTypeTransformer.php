@@ -23,16 +23,16 @@ abstract class AbstractSympozerTypeTransformer implements DataTransformerInterfa
   protected $options;
 
   /**
-   * @param ObjectManager $em
+   * @param EntityManagerInterface $em
    * @param array $options
    */
-  public function __construct(entityManagerInterface $em, array $options)
+  public function __construct(EntityManagerInterface $em, array $options)
   {
     $this->em = $em;
     $this->options = $options;
   }
 
-  function getOrCreateEntity(array $input, FormTypeInterface $formType)
+  function getOrCreateEntityFromArray(array $input, FormTypeInterface $formType)
   {
     //    extract entity id from the form input
     $entityId = isset($input["id"]) ? $input["id"] : (is_string($input) ? $input : null);

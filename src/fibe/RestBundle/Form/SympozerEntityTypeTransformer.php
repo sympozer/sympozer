@@ -27,7 +27,7 @@ class SympozerEntityTypeTransformer extends AbstractSympozerTypeTransformer
   }
 
   /**
-   * transform view to (array to entity)
+   * transform view to model (array to entity)
    * @param array $input
    * @return object
    */
@@ -40,7 +40,7 @@ class SympozerEntityTypeTransformer extends AbstractSympozerTypeTransformer
 
     $formType = $this->options['type'];
 
-    $entity = $this->getOrCreateEntity($input, $formType);
+    $entity = $this->getOrCreateEntityFromArray($input, $formType);
     return $entity;
   }
 }
