@@ -7,6 +7,8 @@
 namespace fibe\RestBundle\Form;
 
 
+use Symfony\Component\Form\Exception\TransformationFailedException;
+
 class SympozerCollectionTypeTransformer extends AbstractSympozerTypeTransformer
 {
   /**
@@ -48,22 +50,27 @@ class SympozerCollectionTypeTransformer extends AbstractSympozerTypeTransformer
     $output = array();
     foreach ($input as $detachedEntity)
     {
+      if (!is_object($detachedEntity))
+      {
+        \Doctrine\Common\Util\Debug::dump($input);
+        throw new TransformationFailedException("NULL ENTITY");
+      }
       $output[] = $detachedEntity;
 
       $entityId = $detachedEntity->getId();
 
       // throw new \Exception(\Doctrine\Common\Util\Debug::dump($input));
-      // TODO fix this
-      // TODO fix this
-      // TODO fix this
-      if (!$entityId)
-      {
-        $this->em->persist($detachedEntity);
-      }
-      else
-      {
-        $this->em->merge($detachedEntity);
-      }
+      // TODO fix this ?
+      // TODO fix this ?
+      // TODO fix this ?
+//      if (!$entityId)
+//      {
+//        $this->em->persist($detachedEntity);
+//      }
+//      else
+//      {
+//        $this->em->merge($detachedEntity);
+//      }
     }
     return new \Doctrine\Common\Collections\ArrayCollection($output);
   }

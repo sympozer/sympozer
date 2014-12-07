@@ -442,17 +442,40 @@ class Person extends AdditionalInformations
   }
 
   /**
-   * Remove position
+   * Add position
+   *
+   * @param Position $position
+   *
+   * @return User
+   */
+  public function addPosition(Position $position)
+  {
+    $this->positions[] = $position;
+
+    $position->setPerson($this);
+
+    return $this;
+  }
+
+  /**
+   * Remove positions
    *
    * @param Position $position
    */
-  public function removeOrganization(Position $position)
+  public function removePosition(Position $position)
   {
-//    echo $position->getLabel();die;
-    $position->setPerson(null);
     $this->positions->removeElement($position);
   }
 
+  /**
+   * Get positions
+   *
+   * @return \Doctrine\Common\Collections\Collection
+   */
+  public function getPositions()
+  {
+    return $this->positions;
+  }
 
 
   /**
@@ -665,20 +688,4 @@ class Person extends AdditionalInformations
   {
     $this->guests = $guests;
   }
-
-    /**
-     * @return mixed
-     */
-    public function getPositions()
-    {
-        return $this->positions;
-    }
-
-    /**
-     * @param mixed $positions
-     */
-    public function setPositions($positions)
-    {
-        $this->positions = $positions;
-    }
 }

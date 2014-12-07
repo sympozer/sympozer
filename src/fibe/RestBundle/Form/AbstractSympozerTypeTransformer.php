@@ -6,18 +6,16 @@
 
 namespace fibe\RestBundle\Form;
 
-use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityNotFoundException;
 use Symfony\Component\Form\DataTransformerInterface;
-use Symfony\Component\Form\FormTypeInterface;
 
 
 abstract class AbstractSympozerTypeTransformer implements DataTransformerInterface
 {
 
   /**
-   * @var ObjectManager
+   * @var EntityManagerInterface
    */
   protected $em;
   protected $options;
@@ -32,20 +30,14 @@ abstract class AbstractSympozerTypeTransformer implements DataTransformerInterfa
     $this->options = $options;
   }
 
-  function getOrCreateEntityFromArray(array $input, FormTypeInterface $formType)
+  function getOrCreateEntity($input, $entityClassName)
   {
-    //    extract entity id from the form input
+    //extract entity id from the form input
     $entityId = isset($input["id"]) ? $input["id"] : (is_string($input) ? $input : null);
-    $entityClassName = $this->getEntityClassName($formType);
 
     if (!$entityId)
     {
       $entity = new $entityClassName();
-      foreach ($input as $field => $value)
-      {
-        $setter = "set" . ucwords($field);
-        $entity->$setter($value);
-      }
     }
     else
     {
@@ -53,10 +45,25 @@ abstract class AbstractSympozerTypeTransformer implements DataTransformerInterfa
         ->getRepository($entityClassName)
         ->findOneBy(array('id' => $entityId));
     }
+
     if (null === $entity)
     {
-      throw new EntityNotFoundException(get_class($entityClassName));
+      throw new EntityNotFoundException($entityClassName);
     }
+
+    if (is_array($input))
+    {
+      foreach ($input as $field => $value)
+      {
+        $setter = "set" . ucwords($field);
+        $entity->$setter($value);
+      }
+    }
+//    else
+//    {
+//      $entity->setId($input);
+//
+//    }
     return $entity;
   }
 

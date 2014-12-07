@@ -15,13 +15,14 @@ class OrganizationType extends AdditionalInformationsType
    */
   public function buildForm(FormBuilderInterface $builder, array $options)
   {
-    parent::buildForm($builder, $options);
+//    parent::buildForm($builder, $options);
     $builder
       ->add('label')
-      ->add('sponsors', 'sympozer_collection_type', array(
-        'class' => 'fibeContentBundle:Sponsor',
-        'required' => 'false',
-      ));
+//      ->add('sponsors', 'sympozer_collection_type', array(
+//        'class' => 'fibeContentBundle:Sponsor',
+//        'required' => 'false',
+//      ))
+    ;
   }
 
   /**

@@ -37,10 +37,23 @@ class SympozerEntityTypeTransformer extends AbstractSympozerTypeTransformer
     {
       return null;
     }
-
     $formType = $this->options['type'];
 
-    $entity = $this->getOrCreateEntityFromArray($input, $formType);
+    $entityClassName = $this->getEntityClassName($formType);
+    $entity = $this->getOrCreateEntity($input, $entityClassName);
+
+    if (null == $id = $entity->getId())
+    {
+      $this->em->persist($entity);
+    }
+    else
+    {
+      $this->em->merge($entity);
+    }
+
+//    echo "reverseTransform : entity";
+//    throw new \Exception(\Doctrine\Common\Util\Debug::dump($entity));
+
     return $entity;
   }
 }

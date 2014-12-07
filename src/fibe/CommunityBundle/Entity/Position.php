@@ -25,8 +25,6 @@ class Position
      */
     private $id;
 
-
-
     /**
      * label
      * @ORM\Column(type="string", name="label", nullable=false)
@@ -52,8 +50,8 @@ class Position
     private $person;
 
     /**
-     * @ORM\ManyToOne(targetEntity="fibe\CommunityBundle\Entity\Organization", inversedBy="members")
-     * @Expose
+     * @ORM\ManyToOne(targetEntity="fibe\CommunityBundle\Entity\Organization", inversedBy="positions")
+     * @Assert\NotBlank(message="You have to choose an Organization")
      */
     private $organization;
 
@@ -98,9 +96,39 @@ class Position
         return $this;
     }
 
+  /**
+   * @return mixed
+   */
+  public function getPosition()
+  {
+    return $this->position;
+  }
 
+  /**
+   * @param mixed $position
+   */
+  public function setPosition($position)
+  {
+    $this->position = $position;
+  }
 
     /**
+     * @return mixed
+     */
+  public function getOrganization()
+  {
+    return $this->organization;
+  }
+
+  /**
+   * @param mixed $organization
+   */
+  public function setOrganization($organization)
+  {
+    $this->organization = $organization;
+  }
+
+  /**
      * Get type
      *
      * @return String
@@ -128,7 +156,8 @@ class Position
     {
         return $this->label;
     }
-    /**
+
+  /**
      * @return mixed
      */
     public function getId()
@@ -142,37 +171,5 @@ class Position
     public function setId($id)
     {
         $this->id = $id;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getOrganization()
-    {
-        return $this->organization;
-    }
-
-    /**
-     * @param mixed $organization
-     */
-    public function setOrganization($organization)
-    {
-        $this->organization = $organization;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getPosition()
-    {
-        return $this->position;
-    }
-
-    /**
-     * @param mixed $position
-     */
-    public function setPosition($position)
-    {
-        $this->position = $position;
     }
 }

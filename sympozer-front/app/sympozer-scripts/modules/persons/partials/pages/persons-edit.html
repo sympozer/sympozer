@@ -162,7 +162,7 @@
                                                 <table class="table table-hover">
                                                     <tr>
                                                         <td style="width:30%">
-                                                            <input type="text" class="form-control" ng-required ng-model="position.label" class="form-control" placeholder="CEO/developer...">
+                                                          <input type="text" class="form-control" ng-required ng-model="position.position" class="form-control" placeholder="CEO/developer...">
                                                         </td>
                                                         <td style="width:10%">
                                                             <span>{{'global.labels.at' | translate }}</span>
@@ -179,7 +179,8 @@
                                                                 <!--<div sympozer-autocomplete="organizations" on-select="addOrganization" on-keyup="searchOrganizations"></div>-->
 
                                                                 <div class="input-group-btn">
-                                                                    <button ng-disabled="!position.organization || !position.label" ng-click="addPosition(position.label, position.organization)" type="button" class="btn btn-success"><i class="fa fa-plus"></i></button>
+                                                                  <button ng-disabled="!position.organization || !position.position" ng-click="addPosition(position)" type="button" class="btn btn-success">
+                                                                    <i class="fa fa-plus"></i></button>
                                                                 </div>
                                                             </div>
                                                         </td>
@@ -187,15 +188,15 @@
 
                                                     <tr ng-repeat="position in person.positions track by $index">
                                                         <td style="width:30%">
-                                                            <input type="text" class="form-control" ng-required ng-model="position.label" class="form-control" placeholder="CEO/developer...">
+                                                          <input type="text" class="form-control" ng-required ng-model="position.position" class="form-control" placeholder="CEO/developer...">
                                                         </td>
                                                         <td style="width:10%">
                                                             <span>{{'global.labels.at' | translate }}</span>
                                                         </td>
                                                         <td style="width:30%">
                                                             <div class="input-group">
-                                                                <input type="text" ng-required ng-model="position.organization" typeahead-template-url="organizations-typeahead.html" typeahead-on-select="select($item, $model)"  placeholder="{{ 'persons.actions.search' | translate }} ..." typeahead-wait-ms="500" typeahead="organization as organization.label  for organization in getOrganizations($viewValue)"  typeahead-loading="loading"  class="form-control">
-                                                                <i ng-show="loading" class="fa fa-spinner fa-spin"></i>
+                                                              <input type="text" ng-required ng-model="position.organization.label" typeahead-template-url="organizations-typeahead.html" typeahead-on-select="select($item, $model)" placeholder="{{ 'organizations.actions.search' | translate }} ..." typeahead-wait-ms="500" typeahead="organization for organization in getOrganizations($viewValue)" typeahead-loading="loading" class="form-control">
+                                                              <i ng-show="loading" class="fa fa-spinner fa-spin"></i>
                                                                 <script type="text/ng-template" id="organizations-typeahead.html">
                                                                     <div style="width:100%">
                                                                         <span bind-html-unsafe="match.model.label | typeaheadHighlight:query"></span>
@@ -204,7 +205,8 @@
                                                                 <!--<div sympozer-autocomplete="organizations" on-select="addOrganization" on-keyup="searchOrganizations"></div>-->
 
                                                                 <div class="input-group-btn">
-                                                                    <button ng-disabled="!position.organization || !position.label" ng-click="addPosition(position.label, position.organization)" type="button" class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
+                                                                  <button ng-disabled="!position.organization.label || !position.position" ng-click="addPosition(position, false)" type="button" class="btn btn-danger">
+                                                                    <i class="fa fa-trash-o"></i></button>
                                                                 </div>
                                                             </div>
                                                         </td>
