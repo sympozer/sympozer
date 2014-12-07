@@ -2,8 +2,6 @@
 
 namespace fibe\CommunityBundle\Form;
 
-use fibe\ContentBundle\Entity\Localization;
-use fibe\ContentBundle\Form\LocalizationType;
 use fibe\RestBundle\Form\PatchSubscriber;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -26,27 +24,22 @@ class PersonType extends AdditionalInformationsType
       ->add('firstName')
       ->add('familyName')
       ->add('email', 'email')
-      ->add('positions', 'entity', array(
-        'class' => 'fibeCommunityBundle:Position',
-        'required' => false,
-        'multiple' => true,
-        'by_reference' => false,
+      ->add('positions', 'sympozer_collection_type', array(
+        'type' => new PositionType(),
+        'required' => false
       ))
-      ->add('papers', 'entity', array(
-        'class' => 'fibeContentBundle:Paper',
-        'required' => false,
-        'multiple' => true
-      ))
-      ->add('roles', 'entity', array(
-        'class' => 'fibeContentBundle:Role',
-        'required' => false,
-        'multiple' => true
-      ))
-      ->add('teammates', 'entity', array(
-        'class' => 'fibeSecurityBundle:Teammate',
-        'required' => false,
-        'multiple' => true
-      ))
+//      ->add('papers', 'sympozer_collection_type', array(
+//        'class' => new PaperType(),
+//        'required' => false
+//      ))
+//      ->add('roles', 'sympozer_collection_type', array(
+//        'class' => new RoleType(),
+//        'required' => false
+//      ))
+//      ->add('teammates', 'sympozer_collection_type', array(
+//        'class' => new TeammateType(),
+//        'required' => false
+//      ))
 //      ->add('firstName', 'text', array('label' => "First name"))
 //      ->add('familyName', 'text', array('label' => "Family Name"))
 //      ->add('email', 'text', array('required' => false))
@@ -61,7 +54,6 @@ class PersonType extends AdditionalInformationsType
 //        'label'    => 'Organizations',
 //        'choices'  => $this->user->getCurrentMainEvent()->getOrganizations()->toArray(),
 //        'required' => false,
-//        'multiple' => true
 //      ))
 //      ->add('papers', 'entity', array(
 //        'class'    => 'fibeCommunityBundle:Paper',
@@ -73,7 +65,7 @@ class PersonType extends AdditionalInformationsType
 //      ->add('accounts', 'collection', array('type'         => new SocialServiceAccountType(),
 //                                            'allow_add'    => true,
 //                                            'allow_delete' => true))
-    ; // your logic here ...
+    ;
   }
 
   /**

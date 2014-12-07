@@ -28,7 +28,7 @@ class PaperType extends AbstractType
       ->add('publishDate', 'text', array('label' => 'Published date', 'required' => false))
       ->add('url')
       ->add('mainEvent', 'sympozer_entity_type', array(
-        'type' => new MainEventType(), ,
+        'type' => new MainEventType(),
         'required' => 'true',
       ))
       ->add('authors', 'sympozer_collection_type', array(

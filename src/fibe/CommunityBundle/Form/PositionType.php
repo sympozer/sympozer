@@ -6,7 +6,7 @@ namespace fibe\CommunityBundle\Form;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class OrganizationVersionType extends AdditionalInformationsType
+class PositionType extends AdditionalInformationsType
 {
 
     /**
@@ -47,7 +47,7 @@ class OrganizationVersionType extends AdditionalInformationsType
      */
     public function getName()
     {
-        return 'fibe_bundle_communitybundle_organizationversion';
+      return 'fibe_bundle_communitybundle_position';
     }
 
 }

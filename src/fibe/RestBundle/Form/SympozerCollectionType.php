@@ -6,7 +6,6 @@
 namespace fibe\RestBundle\Form;
 
 use Doctrine\ORM\EntityManager;
-use JMS\Serializer\SerializerInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -15,23 +14,16 @@ class SympozerCollectionType extends AbstractType
 {
 
   protected $em;
-  protected $serializer;
 
-  function __construct(EntityManager $em, SerializerInterface $serializer)
+  function __construct(EntityManager $em)
   {
     $this->em = $em;
-    $this->serializer = $serializer;
   }
 
   public function buildForm(FormBuilderInterface $builder, array $options)
   {
 //    parent::buildForm($builder,$options);
-    $transformer = new SympozerCollectionTypeTransformer($this->em, $this->serializer, $options['class']);
-
-//    $builder->add(
-//      $builder->create('location')
-//        ->addModelTransformer($transformer)
-//    );
+    $transformer = new SympozerCollectionTypeTransformer($this->em, $options);
     $builder->addModelTransformer($transformer);
   }
 
@@ -39,12 +31,11 @@ class SympozerCollectionType extends AbstractType
   {
     $resolver->setDefaults(array(
       'required' => false,
-//      'data_class' => null,
       'allow_add' => true,
       'allow_delete' => true,
     ));
     $resolver->setRequired(array(
-      'class',
+      'type',
     ));
   }
 

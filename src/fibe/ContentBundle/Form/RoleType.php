@@ -38,7 +38,7 @@ class RoleType extends AbstractType
         'required' => 'false'
       ))
       ->add('mainEvent', 'sympozer_entity_type', array(
-        'type' => new MainEventType(), ,
+        'type' => new MainEventType(),
         'required' => 'true'
       ));
   }
