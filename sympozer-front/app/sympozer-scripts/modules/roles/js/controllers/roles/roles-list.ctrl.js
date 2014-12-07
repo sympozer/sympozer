@@ -6,18 +6,25 @@
 angular.module('rolesApp').controller('rolesListCtrl', [
     '$scope', 'roleLabelsFact', '$routeParams', 'GLOBAL_CONFIG', '$rootScope', 'rolesFact', '$cachedResource', '$modal', 'pinesNotifications', 'translateFilter', function ($scope, roleLabelsFact, $routeParams, GLOBAL_CONFIG, $rootScope, rolesFact, $cachedResource, $modal, pinesNotifications, translateFilter)
     {
-        $scope.GLOBAL_CONFIG = GLOBAL_CONFIG;
+
+        //prepare array with role list (managed by entity-list-handler)
         $scope.entities = [];
 
+        //Prepare filters
         $scope.filters = {};
+
 
         roleLabelsFact.allByConference({'mainEventId': $routeParams.mainEventId}, function(response){
             $scope.roleLabelVersions = response.results;
         });
 
+        //Request to trigger when loading a new page or more data (with infinite-scroll)
         $scope.request = rolesFact.allByConference;
+
+
         $scope.filters.roleLabelVersionIds = [];
 
+        //Filter role list by rolelabel
         $scope.addRoleLabelsFilter= function(roleLabelVersionId){
             var roleLabelVersionIndex = $scope.filters.roleLabelVersionIds.indexOf(roleLabelVersionId)
             if( roleLabelVersionIndex == -1){
