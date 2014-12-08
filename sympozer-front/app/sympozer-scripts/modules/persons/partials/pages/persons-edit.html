@@ -88,205 +88,216 @@
 <!--</div>-->
 
 
-
-
-
 <div id="page-heading">
 
-    <div ng-include="GLOBAL_CONFIG.app.urls.partials+'navigation/breadcrumb.html'"></div>
+  <div ng-include="GLOBAL_CONFIG.app.urls.partials+'navigation/breadcrumb.html'"></div>
 
-    <h1>{{'authentication.labels.profile' | translate }}</h1>
+  <h1>{{'authentication.labels.profile' | translate }}</h1>
 
-    <div class="options">
-        <div class="btn-toolbar">
-            <a class="btn btn-info" href="#/home/persons/show/{{person.id}}" role="button">
-                <i class="fa fa-eye fa-1x"></i> {{ 'persons.actions.view_profile' | translate}}
-            </a>
-        </div>
+  <div class="options">
+    <div class="btn-toolbar">
+      <a class="btn btn-info" href="#/home/persons/show/{{person.id}}" role="button">
+        <i class="fa fa-eye fa-1x"></i> {{ 'persons.actions.view_profile' | translate}}
+      </a>
     </div>
+  </div>
 </div>
 <div class="container-fluid">
 
-    <div class="row">
-        <div class="col-md-12">
-            <div class="panel">
-                <div class="panel-body">
-                    <panel panel-class="panel panel-gray"  heading="{{person.firstName || '???'}} {{person.familyName || '???'}}">
-                        <div class="row">
-                            <div  ng-click="showImgModal()" class="col-xs-5 col-sm-4 col-md-3 col-lg-2">
-                                <div class="caption-img" ng-mouseleave="showImgCaption=false" ng-show="showImgCaption">
-                                    <i class="fa fa-plus-circle fa-3x"></i>
-                                    <p>{{'persons.actions.add_picture' | translate }}</p>
-                                </div>
-                                <img ng-mouseenter="showImgCaption=true" no-image ng-src="{{ person.img }}" alt="" class="pull-left img-responsive img-circle" style="margin: 0 20px 20px 0">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="panel">
+        <div class="panel-body">
+          <panel panel-class="panel panel-gray" heading="{{person.firstName || '???'}} {{person.familyName || '???'}}">
+            <div class="row">
+              <div ng-click="showImgModal()" class="col-xs-5 col-sm-4 col-md-3 col-lg-2">
+                <div class="caption-img" ng-mouseleave="showImgCaption=false" ng-show="showImgCaption">
+                  <i class="fa fa-plus-circle fa-3x"></i>
 
-                            </div>
-                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-10">
-                                <h3>{{'persons.labels.about' | translate }}</h3>
-                                <a href="#" e-placeholder="{{ 'persons.model.description' | translate}}" onbeforesave="updatePerson('description', $data)" editable-textarea="person.description" e-rows="6" e-cols="70">
-                                    <pre>{{person.description || '?'}}</pre>
-                                </a>
-                            </div>
-                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                <div class="table-responsive">
-                                    <table class="table table-condensed">
-                                        <tbody>
-                                        <tr>
-                                            <td>{{'persons.model.firstname' | translate }}</td>
-                                            <td><span editable-text="person.firstName" onbeforesave="updatePerson('firstName', $data)">{{person.firstName || '?'}}</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>{{'persons.model.familyname' | translate }}</td>
-                                            <td><span editable-text="person.familyName" onbeforesave="updatePerson('familyName', $data)">{{person.familyName || '?'}}</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>{{'persons.model.localization' | translate }}</td>
-                                            <td><span>{{person.country}}</span>
-                                                <input google-place-autocomplete="" type="text" class="form-control"  on-select="setLocalization" ng-model="person.localization.label" /></td>
-                                        </tr>
-                                        <tr>
-                                            <td>{{'persons.model.website' | translate }}</td>
-                                            <td><span editable-url="person.website" e-placeholder="http://" onbeforesave="updatePerson('website', $data)">{{person.website || '?'}}</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>{{'persons.model.email' | translate }}</td>
-                                            <td><span editable-email="person.email" onbeforesave="updatePerson('email', $data)">{{person.email || '?'}}</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <span>{{ 'organizations.links.organizations' | translate}}</span>
-                                            </td>
-                                            <td>
-                                                <!-- table -->
-
-                                                <table class="table table-hover">
-                                                    <tr>
-                                                        <td style="width:30%">
-                                                          <input type="text" class="form-control" ng-required ng-model="position.position" class="form-control" placeholder="CEO/developer...">
-                                                        </td>
-                                                        <td style="width:10%">
-                                                            <span>{{'global.labels.at' | translate }}</span>
-                                                        </td>
-                                                        <td style="width:30%">
-                                                            <div class="input-group">
-                                                                <input type="text" ng-required ng-model="position.organization" typeahead-template-url="organizations-typeahead.html" typeahead-on-select="select($item, $model)"  placeholder="{{ 'persons.actions.search' | translate }} ..." typeahead-wait-ms="500" typeahead="organization as organization.label  for organization in getOrganizations($viewValue)"  typeahead-loading="loading"  class="form-control">
-                                                                <i ng-show="loading" class="fa fa-spinner fa-spin"></i>
-                                                                <script type="text/ng-template" id="organizations-typeahead.html">
-                                                                    <div style="width:100%">
-                                                                        <span bind-html-unsafe="match.model.label | typeaheadHighlight:query"></span>
-                                                                    </div>
-                                                                </script>
-                                                                <!--<div sympozer-autocomplete="organizations" on-select="addOrganization" on-keyup="searchOrganizations"></div>-->
-
-                                                                <div class="input-group-btn">
-                                                                  <button ng-disabled="!position.organization || !position.position" ng-click="addPosition(position)" type="button" class="btn btn-success">
-                                                                    <i class="fa fa-plus"></i></button>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-
-                                                    <tr ng-repeat="position in person.positions track by $index">
-                                                        <td style="width:30%">
-                                                          <input type="text" class="form-control" ng-required ng-model="position.position" class="form-control" placeholder="CEO/developer...">
-                                                        </td>
-                                                        <td style="width:10%">
-                                                            <span>{{'global.labels.at' | translate }}</span>
-                                                        </td>
-                                                        <td style="width:30%">
-                                                            <div class="input-group">
-                                                              <input type="text" ng-required ng-model="position.organization.label" typeahead-template-url="organizations-typeahead.html" typeahead-on-select="select($item, $model)" placeholder="{{ 'organizations.actions.search' | translate }} ..." typeahead-wait-ms="500" typeahead="organization for organization in getOrganizations($viewValue)" typeahead-loading="loading" class="form-control">
-                                                              <i ng-show="loading" class="fa fa-spinner fa-spin"></i>
-                                                                <script type="text/ng-template" id="organizations-typeahead.html">
-                                                                    <div style="width:100%">
-                                                                        <span bind-html-unsafe="match.model.label | typeaheadHighlight:query"></span>
-                                                                    </div>
-                                                                </script>
-                                                                <!--<div sympozer-autocomplete="organizations" on-select="addOrganization" on-keyup="searchOrganizations"></div>-->
-
-                                                                <div class="input-group-btn">
-                                                                  <button ng-disabled="!position.organization.label || !position.position" ng-click="addPosition(position, false)" type="button" class="btn btn-danger">
-                                                                    <i class="fa fa-trash-o"></i></button>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-
-                                                </table>
-
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td><i class="fa fa-twitter"></i></td>
-                                            <td>
-                                                <!--<a href="#" class="btn btn-xs"><i class="fa fa-skype"></i></a>-->
-                                                <span editable-text="person.twitter" onbeforesave="updatePerson('twitter', $data)" class="btn btn-xs">{{person.twitter || '?'}}</span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td><i class="fa fa-facebook"></i></td>
-                                            <td>
-                                                <!--<a href="#" class="btn btn-xs"><i class="fa fa-skype"></i></a>-->
-                                                <span editable-text="person.facebook" onbeforesave="updatePerson('facebook', $data)" class="btn btn-xs">{{person.facebook || '?'}}</span>
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td><i class="fa fa-linkedin"></i></td>
-                                            <td>
-                                                <!--<a href="#" class="btn btn-xs"><i class="fa fa-skype"></i></a>-->
-                                                <span editable-text="person.linkedIn" onbeforesave="updatePerson('linkedIn', $data)" class="btn btn-xs">{{person.linkedIn || '?'}}</span>
-                                            </td>
-                                        </tr>
-
-
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-
-                        </div>
-
-                    </panel>
-                    <hr>
-                    <div class="row">
-                        <div class="col-md-6">
-
-                            <panel panel-class="panel panel-gray" heading="{{person.roles.length}} {{'events.links.events' | translate }}">
-                                <panel-controls>
-                                    <a href=""><panel-control-collapse class="fa fa-chevron-down"></panel-control-collapse></a>
-                                </panel-controls>
-                                <div class="row">
-
-                                    <div class="well col-md-4  col-lg-4" ng-repeat="role in person.roles  track by $index" class="col-sm-6 col-md-6 col-lg-4" ng-if="person.roles">
-                                        <i class="fa fa-calendar fa-2x"></i>
-                                        <h4>{{ role.roleLabelVersion.label }} @ {{ role.event.label}} </h4>
-                                        <a class="btn  btn-default" href="#mainEvents/show/{{ role.mainEvent.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>
-                                    </div>
-                                </div>
-
-                            </panel>
-                        </div>
-                        <div class="col-md-6">
-                            <panel panel-class="panel panel-gray" heading="{{person.papers.length}} {{'papers.links.papers' | translate }}">
-                                <panel-controls>
-                                    <a href=""><panel-control-collapse class="fa fa-chevron-down"></panel-control-collapse></a>
-                                </panel-controls>
-                                <div class="row">
-                                    <div class="col-md-4 col-lg-4 well" ng-repeat="paper in person.papers track by $index" ng-if="person.papers">
-                                        <i class="fa fa-book fa-4x"></i>
-                                        <h4>{{ paper.label }}</h4>
-                                        <a class="btn btn-default" href="#papers/show/{{ paper.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>
-                                    </div>
-                                </div>
-                            </panel>
-                        </div>
-                    </div>
-
+                  <p>{{'persons.actions.add_picture' | translate }}</p>
                 </div>
+                <img ng-mouseenter="showImgCaption=true" no-image ng-src="{{ person.img }}" alt="" class="pull-left img-responsive img-circle" style="margin: 0 20px 20px 0">
+
+              </div>
+              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-10">
+                <h3>{{'persons.labels.about' | translate }}</h3>
+                <a href="#" e-placeholder="{{ 'persons.model.description' | translate}}" onbeforesave="updatePerson('description', $data)" editable-textarea="person.description" e-rows="6" e-cols="70">
+                  <pre>{{person.description || '?'}}</pre>
+                </a>
+              </div>
+              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="table-responsive">
+                  <table class="table table-condensed">
+                    <tbody>
+                    <tr>
+                      <td>{{'persons.model.firstname' | translate }}</td>
+                      <td>
+                        <span editable-text="person.firstName" onbeforesave="updatePerson('firstName', $data)">{{person.firstName || '?'}}</span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>{{'persons.model.familyname' | translate }}</td>
+                      <td>
+                        <span editable-text="person.familyName" onbeforesave="updatePerson('familyName', $data)">{{person.familyName || '?'}}</span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>{{'persons.model.localization' | translate }}</td>
+                      <td><span>{{person.country}}</span>
+                        <input google-place-autocomplete="" type="text" class="form-control" on-select="setLocalization" ng-model="person.localization.label"/>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>{{'persons.model.website' | translate }}</td>
+                      <td>
+                        <span editable-url="person.website" e-placeholder="http://" onbeforesave="updatePerson('website', $data)">{{person.website || '?'}}</span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>{{'persons.model.email' | translate }}</td>
+                      <td>
+                        <span editable-email="person.email" onbeforesave="updatePerson('email', $data)">{{person.email || '?'}}</span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <span>{{ 'organizations.links.organizations' | translate}}</span>
+                      </td>
+                      <td>
+                        <!-- table -->
+
+                        <table class="table table-hover">
+                          <tr>
+                            <td style="width:30%">
+                              <input type="text" class="form-control" ng-required ng-model="position.position" class="form-control" placeholder="CEO/developer...">
+                            </td>
+                            <td style="width:10%">
+                              <span>{{'global.labels.at' | translate }}</span>
+                            </td>
+                            <td style="width:30%">
+                              <div class="input-group">
+                                <input type="text" ng-required ng-model="position.organization" typeahead-template-url="organizations-typeahead.html" typeahead-on-select="select($item, $model)" placeholder="{{ 'persons.actions.search' | translate }} ..." typeahead-wait-ms="500" typeahead="organization as organization.label  for organization in getOrganizations($viewValue)" typeahead-loading="loading" class="form-control">
+                                <i ng-show="loading" class="fa fa-spinner fa-spin"></i>
+                                <script type="text/ng-template" id="organizations-typeahead.html">
+                                  <div style="width:100%">
+                                    <span bind-html-unsafe="match.model.label | typeaheadHighlight:query"></span>
+                                  </div>
+                                </script>
+                                <!--<div sympozer-autocomplete="organizations" on-select="addOrganization" on-keyup="searchOrganizations"></div>-->
+
+                                <div class="input-group-btn">
+                                  <button ng-disabled="!position.organization || !position.position" ng-click="addPosition(position)" type="button" class="btn btn-success">
+                                    <i class="fa fa-plus"></i></button>
+                                </div>
+                              </div>
+                            </td>
+                          </tr>
+
+                          <tr ng-repeat="position in person.positions track by $index">
+                            <td style="width:30%">
+                              <input type="text" class="form-control" ng-required ng-model="position.position" class="form-control" placeholder="CEO/developer...">
+                            </td>
+                            <td style="width:10%">
+                              <span>{{'global.labels.at' | translate }}</span>
+                            </td>
+                            <td style="width:30%">
+                              <div class="input-group">
+                                <input type="text" ng-required ng-model="position.organization.label" typeahead-template-url="organizations-typeahead.html" typeahead-on-select="select($item, $model)" placeholder="{{ 'organizations.actions.search' | translate }} ..." typeahead-wait-ms="500" typeahead="organization for organization in getOrganizations($viewValue)" typeahead-loading="loading" class="form-control">
+                                <i ng-show="loading" class="fa fa-spinner fa-spin"></i>
+                                <script type="text/ng-template" id="organizations-typeahead.html">
+                                  <div style="width:100%">
+                                    <span bind-html-unsafe="match.model.label | typeaheadHighlight:query"></span>
+                                  </div>
+                                </script>
+                                <!--<div sympozer-autocomplete="organizations" on-select="addOrganization" on-keyup="searchOrganizations"></div>-->
+
+                                <div class="input-group-btn">
+                                  <button ng-disabled="!position.organization.label || !position.position" ng-click="addPosition(position, false)" type="button" class="btn btn-danger">
+                                    <i class="fa fa-trash-o"></i></button>
+                                </div>
+                              </div>
+                            </td>
+                          </tr>
+
+                        </table>
+
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td><i class="fa fa-twitter"></i></td>
+                      <td>
+                        <!--<a href="#" class="btn btn-xs"><i class="fa fa-skype"></i></a>-->
+                        <span editable-text="person.twitter" onbeforesave="updatePerson('twitter', $data)" class="btn btn-xs">{{person.twitter || '?'}}</span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><i class="fa fa-facebook"></i></td>
+                      <td>
+                        <!--<a href="#" class="btn btn-xs"><i class="fa fa-skype"></i></a>-->
+                        <span editable-text="person.facebook" onbeforesave="updatePerson('facebook', $data)" class="btn btn-xs">{{person.facebook || '?'}}</span>
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td><i class="fa fa-linkedin"></i></td>
+                      <td>
+                        <!--<a href="#" class="btn btn-xs"><i class="fa fa-skype"></i></a>-->
+                        <span editable-text="person.linkedIn" onbeforesave="updatePerson('linkedIn', $data)" class="btn btn-xs">{{person.linkedIn || '?'}}</span>
+                      </td>
+                    </tr>
+
+
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
             </div>
+
+          </panel>
+          <hr>
+          <div class="row">
+            <div class="col-md-6">
+
+              <panel panel-class="panel panel-gray" heading="{{person.roles.length}} {{'events.links.events' | translate }}">
+                <panel-controls>
+                  <a href="">
+                    <panel-control-collapse class="fa fa-chevron-down"></panel-control-collapse>
+                  </a>
+                </panel-controls>
+                <div class="row">
+
+                  <div class="well col-md-4  col-lg-4" ng-repeat="role in person.roles  track by $index" class="col-sm-6 col-md-6 col-lg-4" ng-if="person.roles">
+                    <i class="fa fa-calendar fa-2x"></i>
+                    <h4>{{ role.roleLabelVersion.label }} @ {{ role.event.label}} </h4>
+                    <a class="btn  btn-default" href="#mainEvents/show/{{ role.mainEvent.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>
+                  </div>
+                </div>
+
+              </panel>
+            </div>
+            <div class="col-md-6">
+              <panel panel-class="panel panel-gray" heading="{{person.papers.length}} {{'papers.links.papers' | translate }}">
+                <panel-controls>
+                  <a href="">
+                    <panel-control-collapse class="fa fa-chevron-down"></panel-control-collapse>
+                  </a>
+                </panel-controls>
+                <div class="row">
+                  <div class="col-md-4 col-lg-4 well" ng-repeat="paper in person.papers track by $index" ng-if="person.papers">
+                    <i class="fa fa-book fa-4x"></i>
+                    <h4>{{ paper.label }}</h4>
+                    <a class="btn btn-default" href="#papers/show/{{ paper.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>
+                  </div>
+                </div>
+              </panel>
+            </div>
+          </div>
+
         </div>
+      </div>
     </div>
+  </div>
 </div> <!-- container -->
 

@@ -52,6 +52,7 @@ class Position
     /**
      * @ORM\ManyToOne(targetEntity="fibe\CommunityBundle\Entity\Organization", inversedBy="positions")
      * @Assert\NotBlank(message="You have to choose an Organization")
+     * @Expose
      */
     private $organization;
 

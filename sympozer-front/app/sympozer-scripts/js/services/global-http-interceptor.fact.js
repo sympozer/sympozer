@@ -101,7 +101,8 @@ angular.module('sympozerApp').factory('globalHttpInterceptor', [
                         }
                         else if ((object[property]) instanceof Array)
                         { //clean arrays
-                            if (recursiveClean(object[property], currentDepth + 1))
+                            recursiveClean(object[property], currentDepth + 1);
+                            if (object[property].length == 0)
                             {
                                 delete object[property];
                             }

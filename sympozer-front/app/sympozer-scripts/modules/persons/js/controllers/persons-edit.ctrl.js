@@ -87,7 +87,7 @@ angular.module('personsApp').controller('personsEditCtrl', [
             if (position.position && position.organization)
             {
                 $scope.addRelationship('positions', {
-                    person      : $scope.person.id,
+//                    person      : $scope.person.id,
                     organization: position.organization.id ? position.organization.id : { label: position.organization },
                     position    : position.position
                 });
