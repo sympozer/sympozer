@@ -12,7 +12,7 @@
           ng-class="{ hasChild: (item.children!==undefined),
                                     active: item.selected,
                                       open: (item.children!==undefined) && item.open }"
-          ng-include="'templates/nav_renderer_horizontal.html'"
+            ng-include="GLOBAL_CONFIG.app.urls.partials+'navigation/nav-left-items-horizontal.html'"
           ></li>
     </ul>
   </div>

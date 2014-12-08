@@ -1,7 +1,10 @@
 'use strict'
 
-angular.module('theme.vector_maps', [])
-  .controller('VectorMapsController', ['$scope', function ($scope)
+/**
+ * FlotChartsController controller
+ * @TODO : decide to keep or not (from forza)
+ */
+angular.module('analyticsApp').controller('VectorMapsController', ['$scope', function ($scope)
   {
     $scope.jqvmapWorld = {
       map: 'world_en',

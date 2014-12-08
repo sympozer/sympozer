@@ -255,7 +255,6 @@
 <script src="bower/angular-mocks/angular-mocks.js"></script>
 <script src="bower/angular-moment/angular-moment.js"></script>
 <script src="bower/angular-translate/angular-translate.js"></script>
-<script src="bower/angularjs-modal-service/src/createDialog.js"></script>
 <script src="bower/bootstrap-tags/dist/js/bootstrap-tags.js"></script>
 <script src="bower/angular-cached-resource/angular-cached-resource.js"></script>
 <!-- endbower -->
@@ -271,7 +270,9 @@
 
 <script type='text/javascript' src='sympozer-scripts/assets/plugins/progress-skylo/skylo.js'></script>
 
+<!--step by step demo plugin-->
 <script type='text/javascript' src='sympozer-scripts/assets/plugins/bootstro.js/bootstro.min.js'></script>
+
 <!-- endbuild -->
 
 
@@ -284,8 +285,6 @@
 <!-- build:js({.tmp,app}) sympozer-scripts/sympozer-scripts.js -->
 <script src="forza-scripts/shared/Services.js"></script>
 <script src="forza-scripts/shared/Directives.js"></script>
-<script src="forza-scripts/maps/VectorMaps.js"></script>
-<script src="forza-scripts/maps/GoogleMaps.js"></script>
 <script src="forza-scripts/gallery/Gallery.js"></script>
 <script src="forza-scripts/task/Tasks.js"></script>
 <script src="forza-scripts/ui-components/Ratings.js"></script>
@@ -302,21 +301,9 @@
 <script src="forza-scripts/ui-elements/Panels.js"></script>
 <script src="forza-scripts/form/Components.js"></script>
 <script src="forza-scripts/form/Directives.js"></script>
-<script src="forza-scripts/form/Validation.js"></script>
-<script src="forza-scripts/form/Inline.js"></script>
-<script src="forza-scripts/form/FileUploads.js"></script>
-<script src="forza-scripts/form/ImageCrop.js"></script>
-<script src="forza-scripts/table/ngGrid.js"></script>
-<script src="forza-scripts/table/Editable.js"></script>
-<script src="forza-scripts/chart/Flot.js"></script>
-<script src="forza-scripts/chart/SVG.js"></script>
-<script src="forza-scripts/chart/Canvas.js"></script>
-<script src="forza-scripts/chart/Inline.js"></script>
+
 <script src="forza-scripts/layout/Horizontal.js"></script>
 <script src="forza-scripts/layout/Boxed.js"></script>
-<script src="forza-scripts/pages/Controllers.js"></script>
-<script src="forza-scripts/templates/templates.js"></script>
-<script src="forza-scripts/templates/overrides.js"></script>
 
 <script src="forza-scripts/controllers/Dashboard.js"></script>
 
@@ -338,6 +325,10 @@
 <script src="sympozer-scripts/js/controllers/dashboard.ctrl.js"></script>
 <script src="sympozer-scripts/js/controllers/main.ctrl.js"></script>
 
+<!--TEMPLATES-->
+<script src="sympozer-scripts/js/templates/templates.js"></script>
+<script src="sympozer-scripts/js/templates/overrides.js"></script>
+
 <!--DIRECTIVES-->
 <script src="sympozer-scripts/js/directives/dates/datetime-format.drv.js"></script>
 
@@ -355,6 +346,11 @@
 
 <script src="sympozer-scripts/js/directives/maps/google-place-autocomplete.drv.js"></script>
 <script src="sympozer-scripts/js/directives/maps/gmap.drv.js"></script>
+
+<script src="sympozer-scripts/js/directives/charts/flot-chart.drv.js"></script>
+<script src="sympozer-scripts/js/directives/charts/sparklines-chart.drv.js"></script>
+<script src="sympozer-scripts/js/directives/charts/svg-chart.drv.js"></script>
+<script src="sympozer-scripts/js/directives/charts/canvas-chart.drv.js"></script>
 
 <script src="sympozer-scripts/js/directives/no-image.drv.js"></script>
 <script src="sympozer-scripts/js/directives/sympozer-autocomplete.drv.js"></script>
@@ -589,13 +585,17 @@
 <!-- CONTROLLERS -->
 <script src="sympozer-scripts/modules/analytics/js/routes.js"></script>
 <script src="sympozer-scripts/modules/analytics/js/controllers/analytics.ctrl.js"></script>
+<script src="sympozer-scripts/modules/analytics/js/controllers/flot-charts.ctrl.js"></script>
+<script src="sympozer-scripts/modules/analytics/js/controllers/task.ctrl.js"></script>
+<script src="sympozer-scripts/modules/analytics/js/controllers/vector-map.ctrl.js"></script>
+<script src="sympozer-scripts/modules/analytics/js/controllers/date-range-demo.ctrl.js"></script>
 
 
 <!-- endbuild -->
 
 
 
-<!-- basic client app context definition (just mocking the file) -->
+<!-- basic client app context definition -->
 <script>
     //@TODO to put in serchService
     var queryNb = 0,

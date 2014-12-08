@@ -9,7 +9,7 @@ angular.module('analyticsApp').config([ '$routeProvider', function ($routeProvid
     $routeProvider
         .when('/home/conference/:mainEventId/analytics/index', {
             templateUrl: globalConfig.app.modules.analytics.urls.partials + 'pages/analytics-index.html',
-            controller : 'analyticsCtrl'
+            controller : 'analyticsIndexCtrl'
         })
         .otherwise({
             redirectTo: '/'

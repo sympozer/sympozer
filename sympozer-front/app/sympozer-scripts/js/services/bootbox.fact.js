@@ -1,6 +1,6 @@
 /**
  * bootbox service
- * Workaround to make bootboxJS compatible with angular UI
+ * Workaround to make bootboxJS (modal and popup plugin) compatible with angular UI
  * @type {factory}
  */
 angular.module('sympozerApp').factory('$bootbox', ['$modal', function ($modal)
