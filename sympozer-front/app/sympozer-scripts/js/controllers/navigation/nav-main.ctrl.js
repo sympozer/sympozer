@@ -61,36 +61,21 @@ sympozerApp.controller('navMainCtrl', ['$scope', '$rootScope', '$location', '$ti
                 iconClasses: 'fa fa-certificate',
                 children: [
                     {
-                        label: 'navleft.overview',
-                        iconClasses: 'fa fa-th',
-                        children: [
-                            {
-                                label: 'navleft.settings',
-                                iconClasses: 'fa fa-cogs',
-                                url: '#/home/mainEvents/'+$rootScope.currentMainEvent.id+'/overview/settings'
-                            }
-                        ]
+                        label: 'navleft.informations',
+                        iconClasses: 'fa fa-info-circle',
+                        url: '#/home/mainEvents/'+$rootScope.currentMainEvent.id+'/overview/settings'
                     },
                     {
-                        label: 'navleft.directory',
+                        label: 'teammates.links.team',
+                        iconClasses: 'fa fa-graduation-cap',
+                        url        : '#/conference/'+$rootScope.currentMainEvent.id+'/teammates' /** @TODO FORZA : TO ALIMENT WITH THE PROPER URL**/
+
+                    },
+                    {
+                        label: 'navleft.community',
                         iconClasses: 'fa fa-group',
-                        children: [
-                            {
-                                label      : 'teammates.links.team',
-                                iconClasses: 'fa fa-graduation-cap',
-                                url        : '#/conference/'+$rootScope.currentMainEvent.id+'/teammates' /** @TODO FORZA : TO ALIMENT WITH THE PROPER URL**/
-                            },
-                            {
-                                label: 'organizations.links.organizations',
-                                iconClasses: 'fa fa-group',
-                                url: '#/' /** @TODO FORZA : TO ALIMENT WITH THE PROPER URL**/
-                            },
-                            {
-                                label: 'persons.links.persons',
-                                iconClasses: 'fa fa-user',
-                                url: '#/home/conference/'+$rootScope.currentMainEvent.id+'/roles/list'
-                            }
-                        ]
+                        url: '#/home/conference/'+$rootScope.currentMainEvent.id+'/roles/list'
+
                     },
                     {
                         label: 'navleft.resource',
@@ -126,7 +111,12 @@ sympozerApp.controller('navMainCtrl', ['$scope', '$rootScope', '$location', '$ti
                                 url: '#/home/conference/'+$rootScope.currentMainEvent.id+'/categories/list'
                             }
                         ]
-                    }
+                    },
+                    {
+                        label: 'navleft.analytics',
+                        iconClasses: 'fa fa-line-chart',
+                        url: '#/home/conference/'+$rootScope.currentMainEvent.id+'/analytics/index'
+                    },
                 ]
             }
         ];

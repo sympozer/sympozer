@@ -34,7 +34,7 @@
         </li>
       </ul>
     </li>
-    <li class="dropdown" ng-controller="MessagesController" ng-show="isLoggedIn"
+    <li class="dropdown" ng-controller="messagesPopoverCtrl" ng-show="isLoggedIn"
         data-bootstro
         data-bootstro-step="2"
         data-bootstro-placement='bottom'
@@ -50,7 +50,7 @@
         </li>
         <div class="scrollthis" jscrollpane="{autoReinitialise:true, autoReinitialiseDelay: 20}">
           <li ng-repeat="item in messages">
-            <a href="#/extras-chatroom" ng-class="{active: !item.read}">
+            <a href="#/messages/chatroom" ng-class="{active: !item.read}">
               <button tooltip-placement="top" tooltip-append-to-body="true" tooltip="Mark Read" class="btn-mark-read" ng-if="!item.read" ng-click="setRead(item, $event)">
                 <i class="fa fa-circle"></i></button>
               <button tooltip-placement="top" tooltip-append-to-body="true" tooltip="Mark Unread" class="btn-mark-unread" ng-if="item.read" ng-click="setUnread(item, $event)">
@@ -65,10 +65,10 @@
             </a>
           </li>
         </div>
-        <li class="dd-footer"><a href="#">View All Messages</a></li>
+        <li class="dd-footer"><a href="#/messages/inbox">View All Messages</a></li>
       </ul>
     </li>
-    <li class="dropdown" ng-controller="NotificationsController" ng-show="isLoggedIn"
+    <li class="dropdown" ng-controller="notificationsPopoverCtrl" ng-show="isLoggedIn"
         data-bootstro
         data-bootstro-step="1"
         data-bootstro-placement='bottom'
@@ -84,7 +84,7 @@
         </li>
         <div class="scrollthis" jscrollpane="{autoReinitialise:true, autoReinitialiseDelay: 20}">
           <li ng-repeat="item in notifications">
-            <a href="#" class="{{item.class}}" ng-class="{active: !item.seen}">
+            <a href="#/notifications" class="{{item.class}}" ng-class="{active: !item.seen}">
               <button tooltip-placement="top" tooltip-append-to-body="true" tooltip="Mark Seen" class="btn-mark-read" ng-if="!item.seen" ng-click="setSeen(item, $event)">
                 <i class="fa fa-circle"></i></button>
               <button tooltip-placement="top" tooltip-append-to-body="true" tooltip="Mark Unseen" class="btn-mark-unread" ng-if="item.seen" ng-click="setUnseen(item, $event)">
@@ -95,14 +95,14 @@
             </a>
           </li>
         </div>
-        <li class="dd-footer"><a href="#">View All Notifications</a></li>
+        <li class="dd-footer"><a href="#/notifications">View All Notifications</a></li>
       </ul>
     </li>
     <li ng-click="showHeaderBar($event)">
       <a href="" id="headerbardropdown"><span><i class="fa fa-level-down"></i></span></a>
     </li>
 
-    <li class="dropdown demodrop" ng-controller="ColorPickerController" data-pulsate="{glow:false, repeat: 3}">
+    <li class="dropdown demodrop" ng-controller="stylesCtrl" data-pulsate="{glow:false, repeat: 3}">
       <a href="#" class="dropdown-toggle tooltips"><i class="fa fa-cog"></i></a>
 
       <ul class="dropdown-menu arrow dropdown-menu-form" id="demo-dropdown">

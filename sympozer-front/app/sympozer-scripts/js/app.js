@@ -11,12 +11,15 @@ angular.module('communityApp', []);
 angular.module('organizationsApp', []);
 angular.module('i18nApp', ['pascalprecht.translate']);
 angular.module('papersApp', []);
+angular.module('notificationsApp', []);
+angular.module('messagesApp', []);
 angular.module('topicsApp', []);
 angular.module('teammatesApp', []);
 angular.module('rolesApp', []);
 angular.module('roleLabelsApp', []);
 angular.module('categoriesApp', []);
 angular.module('personsApp', []);
+angular.module('analyticsApp', []);
 angular.module('locationsApp', ['equipmentsApp']);
 angular.module('equipmentsApp', []);
 angular.module('eventsApp', ['categoriesApp']);
@@ -68,9 +71,6 @@ sympozerApp = angular.module('sympozerApp', [
     'flow',
     'theme.services',
     'theme.directives',
-    'theme.notifications-controller',
-    'theme.messages-controller',
-    'theme.colorpicker-controller',
     'theme.layout-horizontal',
     'theme.layout-boxed',
     'theme.vector_maps',
@@ -128,7 +128,9 @@ sympozerApp = angular.module('sympozerApp', [
     'roleLabelsApp',
     'categoriesApp',
     'mainEventsApp',
-    'papersApp'
+    'papersApp',
+    'messagesApp',
+    'notificationsApp'
 ]);
 
 

@@ -1,135 +1,135 @@
 <!DOCTYPE html>
 <html>
 <head lang="en">
-  <meta charset="utf-8">
-  <title>Sympozer</title>
+    <meta charset="utf-8">
+    <title>Sympozer</title>
 
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Sympozer">
-  <meta name="author" content="Sympozer team">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sympozer">
+    <meta name="author" content="Sympozer team">
 
-  <!-- Favicons -->
-  <link rel="icon" type="image/png" sizes="192x192" href="favicon.ico">
-  <link rel="icon" type="image/png" sizes="160x160" href="favicon.ico">
-  <link rel="icon" type="image/png" sizes="96x96" href="favicon.ico">
-  <link rel="icon" type="image/png" sizes="16x16" href="favicon.ico">
-  <link rel="icon" type="image/png" sizes="32x32" href="favicon.ico">
+    <!-- Favicons -->
+    <link rel="icon" type="image/png" sizes="192x192" href="favicon.ico">
+    <link rel="icon" type="image/png" sizes="160x160" href="favicon.ico">
+    <link rel="icon" type="image/png" sizes="96x96" href="favicon.ico">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon.ico">
 
-  <!-- prochtml:remove:dist -->
-  <link href="sympozer-scripts/assets/less/styles.less" rel="stylesheet/less" media="all">
+    <!-- prochtml:remove:dist -->
+    <link href="sympozer-scripts/assets/less/styles.less" rel="stylesheet/less" media="all">
 
-  <!-- /prochtml -->
+    <!-- /prochtml -->
 
-  <link href='http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700' rel='stylesheet' type='text/css'>
 
-  <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries. Placeholdr.js enables the placeholder attribute -->
-  <!--[if lt IE 9]>
-  <link rel="stylesheet" href="common-assets/css/ie8.css">
-  <script type="text/javascript" src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-  <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/respond.js/1.1.0/respond.min.js"></script>
-  <script type="text/javascript" src="sympozer-scripts/assets/plugins/charts-flot/excanvas.min.js"></script>
-  <script type='text/javascript' src='bower/placeholdr/placeholdr.min.js'></script>
-  <![endif]-->
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries. Placeholdr.js enables the placeholder attribute -->
+    <!--[if lt IE 9]>
+    <link rel="stylesheet" href="common-assets/css/ie8.css">
+    <script type="text/javascript" src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/respond.js/1.1.0/respond.min.js"></script>
+    <script type="text/javascript" src="sympozer-scripts/assets/plugins/charts-flot/excanvas.min.js"></script>
+    <script type='text/javascript' src='bower/placeholdr/placeholdr.min.js'></script>
+    <![endif]-->
 
-  <!--[if IE 9]>
-  <script type="text/javascript" src="sympozer-scripts/assets/plugins/misc/media.match.min.js"></script>
-  <![endif]-->
+    <!--[if IE 9]>
+    <script type="text/javascript" src="sympozer-scripts/assets/plugins/misc/media.match.min.js"></script>
+    <![endif]-->
 
-  <!-- The following CSS are included as plugins and can be removed if unused-->
+    <!-- The following CSS are included as plugins and can be removed if unused-->
 
-  <!-- build:css assets/css/vendor.css -->
-  <!-- bower:css -->
-  <link rel="stylesheet" href="bower/font-awesome/css/font-awesome.css" />
-  <link rel="stylesheet" href="bower/seiyria-bootstrap-slider/dist/css/bootstrap-slider.min.css" />
-  <link rel="stylesheet" href="bower/angular-ui-tree/dist/angular-ui-tree.min.css" />
-  <link rel="stylesheet" href="bower/angular-toggle-switch/angular-toggle-switch.css" />
-  <link rel="stylesheet" href="bower/ng-grid/ng-grid.css" />
-  <link rel="stylesheet" href="bower/angular-xeditable/dist/css/xeditable.css" />
-  <link rel="stylesheet" href="bower/select2/select2.css" />
-  <link rel="stylesheet" href="bower/jScrollPane/style/jquery.jscrollpane.css" />
-  <link rel="stylesheet" href="bower/pnotify/pnotify.core.css" />
-  <link rel="stylesheet" href="bower/pnotify/pnotify.buttons.css" />
-  <link rel="stylesheet" href="bower/pnotify/pnotify.history.css" />
-  <link rel="stylesheet" href="bower/bootstrap-social/bootstrap-social.css" />
-  <link rel="stylesheet" href="bower/bootstrap-tags/dist/css/bootstrap-tags.css" />
-  <!-- endbower -->
-  <link rel='stylesheet' type='text/css' href='sympozer-scripts/assets/plugins/icheck/all.css'/>
-  <link rel='stylesheet' type='text/css' href='sympozer-scripts/assets/plugins/form-multiselect/css/multi-select.css'/>
-  <link rel='stylesheet' type='text/css' href='sympozer-scripts/assets/plugins/form-fseditor/fseditor.css'/>
-  <link rel='stylesheet' type='text/css' href='sympozer-scripts/assets/plugins/form-tokenfield/bootstrap-tokenfield.css'/>
-  <link rel='stylesheet' type='text/css' href='sympozer-scripts/assets/plugins/datepaginator/bootstrap-datepaginator.css'/>
-  <link rel='stylesheet' type='text/css' href='sympozer-scripts/assets/plugins/jquery-fileupload/css/jquery.fileupload-ui.css'/>
-  <link rel='stylesheet' type='text/css' href='sympozer-scripts/assets/plugins/bootstro.js/bootstro.min.css'/>
-  <link rel='stylesheet' type='text/css' href='sympozer-scripts/assets/plugins/progress-skylo/skylo.css'/>
-  <link rel='stylesheet' type='text/css' href='sympozer-scripts/assets/plugins/jcrop/css/jquery.Jcrop.min.css'/>
-  <link rel='stylesheet' type='text/css' href='sympozer-scripts/assets/plugins/form-daterangepicker/daterangepicker-bs3.css'/>
-  <link rel='stylesheet' type='text/css' href='sympozer-scripts/assets/plugins/form-markdown/css/bootstrap-markdown.min.css'/>
-  <link rel='stylesheet' type='text/css' href='sympozer-scripts/assets/plugins/codeprettifier/prettify.css'/>
-  <link rel='stylesheet' type='text/css' href='sympozer-scripts/assets/plugins/form-select2/select2.css'/>
-  <link rel='stylesheet' type='text/css' href='sympozer-scripts/assets/plugins/fullcalendar/fullcalendar.css'/>
-  <!-- endbuild -->
+    <!-- build:css assets/css/vendor.css -->
+    <!-- bower:css -->
+    <link rel="stylesheet" href="bower/font-awesome/css/font-awesome.css" />
+    <link rel="stylesheet" href="bower/seiyria-bootstrap-slider/dist/css/bootstrap-slider.min.css" />
+    <link rel="stylesheet" href="bower/angular-ui-tree/dist/angular-ui-tree.min.css" />
+    <link rel="stylesheet" href="bower/angular-toggle-switch/angular-toggle-switch.css" />
+    <link rel="stylesheet" href="bower/ng-grid/ng-grid.css" />
+    <link rel="stylesheet" href="bower/angular-xeditable/dist/css/xeditable.css" />
+    <link rel="stylesheet" href="bower/select2/select2.css" />
+    <link rel="stylesheet" href="bower/jScrollPane/style/jquery.jscrollpane.css" />
+    <link rel="stylesheet" href="bower/pnotify/pnotify.core.css" />
+    <link rel="stylesheet" href="bower/pnotify/pnotify.buttons.css" />
+    <link rel="stylesheet" href="bower/pnotify/pnotify.history.css" />
+    <link rel="stylesheet" href="bower/bootstrap-social/bootstrap-social.css" />
+    <link rel="stylesheet" href="bower/bootstrap-tags/dist/css/bootstrap-tags.css" />
+    <!-- endbower -->
+    <link rel='stylesheet' type='text/css' href='sympozer-scripts/assets/plugins/icheck/all.css'/>
+    <link rel='stylesheet' type='text/css' href='sympozer-scripts/assets/plugins/form-multiselect/css/multi-select.css'/>
+    <link rel='stylesheet' type='text/css' href='sympozer-scripts/assets/plugins/form-fseditor/fseditor.css'/>
+    <link rel='stylesheet' type='text/css' href='sympozer-scripts/assets/plugins/form-tokenfield/bootstrap-tokenfield.css'/>
+    <link rel='stylesheet' type='text/css' href='sympozer-scripts/assets/plugins/datepaginator/bootstrap-datepaginator.css'/>
+    <link rel='stylesheet' type='text/css' href='sympozer-scripts/assets/plugins/jquery-fileupload/css/jquery.fileupload-ui.css'/>
+    <link rel='stylesheet' type='text/css' href='sympozer-scripts/assets/plugins/bootstro.js/bootstro.min.css'/>
+    <link rel='stylesheet' type='text/css' href='sympozer-scripts/assets/plugins/progress-skylo/skylo.css'/>
+    <link rel='stylesheet' type='text/css' href='sympozer-scripts/assets/plugins/jcrop/css/jquery.Jcrop.min.css'/>
+    <link rel='stylesheet' type='text/css' href='sympozer-scripts/assets/plugins/form-daterangepicker/daterangepicker-bs3.css'/>
+    <link rel='stylesheet' type='text/css' href='sympozer-scripts/assets/plugins/form-markdown/css/bootstrap-markdown.min.css'/>
+    <link rel='stylesheet' type='text/css' href='sympozer-scripts/assets/plugins/codeprettifier/prettify.css'/>
+    <link rel='stylesheet' type='text/css' href='sympozer-scripts/assets/plugins/form-select2/select2.css'/>
+    <link rel='stylesheet' type='text/css' href='sympozer-scripts/assets/plugins/fullcalendar/fullcalendar.css'/>
+    <!-- endbuild -->
 
-  <!-- build:css({.tmp,app}) -->
-  <link rel="stylesheet" href="sympozer-scripts/assets/css/main.css">
-  <link rel="stylesheet" href="sympozer-scripts/assets/css/styles.css">
-  <!-- endbuild -->
+    <!-- build:css({.tmp,app}) -->
+    <link rel="stylesheet" href="sympozer-scripts/assets/css/main.css">
+    <link rel="stylesheet" href="sympozer-scripts/assets/css/styles.css">
+    <!-- endbuild -->
 
-  <!-- prochtml:remove:dist -->
-  <script type="text/javascript">less = {};
-  less.env = 'development';</script>
-  <script type="text/javascript" src="sympozer-scripts/assets/plugins/misc/less.js"></script>
-  <!-- /prochtml -->
+    <!-- prochtml:remove:dist -->
+    <script type="text/javascript">less = {};
+    less.env = 'development';</script>
+    <script type="text/javascript" src="sympozer-scripts/assets/plugins/misc/less.js"></script>
+    <!-- /prochtml -->
 
-  <style type="text/css">
-    [ng-cloak]
-    {
-      display: none;
-    }
+    <style type="text/css">
+        [ng-cloak]
+        {
+            display: none;
+        }
 
-    .topNegative1000
-    {
-      top: -1000px !important;
-    }
+        .topNegative1000
+        {
+            top: -1000px !important;
+        }
 
-    .topZero
-    {
-      top: 0 !important;
-    }
+        .topZero
+        {
+            top: 0 !important;
+        }
 
-    .mainview-animation
-    {
-      position: relative;
-    }
+        .mainview-animation
+        {
+            position: relative;
+        }
 
-    .mainview-animation.ng-enter
-    {
-      -webkit-transition: .3s linear all; /* Safari/Chrome */
-      -moz-transition: .3s linear all; /* Firefox */
-      -o-transition: .3s linear all; /* Opera */
-      transition: .3s linear all; /* IE10+ and Future Browsers */
-    }
+        .mainview-animation.ng-enter
+        {
+            -webkit-transition: .3s linear all; /* Safari/Chrome */
+            -moz-transition: .3s linear all; /* Firefox */
+            -o-transition: .3s linear all; /* Opera */
+            transition: .3s linear all; /* IE10+ and Future Browsers */
+        }
 
-    .mainview-animation.ng-enter
-    {
-      opacity: 0;
-    }
+        .mainview-animation.ng-enter
+        {
+            opacity: 0;
+        }
 
-    .mainview-animation.ng-enter.ng-enter-active
-    {
-      opacity: 1;
-    }
+        .mainview-animation.ng-enter.ng-enter-active
+        {
+            opacity: 1;
+        }
 
-    .navbar.navbar-default.ng-hide
-    {
-      display: none;
-    }
+        .navbar.navbar-default.ng-hide
+        {
+            display: none;
+        }
 
-    .fc-grid .fc-day-number
-    {
-      padding: 5px 6px;
-    }
-  </style>
+        .fc-grid .fc-day-number
+        {
+            padding: 5px 6px;
+        }
+    </style>
 
 
 </head>
@@ -147,7 +147,7 @@
     }"
       ng-click="hideSearchBar();hideHeaderBar();"
       ng-cloak
-    >
+        >
 
 <!-- HEADER BAR -->
 <div ng-include="GLOBAL_CONFIG.app.urls.partials+'navigation/nav-header.html'" ng-controller="navHeaderCtrl"></div>
@@ -161,23 +161,23 @@
 
 <div id="page-container" class="clearfix">
 
-  <!-- NAV LEFT VERTICAL -->
-  <div ng-include="GLOBAL_CONFIG.app.urls.partials+'navigation/nav-left-vertical.html'" ng-controller="navLeftCtrl"></div>
+    <!-- NAV LEFT VERTICAL -->
+    <div ng-include="GLOBAL_CONFIG.app.urls.partials+'navigation/nav-left-vertical.html'" ng-controller="navLeftCtrl"></div>
 
-  <!-- NAV RIGHT -->
-  <div ng-include="GLOBAL_CONFIG.app.urls.partials+'navigation/nav-right.html'" ng-controller="navRightCtrl"></div>
+    <!-- NAV RIGHT -->
+    <div ng-include="GLOBAL_CONFIG.app.urls.partials+'navigation/nav-right.html'" ng-controller="navRightCtrl"></div>
 
 
-  <!--CONTENT-->
-  <div id="page-content" class="clearfix" fit-height>
-    <div id="wrap" ng-view="" class="mainview-animation ">
+    <!--CONTENT-->
+    <div id="page-content" class="clearfix" fit-height>
+        <div id="wrap" ng-view="" class="mainview-animation ">
+        </div>
+        <!-- page-content -->
     </div>
-    <!-- page-content -->
-  </div>
 
 
-  <!-- FOOTER -->
-  <div ng-include="GLOBAL_CONFIG.app.urls.partials+'navigation/footer.html'" ng-controller="footerCtrl"></div>
+    <!-- FOOTER -->
+    <div ng-include="GLOBAL_CONFIG.app.urls.partials+'navigation/footer.html'" ng-controller="footerCtrl"></div>
 
 
 </div>
@@ -317,10 +317,7 @@
 <script src="forza-scripts/pages/Controllers.js"></script>
 <script src="forza-scripts/templates/templates.js"></script>
 <script src="forza-scripts/templates/overrides.js"></script>
-<!--<script src="sympozer-scripts/js/controllers/controllers/Navigation.js"></script>-->
-<script src="forza-scripts/controllers/Notifications.js"></script>
-<script src="forza-scripts/controllers/Messages.js"></script>
-<script src="forza-scripts/controllers/ColorPicker.js"></script>
+
 <script src="forza-scripts/controllers/Dashboard.js"></script>
 
 <!-- SYMPOZER GLOBAL FILES -->
@@ -336,22 +333,32 @@
 <script src="sympozer-scripts/js/controllers/navigation/nav-right.ctrl.js"></script>
 <script src="sympozer-scripts/js/controllers/navigation/nav-main.ctrl.js"></script>
 
+<script src="sympozer-scripts/js/controllers/styles/styles.ctrl.js"></script>
+
 <script src="sympozer-scripts/js/controllers/dashboard.ctrl.js"></script>
 <script src="sympozer-scripts/js/controllers/main.ctrl.js"></script>
 
 <!--DIRECTIVES-->
-<script src="sympozer-scripts/js/directives/datetime-format.drv.js"></script>
-<script src="sympozer-scripts/js/directives/elastic.drv.js"></script>
-<script src="sympozer-scripts/js/directives/entity-list-handler.drv.js"></script>
-<script src="sympozer-scripts/js/directives/infinite-scroll.drv.js"></script>
+<script src="sympozer-scripts/js/directives/dates/datetime-format.drv.js"></script>
+
+<script src="sympozer-scripts/js/directives/lists/entity-list-handler.drv.js"></script>
+<script src="sympozer-scripts/js/directives/lists/infinite-scroll.drv.js"></script>
+
+<script src="sympozer-scripts/js/directives/validations/server-error.drv.js"></script>
+<script src="sympozer-scripts/js/directives/validations/date-before-now.vld.js"></script>
+
+<script src="sympozer-scripts/js/directives/forms/colorpicker.drv.js"></script>
+<script src="sympozer-scripts/js/directives/forms/textarea-autosize.drv.js"></script>
+<script src="sympozer-scripts/js/directives/forms/textarea-fullscreen.drv.js"></script>
+
+<script src="sympozer-scripts/js/directives/acl/sympozer-acl-show.drv.js"></script>
+
+<script src="sympozer-scripts/js/directives/maps/google-place-autocomplete.drv.js"></script>
+<script src="sympozer-scripts/js/directives/maps/gmap.drv.js"></script>
+
 <script src="sympozer-scripts/js/directives/no-image.drv.js"></script>
-<script src="sympozer-scripts/js/directives/server-error.drv.js"></script>
-<script src="sympozer-scripts/js/directives/sympozer-acl-show.drv.js"></script>
 <script src="sympozer-scripts/js/directives/sympozer-autocomplete.drv.js"></script>
 <script src="sympozer-scripts/js/directives/sympozer-include-with-locals.drv.js"></script>
-<script src="sympozer-scripts/js/directives/validators/date-before-now.vld.js"></script>
-<script src="sympozer-scripts/js/directives/map/google-place-autocomplete.drv.js"></script>
-<script src="sympozer-scripts/js/directives/map/gmap.drv.js"></script>
 <!--FILTERS -->
 <script src="sympozer-scripts/js/filters/sympozer-checkmark.fltr.js"></script>
 <script src="sympozer-scripts/js/filters/sympozer-in-array.fltr.js"></script>
@@ -481,7 +488,7 @@
 <script src="sympozer-scripts/modules/locations/js/controllers/locations-list.ctrl.js"></script>
 <!--@TODO <script src="sympozer-scripts/modules/locations/js/controllers/locations-main.ctrl.js"></script>-->
 <script src="sympozer-scripts/modules/locations/js/controllers/locations-new.ctrl.js"></script>
-<!--@TODO -->   
+<!--@TODO -->
 <script src="sympozer-scripts/modules/locations/js/controllers/locations-show.ctrl.js"></script>
 <!-- SERVICES -->
 <script src="sympozer-scripts/modules/locations/js/services/locations.fact.js"></script>
@@ -518,7 +525,7 @@
 
 
 <!-- SYMPOZER EVENTS APP -->
- <script src="sympozer-scripts/modules/events/js/routes.js"></script>
+<script src="sympozer-scripts/modules/events/js/routes.js"></script>
 <!-- CONTROLLERS -->
 <script src="sympozer-scripts/modules/events/js/controllers/events-delete.ctrl.js"></script>
 <script src="sympozer-scripts/modules/events/js/controllers/events-edit.ctrl.js"></script>
@@ -560,129 +567,175 @@
 
 <!-- SERVICES -->
 <script src="sympozer-scripts/modules/equipments/js/services/equipments.fact.js"></script>
+
+
+
+<!-- SYMPOZER NOTIFICATIONS APP -->
+<!-- CONTROLLERS -->
+<script src="sympozer-scripts/modules/notifications/js/routes.js"></script>
+<script src="sympozer-scripts/modules/notifications/js/controllers/notifications-list.ctrl.js"></script>
+<script src="sympozer-scripts/modules/notifications/js/controllers/notifications-popover.ctrl.js"></script>
+
+
+<!-- SYMPOZER MESSAGES APP -->
+<!-- CONTROLLERS -->
+<script src="sympozer-scripts/modules/messages/js/routes.js"></script>
+<script src="sympozer-scripts/modules/messages/js/controllers/messages-inbox.ctrl.js"></script>
+<script src="sympozer-scripts/modules/messages/js/controllers/messages-chatroom.ctrl.js"></script>
+<script src="sympozer-scripts/modules/messages/js/controllers/messages-popover.ctrl.js"></script>
+
+
+<!-- SYMPOZER ANALYTICS APP -->
+<!-- CONTROLLERS -->
+<script src="sympozer-scripts/modules/analytics/js/routes.js"></script>
+<script src="sympozer-scripts/modules/analytics/js/controllers/analytics.ctrl.js"></script>
+
+
 <!-- endbuild -->
 
 
 
 <!-- basic client app context definition (just mocking the file) -->
 <script>
-  //@TODO to put in serchService
-  var queryNb = 0,
-      firstQueryNb = 0
-      ;
-  var globalConfig = {
-    app     : {
+    //@TODO to put in serchService
+    var queryNb = 0,
+            firstQueryNb = 0
+            ;
+    var globalConfig = {
+        app     : {
 
-      urls   : {
-        base    : "sympozer-scripts/assets/",
-        partials: "sympozer-scripts/partials/",
-        img     : "sympozer-scripts/assets/img/"
-      },
-      modules: {
-        authentication   : {
-          urls   : {
-            base    : "sympozer-scripts/modules/authentication/",
-            partials: "sympozer-scripts/modules/authentication/partials/",
-            img     : "sympozer-scripts/modules/authentication/img/"
-          },
-          options: {
-            shouldLogin: true
-          }
-        },
-        organizations    : {
-          urls: {
-            base             : "sympozer-scripts/modules/organizations/",
-            partials         : "sympozer-scripts/modules/organizations/partials/",
-            img              : "sympozer-scripts/modules/organizations/img/"
-          }
-        },
-        locations        : {
-          urls: {
-            base    : "sympozer-scripts/modules/locations/",
-            partials: "sympozer-scripts/modules/locations/partials/",
-            img     : "sympozer-scripts/modules/locations/img/"
-          }
-        },
-        equipments       : {
-          urls: {
-            base    : "sympozer-scripts/modules/equipments/",
-            partials: "sympozer-scripts/modules/equipments/partials/",
-            img     : "sympozer-scripts/modules/equipments/img/"
-          }
-        },
-        events           : {
-          urls: {
-            base    : "sympozer-scripts/modules/events/",
-            partials: "sympozer-scripts/modules/events/partials/",
-            img     : "sympozer-scripts/modules/events/img"
-          }
-        },
-        papers           : {
-          urls: {
-            base             : "sympozer-scripts/modules/papers/",
-            partials         : "sympozer-scripts/modules/papers/partials/",
-            communityPartials: "sympozer-scripts/modules/papers/partials/community/",
-            img              : "sympozer-scripts/modules/papers/img/"
-          }
-        },
-        categories       : {
-          urls: {
-            base    : "sympozer-scripts/modules/categories/",
-            partials: "sympozer-scripts/modules/categories/partials/",
-            img     : "sympozer-scripts/modules/categories/img/"
-          }
-        },
-        mainEvents       : {
-          urls: {
-            base             : "sympozer-scripts/modules/main-events/",
-            partials         : "sympozer-scripts/modules/main-events/partials/",
-            partialsCommunity: "sympozer-scripts/modules/main-events/partials/community/",
-            img              : "sympozer-scripts/modules/main-events/img/"
-          }
-        },
-        persons          : {
-          urls: {
-            base             : "sympozer-scripts/modules/persons/",
-            partials         : "sympozer-scripts/modules/persons/partials/",
-            img              : "sympozer-scripts/modules/persons/img/"
-          }
-        },
-        teammates        : {
-          urls: {
-            base    : "sympozer-scripts/modules/teammates/",
-            partials: "sympozer-scripts/modules/teammates/partials/",
-            img     : "sympozer-scripts/modules/teammates/img"
-          }
-        },
-        roles            : {
-          urls: {
-            base    : "sympozer-scripts/modules/roles/",
-            partials: "sympozer-scripts/modules/roles/partials/roles/",
-            img     : "sympozer-scripts/modules/roles/img/"
-          }
-        },
-        roleLabels: {
-          urls: {
-            base    : "sympozer-scripts/modules/roles/",
-            partials: "sympozer-scripts/modules/roles/partials/role-labels/",
-            img     : "sympozer-scripts/modules/roles/img/"
-          }
-        },
-        topics           : {
-          urls: {
-            base    : "sympozer-scripts/modules/topics/",
-            partials: "sympozer-scripts/modules/topics/partials/",
-            img     : "sympozer-scripts/modules/topics/img/"
-          }
-        }
-      }
-    },
-    language: 'EN'
+            urls   : {
+                base    : "sympozer-scripts/assets/",
+                partials: "sympozer-scripts/partials/",
+                img     : "sympozer-scripts/assets/img/"
+            },
+            modules: {
+                authentication   : {
+                    urls   : {
+                        base    : "sympozer-scripts/modules/authentication/",
+                        partials: "sympozer-scripts/modules/authentication/partials/",
+                        img     : "sympozer-scripts/modules/authentication/img/"
+                    },
+                    options: {
+                        shouldLogin: true
+                    }
+                },
+                organizations    : {
+                    urls: {
+                        base             : "sympozer-scripts/modules/organizations/",
+                        partials         : "sympozer-scripts/modules/organizations/partials/",
+                        img              : "sympozer-scripts/modules/organizations/img/"
+                    }
+                },
+                locations        : {
+                    urls: {
+                        base    : "sympozer-scripts/modules/locations/",
+                        partials: "sympozer-scripts/modules/locations/partials/",
+                        img     : "sympozer-scripts/modules/locations/img/"
+                    }
+                },
+                equipments       : {
+                    urls: {
+                        base    : "sympozer-scripts/modules/equipments/",
+                        partials: "sympozer-scripts/modules/equipments/partials/",
+                        img     : "sympozer-scripts/modules/equipments/img/"
+                    }
+                },
+                events           : {
+                    urls: {
+                        base    : "sympozer-scripts/modules/events/",
+                        partials: "sympozer-scripts/modules/events/partials/",
+                        img     : "sympozer-scripts/modules/events/img"
+                    }
+                },
+                papers           : {
+                    urls: {
+                        base             : "sympozer-scripts/modules/papers/",
+                        partials         : "sympozer-scripts/modules/papers/partials/",
+                        communityPartials: "sympozer-scripts/modules/papers/partials/community/",
+                        img              : "sympozer-scripts/modules/papers/img/"
+                    }
+                },
+                categories       : {
+                    urls: {
+                        base    : "sympozer-scripts/modules/categories/",
+                        partials: "sympozer-scripts/modules/categories/partials/",
+                        img     : "sympozer-scripts/modules/categories/img/"
+                    }
+                },
+                mainEvents       : {
+                    urls: {
+                        base             : "sympozer-scripts/modules/main-events/",
+                        partials         : "sympozer-scripts/modules/main-events/partials/",
+                        partialsCommunity: "sympozer-scripts/modules/main-events/partials/community/",
+                        img              : "sympozer-scripts/modules/main-events/img/"
+                    }
+                },
+                persons          : {
+                    urls: {
+                        base             : "sympozer-scripts/modules/persons/",
+                        partials         : "sympozer-scripts/modules/persons/partials/",
+                        img              : "sympozer-scripts/modules/persons/img/"
+                    }
+                },
+                teammates        : {
+                    urls: {
+                        base    : "sympozer-scripts/modules/teammates/",
+                        partials: "sympozer-scripts/modules/teammates/partials/",
+                        img     : "sympozer-scripts/modules/teammates/img"
+                    }
+                },
+                roles            : {
+                    urls: {
+                        base    : "sympozer-scripts/modules/roles/",
+                        partials: "sympozer-scripts/modules/roles/partials/roles/",
+                        img     : "sympozer-scripts/modules/roles/img/"
+                    }
+                },
+                roleLabels: {
+                    urls: {
+                        base    : "sympozer-scripts/modules/roles/",
+                        partials: "sympozer-scripts/modules/roles/partials/role-labels/",
+                        img     : "sympozer-scripts/modules/roles/img/"
+                    }
+                },
+                topics           : {
+                    urls: {
+                        base    : "sympozer-scripts/modules/topics/",
+                        partials: "sympozer-scripts/modules/topics/partials/",
+                        img     : "sympozer-scripts/modules/topics/img/"
+                    }
+                },
+                messages           : {
+                    urls: {
+                        base    : "sympozer-scripts/modules/messages/",
+                        partials: "sympozer-scripts/modules/messages/partials/",
+                        img     : "sympozer-scripts/modules/messages/img/"
+                    }
+                },
+                notifications           : {
+                    urls: {
+                        base    : "sympozer-scripts/modules/notifications/",
+                        partials: "sympozer-scripts/modules/notifications/partials/",
+                        img     : "sympozer-scripts/modules/notifications/img/"
+                    }
+                },
 
-  };
-  $.extend(globalConfig, wsConfig);
+                analytics              : {
+                    urls: {
+                        base    : "sympozer-scripts/modules/analytics/",
+                        partials: "sympozer-scripts/modules/analytics/partials/",
+                        img     : "sympozer-scripts/modules/analytics/img/"
+                    }
+                }
+            }
+        },
+        language: 'EN'
 
-  angular.module('sympozerApp').value('GLOBAL_CONFIG', globalConfig);
+    };
+    $.extend(globalConfig, wsConfig);
+
+    angular.module('sympozerApp').value('GLOBAL_CONFIG', globalConfig);
 </script>
 </body>
 </html>
