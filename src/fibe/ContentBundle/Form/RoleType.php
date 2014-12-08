@@ -33,9 +33,9 @@ class RoleType extends AbstractType
         'type' => new EventType(),
         'required' => 'false'
       ))
-      ->add('roleLabelVersion', 'sympozer_entity_type', array(
-        'type' => new RoleLabelVersionType(),
-        'required' => 'false'
+      ->add('roleLabel', 'sympozer_entity_type', array(
+        'type' => new roleLabelType(),
+        'required' => 'true'
       ))
       ->add('mainEvent', 'sympozer_entity_type', array(
         'type' => new MainEventType(),

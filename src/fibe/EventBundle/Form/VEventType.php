@@ -40,10 +40,6 @@ class VEventType extends AbstractType
       ->add('comment')
       ->add('url')
       ->add('dtype')
-      ->add('sponsors', 'sympozer_collection_type', array(
-        'class' => 'fibeContentBundle:Sponsor',
-        'required' => 'false'
-      ))
       ->add('location', 'sympozer_entity_type', array(
         'type' => new LocationType(),
         'required' => 'true',

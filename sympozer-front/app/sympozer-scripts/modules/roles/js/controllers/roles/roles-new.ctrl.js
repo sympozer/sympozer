@@ -54,10 +54,7 @@ angular.module('rolesApp').controller('rolesNewCtrl',
                 {
                     //Set main event of the new role
                     $scope.role.mainEvent = $routeParams.mainEventId;
-                    $scope.role.person = $scope.role.person.id;
-                    $scope.role.event = $scope.role.event ? $scope.role.event.id : null;
-                    $scope.role.roleLabelVersion = $scope.role.roleLabelVersion.id;
-                    $scope.role.$create({}, success, error);
+                    rolesFact.create(rolesFact.serialize($scope.role), success, error);
                 }
             }
 
