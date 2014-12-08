@@ -1,14 +1,10 @@
 'use strict';
 
-/**
- * Sympozer Notifications module
- */
-var notificationsModule = angular.module('theme.notifications-controller', []);
 
 /**
  * Notifications controller
  */
-notificationsModule.controller('NotificationsController', ['$scope', '$filter', function ($scope, $filter)
+angular.module('notificationsApp').controller('notificationsPopoverCtrl', ['$scope', '$filter', function ($scope, $filter)
 {
   /**
    * Default notifications (which is seen in the top bar, with the alarm icon)

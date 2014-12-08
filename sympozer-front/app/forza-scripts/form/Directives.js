@@ -2,36 +2,6 @@
 
 angular
   .module('theme.form-directives', [])
-  .directive('autosize', function ()
-  {
-    return {
-      restrict: 'AC',
-      link: function (scope, element, attr)
-      {
-        element.autosize({append: "\n"})
-      }
-    }
-  })
-  .directive('fullscreen', function ()
-  {
-    return {
-      restrict: 'AC',
-      link: function (scope, element, attr)
-      {
-        element.fseditor({maxHeight: 500});
-      }
-    }
-  })
-  .directive('colorpicker', function ()
-  {
-    return {
-      restrict: 'AC',
-      link: function (scope, element, attr)
-      {
-        element.colorpicker();
-      }
-    }
-  })
   .directive('daterangepicker', function ()
   {
     return {

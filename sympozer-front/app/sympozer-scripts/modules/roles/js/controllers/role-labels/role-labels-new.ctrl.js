@@ -39,13 +39,11 @@ angular.module('roleLabelsApp').controller('roleLabelsNewCtrl', [ '$scope', '$ro
     //Send post request if form valid
     $scope.create = function (form)
     {
-        //Set main event
-        $scope.roleLabel.mainEvent = $routeParams.mainEventId;
 
         //Verify form validity
         if (form.$valid)
         {
-            $scope.roleLabel.$create({}, success, error);
+            roleLabelsFact.create($scope.roleLabel, success, error);
         }
     }
 

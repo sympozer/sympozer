@@ -19,6 +19,27 @@ class RoleLabelRESTController extends FOSRestController
     const ENTITY_CLASSNAME = "fibe\\ContentBundle\\Entity\\RoleLabel";
     const FORM_CLASSNAME = "fibe\\ContentBundle\\Form\\RoleLabelType";
 
+    /**
+     * Lists all Role Labels  entities filtered by conference.
+     * @Rest\Get("/mainEvents/{mainEventId}/roleLabels", name="content_roleLabels__all_by_conference")
+     * @Rest\View
+     * @Rest\QueryParam(name="offset", requirements="\d+", nullable=true, description="Offset from which to start listing pages.")
+     * @Rest\QueryParam(name="limit", requirements="\d+", default="10", description="How many entity to return.")
+     * @Rest\QueryParam(name="query", requirements=".{1,128}", nullable=true, description="the query to search.")
+     * @Rest\QueryParam(name="order", nullable=true, array=true, description="an array of order.")
+     * @Rest\QueryParam(name="filters", nullable=true, array=true, description="an array of filters.")
+     */
+    public function getRoleLabelsByConferenceAction(Request $request, ParamFetcherInterface $paramFetcher, $mainEventId)
+    {
+        $routeParams = [];
+        $routeParams["mainEventId"] = $mainEventId;
+
+        return $this->get('fibe.rest.crudhandler')->getAll(
+            $this::ENTITY_CLASSNAME,
+            $paramFetcher,
+            $routeParams
+        );
+    }
 
     /**
      * Lists all RoleLabel entities.

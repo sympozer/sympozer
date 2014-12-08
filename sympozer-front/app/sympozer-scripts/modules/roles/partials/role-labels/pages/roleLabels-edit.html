@@ -1,0 +1,7 @@
+<div ng-include="GLOBAL_CONFIG.app.modules.roleLabels.urls.partials+'views/roleLabels-actions.html'" ng-controller="roleLabelsMainCtrl"></div>
+<form name="roleLabelEditForm" class="form" role="form" ng-submit="update(roleLabelEditForm)">
+    <div ng-include="GLOBAL_CONFIG.app.modules.roleLabels.urls.partials+'views/roleLabels-form.html'"></div>
+    <div>
+        <button type="submit" class="btn btn-success">{{ 'global.actions.save' | translate}}</button>
+    </div>
+</form>

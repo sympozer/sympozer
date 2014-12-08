@@ -73,13 +73,13 @@ class Role
     private $mainEvent;
 
     /**
-     * @ORM\ManyToOne(targetEntity="fibe\ContentBundle\Entity\RoleLabelVersion", inversedBy="roles")
+     * @ORM\ManyToOne(targetEntity="fibe\ContentBundle\Entity\RoleLabel", inversedBy="roles")
      * @ORM\JoinColumn(name="roleLabelId", referencedColumnName="id")
      * @Assert\NotBlank(message="You have to choose a role type")
-     * @SerializedName("roleLabelVersion")
+     * @SerializedName("roleLabel")
      * @Expose
      */
-    private $roleLabelVersion;
+    private $roleLabel;
 
     /**
      *
@@ -171,21 +171,7 @@ class Role
         return $this;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getRoleLabelVersion()
-    {
-        return $this->roleLabelVersion;
-    }
 
-    /**
-     * @param mixed $roleLabelVersion
-     */
-    public function setRoleLabelVersion($roleLabelVersion)
-    {
-        $this->roleLabelVersion = $roleLabelVersion;
-    }
 
 
     /**
@@ -230,5 +216,21 @@ class Role
     public function setId($id)
     {
         $this->id = $id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRoleLabel()
+    {
+        return $this->roleLabel;
+    }
+
+    /**
+     * @param mixed $roleLabel
+     */
+    public function setRoleLabel($roleLabel)
+    {
+        $this->roleLabel = $roleLabel;
     }
 }

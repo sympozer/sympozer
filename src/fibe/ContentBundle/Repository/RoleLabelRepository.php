@@ -21,7 +21,12 @@ class RoleLabelRepository extends EntityRepository
      */
     public function filter($qb, $params)
     {
-
+        if (isset($params['mainEventId']))
+        {
+            $qb->leftJoin('qb.mainEvent', 'ev');
+            $qb->andWhere('ev.id = (:mainEventId)');
+            $qb->setParameter('mainEventId', $params['mainEventId']);
+        }
 
         return $qb;
     }

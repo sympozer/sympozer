@@ -42,15 +42,7 @@ class RoleLabel
      */
     private $description;
 
-    /**
-     * Category versions related to the global roleLabel
-     *
-     * @ORM\OneToMany(targetEntity="RoleLabelVersion", mappedBy="roleLabel",cascade={"persist"})
-     * @ORM\JoinColumn( onDelete="CASCADE")
-     * @Expose
-     * @SerializedName("roleLabelVersions")
-     */
-    private $roleLabelVersions;
+
 
     /**
      * Constructor
@@ -118,22 +110,6 @@ class RoleLabel
     public function setDescription($description)
     {
         $this->description = $description;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getRoleLabelVersions()
-    {
-        return $this->roleLabelVersions;
-    }
-
-    /**
-     * @param mixed $roleLabelVersions
-     */
-    public function setRoleLabelVersions($roleLabelVersions)
-    {
-        $this->roleLabelVersions = $roleLabelVersions;
     }
 
 

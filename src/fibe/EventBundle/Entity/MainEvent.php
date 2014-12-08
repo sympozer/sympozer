@@ -61,10 +61,8 @@ class MainEvent extends VEvent
    * @ORM\OneToMany(targetEntity="fibe\ContentBundle\Entity\Role", mappedBy="mainEvent",cascade={"persist", "remove"})
    */
   private $roles;
-  /**
-   * @ORM\OneToMany(targetEntity="fibe\ContentBundle\Entity\RoleLabelVersion", mappedBy="mainEvent",cascade={"persist", "remove"})
-   */
-  private $roleLabelVersions;
+
+
   /**
    * Categories
    * @ORM\OneToMany(targetEntity="fibe\EventBundle\Entity\CategoryVersion", mappedBy="mainEvent",cascade={"persist", "remove"})
