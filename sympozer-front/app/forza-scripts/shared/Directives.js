@@ -2,125 +2,47 @@
 
 angular
   .module('theme.directives', [])
-  .directive('disableAnimation', ['$animate', function ($animate)
-  {
-    return {
-      restrict: 'A',
-      link: function ($scope, $element, $attrs)
-      {
-        $attrs.$observe('disableAnimation', function (value)
-        {
-          $animate.enabled(!value, $element);
-        });
-      }
-    }
-  }])
-  .directive('slideOut', function ()
-  {
-    return {
-      restrict: 'A',
-      scope: {
-        show: '=slideOut'
-      },
-      link: function (scope, element, attr)
-      {
-        element.hide();
-        scope.$watch('show', function (newVal, oldVal)
-        {
-          if (newVal !== oldVal)
-          {
-            element.slideToggle({
-              complete: function ()
-              {
-                scope.$apply();
-              }
-            });
-          }
-        });
-      }
-    }
-  })
-  .directive('slideOutNav', ['$timeout', function ($t)
-  {
-    return {
-      restrict: 'A',
-      scope: {
-        show: '=slideOutNav'
-      },
-      link: function (scope, element, attr)
-      {
-        scope.$watch('show', function (newVal, oldVal)
-        {
-          if ($('body').hasClass('collapse-leftbar'))
-          {
-            if (newVal == true)
-            {
-              element.css('display', 'block');
-            }
-            else
-            {
-              element.css('display', 'none');
-            }
-            return;
-          }
-          if (newVal == true)
-          {
-            element.slideDown({
-              complete: function ()
-              {
-                $t(function ()
-                {
-                  scope.$apply()
-                })
-              }
-            });
-          }
-          else if (newVal == false)
-          {
-            element.slideUp({
-              complete: function ()
-              {
-                $t(function ()
-                {
-                  scope.$apply()
-                })
-              }
-            });
-          }
-        });
-      }
-    }
-  }])
-  .directive('panel', function ()
-  {
-    return {
-      restrict: 'E',
-      transclude: true,
-      scope: {
-        panelClass: '@',
-        heading: '@',
-        panelIcon: '@'
-      },
-      templateUrl: 'templates/panel.html',
-    }
-  })
-  .directive('pulsate', function ()
-  {
-    return {
-      scope: {
-        pulsate: '='
-      },
-      link: function (scope, element, attr)
-      {
-        // stupid hack to prevent FF from throwing error
-        if (element.css('background-color') == "transparent")
-        {
-          element.css('background-color', "rgba(0,0,0,0.01)");
-        }
-        $(element).pulsate(scope.pulsate);
-      }
-    }
-  })
+//  .directive('disableAnimation', ['$animate', function ($animate)
+//  {
+//    return {
+//      restrict: 'A',
+//      link: function ($scope, $element, $attrs)
+//      {
+//        $attrs.$observe('disableAnimation', function (value)
+//        {
+//          $animate.enabled(!value, $element);
+//        });
+//      }
+//    }
+//  }])
+//  .directive('slideOut', function ()
+//  {
+//    return {
+//      restrict: 'A',
+//      scope: {
+//        show: '=slideOut'
+//      },
+//      link: function (scope, element, attr)
+//      {
+//        element.hide();
+//        scope.$watch('show', function (newVal, oldVal)
+//        {
+//          if (newVal !== oldVal)
+//          {
+//            element.slideToggle({
+//              complete: function ()
+//              {
+//                scope.$apply();
+//              }
+//            });
+//          }
+//        });
+//      }
+//    }
+//  })
+
+
+
   .directive('prettyprint', function ()
   {
     return {
@@ -185,83 +107,8 @@ angular
       }
     };
   })
-  .directive('panelControls', [function ()
-  {
-    return {
-      restrict: 'E',
-      require: '?^tabset',
-      link: function (scope, element, attrs, tabsetCtrl)
-      {
-        var panel = $(element).closest('.panel');
-        if (panel.hasClass('.ng-isolate-scope') == false)
-        {
-          $(element).appendTo(panel.find('.options'));
-        }
-      }
-    };
-  }])
-  .directive('panelControlCollapse', function ()
-  {
-    return {
-      restrict: 'EAC',
-      link: function (scope, element, attr)
-      {
-        element.bind('click', function ()
-        {
-          $(element).toggleClass("fa-chevron-down fa-chevron-up");
-          $(element).closest(".panel").find('.panel-body').slideToggle({duration: 200});
-          $(element).closest(".panel-heading").toggleClass('rounded-bottom');
-        })
-        return false;
-      }
-    };
-  })
-  .directive('icheck', function ($timeout, $parse)
-  {
-    return {
-      require: '?ngModel',
-      link: function ($scope, element, $attrs, ngModel)
-      {
-        return $timeout(function ()
-        {
-          var parentLabel = element.parent('label');
-          if (parentLabel.length)
-          {
-            parentLabel.addClass('icheck-label');
-          }
-          var value;
-          value = $attrs['value'];
 
-          $scope.$watch($attrs['ngModel'], function (newValue)
-          {
-            $(element).iCheck('update');
-          })
 
-          return $(element).iCheck({
-            checkboxClass: 'icheckbox_minimal-blue',
-            radioClass: 'iradio_minimal-blue'
-
-          }).on('ifChanged', function (event)
-          {
-            if ($(element).attr('type') === 'checkbox' && $attrs['ngModel'])
-            {
-              $scope.$apply(function ()
-              {
-                return ngModel.$setViewValue(event.target.checked);
-              });
-            }
-            if ($(element).attr('type') === 'radio' && $attrs['ngModel'])
-            {
-              return $scope.$apply(function ()
-              {
-                return ngModel.$setViewValue(value);
-              });
-            }
-          });
-        });
-      }
-    };
-  })
   .directive('knob', function ()
   {
     return {
@@ -291,82 +138,7 @@ angular
       }
     };
   }])
-  .directive('tileLarge', function ()
-  {
-    return {
-      restrict: 'E',
-      scope: {
-        item: '=data'
-      },
-      templateUrl: 'templates/tile-large.html',
-      replace: true,
-      transclude: true
-    }
-  })
-  .directive('tileMini', function ()
-  {
-    return {
-      restrict: 'E',
-      scope: {
-        item: '=data'
-      },
-      replace: true,
-      templateUrl: 'templates/tile-mini.html'
-    }
-  })
-  .directive('tile', function ()
-  {
-    return {
-      restrict: 'E',
-      scope: {
-        heading: '@',
-        type: '@'
-      },
-      transclude: true,
-      templateUrl: 'templates/tile-generic.html',
-      link: function (scope, element, attr)
-      {
-        var heading = element.find('tile-heading');
-        if (heading.length)
-        {
-          heading.appendTo(element.find('.tiles-heading'));
-        }
-      },
-      replace: true
-    }
-  })
-  .directive('jscrollpane', ['$timeout', function ($timeout)
-  {
-    return {
-      restrict: 'A',
-      scope: {
-        options: '=jscrollpane'
-      },
-      link: function (scope, element, attr)
-      {
-        $timeout(function ()
-        {
-          if (navigator.appVersion.indexOf("Win") != -1)
-          {
-            element.jScrollPane($.extend({mouseWheelSpeed: 20}, scope.options))
-          }
-          else
-          {
-            element.jScrollPane(scope.options);
-          }
-          element.on('click', '.jspVerticalBar', function (event)
-          {
-            event.preventDefault();
-            event.stopPropagation();
-          });
-          element.bind('mousewheel', function (e)
-          {
-            e.preventDefault();
-          });
-        });
-      }
-    };
-  }])
+
   // specific to app
   .directive('stickyScroll', function ()
   {
@@ -475,34 +247,34 @@ angular
       }
     };
   }])
-  .directive('jscrollpaneOn', ['$timeout', function ($timeout)
-  {
-    return {
-      restrict: 'A',
-      scope: {
-        applyon: '=jscrollpaneOn'
-      },
-      link: function (scope, element, attr)
-      {
-        scope.$watch('applyon', function (newVal)
-        {
-          if (newVal == false)
-          {
-            var api = element.data('jsp');
-            if (api)
-            {
-              api.destroy();
-            }
-            return;
-          }
-          $timeout(function ()
-          {
-            element.jScrollPane({autoReinitialise: true});
-          });
-        });
-      }
-    };
-  }])
+//  .directive('jscrollpaneOn', ['$timeout', function ($timeout)
+//  {
+//    return {
+//      restrict: 'A',
+//      scope: {
+//        applyon: '=jscrollpaneOn'
+//      },
+//      link: function (scope, element, attr)
+//      {
+//        scope.$watch('applyon', function (newVal)
+//        {
+//          if (newVal == false)
+//          {
+//            var api = element.data('jsp');
+//            if (api)
+//            {
+//              api.destroy();
+//            }
+//            return;
+//          }
+//          $timeout(function ()
+//          {
+//            element.jScrollPane({autoReinitialise: true});
+//          });
+//        });
+//      }
+//    };
+//  }])
   .directive('backToTop', function ()
   {
     return {

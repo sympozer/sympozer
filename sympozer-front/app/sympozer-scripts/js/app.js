@@ -69,10 +69,6 @@ sympozerApp = angular.module('sympozerApp', [
     'ngGrid',
     'xeditable',
     'flow',
-    'theme.services',
-    'theme.directives',
-//    'theme.layout-horizontal',
-//    'theme.layout-boxed',
 
     'ngCookies',
     'ngResource',
