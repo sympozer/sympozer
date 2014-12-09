@@ -2,11 +2,9 @@
 
 namespace fibe\ContentBundle\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
-use JMS\Serializer\Annotation\SerializedName;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -43,7 +41,6 @@ class RoleLabel
     private $description;
 
 
-
     /**
      * Constructor
      */
@@ -61,6 +58,14 @@ class RoleLabel
         return $this->id;
     }
 
+    /**
+     * @param mixed $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
 
     /**
      * __toString method
@@ -68,6 +73,16 @@ class RoleLabel
      * @return mixed
      */
     public function __toString()
+    {
+        return $this->label;
+    }
+
+    /**
+     * Get label
+     *
+     * @return string
+     */
+    public function getLabel()
     {
         return $this->label;
     }
@@ -84,16 +99,6 @@ class RoleLabel
         $this->label = $label;
 
         return $this;
-    }
-
-    /**
-     * Get label
-     *
-     * @return string
-     */
-    public function getLabel()
-    {
-        return $this->label;
     }
 
     /**

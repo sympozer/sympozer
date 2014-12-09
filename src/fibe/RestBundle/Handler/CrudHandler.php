@@ -86,7 +86,7 @@ class CrudHandler
     $form->submit($formData, 'PATCH' !== $method);
 
     //perform acl check
-    $this->validateAction($method, $entity);
+      $this->validateAction($method, $entity);
 
     if ($form->isValid())
     {
@@ -102,69 +102,69 @@ class CrudHandler
     );
   }
 
-  protected function validateAction($method, $entity)
+    protected function validateAction($method, $entity)
   {
-    if (!$entity)
+      if (!$entity)
     {
-      throw new NotFoundHttpException("entity not found");
+        throw new NotFoundHttpException("entity not found");
     }
-    switch ($method)
+      switch ($method)
     {
-      case "PUT":
-      case "PATCH":
-        $right = "EDIT";
-        break;
-      case "POST":
-        $right = "CREATE";
-        break;
-      case "DELETE":
-        $right = "DELETE";
-        break;
-      default:
-        throw new \RuntimeException("method : $method is not mapped in CrudHandler!");
-    }
-    //perform acl check
-    if (false === $this->container->get("security.context")->isGranted($right, $entity))
-    {
-      throw new AccessDeniedException(
-        sprintf('You don\'t have the authorization to perform %s on %s',
-          $right,
-          '#' . $entity->getId()
-        )
-      );
-    }
-  }
-
-  /**
-   * get the service of the entity conventionally named fibe.{entityName}Service
-   * @param $entity
-   * @param $entityClassName
-   * @param $method
-   */
-  protected function callBusinessService($entity, $entityClassName, $method)
-  {
-    try
-    {
-      if ($entityService = $this->container->get('fibe.' . substr($entityClassName, strrpos($entityClassName, '\\') + 1) . 'Service'))
-      {
-        if (method_exists($entityService, strtolower($method)))
-        {
-          call_user_func_array(array($entityService, strtolower($method)), array($entity, $entityClassName));
-        }
+          case "PUT":
+          case "PATCH":
+              $right = "EDIT";
+              break;
+          case "POST":
+              $right = "CREATE";
+              break;
+          case "DELETE":
+              $right = "DELETE";
+              break;
+          default:
+              throw new \RuntimeException("method : $method is not mapped in CrudHandler!");
       }
-    } catch (ServiceNotFoundException $e)
-    {
-      //no business service defined, just do nothing
+      //perform acl check
+      if (false === $this->container->get("security.context")->isGranted($right, $entity))
+      {
+          throw new AccessDeniedException(
+              sprintf('You don\'t have the authorization to perform %s on %s',
+                  $right,
+                  '#' . $entity->getId()
+              )
+          );
     }
   }
 
-  public function delete($entityClassName, $id)
+    /**
+     * get the service of the entity conventionally named fibe.{entityName}Service
+     * @param $entity
+     * @param $entityClassName
+     * @param $method
+     */
+    protected function callBusinessService($entity, $entityClassName, $method)
   {
-    $entity = $this->em->getRepository($entityClassName)->find($id);
-    $this->validateAction("DELETE", $entity);
-    $this->callBusinessService($entity, $entityClassName, 'delete');
-    $this->em->remove($entity);
-    $this->em->flush($entity);
+      try
+      {
+          if ($entityService = $this->container->get('fibe.' . substr($entityClassName, strrpos($entityClassName, '\\') + 1) . 'Service'))
+          {
+              if (method_exists($entityService, strtolower($method)))
+              {
+                  call_user_func_array(array($entityService, strtolower($method)), array($entity, $entityClassName));
+              }
+          }
+      } catch (ServiceNotFoundException $e)
+      {
+          //no business service defined, just do nothing
+      }
+  }
+
+    public function delete($entityClassName, $id)
+  {
+      $entity = $this->em->getRepository($entityClassName)->find($id);
+      $this->validateAction("DELETE", $entity);
+      $this->callBusinessService($entity, $entityClassName, 'delete');
+      $this->em->remove($entity);
+      $this->em->flush($entity);
   }
 
 }

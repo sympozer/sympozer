@@ -69,7 +69,7 @@ angular.module('sympozerApp').factory('globalHttpInterceptor', [
 
         var cleanEntityDepth = function (entity, maxDepth)
         {
-            maxDepth = maxDepth || 4;
+            maxDepth = maxDepth || 2;
             recursiveClean(entity);
             return entity;
 
@@ -83,9 +83,10 @@ angular.module('sympozerApp').factory('globalHttpInterceptor', [
             function recursiveClean(object, depth)
             {
                 delete object["acl"];
+                delete object["dtype"];
 
                 depth = depth || 0;
-                var currentDepth = depth + 1;
+                var currentDepth = depth;
                 if (currentDepth > maxDepth)
                 {
                     return true;
@@ -100,7 +101,8 @@ angular.module('sympozerApp').factory('globalHttpInterceptor', [
                         }
                         else if ((object[property]) instanceof Array)
                         { //clean arrays
-                            if (recursiveClean(object[property], currentDepth + 1))
+                            recursiveClean(object[property], currentDepth + 1);
+                            if (object[property].length == 0)
                             {
                                 delete object[property];
                             }

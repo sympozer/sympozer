@@ -28,6 +28,10 @@ class PersonType extends AdditionalInformationsType
         'type' => new PositionType(),
         'required' => false
       ))
+//      ->add('localization', 'sympozer_entity_type', array(
+//        'type' => new LocalizationType(),
+//        'required' => false
+//      ))
 //      ->add('papers', 'sympozer_collection_type', array(
 //        'class' => new PaperType(),
 //        'required' => false

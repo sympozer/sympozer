@@ -3,7 +3,8 @@
  * The profile of a person is managed via a live edit form. Each change is persisted uniquely using patch request
  * @type {controller}
  */
-angular.module('personsApp').controller('personsEditCtrl', [ '$scope', '$q','$filter', '$rootScope', '$modal', 'GLOBAL_CONFIG', '$routeParams', '$location', 'personsFact', 'organizationsFact', 'papersFact', 'pinesNotifications', 'translateFilter',
+angular.module('personsApp').controller('personsEditCtrl', [
+    '$scope', '$q', '$filter', '$rootScope', '$modal', 'GLOBAL_CONFIG', '$routeParams', '$location', 'personsFact', 'organizationsFact', 'papersFact', 'pinesNotifications', 'translateFilter',
     function ($scope, $q, $filter, $rootScope, $modal, GLOBAL_CONFIG, $routeParams, $location, personsFact, organizationsFact, papersFact, pinesNotifications, translateFilter)
     {
         //Fetch person info
@@ -16,8 +17,8 @@ angular.module('personsApp').controller('personsEditCtrl', [ '$scope', '$q','$fi
             //Notify of error on patch request
             pinesNotifications.notify({
                 title: translateFilter('global.validations.error'),
-                text: translateFilter('response.data.error.message'),
-                type: 'error'
+                text : translateFilter('response.data.error.message'),
+                type : 'error'
             });
         }
 
@@ -27,31 +28,36 @@ angular.module('personsApp').controller('personsEditCtrl', [ '$scope', '$q','$fi
             //Notify of success on patch request
             pinesNotifications.notify({
                 title: translateFilter('global.validations.success'),
-                text: translateFilter('global.validations.modifications_saved'),
-                type: 'success'
+                text : translateFilter('global.validations.modifications_saved'),
+                type : 'success'
             });
         }
 
         //Send patch request on the field to be persisted
-        $scope.updatePerson = function(field, data){
+        $scope.updatePerson = function (field, data)
+        {
             var updatePersonParam = {id: $scope.person.id};
             updatePersonParam[field] = data;
             return personsFact.patch(updatePersonParam, success, error);
         }
 
         //Populate array of a specific linked entity
-        $scope.addRelationship = function(key, model){
+        $scope.addRelationship = function (key, model)
+        {
             //Check if array available for the linked entity
-            if(!$scope.person[key]){
+            if (!$scope.person[key])
+            {
                 $scope.person[key] = [];
             }
 
             //Stop if the object selected is already in array (avoid duplicates)
-            if(! $filter('inArray')('label', model.label, $scope.person[key])){
+            if (!$filter('inArray')('label', model.label, $scope.person[key]))
+            {
                 //If no duplicate add the selected object to the specified array
                 $scope.person[key].push(model);
                 $scope.updatePerson(key, $scope.person[key]);
-            };
+            }
+            ;
         }
 
         /**
@@ -59,7 +65,8 @@ angular.module('personsApp').controller('personsEditCtrl', [ '$scope', '$q','$fi
          * @param key, the array containing the linked entities (papers, organizations, events..)
          * @param index, index of the entity to remove on the key array
          */
-        $scope.removeRelationship = function(key, index){
+        $scope.removeRelationship = function (key, index)
+        {
             //Delete the specified index in the "key" array
             $scope.person[key].splice(index, 1);
             //Persist changes
@@ -69,53 +76,57 @@ angular.module('personsApp').controller('personsEditCtrl', [ '$scope', '$q','$fi
 
         //Promise needed by the typeahead directive, resolved when something is selected
         var deferred = $q.defer();
-        $scope.getOrganizations = function(val){
-            organizationsFact.all({query : val}, deferred.resolve);
+        $scope.getOrganizations = function (val)
+        {
+            organizationsFact.all({query: val}, deferred.resolve);
             return deferred.promise;
         };
 
-        $scope.addPosition = function(label, organization){
-            if(label && organization){
-                var position = {
-                    person : $scope.person.id,
-                    organization : organization.id ? organization.id : { label : organization },
-                    position : position,
-                    label : label
-                }
-                $scope.addRelationship('positions', position);
+        $scope.addPosition = function (position)
+        {
+            if (position.position && position.organization)
+            {
+                $scope.addRelationship('positions', {
+//                    person      : $scope.person.id,
+                    organization: position.organization.id ? position.organization.id : { label: position.organization },
+                    position    : position.position
+                });
             }
-        }
+        };
 
-        $scope.setLocalization = function(formattedLocalization){
+        $scope.setLocalization = function (formattedLocalization)
+        {
             //Set new localization
             //$scope.person.localization = formattedLocalization;
             //Persist changes
             formattedLocalization.id = $scope.person.localization.id || null;
-            return personsFact.patch({id: $scope.person.id,  localization : formattedLocalization}, success, error);
+            return personsFact.patch({id: $scope.person.id, localization: formattedLocalization}, success, error);
             //$scope.updatePerson("localization", formattedLocalization);
         }
 
 
-
         //Select img modal workflow
-        $scope.showImgModal = function(){
+        $scope.showImgModal = function ()
+        {
             // Open modal with main event logo form
             var modalInstance = $modal.open({
                 templateUrl: GLOBAL_CONFIG.app.modules.persons.urls.partials + 'modals/persons-select-logo-modal.html',
                 //The edit controller is responsible for it
-                controller: 'personsEditCtrl',
-                size: "large",
-                resolve : {
+                controller : 'personsEditCtrl',
+                size       : "large",
+                resolve    : {
                     //Passing current person as a parameter
-                    person :function() {
+                    person: function ()
+                    {
                         return $scope.person;
                     }
                 }
             });
 
             //On success modal $close function call, resolve the promise
-            modalInstance.result.then(function (imgUrl) {
-                $scope.person.img= imgUrl;
+            modalInstance.result.then(function (imgUrl)
+            {
+                $scope.person.img = imgUrl;
                 $scope.updatePerson('img', imgUrl);
             })
         }

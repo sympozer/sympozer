@@ -3,10 +3,11 @@
 namespace fibe\CommunityBundle\Form;
 
 
+use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class PositionType extends AdditionalInformationsType
+class PositionType extends AbstractType
 {
 
     /**
@@ -16,18 +17,18 @@ class PositionType extends AdditionalInformationsType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('label')
+          ->add('id')
             ->add('position')
-            ->add('person', 'entity', array(
-                'class' => 'fibeCommunityBundle:Person',
-                'required' => 'false',
-                'multiple' => false,
+          ->add('label')
+          ->add('person', 'sympozer_entity_type', array(
+            'type' => new PersonType(),
+            'required' => 'true',
+              'cascade_persist' => false,
             ))
-            ->add('organization', 'entity', array(
-                'class' => 'fibeCommunityBundle:Organization',
-                'required' => 'false',
-                'multiple' => false,
-            ));
+          ->add('organization', 'sympozer_entity_type', array(
+            'type' => new OrganizationType(),
+            'required' => false
+          ));
     }
 
     /**

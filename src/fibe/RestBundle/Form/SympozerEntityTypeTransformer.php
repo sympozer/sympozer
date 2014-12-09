@@ -7,40 +7,68 @@
 namespace fibe\RestBundle\Form;
 
 
+use Doctrine\ORM\EntityNotFoundException;
+
 class SympozerEntityTypeTransformer extends AbstractSympozerTypeTransformer
 {
 
-  /**
-   * transform model to view (entity to id)
-   * @param object $input
-   * @return string
-   */
-  public function transform($input)
-  {
-//    echo "transform : entity";
-//    throw new \Exception(\Doctrine\Common\Util\Debug::dump($input));
-    if (null != $input)
+    /**
+     * transform model to view (entity to id)
+     * @param object $input
+     * @return string
+     */
+    public function transform($input)
     {
-      $input = $input->getId();
-    }
-    return $input;
-  }
-
-  /**
-   * transform view to model (array to entity)
-   * @param array $input
-   * @return object
-   */
-  public function reverseTransform($input)
-  {
-    if (!$input)
-    {
-      return null;
+        if (null == $input)
+        {
+//      throw new \Exception("entity transform NULL " . \Doctrine\Common\Util\Debug::dump($input));
+            return null;
+        }
+        $output = array();
+        $output['id'] = $input->getId();
+//        $output['label'] = $input->getLabel();
+        return $output;
     }
 
-    $formType = $this->options['type'];
+    /**
+     * transform view to model (array to entity)
+     * @param array $input
+     * @throws \Doctrine\ORM\EntityNotFoundException
+     * @return object
+     */
+    public function reverseTransform($input)
+    {
+        if ($input == null)
+        {
+            return null;
+        }
 
-    $entity = $this->getOrCreateEntityFromArray($input, $formType);
-    return $entity;
-  }
+        $entityClassName = $this->getEntityClassName($this->options['type']);
+        $output = $this->getOrCreateEntity($input, $entityClassName);
+
+        if (null === $output)
+        {
+            throw new EntityNotFoundException($entityClassName);
+        }
+
+        if (is_array($input))
+        {
+            foreach ($input as $field => $value)
+            {
+                $setter = "set" . ucwords($field);
+                $output->$setter($value);
+            }
+        }
+
+        if (null == $id = $output->getId())
+        {
+            $this->em->persist($output);
+        }
+        else
+        {
+            $this->em->merge($output);
+        }
+
+        return $output;
+    }
 }
