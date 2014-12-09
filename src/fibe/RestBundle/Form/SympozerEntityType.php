@@ -25,13 +25,13 @@ class SympozerEntityType extends AbstractType
         $transformer = new SympozerEntityTypeTransformer($this->em, $options);
 
         $builder->addModelTransformer($transformer);
-//        if ($options['cascade_persist'])
-//        {
-//            //build given form type
-//            /** @var \Symfony\Component\Form\FormTypeInterface $formType */
-//            $formType = $options['type'];
-//            $formType->buildForm($builder, $options);
-//        }
+      if ($options['cascade_persist'])
+      {
+        //build given form type
+        /** @var \Symfony\Component\Form\FormTypeInterface $formType */
+        $formType = $options['type'];
+        $formType->buildForm($builder, $options);
+      }
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
