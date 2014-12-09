@@ -24,6 +24,7 @@ class PositionType extends AbstractType
             'type' => new PersonType(),
             'required' => 'true',
               'cascade_persist' => false,
+            'allow_extra_fields' => true,
             ))
           ->add('organization', 'sympozer_entity_type', array(
             'type' => new OrganizationType(),

@@ -58,6 +58,14 @@ class Team
   }
 
   /**
+   * @return int
+   */
+  public function setId($id)
+  {
+    $this->id = $id;
+  }
+
+  /**
    * @return MainEvent
    */
   public function getMainEvent()
