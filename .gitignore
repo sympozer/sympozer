@@ -35,7 +35,8 @@ web/smlink
 src/fibe/FrontendBundle/Resources/public/public
 
 
-*/.tmp/*
+.tmp/*
+frontend/.tmp/*
 frontend/app/sympozer-scripts/js/ws-config.js
 frontend/dist/*
 frontend/app/bower
