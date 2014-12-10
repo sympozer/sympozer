@@ -20,6 +20,8 @@ Sympozer is an Angular/Symfony web application allowing event organizers to mana
 	
 ####Download vendors
 
+    sudo mkdir vendors
+    sudo chmod 777 vendors/
 	composer update
 
 ####Create app/config/parameters.yml
@@ -47,44 +49,57 @@ Next, create a parameters.yml file with this text :
 For  "database_user" put your mysql user name, and "database_password" , and use your mysql password.
 After that, save and add this file to : app/config
 
-##step 1 : Quick initialize (linux)
+##Step 1 : Quick initialize (linux)
 
+    cd backend
     php ./vendor/sensio/distribution-bundle/Sensio/Bundle/DistributionBundle/Resources/bin/build_bootstrap.php
     ./reset.sh
     ./cache.sh
+    php app/console server:run -v &
 
-###step 1 : Step-by-step initialize
+###Step 1 : Step-by-step initialize
 ####Initialize db, generate assets
 
+    cd backend
     php app/console doctrine:database:create
     php app/console doctrine:schema:update --force
     php app/console assets:install web
 
-####create an admin
+####Create an admin
 
     php app/console sympozer:admin:create admin admin@admin.fr admin
 
-####populate database
+
+####Populate database
 
     php app/console wwwconf:database:init
 
-####generate bootstrap.php.cache
+####Generate bootstrap.php.cache
 
     php ./vendor/sensio/distribution-bundle/Sensio/Bundle/DistributionBundle/Resources/bin/build_bootstrap.php
 
-##step 2 : FrontEnd
+####Run the backend in background
 
-    cd sympozer-front/
-    sudo mkdir vendors
-    sudo chmod 777 vendors/
-    bower install
+    php app/console server:run -v &
 
-####setup your absolute url to app_dev.php
+##Step 2 : FrontEnd
+
+    cd ..
+    npm install
+
+####Setup your absolute url to app_dev.php
 
     sudo cp local-config.json.TEMPLATE local-config.json
     sudo nano local-config.json
+    
+####Bower and grunt
+    cd frontend
+    mkdir app
+    chmod -R 777 app
+    bower install
 
 ####build frontend
+
     sudo grunt
     
 
@@ -93,7 +108,7 @@ Start your Apache server and go to :
 
     localhost/sympozer/web/app_dev.php/
 
-One of the most common issue is that folders app/cache and app/logs don't have write access by Symfony. To fix this, do a chmod or [refer here](http://symfony.com/doc/current/book/installation.html#configuration-and-setup) for more informations,
+One of the most common issue is that folders app/cache and app/logs don't have write access by Symfony. To fix this, [refer here](http://symfony.com/doc/current/book/installation.html#configuration-and-setup),
 or run the "chcache.sh" script (linux chmod)
 
     ./chcache.sh
