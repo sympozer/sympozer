@@ -1,15 +1,15 @@
 # Symfony directories
-*/logs/*
-*/cache/*
-vendor/*
-web/bundles/*
-web/js/compiled/*
-web/css/compiled/*
+backend/app/logs/*
+backend/app/cache/*
+backend/vendor/*
+backend/web/bundles/*
+backend/web/js/compiled/*
+backend/web/css/compiled/*
 
 # Symfony files
-app/config/parameters.yml
-app/bootstrap.php.cache
-composer.lock
+backend/app/config/parameters.yml
+backend/app/bootstrap.php.cache
+backend/composer.lock
 
 # intellij files
 *.iml
@@ -18,10 +18,9 @@ composer.lock
 # gedit temp file
 *~
 
-
+# Node install
 */node_modules/*
 node_modules/*
-sympozer-front/app/bower
 ./Gruntfile.js
 ./src/fibe/FrontendBundle/Resources/public/vendors/*
 
@@ -36,9 +35,11 @@ web/smlink
 src/fibe/FrontendBundle/Resources/public/public
 
 
-sympozer-front/.tmp/*
-sympozer-front/app/sympozer-scripts/js/ws-config.js
-sympozer-front/dist/*
-sympozer-front/local-config.json
+*/.tmp/*
+frontend/app/sympozer-scripts/js/ws-config.js
+frontend/dist/*
+frontend/app/bower
+frontend/app/scripts
+frontend/local-config.json
 src/fibe/FrontendBundle/Resources/public/vendors/*
 npm-debug.log
