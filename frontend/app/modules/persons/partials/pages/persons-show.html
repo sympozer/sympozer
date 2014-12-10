@@ -52,22 +52,12 @@
                                         </tr>
                                         <tr>
                                             <td>
-                                                <span>{{ 'organizations.links.organizations' | translate}}</span>
+                                                <span>{{ 'persons.model.positions' | translate}}</span>
                                             </td>
                                             <td>
-                                                <table class="table table-hover">
-                                                    <tr ng-repeat="position in person.positions track by $index">
-                                                        <td>
-                                                            <span>{{position.person.label}}</span>
-                                                        </td>
-                                                        <td>
-                                                            <span>{{'global.labels.at' | translate }}</span>
-                                                        </td>
-                                                        <td>
-                                                            <span>{{position.organization.label}}</span>
-                                                        </td>
-                                                    </tr>
-                                                </table>
+                                                <span ng-repeat="position in person.positions track by $index">
+                                                    {{position.position}} {{'global.labels.at' | translate }} {{position.organization.label}} </br>
+                                                </span>
                                             </td>
                                         </tr>
                                         <tr>

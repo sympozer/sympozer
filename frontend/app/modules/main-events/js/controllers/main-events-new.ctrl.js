@@ -71,6 +71,7 @@ angular.module('mainEventsApp').controller('mainEventsNewCtrl', [ '$scope', '$ro
     $scope.selectAddress = function(selectedAddress){
         //trigger map rendering of the selected address
         submitGeocoding(selectedAddress);
+
         //Set new conference address
         $scope.conference.location = selectedAddress;
     }

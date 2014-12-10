@@ -23,17 +23,17 @@ class LocationType extends LocalizationType
             ->add('capacity')
             ->add('description')
             ->add('accesibility')
-            ->add('mainEvent', 'sympozer_entity_type', array(
-                'type' => new MainEventType(),
-            ))
-            ->add('equipments', 'sympozer_entity_type', array(
+//            ->add('mainEvent', 'sympozer_entity_type', array(
+//                'type' => new MainEventType(),
+//            ))
+            ->add('equipments', 'sympozer_collection_type', array(
                 'type' => new EquipmentType(),
                 'required' => 'false',
             ))
-            ->add('events', 'sympozer_collection_type', array(
-                'type' => new VEventType(),
-                'required' => 'false',
-            ))
+//            ->add('events', 'sympozer_collection_type', array(
+//                'type' => new VEventType(),
+//                'required' => 'false',
+//            ))
         ;
     }
 

@@ -17,258 +17,280 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Location extends Localization
 {
-  /**
-   * fix an issue with jms-serializer and form validation when applied to a doctrine InheritanceType("SINGLE_TABLE")
-   */
-  public $dtype;
-  /**
-   * @ORM\Id
-   * @ORM\Column(type="integer")
-   * @ORM\GeneratedValue(strategy="AUTO")
-   * @Expose
-   */
-  protected $id;
-  /**
-   * Capacity to welcome atendees
-   *
-   * @ORM\Column(type="integer", nullable=true)
-   * @Expose
-   */
-  protected $capacity;
-  /**
-   * Equipments who are in the location
-   * @ORM\ManyToMany(targetEntity="fibe\ContentBundle\Entity\Equipment",  cascade={"all"})
-   * @Expose
-   */
-  protected $equipments;
-  /**
-   * Description of the location
-   *
-   * @ORM\Column(type="text", nullable=true)
-   * @Expose
-   */
-  protected $description;
-  /**
-   * Accesibility of the location
-   *
-   * @ORM\Column(type="text", nullable=true)
-   * @Expose
-   */
-  protected $accesibility;
-  /**
-   *
-   * mainEvent
-   *
-   * @ORM\ManyToOne(targetEntity="fibe\EventBundle\Entity\MainEvent", inversedBy="eventLocations", cascade={"persist"})
-   * @ORM\JoinColumn(name="main_event_id", referencedColumnName="id")
-   * @Expose
-   * @SerializedName("mainEvent")
-   */
-  protected $mainEvent;
-  /**
-   * Events
-   *
-   * @ORM\OneToMany(targetEntity="fibe\EventBundle\Entity\Vevent", mappedBy="location",cascade={"persist"})
-   */
-  protected $events;
+    /**
+     * fix an issue with jms-serializer and form validation when applied to a doctrine InheritanceType("SINGLE_TABLE")
+     */
+    public $dtype;
+    /**
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     * @Expose
+     */
+    protected $id;
+    /**
+     * Capacity to welcome atendees
+     *
+     * @ORM\Column(type="integer", nullable=true)
+     * @Expose
+     */
+    protected $capacity;
+    /**
+     * Equipments who are in the location
+     * @ORM\ManyToMany(targetEntity="fibe\ContentBundle\Entity\Equipment",  cascade={"all"})
+     * @Expose
+     */
+    protected $equipments;
+    /**
+     * Description of the location
+     *
+     * @ORM\Column(type="text", nullable=true)
+     * @Expose
+     */
+    protected $description;
+    /**
+     * Accesibility of the location
+     *
+     * @ORM\Column(type="text", nullable=true)
+     * @Expose
+     */
+    protected $accesibility;
+    /**
+     *
+     * mainEvent
+     *
+     * @ORM\ManyToOne(targetEntity="fibe\EventBundle\Entity\MainEvent", inversedBy="eventLocations", cascade={"persist"})
+     * @ORM\JoinColumn(name="main_event_id", referencedColumnName="id")
+     * @Expose
+     * @SerializedName("mainEvent")
+     */
+    protected $mainEvent;
+    /**
+     * Events
+     *
+     * @ORM\OneToMany(targetEntity="fibe\EventBundle\Entity\Vevent", mappedBy="location",cascade={"persist"})
+     */
+    protected $events;
 
-  /**
-   * Constructor
-   */
-  public function __construct()
-  {
-    $this->equipments = new ArrayCollection();
-  }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->equipments = new ArrayCollection();
+    }
 
-  /**
-   * toString
-   *
-   * @return string
-   */
-  public function __toString()
-  {
-    return $this->getLabel();
-  }
-
-
-  /**
-   * Get id
-   *
-   * @return integer
-   */
-  public function getId()
-  {
-    return $this->id;
-  }
-
-  /**
-   * Get capacity
-   *
-   * @return integer
-   */
-  public function getCapacity()
-  {
-    return $this->capacity;
-  }
-
-  /** Set capacity
-   *
-   * @param string $capacity
-   *
-   * @return Location
-   */
-  public function setCapacity($capacity)
-  {
-    $this->capacity = $capacity;
-
-    return $this;
-  }
-
-  /**
-   * Get description
-   *
-   * @return string
-   */
-  public function getDescription()
-  {
-    return $this->description;
-  }
-
-  /**
-   * Set description
-   *
-   * @param string $description
-   *
-   * @return Location
-   */
-  public function setDescription($description)
-  {
-    $this->description = $description;
-
-    return $this;
-  }
-
-  /**
-   * Get accesibility
-   *
-   * @return string
-   */
-  public function getAccesibility()
-  {
-    return $this->accesibility;
-  }
-
-  /**
-   * Set accesibility
-   *
-   * @param string $accesibility
-   *
-   * @return Location
-   */
-  public function setAccesibility($accesibility)
-  {
-    $this->accesibility = $accesibility;
-
-    return $this;
-  }
-
-  /**
-   * Set latitude
-   *
-   * @param float $latitude
-   *
-   * @return Location
-   */
-  public function setLatitude($latitude)
-  {
-    $this->latitude = $latitude;
-
-    return $this;
-  }
+    /**
+     * toString
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getLabel();
+    }
 
 
-  /**
-   * Add Equipment
-   *
-   * @param $equipments
-   *
-   * @return $this
-   */
-  public function addEquipment($equipments)
-  {
-    $this->equipments[] = $equipments;
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 
-    return $this;
-  }
+    /**
+     * Get capacity
+     *
+     * @return integer
+     */
+    public function getCapacity()
+    {
+        return $this->capacity;
+    }
 
-  /**
-   * Remove Equipment
-   *
-   * @param Equipment $equipments
-   */
-  public function removeEquipment(Equipment $equipments)
-  {
-    $this->equipments->removeElement($equipments);
-  }
+    /** Set capacity
+     *
+     * @param string $capacity
+     *
+     * @return Location
+     */
+    public function setCapacity($capacity)
+    {
+        $this->capacity = $capacity;
 
-  /**
-   * Get Equipments
-   *
-   * @return \Doctrine\Common\Collections\Collection
-   */
-  public function getEquipments()
-  {
-    return $this->equipments;
-  }
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     *
+     * @return Location
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get accesibility
+     *
+     * @return string
+     */
+    public function getAccesibility()
+    {
+        return $this->accesibility;
+    }
+
+    /**
+     * Set accesibility
+     *
+     * @param string $accesibility
+     *
+     * @return Location
+     */
+    public function setAccesibility($accesibility)
+    {
+        $this->accesibility = $accesibility;
+
+        return $this;
+    }
+
+    /**
+     * Set latitude
+     *
+     * @param float $latitude
+     *
+     * @return Location
+     */
+    public function setLatitude($latitude)
+    {
+        $this->latitude = $latitude;
+
+        return $this;
+    }
 
 
-  /**
-   * @return mixed
-   */
-  public function getDtype()
-  {
-    return $this->dtype;
-  }
+    /**
+     * Add Equipment
+     *
+     * @param $equipments
+     *
+     * @return $this
+     */
+    public function addEquipment($equipments)
+    {
+        $this->equipments[] = $equipments;
 
-  /**
-   * @param mixed $dtype
-   */
-  public function setDtype($dtype)
-  {
-    $this->dtype = $dtype;
-  }
+        return $this;
+    }
+
+    /**
+     * Remove Equipment
+     *
+     * @param Equipment $equipments
+     */
+    public function removeEquipment(Equipment $equipments)
+    {
+        $this->equipments->removeElement($equipments);
+    }
+
+    /**
+     * Get Equipments
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getEquipments()
+    {
+        return $this->equipments;
+    }
 
 
-  /**
-   * @return mixed
-   */
-  public function getEvents()
-  {
-    return $this->events;
-  }
+    /**
+     * @return mixed
+     */
+    public function getDtype()
+    {
+        return $this->dtype;
+    }
 
-  /**
-   * @param mixed $events
-   */
-  public function setEvents($events)
-  {
-    $this->events = $events;
-  }
+    /**
+     * @param mixed $dtype
+     */
+    public function setDtype($dtype)
+    {
+        $this->dtype = $dtype;
+    }
 
-  /**
-   * @return mixed
-   */
-  public function getMainEvent()
-  {
-    return $this->mainEvent;
-  }
 
-  /**
-   * @param mixed $mainEvent
-   */
-  public function setMainEvent($mainEvent)
-  {
-    $this->mainEvent = $mainEvent;
-  }
+    /**
+     * @return mixed
+     */
+    public function getEvents()
+    {
+        return $this->events;
+    }
+
+    /**
+     * @param mixed $events
+     */
+    public function setEvents($events)
+    {
+        $this->events = $events;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMainEvent()
+    {
+        return $this->mainEvent;
+    }
+
+    /**
+     * @param mixed $mainEvent
+     */
+    public function setMainEvent($mainEvent)
+    {
+        $this->mainEvent = $mainEvent;
+    }
+
+    /**
+     * @param mixed $equipments
+     */
+    public function setEquipments($equipments)
+    {
+        $this->equipments = $equipments;
+    }
+
+    /**
+     * Add equipments
+     *
+     * @param Equipment $equipments
+     *
+     * @return $this
+     */
+    public function addEvent(Equipment $equipments)
+    {
+        $this->equipments[] = $equipments;
+
+        return $this;
+    }
 
 }

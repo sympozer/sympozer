@@ -25,12 +25,12 @@ class MainEventType extends VEventType
             ->add('acronym')
             ->add('label')
             ->add('logo')
-            ->add('startAt', 'datetime', array(
-                'widget' => 'single_text',
-            ))
-            ->add('endAt', 'datetime', array(
-                'widget' => 'single_text',
-            ))
+//            ->add('startAt', 'datetime', array(
+//                'widget' => 'single_text',
+//            ))
+//            ->add('endAt', 'datetime', array(
+//                'widget' => 'single_text',
+//            ))
 //            ->add('eventLocations', 'sympozer_collection_type', array(
 //                'type' => new LocationType(),
 //                'required' => 'false'

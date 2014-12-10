@@ -1,3 +1,4 @@
+cd backend
 chmod -R 777 app/cache
 rm -R app/cache/* app/logs/*
 mkdir app/cache/dev

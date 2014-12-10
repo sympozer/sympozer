@@ -75,12 +75,18 @@ angular.module('personsApp').controller('personsEditCtrl', [
 
 
         //Promise needed by the typeahead directive, resolved when something is selected
-        var deferred = $q.defer();
         $scope.getOrganizations = function (val)
         {
-            organizationsFact.all({query: val}, deferred.resolve);
-            return deferred.promise;
-        };
+            //Fetch organization filter by the query and resolve the promise when results comes back
+            var promise = organizationsFact.all({query: val}).$promise;
+             promise.then(function(organizations) {
+                return organizations.results;
+            });
+            return promise;
+
+        }
+
+
 
         $scope.addPosition = function (position)
         {
@@ -94,12 +100,14 @@ angular.module('personsApp').controller('personsEditCtrl', [
             }
         };
 
+
+
         $scope.setLocalization = function (formattedLocalization)
         {
             //Set new localization
             //$scope.person.localization = formattedLocalization;
             //Persist changes
-            formattedLocalization.id = $scope.person.localization.id || null;
+            formattedLocalization.id = $scope.person.localization.id || "";
             return personsFact.patch({id: $scope.person.id, localization: formattedLocalization}, success, error);
             //$scope.updatePerson("localization", formattedLocalization);
         }

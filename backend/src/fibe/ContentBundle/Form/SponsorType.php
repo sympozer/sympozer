@@ -2,6 +2,8 @@
 
 namespace fibe\ContentBundle\Form;
 
+use fibe\CommunityBundle\Form\OrganizationType;
+use fibe\EventBundle\Form\VEventType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -24,11 +26,11 @@ class SponsorType extends AbstractType
         'label' => 'Logo (jpeg - png - 2MO)',
         'attr' => ['placeholder' => 'logoPath']])
       ->add('organization', 'sympozer_collection_type', array(
-        'class' => 'fibeCommunityBundle:Organization',
+        'type' => new OrganizationType(),
         'required' => 'false'
       ))
       ->add('vEvent', 'sympozer_collection_type', array(
-        'class' => 'fibeEventBundle:VEvent',
+        'type' => new VEventType(),
         'required' => 'false'
       ))
       ->add('description', 'textarea', ['required' => false]);

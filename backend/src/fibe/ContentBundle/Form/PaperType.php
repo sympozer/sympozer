@@ -2,6 +2,8 @@
 
 namespace fibe\ContentBundle\Form;
 
+use fibe\CommunityBundle\Form\PersonType;
+use fibe\EventBundle\Form\EventType;
 use fibe\EventBundle\Form\MainEventType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -32,15 +34,15 @@ class PaperType extends AbstractType
         'required' => 'true',
       ))
       ->add('authors', 'sympozer_collection_type', array(
-        'class' => 'fibeCommunityBundle:Person',
+        'type' => new PersonType(),
         'required' => 'false'
       ))
       ->add('topics', 'sympozer_collection_type', array(
-        'class' => 'fibeContentBundle:Topic',
+        'type' => new TopicType(),
         'required' => 'false'
       ))
       ->add('events', 'sympozer_collection_type', array(
-        'class' => 'fibeEventBundle:Event',
+        'type' => new EventType(),
         'required' => 'false'
       ));
   }
