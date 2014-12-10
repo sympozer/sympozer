@@ -1,0 +1,26 @@
+{
+  "name": "angularjs-modal-service",
+  "main": "src/createDialog.js",
+  "ignore": [
+    "**/.*",
+    ".DS_Store",
+    "node_modules",
+    "components"
+  ],
+  "description": "An AngularJS service that creates a Modal Popup with a given HTML template and controller",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:Fundoo-Solutions/angularjs-modal-service.git"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/Fundoo-Solutions/angularjs-modal-service",
+  "_release": "e60b7717d6",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "e60b7717d6dc8b979ed8fedad58992d32cac93b5"
+  },
+  "_source": "git://github.com/Fundoo-Solutions/angularjs-modal-service.git",
+  "_target": "*",
+  "_originalSource": "angularjs-modal-service"
+}

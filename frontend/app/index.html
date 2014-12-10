@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="utf-8">
+    <title>Sympozer</title>
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sympozer">
+    <meta name="author" content="Sympozer team">
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/png" sizes="192x192" href="favicon.ico">
+    <link rel="icon" type="image/png" sizes="160x160" href="favicon.ico">
+    <link rel="icon" type="image/png" sizes="96x96" href="favicon.ico">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon.ico">
+
+    <!-- prochtml:remove:dist -->
+    <link href="assets/less/styles.less" rel="stylesheet/less" media="all">
+    <!-- /prochtml -->
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries. Placeholdr.js enables the placeholder attribute -->
+    <!--[if lt IE 9]>
+    <link rel="stylesheet" href="assets/css/ie8.css">
+    <script type="text/javascript" src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/respond.js/1.1.0/respond.min.js"></script>
+    <script type="text/javascript" src="assets/plugins/charts-flot/excanvas.min.js"></script>
+    <script type='text/javascript' src='bower/placeholdr/placeholdr.min.js'></script>
+    <![endif]-->
+
+    <!--[if IE 9]>
+    <script type="text/javascript" src="assets/plugins/misc/media.match.min.js"></script>
+    <![endif]-->
+
+    <!-- The following CSS are included as plugins and can be removed if unused-->
+
+    <!-- build:css assets/css/vendor.css -->
+    <!-- bower:css -->
+    <link rel="stylesheet" href="bower/font-awesome/css/font-awesome.css" />
+    <link rel="stylesheet" href="bower/seiyria-bootstrap-slider/dist/css/bootstrap-slider.min.css" />
+    <link rel="stylesheet" href="bower/angular-ui-tree/dist/angular-ui-tree.min.css" />
+    <link rel="stylesheet" href="bower/angular-toggle-switch/angular-toggle-switch.css" />
+    <link rel="stylesheet" href="bower/ng-grid/ng-grid.css" />
+    <link rel="stylesheet" href="bower/angular-xeditable/dist/css/xeditable.css" />
+    <link rel="stylesheet" href="bower/select2/select2.css" />
+    <link rel="stylesheet" href="bower/jScrollPane/style/jquery.jscrollpane.css" />
+    <link rel="stylesheet" href="bower/pnotify/pnotify.core.css" />
+    <link rel="stylesheet" href="bower/pnotify/pnotify.buttons.css" />
+    <link rel="stylesheet" href="bower/pnotify/pnotify.history.css" />
+    <link rel="stylesheet" href="bower/bootstrap-social/bootstrap-social.css" />
+    <link rel="stylesheet" href="bower/bootstrap-tags/dist/css/bootstrap-tags.css" />
+    <!-- endbower -->
+
+    <link rel='stylesheet' type='text/css' href='assets/plugins/icheck/all.css'/>
+    <link rel='stylesheet' type='text/css' href='assets/plugins/form-multiselect/css/multi-select.css'/>
+    <link rel='stylesheet' type='text/css' href='assets/plugins/form-fseditor/fseditor.css'/>
+    <link rel='stylesheet' type='text/css' href='assets/plugins/form-tokenfield/bootstrap-tokenfield.css'/>
+    <link rel='stylesheet' type='text/css' href='assets/plugins/datepaginator/bootstrap-datepaginator.css'/>
+    <link rel='stylesheet' type='text/css' href='assets/plugins/jquery-fileupload/css/jquery.fileupload-ui.css'/>
+    <link rel='stylesheet' type='text/css' href='assets/plugins/bootstro.js/bootstro.min.css'/>
+    <link rel='stylesheet' type='text/css' href='assets/plugins/progress-skylo/skylo.css'/>
+    <link rel='stylesheet' type='text/css' href='assets/plugins/jcrop/css/jquery.Jcrop.min.css'/>
+    <link rel='stylesheet' type='text/css' href='assets/plugins/form-daterangepicker/daterangepicker-bs3.css'/>
+    <link rel='stylesheet' type='text/css' href='assets/plugins/form-markdown/css/bootstrap-markdown.min.css'/>
+    <link rel='stylesheet' type='text/css' href='assets/plugins/codeprettifier/prettify.css'/>
+    <link rel='stylesheet' type='text/css' href='assets/plugins/form-select2/select2.css'/>
+    <link rel='stylesheet' type='text/css' href='assets/plugins/fullcalendar/fullcalendar.css'/>
+    <!-- endbuild -->
+
+    <!-- prochtml:remove:dist -->
+    <script type="text/javascript">less = {};
+    less.env = 'development';</script>
+    <script type="text/javascript" src="assets/plugins/misc/less.js"></script>
+    <!-- /prochtml -->
+
+    <style type="text/css">
+        [ng-cloak]
+        {
+            display: none;
+        }
+
+        .topNegative1000
+        {
+            top: -1000px !important;
+        }
+
+        .topZero
+        {
+            top: 0 !important;
+        }
+
+        .mainview-animation
+        {
+            position: relative;
+        }
+
+        .mainview-animation.ng-enter
+        {
+            -webkit-transition: .3s linear all; /* Safari/Chrome */
+            -moz-transition: .3s linear all; /* Firefox */
+            -o-transition: .3s linear all; /* Opera */
+            transition: .3s linear all; /* IE10+ and Future Browsers */
+        }
+
+        .mainview-animation.ng-enter
+        {
+            opacity: 0;
+        }
+
+        .mainview-animation.ng-enter.ng-enter-active
+        {
+            opacity: 1;
+        }
+
+        .navbar.navbar-default.ng-hide
+        {
+            display: none;
+        }
+
+        .fc-grid .fc-day-number
+        {
+            padding: 5px 6px;
+        }
+    </style>
+
+
+</head>
+<body class=""
+      ng-app="sympozerApp"
+      ng-controller="mainCtrl"
+      ng-class="{
+    'static-header': !style_fixedHeader,
+            'focusedform': style_fullscreen,
+            'layout-horizontal': style_layoutHorizontal,
+            'fixed-layout': style_layoutBoxed,
+            'collapse-leftbar': style_leftbarCollapsed && !style_leftbarShown,
+            'show-rightbar': style_rightbarCollapsed,
+            'show-leftbar': style_leftbarShown
+    }"
+      ng-click="hideSearchBar();hideHeaderBar();"
+      ng-cloak
+        >
+
+<!-- HEADER BAR -->
+<div ng-include="GLOBAL_CONFIG.app.urls.partials+'navigation/nav-header.html'" ng-controller="navHeaderCtrl"></div>
+
+<!-- NAV TOP -->
+<div ng-include="GLOBAL_CONFIG.app.urls.partials+'navigation/nav-top.html'" ng-controller="navTopCtrl"></div>
+
+<!-- NAV LEFT HORIZONTAL -->
+<div ng-include="GLOBAL_CONFIG.app.urls.partials+'navigation/nav-left-horizontal.html'" ng-controller="navLeftCtrl"></div>
+
+
+<div id="page-container" class="clearfix">
+
+    <!-- NAV LEFT VERTICAL -->
+    <div ng-include="GLOBAL_CONFIG.app.urls.partials+'navigation/nav-left-vertical.html'" ng-controller="navLeftCtrl"></div>
+
+    <!-- NAV RIGHT -->
+    <div ng-include="GLOBAL_CONFIG.app.urls.partials+'navigation/nav-right.html'" ng-controller="navRightCtrl"></div>
+
+
+    <!--CONTENT-->
+    <div id="page-content" class="clearfix" fit-height>
+        <div id="wrap" ng-view="" class="mainview-animation ">
+        </div>
+        <!-- page-content -->
+    </div>
+
+
+    <!-- FOOTER -->
+    <div ng-include="GLOBAL_CONFIG.app.urls.partials+'navigation/footer.html'" ng-controller="footerCtrl"></div>
+
+
+</div>
+<!-- page-container -->
+
+<!-- scripts are loaded here -->
+
+<!--[if lt IE 9]>
+<script src="bower/es5-shim/es5-shim.js"></script>
+<script src="bower/json3/lib/json3.min.js"></script>
+<![endif]-->
+
+<script type='text/javascript' src='http://maps.google.com/maps/api/js?libraries=places&sensor=true'></script>
+
+<!-- build:js scripts/vendor.js -->
+<!-- bower:js -->
+<script src="bower/modernizr/modernizr.js"></script>
+<script src="bower/jquery/dist/jquery.js"></script>
+<script src="bower/underscore/underscore.js"></script>
+<script src="bower/angular/angular.js"></script>
+<script src="bower/angular-resource/angular-resource.js"></script>
+<script src="bower/angular-cookies/angular-cookies.js"></script>
+<script src="bower/angular-sanitize/angular-sanitize.js"></script>
+<script src="bower/angular-route/angular-route.js"></script>
+<script src="bower/angular-animate/angular-animate.js"></script>
+<script src="bower/bootstrap/dist/js/bootstrap.js"></script>
+<script src="bower/seiyria-bootstrap-slider/js/bootstrap-slider.js"></script>
+<script src="bower/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+<script src="bower/jquery.ui/ui/jquery.ui.core.js"></script>
+<script src="bower/jquery.ui/ui/jquery.ui.widget.js"></script>
+<script src="bower/jquery.ui/ui/jquery.ui.mouse.js"></script>
+<script src="bower/jquery.ui/ui/jquery.ui.draggable.js"></script>
+<script src="bower/jquery.ui/ui/jquery.ui.resizable.js"></script>
+<script src="bower/jquery.slimscroll/jquery.slimscroll.min.js"></script>
+<script src="bower/jquery.easing/js/jquery.easing.js"></script>
+<script src="bower/flot/jquery.flot.js"></script>
+<script src="bower/flot/jquery.flot.stack.js"></script>
+<script src="bower/flot/jquery.flot.pie.js"></script>
+<script src="bower/flot/jquery.flot.resize.js"></script>
+<script src="bower/flot.tooltip/js/jquery.flot.tooltip.js"></script>
+<script src="bower/angular-ui-tree/dist/angular-ui-tree.js"></script>
+<script src="bower/moment/moment.js"></script>
+<script src="bower/jqvmap/jqvmap/jquery.vmap.js"></script>
+<script src="bower/jqvmap/jqvmap/maps/jquery.vmap.world.js"></script>
+<script src="bower/jqvmap/jqvmap/data/jquery.vmap.sampledata.js"></script>
+<script src="bower/angular-toggle-switch/angular-toggle-switch.min.js"></script>
+<script src="bower/ng-grid/build/ng-grid.js"></script>
+<script src="bower/angular-xeditable/dist/js/xeditable.js"></script>
+<script src="bower/select2/select2.js"></script>
+<script src="bower/angular-ui-select2/src/select2.js"></script>
+<script src="bower/google-code-prettify/src/prettify.js"></script>
+<script src="bower/bootbox.js/bootbox.js"></script>
+<script src="bower/jquery-autosize/jquery.autosize.js"></script>
+<script src="bower/gmaps/gmaps.js"></script>
+<script src="bower/jquery.pulsate/jquery.pulsate.js"></script>
+<script src="bower/jquery.knob/js/jquery.knob.js"></script>
+<script src="bower/jquery.sparkline/index.js"></script>
+<script src="bower/flow.js/dist/flow.js"></script>
+<script src="bower/ng-flow/dist/ng-flow.js"></script>
+<script src="bower/jScrollPane/script/jquery.mousewheel.js"></script>
+<script src="bower/jScrollPane/script/mwheelIntent.js"></script>
+<script src="bower/jScrollPane/script/jquery.jscrollpane.min.js"></script>
+<script src="bower/enquire/dist/enquire.js"></script>
+<script src="bower/shufflejs/dist/jquery.shuffle.js"></script>
+<script src="bower/pnotify/pnotify.core.js"></script>
+<script src="bower/pnotify/pnotify.buttons.js"></script>
+<script src="bower/pnotify/pnotify.callbacks.js"></script>
+<script src="bower/pnotify/pnotify.confirm.js"></script>
+<script src="bower/pnotify/pnotify.desktop.js"></script>
+<script src="bower/pnotify/pnotify.history.js"></script>
+<script src="bower/pnotify/pnotify.nonblock.js"></script>
+<script src="bower/json3/lib/json3.js"></script>
+<script src="bower/placeholdr/placeholdr.js"></script>
+<script src="bower/iCheck/icheck.min.js"></script>
+<script src="bower/angular-mocks/angular-mocks.js"></script>
+<script src="bower/angular-moment/angular-moment.js"></script>
+<script src="bower/angular-translate/angular-translate.js"></script>
+<script src="bower/bootstrap-tags/dist/js/bootstrap-tags.js"></script>
+<script src="bower/angular-cached-resource/angular-cached-resource.js"></script>
+<!-- endbower -->
+<script type='text/javascript' src='assets/plugins/form-daterangepicker/daterangepicker.min.js'></script>
+<script type='text/javascript' src='assets/plugins/fullcalendar/fullcalendar.min.js'></script>
+<script type='text/javascript' src='assets/plugins/form-datepicker/js/bootstrap-datepicker.js'></script>
+<script type='text/javascript' src='assets/plugins/easypiechart/angular.easypiechart.js'></script>
+<script type='text/javascript' src='assets/plugins/datepaginator/bootstrap-datepaginator.js'></script>
+<script type='text/javascript' src='assets/plugins/form-multiselect/js/jquery.multi-select.min.js'></script>
+<script type='text/javascript' src='assets/plugins/form-colorpicker/js/bootstrap-colorpicker.min.js'></script>
+<script type='text/javascript' src='assets/plugins/form-fseditor/jquery.fseditor-min.js'></script>
+<script type='text/javascript' src='assets/plugins/form-jasnyupload/fileinput.js'></script>
+
+<script type='text/javascript' src='assets/plugins/progress-skylo/skylo.js'></script>
+
+<!--step by step demo plugin-->
+<script type='text/javascript' src='assets/plugins/bootstro.js/bootstro.min.js'></script>
+
+<!-- endbuild -->
+
+
+<!--
+  Sympozer Angular scripts
+-->
+
+<!-- build:js({.tmp,app}) sympozer-scripts.js -->
+
+
+<!-- SYMPOZER GLOBAL FILES -->
+<script src="js/app.js"></script>
+<script src="js/routes.js"></script>
+<script src="js/ws-config.js"></script>
+<!--CONTROLLERS-->
+<script src="js/controllers/navigation/footer.ctrl.js"></script>
+<script src="js/controllers/navigation/breadcrumb.ctrl.js"></script>
+<script src="js/controllers/navigation/nav-header.ctrl.js"></script>
+<script src="js/controllers/navigation/nav-top.ctrl.js"></script>
+<script src="js/controllers/navigation/nav-left.ctrl.js"></script>
+<script src="js/controllers/navigation/nav-right.ctrl.js"></script>
+<script src="js/controllers/navigation/nav-main.ctrl.js"></script>
+
+<script src="js/controllers/styles/styles.ctrl.js"></script>
+
+<script src="js/controllers/dashboard.ctrl.js"></script>
+<script src="js/controllers/main.ctrl.js"></script>
+
+<!--TEMPLATES-->
+<script src="js/templates/templates.js"></script>
+<script src="js/templates/overrides.js"></script>
+
+<!--ANIMATIONS-->
+<script src="js/animations/pulsate.drv.js"></script>
+<script src="js/animations/slide-out-nav.drv.js"></script>
+
+<!--DIRECTIVES-->
+<script src="js/directives/dates/datetime-format.drv.js"></script>
+<script src="js/directives/dates/daterangepicker.drv.js"></script>
+
+<script src="js/directives/ui-components/icheck.drv.js"></script>
+<script src="js/directives/ui-components/panel.drv.js"></script>
+<script src="js/directives/ui-components/panel-control-collapse.drv.js"></script>
+<script src="js/directives/ui-components/panel-control.drv.js"></script>
+<script src="js/directives/ui-components/jscrollpane.drv.js"></script>
+<script src="js/directives/ui-components/tile.drv.js"></script>
+<script src="js/directives/ui-components/tile-large.drv.js"></script>
+<script src="js/directives/ui-components/tile-mini.drv.js"></script>
+
+
+<script src="js/directives/lists/entity-list-handler.drv.js"></script>
+<script src="js/directives/lists/infinite-scroll.drv.js"></script>
+
+<script src="js/directives/validations/server-error.drv.js"></script>
+<script src="js/directives/validations/date-before-now.vld.js"></script>
+
+<script src="js/directives/forms/colorpicker.drv.js"></script>
+<script src="js/directives/forms/textarea-autosize.drv.js"></script>
+<script src="js/directives/forms/textarea-fullscreen.drv.js"></script>
+
+<script src="js/directives/acl/sympozer-acl-show.drv.js"></script>
+
+<script src="js/directives/maps/google-place-autocomplete.drv.js"></script>
+<script src="js/directives/maps/gmap.drv.js"></script>
+
+<script src="js/directives/charts/flot-chart.drv.js"></script>
+<script src="js/directives/charts/sparklines-chart.drv.js"></script>
+<script src="js/directives/charts/svg-chart.drv.js"></script>
+<script src="js/directives/charts/canvas-chart.drv.js"></script>
+
+<script src="js/directives/no-image.drv.js"></script>
+<script src="js/directives/sympozer-autocomplete.drv.js"></script>
+<script src="js/directives/sympozer-include-with-locals.drv.js"></script>
+<!--FILTERS -->
+<script src="js/filters/sympozer-checkmark.fltr.js"></script>
+<script src="js/filters/sympozer-in-array.fltr.js"></script>
+<script src="js/filters/sympozer-titleize.fltr.js"></script>
+<script src="js/filters/safe-html.fltr.js"></script>
+<!--SERVICES -->
+<script src="js/services/form-validation.fact.js"></script>
+<script src="js/services/global-http-interceptor.fact.js"></script>
+<script src="js/services/sympozer-acl-service.fact.js"></script>
+<script src="js/services/template-loader.fact.js"></script>
+<script src="js/services/lazy-load.fact.js"></script>
+<script src="js/services/bootbox.fact.js"></script>
+<script src="js/services/progress-loader.fact.js"></script>
+<script src="js/services/pines-notifications.fact.js"></script>
+<script src="js/services/search.fact.js"></script>
+<script src="js/services/gmaps.fact.js"></script>
+<script src="js/services/global.fact.js"></script>
+
+
+<!-- SYMPOZER AUTHENTICATION APP -->
+<script src="modules/authentication/js/routes.js"></script>
+
+<!--CONTROLLERS-->
+<script src="modules/authentication/js/controllers/change-pwd.ctrl.js"></script>
+<script src="modules/authentication/js/controllers/confirm.ctrl.js"></script>
+<script src="modules/authentication/js/controllers/global-auth.ctrl.js"></script>
+<script src="modules/authentication/js/controllers/account.ctrl.js"></script>
+<script src="modules/authentication/js/controllers/reset-pwd.ctrl.js"></script>
+<script src="modules/authentication/js/controllers/reset-pwd-request.ctrl.js"></script>
+<script src="modules/authentication/js/controllers/sign-in.ctrl.js"></script>
+<script src="modules/authentication/js/controllers/sign-out.ctrl.js"></script>
+<script src="modules/authentication/js/controllers/sign-up.ctrl.js"></script>
+<!--SERVICES -->
+<script src="modules/authentication/js/services/users.fact.js"></script>
+<script src="modules/authentication/js/services/authentication.fact.js"></script>
+
+<!-- SYMPOZER CONTEXTUALIZATION APP -->
+<script src="modules/contextualization/js/routes.js"></script>
+<!--CONTROLLERS-->
+<script src="modules/contextualization/js/services/context.fact.js"></script>
+
+
+<!-- SYMPOZER I18N APP -->
+<script src="modules/i18n/i18nApp.js"></script>
+<script src="modules/i18n/controllers/translate.ctrl.js"></script>
+
+
+<!-- SYMPOZER PERSONS APP -->
+<script src="modules/persons/js/routes.js"></script>
+<!--CONTROLLERS-->
+<script src="modules/persons/js/controllers/persons-delete.ctrl.js"></script>
+<script src="modules/persons/js/controllers/persons-edit.ctrl.js"></script>
+<script src="modules/persons/js/controllers/persons-event-list.ctrl.js"></script>
+<script src="modules/persons/js/controllers/persons-list.ctrl.js"></script>
+<script src="modules/persons/js/controllers/persons-list-by-event.ctrl.js"></script>
+<script src="modules/persons/js/controllers/persons-main.ctrl.js"></script>
+<script src="modules/persons/js/controllers/persons-new.ctrl.js"></script>
+<script src="modules/persons/js/controllers/persons-show.ctrl.js"></script>
+<script src="modules/persons/js/controllers/community/persons-community-index.ctrl.js"></script>
+<!--SERVICES -->
+<script src="modules/persons/js/services/persons.fact.js"></script>
+
+
+<!-- SYMPOZER TEAMMATE APP -->
+<script src="modules/teammates/js/routes.js"></script>
+<!--CONTROLLERS-->
+<script src="modules/teammates/js/controllers/teammates-index.ctrl.js"></script>
+<script src="modules/teammates/js/controllers/teammates-delete.ctrl.js"></script>
+<!--<script src="modules/teammates/js/controllers/teammates-edit.ctrl.js"></script>-->
+<!--<script src="modules/teammates/js/controllers/teammates-event-list.ctrl.js"></script>-->
+<!--<script src="modules/teammates/js/controllers/teammates-list.ctrl.js"></script>-->
+<!--<script src="modules/teammates/js/controllers/teammates-list-by-event.ctrl.js"></script>-->
+<!--<script src="modules/teammates/js/controllers/teammates-main.ctrl.js"></script>-->
+<script src="modules/teammates/js/controllers/teammates-new.ctrl.js"></script>
+<!--<script src="modules/teammates/js/controllers/teammates-show.ctrl.js"></script>-->
+<!--<script src="modules/teammates/js/controllers/community/teammates-community-list.ctrl.js"></script>-->
+
+<!--SERVICES -->
+<script src="modules/teammates/js/services/teammates.fact.js"></script>
+
+<!-- SYMPOZER PAPERS APP -->
+<script src="modules/papers/js/routes.js"></script>
+<!-- CONTROLLERS -->
+<script src="modules/papers/js/controllers/papers-index.ctrl.js"></script>
+<script src="modules/papers/js/controllers/papers-delete.ctrl.js"></script>
+<script src="modules/papers/js/controllers/papers-edit.ctrl.js"></script>
+<script src="modules/papers/js/controllers/papers-list.ctrl.js"></script>
+<!--@TODO <script src="modules/papers/js/controllers/papers-main.ctrl.js"></script>-->
+<script src="modules/papers/js/controllers/papers-new.ctrl.js"></script>
+<script src="modules/papers/js/controllers/papers-show.ctrl.js"></script>
+<!--@TODO <script src="modules/papers/js/controllers/community/papers-community-list.ctrl.js"></script>-->
+<!-- SERVICES -->
+<script src="modules/papers/js/services/papers.fact.js"></script>
+
+
+<!-- SYMPOZER ORGANIZATIONS APP -->
+<script src="modules/organizations/js/routes.js"></script>
+<!-- CONTROLLERS -->
+<script src="modules/organizations/js/controllers/community/organizations-community-index.ctrl.js"></script>
+<!--@TODO <script src="modules/organizations/js/controllers/organizations-delete.ctrl.js"></script>-->
+<script src="modules/organizations/js/controllers/organizations-edit.ctrl.js"></script>
+<!--@TODO <script src="modules/organizations/js/controllers/organizations-list.ctrl.js"></script>-->
+<script src="modules/organizations/js/controllers/organizations-new.ctrl.js"></script>
+<script src="modules/organizations/js/controllers/organizations-show.ctrl.js"></script>
+<!-- SERVICES -->
+<script src="modules/organizations/js/services/organizations.fact.js"></script>
+
+
+<!-- SYMPOZER MAIN EVENTS APP -->
+<script src="modules/main-events/js/routes.js"></script>
+<!-- CONTROLLERS -->
+<script src="modules/main-events/js/controllers/community/main-events-community-index.ctrl.js"></script>
+<!--@TODO <script src="modules/main-events/js/controllers/main-events-delete.ctrl.js"></script>-->
+<script src="modules/main-events/js/controllers/main-events-edit.ctrl.js"></script>
+<!--@TODO <script src="modules/main-events/js/controllers/main-events-main.ctrl.js"></script>-->
+<script src="modules/main-events/js/controllers/main-events-new.ctrl.js"></script>
+<!--@TODO -->
+<script src="modules/main-events/js/controllers/main-events-show.ctrl.js"></script>
+<!-- SERVICES -->
+<script src="modules/main-events/js/services/main-events.fact.js"></script>
+
+
+<!-- SYMPOZER LOCATIONS APP -->
+<script src="modules/locations/js/routes.js"></script>
+<!-- CONTROLLERS -->
+<script src="modules/locations/js/controllers/locations-delete.ctrl.js"></script>
+<script src="modules/locations/js/controllers/locations-edit.ctrl.js"></script>
+<script src="modules/locations/js/controllers/locations-list.ctrl.js"></script>
+<!--@TODO <script src="modules/locations/js/controllers/locations-main.ctrl.js"></script>-->
+<script src="modules/locations/js/controllers/locations-new.ctrl.js"></script>
+<!--@TODO -->
+<script src="modules/locations/js/controllers/locations-show.ctrl.js"></script>
+<!-- SERVICES -->
+<script src="modules/locations/js/services/locations.fact.js"></script>
+
+<!-- SYMPOZER TOPICS APP -->
+<script src="modules/topics/js/routes.js"></script>
+<!-- CONTROLLERS -->
+<script src="modules/topics/js/controllers/topics-new.ctrl.js"></script>
+<script src="modules/topics/js/controllers/topics-show.ctrl.js"></script>
+<script src="modules/topics/js/controllers/topics-list-by-event.ctrl.js"></script>
+<!-- SERVICES -->
+<script src="modules/topics/js/services/topics.fact.js"></script>
+<!-- endbuild -->
+
+
+<!-- SYMPOZER ROLES APP -->
+<script src="modules/roles/js/routes.js"></script>
+<!-- CONTROLLERS -->
+<script src="modules/roles/js/controllers/role-labels/role-labels-delete.ctrl.js"></script>
+<script src="modules/roles/js/controllers/role-labels/role-labels-edit.ctrl.js"></script>
+<script src="modules/roles/js/controllers/role-labels/role-labels-list.ctrl.js"></script>
+<script src="modules/roles/js/controllers/role-labels/role-labels-new.ctrl.js"></script>
+<script src="modules/roles/js/controllers/role-labels/role-labels-show.ctrl.js"></script>
+<script src="modules/roles/js/controllers/roles/roles-delete.ctrl.js"></script>
+<script src="modules/roles/js/controllers/roles/roles-edit.ctrl.js"></script>
+<script src="modules/roles/js/controllers/roles/roles-list.ctrl.js"></script>
+<script src="modules/roles/js/controllers/roles/roles-new.ctrl.js"></script>
+<script src="modules/roles/js/controllers/roles/roles-show.ctrl.js"></script>
+<!-- SERVICES -->
+<script src="modules/roles/js/services/role-labels.fact.js"></script>
+<script src="modules/roles/js/services/roles.fact.js"></script>
+<!-- endbuild -->
+
+
+
+<!-- SYMPOZER EVENTS APP -->
+<script src="modules/events/js/routes.js"></script>
+<!-- CONTROLLERS -->
+<script src="modules/events/js/controllers/events-delete.ctrl.js"></script>
+<script src="modules/events/js/controllers/events-edit.ctrl.js"></script>
+<script src="modules/events/js/controllers/events-list.ctrl.js"></script>
+<script src="modules/events/js/controllers/events-new.ctrl.js"></script>
+<script src="modules/events/js/controllers/events-schedule.ctrl.js"></script>
+<script src="modules/events/js/controllers/events-show.ctrl.js"></script>
+<!-- DIRECTIVES -->
+<script src="modules/events/js/directives/fullCalendar.drv.js"></script>
+<script src="modules/events/js/directives/draggableEvent.drv.js"></script>
+<!-- SERVICES -->
+<script src="modules/events/js/services/events.fact.js"></script>
+
+
+
+<!-- SYMPOZER EVENTS APP -->
+<script src="modules/categories/js/routes.js"></script>
+<!-- CONTROLLERS -->
+<!-- @TODO <script src="modules/categories/js/controllers/categories-delete.ctrl.js"></script>-->
+<script src="modules/categories/js/controllers/categories-edit.ctrl.js"></script>
+<script src="modules/categories/js/controllers/categories-list.ctrl.js"></script>
+<script src="modules/categories/js/controllers/categories-new.ctrl.js"></script>
+<!-- @TODO <script src="modules/categories/js/controllers/categories-show.ctrl.js"></script>-->
+
+<!-- SERVICES -->
+<script src="modules/categories/js/services/categories.fact.js"></script>
+<!-- endbuild -->
+
+
+
+<!-- SYMPOZER EQUIPMENTS APP -->
+<!-- @TODO <script src="modules/equipments/js/routes.js"></script>-->
+<!-- CONTROLLERS -->
+<!-- @TODO <script src="modules/equipments/js/controllers/equipments-delete.ctrl.js"></script>-->
+<!-- @TODO <script src="modules/equipments/js/controllers/equipments-edit.ctrl.js"></script>-->
+<!-- @TODO <script src="modules/equipments/js/controllers/equipments-list.ctrl.js"></script>-->
+<!-- @TODO <script src="modules/equipments/js/controllers/equipments-new.ctrl.js"></script>-->
+<!-- @TODO <script src="modules/equipments/js/controllers/equipments-show.ctrl.js"></script>-->
+
+<!-- SERVICES -->
+<script src="modules/equipments/js/services/equipments.fact.js"></script>
+
+
+
+<!-- SYMPOZER NOTIFICATIONS APP -->
+<!-- CONTROLLERS -->
+<script src="modules/notifications/js/routes.js"></script>
+<script src="modules/notifications/js/controllers/notifications-list.ctrl.js"></script>
+<script src="modules/notifications/js/controllers/notifications-popover.ctrl.js"></script>
+
+
+<!-- SYMPOZER MESSAGES APP -->
+<!-- CONTROLLERS -->
+<script src="modules/messages/js/routes.js"></script>
+<script src="modules/messages/js/controllers/messages-inbox.ctrl.js"></script>
+<script src="modules/messages/js/controllers/messages-chatroom.ctrl.js"></script>
+<script src="modules/messages/js/controllers/messages-popover.ctrl.js"></script>
+
+
+<!-- SYMPOZER ANALYTICS APP -->
+<!-- CONTROLLERS -->
+<script src="modules/analytics/js/routes.js"></script>
+<script src="modules/analytics/js/controllers/analytics.ctrl.js"></script>
+<script src="modules/analytics/js/controllers/flot-charts.ctrl.js"></script>
+<script src="modules/analytics/js/controllers/task.ctrl.js"></script>
+<script src="modules/analytics/js/controllers/vector-map.ctrl.js"></script>
+<script src="modules/analytics/js/controllers/date-range-demo.ctrl.js"></script>
+
+
+<!-- endbuild -->
+
+
+
+<!-- basic client app context definition -->
+<script>
+    //@TODO to put in serchService
+    var queryNb = 0,
+            firstQueryNb = 0
+            ;
+    var globalConfig = {
+        app     : {
+
+            urls   : {
+                base    : "assets/",
+                partials: "partials/",
+                img     : "assets/img/"
+            },
+            modules: {
+                authentication   : {
+                    urls   : {
+                        base    : "modules/authentication/",
+                        partials: "modules/authentication/partials/",
+                        img     : "modules/authentication/img/"
+                    },
+                    options: {
+                        shouldLogin: true
+                    }
+                },
+                organizations    : {
+                    urls: {
+                        base             : "modules/organizations/",
+                        partials         : "modules/organizations/partials/",
+                        img              : "modules/organizations/img/"
+                    }
+                },
+                locations        : {
+                    urls: {
+                        base    : "modules/locations/",
+                        partials: "modules/locations/partials/",
+                        img     : "modules/locations/img/"
+                    }
+                },
+                equipments       : {
+                    urls: {
+                        base    : "modules/equipments/",
+                        partials: "modules/equipments/partials/",
+                        img     : "modules/equipments/img/"
+                    }
+                },
+                events           : {
+                    urls: {
+                        base    : "modules/events/",
+                        partials: "modules/events/partials/",
+                        img     : "modules/events/img"
+                    }
+                },
+                papers           : {
+                    urls: {
+                        base             : "modules/papers/",
+                        partials         : "modules/papers/partials/",
+                        communityPartials: "modules/papers/partials/community/",
+                        img              : "modules/papers/img/"
+                    }
+                },
+                categories       : {
+                    urls: {
+                        base    : "modules/categories/",
+                        partials: "modules/categories/partials/",
+                        img     : "modules/categories/img/"
+                    }
+                },
+                mainEvents       : {
+                    urls: {
+                        base             : "modules/main-events/",
+                        partials         : "modules/main-events/partials/",
+                        partialsCommunity: "modules/main-events/partials/community/",
+                        img              : "modules/main-events/img/"
+                    }
+                },
+                persons          : {
+                    urls: {
+                        base             : "modules/persons/",
+                        partials         : "modules/persons/partials/",
+                        img              : "modules/persons/img/"
+                    }
+                },
+                teammates        : {
+                    urls: {
+                        base    : "modules/teammates/",
+                        partials: "modules/teammates/partials/",
+                        img     : "modules/teammates/img"
+                    }
+                },
+                roles            : {
+                    urls: {
+                        base    : "modules/roles/",
+                        partials: "modules/roles/partials/roles/",
+                        img     : "modules/roles/img/"
+                    }
+                },
+                roleLabels: {
+                    urls: {
+                        base    : "modules/roles/",
+                        partials: "modules/roles/partials/role-labels/",
+                        img     : "modules/roles/img/"
+                    }
+                },
+                topics           : {
+                    urls: {
+                        base    : "modules/topics/",
+                        partials: "modules/topics/partials/",
+                        img     : "modules/topics/img/"
+                    }
+                },
+                messages           : {
+                    urls: {
+                        base    : "modules/messages/",
+                        partials: "modules/messages/partials/",
+                        img     : "modules/messages/img/"
+                    }
+                },
+                notifications           : {
+                    urls: {
+                        base    : "modules/notifications/",
+                        partials: "modules/notifications/partials/",
+                        img     : "modules/notifications/img/"
+                    }
+                },
+
+                analytics              : {
+                    urls: {
+                        base    : "modules/analytics/",
+                        partials: "modules/analytics/partials/",
+                        img     : "modules/analytics/img/"
+                    }
+                }
+            }
+        },
+        language: 'EN'
+
+    };
+    $.extend(globalConfig, wsConfig);
+
+    angular.module('sympozerApp').value('GLOBAL_CONFIG', globalConfig);
+</script>
+</body>
+</html>

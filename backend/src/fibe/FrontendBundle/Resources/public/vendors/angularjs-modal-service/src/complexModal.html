@@ -1,0 +1,35 @@
+<div class="row-fluid">
+	<h3>This is how the Complex Modal was launched</h3>
+	<div>
+		<div class="codebox">
+<pre>
+createDialog(<span style="color:red">'complexModal.html'</span>,{
+    id : 'complexDialog',
+    title: 'A Complex Modal Dialog',
+    backdrop: true,
+    success: {
+        label: 'Yay',
+        fn: function() {
+            console.log('Complex modal closed');
+        }
+    },
+    controller: 'ComplexModalController'
+}<span style="color:red">,{
+    myVal: 15,
+    assetDetails: {
+        name: 'My Asset',
+        description: 'A Very Nice Asset'
+    }
+}</span>);
+</pre>
+		</div>
+		<div>
+			<h5>The Values on the scope are:</h5>
+			<ul>
+				<li>Value of Asset : <span ng-bind="myVal"></span></li>
+				<li>Name of Asset  : <span ng-bind="asset.name"></span></li>
+				<li>Asset Description : <span ng-bind="asset.description"></span></li>
+			</ul>
+		</div>
+	</div>
+</div>

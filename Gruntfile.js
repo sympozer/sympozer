@@ -1,140 +1,446 @@
-module.exports = function(grunt) {
+'use strict';
 
-    require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
+// # Globbing
+// for performance reasons we're only matching one level down:
+// 'test/spec/{,*/}*.js'
+// use this if you want to recursively match all subfolders:
+// 'test/spec/**/*.js'
 
-    //CONSTANT VALUES
-    var PROD_SERVER_PATH = "http://localhost/sympozer/web/app.php";
-    var DEV_SERVER_PATH = "http://localhost/sympozer/web/app_dev.php";
-    var FRONT_APP_DIR = "./src/fibe/FrontendBundle/Resources/public/";
+module.exports = function (grunt) {
 
+    // Load grunt tasks automatically
+    require('load-grunt-tasks')(grunt);
+
+    // Time how long tasks take. Can help when optimizing build times
+    require('time-grunt')(grunt);
+
+    // Define the configuration for all the tasks
     grunt.initConfig({
 
-        /****************************************************
-         *
-         *                    SERVER TASKS                 *
-         *
-         * *************************************************/
-        open: {
-            //Start default navigator on dev mode
-            devserver: {
-                path: DEV_SERVER_PATH
-            },
-            //Start default navigator on prod mode
-            prodserver: {
-                path: PROD_SERVER_PATH
-            },
-            adminserver: {
-                path: PROD_SERVER_PATH+'sonata/admin'
-            }
+        // Project settings
+        yeoman: {
+            // configurable paths
+            backend : 'backend',
+            frontend : 'frontend',
+            dist     : 'frontend/dist',
+            tmp     : 'frontend/.tmp',
+            app: '<%= yeoman.frontend %>/app',
+            local_config    : grunt.file.readJSON('local-config.json')
         },
 
-        shell: {
-            options: {
-                stdout: true
+        // Watches files for changes and runs tasks based on the changed files
+        watch: {
+            bower: {
+                files: ['bower.json'],
+                tasks: ['bowerInstall']
             },
-            selenium: {
-                command: './selenium/start',
+            js: {
+                files: ['<%= yeoman.app %>/scripts/{,*/}*.js'],
+                tasks: ['newer:jshint:all'],
                 options: {
-                    stdout: false,
-                    async: true
+                    livereload: true
                 }
             },
-            protractor_install: {
-                command: 'node ./node_modules/protractor/bin/webdriver-manager update'
+            jsTest: {
+                files: ['test/spec/{,*/}*.js'],
+                tasks: ['newer:jshint:test', 'karma']
             },
-            npm_install: {
-                command: 'npm install'
-            },
-            symlink_add: {
-                command: 'ln -s ../src/fibe/FrontendBundle/Resources/public web/smlink'
-            },
-            symlink_remove: {
-                command: 'rm web/smlink'
-            }
-
-        },
-
-        /****************************************************
-         *
-         *                    BUILD ASSETS TASKS           *
-         *
-         * *************************************************/
-
-        //Task for uglifiying js files
-        uglify: {
-            js : {
-                options : {
-                    sourceMap : true,
-                    sourceMapName : './app/assets/sourceMap.map'
-                },
-                src : './app/assets/app.js',
-                dest : './app/assets/app.min.js'
-            }
-        },
-
-        //Task for concatenatefiles
-        concat: {
             styles: {
-                dest: './app/assets/app.css',
-                src: [
-                    //place your Stylesheet files here
-                    'vendors/bootstrap/dist/css/bootstrap.min.css',
-                    'vendors/bootstrap/dist/css/bootstrap-theme.min.css',
-                    'vendors/angular-loading-bar/src/loading-bar.css',
-                    'vendors/leaflet/dist/leaflet.css',
-                    'vendors/angular-bootstrap-datetimepicker/src/css/datetimepicker.css',
-                    'vendors/angular-ui-select/dist/select.css',
-                    'vendors/select2/select2.css',
-                    'vendors/angular-bootstrap-colorpicker/css/colorpicker.css',
-                    'vendors/angular-xeditable/dist/css/xeditable.css',
-                    'vendors/bootstrap-tags/dist/css/bootstrap-tags.css',
-                    'vendors/bootstrap-social/bootstrap-social.css',
+                files: ['<%= yeoman.app %>/styles/{,*/}*.css'],
+                tasks: ['newer:copy:styles', 'autoprefixer']
+            },
+            less: {
+                files: ['<%= yeoman.app %>/assets/less/*.less'],
+                tasks: ['less:server']
+            },
+            gruntfile: {
+                files: ['Gruntfile.old.js']
+            },
+            livereload: {
+                options: {
+                    livereload: '<%= connect.options.livereload %>'
+                },
+                files: [
+                    '<%= yeoman.app %>/{,*/}*.html',
+                    '<%= yeoman.tmp %>/assets/{,*/}*.css',
+                    '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
+                ]
+            }
+        },
 
-                    'app/css/app.css',
-                    'app/css/animations.css'
+        // The actual grunt server settings
+        connect: {
+            options: {
+                port: 9000,
+                // Change this to '0.0.0.0' to access the server from outside.
+                hostname: 'localhost',
+                livereload: 35729
+            },
+            // courtesy of Phubase Tiewthanom
+            livereload: {
+                options: {
+                    middleware: function (connect) {
+                        return [
+                            connect.static('.tmp'),
+                            connect().use(
+                                '/bower',
+                                connect.static('./bower')
+                            ),
+                            connect.static(require('./bower.json').appPath || 'app')
+                        ];
+                    }
+                }
+            },
+            test: {
+                options: {
+                    port: 9001,
+                    base: [
+                        '.tmp',
+                        'test',
+                        '<%= yeoman.app %>'
+                    ]
+                }
+            },
+            dist: {
+                options: {
+                    base: '<%= yeoman.dist %>'
+                }
+            }
+        },
+
+        // Make sure code styles are up to par and there are no obvious mistakes
+        jshint: {
+            options: {
+                jshintrc: '.jshintrc',
+                reporter: require('jshint-stylish')
+            },
+            all: [
+                'Gruntfile.old.js',
+                '<%= yeoman.app %>/scripts/{,*/}*.js'
+            ],
+            test: {
+                options: {
+                    jshintrc: 'test/.jshintrc'
+                },
+                src: ['test/spec/{,*/}*.js']
+            }
+        },
+
+        // Empties folders to start fresh
+        clean: {
+            dist: {
+                files: [{
+                    dot: true,
+                    src: [
+                        '<%= yeoman.tmp %>/*',
+                        '<%= yeoman.dist %>/*',
+                        '!<%= yeoman.dist %>/.git*'
+                    ]
+                }]
+            },
+            server: '.tmp'
+        },
+
+        // Add vendor prefixed styles
+        autoprefixer: {
+            options: {
+                browsers: ['last 1 version']
+            },
+            dist: {
+                files: [{
+                    expand: true,
+                    cwd: '<%= yeoman.tmp %>/assets/css/',
+                    src: '{,*/}*.css',
+                    dest: '<%= yeoman.tmp %>/assets/css/'
+                }]
+            }
+        },
+
+        // Automatically inject Bower components into the app
+        bowerInstall: {
+            app: {
+                directory :'frontend/',
+                cwd: 'frontend/',
+                src: ['<%= yeoman.app %>/index.html'],
+                ignorePath: '<%= yeoman.app %>/',
+                exclude: ['requirejs',
+                    'mocha',
+                    'jquery.vmap.europe.js',
+                    'jquery.vmap.usa.js',
+                    'Chart.min.js',
+                    'raphael',
+                    'morris',
+                    'jquery.inputmask',
+                    'jquery.validate.js',
+                    'jquery.stepy.js'
+                ]
+            }
+        },
+
+        // Renames files for browser caching purposes
+        rev: {
+            dist: {
+                files: {
+                    src: [
+                        '<%= yeoman.dist %>/scripts/{,*/}*.js',
+                        '<%= yeoman.dist %>/assets/css/{,*/}*.css',
+                        '<%= yeoman.dist %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
+                        '<%= yeoman.dist %>/styles/fonts/*'
+                    ]
+                }
+            }
+        },
+
+        // Reads HTML for usemin blocks to enable smart builds that automatically
+        // concat, minify and revision files. Creates configurations in memory so
+        // additional tasks can operate on them
+        useminPrepare: {
+            html: '<%= yeoman.app %>/index.html',
+            options: {
+                dest: '<%= yeoman.dist %>',
+                flow: {
+                    html: {
+                        steps: {
+                            js: ['concat', 'uglifyjs'],
+                            css: ['cssmin']
+                        },
+                        post: {}
+                    }
+                }
+            }
+        },
+
+        // Performs rewrites based on rev and the useminPrepare configuration
+        usemin: {
+            html: ['<%= yeoman.dist %>/{,*/}*.html'],
+            css: ['<%= yeoman.dist %>/assets/css/{,*/}*.css'],
+            options: {
+                assetsDirs: ['<%= yeoman.dist %>']
+            }
+        },
+
+        // The following *-min tasks produce minified files in the dist folder
+        cssmin: {
+            options: {
+                // root: '<%= yeoman.app %>',
+                relativeTo: '<%= yeoman.app %>',
+                processImport: true,
+                noAdvanced: true
+            }
+        },
+
+        imagemin: {
+            dist: {
+                files: [{
+                    expand: true,
+                    cwd: '<%= yeoman.app %>/images',
+                    src: '{,*/}*.{png,jpg,jpeg,gif}',
+                    dest: '<%= yeoman.dist %>/images'
+                }]
+            }
+        },
+
+        svgmin: {
+            dist: {
+                files: [{
+                    expand: true,
+                    cwd: '<%= yeoman.app %>/images',
+                    src: '{,*/}*.svg',
+                    dest: '<%= yeoman.dist %>/images'
+                }]
+            }
+        },
+
+        htmlmin: {
+            dist: {
+                options: {
+                    collapseWhitespace: true,
+                    collapseBooleanAttributes: true,
+                    removeCommentsFromCDATA: true,
+                    removeOptionalTags: true
+                },
+                files: [{
+                    expand: true,
+                    cwd: '<%= yeoman.dist %>',
+                    src: ['*.html', 'views/{,*/}*.html'],
+                    dest: '<%= yeoman.dist %>'
+                }]
+            }
+        },
+
+        // ngmin tries to make the code safe for minification automatically by
+        // using the Angular long form for dependency injection. It doesn't work on
+        // things like resolve or inject so those have to be done manually.
+        ngmin: {
+            dist: {
+                files: [{
+                    expand: true,
+                    cwd: '<%= yeoman.tmp %>/concat/scripts',
+                    src: '*.js',
+                    dest: '<%= yeoman.tmp %>/concat/scripts'
+                }]
+            }
+        },
+
+        // Replace Google CDN references
+        cdnify: {
+            dist: {
+                html: ['<%= yeoman.dist %>/*.html']
+            }
+        },
+
+        // Copies remaining files to places other tasks can use
+        copy: {
+            dist: {
+                files: [{
+                    expand: true,
+                    dot: true,
+                    cwd: '<%= yeoman.app %>',
+                    dest: '<%= yeoman.dist %>',
+                    src: [
+                        '*.{ico,png,txt}',
+                        '.htaccess',
+                        '*.html',
+                        'views/{,*/}*.html',
+                        'images/{,*/}*.{webp}',
+                        'fonts/*',
+                        'assets/**',
+                        'bower/jquery.inputmask/dist/jquery.inputmask.bundle.js',
+                        'bower/jquery-validation/dist/jquery.validate.js',
+                        'bower/jqvmap/jqvmap/maps/jquery.vmap.europe.js',
+                        'bower/jqvmap/jqvmap/maps/jquery.vmap.usa.js',
+                        'bower/stepy/lib/jquery.stepy.js',
+                        'bower/Chart.js/Chart.min.js',
+                        'bower/raphael/raphael.js',
+                        'bower/morris.js/morris.js'
+                    ]
+                }, {
+                    expand: true,
+                    cwd: '<%= yeoman.tmp %>/images',
+                    dest: '<%= yeoman.dist %>/images',
+                    src: ['generated/*']
+                }]
+            },
+            styles: {
+                expand: true,
+                cwd: '<%= yeoman.app %>/assets/css',
+                dest: '<%= yeoman.tmp %>/assets/css',
+                src: '{,*/}*.css'
+            }
+        },
+
+        // Run some tasks in parallel to speed up the build process
+        concurrent: {
+            server: [
+                'copy:styles'
+            ],
+            test: [
+                'copy:styles'
+            ],
+            dist: [
+                'copy:styles',
+                'copy:dist'
+                // 'imagemin',
+                // 'svgmin'
+            ]
+        },
+
+        ngtemplates:  {
+            app: {
+                src:      'app/**/*.html',
+                dest:     '<%= yeoman.dist %>/templates/templates.js',
+                options:  {
+                    url:    function(url) { return url.replace('app/views/', ''); },
+                    bootstrap: function(module, script) {
+                        return "angular.module('sympozerApp', []).run(['$templateCache', function ($templateCache) {\n"+script+"}])";
+                    }
+                }
+            }
+        },
+
+        less: {
+            server: {
+                options: {
+                    // strictMath: true,
+                    dumpLineNumbers: true,
+                    sourceMap: true,
+                    sourceMapRootpath: "",
+                    outputSourceFiles: true
+                },
+                files: [
+                    {
+                        expand: true,
+                        cwd: "<%= yeoman.app %>/assets/less",
+                        src: "styles.less",
+                        dest: "<%= yeoman.tmp %>/assets/css",
+                        ext: ".css"
+                    }
                 ]
             },
-            scripts: {
+            dist: {
                 options: {
-                    separator: ';'
+                    cleancss: true,
+                    report: 'min'
                 },
-                dest: './app/assets/app.js',
-                src: [
-                    //place your JavaScript files here
-                    'vendors/jquery/jquery.min.js',
-                    'vendors/angular/angular.min.js',
-                    'vendors/angular-resource/angular-resource.min.js',
-                    'vendors/angular-translate/angular-translate.js',
-                    'vendors/angular-route/angular-route.js',
-                    'vendors/angular-animate/angular-animate.js',
-                    'vendors/bootstrap/dist/js/bootstrap.min.js',
-                    'vendors/angular-ui-router/release/angular-ui-router.min.js',
-                    'vendors/angular-ui-select/dist/select.js',
-                    'vendors/angular-sanitize/angular-sanitize.js',
-                    'vendors/angular-loading-bar/src/loading-bar.js',
-                    'vendors/angular-cached-resource/angular-cached-resource.min.js',
-                    'vendors/angular-cookies/angular-cookies.min.js',
-                    'vendors/moment/min/moment-with-locales.min.js',
-                    'vendors/angular-leaflet-directive/dist/angular-leaflet-directive.min.js',
-                    'vendors/angularjs-modal-service/src/createDialog.js',
-                    'vendors/angular-xeditable/dist/js/xeditable.min.js',
-                    'vendors/angular-moment/angular-moment.min.js',
-                    'vendors/angular-bootstrap-datetimepicker/src/js/datetimepicker.js',
-                    'vendors/leaflet/dist/leaflet.js',
-
-                    'vendors/angular-boostrap-ui/src/modal/modal.js',
-                    'vendors/angular-boostrap-ui/ui-bootstrap-tpls-0.11.2.min.js',
-                    'vendors/angular-boostrap-ui/src/transition/transition.js',
-
-                    'vendors/angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.js',
-
-                    'vendors/bootstrap-tags/dist/js/bootstrap-tags.min.js',
-                    'vendors/select2/select2.min.js',
-                    'vendors/angular-mocks/angular-mocks.js',
-                    'app/js/app.js',
-                    'app/modules/js/**/*.js',
-                    'app/js/**/*.js'
+                files: [
+                    {
+                        expand: true,
+                        cwd: "<%= yeoman.app %>/assets/less",
+                        src: "styles.less",
+                        dest: "<%= yeoman.tmp %>/assets/css",
+                        ext: ".css"
+                    }
                 ]
+            }
+        },
+
+        // By default, your `index.html`'s <!-- Usemin block --> will take care of
+        // minification. These next options are pre-configured if you do not wish
+        // to use the Usemin blocks.
+        // cssmin: {
+        //   dist: {
+        //     files: {
+        //       '<%= yeoman.dist %>/styles/main.css': [
+        //         '.tmp/styles/{,*/}*.css',
+        //         '<%= yeoman.app %>/styles/{,*/}*.css'
+        //       ]
+        //     }
+        //   }
+        // },
+        // uglify: {
+        //   dist: {
+        //     files: {
+        //       '<%= yeoman.dist %>/scripts/scripts.js': [
+        //         '<%= yeoman.dist %>/scripts/scripts.js'
+        //       ]
+        //     }
+        //   }
+        // },
+        // concat: {
+        //   dist: {}
+        // },
+
+        // Test settings
+        karma: {
+            unit: {
+                configFile: 'karma.conf.js',
+                singleRun: true
+            }
+        },
+        processhtml: {
+            options: {
+                commentMarker: 'prochtml',
+                process: true
+            },
+            dist: {
+                files: {
+                    '<%= yeoman.dist %>/index.html': ['<%= yeoman.dist %>/index.html']
+                }
+            }
+        },
+        uglify: {
+            options: {
+                mangle: false
             }
         },
 
@@ -145,40 +451,40 @@ module.exports = function(grunt) {
          * *************************************************/
 
         'sf2-console': {
-            options: {
-                bin: 'app/console'
+            options         : {
+                bin: 'backend/app/console'
             },
             //Clear the cache of the production environnement
             cache_clear_prod: {
-                cmd: 'cache:clear',
+                cmd : 'cache:clear',
                 args: {
                     env: 'prod'
                 }
             },
             //Clear the cache of the development environnement
-            cache_clear_dev: {
-                cmd: 'cache:clear',
+            cache_clear_dev : {
+                cmd : 'cache:clear',
                 args: {
                     env: 'dev'
                 }
             },
             //Clear the cache of the production/developpement environnement
-            cache_clear: {
+            cache_clear     : {
                 cmd: 'cache:clear'
             },
             //concat and minimify all assets for prod environnement
-            assets_dump : {
-                cmd: 'assetic:dump',
+            assets_dump     : {
+                cmd : 'assetic:dump',
                 args: {}
             },
             //Install all assets (take everything from Resources directory of each bundle to append it in web/bundle/
-            assets_install : {
-                cmd: 'assets:install web',
+            assets_install  : {
+                cmd : 'assets:install web',
                 args: { symlink: true}
             },
             //Remove the database (specified in app/config/parameters.yml)
-            database_drop : {
-                cmd: 'doctrine:database:drop',
+            database_drop   : {
+                cmd : 'doctrine:database:drop',
                 args: { force: true}
             },
             //Create the database (specified in app/config/parameters.yml)
@@ -187,147 +493,78 @@ module.exports = function(grunt) {
             },
             //Create the schema of the database
             database_update : {
-                cmd: 'doctrine:schema:update',
+                cmd : 'doctrine:schema:update',
                 args: { force: true}
             },
             //Insert basic data including all default values for categories or roles
-            database_init : {
+            database_init   : {
                 cmd: 'sympozer:database:init'
             },
             //create an admin user on the system
-            admin_create: {
+            admin_create    : {
                 cmd: 'sympozer:admin:create admin admin@admin.fr admin'
-            }
-        },
-
-
-        /****************************************************
-         *
-         *            RIGHT MANAGEMENT TASKS                *
-         *
-         * *************************************************/
-
-        //Set rights on folders
-        chmod: {
-            options: {
-                mode: '777'
             },
-            cache_log : {
-                src: ['app/cache/**/*','app/logs/**/*']
-            }
-        },
-
-        /****************************************************
-         *
-         *                    TESTING TASKS                *
-         *
-         * *************************************************/
-
-        //Protractor task config
-        protractor: {
-            options: {
-                keepAlive: true,
-                configFile: FRONT_APP_DIR+'/test/protractor.conf.js',
-                //debug : true
-                // A base URL for your application under test. Calls to protractor.get()
-                // with relative paths will be prepended with this.
-                args : {
-                    baseUrl: PROD_SERVER_PATH,
-                    // The location of the selenium standalone server .jar file.
-                    seleniumServerJar: './node_modules/protractor/selenium/selenium-server-standalone-2.42.2.jar',
-                    // attempt to find chromedriver using PATH.
-                    chromeDriver: './node_modules/protractor/selenium/chromedriver',
-                    capabilities: {
-                        'browserName': 'chrome'
-                    }
-                }
-            },
-            singlerun: {},
-            auto: {
-                keepAlive: true
-            }
-        },
-
-        //Executing task when change on files happens
-        watch: {
-            options : {
-                livereload: 7777
-            },
-            assets: {
-                files: [FRONT_APP_DIR+'/app/css/**/*.js', FRONT_APP_DIR+'app/modules/**/*.js', FRONT_APP_DIR+'test/**/*.js'],
-                tasks: ['karma:unit']
-            },
-            protractor: {
-                files: [FRONT_APP_DIR+'/app/css/**/*.js', FRONT_APP_DIR+'app/modules/**/*.js', FRONT_APP_DIR+'test/**/*.js'],
-                tasks: ['protractor:auto']
-            }
-        },
-
-
-        //Karma unit test config
-        karma: {
-            unit: {
-                configFile: FRONT_APP_DIR+'/test/karma-unit.conf.js',
-                autoWatch: false,
-                singleRun: true
-            },
-            unit_auto: {
-                configFile: FRONT_APP_DIR+'/test/karma-unit.conf.js',
-                autoWatch: true,
-                singleRun: false
-            },
-            unit_coverage: {
-                configFile: FRONT_APP_DIR+'/test/karma-unit.conf.js',
-                autoWatch: false,
-                singleRun: true,
-                reporters: ['progress', 'coverage'],
-                preprocessors: {
-                    'app/scripts/*.js': ['coverage']
-                },
-                coverageReporter: {
-                    type : 'html',
-                    dir : 'coverage/'
-                }
+            //copy the ws config file
+            copy_ws_config  : {
+                cmd: 'sympozer:wsconfig:copy --to-path <%= yeoman.app %>/js/ws-config.js --server-base-path <%= yeoman.local_config.serverRootPath %>'
             }
         }
     });
 
-    /** DEFAULTS **/
-    grunt.registerTask('default', ['dev']);
 
-    /** TEST **/
-        //single run tests
-    grunt.registerTask('test', ['test:unit', 'test:e2e']);
-    grunt.registerTask('test:unit', ['karma:unit']);
-    grunt.registerTask('test:e2e', ['chmod:cache_log', 'sf2-console:assets_dump','protractor:singlerun']);
+    grunt.registerTask('serve', function (target) {
+        if (target === 'dist') {
+            return grunt.task.run(['build', 'connect:dist:keepalive']);
+        }
 
-    //autotest and watch tests
-    grunt.registerTask('autotest', ['karma:unit_auto']);
-    grunt.registerTask('autotest:unit', ['karma:unit_auto']);
-    grunt.registerTask('autotest:e2e', ['connect:devserver','shell:selenium','watch:protractor']);
+        grunt.task.run([
+            'clean:server',
+            'bowerInstall',
+            'concurrent:server',
+            'autoprefixer',
+            'connect:livereload',
+            'watch'
+        ]);
+    });
 
-    //coverage testing
-    grunt.registerTask('test:coverage', ['karma:unit_coverage']);
-    grunt.registerTask('coverage', ['karma:unit_coverage','open:coverage','connect:coverage']);
+    grunt.registerTask('server', function (target) {
+        grunt.log.warn('The `server` task has been deprecated. Use `grunt serve` to start a server.');
+        grunt.task.run(['serve:' + target]);
+    });
 
-    //installation-related
-    grunt.registerTask('install', ['update','shell:protractor_install']);
-    grunt.registerTask('update', ['shell:npm_install']);
+    grunt.registerTask('test', [
+        'clean:server',
+        'concurrent:test',
+        'autoprefixer',
+        'connect:test',
+        'karma'
+    ]);
 
+    grunt.registerTask('build', [
+        'clean:dist',
+        'bowerInstall',
+        'ngtemplates',
+        'useminPrepare',
+        'concurrent:dist',
+        'less:dist',
+        'autoprefixer',
+        'concat',
+        // 'ngmin',
+        'copy:dist',
+        // 'cdnify',
+        'cssmin',
+        'uglify',
+        'rev',
+        'usemin',
+        'processhtml:dist',
+        'sf2-console:copy_ws_config'
+        // 'htmlmin',
 
+    ]);
 
-    /** DEVELOPEMENT **/
-    grunt.registerTask('reset', ['chmod:cache_log', 'sf2-console:database_create','sf2-console:database_drop',
-        'sf2-console:database_create','sf2-console:database_update',
-        'sf2-console:database_init', 'sf2-console:assets_install',
-        'sf2-console:admin_create', 'sf2-console:cache_clear', 'chmod:cache_log']);
-
-    grunt.registerTask('dev', ['sf2-console:cache_clear', 'sf2-console:database_update', 'shell:symlink_remove', 'shell:symlink_add',
-        'chmod:cache_log', 'open:devserver']);
-
-    /** PRODUCTION **/
-    grunt.registerTask('build', ['sf2-console:cache_clear_prod', 'sf2-console:database_update', 'sf2-console:assets_dump',
-     'chmod:cache_log', 'open:prodserver' ]);
-
-
+    grunt.registerTask('default', [
+        // 'newer:jshint',
+        // 'test',
+        'build'
+    ]);
 };
