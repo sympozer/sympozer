@@ -1,14 +1,18 @@
-Sympozer
+Sympozer - the best event experience, before, during and after
 =============
 
-Sympozer is an Angular/Symfony web application allowing event organizers to manage efficiently their communication with collaborators and attendees.
+Sympozer is an Angularjs/Symfony web application allowing event organizers and attendees to finally reach their perfect event experience.
+Through its rich and powerful interface, Sympozer provides a wide set of facilitating and networking tools for attendees to keep tracking the schedule, receive notifications, and of course, meet new contacts.
+The organization is now easier than ever with our specialized tools following at every step of your work.
 
 ###Requirements
 
-	Apache Server, php, database (mysql postgres).
-	Git : http://git-scm.com/.
-	Composer :  http://getcomposer.org/download/.
-	Grunt
+	Server     : nodejs server + http server + php application server (Apache Server or Nginx with php fpm)
+	Middleware : PHP > 5.4
+	Database   : mysql / postgres.
+	Git        : http://git-scm.com/.
+	Composer   : http://getcomposer.org/download/.
+	Grunt      : http://gruntjs.com/
 
 #Installation guide
 	

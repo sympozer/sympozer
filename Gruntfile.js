@@ -61,7 +61,14 @@ module.exports = function (grunt) {
             },
             npm_install: {
                 command: 'npm install'
+            },
+            cd_frontend: {
+                command: 'cd frontend'
+            },
+            bower_install: {
+                command: 'bower install'
             }
+
         },
 
         //Open a navigator page displaying a choosen url
@@ -97,13 +104,13 @@ module.exports = function (grunt) {
             prodserver: {
                 options: {
                     port: 9000,
-                    keepalive: true
+                    keepalive: false
                 }
             },
             devserver: {
                 options: {
                     port: 9001,
-                    keepalive: true
+                    keepalive: false
                 }
             },
             testserver: {
@@ -117,6 +124,50 @@ module.exports = function (grunt) {
 
 
 
+        /****************************************************
+         *
+         *                     BOWER TASKS                 *
+         *
+         * *************************************************/
+
+         //Launch bower install command
+         'bower-install-simple': {
+            options: {
+                color: true,
+                cwd:'frontend/'
+            },
+            "prod": {
+                options: {
+                    production: true
+                }
+            },
+            "dev": {
+                options: {
+                    production: false
+                }
+            }
+        },
+
+        // Automatically inject Bower components into the app
+        bowerInstall: {
+            app: {
+                directory :'frontend/',
+                cwd: 'frontend/',
+                src: ['<%= yeoman.app %>/index.html'],
+                ignorePath: '<%= yeoman.app %>/',
+                exclude: ['requirejs',
+                    'mocha',
+                    'jquery.vmap.europe.js',
+                    'jquery.vmap.usa.js',
+                    'Chart.min.js',
+                    'raphael',
+                    'morris',
+                    'jquery.inputmask',
+                    'jquery.validate.js',
+                    'jquery.stepy.js'
+                ]
+            }
+        },
 
         /****************************************************
          *
@@ -290,26 +341,7 @@ module.exports = function (grunt) {
          *
          * *************************************************/
 
-        // Automatically inject Bower components into the app
-        bowerInstall: {
-            app: {
-                directory :'frontend/',
-                cwd: 'frontend/',
-                src: ['<%= yeoman.app %>/index.html'],
-                ignorePath: '<%= yeoman.app %>/',
-                exclude: ['requirejs',
-                    'mocha',
-                    'jquery.vmap.europe.js',
-                    'jquery.vmap.usa.js',
-                    'Chart.min.js',
-                    'raphael',
-                    'morris',
-                    'jquery.inputmask',
-                    'jquery.validate.js',
-                    'jquery.stepy.js'
-                ]
-            }
-        },
+
 
         // Renames files for browser caching purposes
         rev: {
@@ -642,10 +674,35 @@ module.exports = function (grunt) {
             copy_ws_config  : {
                 cmd: 'sympozer:wsconfig:copy --to-path <%= yeoman.app %>/js/ws-config.js --server-base-path <%= yeoman.local_config.serverRootPath %>'
             }
-        }
+        },
+
     });
 
+    /************************* TASKS CHAINS *******************************************/
 
+
+
+    /** TEST **/
+        //single run tests
+    grunt.registerTask('test', ['test:unit', 'test:e2e']);
+    grunt.registerTask('test:unit', ['karma:unit']);
+    grunt.registerTask('test:e2e', ['chmod:cache_log', 'connect:testserver', 'protractor:singlerun']);
+
+
+
+    /** DEVELOPMENT **/
+    grunt.registerTask('reset', ['chmod:cache_log', 'sf2-console:database_create','sf2-console:database_drop', 'sf2-console:database_create', 'sf2-console:database_update',
+        'sf2-console:database_init', 'sf2-console:admin_create', 'sf2-console:cache_clear', 'chmod:cache_log']);
+
+    grunt.registerTask('dev', ['sf2-console:cache_clear', 'sf2-console:database_update',
+        'chmod:cache_log', 'bower-install-simple', 'bowerInstall', 'connect:devserver', 'open:devserver']);
+
+
+    /** INSTALL **/
+    grunt.registerTask('install', ['shell:protractor_install', 'reset',  'bower-install-simple', 'bowerInstall'])
+
+
+    /** PRODUCTION **/
     grunt.registerTask('serve', function (target) {
         if (target === 'dist') {
             return grunt.task.run(['build', 'connect:dist:keepalive']);
@@ -702,10 +759,4 @@ module.exports = function (grunt) {
         'build'
     ]);
 
-
-    /** TEST **/
-        //single run tests
-    grunt.registerTask('test', ['test:unit', 'test:e2e']);
-    grunt.registerTask('test:unit', ['karma:unit']);
-    grunt.registerTask('test:e2e', ['chmod:cache_log', 'connect:testserver', 'protractor:singlerun']);
 };
