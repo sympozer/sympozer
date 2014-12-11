@@ -30,7 +30,7 @@ class PersonType extends AdditionalInformationsType
       ))
 //
 //      ->add('papers', 'sympozer_collection_type', array(
-//        'class' => new PaperType(),
+//        'type' => new PaperType(),
 //        'required' => false
 //      ))
 //      ->add('roles', 'sympozer_collection_type', array(

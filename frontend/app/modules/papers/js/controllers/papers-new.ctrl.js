@@ -137,7 +137,7 @@ angular.module('papersApp').controller('papersNewCtrl', [ '$scope', '$window', '
             if (!topicModel.id)
             {
                 var modalInstance = $modal.open({
-                    templateUrl: GLOBAL_CONFIG.app.modules.topics.urls.partials + 'topics-modal-form.html',
+                    templateUrl: GLOBAL_CONFIG.app.modules.topics.urls.partials + 'modals/topics-modal-form.html',
                     controller : 'topicsNewCtrl',
                     size       : "large",
                     resolve    : {

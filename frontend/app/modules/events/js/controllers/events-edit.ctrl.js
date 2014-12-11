@@ -66,20 +66,20 @@ angular.module('eventsApp').controller('eventsEditCtrl', ['$scope', '$filter', '
         };
 
 
-        $scope.createLocationModal = function ()
-        {
-            //TODO : fix this
-            createDialogService(GLOBAL_CONFIG.app.modules.locations.urls.partials + 'modals/locations-new.html', {
-                id        : 'complexDialog',
-                title     : 'New location',
-                backdrop  : true,
-                controller: 'locationsNewCtrl',
-                success   : {label: 'Save', fn: function ()
-                {
-                }}
-            }, {
-            });
-        };
+//        $scope.createLocationModal = function ()
+//        {
+//            //TODO : fix this
+//            createDialogService(GLOBAL_CONFIG.app.modules.locations.urls.partials + 'modals/locations-new.html', {
+//                id        : 'complexDialog',
+//                title     : 'New location',
+//                backdrop  : true,
+//                controller: 'locationsNewCtrl',
+//                success   : {label: 'Save', fn: function ()
+//                {
+//                }}
+//            }, {
+//            });
+//        };
 
         //Autocomplete and add paper workflow
         $scope.searchCategories = categoriesFact.allByConference;

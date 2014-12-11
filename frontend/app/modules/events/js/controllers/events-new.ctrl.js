@@ -63,7 +63,7 @@ angular.module('eventsApp').controller('eventsNewCtrl', [ '$scope', '$window', '
 
         $scope.create = function (form)
         {
-            $scope.event.mainEvent = $routeParams.mainEventId;
+            $scope.event.mainEvent = $rootScope.currentMainEvent;
 
             if (form.$valid && setDateRange())
             {

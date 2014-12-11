@@ -3,7 +3,7 @@
  *
  * @type {controller}
  */
-angular.module('equipmentsApp').controller('equipmentsListCtrl', ['$scope', 'GLOBAL_CONFIG', 'createDialog', '$rootScope', 'equipmentsFact', '$cachedResource', '$routeParams', function ($scope, GLOBAL_CONFIG, createDialogService, $rootScope, equipmentsFact, $cachedResource, $routeParams)
+angular.module('equipmentsApp').controller('equipmentsListCtrl', ['$scope', 'GLOBAL_CONFIG', '$rootScope', 'equipmentsFact', '$cachedResource', '$routeParams', function ($scope, GLOBAL_CONFIG, $rootScope, equipmentsFact, $cachedResource, $routeParams)
 {
     $scope.GLOBAL_CONFIG = GLOBAL_CONFIG;
     $scope.entities = [];
@@ -44,22 +44,22 @@ angular.module('equipmentsApp').controller('equipmentsListCtrl', ['$scope', 'GLO
     }
 
 
-    $scope.deleteModal = function (index, equipment)
-    {
-        $scope.index = index;
-
-        createDialogService(GLOBAL_CONFIG.app.modules.equipments.urls.partials + 'equipments-delete.html', {
-            id: 'complexDialog',
-            title: 'equipment deletion',
-            backdrop: true,
-            controller: 'equipmentsDeleteCtrl',
-            success: {label: 'Ok', fn: function ()
-            {
-                equipmentsFact.delete({id: equipment.id});
-                $scope.entities.splice(index, 1);
-            }}
-        }, {
-            equipmentModel: equipment
-        });
-    }
+//    $scope.deleteModal = function (index, equipment)
+//    {
+//        $scope.index = index;
+//
+//        createDialogService(GLOBAL_CONFIG.app.modules.equipments.urls.partials + 'equipments-delete.html', {
+//            id: 'complexDialog',
+//            title: 'equipment deletion',
+//            backdrop: true,
+//            controller: 'equipmentsDeleteCtrl',
+//            success: {label: 'Ok', fn: function ()
+//            {
+//                equipmentsFact.delete({id: equipment.id});
+//                $scope.entities.splice(index, 1);
+//            }}
+//        }, {
+//            equipmentModel: equipment
+//        });
+//    }
 }]);

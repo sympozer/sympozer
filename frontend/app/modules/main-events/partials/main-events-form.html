@@ -74,7 +74,7 @@
     <label  class="col-sm-3 control-label">{{ 'locations.links.locations' | translate}} </label>
 
     <div class="col-sm-6">
-        <input google-place-autocomplete="" type="text" class="form-control"  on-select="selectAddress" ng-model="conference.location.label" /></td>
+        <input google-place-autocomplete="" ng-required="" type="text" class="form-control"  on-select="selectAddress" ng-model="conference.location.label" /></td>
         <div style="height: 300px" gmap options="mapInstanceOption" instance="geoCodingMapInstance"></div>
     </div>
 </div>

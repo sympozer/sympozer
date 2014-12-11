@@ -14,19 +14,185 @@ module.exports = function (grunt) {
     // Time how long tasks take. Can help when optimizing build times
     require('time-grunt')(grunt);
 
+    var FRONT_APP_DIR = "./src/fibe/FrontendBundle/Resources/public/";
+
+
     // Define the configuration for all the tasks
     grunt.initConfig({
 
         // Project settings
         yeoman: {
-            // configurable paths
-            backend : 'backend',
+            // file structure
+            backend  : 'backend',
             frontend : 'frontend',
             dist     : 'frontend/dist',
-            tmp     : 'frontend/.tmp',
-            app: '<%= yeoman.frontend %>/app',
-            local_config    : grunt.file.readJSON('local-config.json')
+            test     : 'frontend/test',
+            tmp      : 'frontend/.tmp',
+            app      : 'frontend/app',
+            local_config    : grunt.file.readJSON('local-config.json'),
+
+            // server  path
+            devserver_url : 'http://localhost:9000',
+            prodserver_url : 'http://localhost:9001',
+            testserver_url : 'http://localhost:9002'
+
         },
+
+
+        /****************************************************
+         *
+         *                    SERVER TASKS                 *
+         *
+         * *************************************************/
+
+        shell: {
+            options: {
+                stdout: true
+            },
+            selenium: {
+                command: './selenium/start',
+                options: {
+                    stdout: false,
+                    async: true
+                }
+            },
+            protractor_install: {
+                command: 'node ./node_modules/protractor/bin/webdriver-manager update'
+            },
+            npm_install: {
+                command: 'npm install'
+            }
+        },
+
+        //Open a navigator page displaying a choosen url
+        open: {
+            //development server access
+            devserver: {
+                path: '<%= yeoman.devserver_url %>',
+                app: '<%= yeoman.local_config.defaultBrowser %>'
+            },
+            //production server access
+            prodserver: {
+                path: '<%= yeoman.prodserver_url %>',
+                app: '<%= yeoman.local_config.defaultBrowser %>'
+            },
+            //test server access
+            testserver: {
+                path: '<%= yeoman.testserver_url %>',
+                app: '<%= yeoman.local_config.defaultBrowser %>'
+            },
+            //admin interface access
+            adminserver: {
+                path: '<%= yeoman.local_config.serverRootPath %>'+'sonata/admin'
+            }
+        },
+
+        // The actual grunt server settings
+        connect: {
+            options: {
+                base: '<%= yeoman.app %>',
+                hostname: 'localhost',
+                livereload: 35729
+            },
+            prodserver: {
+                options: {
+                    port: 9000,
+                    keepalive: true
+                }
+            },
+            devserver: {
+                options: {
+                    port: 9001,
+                    keepalive: true
+                }
+            },
+            testserver: {
+                options: {
+                    port: 9002,
+                    keepalive: false
+                }
+            }
+        },
+
+
+
+
+        /****************************************************
+         *
+         *            RIGHT MANAGEMENT TASKS                *
+         *
+         * *************************************************/
+
+        //Set rights on folders
+        chmod: {
+            options: {
+                mode: '777'
+            },
+            cache_log : {
+                src: ['app/cache/**/*','app/logs/**/*']
+            }
+        },
+
+
+        /****************************************************
+         *
+         *                    TESTING TASKS                *
+         *
+         * *************************************************/
+
+        //Protractor task config
+        protractor: {
+            options: {
+                keepAlive: true,
+                configFile: '<%= yeoman.test %>'+'protractor.conf.js',
+                //debug : true
+                // A base URL for your application under test. Calls to protractor.get()
+                // with relative paths will be prepended with this.
+                args : {
+                    baseUrl: '<%= yeoman.prodserver_url %>',
+                    // The location of the selenium standalone server .jar file.
+                    seleniumServerJar: 'node_modules/protractor/selenium/selenium-server-standalone-2.42.2.jar',
+                    // attempt to find chromedriver using PATH.
+                    chromeDriver: 'node_modules/protractor/selenium/chromedriver',
+                    capabilities: {
+                        'browserName': 'chrome'
+                    }
+                }
+            },
+            singlerun: {},
+            auto: {
+                keepAlive: true
+            }
+        },
+
+
+        //Karma unit test config
+        karma: {
+            unit: {
+                configFile: '<%= yeoman.test %>'+'/karma-unit.conf.js',
+                autoWatch: false,
+                singleRun: true
+            },
+            unit_auto: {
+                configFile: '<%= yeoman.test %>'+'/karma-unit.conf.js',
+                autoWatch: true,
+                singleRun: false
+            },
+            unit_coverage: {
+                configFile: '<%= yeoman.test %>'+'/karma-unit.conf.js',
+                autoWatch: false,
+                singleRun: true,
+                reporters: ['progress', 'coverage'],
+                preprocessors: {
+                    'app/scripts/*.js': ['coverage']
+                },
+                coverageReporter: {
+                    type : 'html',
+                    dir : 'coverage/'
+                }
+            }
+        },
+
 
         // Watches files for changes and runs tasks based on the changed files
         watch: {
@@ -68,45 +234,6 @@ module.exports = function (grunt) {
             }
         },
 
-        // The actual grunt server settings
-        connect: {
-            options: {
-                port: 9000,
-                // Change this to '0.0.0.0' to access the server from outside.
-                hostname: 'localhost',
-                livereload: 35729
-            },
-            // courtesy of Phubase Tiewthanom
-            livereload: {
-                options: {
-                    middleware: function (connect) {
-                        return [
-                            connect.static('.tmp'),
-                            connect().use(
-                                '/bower',
-                                connect.static('./bower')
-                            ),
-                            connect.static(require('./bower.json').appPath || 'app')
-                        ];
-                    }
-                }
-            },
-            test: {
-                options: {
-                    port: 9001,
-                    base: [
-                        '.tmp',
-                        'test',
-                        '<%= yeoman.app %>'
-                    ]
-                }
-            },
-            dist: {
-                options: {
-                    base: '<%= yeoman.dist %>'
-                }
-            }
-        },
 
         // Make sure code styles are up to par and there are no obvious mistakes
         jshint: {
@@ -155,6 +282,12 @@ module.exports = function (grunt) {
                 }]
             }
         },
+
+        /****************************************************
+         *
+         *                    BUILD TASKS                  *
+         *
+         * *************************************************/
 
         // Automatically inject Bower components into the app
         bowerInstall: {
@@ -421,12 +554,12 @@ module.exports = function (grunt) {
         // },
 
         // Test settings
-        karma: {
-            unit: {
-                configFile: 'karma.conf.js',
-                singleRun: true
-            }
-        },
+//        karma: {
+//            unit: {
+//                configFile: 'karma.conf.js',
+//                singleRun: true
+//            }
+//        },
         processhtml: {
             options: {
                 commentMarker: 'prochtml',
@@ -567,4 +700,11 @@ module.exports = function (grunt) {
         // 'test',
         'build'
     ]);
+
+
+    /** TEST **/
+        //single run tests
+    grunt.registerTask('test', ['test:unit', 'test:e2e']);
+    grunt.registerTask('test:unit', ['karma:unit']);
+    grunt.registerTask('test:e2e', ['chmod:cache_log', 'sf2-console:assets_dump','protractor:singlerun']);
 };

@@ -7,7 +7,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Sympozer">
-    <meta name="author" content="Sympozer team">
+    <meta name="author" content="Benoît Durant de la pastellière">
+    <meta name="author" content="Lionel Médini">
+    <meta name="author" content="Vincent Sebille">
+    <meta name="author" content="Brice Buffa">
+    <meta name="author" content="Fiona Le peutrec">
+    <meta name="author" content="Florian Bacle">
 
     <!-- Favicons -->
     <link rel="icon" type="image/png" sizes="192x192" href="favicon.ico">
@@ -183,10 +188,13 @@
 <script src="bower/json3/lib/json3.min.js"></script>
 <![endif]-->
 
-<script type='text/javascript' src='http://maps.google.com/maps/api/js?libraries=places&sensor=true'></script>
+
+
 
 <!-- build:js scripts/vendor.js -->
 <!-- bower:js -->
+<script type='text/javascript' src='assets/plugins/google-map/google-map-places-api.js'></script>
+
 <script src="bower/modernizr/modernizr.js"></script>
 <script src="bower/jquery/dist/jquery.js"></script>
 <script src="bower/underscore/underscore.js"></script>
@@ -277,9 +285,10 @@
 
 
 <!-- SYMPOZER GLOBAL FILES -->
-<script src="js/app.js"></script>
-<script src="js/routes.js"></script>
 <script src="js/ws-config.js"></script>
+<script src="js/app.js"></script>
+<script src="config.js"></script>
+<script src="js/routes.js"></script>
 <!--CONTROLLERS-->
 <script src="js/controllers/navigation/footer.ctrl.js"></script>
 <script src="js/controllers/navigation/breadcrumb.ctrl.js"></script>
@@ -582,145 +591,7 @@
 
 <!-- basic client app context definition -->
 <script>
-    //@TODO to put in serchService
-    var queryNb = 0,
-            firstQueryNb = 0
-            ;
-    var globalConfig = {
-        app     : {
 
-            urls   : {
-                base    : "assets/",
-                partials: "partials/",
-                img     : "assets/img/"
-            },
-            modules: {
-                authentication   : {
-                    urls   : {
-                        base    : "modules/authentication/",
-                        partials: "modules/authentication/partials/",
-                        img     : "modules/authentication/img/"
-                    },
-                    options: {
-                        shouldLogin: true
-                    }
-                },
-                organizations    : {
-                    urls: {
-                        base             : "modules/organizations/",
-                        partials         : "modules/organizations/partials/",
-                        img              : "modules/organizations/img/"
-                    }
-                },
-                locations        : {
-                    urls: {
-                        base    : "modules/locations/",
-                        partials: "modules/locations/partials/",
-                        img     : "modules/locations/img/"
-                    }
-                },
-                equipments       : {
-                    urls: {
-                        base    : "modules/equipments/",
-                        partials: "modules/equipments/partials/",
-                        img     : "modules/equipments/img/"
-                    }
-                },
-                events           : {
-                    urls: {
-                        base    : "modules/events/",
-                        partials: "modules/events/partials/",
-                        img     : "modules/events/img"
-                    }
-                },
-                papers           : {
-                    urls: {
-                        base             : "modules/papers/",
-                        partials         : "modules/papers/partials/",
-                        communityPartials: "modules/papers/partials/community/",
-                        img              : "modules/papers/img/"
-                    }
-                },
-                categories       : {
-                    urls: {
-                        base    : "modules/categories/",
-                        partials: "modules/categories/partials/",
-                        img     : "modules/categories/img/"
-                    }
-                },
-                mainEvents       : {
-                    urls: {
-                        base             : "modules/main-events/",
-                        partials         : "modules/main-events/partials/",
-                        partialsCommunity: "modules/main-events/partials/community/",
-                        img              : "modules/main-events/img/"
-                    }
-                },
-                persons          : {
-                    urls: {
-                        base             : "modules/persons/",
-                        partials         : "modules/persons/partials/",
-                        img              : "modules/persons/img/"
-                    }
-                },
-                teammates        : {
-                    urls: {
-                        base    : "modules/teammates/",
-                        partials: "modules/teammates/partials/",
-                        img     : "modules/teammates/img"
-                    }
-                },
-                roles            : {
-                    urls: {
-                        base    : "modules/roles/",
-                        partials: "modules/roles/partials/roles/",
-                        img     : "modules/roles/img/"
-                    }
-                },
-                roleLabels: {
-                    urls: {
-                        base    : "modules/roles/",
-                        partials: "modules/roles/partials/role-labels/",
-                        img     : "modules/roles/img/"
-                    }
-                },
-                topics           : {
-                    urls: {
-                        base    : "modules/topics/",
-                        partials: "modules/topics/partials/",
-                        img     : "modules/topics/img/"
-                    }
-                },
-                messages           : {
-                    urls: {
-                        base    : "modules/messages/",
-                        partials: "modules/messages/partials/",
-                        img     : "modules/messages/img/"
-                    }
-                },
-                notifications           : {
-                    urls: {
-                        base    : "modules/notifications/",
-                        partials: "modules/notifications/partials/",
-                        img     : "modules/notifications/img/"
-                    }
-                },
-
-                analytics              : {
-                    urls: {
-                        base    : "modules/analytics/",
-                        partials: "modules/analytics/partials/",
-                        img     : "modules/analytics/img/"
-                    }
-                }
-            }
-        },
-        language: 'EN'
-
-    };
-    $.extend(globalConfig, wsConfig);
-
-    angular.module('sympozerApp').value('GLOBAL_CONFIG', globalConfig);
 </script>
 </body>
 </html>

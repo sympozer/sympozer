@@ -2,6 +2,9 @@
 
 namespace fibe\EventBundle\Form;
 
+use fibe\ContentBundle\Form\PaperType;
+use fibe\ContentBundle\Form\RoleType;
+use fibe\ContentBundle\Form\TopicType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
@@ -17,26 +20,28 @@ class EventType extends VEventType
     {
         parent::buildForm($builder, $options);
         $builder
-            ->add('category', 'sympozer_entity_type', array(
-                'type' => new CategoryVersionType(),
-                'required' => 'true',
-            ))
+//            ->add('category', 'sympozer_entity_type', array(
+//                'type' => new CategoryVersionType(),
+//                'required' => 'true',
+//                'cascade_persist' => false
+//            ))
             ->add('mainEvent', 'sympozer_entity_type', array(
                 'type' => new MainEventType(),
                 'required' => 'true',
-            ))
-            ->add('papers', 'sympozer_collection_type', array(
-                'class' => 'fibeContentBundle:Paper',
-                'required' => 'false'
-            ))
-            ->add('roles', 'sympozer_collection_type', array(
-                'class' => 'fibeContentBundle:Role',
-                'required' => 'false'
-            ))
-            ->add('topics', 'sympozer_collection_type', array(
-                'class' => 'fibeContentBundle:Topic',
-                'required' => 'false'
+                'cascade_persist' => false
             ));
+//            ->add('papers', 'sympozer_collection_type', array(
+//                'type' => new PaperType(),
+//                'required' => 'false',
+//            ))
+//            ->add('roles', 'sympozer_collection_type', array(
+//                'type' => new RoleType(),
+//                'required' => 'false',
+//            ))
+//            ->add('topics', 'sympozer_collection_type', array(
+//                'type' => new TopicType(),
+//                'required' => 'false',
+//            ));
 
     }
 
