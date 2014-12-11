@@ -18,11 +18,15 @@ class CategoryVersionType extends AbstractType
       ->add('color')
       ->add('mainEvent', 'sympozer_entity_type', array(
         'type' => new MainEventType(),
-        'required' => 'true'
+          'required' => 'true',
+          'cascade_persist' => false,
+          'allow_extra_fields' => true,
       ))
       ->add('events', 'sympozer_collection_type', array(
-        'class' => 'fibeEventBundle:Event',
-        'required' => 'false'
+          'type' => new EventType(),
+          'required' => 'false',
+          'cascade_persist' => false,
+          'allow_extra_fields' => true,
       ))
       ->add('category', 'sympozer_entity_type', array(
         'type' => new CategoryType(),

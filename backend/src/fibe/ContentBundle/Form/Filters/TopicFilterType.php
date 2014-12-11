@@ -2,6 +2,8 @@
 
 namespace fibe\ContentBundle\Form\Filters;
 
+use fibe\ContentBundle\Form\PaperType;
+use fibe\ContentBundle\Form\TopicType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -32,7 +34,7 @@ class TopicFilterType extends AbstractType
   {
     $builder
       ->add('id', 'entity', array(
-        'class' => 'fibeContentBundle:Topic',
+          'type' => new TopicType(),
         'label' => 'Name',
         'choices' => $this->user->getCurrentMainEvent()->getTopics()->toArray(),
         'required' => false,
@@ -42,7 +44,7 @@ class TopicFilterType extends AbstractType
     {
       $builder
         ->add('paper', 'entity', array(
-          'class' => 'fibeContentBundle:Paper',
+            'type' => new PaperType(),
           'label' => 'Paper',
           'choices' => $this->user->getCurrentMainEvent()->getPapers()->toArray(),
           'required' => false,

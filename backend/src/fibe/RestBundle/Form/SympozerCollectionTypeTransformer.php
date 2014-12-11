@@ -22,7 +22,7 @@ class SympozerCollectionTypeTransformer extends AbstractSympozerTypeTransformer
         $output = array();
         if (null === $input)
         {
-            return $output;
+            return null;
         }
         foreach ($input as $entity)
         {
@@ -40,6 +40,8 @@ class SympozerCollectionTypeTransformer extends AbstractSympozerTypeTransformer
      */
     public function reverseTransform($input)
     {
+//    echo "reverseTransform : COLLECTION";
+//    throw new \Exception(\Doctrine\Common\Util\Debug::dump($input));
         if (!$input)
         {
             return null;
@@ -55,18 +57,6 @@ class SympozerCollectionTypeTransformer extends AbstractSympozerTypeTransformer
 
             $entityId = $detachedEntity->getId();
 
-            // throw new \Exception(\Doctrine\Common\Util\Debug::dump($input));
-            // TODO fix this ?
-            // TODO fix this ?
-//       TODO fix this ?
-//      if (!$entityId)
-//      {
-//        $this->em->persist($detachedEntity);
-//      }
-//      else
-//      {
-//        $this->em->merge($detachedEntity);
-//      }
         }
 //    throw new \Exception(\Doctrine\Common\Util\Debug::dump($output));
         return new \Doctrine\Common\Collections\ArrayCollection($output);

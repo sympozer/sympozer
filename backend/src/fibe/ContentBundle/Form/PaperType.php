@@ -2,8 +2,6 @@
 
 namespace fibe\ContentBundle\Form;
 
-use fibe\CommunityBundle\Form\PersonType;
-use fibe\EventBundle\Form\EventType;
 use fibe\EventBundle\Form\MainEventType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -32,20 +30,24 @@ class PaperType extends AbstractType
             ->add('mainEvent', 'sympozer_entity_type', array(
                 'type' => new MainEventType(),
                 'required' => 'true',
-                'cascade_persist' => false
-            ));
-//            ->add('authors', 'sympozer_collection_type', array(
-//                'type' => new PersonType(),
-//                'required' => 'false',
-//            ))
-//            ->add('topics', 'sympozer_collection_type', array(
-//                'type' => new TopicType(),
-//                'required' => 'false'
-//            ))
-//            ->add('events', 'sympozer_collection_type', array(
-//                'type' => new EventType(),
-//                'required' => 'false'
-//            ));
+                'cascade_persist' => false,
+                'allow_extra_fields' => true,
+            ))
+//      ->add('authors', 'sympozer_collection_type', array(
+//        'type' => new PersonType(),
+//        'required' => 'false',
+//        'cascade_persist' => false,
+//        'allow_extra_fields' => true,
+//      ))
+//      ->add('topics', 'sympozer_collection_type', array(
+//        'type' => new TopicType(),
+//        'required' => 'false'
+//      ))
+//      ->add('events', 'sympozer_collection_type', array(
+//        'type' => new EventType(),
+//        'required' => 'false'
+//      ))
+        ;
     }
 
 

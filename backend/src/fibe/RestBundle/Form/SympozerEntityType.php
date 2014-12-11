@@ -13,51 +13,44 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 class SympozerEntityType extends AbstractType
 {
 
-  protected $em;
+    protected $em;
 
-  function __construct(EntityManager $em)
-  {
-    $this->em = $em;
-  }
-
-  public function buildForm(FormBuilderInterface $builder, array $options)
-  {
-    $transformer = new SympozerEntityTypeTransformer($this->em, $options);
-    $builder->addModelTransformer($transformer);
-
-    // Build the given form type from the required 'type' option.
-    /** @var \Symfony\Component\Form\FormTypeInterface $formType */
-    if (!$options['cascade_persist'])
+    function __construct(EntityManager $em)
     {
-      $builder->add('id');
+        $this->em = $em;
     }
-    else
+
+    public function buildForm(FormBuilderInterface $builder, array $options)
     {
-      $formType = $options['type'];
-      $formType->buildForm($builder, $options);
+        $transformer = new SympozerEntityTypeTransformer($this->em, $options);
+        $builder->addModelTransformer($transformer);
 
+        // Build the given form type from the required 'type' option.
+        /** @var \Symfony\Component\Form\FormTypeInterface $formType */
+        if (!$options['cascade_persist'])
+        {
+            $builder->add('id');
+        }
+        else
+        {
+            $formType = $options['type'];
+            $formType->buildForm($builder, $options);
+        }
     }
-  }
 
-  public function setDefaultOptions(OptionsResolverInterface $resolver)
-  {
-    $resolver->setDefaults(array(
-      'required' => true,
-      'cascade_persist' => true,
-//            'compound' => true,
-    ));
-    $resolver->setRequired(array(
-      'type'
-    ));
-  }
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    {
+        $resolver->setDefaults(array(
+            'required' => true,
+            'cascade_persist' => true,
+        ));
+        $resolver->setRequired(array(
+            'type'
+        ));
+    }
 
-//  public function getParent()
-//  {
-//    return 'hidden';
-//  }
-
-  public function getName()
-  {
-    return 'sympozer_entity_type';
-  }
+    public function getName()
+    {
+        return 'sympozer_entity_type';
+    }
 }

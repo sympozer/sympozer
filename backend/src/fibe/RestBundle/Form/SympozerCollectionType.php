@@ -26,10 +26,17 @@ class SympozerCollectionType extends AbstractType
         $transformer = new SympozerCollectionTypeTransformer($this->em, $options);
         $builder->addModelTransformer($transformer);
 
-        //build given form type
+        // Build the given form type from the required 'type' option.
         /** @var \Symfony\Component\Form\FormTypeInterface $formType */
+        if (!$options['cascade_persist'])
+    {
+        $builder->add('id');
+    }
+        else
+    {
         $formType = $options['type'];
         $formType->buildForm($builder, $options);
+    }
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
@@ -38,6 +45,7 @@ class SympozerCollectionType extends AbstractType
             'required' => false,
             'allow_add' => true,
             'allow_delete' => true,
+            'cascade_persist' => true,
         ));
         $resolver->setRequired(array(
             'type',

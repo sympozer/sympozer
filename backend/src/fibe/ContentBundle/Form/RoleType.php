@@ -4,7 +4,6 @@ namespace fibe\ContentBundle\Form;
 
 use fibe\CommunityBundle\Form\PersonType;
 use fibe\EventBundle\Form\EventType;
-use fibe\ContentBundle\Form\RoleLabelType;
 use fibe\EventBundle\Form\MainEventType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -28,21 +27,26 @@ class RoleType extends AbstractType
             ->add('label')
             ->add('person', 'sympozer_entity_type', array(
                 'type' => new PersonType(),
-                'required' => 'false'
+                'required' => 'false',
+                'cascade_persist' => false,
+                'allow_extra_fields' => true,
             ))
             ->add('event', 'sympozer_entity_type', array(
                 'type' => new EventType(),
-                'required' => 'false'
+                'required' => 'false',
+                'cascade_persist' => false,
+                'allow_extra_fields' => true,
             ))
             ->add('roleLabel', 'sympozer_entity_type', array(
                 'cascade_persist' => false,
-                'type' => new roleLabelType(),
+                'type' => new RoleLabelType(),
                 'required' => 'true'
             ))
             ->add('mainEvent', 'sympozer_entity_type', array(
-                'cascade_persist' => false,
                 'type' => new MainEventType(),
-                'required' => 'true'
+                'required' => 'true',
+                'cascade_persist' => false,
+                'allow_extra_fields' => true,
             ));
     }
 

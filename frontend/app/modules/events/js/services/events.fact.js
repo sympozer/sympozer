@@ -23,27 +23,28 @@ angular.module('eventsApp').factory('eventsFact',
         );
 
         //Construct a DTO object to send to server (Data Transfert Object)
-        resource.serialize = function(object){
+        resource.serialize = function (object)
+        {
             var DTObject = {
-                'id' : object.id,
-                'label' : object.label,
-                'location' : object.location ? object.location.id : object.location,
-                'endAt': object.endAt,
-                'startAt': object.startAt,
-                'mainEvent': object.mainEvent ? object.mainEvent.id : object.mainEvent,
-                'roles': object.roles,
-                'category' : object.category,
-                'comment' : object.comment,
-                'description' : object.description,
-                'dtype' : object.dtype,
-                'facebook' : object.facebook,
-                'papers' : object.papers,
-                'priority' : object.priority,
-                'sponsors' : object.sponsors,
-                'topics' : object.topics,
-                'twitter' : object.twitter,
-                'url' : object.url,
-                'youtube' : object.youtube
+                'id'         : object.id,
+                'label'      : object.label,
+                'location'   : object.location ? {id: object.location.id} : undefined,
+                'endAt'      : object.endAt,
+                'startAt'    : object.startAt,
+                'mainEvent'  : object.mainEvent ? {id: object.mainEvent.id} : undefined,
+                'roles'      : object.roles,
+                'category'   : object.category,
+                'comment'    : object.comment,
+                'description': object.description,
+                'dtype'      : object.dtype,
+                'facebook'   : object.facebook,
+                'papers'     : object.papers,
+                'priority'   : object.priority,
+                'sponsors'   : object.sponsors,
+                'topics'     : object.topics,
+                'twitter'    : object.twitter,
+                'url'        : object.url,
+                'youtube'    : object.youtube
             }
 
             //create the new resource object from DTObject

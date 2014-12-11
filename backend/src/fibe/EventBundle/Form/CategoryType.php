@@ -16,10 +16,11 @@ class CategoryType extends AbstractType
       ->add('label')
       ->add('description')
       ->add('color')
-      ->add('categoryVersions', 'sympozer_collection_type', array(
-        'class' => 'fibeEventBundle:CategoryVersion',
-        'required' => 'false'
-      ));
+//      ->add('categoryVersions', 'sympozer_collection_type', array(
+//        'type' => CategoryVersionType(),
+//        'required' => 'false'
+//      ))
+      ;
   }
 
   public function setDefaultOptions(OptionsResolverInterface $resolver)
