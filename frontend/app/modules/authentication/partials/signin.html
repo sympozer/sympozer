@@ -4,7 +4,7 @@
     <a href="#/"><img ng-src="{{GLOBAL_CONFIG.app.urls.img}}logo.png" no-image alt="Logo" class="brand"/></a>
   </div>
 
-  <div class="modal-body">
+  <div class="modal-body" id="signinFormModal">
     <h4 class="text-center" style="margin-bottom: 25px;">{{ 'authentication.labels.signin_get_started' | translate }}
       <a href="" ng-click="showSignupPopup()" ng-controller="signupCtrl">{{ 'authentication.actions.signup' | translate }}</a>
     </h4>

@@ -110,6 +110,7 @@ module.exports = function (grunt) {
                 options: {
                     port: 9002,
                     keepalive: false
+
                 }
             }
         },
@@ -144,12 +145,12 @@ module.exports = function (grunt) {
         protractor: {
             options: {
                 keepAlive: true,
-                configFile: '<%= yeoman.test %>'+'protractor.conf.js',
+                configFile: '<%= yeoman.test %>'+'/protractor.conf.js',
                 //debug : true
                 // A base URL for your application under test. Calls to protractor.get()
                 // with relative paths will be prepended with this.
                 args : {
-                    baseUrl: '<%= yeoman.prodserver_url %>',
+                    baseUrl: '<%= yeoman.testserver_url %>',
                     // The location of the selenium standalone server .jar file.
                     seleniumServerJar: 'node_modules/protractor/selenium/selenium-server-standalone-2.42.2.jar',
                     // attempt to find chromedriver using PATH.
@@ -172,25 +173,25 @@ module.exports = function (grunt) {
                 configFile: '<%= yeoman.test %>'+'/karma-unit.conf.js',
                 autoWatch: false,
                 singleRun: true
-            },
-            unit_auto: {
-                configFile: '<%= yeoman.test %>'+'/karma-unit.conf.js',
-                autoWatch: true,
-                singleRun: false
-            },
-            unit_coverage: {
-                configFile: '<%= yeoman.test %>'+'/karma-unit.conf.js',
-                autoWatch: false,
-                singleRun: true,
-                reporters: ['progress', 'coverage'],
-                preprocessors: {
-                    'app/scripts/*.js': ['coverage']
-                },
-                coverageReporter: {
-                    type : 'html',
-                    dir : 'coverage/'
-                }
             }
+//            unit_auto: {
+//                configFile: '<%= yeoman.test %>'+'/karma-unit.conf.js',
+//                autoWatch: true,
+//                singleRun: false
+//            },
+//            unit_coverage: {
+//                configFile: '<%= yeoman.test %>'+'/karma-unit.conf.js',
+//                autoWatch: false,
+//                singleRun: true,
+//                reporters: ['progress', 'coverage'],
+//                preprocessors: {
+//                    'app/scripts/*.js': ['coverage']
+//                },
+//                coverageReporter: {
+//                    type : 'html',
+//                    dir : 'coverage/'
+//                }
+//            }
         },
 
 
@@ -706,5 +707,5 @@ module.exports = function (grunt) {
         //single run tests
     grunt.registerTask('test', ['test:unit', 'test:e2e']);
     grunt.registerTask('test:unit', ['karma:unit']);
-    grunt.registerTask('test:e2e', ['chmod:cache_log', 'sf2-console:assets_dump','protractor:singlerun']);
+    grunt.registerTask('test:e2e', ['chmod:cache_log', 'connect:testserver', 'protractor:singlerun']);
 };

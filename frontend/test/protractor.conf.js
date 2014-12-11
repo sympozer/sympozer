@@ -35,7 +35,7 @@ exports.config = {
   //
   // Spec patterns are relative to the location of this config.
   specs: [
-    './e2e/**/*.js'
+    'e2e/**/*.js'
   ],
 
 
@@ -57,7 +57,7 @@ exports.config = {
   rootElement: 'html',
 
 
-   allScriptsTimeout : 50000,
+   allScriptsTimeout : 90000,
 
   // ----- Options to be passed to minijasminenode -----
   jasmineNodeOpts: {
@@ -70,6 +70,6 @@ exports.config = {
     // If true, include stack traces in failures.
     includeStackTrace: true,
     // Default time to wait in ms before a test fails.
-    defaultTimeoutInterval: 50000
+    defaultTimeoutInterval: 90000
   }
 };

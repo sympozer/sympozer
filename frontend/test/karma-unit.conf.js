@@ -91,8 +91,10 @@ module.exports = function(config) {
             <!-- endtest -->
 
             <!-- sympozer app sources files -->
-            '../app/js/*.js',
-            '../app/*.js',
+            '../app/js/app.js',
+            '../app/js/ws-config.js',
+            '../app/js/routes.js',
+            '../app/js/config.js',
             '../app/js/**/*.js',
 //            'test/global-config.mock.js',
             '../app/modules/**/*.js',
