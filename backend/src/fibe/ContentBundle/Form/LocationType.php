@@ -29,7 +29,7 @@ class LocationType extends LocalizationType
             ))
             ->add('equipments', 'sympozer_collection_type', array(
                 'type' => new EquipmentType(),
-                'required' => false,
+                'required' => false
             ))
 //            ->add('events', 'sympozer_collection_type', array(
 //                'type' => new VEventType(),
