@@ -13,41 +13,41 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
  */
 class RoleLabelType extends AbstractType
 {
-  /**
-   * {@inheritdoc}
-   */
-  public function buildForm(FormBuilderInterface $builder, array $options)
-  {
-    $builder
-      ->add('id')
-      ->add('label')
-      ->add('description');
+    /**
+     * {@inheritdoc}
+     */
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
+        $builder
+            ->add('id')
+            ->add('label')
+            ->add('description');
 
 //            ->add('roles', 'collection', array(
 //                'type' => new RoleType(),
-//                'required' => 'false',
+//                'required' => false,
 //                'allow_add' => true
 //            ));
-  }
+    }
 
-  /**
-   * {@inheritdoc}
-   */
-  public function setDefaultOptions(OptionsResolverInterface $resolver)
-  {
-    $resolver->setDefaults(array(
-      'data_class' => 'fibe\ContentBundle\Entity\RoleLabel',
-      'csrf_protection' => false
-    ));
-  }
+    /**
+     * {@inheritdoc}
+     */
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    {
+        $resolver->setDefaults(array(
+            'data_class' => 'fibe\ContentBundle\Entity\RoleLabel',
+            'csrf_protection' => false
+        ));
+    }
 
-  /**
-   * Returns the name of this type.
-   *
-   * @return string The name of this type
-   */
-  public function getName()
-  {
-    return 'fibe_contentbundle_rolelabeltype';
-  }
+    /**
+     * Returns the name of this type.
+     *
+     * @return string The name of this type
+     */
+    public function getName()
+    {
+        return 'fibe_contentbundle_rolelabeltype';
+    }
 }

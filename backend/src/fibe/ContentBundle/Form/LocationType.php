@@ -2,8 +2,6 @@
 
 namespace fibe\ContentBundle\Form;
 
-use fibe\EventBundle\Form\MainEventType;
-use fibe\EventBundle\Form\VEventType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
@@ -28,11 +26,11 @@ class LocationType extends LocalizationType
 //            ))
             ->add('equipments', 'sympozer_collection_type', array(
                 'type' => new EquipmentType(),
-                'required' => 'false',
+                'required' => false,
             ))
 //            ->add('events', 'sympozer_collection_type', array(
 //                'type' => new VEventType(),
-//                'required' => 'false',
+//                'required' => false,
 //            ))
         ;
     }

@@ -29,13 +29,13 @@ class PaperType extends AbstractType
             ->add('url')
             ->add('mainEvent', 'sympozer_entity_type', array(
                 'type' => new MainEventType(),
-                'required' => 'true',
+                'required' => true,
                 'cascade_persist' => false,
                 'allow_extra_fields' => true,
             ))
 //      ->add('authors', 'sympozer_collection_type', array(
 //        'type' => new PersonType(),
-//        'required' => 'false',
+//        'required' => false,
 //        'cascade_persist' => false,
 //        'allow_extra_fields' => true,
 //      ))

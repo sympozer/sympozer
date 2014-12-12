@@ -17,19 +17,19 @@ class PositionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-          ->add('id')
+            ->add('id')
             ->add('position')
-          ->add('label')
-          ->add('person', 'sympozer_entity_type', array(
-            'type' => new PersonType(),
-            'required' => 'true',
-              'cascade_persist' => false,
-            'allow_extra_fields' => true,
+            ->add('label')
+            ->add('person', 'sympozer_entity_type', array(
+                'type' => new PersonType(),
+                'required' => true,
+                'cascade_persist' => false,
+                'allow_extra_fields' => true,
             ))
-          ->add('organization', 'sympozer_entity_type', array(
-            'type' => new OrganizationType(),
-            'required' => false
-          ));
+            ->add('organization', 'sympozer_entity_type', array(
+                'type' => new OrganizationType(),
+                'required' => false
+            ));
     }
 
     /**
@@ -49,7 +49,7 @@ class PositionType extends AbstractType
      */
     public function getName()
     {
-      return 'fibe_bundle_communitybundle_position';
+        return 'fibe_bundle_communitybundle_position';
     }
 
 }

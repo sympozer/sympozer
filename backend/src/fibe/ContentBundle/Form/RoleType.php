@@ -25,26 +25,26 @@ class RoleType extends AbstractType
         $builder
             ->add('id')
             ->add('label')
-            ->add('person', 'sympozer_entity_type', array(
-                'type' => new PersonType(),
-                'required' => 'false',
-                'cascade_persist' => false,
-                'allow_extra_fields' => true,
-            ))
-            ->add('event', 'sympozer_entity_type', array(
-                'type' => new EventType(),
-                'required' => 'false',
-                'cascade_persist' => false,
-                'allow_extra_fields' => true,
-            ))
             ->add('roleLabel', 'sympozer_entity_type', array(
                 'cascade_persist' => false,
                 'type' => new RoleLabelType(),
                 'required' => 'true'
             ))
+            ->add('person', 'sympozer_entity_type', array(
+                'type' => new PersonType(),
+                'required' => false,
+                'cascade_persist' => false,
+                'allow_extra_fields' => true,
+            ))
+            ->add('event', 'sympozer_entity_type', array(
+                'type' => new EventType(),
+                'required' => false,
+                'cascade_persist' => false,
+                'allow_extra_fields' => true,
+            ))
             ->add('mainEvent', 'sympozer_entity_type', array(
                 'type' => new MainEventType(),
-                'required' => 'true',
+                'required' => true,
                 'cascade_persist' => false,
                 'allow_extra_fields' => true,
             ));
