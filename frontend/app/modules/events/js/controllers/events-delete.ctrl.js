@@ -16,7 +16,7 @@ angular.module('eventsApp').controller('eventsDeleteCtrl', [ '$scope', 'eventMod
             text: translateFilter('response.data.error.message'),
             type: 'error'
         });
-    }
+    };
 
     //Success handling if the delete request success
     var success = function (response, args)
@@ -30,15 +30,19 @@ angular.module('eventsApp').controller('eventsDeleteCtrl', [ '$scope', 'eventMod
         });
 
         //If view is a modal, resolve modal promise with role object
-        if($scope.$close){
+        if ($scope.$close)
+        {
             $scope.$close('ok');
-        }else{
+        }
+        else
+        {
             $window.history.back();
         }
-    }
+    };
 
     //Cancel event if the view is a modal
-    $scope.cancel = function () {
+    $scope.cancel = function ()
+    {
         $scope.$dismiss('cancel');
     };
 
@@ -46,6 +50,6 @@ angular.module('eventsApp').controller('eventsDeleteCtrl', [ '$scope', 'eventMod
     $scope.delete = function ()
     {
         eventsFact.delete($scope.event, success, error);
-    }
+    };
 }]);
 
