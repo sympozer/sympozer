@@ -25,430 +25,430 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Paper
 {
-  /**
-   * @ORM\Id
-   * @ORM\Column(type="integer")
-   * @ORM\GeneratedValue(strategy="AUTO")
-   * @Expose
-   */
-  private $id;
+    /**
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     * @Expose
+     */
+    private $id;
 
-  /**
-   * label (or title of the paper)
-   *
-   * @ORM\Column(type="string")
-   * @Expose
-   */
-  private $label;
+    /**
+     * label (or title of the paper)
+     *
+     * @ORM\Column(type="string")
+     * @Expose
+     */
+    private $label;
 
-  /**
-   * abstract
-   * events in datasets may don't have abstract
-   *
-   * @ORM\Column(type="text", name="abstract", nullable=true)
-   * @Expose
-   */
-  private $abstract;
+    /**
+     * abstract
+     * events in datasets may don't have abstract
+     *
+     * @ORM\Column(type="text", name="abstract", nullable=true)
+     * @Expose
+     */
+    private $abstract;
 
-  /**
-   * Url for the paper
-   *
-   * @ORM\Column(type="string", nullable=true)
-   * @Expose
-   */
-  private $url;
+    /**
+     * Url for the paper
+     *
+     * @ORM\Column(type="string", nullable=true)
+     * @Expose
+     */
+    private $url;
 
-  /**
-   * Authors : Persons related to an event
-   *
-   * @ORM\ManyToMany(targetEntity="fibe\CommunityBundle\Entity\Person", inversedBy="papers", cascade={"persist", "merge", "remove"})
-   * @ORM\JoinTable(name="paper_person",
-   *     joinColumns={@ORM\JoinColumn(name="paper_id", referencedColumnName="id", onDelete="Cascade")},
-   *     inverseJoinColumns={@ORM\JoinColumn(name="person_id", referencedColumnName="id", onDelete="Cascade")})
-   * @Expose
-   * @MaxDepth(1)
-   */
-  private $authors;
+    /**
+     * Authors : Persons related to an event
+     *
+     * @ORM\ManyToMany(targetEntity="fibe\CommunityBundle\Entity\Person", inversedBy="papers", cascade={"persist", "merge", "remove"})
+     * @ORM\JoinTable(name="paper_person",
+     *     joinColumns={@ORM\JoinColumn(name="paper_id", referencedColumnName="id")},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="person_id", referencedColumnName="id")})
+     * @Expose
+     * @MaxDepth(1)
+     */
+    private $authors;
 
-  /**
-   * The label of the publisher
-   *
-   * @ORM\Column(type="string", nullable=true, name="publisher")
-   * @Expose
-   */
-  private $publisher;
+    /**
+     * The label of the publisher
+     *
+     * @ORM\Column(type="string", nullable=true, name="publisher")
+     * @Expose
+     */
+    private $publisher;
 
-  /**
-   * The date of the publication
-   *
-   * @ORM\Column(type="string", nullable=true, name="publishDate")
-   * @SerializedName("publishDate")
-   * @Expose
-   */
-  private $publishDate;
+    /**
+     * The date of the publication
+     *
+     * @ORM\Column(type="string", nullable=true, name="publishDate")
+     * @SerializedName("publishDate")
+     * @Expose
+     */
+    private $publishDate;
 
-  /**
-   * The topics of the paper
-   *
-   * @ORM\ManyToMany(targetEntity="Topic", inversedBy="papers", cascade={"persist", "merge", "remove"})
-   * @ORM\JoinTable(name="paper_topic",
-   *     joinColumns={@ORM\JoinColumn(name="paper_id", referencedColumnName="id", onDelete="Cascade")},
-   *     inverseJoinColumns={@ORM\JoinColumn(name="topic_id", referencedColumnName="id", onDelete="Cascade")})
-   * @Expose
-   */
-  private $topics;
+    /**
+     * The topics of the paper
+     *
+     * @ORM\ManyToMany(targetEntity="Topic", inversedBy="papers", cascade={"persist", "merge", "remove"})
+     * @ORM\JoinTable(name="paper_topic",
+     *     joinColumns={@ORM\JoinColumn(name="paper_id", referencedColumnName="id", onDelete="Cascade")},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="topic_id", referencedColumnName="id", onDelete="Cascade")})
+     * @Expose
+     */
+    private $topics;
 
-  /**
-   * Events related to the paper
-   *
-   * @ORM\ManyToMany(targetEntity="fibe\EventBundle\Entity\Event", mappedBy="papers", cascade={"persist"})
-   */
-  private $events;
+    /**
+     * Events related to the paper
+     *
+     * @ORM\ManyToMany(targetEntity="fibe\EventBundle\Entity\Event", mappedBy="papers")
+     */
+    private $events;
 
-  /**
-   *  MainEvent associated to this paper
-   *
-   * @ORM\ManyToOne(targetEntity="fibe\EventBundle\Entity\MainEvent", inversedBy="papers", cascade={"persist"})
-   * @ORM\JoinColumn(name="main_event_id", referencedColumnName="id")
-   * @SerializedName("mainEvent")
-   * @Expose
-   */
-  private $mainEvent;
+    /**
+     *  MainEvent associated to this paper
+     *
+     * @ORM\ManyToOne(targetEntity="fibe\EventBundle\Entity\MainEvent", inversedBy="papers")
+     * @ORM\JoinColumn(name="main_event_id", referencedColumnName="id")
+     * @SerializedName("mainEvent")
+     * @Expose
+     */
+    private $mainEvent;
 
-  /**
-   * @ORM\Column(type="string", length=256, nullable=true)
-   */
-  private $slug;
+    /**
+     * @ORM\Column(type="string", length=256, nullable=true)
+     */
+    private $slug;
 
-  /**
-   * Constructor
-   */
-  public function __construct()
-  {
-    $this->authors = new ArrayCollection();
-    $this->topics = new ArrayCollection();
-    $this->events = new ArrayCollection();
-  }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->authors = new ArrayCollection();
+        $this->topics = new ArrayCollection();
+        $this->events = new ArrayCollection();
+    }
 
-  /**
-   * __toString method
-   *
-   * @return mixed
-   */
-  public function __toString()
-  {
-    return $this->label;
-  }
+    /**
+     * __toString method
+     *
+     * @return mixed
+     */
+    public function __toString()
+    {
+        return $this->label;
+    }
 
-  /**
-   * onUpdate
-   *
-   * @ORM\PostPersist()
-   * @ORM\PreUpdate()
-   */
-  public function onUpdate()
-  {
-    $this->slugify();
-  }
+    /**
+     * onUpdate
+     *
+     * @ORM\PostPersist()
+     * @ORM\PreUpdate()
+     */
+    public function onUpdate()
+    {
+        $this->slugify();
+    }
 
-  /**
-   * Slugify
-   *
-   * @ORM\PrePersist()
-   */
-  public function slugify()
-  {
-    $this->setSlug(StringTools::slugify($this->getId() . $this->getLabel()));
-  }
+    /**
+     * Slugify
+     *
+     * @ORM\PrePersist()
+     */
+    public function slugify()
+    {
+        $this->setSlug(StringTools::slugify($this->getId() . $this->getLabel()));
+    }
 
-  /**
-   * Get id
-   *
-   * @return integer
-   */
-  public function getId()
-  {
-    return $this->id;
-  }
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 
-  /**
-   * Get label
-   *
-   * @return string
-   */
-  public function getLabel()
-  {
-    return $this->label;
-  }
+    /**
+     * Get label
+     *
+     * @return string
+     */
+    public function getLabel()
+    {
+        return $this->label;
+    }
 
-  /**
-   * Set label
-   *
-   * @param string $label
-   *
-   * @return Paper
-   */
-  public function setLabel($label)
-  {
-    $this->label = $label;
+    /**
+     * Set label
+     *
+     * @param string $label
+     *
+     * @return Paper
+     */
+    public function setLabel($label)
+    {
+        $this->label = $label;
 
-    return $this;
-  }
+        return $this;
+    }
 
-  /**
-   * Get slug
-   *
-   * @return string
-   */
-  public function getSlug()
-  {
-    $this->slugify();
+    /**
+     * Get slug
+     *
+     * @return string
+     */
+    public function getSlug()
+    {
+        $this->slugify();
 
-    return $this->slug;
-  }
+        return $this->slug;
+    }
 
-  /**
-   * Set slug
-   *
-   * @param string $slug
-   *
-   * @return string
-   */
-  public function setSlug($slug)
-  {
-    $this->slug = $slug;
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     *
+     * @return string
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
 
-    return $this;
-  }
+        return $this;
+    }
 
-  /**
-   * Get abstract
-   *
-   * @return string
-   */
-  public function getAbstract()
-  {
-    return $this->abstract;
-  }
+    /**
+     * Get abstract
+     *
+     * @return string
+     */
+    public function getAbstract()
+    {
+        return $this->abstract;
+    }
 
-  /**
-   * Set abstract
-   *
-   * @param string $abstract
-   *
-   * @return Paper
-   */
-  public function setAbstract($abstract)
-  {
-    $this->abstract = $abstract;
+    /**
+     * Set abstract
+     *
+     * @param string $abstract
+     *
+     * @return Paper
+     */
+    public function setAbstract($abstract)
+    {
+        $this->abstract = $abstract;
 
-    return $this;
-  }
+        return $this;
+    }
 
-  /**
-   * Get url
-   *
-   * @return string
-   */
-  public function getUrl()
-  {
-    return $this->url;
-  }
+    /**
+     * Get url
+     *
+     * @return string
+     */
+    public function getUrl()
+    {
+        return $this->url;
+    }
 
-  /**
-   * Set url
-   *
-   * @param string $url
-   *
-   * @return Paper
-   */
-  public function setUrl($url)
-  {
-    $this->url = $url;
+    /**
+     * Set url
+     *
+     * @param string $url
+     *
+     * @return Paper
+     */
+    public function setUrl($url)
+    {
+        $this->url = $url;
 
-    return $this;
-  }
+        return $this;
+    }
 
-  /**
-   * Get publisher
-   *
-   * @return string
-   */
-  public function getPublisher()
-  {
-    return $this->publisher;
-  }
+    /**
+     * Get publisher
+     *
+     * @return string
+     */
+    public function getPublisher()
+    {
+        return $this->publisher;
+    }
 
-  /**
-   * Set publisher
-   *
-   * @param string $publisher
-   *
-   * @return Paper
-   */
-  public function setPublisher($publisher)
-  {
-    $this->publisher = $publisher;
+    /**
+     * Set publisher
+     *
+     * @param string $publisher
+     *
+     * @return Paper
+     */
+    public function setPublisher($publisher)
+    {
+        $this->publisher = $publisher;
 
-    return $this;
-  }
+        return $this;
+    }
 
-  /**
-   * Get publishDate
-   *
-   * @return string
-   */
-  public function getPublishDate()
-  {
-    return $this->publishDate;
-  }
+    /**
+     * Get publishDate
+     *
+     * @return string
+     */
+    public function getPublishDate()
+    {
+        return $this->publishDate;
+    }
 
-  /**
-   * Set publishDate
-   *
-   * @param string $publishDate
-   *
-   * @return Paper
-   */
-  public function setPublishDate($publishDate)
-  {
-    $this->publishDate = $publishDate;
+    /**
+     * Set publishDate
+     *
+     * @param string $publishDate
+     *
+     * @return Paper
+     */
+    public function setPublishDate($publishDate)
+    {
+        $this->publishDate = $publishDate;
 
-    return $this;
-  }
+        return $this;
+    }
 
-  /**
-   * Add authors
-   *
-   * @param Person $authors
-   *
-   * @return Paper
-   */
-  public function addAuthor(Person $authors)
-  {
-    $this->authors[] = $authors;
+    /**
+     * Add authors
+     *
+     * @param Person $authors
+     *
+     * @return Paper
+     */
+    public function addAuthor(Person $authors)
+    {
+        $this->authors[] = $authors;
 
-    return $this;
-  }
+        return $this;
+    }
 
-  /**
-   * Remove authors
-   *
-   * @param Person $authors
-   */
-  public function removeAuthor(Person $authors)
-  {
-    $this->authors->removeElement($authors);
-  }
+    /**
+     * Remove authors
+     *
+     * @param Person $authors
+     */
+    public function removeAuthor(Person $authors)
+    {
+        $this->authors->removeElement($authors);
+    }
 
-  /**
-   * Get authors
-   *
-   * @return \Doctrine\Common\Collections\Collection
-   */
-  public function getAuthors()
-  {
-    return $this->authors;
-  }
+    /**
+     * Get authors
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getAuthors()
+    {
+        return $this->authors;
+    }
 
-  /**
-   * @param mixed $authors
-   */
-  public function setAuthors($authors)
-  {
-    $this->authors = $authors;
-  }
+    /**
+     * @param mixed $authors
+     */
+    public function setAuthors($authors)
+    {
+        $this->authors = $authors;
+    }
 
-  /**
-   * Add topics
-   *
-   * @param Topic $topics
-   *
-   * @return Paper
-   */
-  public function addTopic(Topic $topic)
-  {
+    /**
+     * Add topics
+     *
+     * @param Topic $topics
+     *
+     * @return Paper
+     */
+    public function addTopic(Topic $topic)
+    {
 
-    $this->topics[] = $topic;
+        $this->topics[] = $topic;
 
-    return $this;
-  }
+        return $this;
+    }
 
-  /**
-   * Remove topics
-   *
-   * @param Topic $topics
-   */
-  public function removeTopic(Topic $topic)
-  {
-    $this->topics->removeElement($topic);
-  }
+    /**
+     * Remove topics
+     *
+     * @param Topic $topics
+     */
+    public function removeTopic(Topic $topic)
+    {
+        $this->topics->removeElement($topic);
+    }
 
-  /**
-   * Get topics
-   *
-   * @return \Doctrine\Common\Collections\Collection
-   */
-  public function getTopics()
-  {
-    return $this->topics;
-  }
+    /**
+     * Get topics
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTopics()
+    {
+        return $this->topics;
+    }
 
-  /**
-   * Add events
-   *
-   * @param Event $events
-   *
-   * @return Paper
-   */
-  public function addEvent(Event $events)
-  {
-    $this->events[] = $events;
+    /**
+     * Add events
+     *
+     * @param Event $events
+     *
+     * @return Paper
+     */
+    public function addEvent(Event $events)
+    {
+        $this->events[] = $events;
 
-    return $this;
-  }
+        return $this;
+    }
 
-  /**
-   * Remove events
-   *
-   * @param Event $events
-   */
-  public function removeEvent(Event $events)
-  {
-    $this->events->removeElement($events);
-  }
+    /**
+     * Remove events
+     *
+     * @param Event $events
+     */
+    public function removeEvent(Event $events)
+    {
+        $this->events->removeElement($events);
+    }
 
-  /**
-   * Get events
-   *
-   * @return \Doctrine\Common\Collections\Collection
-   */
-  public function getEvents()
-  {
-    return $this->events;
-  }
+    /**
+     * Get events
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getEvents()
+    {
+        return $this->events;
+    }
 
-  /**
-   * Get mainEvent
-   *
-   * @return MainEvent
-   */
-  public function getMainEvent()
-  {
-    return $this->mainEvent;
-  }
+    /**
+     * Get mainEvent
+     *
+     * @return MainEvent
+     */
+    public function getMainEvent()
+    {
+        return $this->mainEvent;
+    }
 
-  /**
-   * Set mainEvent
-   *
-   * @param MainEvent $mainEvent
-   *
-   * @return Paper
-   */
-  public function setMainEvent(MainEvent $mainEvent = null)
-  {
-    $this->mainEvent = $mainEvent;
+    /**
+     * Set mainEvent
+     *
+     * @param MainEvent $mainEvent
+     *
+     * @return Paper
+     */
+    public function setMainEvent(MainEvent $mainEvent = null)
+    {
+        $this->mainEvent = $mainEvent;
 
-    return $this;
-  }
+        return $this;
+    }
 }

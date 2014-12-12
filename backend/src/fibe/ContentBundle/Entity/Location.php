@@ -59,7 +59,7 @@ class Location extends Localization
      *
      * mainEvent
      *
-     * @ORM\ManyToOne(targetEntity="fibe\EventBundle\Entity\MainEvent", inversedBy="eventLocations", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="fibe\EventBundle\Entity\MainEvent", inversedBy="eventLocations")
      * @ORM\JoinColumn(name="main_event_id", referencedColumnName="id")
      * @Expose
      * @SerializedName("mainEvent")
@@ -221,6 +221,13 @@ class Location extends Localization
         return $this->equipments;
     }
 
+    /**
+     * @param mixed $equipments
+     */
+    public function setEquipments($equipments)
+    {
+        $this->equipments = $equipments;
+    }
 
     /**
      * @return mixed
@@ -237,7 +244,6 @@ class Location extends Localization
     {
         $this->dtype = $dtype;
     }
-
 
     /**
      * @return mixed
@@ -269,14 +275,6 @@ class Location extends Localization
     public function setMainEvent($mainEvent)
     {
         $this->mainEvent = $mainEvent;
-    }
-
-    /**
-     * @param mixed $equipments
-     */
-    public function setEquipments($equipments)
-    {
-        $this->equipments = $equipments;
     }
 
     /**
