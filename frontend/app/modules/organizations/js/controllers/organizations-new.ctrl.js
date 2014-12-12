@@ -16,8 +16,8 @@ angular.module('organizationsApp').controller('organizationsNewCtrl', [ '$scope'
         //Notify of error on post request
         pinesNotifications.notify({
             title: translateFilter('global.validations.error'),
-            text: translateFilter('organizations.validations.not_created'),
-            type: 'error'
+            text : translateFilter('organizations.validations.not_created'),
+            type : 'error'
         });
     }
 
@@ -27,14 +27,17 @@ angular.module('organizationsApp').controller('organizationsNewCtrl', [ '$scope'
         //Notify of success on post request
         pinesNotifications.notify({
             title: translateFilter('global.validations.error'),
-            text: translateFilter('organizations.validations.created'),
-            type: 'error'
+            text : translateFilter('organizations.validations.created'),
+            type : 'error'
         });
 
         //If view is in a modal instance, close it. Go back to previous page otherwise
-        if($scope.$close){
+        if ($scope.$close)
+        {
             $scope.$close($scope.organization);
-        }else{
+        }
+        else
+        {
             $window.history.back();
         }
     }
@@ -43,10 +46,11 @@ angular.module('organizationsApp').controller('organizationsNewCtrl', [ '$scope'
     $scope.create = function (form)
     {
         //@TODO: define the organization workflow more precisely
-        $scope.organization.mainEvent = $routeParams.mainEventId;
+        $scope.organization.mainEvent = {id: $routeParams.mainEventId};
 
         //If organization version created from person, then set the owner
-        if(personModel){
+        if (personModel)
+        {
             //personModel.acl.delete();
             $scope.organization.organizationVersionOwner = personModel;
         }
@@ -60,7 +64,8 @@ angular.module('organizationsApp').controller('organizationsNewCtrl', [ '$scope'
     }
 
     //Click on modal "cancel" button action
-    $scope.cancel = function () {
+    $scope.cancel = function ()
+    {
         $scope.$dismiss('cancel');
     };
 }
