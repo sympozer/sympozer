@@ -26,7 +26,7 @@ abstract class AdditionalInformationsType extends AbstractType
             ->add('description')
             ->add('localization', 'sympozer_entity_type', array(
                 'type' => new LocalizationType(),
-                'required' => false
+                'required' => true
             ))
         ;
 

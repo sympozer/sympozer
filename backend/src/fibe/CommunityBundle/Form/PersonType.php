@@ -19,7 +19,7 @@ class PersonType extends AdditionalInformationsType
    */
   public function buildForm(FormBuilderInterface $builder, array $options)
   {
-    parent::buildForm($builder, $options);
+      parent::buildForm($builder, $options);
     $builder
       ->add('firstName')
       ->add('familyName')
@@ -28,7 +28,6 @@ class PersonType extends AdditionalInformationsType
         'type' => new PositionType(),
         'required' => false
       ))
-//
 //      ->add('papers', 'sympozer_collection_type', array(
 //        'type' => new PaperType(),
 //        'required' => false
@@ -41,9 +40,6 @@ class PersonType extends AdditionalInformationsType
 //        'class' => new TeammateType(),
 //        'required' => false
 //      ))
-//      ->add('firstName', 'text', array('label' => "First name"))
-//      ->add('familyName', 'text', array('label' => "Family Name"))
-//      ->add('email', 'text', array('required' => false))
 //      ->add('age', 'text', array('required' => false))
 //      ->add('page', 'text', array('required' => false, 'label' => 'Homepage'))
 //      ->add('img', 'text', array('required' => false, 'label' => 'Image (external url)'))
