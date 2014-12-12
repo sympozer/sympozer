@@ -4,6 +4,13 @@
  * ngInclude is NOT required at all, but this directive has been designed to work well with it.
  *
  * You can attach any number of locals-* attributes, which will all be parsed & watched for you as
+ *
+ * use it like :
+ * <div class="row"
+ *      ng-include="GLOBAL_CONFIG.app.modules.persons.urls.partials+'views/persons-entity-row-lg.html'"
+ *      sympozer-with-locals locals-person="teammate.person"
+ *      ></div>
+ *  in example to access the "teammate.person" as {{ person }} in this directive scope
  */
 angular.module('sympozerApp').directive('sympozerWithLocals', function ($parse)
 {
@@ -25,7 +32,7 @@ angular.module('sympozerApp').directive('sympozerWithLocals', function ($parse)
                     mapLocalsToParentExp[localKey] = attributes[attr];
                 }
             }
-
+            //bidirectional update
 //                var updateParentValueFunction = function($scope, localKey) {
 //                    // Find the $parent scope that initialized this directive.
 //                    // Important in cases where controllers have caused this $scope to be deeply nested inside the original parent
@@ -64,6 +71,7 @@ angular.module('sympozerApp').directive('sympozerWithLocals', function ($parse)
                             true
                         );
 
+//                            // bidirectional update
 //                            // Also watch the local value and propagate any changes
 //                            // back up to the parent scope.
 //                            var parsedGetter = $parse(mapLocalsToParentExp[localKey]);

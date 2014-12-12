@@ -1,8 +1,9 @@
 /**
  * directive used to hide a div when the current logged user doesn't have enough permission
+ * @param acl-right (optional) (default="OPERATOR") : the right to ask the permission for : @see sympozer-acl-service.fact.js for more informations
  *
  * use it like :
- * <a acl-show="mainEvent" class="btn btn-info" href="#mainEvents/edit/{{mainEvent.id}}" role="button">
+ * <a acl-show="mainEvent"  acl-right="EDIT" class="btn btn-info" href="#mainEvents/edit/{{mainEvent.id}}" role="button">
  *
  */
 angular.module('sympozerApp').directive('sympozerAclShow', [
