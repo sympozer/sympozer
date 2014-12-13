@@ -37,7 +37,7 @@ src/fibe/FrontendBundle/Resources/public/public
 
 .tmp/*
 frontend/.tmp/*
-frontend/app/sympozer-scripts/js/ws-config.js
+frontend/app/js/ws-config.js
 frontend/dist/*
 frontend/app/bower
 frontend/app/scripts

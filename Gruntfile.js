@@ -102,6 +102,7 @@ module.exports = function (grunt) {
                 livereload: 35729
             },
             devserver: {
+            devserver: {
                 options: {
                     port: 9000,
                     keepalive: false
@@ -399,9 +400,9 @@ module.exports = function (grunt) {
             dist: {
                 files: [{
                     expand: true,
-                    cwd: '<%= yeoman.app %>/images',
+                    cwd: '<%= yeoman.app %>/assets/img',
                     src: '{,*/}*.{png,jpg,jpeg,gif}',
-                    dest: '<%= yeoman.dist %>/images'
+                    dest: '<%= yeoman.dist %>/assets/img'
                 }]
             }
         },
@@ -697,13 +698,24 @@ module.exports = function (grunt) {
     grunt.registerTask('reset', ['chmod:cache_log', 'sf2-console:database_create','sf2-console:database_drop', 'sf2-console:database_create', 'sf2-console:database_update',
         'sf2-console:database_init', 'sf2-console:admin_create', 'sf2-console:cache_clear', 'chmod:cache_log',  'bower-install-simple', 'bowerInstall']);
 
+
     grunt.registerTask('dev', ['reset', 'connect:devserver', 'open:devserver']);
 
 
-
+    /** INSTALL **/
+    grunt.registerTask('install', ['shell:protractor_install', 'reset',  'bower-install-simple', 'bowerInstall', 'sf2-console:copy_ws_config'
+    ])
 
 
     /** PRODUCTION **/
+
+//    grunt.registerTask('test', [
+//        'clean:server',
+//        'concurrent:test',
+//        'autoprefixer',
+//        'connect:test',
+//        'karma'
+//    ]);
 
     grunt.registerTask('build', [
         'clean:dist',
@@ -721,6 +733,7 @@ module.exports = function (grunt) {
         'uglify',
         'rev',
         'usemin',
+        'imagemin',
         'processhtml:dist',
         'sf2-console:copy_ws_config'
         // 'htmlmin',
