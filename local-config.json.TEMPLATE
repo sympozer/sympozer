@@ -2,6 +2,9 @@
   //Path to the api (used to build the js routing file containing all routes on the backend)
   "serverRootPath" : "http://localhost:8000",
 
+  //Path to the client app on your machine
+  "clientRootPath" : "http://localhost/sympozer/frontend/app",
+
   //Your favorite browser process name
-  "defaultBrowser' : "chromium-browser"
+  "defaultBrowser" : "chromium-browser"
 }

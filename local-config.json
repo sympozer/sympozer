@@ -1,3 +1,6 @@
 {
-  "serverRootPath" : "http://localhost/sympozer/backend/web/app_dev.php"
+    "serverRootPath" : "http://localhost/sympozer/backend/web/app_dev.php",
+    "clientRootPath" : "http://localhost/sympozer/frontend/app",
+    "defaultBrowser" : "chromium-browser"
+
 }

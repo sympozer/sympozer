@@ -74,8 +74,12 @@ module.exports = function (grunt) {
         //Open a navigator page displaying a choosen url
         open: {
             //development server access
+//            devserver: {
+//                path: '<%= yeoman.devserver_url %>',
+//                app: '<%= yeoman.local_config.defaultBrowser %>'
+//            },
             devserver: {
-                path: '<%= yeoman.devserver_url %>',
+                path: '<%= yeoman.local_config.clientRootPath %>',
                 app: '<%= yeoman.local_config.defaultBrowser %>'
             },
             //production server access
@@ -102,10 +106,9 @@ module.exports = function (grunt) {
                 livereload: 35729
             },
             devserver: {
-            devserver: {
                 options: {
                     port: 9000,
-                    keepalive: false
+                    keepalive: true
                 }
             },
             prodserver: {
@@ -121,8 +124,9 @@ module.exports = function (grunt) {
 
                 }
             }
-        },
 
+
+        },
 
 
         /****************************************************
@@ -131,11 +135,11 @@ module.exports = function (grunt) {
          *
          * *************************************************/
 
-         //Launch bower install command
-         'bower-install-simple': {
+        //Launch bower install command
+        'bower-install-simple': {
             options: {
                 color: true,
-                cwd:'frontend/'
+                cwd: 'frontend/'
             },
             "prod": {
                 options: {
@@ -152,7 +156,7 @@ module.exports = function (grunt) {
         // Automatically inject Bower components into the app
         bowerInstall: {
             app: {
-                directory :'frontend/',
+                directory: 'frontend/',
                 cwd: 'frontend/',
                 src: ['<%= yeoman.app %>/index.html'],
                 ignorePath: '<%= yeoman.app %>/',
@@ -181,8 +185,8 @@ module.exports = function (grunt) {
             options: {
                 mode: '777'
             },
-            cache_log : {
-                src: ['app/cache/**/*','app/logs/**/*']
+            cache_log: {
+                src: ['backend/app/cache/**/*', 'backend/app/logs/**/*']
             }
         },
 
@@ -197,11 +201,11 @@ module.exports = function (grunt) {
         protractor: {
             options: {
                 keepAlive: true,
-                configFile: '<%= yeoman.test %>'+'/protractor.conf.js',
+                configFile: '<%= yeoman.test %>' + '/protractor.conf.js',
                 //debug : true
                 // A base URL for your application under test. Calls to protractor.get()
                 // with relative paths will be prepended with this.
-                args : {
+                args: {
                     baseUrl: '<%= yeoman.testserver_url %>',
                     // The location of the selenium standalone server .jar file.
                     seleniumServerJar: 'node_modules/protractor/selenium/selenium-server-standalone-2.42.2.jar',
@@ -222,7 +226,7 @@ module.exports = function (grunt) {
         //Karma unit test config
         karma: {
             unit: {
-                configFile: '<%= yeoman.test %>'+'/karma-unit.conf.js',
+                configFile: '<%= yeoman.test %>' + '/karma-unit.conf.js',
                 autoWatch: false,
                 singleRun: true
             }
@@ -309,14 +313,16 @@ module.exports = function (grunt) {
         // Empties folders to start fresh
         clean: {
             dist: {
-                files: [{
-                    dot: true,
-                    src: [
-                        '<%= yeoman.tmp %>/*',
-                        '<%= yeoman.dist %>/*',
-                        '!<%= yeoman.dist %>/.git*'
-                    ]
-                }]
+                files: [
+                    {
+                        dot: true,
+                        src: [
+                            '<%= yeoman.tmp %>/*',
+                            '<%= yeoman.dist %>/*',
+                            '!<%= yeoman.dist %>/.git*'
+                        ]
+                    }
+                ]
             },
             server: '.tmp'
         },
@@ -327,12 +333,14 @@ module.exports = function (grunt) {
                 browsers: ['last 1 version']
             },
             dist: {
-                files: [{
-                    expand: true,
-                    cwd: '<%= yeoman.tmp %>/assets/css/',
-                    src: '{,*/}*.css',
-                    dest: '<%= yeoman.tmp %>/assets/css/'
-                }]
+                files: [
+                    {
+                        expand: true,
+                        cwd: '<%= yeoman.tmp %>/assets/css/',
+                        src: '{,*/}*.css',
+                        dest: '<%= yeoman.tmp %>/assets/css/'
+                    }
+                ]
             }
         },
 
@@ -398,23 +406,27 @@ module.exports = function (grunt) {
 
         imagemin: {
             dist: {
-                files: [{
-                    expand: true,
-                    cwd: '<%= yeoman.app %>/assets/img',
-                    src: '{,*/}*.{png,jpg,jpeg,gif}',
-                    dest: '<%= yeoman.dist %>/assets/img'
-                }]
+                files: [
+                    {
+                        expand: true,
+                        cwd: '<%= yeoman.app %>/assets/img',
+                        src: '{,*/}*.{png,jpg,jpeg,gif}',
+                        dest: '<%= yeoman.dist %>/assets/img'
+                    }
+                ]
             }
         },
 
         svgmin: {
             dist: {
-                files: [{
-                    expand: true,
-                    cwd: '<%= yeoman.app %>/images',
-                    src: '{,*/}*.svg',
-                    dest: '<%= yeoman.dist %>/images'
-                }]
+                files: [
+                    {
+                        expand: true,
+                        cwd: '<%= yeoman.app %>/images',
+                        src: '{,*/}*.svg',
+                        dest: '<%= yeoman.dist %>/images'
+                    }
+                ]
             }
         },
 
@@ -426,12 +438,14 @@ module.exports = function (grunt) {
                     removeCommentsFromCDATA: true,
                     removeOptionalTags: true
                 },
-                files: [{
-                    expand: true,
-                    cwd: '<%= yeoman.dist %>',
-                    src: ['*.html', 'views/{,*/}*.html'],
-                    dest: '<%= yeoman.dist %>'
-                }]
+                files: [
+                    {
+                        expand: true,
+                        cwd: '<%= yeoman.dist %>',
+                        src: ['*.html', 'views/{,*/}*.html'],
+                        dest: '<%= yeoman.dist %>'
+                    }
+                ]
             }
         },
 
@@ -440,12 +454,14 @@ module.exports = function (grunt) {
         // things like resolve or inject so those have to be done manually.
         ngmin: {
             dist: {
-                files: [{
-                    expand: true,
-                    cwd: '<%= yeoman.tmp %>/concat/scripts',
-                    src: '*.js',
-                    dest: '<%= yeoman.tmp %>/concat/scripts'
-                }]
+                files: [
+                    {
+                        expand: true,
+                        cwd: '<%= yeoman.tmp %>/concat/scripts',
+                        src: '*.js',
+                        dest: '<%= yeoman.tmp %>/concat/scripts'
+                    }
+                ]
             }
         },
 
@@ -459,34 +475,37 @@ module.exports = function (grunt) {
         // Copies remaining files to places other tasks can use
         copy: {
             dist: {
-                files: [{
-                    expand: true,
-                    dot: true,
-                    cwd: '<%= yeoman.app %>',
-                    dest: '<%= yeoman.dist %>',
-                    src: [
-                        '*.{ico,png,txt}',
-                        '.htaccess',
-                        '*.html',
-                        'views/{,*/}*.html',
-                        'images/{,*/}*.{webp}',
-                        'fonts/*',
-                        'assets/**',
-                        'bower/jquery.inputmask/dist/jquery.inputmask.bundle.js',
-                        'bower/jquery-validation/dist/jquery.validate.js',
-                        'bower/jqvmap/jqvmap/maps/jquery.vmap.europe.js',
-                        'bower/jqvmap/jqvmap/maps/jquery.vmap.usa.js',
-                        'bower/stepy/lib/jquery.stepy.js',
-                        'bower/Chart.js/Chart.min.js',
-                        'bower/raphael/raphael.js',
-                        'bower/morris.js/morris.js'
-                    ]
-                }, {
-                    expand: true,
-                    cwd: '<%= yeoman.tmp %>/images',
-                    dest: '<%= yeoman.dist %>/images',
-                    src: ['generated/*']
-                }]
+                files: [
+                    {
+                        expand: true,
+                        dot: true,
+                        cwd: '<%= yeoman.app %>',
+                        dest: '<%= yeoman.dist %>',
+                        src: [
+                            '*.{ico,png,txt}',
+                            '.htaccess',
+                            '*.html',
+                            'views/{,*/}*.html',
+                            'images/{,*/}*.{webp}',
+                            'fonts/*',
+                            'assets/**',
+                            'bower/jquery.inputmask/dist/jquery.inputmask.bundle.js',
+                            'bower/jquery-validation/dist/jquery.validate.js',
+                            'bower/jqvmap/jqvmap/maps/jquery.vmap.europe.js',
+                            'bower/jqvmap/jqvmap/maps/jquery.vmap.usa.js',
+                            'bower/stepy/lib/jquery.stepy.js',
+                            'bower/Chart.js/Chart.min.js',
+                            'bower/raphael/raphael.js',
+                            'bower/morris.js/morris.js'
+                        ]
+                    },
+                    {
+                        expand: true,
+                        cwd: '<%= yeoman.tmp %>/images',
+                        dest: '<%= yeoman.dist %>/images',
+                        src: ['generated/*']
+                    }
+                ]
             },
             styles: {
                 expand: true,
@@ -512,14 +531,16 @@ module.exports = function (grunt) {
             ]
         },
 
-        ngtemplates:  {
+        ngtemplates: {
             app: {
-                src:      'app/**/*.html',
-                dest:     '<%= yeoman.dist %>/templates/templates.js',
-                options:  {
-                    url:    function(url) { return url.replace('app/views/', ''); },
-                    bootstrap: function(module, script) {
-                        return "angular.module('sympozerApp', []).run(['$templateCache', function ($templateCache) {\n"+script+"}])";
+                src: 'app/**/*.html',
+                dest: '<%= yeoman.dist %>/templates/templates.js',
+                options: {
+                    url: function (url) {
+                        return url.replace('app/views/', '');
+                    },
+                    bootstrap: function (module, script) {
+                        return "angular.module('sympozerApp', []).run(['$templateCache', function ($templateCache) {\n" + script + "}])";
                     }
                 }
             }
@@ -618,61 +639,61 @@ module.exports = function (grunt) {
          * *************************************************/
 
         'sf2-console': {
-            options         : {
+            options: {
                 bin: 'backend/app/console'
             },
             //Clear the cache of the production environnement
             cache_clear_prod: {
-                cmd : 'cache:clear',
+                cmd: 'cache:clear',
                 args: {
                     env: 'prod'
                 }
             },
             //Clear the cache of the development environnement
-            cache_clear_dev : {
-                cmd : 'cache:clear',
+            cache_clear_dev: {
+                cmd: 'cache:clear',
                 args: {
                     env: 'dev'
                 }
             },
             //Clear the cache of the production/developpement environnement
-            cache_clear     : {
+            cache_clear: {
                 cmd: 'cache:clear'
             },
             //concat and minimify all assets for prod environnement
-            assets_dump     : {
-                cmd : 'assetic:dump',
+            assets_dump: {
+                cmd: 'assetic:dump',
                 args: {}
             },
             //Install all assets (take everything from Resources directory of each bundle to append it in web/bundle/
-            assets_install  : {
-                cmd : 'assets:install web',
+            assets_install: {
+                cmd: 'assets:install web',
                 args: { symlink: true}
             },
             //Remove the database (specified in app/config/parameters.yml)
-            database_drop   : {
-                cmd : 'doctrine:database:drop',
+            database_drop: {
+                cmd: 'doctrine:database:drop',
                 args: { force: true}
             },
             //Create the database (specified in app/config/parameters.yml)
-            database_create : {
+            database_create: {
                 cmd: 'doctrine:database:create'
             },
             //Create the schema of the database
-            database_update : {
-                cmd : 'doctrine:schema:update',
+            database_update: {
+                cmd: 'doctrine:schema:update',
                 args: { force: true}
             },
             //Insert basic data including all default values for categories or roles
-            database_init   : {
+            database_init: {
                 cmd: 'sympozer:database:init'
             },
             //create an admin user on the system
-            admin_create    : {
+            admin_create: {
                 cmd: 'sympozer:admin:create admin admin@admin.fr admin'
             },
             //copy the ws config file
-            copy_ws_config  : {
+            copy_ws_config: {
                 cmd: 'sympozer:wsconfig:copy --to-path <%= yeoman.app %>/js/ws-config.js --server-base-path <%= yeoman.local_config.serverRootPath %>'
             }
         }
@@ -696,15 +717,12 @@ module.exports = function (grunt) {
 
     /** DEVELOPMENT **/
     grunt.registerTask('reset', ['chmod:cache_log', 'sf2-console:database_create','sf2-console:database_drop', 'sf2-console:database_create', 'sf2-console:database_update',
-        'sf2-console:database_init', 'sf2-console:admin_create', 'sf2-console:cache_clear', 'chmod:cache_log',  'bower-install-simple', 'bowerInstall']);
+        'sf2-console:database_init', 'sf2-console:admin_create', 'sf2-console:cache_clear',  'bower-install-simple', 'bowerInstall', 'sf2-console:copy_ws_config',  'chmod:cache_log']);
 
 
-    grunt.registerTask('dev', ['reset', 'connect:devserver', 'open:devserver']);
+    grunt.registerTask('dev', ['reset', 'open:devserver']);
 
 
-    /** INSTALL **/
-    grunt.registerTask('install', ['shell:protractor_install', 'reset',  'bower-install-simple', 'bowerInstall', 'sf2-console:copy_ws_config'
-    ])
 
 
     /** PRODUCTION **/
