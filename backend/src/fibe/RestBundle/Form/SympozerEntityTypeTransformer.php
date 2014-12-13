@@ -26,6 +26,7 @@ class SympozerEntityTypeTransformer extends AbstractSympozerTypeTransformer
         }
         $output = array();
         $output['id'] = $input->getId();
+
 //        $output['label'] = $input->getLabel();
         return $output;
     }
@@ -39,37 +40,40 @@ class SympozerEntityTypeTransformer extends AbstractSympozerTypeTransformer
     public function reverseTransform($input)
     {
 //      throw new \Exception("entity reverseTransform " . \Doctrine\Common\Util\Debug::dump($input));
-        if ($input == null || (isset($input['id']) && $input['id'] == null))
+        if ($input == null || count($input) == 0)
         {
             return null;
         }
 
         $entityClassName = $this->getEntityClassName($this->options['type']);
-        $output = $this->getOrCreateEntity($input, $entityClassName);
+        $entity = $this->getOrCreateEntity($input, $entityClassName);
 
-        if (null === $output)
+        if (null === $entity)
         {
             throw new EntityNotFoundException($entityClassName);
         }
 
-        if (is_array($input))
+        if ($this->options['cascade_persist'] && is_array($input))
         {
             foreach ($input as $field => $value)
             {
                 $setter = "set" . ucwords($field);
-                $output->$setter($value);
+                $entity->$setter($value);
             }
         }
-
-        if (null == $id = $output->getId())
+        if (null == $entity->getId())
         {
-            $this->em->persist($output);
+//            echo "\n\nentity reverseTransform => persist";
+//            \Doctrine\Common\Util\Debug::dump($entity);
+            $this->em->persist($entity);
         }
         else
         {
-            $this->em->merge($output);
+//            echo "\n\nentity reverseTransform => merge";
+//            \Doctrine\Common\Util\Debug::dump($entity);
+            $this->em->merge($entity);
         }
 
-        return $output;
+        return $entity;
     }
 }
