@@ -56,10 +56,10 @@ class ACLInheritanceVoter implements VoterInterface
      */
     public function vote(TokenInterface $token, $entity, array $attributes)
     {
-        // check if class of this object is supported by this voter
+        // if the class isn't managed with acl then vote OK
         if (!$this->supportsClass(get_class($entity)))
         {
-            return self::ACCESS_ABSTAIN;
+            return self::ACCESS_GRANTED;
         }
 
         // only one arg
