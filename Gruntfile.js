@@ -101,13 +101,13 @@ module.exports = function (grunt) {
                 hostname: 'localhost',
                 livereload: 35729
             },
-            prodserver: {
+            devserver: {
                 options: {
                     port: 9000,
                     keepalive: false
                 }
             },
-            devserver: {
+            prodserver: {
                 options: {
                     port: 9001,
                     keepalive: false
@@ -674,7 +674,7 @@ module.exports = function (grunt) {
             copy_ws_config  : {
                 cmd: 'sympozer:wsconfig:copy --to-path <%= yeoman.app %>/js/ws-config.js --server-base-path <%= yeoman.local_config.serverRootPath %>'
             }
-        },
+        }
 
     });
 
@@ -690,46 +690,20 @@ module.exports = function (grunt) {
 
 
 
+    /** INSTALL **/
+    grunt.registerTask('install', ['shell:protractor_install', 'reset'])
+
     /** DEVELOPMENT **/
     grunt.registerTask('reset', ['chmod:cache_log', 'sf2-console:database_create','sf2-console:database_drop', 'sf2-console:database_create', 'sf2-console:database_update',
-        'sf2-console:database_init', 'sf2-console:admin_create', 'sf2-console:cache_clear', 'chmod:cache_log']);
+        'sf2-console:database_init', 'sf2-console:admin_create', 'sf2-console:cache_clear', 'chmod:cache_log',  'bower-install-simple', 'bowerInstall']);
 
-    grunt.registerTask('dev', ['sf2-console:cache_clear', 'sf2-console:database_update',
-        'chmod:cache_log', 'bower-install-simple', 'bowerInstall', 'connect:devserver', 'open:devserver']);
+    grunt.registerTask('dev', ['reset', 'connect:devserver', 'open:devserver']);
 
 
-    /** INSTALL **/
-    grunt.registerTask('install', ['shell:protractor_install', 'reset',  'bower-install-simple', 'bowerInstall'])
+
 
 
     /** PRODUCTION **/
-    grunt.registerTask('serve', function (target) {
-        if (target === 'dist') {
-            return grunt.task.run(['build', 'connect:dist:keepalive']);
-        }
-
-        grunt.task.run([
-            'clean:server',
-            'bowerInstall',
-            'concurrent:server',
-            'autoprefixer',
-            'connect:livereload',
-            'watch'
-        ]);
-    });
-
-    grunt.registerTask('server', function (target) {
-        grunt.log.warn('The `server` task has been deprecated. Use `grunt serve` to start a server.');
-        grunt.task.run(['serve:' + target]);
-    });
-
-    grunt.registerTask('test', [
-        'clean:server',
-        'concurrent:test',
-        'autoprefixer',
-        'connect:test',
-        'karma'
-    ]);
 
     grunt.registerTask('build', [
         'clean:dist',
