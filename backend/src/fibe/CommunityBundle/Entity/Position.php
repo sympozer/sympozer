@@ -57,7 +57,6 @@ class Position
     private $organization;
 
 
-
     /**
      *
      * @ORM\PrePersist()
@@ -66,7 +65,7 @@ class Position
     public function computeLabel()
     {
         $this->setLabel(sprintf("%s is %s at %s",
-            $this->getPerson()->getLabel(),
+            null !== $this->getPerson() ? $this->getPerson()->getLabel() : "",
             $this->getPosition(),
             $this->getOrganization()->getLabel()
         ));
@@ -97,39 +96,39 @@ class Position
         return $this;
     }
 
-  /**
-   * @return mixed
-   */
-  public function getPosition()
-  {
-    return $this->position;
-  }
+    /**
+     * @return mixed
+     */
+    public function getPosition()
+    {
+        return $this->position;
+    }
 
-  /**
-   * @param mixed $position
-   */
-  public function setPosition($position)
-  {
-    $this->position = $position;
-  }
+    /**
+     * @param mixed $position
+     */
+    public function setPosition($position)
+    {
+        $this->position = $position;
+    }
 
     /**
      * @return mixed
      */
-  public function getOrganization()
-  {
-    return $this->organization;
-  }
+    public function getOrganization()
+    {
+        return $this->organization;
+    }
 
-  /**
-   * @param mixed $organization
-   */
-  public function setOrganization($organization)
-  {
-    $this->organization = $organization;
-  }
+    /**
+     * @param mixed $organization
+     */
+    public function setOrganization($organization)
+    {
+        $this->organization = $organization;
+    }
 
-  /**
+    /**
      * Get type
      *
      * @return String
@@ -158,7 +157,7 @@ class Position
         return $this->label;
     }
 
-  /**
+    /**
      * @return mixed
      */
     public function getId()

@@ -454,6 +454,7 @@ class Person extends AdditionalInformations
         $this->positions[] = $position;
 
         $position->setPerson($this);
+        echo "addPosition to :" . $position->getPerson()->getLabel();
 
         return $this;
     }
@@ -478,13 +479,13 @@ class Person extends AdditionalInformations
         return $this->positions;
     }
 
-    /**
-     * @param mixed $positions
-     */
-    public function setPositions($positions)
-    {
-        $this->positions = $positions;
-    }
+//    /**
+//     * @param mixed $positions
+//     */
+//    public function setPositions($positions)
+//    {
+//        $this->positions = $positions;
+//    }
 
 
     /**
