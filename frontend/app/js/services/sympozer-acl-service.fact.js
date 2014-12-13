@@ -2,7 +2,7 @@ angular.module('sympozerApp').factory('sympozerAclService', [
     '$compile', function ($compile)
     {
         /**
-         * right hierarchy map
+         * right hierarchy map ( right : superRight )
          */
         var hierarchy = {
             "EDIT"    : "OPERATOR",
@@ -31,7 +31,7 @@ angular.module('sympozerApp').factory('sympozerAclService', [
                     }
                     right = hierarchy[right];
                 }
-                return false;
+                console.error("unknown right " + right + " asked for ", promise);
             }
         };
     }

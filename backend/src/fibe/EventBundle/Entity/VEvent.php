@@ -42,7 +42,10 @@ abstract class VEvent
     const CLASSIFICATION_PRIVATE = "PRIVATE";
 
     const DEFAULT_EVENT_DURATION = '+2 hour';
-
+    /**
+     * fix an issue with jms-serializer and form validation when applied to a doctrine InheritanceType("SINGLE_TABLE")
+     */
+    public $dtype;
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -50,8 +53,6 @@ abstract class VEvent
      * @Expose
      */
     protected $id;
-
-
     /**
      * dtstart
      *
@@ -63,7 +64,6 @@ abstract class VEvent
      * @Expose
      */
     protected $startAt;
-
     /**
      * dtend
      *
@@ -76,8 +76,6 @@ abstract class VEvent
      * @Expose
      */
     protected $endAt;
-
-
     /**
      * description
      *
@@ -88,16 +86,6 @@ abstract class VEvent
      * @Expose
      */
     protected $description;
-
-    /**
-     * comment
-     *
-     * This property specifies non-processing information intended
-     * to provide a comment to the calendar user.
-     *
-     * @ORM\Column(type="string", length=4047, nullable=true)
-     */
-    protected $comment;
 
 //  /**
 //   * organizer
@@ -114,31 +102,15 @@ abstract class VEvent
 //   * ORGANIZER;CN=John Smith:MAILTO:jsmith@host1.com
 //   */
 //  protected $organizer;
-
     /**
-     * sequence
+     * comment
      *
-     * This property defines the revision sequence number of the
-     * calendar component within a sequence of revisions.
+     * This property specifies non-processing information intended
+     * to provide a comment to the calendar user.
      *
-     * Description: When a calendar component is created, its sequence
-     * number is zero (US-ASCII decimal 48). It is monotonically incremented
-     * by the "Organizer's" CUA each time the "Organizer" makes a
-     * significant revision to the calendar component. When the "Organizer"
-     * makes changes to one of the following properties, the sequence number
-     * MUST be incremented:
-     * .  "DTSTART"
-     * .  "DTEND"
-     * .  "DUE"
-     * .  "RDATE"
-     * .  "RRULE"
-     * .  "EXDATE"
-     * .  "EXRULE"
-     * .  "STATUS"
-     *
-     * @ORM\Column(type="integer", name="revision_sequence")
+     * @ORM\Column(type="string", length=4047, nullable=true)
      */
-    protected $revisionSequence = 0;
+    protected $comment;
 
 //  /**
 //   * contact
@@ -170,7 +142,30 @@ abstract class VEvent
 //   * <==
 //   */
 //  protected $classification = self::CLASSIFICATION_PUBLIC;
-
+    /**
+     * sequence
+     *
+     * This property defines the revision sequence number of the
+     * calendar component within a sequence of revisions.
+     *
+     * Description: When a calendar component is created, its sequence
+     * number is zero (US-ASCII decimal 48). It is monotonically incremented
+     * by the "Organizer's" CUA each time the "Organizer" makes a
+     * significant revision to the calendar component. When the "Organizer"
+     * makes changes to one of the following properties, the sequence number
+     * MUST be incremented:
+     * .  "DTSTART"
+     * .  "DTEND"
+     * .  "DUE"
+     * .  "RDATE"
+     * .  "RRULE"
+     * .  "EXDATE"
+     * .  "EXRULE"
+     * .  "STATUS"
+     *
+     * @ORM\Column(type="integer", name="revision_sequence")
+     */
+    protected $revisionSequence = 0;
     /**
      * status
      *
@@ -178,7 +173,6 @@ abstract class VEvent
      * @Assert\Choice(multiple=false, choices = {"CANCELLED","CONFIRMED","TENTATIVE"}, strict=false, message = "Choose a valid status.")
      */
     protected $status = self::CLASSIFICATION_PUBLIC;
-
     /**
      * priority
      *
@@ -194,7 +188,6 @@ abstract class VEvent
      * )
      */
     protected $priority;
-
     /**
      * Topic
      *
@@ -205,8 +198,6 @@ abstract class VEvent
      * @Expose
      */
     protected $topics;
-
-
     /**
      * Sponsors related to a VEvent
      *
@@ -214,7 +205,6 @@ abstract class VEvent
      * @ORM\JoinColumn(name="sponsor_id", referencedColumnName="id", onDelete="cascade")
      */
     protected $sponsors;
-
     /**
      * url
      *
@@ -225,8 +215,6 @@ abstract class VEvent
      * @expose
      */
     protected $url;
-
-
     /**
      * twitter hashtag
      *
@@ -236,8 +224,6 @@ abstract class VEvent
      * @expose
      */
     protected $twitter;
-
-
     /**
      * youtube
      * This property defines the youtube id of the event resource
@@ -248,6 +234,12 @@ abstract class VEvent
     protected $youtube;
 
 
+    /*
+     * Is an all day event
+     * Used for ui representation in the calendar view
+     *
+     * @ORM\Column(name="is_all_day", type="boolean")
+     */
     /**
      * facebook
      *
@@ -257,16 +249,7 @@ abstract class VEvent
      * @expose
      */
     protected $facebook;
-
-
-    /*
-     * Is an all day event
-     * Used for ui representation in the calendar view
-     *
-     * @ORM\Column(name="is_all_day", type="boolean")
-     */
     protected $isAllDay = false;
-
     /**
      * Is an all day event
      * Used for ui representation in the calendar view
@@ -274,7 +257,6 @@ abstract class VEvent
      * @ORM\Column(name="is_instant", type="boolean")
      */
     protected $isInstant;
-
     /**
      * created_at
      *
@@ -285,7 +267,6 @@ abstract class VEvent
      * @ORM\Column(type="datetime", name="created_at")
      */
     protected $createdAt;
-
     /**
      * modified_at
      *
@@ -296,22 +277,16 @@ abstract class VEvent
      * @ORM\Column(type="datetime", name="last_modified_at")
      */
     protected $lastModifiedAt;
-
-
     /**
      * Locations for the event
      * @Expose
-     * @ORM\ManyToOne(targetEntity="fibe\ContentBundle\Entity\Location", inversedBy="events", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="fibe\ContentBundle\Entity\Location", inversedBy="events")
      * @ORM\JoinTable(name="vevent_location",
      *     joinColumns={@ORM\JoinColumn(name="event_id", referencedColumnName="id")},
      *     inverseJoinColumns={@ORM\JoinColumn(name="location_id", referencedColumnName="id")})
+     * @Assert\NotNull
      */
     protected $location;
-
-    /**
-     * fix an issue with jms-serializer and form validation when applied to a doctrine InheritanceType("SINGLE_TABLE")
-     */
-    public $dtype;
 
     /**
      * constructor
@@ -323,6 +298,30 @@ abstract class VEvent
         $this->lastModifiedAt = new \DateTime();
         $this->status = self::STATUS_EVENT_CONFIRMED;
         $this->setRevisionSequence($this->getRevisionSequence() + 1);
+    }
+
+    /**
+     * Get revisionSequence
+     *
+     * @return integer
+     */
+    public function getRevisionSequence()
+    {
+        return $this->revisionSequence;
+    }
+
+    /**
+     * Set revisionSequence
+     *
+     * @param integer $revisionSequence
+     *
+     * @return $this
+     */
+    public function setRevisionSequence($revisionSequence)
+    {
+        $this->revisionSequence = $revisionSequence;
+
+        return $this;
     }
 
     /**
@@ -338,6 +337,48 @@ abstract class VEvent
             isset($startAt) ? $startAt->format('Y-m-d') : null,
             $this->getLabel()
         );
+    }
+
+    /**
+     * Get startAt
+     *
+     * @return \DateTime
+     */
+    public function getStartAt()
+    {
+        return $this->startAt;
+    }
+
+    /**
+     * Set startAt
+     *
+     * @param \DateTime $startAt
+     *
+     * @return $this
+     */
+    public function setStartAt($startAt)
+    {
+        $this->startAt = $startAt;
+
+        return $this;
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param mixed $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
     }
 
     /**
@@ -385,6 +426,22 @@ abstract class VEvent
         {
             $this->setIsInstant(false);
         }
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEndAt()
+    {
+        return $this->endAt;
+    }
+
+    /**
+     * @param mixed $endAt
+     */
+    public function setEndAt($endAt)
+    {
+        $this->endAt = $endAt;
     }
 
     /**
@@ -464,7 +521,6 @@ abstract class VEvent
         return $dt->format($format);
     }
 
-
     /**
      * Modify start & end in order to fit to events' children.
      * Do nothing if the event doesn't have children.
@@ -511,164 +567,13 @@ abstract class VEvent
     }
 
     /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * @param mixed $id
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
-
-    /**
-     * Set createdAt
-     *
-     * @param \DateTime $createdAt
-     *
-     * @return $this
-     */
-    public function setCreatedAt($createdAt)
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    /**
-     * Get createdAt
-     *
-     * @return \DateTime
-     */
-    public function getCreatedAt()
-    {
-        return $this->createdAt;
-    }
-
-    /**
-     * Set startAt
-     *
-     * @param \DateTime $startAt
-     *
-     * @return $this
-     */
-    public function setStartAt($startAt)
-    {
-        $this->startAt = $startAt;
-
-        return $this;
-    }
-
-    /**
-     * Get startAt
-     *
-     * @return \DateTime
-     */
-    public function getStartAt()
-    {
-        return $this->startAt;
-    }
-
-    /**
-     * Set lastModifiedAt
-     *
-     * @param \DateTime $lastModifiedAt
-     *
-     * @return $this
-     */
-    public function setLastModifiedAt(\DateTime $lastModifiedAt)
-    {
-        $this->lastModifiedAt = $lastModifiedAt;
-        return $this;
-    }
-
-    /**
-     * Get lastModifiedAt
-     *
-     * @return \DateTime
-     */
-    public function getLastModifiedAt()
-    {
-        return $this->lastModifiedAt;
-    }
-
-    /**
-     * Set description
-     *
-     * @param string $description
-     *
-     * @return $this
-     */
-    public function setDescription($description)
-    {
-        $this->description = $description;
-
-        return $this;
-    }
-
-    /**
-     * Get description
+     * Get isInstant
      *
      * @return string
      */
-    public function getDescription()
+    public function getIsInstant()
     {
-        return $this->description;
-    }
-
-    /**
-     * Set comment
-     *
-     * @param string $comment
-     *
-     * @return $this
-     */
-    public function setComment($comment)
-    {
-        $this->comment = $comment;
-
-        return $this;
-    }
-
-    /**
-     * Get comment
-     *
-     * @return string
-     */
-    public function getComment()
-    {
-        return $this->comment;
-    }
-
-    /**
-     * Set isAllDay
-     *
-     * @param string $isAllDay
-     *
-     * @return VEvent
-     */
-    public function setIsAllDay($isAllDay)
-    {
-        $this->isAllDay = $isAllDay;
-
-        return $this;
-    }
-
-    /**
-     * Get isAllDay
-     *
-     * @return string
-     */
-    public function getIsAllDay()
-    {
-        return $this->isAllDay;
+        return $this->isInstant;
     }
 
     /**
@@ -686,13 +591,132 @@ abstract class VEvent
     }
 
     /**
-     * Get isInstant
+     * Get createdAt
+     *
+     * @return \DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * Set createdAt
+     *
+     * @param \DateTime $createdAt
+     *
+     * @return $this
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * Get lastModifiedAt
+     *
+     * @return \DateTime
+     */
+    public function getLastModifiedAt()
+    {
+        return $this->lastModifiedAt;
+    }
+
+    /**
+     * Set lastModifiedAt
+     *
+     * @param \DateTime $lastModifiedAt
+     *
+     * @return $this
+     */
+    public function setLastModifiedAt(\DateTime $lastModifiedAt)
+    {
+        $this->lastModifiedAt = $lastModifiedAt;
+        return $this;
+    }
+
+    /**
+     * Get description
      *
      * @return string
      */
-    public function getIsInstant()
+    public function getDescription()
     {
-        return $this->isInstant;
+        return $this->description;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     *
+     * @return $this
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get comment
+     *
+     * @return string
+     */
+    public function getComment()
+    {
+        return $this->comment;
+    }
+
+    /**
+     * Set comment
+     *
+     * @param string $comment
+     *
+     * @return $this
+     */
+    public function setComment($comment)
+    {
+        $this->comment = $comment;
+
+        return $this;
+    }
+
+    /**
+     * Get isAllDay
+     *
+     * @return string
+     */
+    public function getIsAllDay()
+    {
+        return $this->isAllDay;
+    }
+
+    /**
+     * Set isAllDay
+     *
+     * @param string $isAllDay
+     *
+     * @return VEvent
+     */
+    public function setIsAllDay($isAllDay)
+    {
+        $this->isAllDay = $isAllDay;
+
+        return $this;
+    }
+
+    /**
+     * Get url
+     *
+     * @return string
+     */
+    public function getUrl()
+    {
+        return $this->url;
     }
 
     /**
@@ -710,37 +734,13 @@ abstract class VEvent
     }
 
     /**
-     * Get url
+     * Get status
      *
-     * @return string
+     * @return String
      */
-    public function getUrl()
+    public function getStatus()
     {
-        return $this->url;
-    }
-
-    /**
-     * Set revisionSequence
-     *
-     * @param integer $revisionSequence
-     *
-     * @return $this
-     */
-    public function setRevisionSequence($revisionSequence)
-    {
-        $this->revisionSequence = $revisionSequence;
-
-        return $this;
-    }
-
-    /**
-     * Get revisionSequence
-     *
-     * @return integer
-     */
-    public function getRevisionSequence()
-    {
-        return $this->revisionSequence;
+        return $this->status;
     }
 
     /**
@@ -756,40 +756,6 @@ abstract class VEvent
 
         return $this;
     }
-
-    /**
-     * Get status
-     *
-     * @return String
-     */
-    public function getStatus()
-    {
-        return $this->status;
-    }
-
-  /**
-   * Set location
-   *
-   * @param Location $location
-   *
-   * @return $this
-   */
-  public function setLocation(Location $location = null)
-  {
-    $this->location = $location;
-
-    return $this;
-  }
-
-  /**
-   * Get location
-   *
-   * @return Location
-   */
-  public function getLocation()
-  {
-    return $this->location;
-  }
 //  /**
 //   * Add roles
 //   *
@@ -823,6 +789,30 @@ abstract class VEvent
 //  {
 //    return $this->roles;
 //  }
+
+  /**
+   * Get location
+   *
+   * @return Location
+   */
+    public function getLocation()
+    {
+        return $this->location;
+    }
+
+    /**
+     * Set location
+     *
+     * @param Location $location
+     *
+     * @return $this
+     */
+    public function setLocation(Location $location = null)
+    {
+        $this->location = $location;
+
+        return $this;
+    }
 
     /**
      * Add sponsors
@@ -888,23 +878,6 @@ abstract class VEvent
     public function removeTopic(Topic $topic)
     {
         $this->topics->removeElement($topic);
-    }
-
-
-    /**
-     * @return mixed
-     */
-    public function getEndAt()
-    {
-        return $this->endAt;
-    }
-
-    /**
-     * @param mixed $endAt
-     */
-    public function setEndAt($endAt)
-    {
-        $this->endAt = $endAt;
     }
 
     /**

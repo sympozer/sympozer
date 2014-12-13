@@ -5,7 +5,7 @@ angular.module('sympozerApp').factory('formValidation', [
         return {
             /**
              * Transform Symfony2 default "Validation Failed" rest response
-             * in serverError like :
+             * to a "serverError" object like :
              *  {
              *      %field 1%: ['error 1', 'error 2'],
              *      %field 2%: ['error 1', 'error 2'],
@@ -22,8 +22,9 @@ angular.module('sympozerApp').factory('formValidation', [
             {
 
                 var fieldError;
+                //rempove old validation errors
                 emptyArrays(serverError);
-                //loop over each field
+                //loop over each field in the server response
                 for (var field in response.data.errors.children)
                 {
                     fieldError = response.data.errors.children[field];
@@ -40,7 +41,11 @@ angular.module('sympozerApp').factory('formValidation', [
                         }
                     }
                 }
-                //loop over errors of the form
+                //loop over form errors in the server response
+                //if the response contains a ":"
+                // then it concerns the form and is push to "serverError.form"
+                //otherwise it concerns a field : a JSON.stringify is applied
+                // ex : "{'field' : 'endAt', 'msg' : 'EventFormValidation_start_is_after_end_error'}"
                 for (var formError in response.data.errors.errors)
                 {
                     var error;
@@ -118,9 +123,14 @@ angular.module('sympozerApp').factory('formValidation', [
          * @param formFieldElement
          * @param $scope
          * @param newValue
+         * @param appendBefore
          */
         function updateFormField(formFieldElement, $scope, newValue, appendBefore)
         {
+            if (formFieldElement.parent().hasClass("input-group"))
+            {
+                formFieldElement = formFieldElement.parent();
+            }
             //remove old errors
             formFieldElement.next(".alert-danger").remove();
             formFieldElement.removeClass("ng-invalid")

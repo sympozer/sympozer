@@ -49,7 +49,7 @@ angular.module('locationsApp').controller('locationsNewCtrl', [ '$scope', '$filt
             if (form.$valid)
             {
                 //Set main event based on the url parameters
-                $scope.location.mainEvent = $routeParams.mainEventId;
+                $scope.location.mainEvent = {id: $routeParams.mainEventId};
                 locationsFact.create(locationsFact.serialize($scope.location), success, error);
             }
         };

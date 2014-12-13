@@ -22,7 +22,7 @@ class OrganizationType extends AdditionalInformationsType
 //    $builder
 //      ->add('sponsors', 'sympozer_collection_type', array(
 //        'class' => 'fibeContentBundle:Sponsor',
-//        'required' => 'false',
+//        'required' => false,
 //      ))
         ;
     }
