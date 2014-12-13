@@ -44,6 +44,7 @@ class Position
      * Person : the person who has this role
      *
      * @ORM\ManyToOne(targetEntity="fibe\CommunityBundle\Entity\Person", inversedBy="positions")
+     * @ORM\JoinColumn(nullable=false)
      * @Assert\NotBlank(message="You have to choose a Person")
      * @Expose
      */

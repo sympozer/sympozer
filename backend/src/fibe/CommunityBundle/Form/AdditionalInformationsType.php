@@ -28,6 +28,11 @@ abstract class AdditionalInformationsType extends AbstractType
                 'type' => new LocalizationType(),
                 'required' => true
             ))
+            ->add('positions', 'sympozer_collection_type', array(
+                'type'            => new PositionType(),
+                'required'        => false,
+                'cascade_persist' => false
+            ))
         ;
 
     }

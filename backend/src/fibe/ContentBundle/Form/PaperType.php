@@ -29,9 +29,10 @@ class PaperType extends AbstractType
             ->add('publishDate', 'text', array('label' => 'Published date', 'required' => false))
             ->add('url')
             ->add('mainEvent', 'sympozer_entity_type', array(
-                'type' => new MainEventType(),
-                'required' => true,
-                'cascade_persist' => false,
+                'type'               => new MainEventType(),
+                'required'           => true,
+                'cascade_persist'    => false,
+                'allow_extra_fields' => true,
             ))
             ->add('authors', 'sympozer_collection_type', array(
                 'type'            => new PersonType(),
@@ -39,10 +40,10 @@ class PaperType extends AbstractType
                 'cascade_persist' => false,
                 //                'allow_extra_fields' => true,
             ))
-//      ->add('topics', 'sympozer_collection_type', array(
-//        'type' => new TopicType(),
-//        'required' => 'false'
-//      ))
+            ->add('topics', 'sympozer_collection_type', array(
+                'type'     => new TopicType(),
+                'required' => 'false'
+            ))
 //      ->add('events', 'sympozer_collection_type', array(
 //        'type' => new EventType(),
 //        'required' => 'false'
