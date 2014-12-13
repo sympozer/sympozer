@@ -1,16 +1,16 @@
 <div class="modal-header">
-    <h3 class="modal-title">{{ 'roles.messages.delete_confirm' | translate}}</h3>
+  <h3 class="modal-title">{{ 'roles.messages.delete_confirm' | translate}}</h3>
 </div>
 <div class="modal-body">
-    <div class="well">
-        <ul>
-            <li>{{ 'roles.model.person' | translate}} : <span ng-bind="role.person.email"></span></li>
-            <li>{{ 'roles.model.event' | translate}} : <span ng-bind="role.event.label"></span></li>
-            <li>{{ 'roles.model.role_label_version' | translate}} : <span ng-bind="role.roleLabelVersion.label"></span></li>
-        </ul>
-    </div>
+  <div class="well">
+    <ul>
+      <li>{{ 'roles.model.person' | translate}} : <span ng-bind="role.person.email"></span></li>
+      <li>{{ 'roles.model.event' | translate}} : <span ng-bind="role.event.label"></span></li>
+      <li>{{ 'roles.model.role_label_version' | translate}} : <span ng-bind="role.roleLabel.label"></span></li>
+    </ul>
+  </div>
 </div>
 <div class="modal-footer">
-    <button class="btn btn-default" ng-click="cancel()">{{ 'global.actions.cancel' | translate}}</button>
-    <button class="btn btn-primary" ng-click="delete()">{{ 'global.actions.ok' | translate}}</button>
+  <button class="btn btn-default" ng-click="cancel()">{{ 'global.actions.cancel' | translate}}</button>
+  <button class="btn btn-primary" ng-click="delete()">{{ 'global.actions.ok' | translate}}</button>
 </div>

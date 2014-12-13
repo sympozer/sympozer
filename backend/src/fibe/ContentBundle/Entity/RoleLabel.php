@@ -2,6 +2,7 @@
 
 namespace fibe\ContentBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
@@ -40,12 +41,20 @@ class RoleLabel
      */
     private $description;
 
+    /**
+     * Categories
+     * @ORM\OneToMany(targetEntity="Role", mappedBy="roleLabel")
+     * @Expose
+     */
+    private $roles;
+
 
     /**
      * Constructor
      */
     public function __construct()
     {
+        $this->roles = new ArrayCollection();
     }
 
     /**
@@ -115,6 +124,46 @@ class RoleLabel
     public function setDescription($description)
     {
         $this->description = $description;
+    }
+
+    /**
+     * Add role
+     *
+     * @param Role $role
+     *
+     * @return Role
+     */
+    public function addRole(Role $role)
+    {
+        $this->roles[] = $role;
+
+        return $this;
+    }
+
+    /**
+     * Remove roles
+     *
+     * @param Role $role
+     */
+    public function removeRole(Role $role)
+    {
+        $this->roles->removeElement($role);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRoles()
+    {
+        return $this->roles;
+    }
+
+    /**
+     * @param mixed $roles
+     */
+    public function setRoles($roles)
+    {
+        $this->roles = $roles;
     }
 
 

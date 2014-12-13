@@ -38,7 +38,6 @@ class Role
     private $id;
 
 
-
     /**
      * label
      * @ORM\Column(type="string", name="label", nullable=false)
@@ -76,7 +75,6 @@ class Role
      * @ORM\ManyToOne(targetEntity="fibe\ContentBundle\Entity\RoleLabel", inversedBy="roles")
      * @ORM\JoinColumn(name="roleLabelId", referencedColumnName="id")
      * @Assert\NotBlank(message="You have to choose a role type")
-     * @SerializedName("roleLabel")
      * @Expose
      */
     private $roleLabel;
@@ -88,7 +86,7 @@ class Role
      */
     public function computeLabel()
     {
-        $eventLabel = $this->getEvent() ? $this->getEvent()->getlabel(): $this->getMainEvent()->getlabel();
+        $eventLabel = $this->getEvent() ? $this->getEvent()->getlabel() : $this->getMainEvent()->getlabel();
         $this->setLabel(sprintf("%s is %s at %s",
             $this->getPerson()->getLabel(),
             $this->getRoleLabelVersion()->getlabel(),
@@ -172,8 +170,6 @@ class Role
     }
 
 
-
-
     /**
      * Get type
      *
@@ -202,6 +198,7 @@ class Role
     {
         return $this->label;
     }
+
     /**
      * @return mixed
      */
@@ -219,7 +216,7 @@ class Role
     }
 
     /**
-     * @return mixed
+     * @return RoleLabel
      */
     public function getRoleLabel()
     {
@@ -227,9 +224,9 @@ class Role
     }
 
     /**
-     * @param mixed $roleLabel
+     * @param RoleLabel $roleLabel
      */
-    public function setRoleLabel($roleLabel)
+    public function setRoleLabel(RoleLabel $roleLabel)
     {
         $this->roleLabel = $roleLabel;
     }

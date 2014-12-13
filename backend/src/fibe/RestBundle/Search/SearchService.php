@@ -22,7 +22,7 @@ class SearchService implements SearchServiceInterface
      */
     private $forceCIon = array('fibe\\ContentBundle\\Entity\\Topic');
 
-    public function __construct(EntityManager $em,Reader $reader)
+    public function __construct(EntityManager $em, Reader $reader)
     {
         $this->reader = $reader;
         $this->em = $em;
@@ -35,50 +35,56 @@ class SearchService implements SearchServiceInterface
     {
         $searchFields = $this->getSearchFields($entityClassName);
         $entityRepository = $this->em->getRepository($entityClassName);
-      $qb = $entityRepository->createQueryBuilder('qb')
-        ->setMaxResults($limit)
-        ->setFirstResult($offset);
+        $qb = $entityRepository->createQueryBuilder('qb')
+            ->setMaxResults($limit)
+            ->setFirstResult($offset);
 
         //Add filter from input query
-        if($query != null) {
-
-          //searches on some entities must be case insensitive
+        if ($query != null)
+        {
+            //searches on some entities must be case insensitive
             $forceCI = in_array($entityClassName, $this->forceCIon);
-            foreach ($searchFields as $searchField) {
-                if ($forceCI) {
+            foreach ($searchFields as $searchField)
+            {
+                if ($forceCI)
+                {
                     $qb->orWhere('UPPER(qb.' . $searchField . ') LIKE UPPER(:string)');
-                } else {
+                }
+                else
+                {
                     $qb->orWhere('qb.' . $searchField . ' LIKE :string');
                 }
                 $qb->setParameter('string', '%' . $query . '%');
             }
         }
 
-        //Filter by main event
-        if($filters != null) {
+        //call the filter method of the repository
+        if ($filters != null)
+        {
             $qb = $entityRepository->filter($qb, $filters);
         }
 
         //Build order by
-        if(count($orders) > 0)
+        if (count($orders) > 0)
         {
-            foreach($orders as $field => $order)
+            foreach ($orders as $field => $order)
             {
-                $qb->addOrderBy('qb.'.$field,$order);
+                $qb->addOrderBy('qb.' . $field, $order);
             }
         }
 
 
-      $results = $qb->getQuery()->getResult();
+        $results = $qb->getQuery()->getResult();
 
-      $count = count(new Paginator($qb->getQuery(), true));
-      return array(
-        'query' => $query,
-        'results' => $results,
-        'count' => $count,
-        'limit' => $limit,
-        'offset' => $offset
-      );
+        $count = count(new Paginator($qb->getQuery(), true));
+
+        return array(
+            'query'   => $query,
+            'results' => $results,
+            'count'   => $count,
+            'limit'   => $limit,
+            'offset'  => $offset
+        );
     }
 
     /**
@@ -90,13 +96,16 @@ class SearchService implements SearchServiceInterface
         $searchFields = [];
         $reflectionObject = new \ReflectionObject(new $entityClassName());
 
-        foreach ($reflectionObject->getProperties() as $reflectionProperty) {
+        foreach ($reflectionObject->getProperties() as $reflectionProperty)
+        {
             $annotation = $this->reader->getPropertyAnnotation($reflectionProperty, $this->annotationClass);
-            if (null !== $annotation && $annotation->type == 'string') {
+            if (null !== $annotation && $annotation->type == 'string')
+            {
                 $fieldName = $annotation->name ? $annotation->name : $reflectionProperty->getName();
                 $searchFields[] = $fieldName;
             }
         }
+
         return $searchFields;
     }
 

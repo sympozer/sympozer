@@ -86,14 +86,14 @@ abstract class ACLHelper
             'parent'    => 'getMainEvent',
             'classpath' => 'fibe\\ContentBundle\\Entity',
         ),
-        'RoleLabelVersion'    => array(
-            'parent'    => 'getMainEvent',
-            'classpath' => 'fibe\\ContentBundle\\Entity',
-        ),
         'OrganizationVersion' => array(
             'parent'    => 'getOrganizationVersionOwner',
             'classpath' => 'fibe\\CommunityBundle\\Entity',
         ),
+        //        'RoleLabelVersion'    => array(
+        //            'parent'    => 'getMainEvent',
+        //            'classpath' => 'fibe\\ContentBundle\\Entity',
+        //        ),
         //    'Topic' => array(
         //      'parent' => 'getMainEvent',
         //      'classpath' => 'fibe\\ContentBundle\\Entity',

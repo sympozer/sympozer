@@ -48,9 +48,9 @@ class CrudHandler
         $query = $paramFetcher->get('query');
         $filters = $paramFetcher->get('filters');
 
-        if (!empty($routeParams) && null != $filters)
+        if (!empty($routeParams))
         {
-            $filters = array_merge($filters, $routeParams);
+            $filters = null === $filters ? $routeParams : array_merge($filters, $routeParams);
         }
 
         return $this->container->get("fibe.rest.searchservice")->doSearch($entityClassName, $limit, $offset, $query, $order, $filters);
