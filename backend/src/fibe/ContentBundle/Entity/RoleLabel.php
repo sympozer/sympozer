@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
+use JMS\Serializer\Annotation\SerializedName;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -47,6 +48,15 @@ class RoleLabel
      * @Expose
      */
     private $roles;
+    /**
+     * The mainEvent associated
+     *
+     * @ORM\ManyToOne(targetEntity="fibe\EventBundle\Entity\MainEvent", inversedBy="roleLabels")
+     * @ORM\JoinColumn(name="main_event_id", referencedColumnName="id")
+     * @Expose
+     * @SerializedName("mainEvent")
+     */
+    private $mainEvent;
 
 
     /**
@@ -164,6 +174,23 @@ class RoleLabel
     public function setRoles($roles)
     {
         $this->roles = $roles;
+    }
+
+
+    /**
+     * @return mixed
+     */
+    public function getMainEvent()
+    {
+        return $this->mainEvent;
+    }
+
+    /**
+     * @param mixed $mainEvent
+     */
+    public function setMainEvent($mainEvent)
+    {
+        $this->mainEvent = $mainEvent;
     }
 
 

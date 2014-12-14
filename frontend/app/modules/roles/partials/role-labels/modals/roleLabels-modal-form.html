@@ -1,12 +1,12 @@
 <div class="modal-header">
-    <h3 class="modal-title">{{ 'roleLabelVersions.actions.new' | translate}}</h3>
+  <h3 class="modal-title">{{ 'roleLabels.actions.new' | translate}}</h3>
 </div>
 <div class="modal-body">
-    <form name="roleLabelEditForm" class="form-horizontal" role="form">
-        <div ng-include="GLOBAL_CONFIG.app.modules.roleLabels.urls.partials+'views/roleLabelVersions-form.html'"></div>
-    </form>
+  <form name="roleLabelEditForm" class="form-horizontal" role="form">
+    <div ng-include="GLOBAL_CONFIG.app.modules.roleLabels.urls.partials+'views/roleLabels-form.html'"></div>
+  </form>
 </div>
 <div class="modal-footer">
-    <button class="btn btn-default" ng-click="cancel()">{{ 'global.actions.cancel' | translate}}</button>
-    <button class="btn btn-primary" ng-disabled="roleLabelEditForm.$invalid" ng-click="create(roleLabelEditForm)">{{ 'global.actions.ok' | translate}}</button>
+  <button class="btn btn-default" ng-click="cancel()">{{ 'global.actions.cancel' | translate}}</button>
+  <button class="btn btn-primary" ng-disabled="roleLabelEditForm.$invalid" ng-click="create(roleLabelEditForm)">{{ 'global.actions.ok' | translate}}</button>
 </div>

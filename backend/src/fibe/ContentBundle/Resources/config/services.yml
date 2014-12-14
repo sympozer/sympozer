@@ -1,4 +1,1 @@
 services:
-    fibe.RoleLabelVersionService:
-        class:  fibe\ContentBundle\Services\RoleLabelVersionService
-        parent: fibe.rest.business_service

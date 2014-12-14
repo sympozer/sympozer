@@ -11,7 +11,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity(repositoryClass="fibe\SecurityBundle\Repository\TeammateRepository")
  * @ORM\HasLifecycleCallbacks
- * @ORM\Table
+ * @ORM\Table(name="teammate")
  * @ExclusionPolicy("ALL")
  */
 class Teammate

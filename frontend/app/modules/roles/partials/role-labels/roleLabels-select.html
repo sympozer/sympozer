@@ -1,4 +1,4 @@
-<input type="text" ng-model="entity" typeahead-template-url="roleLabels-typeahead.html" typeahead-on-select="select($item, $model)" placeholder="{{ 'roleLabelVersions.actions.search' | translate }} ..." typeahead-wait-ms="500" typeahead="entity as entity.label for entity in keyup($viewValue)" typeahead-loading="loading" class="form-control">
+<input type="text" ng-model="entity" typeahead-template-url="roleLabels-typeahead.html" typeahead-on-select="select($item, $model)" placeholder="{{ 'roleLabels.actions.search' | translate }} ..." typeahead-wait-ms="500" typeahead="entity as entity.label for entity in keyup($viewValue)" typeahead-loading="loading" class="form-control">
 <i ng-show="loading" class="fa fa-spinner fa-spin"></i>
 
 

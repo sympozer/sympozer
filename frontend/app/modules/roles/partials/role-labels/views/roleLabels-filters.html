@@ -1,0 +1,16 @@
+<!--<label  class="checkbox-inline icheck-label ellipsis">-->
+<!--<div class="btn btn-primary icheckbox_minimal-blue " >-->
+<!--<input ng-click="addRoleLabelsFilter(roleLabel.id)" icheck="checked" type="checkbox" id="inlinecheckbox1" value="{{ roleLabel.label }}" >{{ roleLabel.label }}-->
+<!--<ins class="iCheck-helper"></ins>-->
+
+<!--</div>-->
+<!--{{ roleLabel.label }}-->
+<!--</label>-->
+
+<!--<input type="checkbox" ng-model="oneAtATime" checked>-->
+
+<div class="col-xs-6 col-sm-3 col-md-2 col-lg-2">
+  <label class="btn btn-default ellipsis" ng-click="addRoleLabelsFilter(roleLabel.id)" ng-init="checkbox.roleLabel.label=true" ng-model="checkbox.roleLabel.label" btn-checkbox><span class="badge badge-indigo">{{ roleLabel.roles.length }} </span> {{ roleLabel.label }}
+  </label>
+</div>
+

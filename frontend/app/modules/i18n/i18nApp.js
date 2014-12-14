@@ -475,8 +475,8 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
         },
 
 
-        //roleLabelVersions
-        roleLabelVersions: {
+        //roleLabels
+        roleLabels       : {
             actions    : {
                 search: 'Search a role label',
                 new  : 'New role label',
@@ -487,8 +487,8 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 print: 'Print role label'
             },
             links      : {
-                roleLabelVersions: 'roles labels',
-                roleLabelVersion: 'role label'
+                roleLabels: 'roles labels',
+                roleLabel : 'role label'
             },
             labels     : {},
             validations: {
@@ -532,7 +532,7 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
             model      : {
                 event : 'Event',
                 person: 'person',
-                role_label_version: 'Role label'
+                role_label: 'Role label'
             }
         },
 
@@ -1045,8 +1045,8 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
         },
 
 
-        //roleLabelVersions
-        roleLabelVersions: {
+        //roleLabels
+        roleLabels       : {
             actions : {
                 search: 'Rechercher un type de rôle',
                 new  : 'Nouveau type de rôle',
@@ -1057,8 +1057,8 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 print: 'Imprimer types de rôles'
             },
             links   : {
-                roleLabelVersions: 'Types de roles',
-                roleLabelVersion: 'Type de role'
+                roleLabels: 'Types de roles',
+                roleLabel : 'Type de role'
             },
             labels  : {},
             validations: {},
@@ -1100,7 +1100,7 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
             model      : {
                 event : 'Evènement',
                 person: 'Personne',
-                role_label_version: 'Type de rôle'
+                role_label: 'Type de rôle'
             }
         },
 

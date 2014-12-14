@@ -12,8 +12,8 @@ angular.module('roleLabelsApp').controller('roleLabelsNewCtrl', [ '$scope', '$ro
         //Notify of the new role label post action error
         pinesNotifications.notify({
             title: translateFilter('global.validations.error'),
-            text: translateFilter('roleLabelVersions.validations.not_created'),
-            type: 'error'
+            text : translateFilter('roleLabels.validations.not_created'),
+            type : 'error'
         });
     };
 
@@ -22,14 +22,17 @@ angular.module('roleLabelsApp').controller('roleLabelsNewCtrl', [ '$scope', '$ro
         //Notify of the creation action success
         pinesNotifications.notify({
             title: translateFilter('global.validations.success'),
-            text: translateFilter('roleLabelVersions.validations.created'),
-            type: 'success'
+            text : translateFilter('roleLabels.validations.created'),
+            type : 'success'
         });
 
         //If the view is a modal instance, then resolve the promise with the new role label
-        if($scope.$close){
+        if ($scope.$close)
+        {
             $scope.$close($scope.roleLabel);
-        }else{
+        }
+        else
+        {
             //go back to previous page otherwise
             $window.history.back();
         }
@@ -43,12 +46,14 @@ angular.module('roleLabelsApp').controller('roleLabelsNewCtrl', [ '$scope', '$ro
         //Verify form validity
         if (form.$valid)
         {
-            roleLabelsFact.create($scope.roleLabel, success, error);
+            $scope.roleLabel.mainEvent = {id: $routeParams.mainEventId};
+            roleLabelsFact.create(roleLabelsFact.serialize($scope.roleLabel), success, error);
         }
     }
 
     //Close the modal (useful only if view is a modal)
-    $scope.cancel = function () {
+    $scope.cancel = function ()
+    {
         $scope.$dismiss('cancel');
     };
 }]);

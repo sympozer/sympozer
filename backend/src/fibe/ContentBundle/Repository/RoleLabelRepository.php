@@ -3,6 +3,7 @@
 namespace fibe\ContentBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\QueryBuilder;
 
 /**
  * RoleLabelRepository
@@ -15,17 +16,21 @@ class RoleLabelRepository extends EntityRepository
 
     /**
      * filtering with all parameters difned
-     * @param $qb , query builder to add the filter to
-     * @param $params , the field to filter on
-     * @return $qb, modified query builder
+     * @param QueryBuilder $qb , query builder to add the filter to
+     * @param array $params , the field to filter on
+     * @return QueryBuilder $qb, modified query builder
      */
-    public function filter($qb, $params)
+    public function filter(QueryBuilder $qb, array $params)
     {
         if (isset($params['mainEventId']))
         {
-            $qb->leftJoin('qb.mainEvent', 'ev');
-            $qb->andWhere('ev.id = (:mainEventId)');
-            $qb->setParameter('mainEventId', $params['mainEventId']);
+            $qb->leftJoin('qb.mainEvent', 'mev')
+                ->andWhere('mev.id = (:mainEventId)')
+                ->setParameter('mainEventId', $params['mainEventId']);
+//            $qb->leftJoin('qb.roles', 'rol')
+//                ->leftJoin('rol.mainEvent', 'mev')
+//                ->andWhere('mev.id = (:mainEventId)')
+//                ->setParameter('mainEventId', $params['mainEventId']);
         }
 
         return $qb;
