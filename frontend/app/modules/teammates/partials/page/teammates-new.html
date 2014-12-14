@@ -1,9 +1,19 @@
+<div id="page-heading">
+  <div ng-include="GLOBAL_CONFIG.app.urls.partials+'navigation/breadcrumb.html'"></div>
+  <h1>{{'teammates.links.team' | translate }}</h1>
+
+  <div class="options">
+    <div class="btn-toolbar">
+      <div ng-include="GLOBAL_CONFIG.app.modules.teammates.urls.partials+'views/teammates-actions.html'"></div>
+    </div>
+  </div>
+</div>
 <div class="container">
   <h3>Add a teammate</h3>
   <br>
 
   <form name="teammateNewForm" class="form-horizontal ng-pristine ng-valid" role="form" ng-submit="create(teammateNewForm)">
-    <div ng-include="GLOBAL_CONFIG.app.modules.teammates.urls.partials+'teammate-entity-form.html'"></div>
+    <div ng-include="GLOBAL_CONFIG.app.modules.teammates.urls.partials+'views/teammate-form.html'"></div>
     <hr/>
     <div class="form-group">
       <button type="submit" class="btn btn-success">{{ 'global.actions.save' | translate }}</button>

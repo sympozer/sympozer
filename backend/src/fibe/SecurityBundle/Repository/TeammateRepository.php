@@ -5,7 +5,6 @@ namespace fibe\SecurityBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
-use fibe\SecurityBundle\Entity\Team;
 
 /**
  * UserRepository
@@ -17,19 +16,23 @@ use fibe\SecurityBundle\Entity\Team;
 class TeammateRepository extends EntityRepository
 {
 
-  /**
-   * filtering with all parameters defined
-   * @param QueryBuilder $qb , query builder to add the filter to
-   * @param $params , the field to filter on
-   * @return QueryBuilder $qb, modified query builder
-   */
-  public function filter(QueryBuilder $qb, $params)
-  {
+    /**
+     * filtering with all parameters defined
+     * @param QueryBuilder $qb , query builder to add the filter to
+     * @param $params , the field to filter on
+     * @return QueryBuilder $qb, modified query builder
+     */
+    public function filter(QueryBuilder $qb, $params)
+    {
 
-    if (isset($params['mainEventId'])) {
-      $qb->andWhere('qb.mainEvent = :mainEventId');
-      $qb->setParameter('mainEventId', $params['mainEventId']);
+        if (isset($params['mainEventId']))
+        {
+            $qb->leftJoin('qb.team', 'team')
+                ->leftJoin('team.mainEvent', 'me')
+                ->andWhere('me.id = (:mainEventId)')
+                ->setParameter('mainEventId', $params['mainEventId']);
+        }
+
+        return $qb;
     }
-    return $qb;
-  }
 }

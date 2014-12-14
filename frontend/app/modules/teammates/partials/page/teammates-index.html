@@ -1,26 +1,9 @@
 <div id="page-heading">
-
   <div ng-include="GLOBAL_CONFIG.app.urls.partials+'navigation/breadcrumb.html'"></div>
-
   <h1>{{'teammates.links.team' | translate }}</h1>
-
   <div class="options">
     <div class="btn-toolbar">
-      <div class="btn-group" dropdown>
-        <button type="button" class="btn btn-default dropdown-toggle">
-          Export as <span class="caret"></span>
-        </button>
-        <ul class="dropdown-menu" role="menu">
-          <li><a href="#">Action</a></li>
-          <li><a href="#">Another action</a></li>
-          <li><a href="#">Something else here</a></li>
-          <li class="divider"></li>
-          <li><a href="#">Separated link</a></li>
-        </ul>
-      </div>
-      <a href="#" class="btn btn-default hidden-xs"><i class="fa fa-cog"></i></a>
-      <a href="#/teammates/new" class="btn btn-default"><i class="fa fa-plus"></i> {{ 'teammates.actions.add' | translate}}
-      </a>
+      <div ng-include="GLOBAL_CONFIG.app.modules.teammates.urls.partials+'views/teammates-actions.html'"></div>
     </div>
   </div>
 </div>
@@ -53,7 +36,7 @@
               <small ng-show="count > entities.length"> - Displaying {{(currentPage-1) * limit}} to {{ currentPage * limit > count ? count : currentPage * limit }}</small>
             </h3>
             <div class="search-result" ng-repeat-start="teammate in entities  track by $index">
-              <div ng-include="GLOBAL_CONFIG.app.modules.teammates.urls.partials+'teammate-entity-row-lg.html'"></div>
+              <div ng-include="GLOBAL_CONFIG.app.modules.teammates.urls.partials+'views/teammate-entity-row-lg.html'"></div>
               <button class="btn btn-danger" data-ng-click="deleteTeammateModal($index, teammate)" role="button">
                 <i class="fa fa-trash-o fa-1x"></i>
               </button>

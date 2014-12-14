@@ -14,11 +14,15 @@ angular.module('teammatesApp').controller('teammatesListCtrl', [
         $scope.request = teammatesFact.allByConference;
         $scope.filters.teammateLabelVersionIds = [];
 
-        $scope.addTeammatesFilter= function(teammateLabelVersionId){
+        $scope.addTeammatesFilter = function (teammateLabelVersionId)
+        {
             var teammateLabelVersionIndex = $scope.filters.teammateLabelVersionIds.indexOf(teammateLabelVersionId)
-            if( teammateLabelVersionIndex == -1){
+            if (teammateLabelVersionIndex == -1)
+            {
                 $scope.filters.teammateLabelVersionIds.push(teammateLabelVersionId);
-            }else{
+            }
+            else
+            {
                 $scope.filters.teammateLabelVersionIds.splice(teammateLabelVersionIndex, 1);
             }
             $scope.filter();
