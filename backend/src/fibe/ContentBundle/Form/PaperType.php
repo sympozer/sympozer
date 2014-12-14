@@ -2,6 +2,7 @@
 
 namespace fibe\ContentBundle\Form;
 
+use fibe\CommunityBundle\Form\PersonType;
 use fibe\EventBundle\Form\MainEventType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -24,25 +25,25 @@ class PaperType extends AbstractType
             ->add('id')
             ->add('label')
             ->add('abstract', 'textarea', array('required' => true))
-            ->add('publisher', 'text', array('label' => 'Publisheur', 'required' => false))
+            ->add('publisher', 'text', array('label' => 'Publisher', 'required' => false))
             ->add('publishDate', 'text', array('label' => 'Published date', 'required' => false))
             ->add('url')
             ->add('mainEvent', 'sympozer_entity_type', array(
-                'type' => new MainEventType(),
-                'required' => true,
-                'cascade_persist' => false,
+                'type'               => new MainEventType(),
+                'required'           => true,
+                'cascade_persist'    => false,
                 'allow_extra_fields' => true,
             ))
-//      ->add('authors', 'sympozer_collection_type', array(
-//        'type' => new PersonType(),
-//        'required' => false,
-//        'cascade_persist' => false,
-//        'allow_extra_fields' => true,
-//      ))
-//      ->add('topics', 'sympozer_collection_type', array(
-//        'type' => new TopicType(),
-//        'required' => 'false'
-//      ))
+            ->add('authors', 'sympozer_collection_type', array(
+                'type'            => new PersonType(),
+                'required'        => false,
+                'cascade_persist' => false,
+                //                'allow_extra_fields' => true,
+            ))
+            ->add('topics', 'sympozer_collection_type', array(
+                'type'     => new TopicType(),
+                'required' => 'false'
+            ))
 //      ->add('events', 'sympozer_collection_type', array(
 //        'type' => new EventType(),
 //        'required' => 'false'

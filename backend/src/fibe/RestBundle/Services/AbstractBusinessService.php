@@ -12,12 +12,27 @@ use Doctrine\ORM\EntityManagerInterface;
 abstract class AbstractBusinessService
 {
 
-  private $annotationClass = 'Doctrine\\ORM\\Mapping\\Column';
-
   /** @var  Reader */
   protected $reader;
-  /** @var  EntityManagerInterface */
-  protected $entityManager;
+    /** @var  EntityManagerInterface */
+    protected $entityManager;
+    private $annotationClass = 'Doctrine\\ORM\\Mapping\\Column';
+
+  /**
+   * @param EntityManagerInterface $entityManager
+   */
+    public function setEntityManager(EntityManagerInterface $entityManager)
+  {
+      $this->entityManager = $entityManager;
+  }
+
+  /**
+   * @param Reader $reader
+   */
+    public function setReader(Reader $reader)
+    {
+        $this->reader = $reader;
+  }
 
   /**
    * check if an attribute has been changed, if so : return the old value
@@ -25,13 +40,14 @@ abstract class AbstractBusinessService
    * @param string $attribute
    * @return false | mixed the old attribute
    */
-  protected function isDirty($entity, $attribute)
-  {
-    $uow = $this->entityManager->getUnitOfWork();
-    $metaData = $this->entityManager->getClassMetadata(get_class($entity));
-    $uow->computeChangeSet($metaData, $entity);
-    $changeset = $uow->getEntityChangeSet($entity);
-    return isset($changeset[$attribute]) ? $changeset[$attribute][0] : false;
+    protected function isDirty($entity, $attribute)
+    {
+        $uow = $this->entityManager->getUnitOfWork();
+        $metaData = $this->entityManager->getClassMetadata(get_class($entity));
+        $uow->computeChangeSet($metaData, $entity);
+        $changeset = $uow->getEntityChangeSet($entity);
+
+        return isset($changeset[$attribute]) ? $changeset[$attribute][0] : false;
   }
 
   /**
@@ -41,28 +57,27 @@ abstract class AbstractBusinessService
    * @param String $setterFct
    * @return false | mixed the old attribute
    */
-  protected function createGlobalEntity($entity, $entityClassName, $setterFct)
+    protected function createGlobalEntity($entity, $entityClassName, $setterFct)
   {
-    if ($entity == null)
-    {
-      return false;
-    }
+      if ($entity == null)
+      {
+          return false;
+      }
 
-    $globalEntityClassName = str_replace('Version', '', $entityClassName);
-    $globalEntity = $this->entityManager->getRepository($globalEntityClassName)->findOneByLabel($entity->getLabel());
+      $globalEntityClassName = str_replace('Version', '', $entityClassName);
+      $globalEntity = $this->entityManager->getRepository($globalEntityClassName)->findOneByLabel($entity->getLabel());
 
-    if ($globalEntity == null)
-    {
-      $globalEntity = $this->copyVersionObject($globalEntityClassName, $entityClassName, $entity);
-    }
+      if ($globalEntity == null)
+      {
+          $globalEntity = $this->copyVersionObject($globalEntityClassName, $entityClassName, $entity);
+      }
 
-    $entity->$setterFct($globalEntity);
+      $entity->$setterFct($globalEntity);
 
-    $this->entityManager->persist($entity);
-    $this->entityManager->persist($globalEntity);
-    $this->entityManager->flush();
+      $this->entityManager->persist($entity);
+      $this->entityManager->persist($globalEntity);
 
-    return true;
+      return true;
   }
 
   /**
@@ -72,47 +87,31 @@ abstract class AbstractBusinessService
    * @param mixed $versionObject , The object to copy
    * @return mixed , The global object produced from the version object
    */
-  protected function copyVersionObject($globalEntityClassName, $entityClassName, $versionObject)
+    protected function copyVersionObject($globalEntityClassName, $entityClassName, $versionObject)
   {
-    $globalEntity = new $globalEntityClassName();
+      $globalEntity = new $globalEntityClassName();
 
-    $reflectionEntityObject = new \ReflectionObject(new $entityClassName());
+      $reflectionEntityObject = new \ReflectionObject(new $entityClassName());
 
-    foreach ($reflectionEntityObject->getProperties() as $reflectionProperty)
-    {
-      $annotation = $this->reader->getPropertyAnnotation($reflectionProperty, $this->annotationClass);
-      if (null !== $annotation)
+      foreach ($reflectionEntityObject->getProperties() as $reflectionProperty)
       {
-        if ($annotation->type == 'string' || $annotation->type == 'text')
-        {
-          $fieldName = $annotation->name ? $annotation->name : $reflectionProperty->getName();
-          $fieldNameUpperFirst = ucfirst($fieldName);
+          $annotation = $this->reader->getPropertyAnnotation($reflectionProperty, $this->annotationClass);
+          if (null !== $annotation)
+          {
+              if ($annotation->type == 'string' || $annotation->type == 'text')
+              {
+                  $fieldName = $annotation->name ? $annotation->name : $reflectionProperty->getName();
+                  $fieldNameUpperFirst = ucfirst($fieldName);
 
-          $getter = "get" . $fieldNameUpperFirst;
-          $setter = "set" . $fieldNameUpperFirst;
+                  $getter = "get" . $fieldNameUpperFirst;
+                  $setter = "set" . $fieldNameUpperFirst;
 
-          $globalEntity->$setter($versionObject->$getter());
-        }
+                  $globalEntity->$setter($versionObject->$getter());
+              }
+          }
       }
-    }
-    return $globalEntity;
-  }
 
-
-  /**
-   * @param EntityManagerInterface $entityManager
-   */
-  public function setEntityManager(EntityManagerInterface $entityManager)
-  {
-    $this->entityManager = $entityManager;
-  }
-
-  /**
-   * @param Reader $reader
-   */
-  public function setReader(Reader $reader)
-  {
-    $this->reader = $reader;
+      return $globalEntity;
   }
 
 

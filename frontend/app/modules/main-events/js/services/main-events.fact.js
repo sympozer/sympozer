@@ -22,21 +22,22 @@ angular.module('mainEventsApp').factory('mainEventsFact',
         );
 
         //Construct a DTO object to send to server (Data Transfert Object)
-        resource.serialize = function(object){
+        resource.serialize = function (object)
+        {
             //Serialize DTO object to be sent
             var DTObject = {
-                'id' : object.id,
-                'label' : object.label,
-                'description' : object.description,
-                'location' : object.location,
-                'endAt': object.endAt,
-                'startAt': object.startAt,
-                'logo': object.logo
-            }
+                'id'         : object.id,
+                'label'      : object.label,
+                'description': object.description,
+                'location'   : object.location,
+                'endAt'      : object.endAt,
+                'startAt'    : object.startAt,
+                'logo'       : object.logo
+            };
 
             //create the new resource object from DTObject
             return new resource(DTObject);
-        }
+        };
 
         return resource;
 

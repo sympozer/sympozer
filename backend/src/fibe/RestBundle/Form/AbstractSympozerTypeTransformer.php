@@ -29,7 +29,15 @@ abstract class AbstractSympozerTypeTransformer implements DataTransformerInterfa
         $this->options = $options;
     }
 
-    function getOrCreateEntity($input, $entityClassName)
+    /**
+     * get or create an entity :
+     * resolve the entity id from the input array
+     * then get or create it whether the id has been found or not
+     * @param array|string $input
+     * @param string $entityClassName
+     * @return object the asked entity
+     */
+    protected function getOrCreateEntity($input, $entityClassName)
     {
         //extract entity id from the form input
         $entityId = isset($input["id"]) ? $input["id"] : (is_string($input) ? $input : null);
@@ -48,7 +56,12 @@ abstract class AbstractSympozerTypeTransformer implements DataTransformerInterfa
         return $entity;
     }
 
-    public function getEntityClassName($formType)
+    /**
+     * get the entity class with namespace according to the form classname first arg
+     * @param string $formType
+     * @return string
+     */
+    protected function getEntityClassName($formType)
     {
         //transform fibe\ContentBundle\Form\LocationType
         //       to fibe\ContentBundle\Entity\LocationType
@@ -57,6 +70,7 @@ abstract class AbstractSympozerTypeTransformer implements DataTransformerInterfa
         //transform fibe\ContentBundle\Entity\LocationType
         //       to fibe\ContentBundle\Entity\Location
         $className = substr($className, 0, count($className) - 5);
+
         return $className;
 
     }

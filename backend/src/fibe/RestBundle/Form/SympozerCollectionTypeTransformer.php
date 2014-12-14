@@ -29,6 +29,7 @@ class SympozerCollectionTypeTransformer extends AbstractSympozerTypeTransformer
             $output[] = $entity;
 //      $output[] =  array("id"=>$entity->getId());
         }
+
         return new \Doctrine\Common\Collections\ArrayCollection($output);
     }
 
@@ -58,6 +59,7 @@ class SympozerCollectionTypeTransformer extends AbstractSympozerTypeTransformer
             $entityId = $detachedEntity->getId();
 
         }
+
 //    throw new \Exception(\Doctrine\Common\Util\Debug::dump($output));
         return new \Doctrine\Common\Collections\ArrayCollection($output);
     }

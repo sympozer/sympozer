@@ -34,14 +34,14 @@ abstract class ACLHelper
      * @const
      */
     public static $MASK_LABELS = array(
-        'VIEW' => '[View]',
-        'EDIT' => '[Edit]',
+        'VIEW'     => '[View]',
+        'EDIT'     => '[Edit]',
         // 'CREATE' => 'CREATE',
         // 'DELETE' => 'DELETE',
         // 'UNDELETE' => 'UNDELETE',
         'OPERATOR' => '[OPERATOR] Edit/Create/Delete',
-        'MASTER' => '[MASTER] Master can give those permissions to others',
-        'OWNER' => '[OWNER] Owner can promote/demote the Master status and delete the mainEvent'
+        'MASTER'   => '[MASTER] Master can give those permissions to others',
+        'OWNER'    => '[OWNER] Owner can promote/demote the Master status and delete the mainEvent'
     );
 
 
@@ -54,63 +54,63 @@ abstract class ACLHelper
      * @const
      */
     public static $ACLEntityNameArray = array(
-        'MainEvent' => array(
-            'classpath' => 'fibe\\EventBundle\\Entity',
+        'MainEvent'           => array(
+            'classpath'        => 'fibe\\EventBundle\\Entity',
             'repositoryBundle' => 'fibeEventBundle'
         ),
-        'Team' => array(
-            'parent' => 'getMainEvent',
+        'Team'                => array(
+            'parent'    => 'getMainEvent',
             'classpath' => 'fibe\\SecurityBundle\\Entity',
         ),
-        'Teammate' => array(
-            'parent' => 'getTeam',
+        'Teammate'            => array(
+            'parent'    => 'getTeam',
             'classpath' => 'fibe\\SecurityBundle\\Entity',
         ),
-        'Event' => array(
-            'parent' => 'getMainEvent',
-            'classpath' => 'fibe\\EventBundle\\Entity',
+        'Event'               => array(
+            'parent'           => 'getMainEvent',
+            'classpath'        => 'fibe\\EventBundle\\Entity',
             'repositoryBundle' => 'fibeEventBundle'
         ),
-        'Location' => array(
-            'parent' => 'getMainEvent',
+        'Location'            => array(
+            'parent'    => 'getMainEvent',
             'classpath' => 'fibe\\ContentBundle\\Entity',
         ),
-        'Paper' => array(
-            'parent' => 'getMainEvent',
+        'Paper'               => array(
+            'parent'    => 'getMainEvent',
             'classpath' => 'fibe\\ContentBundle\\Entity',
         ),
-        'Person' => array(
+        'Person'              => array(
             'classpath' => 'fibe\\CommunityBundle\\Entity',
         ),
-        'Role' => array(
-            'parent' => 'getMainEvent',
-            'classpath' => 'fibe\\ContentBundle\\Entity',
-        ),
-        'RoleLabelVersion' => array(
-            'parent' => 'getMainEvent',
+        'Role'                => array(
+            'parent'    => 'getMainEvent',
             'classpath' => 'fibe\\ContentBundle\\Entity',
         ),
         'OrganizationVersion' => array(
-            'parent' => 'getOrganizationVersionOwner',
+            'parent'    => 'getOrganizationVersionOwner',
             'classpath' => 'fibe\\CommunityBundle\\Entity',
         ),
-//    'Topic' => array(
-//      'parent' => 'getMainEvent',
-//      'classpath' => 'fibe\\ContentBundle\\Entity',
-//      'repositoryBundle' => 'fibeContentBundle'
-//    ),
-        'Sponsor' => array(
-            'parent' => 'getMainEvent',
+        //        'RoleLabelVersion'    => array(
+        //            'parent'    => 'getMainEvent',
+        //            'classpath' => 'fibe\\ContentBundle\\Entity',
+        //        ),
+        //    'Topic' => array(
+        //      'parent' => 'getMainEvent',
+        //      'classpath' => 'fibe\\ContentBundle\\Entity',
+        //      'repositoryBundle' => 'fibeContentBundle'
+        //    ),
+        'Sponsor'             => array(
+            'parent'    => 'getMainEvent',
             'classpath' => 'fibe\\ContentBundle\\Entity',
         ),
-//    'Category' => array(
-//      'parent' => 'getMainEvent',
-//      'classpath' => 'fibe\\EventBundle\\Entity',
-//    ),
-//    'Equipment' => array(
-//      'parent' => 'getMainEvent',
-//      'classpath' => 'fibe\\ContentBundle\\Entity',
-//    ),
+        'CategoryVersion'     => array(
+            'parent'    => 'getMainEvent',
+            'classpath' => 'fibe\\EventBundle\\Entity',
+        ),
+        //    'Equipment' => array(
+        //      'parent' => 'getMainEvent',
+        //      'classpath' => 'fibe\\ContentBundle\\Entity',
+        //    ),
     );
 
     /** @var EntityManager */
@@ -132,6 +132,7 @@ abstract class ACLHelper
         {
             return call_user_func_array(array($entity, $ACLEntityInfo['parent']), array());
         }
+
         return null;
     }
 
@@ -195,6 +196,7 @@ abstract class ACLHelper
         {
             throw new \RuntimeException("[ACLHelper] Requested action $action is incorrect!");
         }
+
         return constant($mask);
     }
 
@@ -204,6 +206,7 @@ abstract class ACLHelper
         {
             return static::$MASKS[MaskBuilder::getCode($mask)];
         }
+
         return constant($mask);
     }
 }

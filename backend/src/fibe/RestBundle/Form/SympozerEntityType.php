@@ -28,7 +28,7 @@ class SympozerEntityType extends AbstractType
         // Build the given form type from the required 'type' option.
         /** @var \Symfony\Component\Form\FormTypeInterface $formType */
         if (!$options['cascade_persist'])
-        {
+        { //just make the link with the id field
             $builder->add('id');
         }
         else
@@ -41,7 +41,7 @@ class SympozerEntityType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'required' => true,
+            'required'        => true,
             'cascade_persist' => true,
         ));
         $resolver->setRequired(array(

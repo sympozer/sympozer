@@ -51,7 +51,7 @@ services:
     fibe.TeammateService:
         class:  fibe\SecurityBundle\Services\TeammateService
         parent: fibe.rest.business_service
-        arguments: ["@fibe_security.acl_user_permission_helper"]
+        arguments: ["@fibe_security.acl_user_permission_helper","@security.context"]
 
     fibe_user.registration.form.type:
         class: fibe\SecurityBundle\Form\RegistrationFormType
