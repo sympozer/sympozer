@@ -22,24 +22,11 @@ angular.module('sympozerApp').directive('input',
             link    : function (scope, element, attrs)
             {
                 //ignore not model binded element
-                var field;
-                if (attrs.sympozerErrorField)
-                {
-                    //get the model property from ng-model string
-                    var l = attrs.sympozerErrorField.split(".").length - 1;
-                    field = attrs.sympozerErrorField.split(".")[l];
-                }
-                else if (attrs.ngModel)
-                {
-                    //get the model property from ng-model string
-                    var l = attrs.ngModel.split(".").length - 1;
-                    field = attrs.ngModel.split(".")[l];
-                }
-                else
+                var field = attrs.sympozerErrorField || attrs.ngModel;
+                if (!field)
                 {
                     return console.warn("no error field found for <input> : ", element);
                 }
-
 
                 formValidation.watchField(scope, element, field);
             }

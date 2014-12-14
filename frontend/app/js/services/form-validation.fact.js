@@ -92,6 +92,9 @@ angular.module('sympozerApp').factory('formValidation', [
                 {
                     scope.formFields = {};
                 }
+
+                var field = getPtyFromNgModel(field);
+
                 scope.formFields[field] = element;
 
                 //watch the serverError scope var
@@ -162,13 +165,16 @@ angular.module('sympozerApp').factory('formValidation', [
 
         /**
          * get the model property from ngModel string
-         * @param ngModelString
-         * @returns {*}
+         * @param string ngModelString
+         * @returns string
          */
         function getPtyFromNgModel(ngModelString)
         {
-            var l = ngModelString.split(".").length - 1;
-            return ngModelString.split(".")[l];
+            //remove the first object from the field string like : mainEvent.location.label => location.label
+            var firstDotpos = ngModelString.indexOf(".");
+            return firstDotpos > 0 ? ngModelString = ngModelString.substr(firstDotpos + 1) : ngModelString;
+//            var l = ngModelString.split(".").length - 1;
+//            return ngModelString.split(".")[l];
         }
 
 
