@@ -24,38 +24,22 @@ The organization is now easier than ever with our specialized tools following at
 	
 ####Download vendors
 
+    cd backend
     sudo mkdir vendors
     sudo chmod 777 vendors/
 	composer update
 
-####Create app/config/parameters.yml
-Next, create a parameters.yml file with this text :
+####Create app/config/parameters.yml from the .TEMPLATE file
+Next, configure a parameters.yml file with your local properties :
 
-    parameters:
-        database_driver:   pdo_mysql
-        database_host:     localhost
-        database_port:     ~
-        database_name:     wwwConference
-        database_user:     root
-        database_password: ""
-        
-        mailer_transport:  smtp
-        mailer_encryption: ssl
-        mailer_auth_mode:  login
-        mailer_host:       smtp.gmail.com
-        mailer_user:       john.doe@gmail.com
-        mailer_username:   John Doe
-        mailer_password:   password
-
-        #used to generate frontend mail url
-        front_end_path:    http://localhost/sympozer/sympozer-front/app/
+    sudo cp app/config/parameters.yml.TEMPLATE app/config/parameters.yml
+    sudo nano app/config/parameters.yml
 
 For  "database_user" put your mysql user name, and "database_password" , and use your mysql password.
 After that, save and add this file to : app/config
 
 ##Step 1 : Quick initialize (linux)
 
-    cd backend
     php ./vendor/sensio/distribution-bundle/Sensio/Bundle/DistributionBundle/Resources/bin/build_bootstrap.php
     ./reset.sh
     ./cache.sh
@@ -64,7 +48,6 @@ After that, save and add this file to : app/config
 ###Step 1 : Step-by-step initialize
 ####Initialize db, generate assets
 
-    cd backend
     php app/console doctrine:database:create
     php app/console doctrine:schema:update --force
     php app/console assets:install web
