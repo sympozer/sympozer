@@ -24,6 +24,9 @@ class SympozerEntityType extends AbstractType
     {
         $transformer = new SympozerEntityTypeTransformer($this->em, $options);
         $builder->addModelTransformer($transformer);
+        $extractId = new SympozerExtractIdFormListener();
+
+        $builder->addEventSubscriber($extractId);
 
         // Build the given form type from the required 'type' option.
         /** @var \Symfony\Component\Form\FormTypeInterface $formType */

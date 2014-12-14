@@ -25,7 +25,7 @@ class SympozerEntityTypeTransformer extends AbstractSympozerTypeTransformer
             return null;
         }
         $output = array();
-        $output['id'] = $input->getId();
+        $output['id'] = $this->resolveIdFromInput($input);
 
 //        $output['label'] = $input->getLabel();
         return $output;
@@ -39,7 +39,6 @@ class SympozerEntityTypeTransformer extends AbstractSympozerTypeTransformer
      */
     public function reverseTransform($input)
     {
-//      throw new \Exception("entity reverseTransform " . \Doctrine\Common\Util\Debug::dump($input));
         if ($input == null || count($input) == 0)
         {
             return null;
