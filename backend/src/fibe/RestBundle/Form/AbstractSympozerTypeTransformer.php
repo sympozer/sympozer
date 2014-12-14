@@ -39,8 +39,7 @@ abstract class AbstractSympozerTypeTransformer implements DataTransformerInterfa
      */
     protected function getOrCreateEntity($input, $entityClassName)
     {
-        //extract entity id from the form input
-        $entityId = isset($input["id"]) ? $input["id"] : (is_string($input) ? $input : null);
+        $entityId = $this->resolveIdFromInput($input);
 
         if (!$entityId)
         {
@@ -54,6 +53,30 @@ abstract class AbstractSympozerTypeTransformer implements DataTransformerInterfa
         }
 
         return $entity;
+    }
+
+    /**
+     * @param mixed $input
+     * @return string|null
+     */
+    public static function resolveIdFromInput($input)
+    {
+        if (is_string($input))
+        {
+            return $input;
+        }
+        else if (is_object($input))
+        {
+            return $input->getId();
+        }
+        else if (is_array($input))
+        {
+            return isset($input["id"]) ? $input["id"] : null;
+        }
+        else
+        {
+            return null;
+        }
     }
 
     /**
