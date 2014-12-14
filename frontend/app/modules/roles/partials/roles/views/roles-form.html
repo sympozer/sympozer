@@ -20,13 +20,13 @@
 
 
 <div class="form-group">
-    <label class="col-sm-3 control-label" for="inputRoleLabel">{{ 'roles.model.role_label_version' | translate}}</label>
+    <label class="col-sm-3 control-label" for="inputRoleLabel">{{ 'roleLabelVersions.links.roleLabelVersion' | translate}}</label>
     <div class="col-sm-6">
         <div sympozer-autocomplete="roleLabels" required on-select="addRoleLabel" on-keyup="searchRoleLabels"></div>
         <ul class="nav nav-pills">
             <li class="active" ng-show="role.roleLabel">
                 <a href="javascript:void(0)">
-                    {{ role.roleLabelVersion.label }}
+                    {{ role.roleLabel.label }}
                 </a>
             </li>
         </ul>

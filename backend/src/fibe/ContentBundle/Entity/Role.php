@@ -20,7 +20,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  *  Don't seem to work with ajax form
  * @UniqueEntity(
- *     fields={"person", "event","roleLabelVersion"},
+ *     fields={"person", "event","roleLabel"},
  *     errorPath="role",
  *     message="This person has already this role at this event"
  * )
@@ -91,7 +91,7 @@ class Role
         $eventLabel = $this->getEvent() ? $this->getEvent()->getlabel(): $this->getMainEvent()->getlabel();
         $this->setLabel(sprintf("%s is %s at %s",
             $this->getPerson()->getLabel(),
-            $this->getRoleLabelVersion()->getlabel(),
+            $this->getRoleLabel()->getlabel(),
             $eventLabel
 
         ));

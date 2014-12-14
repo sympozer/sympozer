@@ -15,22 +15,22 @@ angular.module('rolesApp').controller('rolesListCtrl', [
 
 
         roleLabelsFact.allByConference({'mainEventId': $routeParams.mainEventId}, function(response){
-            $scope.roleLabelVersions = response.results;
+            $scope.roleLabels = response.results;
         });
 
         //Request to trigger when loading a new page or more data (with infinite-scroll)
         $scope.request = rolesFact.allByConference;
 
 
-        $scope.filters.roleLabelVersionIds = [];
+        $scope.filters.roleLabelIds = [];
 
         //Filter role list by rolelabel
-        $scope.addRoleLabelsFilter= function(roleLabelVersionId){
-            var roleLabelVersionIndex = $scope.filters.roleLabelVersionIds.indexOf(roleLabelVersionId)
-            if( roleLabelVersionIndex == -1){
-                $scope.filters.roleLabelVersionIds.push(roleLabelVersionId);
+        $scope.addRoleLabelsFilter= function(roleLabelId){
+            var roleLabelIndex = $scope.filters.roleLabelIds.indexOf(roleLabelId)
+            if( roleLabelIndex == -1){
+                $scope.filters.roleLabelIds.push(roleLabelId);
             }else{
-                $scope.filters.roleLabelVersionIds.splice(roleLabelVersionIndex, 1);
+                $scope.filters.roleLabelIds.splice(roleLabelIndex, 1);
             }
             $scope.filter();
         }

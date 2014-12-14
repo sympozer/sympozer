@@ -438,21 +438,6 @@ class MainEvent extends VEvent
     $this->eventLocations = $eventLocations;
   }
 
-  /**
-   * @return mixed
-   */
-  public function getRoleLabelVersions()
-  {
-    return $this->roleLabelVersions;
-  }
-
-  /**
-   * @param mixed $roleLabelVersions
-   */
-  public function setRoleLabelVersions($roleLabelVersions)
-  {
-    $this->roleLabelVersions = $roleLabelVersions;
-  }
 
   /**
    * @return Person

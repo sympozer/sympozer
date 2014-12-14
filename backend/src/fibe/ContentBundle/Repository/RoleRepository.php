@@ -44,11 +44,11 @@ class RoleRepository extends EntityRepository
             ;
         }
 
-        if(isset($params['roleLabelVersionIds'])) {
+        if(isset($params['roleLabelIds'])) {
 
             $qb
-                ->leftJoin('qb.roleLabelVersion', 'rol')
-                ->andWhere($qb->expr()->in('rol.id', $params['roleLabelVersionIds']));
+                ->leftJoin('qb.roleLabel', 'rol')
+                ->andWhere($qb->expr()->in('rol.id', $params['roleLabelIds']));
 
         }
 
@@ -63,11 +63,11 @@ class RoleRepository extends EntityRepository
         }
 
 
-        if (isset($params['roleLabelVersionId']))
+        if (isset($params['roleLabelId']))
         {
             $qb
-                ->andWhere('qb.roleLabelVersion = :roleLabelVersionId')
-                ->setParameter('roleLabelVersionId', $params['roleLabelVersionId']);
+                ->andWhere('qb.roleLabel = :roleLabelId')
+                ->setParameter('roleLabelId', $params['roleLabelId']);
         }
 
         return $qb;

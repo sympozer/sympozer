@@ -484,8 +484,8 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 print: 'Print role label'
             },
             links: {
-                roleLabelVersions: 'roles labels',
-                roleLabelVersion: 'role label'
+                roleLabelVersions: 'Roles labels',
+                roleLabelVersion: 'Role label'
             },
             labels: {},
             validations: {

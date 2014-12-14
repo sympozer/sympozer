@@ -53,7 +53,7 @@ angular.module('rolesApp').controller('rolesNewCtrl',
                 if (form.$valid)
                 {
                     //Set main event of the new role
-                    $scope.role.mainEvent = $routeParams.mainEventId;
+                    $scope.role.mainEvent = { id : $routeParams.mainEventId};
                     rolesFact.create(rolesFact.serialize($scope.role), success, error);
                 }
             }
@@ -99,12 +99,12 @@ angular.module('rolesApp').controller('rolesNewCtrl',
                         }
                     });
                     modalInstance.result.then(function (newRoleLabel) {
-                        $scope.role.roleLabelVersion = newRoleLabel;
+                        $scope.role.roleLabel = newRoleLabel;
                     }, function () {
                         //$log.info('Modal dismissed at: ' + new Date());
                     });
                 }else{
-                    $scope.role.roleLabelVersion = roleLabelModel;
+                    $scope.role.roleLabel = roleLabelModel;
                 }
             }
 
