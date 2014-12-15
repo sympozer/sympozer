@@ -111,7 +111,7 @@ angular.module('rolesApp').controller('rolesNewCtrl',
                   });
                   modalInstance.result.then(function (newRoleLabel)
                   {
-                      $scope.role.roleLabelVersion = newRoleLabel;
+                      $scope.role.roleLabel = newRoleLabel;
                   }, function ()
                   {
                       //$log.info('Modal dismissed at: ' + new Date());
@@ -119,7 +119,7 @@ angular.module('rolesApp').controller('rolesNewCtrl',
               }
               else
               {
-                  $scope.role.roleLabelVersion = roleLabelModel;
+                  $scope.role.roleLabel = roleLabelModel;
               }
           }
 
