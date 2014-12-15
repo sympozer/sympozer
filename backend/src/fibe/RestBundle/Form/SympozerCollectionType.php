@@ -23,15 +23,15 @@ class SympozerCollectionType extends AbstractType
 
     /**
      * inspired by \Symfony\Component\Form\Extension\Core\Type\CollectionType->buildForm()
-     * Uses a modified version of the symfony's default Listener for collection  (@see \Symfony\Component\Form\Extension\Core\Type\CollectionType]
-     * that build a 'sympozer_entity_type' instead of the one given in the 'type' param
+     * use the symfony's default Listener for collection  (@see \Symfony\Component\Form\Extension\Core\Type\CollectionType]
+     * => build a 'sympozer_entity_type' instead of the one given in the 'type' param
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
 
 
-        //use a modified version of the symfony's default Listener for collection  (@see \Symfony\Component\Form\Extension\Core\Type\CollectionType]
-        // that build a 'sympozer_entity_type' instead of the one given in the 'type' param
+        //use the symfony's default Listener for collection  (@see \Symfony\Component\Form\Extension\Core\Type\CollectionType]
+        // => build a 'sympozer_entity_type' instead of the one given in the 'type' param
         $options['options'] = array(
             'type'               => $options['type'],
             'cascade_persist'    => $options['cascade_persist'],
@@ -70,14 +70,6 @@ class SympozerCollectionType extends AbstractType
             'type',
         ));
     }
-
-    /**
-     * {@inheritdoc}
-     */
-//    public function getParent()
-//    {
-//        return 'collection';
-//    }
 
     /**
      * {@inheritdoc}

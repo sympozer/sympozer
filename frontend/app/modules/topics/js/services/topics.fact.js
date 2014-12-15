@@ -8,7 +8,7 @@
 angular.module('topicsApp').factory('topicsFact',
     ['$resource', '$cachedResource', function ($cachedResource)
     {
-        return $cachedResource(
+        var resource = $cachedResource(
             globalConfig.api.urls.get_topics,
             {},
             {
@@ -20,4 +20,17 @@ angular.module('topicsApp').factory('topicsFact',
                 allByConference: {method: 'GET', url: globalConfig.api.urls.get_mainEvents + '/:mainEventId/topics', params: {'mainEventId': '@mainEventId'}, isArray: false}
             }
         );
+
+        //Construct a DTO object to send to server (Data Transfert Object)
+        resource.serialize = function (object) {
+            var DTObject = {
+                'id': object.id,
+                'label': object.label
+            }
+
+            //create the new resource object from DTObject
+            return new resource(DTObject);
+        }
+
+        return resource;
     }]);

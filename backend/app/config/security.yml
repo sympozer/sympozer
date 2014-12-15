@@ -69,7 +69,8 @@ security:
                     linkedin:       "/login/check-linkedin"
                 login_path:        /login
                 failure_path:      /login
-                default_target_path: /Dashboard
+                default_target_path: /
+                use_forward:       false
                 success_handler: authentication_handler
                 failure_handler: authentication_handler
                 # use_forward:       true

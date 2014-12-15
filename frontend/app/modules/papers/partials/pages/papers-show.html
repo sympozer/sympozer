@@ -3,7 +3,7 @@
 
     <div ng-include="GLOBAL_CONFIG.app.urls.partials+'navigation/breadcrumb.html'"></div>
 
-    <h1>{{'papers.links.papers' | translate }}</h1>
+    <h1>{{'papers.actions.view' | translate }}</h1>
 
     <div class="options">
         <div class="btn-toolbar">
@@ -22,53 +22,81 @@
 
                     <div class="well">
                         <div class="row">
-                            <div class="col-sm-1 col-md-1 col-lg-1">
+                            <div class="col-sm-2 col-md-2 col-lg-2">
                                 <div class="img-container-lg">
                                     <i class="fa fa-book fa-5x"></i>
                                 </div>
-                            </div>
-                            <div class="col-sm-4 col-md-4 col-lg-4">
-                                <h3>{{paper.label || '???'}}</h3> <h5>{{paper.publisher || '???'}} {{paper.publishDate || '???'}}</h5>
-                                <p>{{ paper.url }}</p>
-                                <pre>{{paper.abstract || 'add an abstract'}}</pre>
                                 <a class="btn btn-info" href="#/home/conference/{{paper.mainEvent.id}}/papers/edit/{{paper.id}}" role="button">
-                                    <i class="fa fa-edit fa-1x"></i> {{ 'papers.actions.edit' | translate}}
+                                    <i class="fa fa-edit fa-1x"></i>
+                                    <span class="visible-sm-inline visible-lg-inline  visible-md-inline ">
+                                        {{ 'global.actions.edit' | translate}}
+                                    </span>
                                 </a>
+                            </div>
+                            <div class="col-sm-10 col-md-10 col-lg-10">
+
+                                <h2>{{paper.label}}</h2>
+                                <h5>{{paper.publisher || '???'}} {{paper.publishDate || '???'}}</h5>
+                                <p>{{ paper.url }}</p>
+                                <pre>{{paper.abstract}}</pre>
                             </div>
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="col-md-6 col-lg-6">
-                            <h1>{{paper.authors.length}}  {{ 'papers.model.authors' | translate}}</h1>
-                            <div ng-repeat="person in paper.authors track by $index" class="col-sm-6 col-md-6 col-lg-4 well">
-                                <div class="img-container-lg">
-                                    <img class="scale-img " no-image ng-src="{{ person.img}}"  alt="Auhtor image">
-                                </div>
-                                <h3>{{ person.label }}</h3>
-
-                                <p>{{ person.email }}</p>
-
-                                <p>{{ person.country }}</p>
-                                <a class="btn btn-warning" href="#persons/edit/{{ person.id }}" role="button"><i class="fa fa-edit fa-1x"></i></a>
-                                <a class="btn btn-default" href="#persons/show/{{ person.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-lg-3">
-                            <h1>{{paper.topics.length}} Topics</h1>
-                            <ul class="nav nav-pills">
-                                <li class="active" ng-repeat="topic in paper.topics track by $index">
-                                    <a href="#topic/show/{{ topic.id }}">
-                                        <span class="badge pull-right">{{topic.vEvents.length}}</span>
-                                        {{ topic.label }}
+                            <panel panel-class="panel panel-gray" heading="{{paper.authors.length}}  {{ 'papers.model.authors' | translate}}">
+                                <panel-controls>
+                                    <a href="">
+                                        <panel-control-collapse class="fa fa-chevron-down"></panel-control-collapse>
                                     </a>
-                                </li>
-                            </ul>
+                                </panel-controls>
+                                <div ng-repeat="person in paper.authors track by $index"  ng-show="paper.authors" class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                    <tile type="midnightblue">
+                                        <tile-heading>
+                                            <div class="row">
+                                                <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                                                    <span class="ellipsis">{{ person.label }}</span>
+
+                                                </div>
+                                                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                                                    <a class="btn btn-default btn-xs" href="#home/persons/show/{{ person.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>
+
+                                                </div>
+                                            </div>
+                                            </button>
+                                        </tile-heading>
+                                        <img class="img-responsive" no-image ng-src="{{ person.img }}"/>
+                                    </tile>
+                                </div>
+                            </panel>
+                        </div>
+
+
+
+                        <div class="col-md-6 col-lg-6">
+
+                            <panel panel-class="panel panel-gray" heading="{{paper.topics.length}}  {{ 'topics.links.topics' | translate}}">
+                                <panel-controls>
+                                    <a href="">
+                                        <panel-control-collapse class="fa fa-chevron-down"></panel-control-collapse>
+                                    </a>
+                                </panel-controls>
+                                <ul class="nav nav-pills">
+                                    <li class="active" ng-repeat="topic in paper.topics track by $index">
+                                        <a href="#home/topic/show/{{ topic.id }}">
+                                            <i class="fa fa-tag"></i>
+                                            {{ topic.label }}
+                                        </a>
+                                    </li>
+                                </ul>
+                            </panel>
                         </div>
                     </div>
-
                 </div>
+
             </div>
         </div>
     </div>
+</div>
 </div>

@@ -61,12 +61,14 @@ angular.module('sympozerApp').directive('sympozerAutocomplete', [
                 /**
                  * fired when a selection is done on the autocomplete list
                  * @param $item represents the selected item
-                 * @param $model represents the selected item
                  */
-                scope.select = function ($item, $model)
+                scope.select = function ($item)
                 {
-                    //Trigger the onSelect from the controller responsible for the view
-                    scope.onSelect($model);
+                    if($item){
+                        //Trigger the onSelect from the controller responsible for the view
+                        scope.onSelect($item);
+                    }
+
 
                 }
             }

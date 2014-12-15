@@ -14,7 +14,7 @@ angular.module('teammatesApp')
                     templateUrl: globalConfig.app.modules.teammates.urls.partials + 'page/teammates-index.html',
                     controller : 'teammatesIndexCtrl'
                 })
-                .when('/teammates/new', {
+                .when('/conference/:mainEventId/teammates/new', {
                     templateUrl: globalConfig.app.modules.teammates.urls.partials + 'page/teammates-new.html',
                     controller : 'teammatesNewCtrl'
                 })

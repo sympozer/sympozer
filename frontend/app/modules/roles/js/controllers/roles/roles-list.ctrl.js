@@ -14,7 +14,8 @@ angular.module('rolesApp').controller('rolesListCtrl', [
         $scope.filters = {};
 
 
-        roleLabelsFact.allByConference({'mainEventId': $routeParams.mainEventId}, function(response){
+        roleLabelsFact.allByConference({'mainEventId': $routeParams.mainEventId}, function (response)
+        {
             $scope.roleLabels = response.results;
         });
 
@@ -25,15 +26,19 @@ angular.module('rolesApp').controller('rolesListCtrl', [
         $scope.filters.roleLabelIds = [];
 
         //Filter role list by rolelabel
-        $scope.addRoleLabelsFilter= function(roleLabelId){
+        $scope.addRoleLabelsFilter = function (roleLabelId)
+        {
             var roleLabelIndex = $scope.filters.roleLabelIds.indexOf(roleLabelId)
-            if( roleLabelIndex == -1){
+            if (roleLabelIndex == -1)
+            {
                 $scope.filters.roleLabelIds.push(roleLabelId);
-            }else{
+            }
+            else
+            {
                 $scope.filters.roleLabelIds.splice(roleLabelIndex, 1);
             }
             $scope.filter();
-        }
+        };
 
 
         $scope.clone = function (role)
@@ -46,8 +51,8 @@ angular.module('rolesApp').controller('rolesListCtrl', [
                 //Notify of the creation action error
                 pinesNotifications.notify({
                     title: translateFilter('global.validations.error'),
-                    text: translateFilter('roles.validations.not_created'),
-                    type: 'error'
+                    text : translateFilter('roles.validations.not_created'),
+                    type : 'error'
                 });
             };
 
@@ -56,8 +61,8 @@ angular.module('rolesApp').controller('rolesListCtrl', [
                 //Notify of the creation action success
                 pinesNotifications.notify({
                     title: translateFilter('global.validations.success'),
-                    text: translateFilter('roles.validations.created'),
-                    type: 'success'
+                    text : translateFilter('roles.validations.created'),
+                    type : 'success'
                 });
                 $scope.entities.push(response);
             };
@@ -66,23 +71,24 @@ angular.module('rolesApp').controller('rolesListCtrl', [
         };
 
 
-
         $scope.deleteModal = function (index, role)
         {
             $scope.index = index;
 
             var modalInstance = $modal.open({
                 templateUrl: GLOBAL_CONFIG.app.modules.roles.urls.partials + 'modals/roles-delete-modal.html',
-                controller: 'rolesDeleteCtrl',
-                size: "large",
-                resolve: {
-                   roleModel : function(){
+                controller : 'rolesDeleteCtrl',
+                size       : "large",
+                resolve    : {
+                    roleModel: function ()
+                    {
                         return role;
                     }
                 }
             });
 
-            modalInstance.resolve = function(){
+            modalInstance.resolve = function ()
+            {
                 $scope.entities.splice(index, 1);
             }
         }

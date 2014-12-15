@@ -90,10 +90,10 @@ abstract class ACLHelper
             'parent'    => 'getOrganizationVersionOwner',
             'classpath' => 'fibe\\CommunityBundle\\Entity',
         ),
-        //        'RoleLabelVersion'    => array(
-        //            'parent'    => 'getMainEvent',
-        //            'classpath' => 'fibe\\ContentBundle\\Entity',
-        //        ),
+        'RoleLabel'           => array(
+            'parent'    => 'getMainEvent',
+            'classpath' => 'fibe\\ContentBundle\\Entity',
+        ),
         //    'Topic' => array(
         //      'parent' => 'getMainEvent',
         //      'classpath' => 'fibe\\ContentBundle\\Entity',

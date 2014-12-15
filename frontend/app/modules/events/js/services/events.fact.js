@@ -51,7 +51,7 @@ angular.module('eventsApp').factory('eventsFact',
             return new resource(DTObject);
         }
 
-        //Handle clone function
+        // clone function
         resource.clone = function (event, success, error)
         {
             var cloneEvent = angular.copy(event);

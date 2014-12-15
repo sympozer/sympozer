@@ -46,6 +46,6 @@ angular.module('papersApp').controller('papersDeleteCtrl', [ '$scope', 'paperMod
     //Send delete request
     $scope.delete = function ()
     {
-        papersFact.delete($scope.role, success, error);
+        papersFact.delete($scope.paper, success, error);
     }
 }]);

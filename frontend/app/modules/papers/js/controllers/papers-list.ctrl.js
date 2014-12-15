@@ -14,10 +14,9 @@ angular.module('papersApp').controller('papersListCtrl', ['$scope', '$routeParam
 
 
     //Clone function, create a copy of a specific paper
-    $scope.clone = function (paper)
+    $scope.clone = function (paper, index)
     {
-        var clonePaper = angular.copy(paper);
-        delete clonePaper.id;
+        $scope.index = index;
 
         var error = function (response, args)
         {
@@ -37,11 +36,13 @@ angular.module('papersApp').controller('papersListCtrl', ['$scope', '$routeParam
                 text: translateFilter('papers.validations.created'),
                 type: 'success'
             });
-            $scope.entities.push(response);
+            debugger;
+            $scope.entities.splice($scope.index + 1, 0, response);
+
         };
 
         //Send post request to server
-        clonePaper.$create({}, success, error);
+        papersFact.clone(paper, success, error);
     };
 
 

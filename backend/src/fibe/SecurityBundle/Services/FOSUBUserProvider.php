@@ -1,13 +1,13 @@
 <?php
 namespace fibe\SecurityBundle\Services;
  
+use Doctrine\ORM\ORMException;
 use fibe\SecurityBundle\Entity\User;
+use FOS\UserBundle\Model\UserManagerInterface;
 use HWI\Bundle\OAuthBundle\OAuth\Response\UserResponseInterface;
 use HWI\Bundle\OAuthBundle\Security\Core\User\FOSUBUserProvider as BaseFOSUBUserProvider;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Security\Core\User\UserInterface;
-use FOS\UserBundle\Model\UserManagerInterface;
-use Doctrine\ORM\ORMException;
 
 /**
  *  Social media user provider @see https://gist.github.com/danvbe/4476697#file-fosubuserprovider-php
@@ -81,23 +81,45 @@ class FOSUBUserProvider extends BaseFOSUBUserProvider
       }
     } 
     //just login 
-    private function login(UserInterface $user,$serviceName,UserResponseInterface $response)
+
+    private function enrich(UserInterface $user, $serviceName, UserResponseInterface $response)
     {
       $setter = 'set' . ucfirst($serviceName) . 'AccessToken';
       $user->$setter($response->getAccessToken());
-      $this->session->getFlashBag()->add('success', 'Welcome back!');
-      return $user; 
-    } 
+        $this->enrichUserDatas($user, $serviceName, $response);
+        $this->session->getFlashBag()->add('success', 'account enriched.');
+
+        return $user;
+    }
 
     //enrich account on demand
-    private function enrich(UserInterface $user,$serviceName,UserResponseInterface $response)
-    { 
-      $setter = 'set' . ucfirst($serviceName) . 'AccessToken';
-      $user->$setter($response->getAccessToken());
-      $this->enrichUserDatas($user,$serviceName,$response);
-      $this->session->getFlashBag()->add('success', 'account enriched.');
-      return $user; 
-    } 
+
+    private function enrichUserDatas(User $user, $serviceName, UserResponseInterface $response)
+    {
+        $mail = $response->getEmail();
+        if (!empty($mail))
+        {
+            $user->setEmail($mail);
+        }
+
+        $realName = $response->getRealName();
+        if (!empty($realName))
+        {
+            $user->setName($realName);
+        }
+
+        $profilePicture = $response->getProfilePicture();
+        if (!empty($profilePicture))
+        {
+            $user->setPicture($profilePicture);
+        }
+
+        if ($serviceName == "twitter")
+        {
+            $user->setTwitterScreenName($response->getNickName());
+        }
+        $this->userService->put($user);
+    }
 
   /**
    *  No user with this social service Id and not logged
@@ -149,31 +171,19 @@ class FOSUBUserProvider extends BaseFOSUBUserProvider
 
 
       return $user;
-    } 
-
-    private function enrichUserDatas(User $user,$serviceName,UserResponseInterface $response)
-    {
-      $mail = $response->getEmail();
-      if(!empty($mail))
-          $user->setEmail($mail);
-
-      $realName = $response->getRealName();
-      if(!empty($realName))
-          $user->setName($realName);
-
-      $profilePicture = $response->getProfilePicture();
-      if(!empty($profilePicture))
-          $user->setPicture($profilePicture);
-
-      if($serviceName == "twitter"){
-        $user->setTwitterScreenName($response->getNickName());
-      }
-      $this->userService->put($user);
     }
 
+    private function login(UserInterface $user, $serviceName, UserResponseInterface $response)
+    {
+        $setter = 'set' . ucfirst($serviceName) . 'AccessToken';
+        $user->$setter($response->getAccessToken());
+        $this->session->getFlashBag()->add('success', 'Welcome back!');
+
+        return $user;
+    }
 
     /**
-     * actually, don't when this function is called...
+     * actually, don't know when this function is called...
      * {@inheritDoc}
      */
     public function connect(UserInterface $user, UserResponseInterface $response)

@@ -1,32 +1,40 @@
 <div class="table-responsive">
 
-<table class="table table-striped">
-    <thead>
-    <tr>
-        <th>{{ 'papers.model.label' | translate}}<i class="fa fa-sort-asc" ng-click="order('label','ASC')"></i><i class="fa fa-sort-desc" ng-click="order('label','DESC')"></i>
-        <th>{{ 'papers.model.abstract' | translate}}</th>
-        <th>{{ 'papers.model.url' | translate}}</th>
-        <th>{{ 'papers.model.publisher' | translate}}</th>
-        <th>{{ 'papers.model.publish_date' | translate}}</th>
-    </tr>
-    </thead>
-    <tbody entity-list-handler="papers" infinite-scroll='load()' infinite-scroll-disabled='busy' infinite-scroll-distance='0.5'>
-    <tr ng-repeat="paper in entities  track by $index">
-        <td>{{ paper.label }}</td>
-        <td>{{ paper.abstract }}</td>
-        <td>{{ paper.url }}</td>
-        <td>{{ paper.publisher }}</td>
-        <td>{{ paper.publishDate }}</td>
-        <td>
-            <a class="btn btn-warning" href="#/home/conference/{{ paper.mainEvent.id }}/papers/edit/{{ paper.id }}" role="button"><i class="fa fa-edit fa-1x"></i></a>
-            <a class="btn btn-default" href="#/home/conference/{{ paper.mainEvent.id }}/papers/show/{{ paper.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>
-            <a class="btn btn-primary" href="" data-ng-click="clone(paper)" role="button"><i class="fa fa-files-o fa-1x"></i></a>
-            <button class="btn btn-danger" data-ng-click="deleteModal($index, paper)" role="button">
-                <i class="fa fa-trash-o fa-1x"></i></button>
-        </td>
-    </tr>
-    </tbody>
-</table>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>{{ 'papers.model.label' | translate}}<i class="fa fa-sort-asc" ng-click="order('label','ASC')"></i><i class="fa fa-sort-desc" ng-click="order('label','DESC')"></i>
+            <th style="width:5%">{{ 'papers.model.authors' | translate}}</th>
+            <th>{{ 'papers.model.url' | translate}}</th>
+            <th>{{ 'papers.model.publisher' | translate}}</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody entity-list-handler="papers" infinite-scroll='load()' infinite-scroll-disabled='busy' infinite-scroll-distance='0.5'>
+        <tr ng-repeat="paper in entities  track by $index">
+            <td>{{ paper.label }}</td>
+            <td>
+
+                <img style="height:10%" no-image ng-src="author.img" ng-repeat="author in paper.authors  track by $index">
+            </td>
+            <td>{{ paper.url }}</td>
+            <td>{{ paper.publisher }} - {{ paper.publishDate }}</td>
+            <td>
+
+                <a class="btn btn-warning btn-sm" href="#/home/conference/{{ paper.mainEvent.id }}/papers/edit/{{ paper.id }}" role="button"><i class="fa fa-edit fa-1x"></i></a>
+
+                <a class="btn btn-default btn-sm" href="#/home/conference/{{ paper.mainEvent.id }}/papers/show/{{ paper.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>
+
+                <a class="btn btn-primary btn-sm" href="" data-ng-click="clone(paper, $index)" role="button"><i class="fa fa-files-o fa-1x"></i></a>
+
+                <button class="btn btn-danger btn-sm" data-ng-click="deleteModal($index, paper)" role="button">
+                    <i class="fa fa-trash-o fa-1x"></i>
+                </button>
+
+            </td>
+        </tr>
+        </tbody>
+    </table>
 </div>
 
 

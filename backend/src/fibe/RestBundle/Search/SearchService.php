@@ -93,6 +93,8 @@ class SearchService implements SearchServiceInterface
      */
     protected function getSearchFields($entityClassName)
     {
+//        return array('label');
+        // look for fields annoted with \Doctrine\ORM\Mapping\Column(type='string')
         $searchFields = [];
         $reflectionObject = new \ReflectionObject(new $entityClassName());
 

@@ -1,3 +1,4 @@
+'use strict';
 /**
  * sympozerKeepOnlyId directive
  * Remove every links in the given entity to keep only ids. For instance a person with papers like :
@@ -12,8 +13,6 @@
  * @param entity
  * @returns {{}}
  */
-
-'use strict';
 angular.module('sympozerApp').filter('sympozerKeepOnlyId', function ()
 {
     return function (entity)

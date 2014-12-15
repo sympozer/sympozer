@@ -1,15 +1,17 @@
-<input type="text" ng-model="entity" typeahead-template-url="topics-typeahead.html" typeahead-on-select="select($item, $model, entity)" placeholder="{{ 'topics.actions.search' | translate }}..." typeahead-wait-ms="500" typeahead="entity as entity.label for entity in keyup($viewValue)" typeahead-loading="loading" class="form-control">
-<i ng-show="loading" class="fa fa-spinner fa-spin"></i>
 
+<div class="input-group">
+    <div>
+        <input type="text" name="topicInput" ng-model="entity" ng-init="entity=$viewValue" typeahead-min-length="3" typeahead-editable="true" typeahead-template-url="topics-typeahead.html" typeahead-on-select="select($item, $model, $viewValue)" placeholder="{{ 'topics.actions.search' | translate }}..." typeahead-wait-ms="500" typeahead="entity as entity.label for entity in keyup($viewValue)" typeahead-loading="loading" class="form-control">
+    </div>
+
+    <div class="input-group-btn">
+        <button type="button" class="btn btn-default" ng-disabled="!entity" ng-click="select(entity)">
+            <i ng-show="!loading" class="fa fa-plus"></i>
+            <i ng-show="loading" class="fa fa-spinner fa-spin"></i>
+        </button>
+    </div>
+</div>
 
 <script type="text/ng-template" id="topics-typeahead.html">
-  <div style="width:100%">
-        <span ng-if="!match.model.id">
-            <hr/>
-             <i class="fa fa-plus"></i> {{ 'topics.actions.new' | translate }}...
-         </span>
-        <span ng-if="match.model.id">
-            <span bind-html-unsafe="match.model.label | typeaheadHighlight:query"></span>
-        </span>
-  </div>
+    <span bind-html-unsafe="match.model.label | typeaheadHighlight:query"></span>
 </script>

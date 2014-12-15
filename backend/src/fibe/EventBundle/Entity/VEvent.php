@@ -382,6 +382,14 @@ abstract class VEvent
     }
 
     /**
+     * @return mixed
+     */
+    public function getLabel()
+    {
+        return $this->label;
+    }
+
+    /**
      * Validates start is before end
      *  don't perform the check if one date is missing
      * @Assert\True(message = "{'field' : 'endAt', 'msg' : 'EventFormValidation_start_is_after_end_error'}")
@@ -394,6 +402,7 @@ abstract class VEvent
         {
             return $this->startAt < $this->endAt;
         }
+
         return true;
     }
 
@@ -563,6 +572,7 @@ abstract class VEvent
                 return true;
             }
         }
+
         return false;
     }
 
@@ -588,6 +598,14 @@ abstract class VEvent
         $this->isInstant = $isInstant;
 
         return $this;
+    }
+
+    /**
+     * @param mixed $label
+     */
+    public function setLabel($label)
+    {
+        $this->label = $label;
     }
 
     /**

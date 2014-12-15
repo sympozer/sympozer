@@ -1,38 +1,37 @@
 <div class="table-responsive">
 
-    <table class="table table-striped ">
-        <thead>
-        <tr>
-            <th></th>
-            <th>{{ 'roles.model.person' | translate}}</th>
-            <th>{{ 'roles.model.role_label_version' | translate}}</th>
-            <th>{{ 'roles.model.event' | translate}}</th>
-        </tr>
-        </thead>
-        <tbody infinite-scroll='load()' infinite-scroll-disabled='busy' infinite-scroll-distance='0.5'>
-        <tr ng-repeat="role in entities  track by $index">
+  <table class="table table-striped ">
+    <thead>
+    <tr>
+      <th></th>
+      <th>{{ 'roles.model.person' | translate}}</th>
+      <th>{{ 'roles.model.role_label' | translate}}</th>
+      <th>{{ 'roles.model.event' | translate}}</th>
+    </tr>
+    </thead>
+    <tbody infinite-scroll='load()' infinite-scroll-disabled='busy' infinite-scroll-distance='0.5'>
+    <tr ng-repeat="role in entities  track by $index">
 
-            <td>
-                <img ng-src="{{ role.person.img}}" class="img-responsive" no-image="" style="max-height:50px"/>
-            </td>
-            <td>
-                {{ role.person.label }} -
-                {{ role.person.organization.label}}
-            </td>
-            <td>{{ role.roleLabel.label }}</td>
-            <td>{{ role.event.label }}</td>
+      <td>
+        <img ng-src="{{ role.person.img}}" class="img-responsive" no-image="" style="max-height:50px"/>
+      </td>
+      <td>
+        {{ role.person.label }} -
+        {{ role.person.organizationVersion.label}}
+      </td>
+      <td>{{ role.roleLabel.label }}</td>
+      <td>{{ role.event.label }}</td>
 
-            <td>
-                <a class="btn btn-warning" href="#/home/conference/{{ role.mainEvent.id }}/roles/edit/{{ role.id }}" role="button"><i class="fa fa-edit fa-1x"></i></a>
-                <a class="btn btn-default" href="#/home/conference/{{ role.mainEvent.id }}/roles/show/{{ role.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>
-                <a class="btn btn-primary" href="" data-ng-click="clone(role)" role="button"><i class="fa fa-files-o fa-1x"></i></a>
-                <button class="btn btn-danger" data-ng-click="deleteModal($index, role)" role="button">
-                    <i class="fa fa-trash-o fa-1x"></i></button>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-
+      <td>
+        <a class="btn btn-warning" href="#/home/conference/{{ role.mainEvent.id }}/roles/edit/{{ role.id }}" role="button"><i class="fa fa-edit fa-1x"></i></a>
+        <a class="btn btn-default" href="#/home/conference/{{ role.mainEvent.id }}/roles/show/{{ role.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>
+        <a class="btn btn-primary" href="" data-ng-click="clone(role)" role="button"><i class="fa fa-files-o fa-1x"></i></a>
+        <button class="btn btn-danger" data-ng-click="deleteModal($index, role)" role="button">
+          <i class="fa fa-trash-o fa-1x"></i></button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
 
 
 </div>

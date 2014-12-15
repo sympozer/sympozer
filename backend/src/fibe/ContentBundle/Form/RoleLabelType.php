@@ -2,6 +2,7 @@
 
 namespace fibe\ContentBundle\Form;
 
+use fibe\EventBundle\Form\MainEventType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -21,7 +22,12 @@ class RoleLabelType extends AbstractType
         $builder
             ->add('id')
             ->add('label')
-            ->add('description');
+            ->add('description')
+            ->add('mainEvent', 'sympozer_entity_type', array(
+                'type'            => new MainEventType(),
+                'required'        => true,
+                'cascade_persist' => false,
+            ));
 
 //            ->add('roles', 'collection', array(
 //                'type' => new RoleType(),
@@ -36,7 +42,7 @@ class RoleLabelType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'fibe\ContentBundle\Entity\RoleLabel',
+            'data_class'      => 'fibe\ContentBundle\Entity\RoleLabel',
             'csrf_protection' => false
         ));
     }

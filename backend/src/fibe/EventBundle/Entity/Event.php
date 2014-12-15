@@ -3,7 +3,6 @@
 namespace fibe\EventBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\Event\PreFlushEventArgs;
 use Doctrine\ORM\Mapping as ORM;
 use fibe\ContentBundle\Entity\Paper;
 use fibe\ContentBundle\Util\StringTools;
@@ -41,7 +40,7 @@ class Event extends VEvent
      * @ORM\Column(type="string", length=255, unique=false, nullable=false)
      * @Expose
      */
-    private $label;
+    protected $label;
     /**
      * The parent of the event
      *
@@ -49,13 +48,13 @@ class Event extends VEvent
      * @ORM\JoinColumn(name="parent_id", referencedColumnName="id", onDelete="SET NULL", nullable=true)
      * @Expose
      */
-    private $parent;
+    protected $parent;
     /**
      * The events who are children
      *
      * @ORM\OneToMany(targetEntity="fibe\EventBundle\Entity\Event", mappedBy="parent", cascade={"persist"})
      */
-    private $children;
+    protected $children;
     /**
      * Main Event
      *
@@ -64,11 +63,11 @@ class Event extends VEvent
      * @Expose
      * @SerializedName("mainEvent")
      */
-    private $mainEvent;
+    protected $mainEvent;
     /**
      * @ORM\Column(type="string", length=128, nullable=true)
      */
-    private $slug;
+    protected $slug;
     /**
      * Papers presented at an event
      *
@@ -79,14 +78,14 @@ class Event extends VEvent
      * @Expose
      * @MaxDepth(1)
      */
-    private $papers;
+    protected $papers;
 
     /**
      * Roles for the event
      *
      * @ORM\OneToMany(targetEntity="fibe\ContentBundle\Entity\Role", mappedBy="event", cascade={"persist"})
      */
-    private $roles;
+    protected $roles;
 
     /**
      * Constructor
@@ -125,28 +124,12 @@ class Event extends VEvent
 
     /**
      * Slugify
-     *
-     * @ORM\PrePersist()
      */
-    public function slugify()
+    protected function slugify()
     {
+        echo $this->getLabel();
+        throw new \Exception("slug event");
         $this->setSlug(StringTools::slugify(hash('sha256', uniqid(mt_rand(), true), true) . $this->getLabel()));
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getLabel()
-    {
-        return $this->label;
-    }
-
-    /**
-     * @param mixed $label
-     */
-    public function setLabel($label)
-    {
-        $this->label = $label;
     }
 
     /**

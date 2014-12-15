@@ -152,16 +152,6 @@ services:
             - ~
         calls:
             - [ setTranslationDomain, [ContentBundle]]
-    sonata.admin.rolelabelVersion:
-        class: fibe\AdminBundle\Admin\GenericAdmin
-        tags:
-            - { name: sonata.admin, manager_type: orm, group: "ContentBundle", label: "RoleLabelVersion" }
-        arguments:
-            - ~
-            - fibe\ContentBundle\Entity\RoleLabelVersion
-            - ~
-        calls:
-            - [ setTranslationDomain, [ContentBundle]]
     sonata.admin.sponsor:
         class: fibe\AdminBundle\Admin\GenericAdmin
         tags:

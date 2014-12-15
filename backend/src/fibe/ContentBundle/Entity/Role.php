@@ -76,6 +76,7 @@ class Role
      * @ORM\JoinColumn(name="roleLabelId", referencedColumnName="id")
      * @Assert\NotBlank(message="You have to choose a role type")
      * @Expose
+     * @SerializedName("roleLabel")
      */
     private $roleLabel;
 
@@ -86,7 +87,7 @@ class Role
      */
     public function computeLabel()
     {
-        $eventLabel = $this->getEvent() ? $this->getEvent()->getlabel() : $this->getMainEvent()->getlabel();
+        $eventLabel = $this->getEvent() ? $this->getEvent()->getLabel() : $this->getMainEvent()->getlabel();
         $this->setLabel(sprintf("%s is %s at %s",
             $this->getPerson()->getLabel(),
             $this->getRoleLabel()->getlabel(),
@@ -169,6 +170,21 @@ class Role
         return $this;
     }
 
+    /**
+     * @return RoleLabel
+     */
+    public function getRoleLabel()
+    {
+        return $this->roleLabel;
+    }
+
+    /**
+     * @param RoleLabel $roleLabel
+     */
+    public function setRoleLabel(RoleLabel $roleLabel)
+    {
+        $this->roleLabel = $roleLabel;
+    }
 
     /**
      * Get type
@@ -213,21 +229,5 @@ class Role
     public function setId($id)
     {
         $this->id = $id;
-    }
-
-    /**
-     * @return RoleLabel
-     */
-    public function getRoleLabel()
-    {
-        return $this->roleLabel;
-    }
-
-    /**
-     * @param RoleLabel $roleLabel
-     */
-    public function setRoleLabel(RoleLabel $roleLabel)
-    {
-        $this->roleLabel = $roleLabel;
     }
 }
