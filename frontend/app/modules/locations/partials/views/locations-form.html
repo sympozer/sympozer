@@ -13,21 +13,21 @@
 <div class="form-group">
     <label  class="col-sm-3 control-label" for="inputDescription">{{'locations.model.description' | translate}}</label>
     <div class="col-sm-6">
-        <textarea class="form-control fullscreen" autosize id="inputDescription" placeholder="{{'locations.model.description' | translate}}" ng-model="location.description"></textarea>
+        <textarea class="form-control" autosize id="inputDescription" placeholder="{{'locations.model.description' | translate}}" ng-model="location.description"></textarea>
     </div>
 </div>
 <div class="form-group">
     <label  class="col-sm-3 control-label" for="inputAccesibility">{{'locations.model.accessibility' | translate}}</label>
     <div class="col-sm-6">
-        <textarea class="form-control fullscreen" autosize id="inputAccesibility" placeholder="{{'locations.model.accessibility' | translate}}" ng-model="location.accesibility"></textarea>
+        <textarea class="form-control" autosize id="inputAccesibility" placeholder="{{'locations.model.accessibility' | translate}}" ng-model="location.accesibility"></textarea>
     </div>
 </div>
 
 <div class="form-group">
-    <label  class="col-sm-3 control-label">{{ 'locations.links.locations' | translate}} </label>
+    <label  class="col-sm-3 control-label">{{ 'locations.links.location' | translate}} </label>
 
     <div class="col-sm-6">
-        <input google-place-autocomplete="" type="text" class="form-control"  on-select="selectAddress" ng-model="conference.location.label" /></td>
+        <input google-place-autocomplete="" type="text" class="form-control"  on-select="selectAddress" ng-model="location.localization" /></td>
         <div style="height: 300px" gmap options="mapInstanceOption" instance="geoCodingMapInstance"></div>
     </div>
 </div>
@@ -35,16 +35,16 @@
 <div class="form-group">
     <label class="col-sm-3 control-label">{{'equipments.links.equipments' | translate}}</label>
     <div class="col-sm-6">
+        <div sympozer-autocomplete="equipments" on-select="addEquipment" on-keyup="searchEquipments"></div>
         <ul class="nav nav-pills" ng-show="location.equipments.length > 0">
             <li ng-repeat="equipment in location.equipments track by $index" class="active">
                 <a ng-click="deleteEquipment($index)">
-                    <i class="fa fa-close"></i>
+                    <i class="fa fa-{{equipment.icon}} fa-1x"></i>
                     {{ equipment.label }}
-                    <span class="badge pull-right"><i class="fa fa-{{equipment.icon}} fa-1x"></i></span>
+                    <i class="fa fa-close"></i>
                 </a>
             </li>
         </ul>
-        <div sympozer-autocomplete="equipments" on-select="addEquipment" on-keyup="searchEquipments"></div>
 
     </div>
 </div>

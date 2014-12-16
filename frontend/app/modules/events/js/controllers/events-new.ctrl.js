@@ -107,24 +107,22 @@ angular.module('eventsApp').controller('eventsNewCtrl', [
         {
             if (!categoryModel.id)
             {
-                var modalInstance = $modal.open({
-                    templateUrl: GLOBAL_CONFIG.app.modules.categories.urls.partials + 'modals/categories-modal-form.html',
-                    controller : 'categoriesNewCtrl',
-                    size       : "large",
-                    resolve    : {
-                    }
-                });
-                modalInstance.result.then(function (newCategory)
-                {
-                    $scope.event.category = newCategory;
-                }, function ()
-                {
-                    //$log.info('Modal dismissed at: ' + new Date());
+                //If topic doesn't exist, create it
+                categoriesFact.create(categoriesFact.serialize({ label : categoryModel}), function(category){
+                    $scope.event.category = category;
+
+                },function(error){
+                    //Notify of the creation action error
+                    pinesNotifications.notify({
+                        title: translateFilter('global.validations.error'),
+                        text : translateFilter('categories.validations.not_created'),
+                        type : 'error'
+                    });
                 });
             }
             else
             {
-                $scope.event.category = categoryModel;
+                $scope.event.category = category;
             }
         };
 
@@ -134,24 +132,22 @@ angular.module('eventsApp').controller('eventsNewCtrl', [
         {
             if (!topicModel.id)
             {
-                var modalInstance = $modal.open({
-                    templateUrl: GLOBAL_CONFIG.app.modules.topics.urls.partials + 'modals/topics-modal-form.html',
-                    controller : 'topicsNewCtrl',
-                    size       : "large",
-                    resolve    : {
-                    }
-                });
-                modalInstance.result.then(function (newTopic)
-                {
-                    $scope.addRelationship('topics', newTopic);
-                }, function ()
-                {
-                    //$log.info('Modal dismissed at: ' + new Date());
+                //If topic doesn't exist, create it
+                topicsFact.create(topicsFact.serialize({ label : topicModel}), function(topic){
+                    $scope.addRelationship('topics', topic);
+
+                },function(error){
+                    //Notify of the creation action error
+                    pinesNotifications.notify({
+                        title: translateFilter('global.validations.error'),
+                        text : translateFilter('topics.validations.not_created'),
+                        type : 'error'
+                    });
                 });
             }
             else
             {
-                $scope.addRelationship('topics', topicModel);
+                $scope.addRelationship('topics', topicModel)
             }
         };
 

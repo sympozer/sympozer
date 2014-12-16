@@ -397,7 +397,9 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
             },
             validations: {
                 'created': 'The location has been saved',
-                'not_created': 'Sorry, the location has not been saved'
+                'not_created': 'Sorry, the location has not been saved',
+                deletion_success: 'Location deleted',
+                deletion_error  : 'Sorry, we could delete this location'
             },
             messages   : {
                 delete_confirm: 'Are you sure you want to delete this location ?'
@@ -969,7 +971,9 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
             },
             validations: {
                 'created': 'La localisation a été enregistré',
-                'not_created': 'Désolé, la localisation n\'a pas été sauvegardée'
+                'not_created': 'Désolé, la localisation n\'a pas été sauvegardée',
+                deletion_success: 'Location supprimée',
+                deletion_error  : 'Désolé, nous n\'avons pas pu supprimer cette location'
             },
             messages   : {
                 delete_confirm: 'Etes-vous sur de vouloir supprimer cette localisation ?'

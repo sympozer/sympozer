@@ -1,16 +1,34 @@
-<input type="text" ng-model="entity" typeahead-template-url="categories-typeahead.html" typeahead-on-select="select($item, $model)" placeholder="{{ 'categories.actions.search' | translate }}..." typeahead-wait-ms="500" typeahead="entity as entity.label for entity in keyup($viewValue)" typeahead-loading="loading" class="form-control">
-<i ng-show="loading" class="fa fa-spinner fa-spin"></i>
+<!--<input type="text" ng-model="entity" typeahead-template-url="categories-typeahead.html" typeahead-on-select="select($item, $model)" placeholder="{{ 'categories.actions.search' | translate }}..." typeahead-wait-ms="500" typeahead="entity as entity.label for entity in keyup($viewValue)" typeahead-loading="loading" class="form-control">-->
+<!--<i ng-show="loading" class="fa fa-spinner fa-spin"></i>-->
 
+
+<!--<script type="text/ng-template" id="categories-typeahead.html">-->
+  <!--<div style="width:100%">-->
+        <!--<span ng-if="!match.model.id">-->
+            <!--<hr/>-->
+             <!--<i class="fa fa-plus"></i> {{ 'categories.actions.new' | translate }} ...-->
+         <!--</span>-->
+        <!--<span ng-if="match.model.id">-->
+            <!--<i class="fa fa-tag fa-2x"></i>-->
+            <!--<span bind-html-unsafe="match.model.label | typeaheadHighlight:query"></span>-->
+        <!--</span>-->
+  <!--</div>-->
+<!--</script>-->
+
+
+<div class="input-group">
+    <div>
+        <input type="text" name="categoryInput" ng-model="entity" ng-init="entity=$viewValue" typeahead-min-length="3" typeahead-editable="true" typeahead-template-url="categories-typeahead.html" typeahead-on-select="select($item, $model, $viewValue)" placeholder="{{ 'categories.actions.search' | translate }}..." typeahead-wait-ms="500" typeahead="entity as entity.label for entity in keyup($viewValue)" typeahead-loading="loading" class="form-control">
+    </div>
+
+    <div class="input-group-btn">
+        <button type="button" class="btn btn-default" ng-disabled="!entity" ng-click="select(entity)">
+            <i ng-show="!loading" class="fa fa-plus"></i>
+            <i ng-show="loading" class="fa fa-spinner fa-spin"></i>
+        </button>
+    </div>
+</div>
 
 <script type="text/ng-template" id="categories-typeahead.html">
-  <div style="width:100%">
-        <span ng-if="!match.model.id">
-            <hr/>
-             <i class="fa fa-plus"></i> {{ 'categories.actions.new' | translate }} ...
-         </span>
-        <span ng-if="match.model.id">
-            <i class="fa fa-tag fa-2x"></i>
-            <span bind-html-unsafe="match.model.label | typeaheadHighlight:query"></span>
-        </span>
-  </div>
+    <span bind-html-unsafe="match.model.label | typeaheadHighlight:query"></span>
 </script>

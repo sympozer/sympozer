@@ -32,12 +32,9 @@ sympozerApp.controller('navMainCtrl', ['$scope', '$rootScope', '$location', '$ti
             label: 'papers.links.papers',
             iconClasses: 'glyphicon glyphicon-book',
             url: '#/home/papers/index'
-        },
-        {
-            label: 'topics.links.topics',
-            iconClasses: 'glyphicon glyphicon-tags',
-            url: '#/home/topics/index'
         }
+
+
     ];
 
 

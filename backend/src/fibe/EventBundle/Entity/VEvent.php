@@ -284,7 +284,6 @@ abstract class VEvent
      * @ORM\JoinTable(name="vevent_location",
      *     joinColumns={@ORM\JoinColumn(name="event_id", referencedColumnName="id")},
      *     inverseJoinColumns={@ORM\JoinColumn(name="location_id", referencedColumnName="id")})
-     * @Assert\NotNull
      */
     protected $location;
 

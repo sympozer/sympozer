@@ -33,19 +33,30 @@ angular.module('eventsApp').factory('eventsFact',
                 'startAt'    : object.startAt,
                 'mainEvent'  : object.mainEvent ? {id: object.mainEvent.id} : undefined,
                 'roles'      : object.roles,
-                'category'   : object.category,
+                'category'   : object.category ? {id: object.category.id} : undefined,
                 'comment'    : object.comment,
                 'description': object.description,
                 'dtype'      : object.dtype,
                 'facebook'   : object.facebook,
                 'papers'     : object.papers,
                 'priority'   : object.priority,
-                'sponsors'   : object.sponsors,
-                'topics'     : object.topics,
+                'topics'     : [],
                 'twitter'    : object.twitter,
                 'url'        : object.url,
                 'youtube'    : object.youtube
             }
+
+            //Serialize topics
+            for (var topic in object.topics)
+            {
+                DTObject.topics.push({id: topic.id});
+            }
+
+            //Serialize sponsors
+//            for (var sponsor in object.sponsors)
+//            {
+//                DTObject.sponsors.push({id: sponsor.id});
+//            }
 
             //create the new resource object from DTObject
             return new resource(DTObject);

@@ -13,10 +13,10 @@ angular.module('locationsApp').controller('locationsListCtrl', ['$scope', '$rout
 
 
     //Clone a specific location in the entity list
-    $scope.clone = function (location)
+    $scope.clone = function (location, index)
     {
-        var clonelocation = angular.copy(location);
-        delete clonelocation.id;
+
+        $scope.index = index;
 
         var error = function (response, args)
         {
@@ -36,11 +36,11 @@ angular.module('locationsApp').controller('locationsListCtrl', ['$scope', '$rout
                 text: translateFilter('location saved'),
                 type: 'success'
             });
-            $scope.entities.push(response);
+            $scope.entities.splice($scope.index + 1, 0, response);
         }
 
-        locationsFact.$create(locationsFact.serialize(clonelocation), success, error);
-
+        //Send post request to server
+        locationsFact.clone(location, success, error);
     }
 
     //Delete modal to remove location
@@ -62,10 +62,12 @@ angular.module('locationsApp').controller('locationsListCtrl', ['$scope', '$rout
             }
         });
 
-        //When modal promise resolved, remove location from the list
-        modalInstance.resolve = function(){
+
+        //When modal instance promise is resolved with 'ok' then remove the location from the list
+        modalInstance.result.then(function (location)
+        {
             $scope.entities.splice(index, 1);
-        }
+        })
     }
 
 }]);
