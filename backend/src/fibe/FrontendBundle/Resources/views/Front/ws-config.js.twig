@@ -1,7 +1,6 @@
 var wsConfig = {
 api : {
 urls: {
-get_organization_versions: "{{ serverBasePath | raw }}{{ path('community_organization_versions_post')  | raw }}",
 get_organizations: "{{ serverBasePath | raw }}{{ path('community_organizations_post')  | raw }}",
 
 get_persons            : "{{ serverBasePath | raw }}{{ path('community_persons_post')  | raw }}",
@@ -15,7 +14,7 @@ get_roleLabels       : "{{ serverBasePath | raw }}{{ path('content_roleLabels_po
 
 get_papers       : "{{ serverBasePath | raw }}{{ path('content_papers_post')  | raw }}",
 get_topics       : "{{ serverBasePath | raw }}{{ path('content_topics_post')  | raw }}",
-get_categories   : "{{ serverBasePath | raw }}{{ path('schedule_category_versions_post')  | raw }}",
+get_categories   : "{{ serverBasePath | raw }}{{ path('schedule_category_post')  | raw }}",
 get_mainEvents   : "{{ serverBasePath | raw }}{{ path('schedule_mainEvents_post')  | raw }}",
 login            : "{{ serverBasePath | raw }}{{ path('login_check', {_format: 'json'})  | raw }}",
 logout           : "{{ serverBasePath | raw }}{{ path('logout')  | raw }}",

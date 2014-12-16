@@ -22,18 +22,12 @@ class RoleLabelRepository extends EntityRepository
      */
     public function filter(QueryBuilder $qb, array $params)
     {
-        if (isset($params['mainEventId']))
-        {
+        if (isset($params['mainEventId'])) {
             $qb->leftJoin('qb.roles', 'roles')
                 ->andWhere('roles.mainEvent = (:mainEventId)')
                 ->setParameter('mainEventId', $params['mainEventId']);
-//            $qb->leftJoin('qb.roles', 'rol')
-//                ->leftJoin('rol.mainEvent', 'mev')
-//                ->andWhere('mev.id = (:mainEventId)')
-//                ->setParameter('mainEventId', $params['mainEventId']);
+            return $qb;
         }
-
-        return $qb;
     }
 
 }

@@ -27,7 +27,7 @@ class Event extends VEvent
     /**
      * Category
      *
-     * @ORM\ManyToOne(targetEntity="CategoryVersion", inversedBy="events", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="Category", inversedBy="events", cascade={"persist"})
      * @ORM\JoinColumn(name="event_id", referencedColumnName="id")
      * @Expose
      */
@@ -95,7 +95,6 @@ class Event extends VEvent
         parent::__construct();
         $this->papers = new ArrayCollection();
         $this->children = new ArrayCollection();
-        $this->categories = new ArrayCollection();
     }
 
     /**

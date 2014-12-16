@@ -1,7 +1,6 @@
 var wsConfig = {
 api : {
 urls: {
-get_organization_versions: "http://localhost/sympozer/backend/web/app_dev.php/organizationVersions",
 get_organizations: "http://localhost/sympozer/backend/web/app_dev.php/organizations",
 
 get_persons            : "http://localhost/sympozer/backend/web/app_dev.php/persons",
@@ -15,7 +14,7 @@ get_roleLabels       : "http://localhost/sympozer/backend/web/app_dev.php/roleLa
 
 get_papers       : "http://localhost/sympozer/backend/web/app_dev.php/papers",
 get_topics       : "http://localhost/sympozer/backend/web/app_dev.php/topics",
-get_categories   : "http://localhost/sympozer/backend/web/app_dev.php/categoryVersions",
+get_categories   : "http://localhost/sympozer/backend/web/app_dev.php/categories",
 get_mainEvents   : "http://localhost/sympozer/backend/web/app_dev.php/mainEvents",
 login            : "http://localhost/sympozer/backend/web/app_dev.php/login/login_check?_format=json",
 logout           : "http://localhost/sympozer/backend/web/app_dev.php/logout",

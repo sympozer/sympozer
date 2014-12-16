@@ -2,75 +2,76 @@
 
 
 <div class="form-group">
-  <label class="col-sm-3 control-label" for="inputLabel">{{ 'events.model.label' | translate }}</label>
+    <label class="col-sm-3 control-label" for="inputLabel">{{ 'events.model.label' | translate }}</label>
 
-  <div class="col-sm-6">
-    <input type="text" class="form-control" id="inputLabel" required placeholder="{{ 'events.model.label' | translate }}" ng-model="event.label">
-  </div>
+    <div class="col-sm-6">
+        <input type="text" class="form-control" id="inputLabel" required placeholder="{{ 'events.model.label' | translate }}" ng-model="event.label">
+    </div>
 </div>
 <div class="form-group">
-  <label class="col-sm-3 control-label" for="inputDescription">{{ 'events.model.description' | translate }}</label>
+    <label class="col-sm-3 control-label" for="inputDescription">{{ 'events.model.description' | translate }}</label>
 
-  <div class="col-sm-6">
-    <textarea class="form-control" autosize id="inputDesc" name="description" placeholder="{{ 'events.model.description' | translate}}" ng-model="event.description"/>
-  </div>
+    <div class="col-sm-6">
+        <textarea class="form-control" autosize id="inputDesc" name="description" placeholder="{{ 'events.model.description' | translate}}" ng-model="event.description"/>
+    </div>
 </div>
 <div class="form-group">
-  <label class="col-sm-3 control-label" for="inputUrl">{{ 'events.model.url' | translate }}</label>
+    <label class="col-sm-3 control-label" for="inputUrl">{{ 'events.model.url' | translate }}</label>
 
-  <div class="col-sm-6">
-    <input type="url" class="form-control" id="inputUrl" placeholder="http://..." ng-model="event.url">
-  </div>
+    <div class="col-sm-6">
+        <input type="url" class="form-control" id="inputUrl" placeholder="http://..." ng-model="event.url">
+    </div>
 </div>
 
 <div class="form-group">
-  <label class="col-sm-3 control-label">{{ 'categories.links.categories' | translate }}</label>
+    <label class="col-sm-3 control-label">{{ 'categories.links.category' | translate }}</label>
 
-  <div class="col-sm-6">
-    <div sympozer-autocomplete="categories" on-select="addCategory" on-keyup="searchCategories"></div>
-  </div>
-  <div ng-show="event.category">
-    <ul class="nav nav-pills">
-      <li class="active">
-        <a href="javascript:void(0)">
-          {{ event.category.label }}
-        </a>
-      </li>
-    </ul>
-  </div>
+    <div class="col-sm-6">
+        <div sympozer-autocomplete="categories" on-select="addCategory" on-keyup="searchCategories"></div>
+        <div  ng-show="event.category">
+            <ul class="nav nav-pills">
+                <li class="active">
+                    <a href="javascript:void(0)">
+                        <i class="fa fa-database"></i>
+                        {{ event.category.label }}
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
 </div>
 <div class="form-group">
-  <label class="col-sm-3 control-label">{{ 'topics.links.topics' | translate }}</label>
+    <label class="col-sm-3 control-label">{{ 'topics.links.topics' | translate }}</label>
 
-  <div class="col-sm-6">
-    <div sympozer-autocomplete="topics" on-select="addTopic" on-keyup="searchTopics"></div>
-  </div>
-  <ul class="nav nav-pills" ng-show="event.topics.length > 0">
-    <li ng-repeat="topic in event.topics track by $index" class="active">
-      <a ng-click="removeRelationship('topics', $index)">
-          <i class="fa fa-tag"></i>
+    <div class="col-sm-6">
+        <div sympozer-autocomplete="topics" on-select="addTopic" on-keyup="searchTopics"></div>
+        <ul class="nav nav-pills" ng-show="event.topics.length > 0">
+            <li ng-repeat="topic in event.topics track by $index" class="active">
+                <a ng-click="removeRelationship('topics', $index)">
+                    <i class="fa fa-tag"></i>
 
-          {{ topic.label }}
-          <i class="fa fa-close"></i>
+                    {{ topic.label }}
+                    <i class="fa fa-close"></i>
 
-      </a>
-    </li>
-  </ul>
+                </a>
+            </li>
+        </ul>
+    </div>
+
 </div>
 
 
 <h2>{{ 'events.labels.time_localization' | translate }}</h2>
 <div class="form-group">
-  <label class="col-sm-3 control-label">{{ 'events.model.startAt' | translate }} & {{ 'events.model.endAt' | translate }}</label>
+    <label class="col-sm-3 control-label">{{ 'events.model.startAt' | translate }} & {{ 'events.model.endAt' | translate }}</label>
 
-  <div class="col-sm-6">
-    <div class="input-group">
-      <input type="text" class="form-control" required="" id="dateRange" name="dateRange" sympozer-error-field="endAt" daterangepicker="{ timePicker: true, timePickerIncrement: 15, format: 'MM/DD/YYYY h:mm A' }">
-        <span name="daterangepicker3" class="input-group-addon"><i class="fa fa-calendar"></i></span>
+    <div class="col-sm-6">
+        <div class="input-group">
+            <input type="text" class="form-control" required="" id="dateRange" name="dateRange" sympozer-error-field="endAt" daterangepicker="{ timePicker: true, timePickerIncrement: 15, format: 'MM/DD/YYYY h:mm A' }">
+            <span name="daterangepicker3" class="input-group-addon"><i class="fa fa-calendar"></i></span>
 
+        </div>
     </div>
-      <div class="alert"></div>
-  </div>
 </div>
 <!--<div class="form-group">-->
 
@@ -118,36 +119,36 @@
 
 <!--</div>-->
 <div class="form-group">
-  <label class="col-sm-3 control-label">{{ 'locations.links.location' | translate }}</label>
+    <label class="col-sm-3 control-label">{{ 'locations.links.location' | translate }}</label>
 
-  <div class="col-sm-6">
-    <div sympozer-autocomplete="locations" on-select="addLocation" on-keyup="searchLocations"></div>
-    <ul class="nav nav-pills">
-      <li class="active" ng-show="event.location">
-        <a href="javascript:void(0)">
-          {{ event.location.label }}
-        </a>
-      </li>
-    </ul>
-  </div>
+    <div class="col-sm-6">
+        <div sympozer-autocomplete="locations" on-select="addLocation" on-keyup="searchLocations"></div>
+        <ul class="nav nav-pills">
+            <li class="active" ng-show="event.location">
+                <a href="javascript:void(0)">
+                    {{ event.location.label }}
+                </a>
+            </li>
+        </ul>
+    </div>
 
 </div>
 
 <h2>{{ 'papers.links.papers' | translate }}</h2>
 <div class="form-group">
-  <label class="col-sm-3 control-label">{{ 'papers.links.papers' | translate }}</label>
+    <label class="col-sm-3 control-label">{{ 'papers.links.papers' | translate }}</label>
 
-  <div class="col-sm-6">
-    <div sympozer-autocomplete="papers" on-select="addPaper" on-keyup="searchPapers"></div>
-  </div>
-  <div ng-repeat="paper in event.papers  track by $index" class="col-sm-2 col-md-2 col-lg-2  well">
+    <div class="col-sm-6">
+        <div sympozer-autocomplete="papers" on-select="addPaper" on-keyup="searchPapers"></div>
+    </div>
+    <div ng-repeat="paper in event.papers  track by $index" class="col-sm-2 col-md-2 col-lg-2  well">
 
-    <i class="fa fa-book fa-3x"></i>
+        <i class="fa fa-book fa-3x"></i>
 
-    <h3>{{ paper.label }}</h3>
-    <a class="btn btn-default" href="#conference/{{paper.mainEvent.id}}/papers/show/{{ paper.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>
-    <a class="btn btn-danger" href="javascript:void(0)" ng-click="removeRelationship('papers', $index)" role="button"><i class="fa fa-times"></i></a>
-  </div>
+        <h3>{{ paper.label }}</h3>
+        <a class="btn btn-default" href="#conference/{{paper.mainEvent.id}}/papers/show/{{ paper.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>
+        <a class="btn btn-danger" href="javascript:void(0)" ng-click="removeRelationship('papers', $index)" role="button"><i class="fa fa-times"></i></a>
+    </div>
 </div>
 
 

@@ -1,11 +1,17 @@
 <?php
 
 namespace fibe\EventBundle\Entity;
-use fibe\ContentBundle\Util\StringTools;
-use JMS\Serializer\Annotation\ExclusionPolicy;
-use JMS\Serializer\Annotation\Expose;
+
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use fibe\ContentBundle\Util\StringTools;
+
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Expose;
+use JMS\Serializer\Annotation\Groups;
+use JMS\Serializer\Annotation\MaxDepth;
+use JMS\Serializer\Annotation\SerializedName;
+use JMS\Serializer\Annotation\VirtualProperty;
 
 /**
  * @ORM\Table(name="category")
@@ -15,6 +21,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Category
 {
+
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -24,22 +31,15 @@ class Category
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=128,  unique=true)
-     * @Expose
-     */
-    private $label;
-
-
-    /**
      * @ORM\Column(type="string", length=128)
      */
     private $slug;
 
     /**
-     * @ORM\Column(type="text", nullable=true)
+     * @ORM\Column(type="string", length=128)
      * @Expose
      */
-    private $description;
+    private $label;
 
     /**
      * @ORM\Column(type="string", nullable=true)
@@ -47,15 +47,23 @@ class Category
      */
     private $color;
 
-
     /**
-     * Category versions related to the global category
+     * Events related to an category
      *
-     * @ORM\OneToMany(targetEntity="CategoryVersion", mappedBy="category",cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="Event", mappedBy="category",cascade={"persist"})
      * @ORM\JoinColumn( onDelete="CASCADE")
      * @Expose
      */
-    private $categoryVersions;
+    private $events;
+
+
+
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     * @Expose
+     */
+    private $description;
 
 
     /**
@@ -63,8 +71,9 @@ class Category
      */
     public function __construct()
     {
-       // $this->$categoryVersions = new ArrayCollection();
+        $this->events = new ArrayCollection();
     }
+
 
     /**
      * Slugify
@@ -100,17 +109,17 @@ class Category
     /**
      * @return mixed
      */
-    public function getId()
+    public function getColor()
     {
-        return $this->id;
+        return $this->color;
     }
 
     /**
-     * @param mixed $id
+     * @param mixed $color
      */
-    public function setId($id)
+    public function setColor($color)
     {
-        $this->id = $id;
+        $this->color = $color;
     }
 
     /**
@@ -132,6 +141,38 @@ class Category
     /**
      * @return mixed
      */
+    public function getEvents()
+    {
+        return $this->events;
+    }
+
+    /**
+     * @param mixed $events
+     */
+    public function setEvents($events)
+    {
+        $this->events = $events;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param mixed $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @return mixed
+     */
     public function getLabel()
     {
         return $this->label;
@@ -144,6 +185,8 @@ class Category
     {
         $this->label = $label;
     }
+
+
 
     /**
      * @return mixed
@@ -162,38 +205,4 @@ class Category
     }
 
 
-
-    /**
-     * @return mixed
-     */
-    public function getColor()
-    {
-        return $this->color;
-    }
-
-    /**
-     * @param mixed $color
-     */
-    public function setColor($color)
-    {
-        $this->color = $color;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getCategoryVersions()
-    {
-        return $this->categoryVersions;
-    }
-
-    /**
-     * @param mixed $categoryVersions
-     */
-    public function setCategoryVersions($categoryVersions)
-    {
-        $this->categoryVersions = $categoryVersions;
-    }
-
 }
-

@@ -71,13 +71,6 @@ class MainEvent extends VEvent
 
 
     /**
-     * Categories
-     * @ORM\OneToMany(targetEntity="fibe\EventBundle\Entity\CategoryVersion", mappedBy="mainEvent",cascade={"persist", "remove"})
-     * @Expose
-     * @SerializedName("categoryVersions")
-     */
-    private $categoryVersions;
-    /**
      *
      * @ORM\ManyToMany(targetEntity="fibe\CommunityBundle\Entity\Person",  mappedBy="mainEvents", cascade={"persist","merge","remove"})
      * @Expose
@@ -128,7 +121,7 @@ class MainEvent extends VEvent
         $this->roles = new ArrayCollection();
         $this->roleLabels = new ArrayCollection();
         $this->eventLocations = new ArrayCollection();
-        $this->categoryVersions = new ArrayCollection();
+
 
         $this->papers = new ArrayCollection();
         $this->persons = new ArrayCollection();
@@ -414,21 +407,7 @@ class MainEvent extends VEvent
         $this->setting = $setting;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getCategoryVersions()
-    {
-        return $this->categoryVersions;
-    }
 
-    /**
-     * @param mixed $categoryVersions
-     */
-    public function setCategoryVersions($categoryVersions)
-    {
-        $this->categoryVersions = $categoryVersions;
-    }
 
 
     /**
