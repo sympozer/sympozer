@@ -4,7 +4,7 @@
  * @type {controller}
  */
 angular.module('rolesApp').controller('rolesEditCtrl',
-    [ '$scope', '$window', 'GLOBAL_CONFIG', '$rootScope', '$routeParams', '$location', 'rolesFact', 'personsFact', 'roleLabelsFact', 'eventsFact', '$modal', 'pinesNotifications', 'translateFilter', 'rolesSerializer', function ($scope, $window, GLOBAL_CONFIG, $rootScope, $routeParams, $location, rolesFact, personsFact, roleLabelsFact, eventsFact, $modal, pinesNotifications, translateFilter, rolesSerializer)
+    [ '$scope', '$window', 'GLOBAL_CONFIG', '$rootScope', '$routeParams', '$location', 'rolesFact', 'personsFact', 'roleLabelsFact', 'eventsFact', '$modal', 'pinesNotifications', 'translateFilter', function ($scope, $window, GLOBAL_CONFIG, $rootScope, $routeParams, $location, rolesFact, personsFact, roleLabelsFact, eventsFact, $modal, pinesNotifications, translateFilter)
     {
         //Fetch the role to edit
         $scope.role = rolesFact.get({id: $routeParams.roleId});

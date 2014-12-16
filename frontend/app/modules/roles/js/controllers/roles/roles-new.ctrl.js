@@ -102,19 +102,16 @@ angular.module('rolesApp').controller('rolesNewCtrl',
           {
               if (!roleLabelModel.id)
               {
-                  var modalInstance = $modal.open({
-                      templateUrl: GLOBAL_CONFIG.app.modules.roleLabels.urls.partials + 'modals/roleLabels-modal-form.html',
-                      controller : 'roleLabelsNewCtrl',
-                      size       : "large",
-                      resolve    : {
-                      }
-                  });
-                  modalInstance.result.then(function (newRoleLabel)
-                  {
-                      $scope.role.roleLabel = newRoleLabel;
-                  }, function ()
-                  {
-                      //$log.info('Modal dismissed at: ' + new Date());
+                  //If topic doesn't exist, create it
+                  roleLabelsFact.create(roleLabelsFact.serialize({ label : roleLabelModel}), function(roleLabel){
+                      $scope.role.roleLabel = roleLabel;
+                  },function(error){
+                      //Notify of the creation action error
+                      pinesNotifications.notify({
+                          title: translateFilter('global.validations.error'),
+                          text : translateFilter('roleLabels.validations.not_created'),
+                          type : 'error'
+                      });
                   });
               }
               else

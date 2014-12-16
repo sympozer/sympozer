@@ -24,8 +24,8 @@ class RoleLabelRepository extends EntityRepository
     {
         if (isset($params['mainEventId']))
         {
-            $qb->leftJoin('qb.mainEvent', 'mev')
-                ->andWhere('mev.id = (:mainEventId)')
+            $qb->leftJoin('qb.roles', 'roles')
+                ->andWhere('roles.mainEvent = (:mainEventId)')
                 ->setParameter('mainEventId', $params['mainEventId']);
 //            $qb->leftJoin('qb.roles', 'rol')
 //                ->leftJoin('rol.mainEvent', 'mev')

@@ -3,16 +3,22 @@
 
 
 <script type="text/ng-template" id="persons-typeahead.html">
-  <div style="width:100%">
+    <div style="width:100%">
         <span ng-if="!match.model.id">
             <hr/>
              <i class="fa fa-plus"></i> {{ 'persons.actions.new' | translate}} ...
          </span>
         <span ng-if="match.model.id">
-             <div class="img-container-sm inline">
-               <img class="scale-img" no-image ng-src="{{ match.model.img }}"/>
-             </div>
-            <span bind-html-unsafe="match.model.label | typeaheadHighlight:query"></span>
+            <div class="row">
+                <div class="col-xs-3">
+                    <img class="img-responsive inline" no-image ng-src="{{ match.model.img }}"/>
+                </div>
+                <div class="col-xs-6">
+                    <span bind-html-unsafe="match.model.label | typeaheadHighlight:query"></span><br/>
+                    <span bind-html-unsafe="match.model.localization.country|| '' | typeaheadHighlight:query"></span>
+                </div>
+            </div>
+
         </span>
-  </div>
+    </div>
 </script>

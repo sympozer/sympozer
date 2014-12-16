@@ -128,7 +128,7 @@ class Event extends VEvent
     protected function slugify()
     {
         echo $this->getLabel();
-        throw new \Exception("slug event");
+//        throw new \Exception("slug event");
         $this->setSlug(StringTools::slugify(hash('sha256', uniqid(mt_rand(), true), true) . $this->getLabel()));
     }
 

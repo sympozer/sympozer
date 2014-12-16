@@ -28,9 +28,9 @@ angular.module('rolesApp').factory('rolesFact', ['$resource', function ($resourc
         var DTObject = {
             'id'       : object.id,
             'mainEvent': object.mainEvent ? {id: object.mainEvent.id} : undefined,
-            'event'    : object.event ? object.event.id : null,
-            'person'   : object.person.id,
-            'roleLabel': object.roleLabel
+            'event'    : object.event ? {id:object.event.id} : undefined,
+            'person'   : object.person ? {id: object.person.id} : undefined,
+            'roleLabel': object.roleLabel ? {id: object.roleLabel.id} : undefined
         };
 
         //create the new resource object from DTObject
