@@ -14,6 +14,10 @@ use Symfony\Component\Form\FormEvents;
 
 class SympozerExtractIdFormListener implements EventSubscriberInterface
 {
+    /**
+     * This tag is put on id field of an entity that must be ignored
+     *  i.e. if it's empty
+     */
     const TO_IGNORE = 'ignore';
 
     public static function getSubscribedEvents()

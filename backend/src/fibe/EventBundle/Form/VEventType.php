@@ -34,7 +34,7 @@ class VEventType extends AbstractType
             ->add('dtype')
             ->add('location', 'sympozer_entity_type', array(
                 'type' => new LocationType(),
-                'required' => true,
+                'required' => false,
             ));
     }
 
