@@ -28,36 +28,16 @@
 
     <div class="col-sm-6">
         <div sympozer-autocomplete="categories" on-select="addCategory" on-keyup="searchCategories"></div>
-        <div  ng-show="event.category">
-            <ul class="nav nav-pills">
-                <li class="active">
-                    <a href="javascript:void(0)">
-                        <i class="fa fa-database"></i>
-                        {{ event.category.label }}
-                    </a>
-                </li>
-            </ul>
-        </div>
+        <div ng-show="event.category" sympozer-with-locals locals-category="event.category" ng-include="GLOBAL_CONFIG.app.modules.categories.urls.partials+'views/categories-thumbnail-xs.html'"></div>
     </div>
 </div>
+
 <div class="form-group">
     <label class="col-sm-3 control-label">{{ 'topics.links.topics' | translate }}</label>
-
     <div class="col-sm-6">
         <div sympozer-autocomplete="topics" on-select="addTopic" on-keyup="searchTopics"></div>
-        <ul class="nav nav-pills" ng-show="event.topics.length > 0">
-            <li ng-repeat="topic in event.topics track by $index" class="active">
-                <a ng-click="removeRelationship('topics', $index)">
-                    <i class="fa fa-tag"></i>
-
-                    {{ topic.label }}
-                    <i class="fa fa-close"></i>
-
-                </a>
-            </li>
-        </ul>
+        <div ng-show="event.topics.length > 0" sympozer-with-locals locals-topics="event.topics" ng-include="GLOBAL_CONFIG.app.modules.topics.urls.partials+'views/topics-list-thumbnail-xs.html'"></div>
     </div>
-
 </div>
 
 
@@ -69,7 +49,6 @@
         <div class="input-group">
             <input type="text" class="form-control" required="" id="dateRange" name="dateRange" sympozer-error-field="endAt" daterangepicker="{ timePicker: true, timePickerIncrement: 15, format: 'MM/DD/YYYY h:mm A' }">
             <span name="daterangepicker3" class="input-group-addon"><i class="fa fa-calendar"></i></span>
-
         </div>
     </div>
 </div>

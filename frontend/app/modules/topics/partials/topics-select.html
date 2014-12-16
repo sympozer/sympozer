@@ -1,4 +1,3 @@
-
 <div class="input-group">
     <div>
         <input type="text" name="topicInput" ng-model="entity" ng-init="entity=$viewValue" typeahead-min-length="3" typeahead-editable="true" typeahead-template-url="topics-typeahead.html" typeahead-on-select="select($item, $model, $viewValue)" placeholder="{{ 'topics.actions.search' | translate }}..." typeahead-wait-ms="500" typeahead="entity as entity.label for entity in keyup($viewValue)" typeahead-loading="loading" class="form-control">

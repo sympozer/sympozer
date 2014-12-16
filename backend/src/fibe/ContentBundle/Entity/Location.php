@@ -68,7 +68,7 @@ class Location extends Localization
     /**
      * Events
      *
-     * @ORM\OneToMany(targetEntity="fibe\EventBundle\Entity\Vevent", mappedBy="location",cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="fibe\EventBundle\Entity\Vevent", mappedBy="location")
      */
     protected $events;
 

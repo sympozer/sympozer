@@ -48,18 +48,8 @@
     <label class="col-sm-3 control-label">{{ 'topics.links.topics' | translate}}</label>
 
     <div class="col-sm-6">
-
         <div sympozer-autocomplete="topics" on-select="addTopic" on-keyup="searchTopics"></div>
-        <ul class="nav nav-pills" ng-show="paper.topics.length > 0">
-            <li ng-repeat="topic in paper.topics track by $index" class="active">
-                <a ng-click="removeRelationship('topics', $index)">
-                    <i class="fa fa-tag"></i>
-
-                    {{topic.label}}
-                    <i class="fa fa-close"></i>
-                </a>
-            </li>
-        </ul>
+        <div ng-show="paper.topics.length > 0" sympozer-with-locals locals-topics="paper.topics" ng-include="GLOBAL_CONFIG.app.modules.topics.urls.partials+'views/topics-list-thumbnail-xs.html'"></div>
     </div>
 </div>
 
@@ -70,8 +60,6 @@
 
         <div sympozer-autocomplete="persons" on-select="addPerson" on-keyup="searchPersons">
         </div>
-
-
         <div ng-repeat="author in paper.authors track by $index"  ng-show="paper.authors" class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
 
             <tile type="midnightblue">

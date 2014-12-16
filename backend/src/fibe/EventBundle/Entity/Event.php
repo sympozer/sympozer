@@ -27,7 +27,7 @@ class Event extends VEvent
     /**
      * Category
      *
-     * @ORM\ManyToOne(targetEntity="Category", inversedBy="events", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="Category", inversedBy="events")
      * @ORM\JoinColumn(name="event_id", referencedColumnName="id")
      * @Expose
      */
@@ -358,7 +358,4 @@ class Event extends VEvent
     {
         $this->category = $category;
     }
-
-
-
 }

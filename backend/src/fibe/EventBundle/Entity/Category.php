@@ -50,7 +50,7 @@ class Category
     /**
      * Events related to an category
      *
-     * @ORM\OneToMany(targetEntity="Event", mappedBy="category",cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="Event", mappedBy="category")
      * @ORM\JoinColumn( onDelete="CASCADE")
      * @Expose
      */
