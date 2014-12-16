@@ -8,12 +8,13 @@ namespace fibe\RestBundle\Form;
 
 
 use Doctrine\ORM\EntityNotFoundException;
+use Symfony\Component\Form\Exception\TransformationFailedException;
 
 class SympozerEntityTypeTransformer extends AbstractSympozerTypeTransformer
 {
 
     /**
-     * transform old model to view (entity to id)
+     * transform old model to view (entity to array (only the id in our rest case)
      * @param object $input
      * @return string
      */
@@ -24,8 +25,13 @@ class SympozerEntityTypeTransformer extends AbstractSympozerTypeTransformer
 //      throw new \Exception("entity transform NULL " . \Doctrine\Common\Util\Debug::dump($input));
             return null;
         }
+        if ($id = $this->resolveIdFromInput($input))
+        {
+//      throw new \Exception("entity transform NULL " . \Doctrine\Common\Util\Debug::dump($input));
+            return null;
+        }
         $output = array();
-        $output['id'] = $this->resolveIdFromInput($input);
+//        $output['id'] = $id;
 
 //        $output['label'] = $input->getLabel();
         return $output;
@@ -39,7 +45,11 @@ class SympozerEntityTypeTransformer extends AbstractSympozerTypeTransformer
      */
     public function reverseTransform($input)
     {
-        if ($input == null || count($input) == 0)
+//            unset($input['id']);
+//        echo "\n\nentity reverseTransform";
+//        \Doctrine\Common\Util\Debug::dump($this->options['type']);
+//        \Doctrine\Common\Util\Debug::dump($input);
+        if ($input == null || $input['id'] == SympozerExtractIdFormListener::TO_IGNORE)
         {
             return null;
         }
@@ -54,6 +64,7 @@ class SympozerEntityTypeTransformer extends AbstractSympozerTypeTransformer
 
         if ($this->options['cascade_persist'] && is_array($input))
         {
+            //call entity setter from given input
             foreach ($input as $field => $value)
             {
                 $setter = "set" . ucwords($field);
@@ -62,14 +73,16 @@ class SympozerEntityTypeTransformer extends AbstractSympozerTypeTransformer
         }
         if (null == $entity->getId())
         {
+            if (isset($input['id']) && count($input) == 1)
+            {
+                throw new TransformationFailedException();
+            }
 //            echo "\n\nentity reverseTransform => persist";
 //            \Doctrine\Common\Util\Debug::dump($entity);
             $this->em->persist($entity);
         }
         else
         {
-//            echo "\n\nentity reverseTransform => merge";
-//            \Doctrine\Common\Util\Debug::dump($entity);
             $this->em->merge($entity);
         }
 

@@ -56,31 +56,32 @@ abstract class AbstractSympozerTypeTransformer implements DataTransformerInterfa
     }
 
     /**
+     * look for a direct string, then a getId method and finally, a array with 'id' key
      * @param mixed $input
      * @return string|null
      */
     public static function resolveIdFromInput($input)
     {
+        $id = null;
+
         if (is_string($input))
         {
-            return $input;
+            $id = $input;
         }
         else if (is_object($input))
         {
-            return $input->getId();
+            $id = $input->getId();
         }
-        else if (is_array($input))
+        else if (is_array($input) && isset($input["id"]) && !empty($input["id"]))
         {
-            return isset($input["id"]) ? $input["id"] : null;
+            $id = $input["id"];
         }
-        else
-        {
-            return null;
-        }
+
+        return $id;
     }
 
     /**
-     * get the entity class with namespace according to the form classname first arg
+     * get the entity class with namespace from a form classname
      * @param string $formType
      * @return string
      */
