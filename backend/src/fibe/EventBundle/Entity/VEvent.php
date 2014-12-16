@@ -391,7 +391,7 @@ abstract class VEvent
     /**
      * Validates start is before end
      *  don't perform the check if one date is missing
-     * @Assert\True(message = "{'field' : 'endAt', 'msg' : 'EventFormValidation_start_is_after_end_error'}")
+     * @Assert\True(message = "{'field' : 'endAt', 'msg' : 'mainEvents.validations.end_date_after_start'}")
      *
      * @return bool
      */
