@@ -130,7 +130,12 @@ sympozerApp.controller('breadcrumbCtrl', ['$scope', '$rootScope', '$location', f
                                 {
                                     idUrl: 'new',
                                     label: 'roles.actions.new'
+                                },
+                                {
+                                    idUrl: 'edit',
+                                    label: 'global.actions.edit'
                                 }
+
                             ]
                         },
                         {

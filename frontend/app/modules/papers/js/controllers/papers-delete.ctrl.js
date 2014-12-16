@@ -31,9 +31,11 @@ angular.module('papersApp').controller('papersDeleteCtrl', [ '$scope', 'paperMod
         });
 
         //If view is a modal, resolve modal promise with role object
-        if($scope.$close){
+        if($scope.$close)
+        {
             $scope.$close($scope.paper);
-        }else{
+        }else
+        {
             $window.history.back();
         }
     }
@@ -46,6 +48,6 @@ angular.module('papersApp').controller('papersDeleteCtrl', [ '$scope', 'paperMod
     //Send delete request
     $scope.delete = function ()
     {
-        papersFact.delete($scope.paper, success, error);
+        papersFact.delete({id:$scope.paper.id}, success, error);
     }
 }]);

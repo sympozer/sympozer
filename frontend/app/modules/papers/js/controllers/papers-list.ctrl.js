@@ -18,6 +18,7 @@ angular.module('papersApp').controller('papersListCtrl', ['$scope', '$routeParam
     {
         $scope.index = index;
 
+        //On clone error
         var error = function (response, args)
         {
             //Notify of the creation action error
@@ -28,6 +29,7 @@ angular.module('papersApp').controller('papersListCtrl', ['$scope', '$routeParam
             });
         };
 
+        //On clone success
         var success = function (response, args)
         {
             //Notify of the creation action success
@@ -36,7 +38,7 @@ angular.module('papersApp').controller('papersListCtrl', ['$scope', '$routeParam
                 text: translateFilter('papers.validations.created'),
                 type: 'success'
             });
-            debugger;
+
             $scope.entities.splice($scope.index + 1, 0, response);
 
         };
@@ -65,9 +67,11 @@ angular.module('papersApp').controller('papersListCtrl', ['$scope', '$routeParam
         });
 
         //When modal instance promise is resolved with 'ok' then remove the paper from the list
-        modalInstance.resolve = function(paper){
+        modalInstance.result.then(function (paper)
+        {
             $scope.entities.splice($scope.index, 1);
-        }
+        })
+
     }
 
 

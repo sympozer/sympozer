@@ -87,10 +87,11 @@ angular.module('rolesApp').controller('rolesListCtrl', [
                 }
             });
 
-            modalInstance.resolve = function ()
+            //When modal instance promise is resolved with 'ok' then remove the role from the list
+            modalInstance.result.then(function (role)
             {
                 $scope.entities.splice(index, 1);
-            }
+            })
         }
 
 

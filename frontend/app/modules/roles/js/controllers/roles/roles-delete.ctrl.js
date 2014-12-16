@@ -45,7 +45,7 @@ angular.module('rolesApp').controller('rolesDeleteCtrl', [ '$scope', 'roleModel'
     //Send delete request
     $scope.delete = function ()
     {
-        rolesFact.delete($scope.role, success, error);
+        rolesFact.delete({id:$scope.role.id}, success, error);
     }
 
 }]);

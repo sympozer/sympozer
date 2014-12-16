@@ -10,7 +10,7 @@
             <th></th>
         </tr>
         </thead>
-        <tbody entity-list-handler="papers" infinite-scroll='load()' infinite-scroll-disabled='busy' infinite-scroll-distance='0.5'>
+        <tbody  infinite-scroll='load()' infinite-scroll-disabled='busy' infinite-scroll-distance='0.5'>
         <tr ng-repeat="paper in entities  track by $index">
             <td>{{ paper.label }}</td>
             <td>

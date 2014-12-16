@@ -61,7 +61,7 @@ class Paper
     /**
      * Authors : Persons related to an event
      *
-     * @ORM\ManyToMany(targetEntity="fibe\CommunityBundle\Entity\Person", inversedBy="papers", cascade={"persist", "merge", "remove"})
+     * @ORM\ManyToMany(targetEntity="fibe\CommunityBundle\Entity\Person", inversedBy="papers", cascade={"persist"})
      * @ORM\JoinTable(name="paper_person",
      *     joinColumns={@ORM\JoinColumn(name="paper_id", referencedColumnName="id")},
      *     inverseJoinColumns={@ORM\JoinColumn(name="person_id", referencedColumnName="id")})

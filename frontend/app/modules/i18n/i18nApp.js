@@ -264,7 +264,9 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
             },
             validations: {
                 created: 'The paper has been saved',
-                not_created: 'Sorry, the paper has not been saved'
+                not_created: 'Sorry, the paper has not been saved',
+                deletion_success: 'Paper deleted',
+                deletion_error  : 'Sorry, we couldn\'nt delete this Paper'
             },
             messages   : {
                 delete_confirm: 'Are you sure you want to delete this paper ?',
@@ -836,8 +838,10 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 paper: 'Publication'
             },
             validations: {
-                'created': 'La publication a été enregistrée',
-                'not_created': 'Désolé, la publication n\'a pas été sauvegardée'
+                created: 'La publication a été enregistrée',
+                not_created: 'Désolé, la publication n\'a pas été sauvegardée',
+                deletion_success: 'Publication supprimée',
+                deletion_error  : 'Désolé, nous n\'avons pas pu supprimer cette publication'
             },
             messages   : {
                 delete_confirm: 'Etes-vous sur de vouloir supprimer cette publication ?',
