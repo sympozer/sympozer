@@ -33,6 +33,8 @@ class SympozerExtractIdFormListener implements EventSubscriberInterface
      * enabling a link between entities to be performed
      * by sending directly an id. like : "key : <id>"
      *
+     * also check the "required" option
+     *
      * This event is fired before the Transform step
      *
      * @param FormEvent $event
