@@ -10,7 +10,7 @@ namespace fibe\RestBundle\Form;
 class SympozerCollectionTypeTransformer extends AbstractSympozerTypeTransformer
 {
     /**
-     * transform model to view (array of objects to ArrayCollection of objects)
+     * transform model to view (array to ArrayCollection)
      * transform an array to a ArrayCollection object
      * @param array $input
      * @return \Doctrine\Common\Collections\ArrayCollection
@@ -31,7 +31,7 @@ class SympozerCollectionTypeTransformer extends AbstractSympozerTypeTransformer
     }
 
     /**
-     * transform view to model (array to )
+     * transform view to model (array to ArrayCollection)
      * transform an array to a ArrayCollection object
      * @param mixed $input
      * @return mixed

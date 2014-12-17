@@ -30,9 +30,8 @@ abstract class AbstractSympozerTypeTransformer implements DataTransformerInterfa
     }
 
     /**
-     * get or create an entity :
-     * resolve the entity id from the input array
-     * then get or create it whether the id has been found or not
+     * get or create an entity. Doesn't persist.
+     *
      * @param array|string $input
      * @param string $entityClassName
      * @return object the asked entity
@@ -56,7 +55,7 @@ abstract class AbstractSympozerTypeTransformer implements DataTransformerInterfa
     }
 
     /**
-     * look for a direct string, then a getId method and finally, a array with 'id' key
+     * Look for a direct string, then a getId method and finally, a array with 'id' key
      * @param mixed $input
      * @return string|null
      */

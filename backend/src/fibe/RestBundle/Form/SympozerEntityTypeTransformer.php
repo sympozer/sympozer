@@ -22,34 +22,31 @@ class SympozerEntityTypeTransformer extends AbstractSympozerTypeTransformer
     {
         if (null == $input)
         {
-//      throw new \Exception("entity transform NULL " . \Doctrine\Common\Util\Debug::dump($input));
             return null;
         }
         if ($id = $this->resolveIdFromInput($input))
         {
-//      throw new \Exception("entity transform NULL " . \Doctrine\Common\Util\Debug::dump($input));
             return null;
         }
         $output = array();
-//        $output['id'] = $id;
-
-//        $output['label'] = $input->getLabel();
         return $output;
     }
 
     /**
-     * transform view to new model (array to entity)
+     * transform view to new model (array to entity).
+     * Is responsible for any db operation on linked entities like persisting, make just a link or merge.
+     *
      * @param array $input
+     * @throws \Symfony\Component\Form\Exception\TransformationFailedException
      * @throws \Doctrine\ORM\EntityNotFoundException
      * @return object
      */
     public function reverseTransform($input)
     {
-//            unset($input['id']);
 //        echo "\n\nentity reverseTransform";
 //        \Doctrine\Common\Util\Debug::dump($this->options['type']);
 //        \Doctrine\Common\Util\Debug::dump($input);
-        if ($input == null || $input['id'] == SympozerExtractIdFormListener::TO_IGNORE)
+        if ($input == null || (isset($input['id']) && $input['id'] == SympozerExtractIdFormListener::TO_IGNORE))
         {
             return null;
         }
@@ -71,14 +68,13 @@ class SympozerEntityTypeTransformer extends AbstractSympozerTypeTransformer
                 $entity->$setter($value);
             }
         }
+
         if (null == $entity->getId())
         {
             if (isset($input['id']) && count($input) == 1)
             {
-                throw new TransformationFailedException();
+                throw new TransformationFailedException("cannot transform %s with the given input %s");
             }
-//            echo "\n\nentity reverseTransform => persist";
-//            \Doctrine\Common\Util\Debug::dump($entity);
             $this->em->persist($entity);
         }
         else
