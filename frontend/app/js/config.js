@@ -1,8 +1,3 @@
-
-//@TODO to put in serchService
-var queryNb = 0,
-    firstQueryNb = 0
-    ;
 var globalConfig = {
     app     : {
 
@@ -12,7 +7,7 @@ var globalConfig = {
             img     : "assets/img/"
         },
         modules: {
-            authentication   : {
+            authentication: {
                 urls   : {
                     base    : "modules/authentication/",
                     partials: "modules/authentication/partials/",
@@ -22,35 +17,35 @@ var globalConfig = {
                     shouldLogin: true
                 }
             },
-            organizations    : {
+            organizations : {
                 urls: {
-                    base             : "modules/organizations/",
-                    partials         : "modules/organizations/partials/",
-                    img              : "modules/organizations/img/"
+                    base    : "modules/organizations/",
+                    partials: "modules/organizations/partials/",
+                    img     : "modules/organizations/img/"
                 }
             },
-            locations        : {
+            locations     : {
                 urls: {
                     base    : "modules/locations/",
                     partials: "modules/locations/partials/",
                     img     : "modules/locations/img/"
                 }
             },
-            equipments       : {
+            equipments    : {
                 urls: {
                     base    : "modules/equipments/",
                     partials: "modules/equipments/partials/",
                     img     : "modules/equipments/img/"
                 }
             },
-            events           : {
+            events        : {
                 urls: {
                     base    : "modules/events/",
                     partials: "modules/events/partials/",
                     img     : "modules/events/img"
                 }
             },
-            papers           : {
+            papers        : {
                 urls: {
                     base             : "modules/papers/",
                     partials         : "modules/papers/partials/",
@@ -58,14 +53,14 @@ var globalConfig = {
                     img              : "modules/papers/img/"
                 }
             },
-            categories       : {
+            categories    : {
                 urls: {
                     base    : "modules/categories/",
                     partials: "modules/categories/partials/",
                     img     : "modules/categories/img/"
                 }
             },
-            mainEvents       : {
+            mainEvents    : {
                 urls: {
                     base             : "modules/main-events/",
                     partials         : "modules/main-events/partials/",
@@ -73,49 +68,49 @@ var globalConfig = {
                     img              : "modules/main-events/img/"
                 }
             },
-            persons          : {
+            persons       : {
                 urls: {
-                    base             : "modules/persons/",
-                    partials         : "modules/persons/partials/",
-                    img              : "modules/persons/img/"
+                    base    : "modules/persons/",
+                    partials: "modules/persons/partials/",
+                    img     : "modules/persons/img/"
                 }
             },
-            teammates        : {
+            teammates     : {
                 urls: {
                     base    : "modules/teammates/",
                     partials: "modules/teammates/partials/",
                     img     : "modules/teammates/img"
                 }
             },
-            roles            : {
+            roles         : {
                 urls: {
                     base    : "modules/roles/",
                     partials: "modules/roles/partials/roles/",
                     img     : "modules/roles/img/"
                 }
             },
-            roleLabels: {
+            roleLabels    : {
                 urls: {
                     base    : "modules/roles/",
                     partials: "modules/roles/partials/role-labels/",
                     img     : "modules/roles/img/"
                 }
             },
-            topics           : {
+            topics        : {
                 urls: {
                     base    : "modules/topics/",
                     partials: "modules/topics/partials/",
                     img     : "modules/topics/img/"
                 }
             },
-            messages           : {
+            messages      : {
                 urls: {
                     base    : "modules/messages/",
                     partials: "modules/messages/partials/",
                     img     : "modules/messages/img/"
                 }
             },
-            notifications           : {
+            notifications : {
                 urls: {
                     base    : "modules/notifications/",
                     partials: "modules/notifications/partials/",
@@ -123,7 +118,7 @@ var globalConfig = {
                 }
             },
 
-            analytics              : {
+            analytics: {
                 urls: {
                     base    : "modules/analytics/",
                     partials: "modules/analytics/partials/",
@@ -135,7 +130,6 @@ var globalConfig = {
     language: 'EN'
 
 };
-
 
 
 angular.module('sympozerApp').constant('GLOBAL_CONFIG', $.extend(globalConfig, wsConfig));
