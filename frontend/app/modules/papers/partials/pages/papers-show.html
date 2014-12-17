@@ -47,22 +47,7 @@
                                     </a>
                                 </panel-controls>
                                 <div ng-repeat="person in paper.authors track by $index"  ng-show="paper.authors" class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                                    <tile type="midnightblue">
-                                        <tile-heading>
-                                            <div class="row">
-                                                <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
-                                                    <span class="ellipsis">{{ person.label }}</span>
-
-                                                </div>
-                                                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                                                    <a class="btn btn-default btn-xs" href="#home/persons/show/{{ person.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>
-
-                                                </div>
-                                            </div>
-                                            </button>
-                                        </tile-heading>
-                                        <img class="img-responsive" no-image ng-src="{{ person.img }}"/>
-                                    </tile>
+                                    <div sympozer-with-locals locals-person="person" ng-include="GLOBAL_CONFIG.app.modules.persons.urls.partials+'views/persons-tile-sm.html'"></div>
                                 </div>
                             </panel>
                         </div>

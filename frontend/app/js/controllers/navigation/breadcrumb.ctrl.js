@@ -230,6 +230,19 @@ sympozerApp.controller('breadcrumbCtrl', ['$scope', '$rootScope', '$location', f
                                     label: 'global.actions.show'
                                 }
                             ]
+                        },
+                        {
+                            idUrl: 'teammates',
+                            label: 'teammates.links.team',
+                            url : '#/home/conference/'+$rootScope.currentMainEvent.id+'/teammates',
+                            children: [
+
+                                {
+                                    idUrl: 'new',
+                                    label: 'teammates.actions.new'
+                                },
+
+                            ]
                         }
                     ]
                 }

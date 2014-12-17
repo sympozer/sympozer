@@ -1,0 +1,26 @@
+<tile type="midnightblue">
+    <tile-heading>
+        <div class="row">
+            <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                <span class="ellipsis">{{ event.label }}</span>
+
+            </div>
+            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                <a ng-if="!edit" class="btn btn-default btn-xs" href="#/home/conference/{{ event.mainEvent.id }}/events/show/{{ event.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>
+                <button  ng-if="edit" class="btn btn-danger btn-xs" ng-click="deleteEvent($index)">
+                    <i class="fa fa-close"></i>
+                </button>
+            </div>
+        </div>
+        </button>
+    </tile-heading>
+    <div class="row">
+        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+            <i class="fa fa-calendar fa-4x"></i>
+        </div>
+
+        <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+            <p class="ellipsis">{{ event.description}}</p>
+        </div>
+    </div>
+</tile>

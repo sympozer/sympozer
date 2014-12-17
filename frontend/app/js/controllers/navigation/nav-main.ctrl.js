@@ -64,7 +64,7 @@ sympozerApp.controller('navMainCtrl', ['$scope', '$rootScope', '$location', '$ti
                     {
                         label: 'teammates.links.team',
                         iconClasses: 'fa fa-graduation-cap',
-                        url        : '#/conference/'+$rootScope.currentMainEvent.id+'/teammates' /** @TODO FORZA : TO ALIMENT WITH THE PROPER URL**/
+                        url        : '#/home/conference/'+$rootScope.currentMainEvent.id+'/teammates'
 
                     },
                     {

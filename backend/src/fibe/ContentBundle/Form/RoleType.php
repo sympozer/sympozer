@@ -28,7 +28,7 @@ class RoleType extends AbstractType
             ->add('roleLabel', 'sympozer_entity_type', array(
                 'cascade_persist' => false,
                 'type' => new RoleLabelType(),
-                'required' => 'true'
+                'required' => false
             ))
             ->add('person', 'sympozer_entity_type', array(
                 'type' => new PersonType(),

@@ -168,14 +168,9 @@
                     <panel-control-collapse class="fa fa-chevron-down"></panel-control-collapse>
                   </a>
                 </panel-controls>
-                <div class="row">
-
-                  <div class="well col-md-4  col-lg-4" ng-repeat="role in person.roles  track by $index" class="col-sm-6 col-md-6 col-lg-4" ng-if="person.roles">
-                    <i class="fa fa-calendar fa-2x"></i>
-                    <h4>{{ role.roleLabel.label }} @ {{ role.event.label}} </h4>
-                    <a class="btn  btn-default" href="#mainEvents/show/{{ role.mainEvent.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>
+                  <div  ng-repeat="role in person.roles  track by $index" class="col-xs-6 col-sm-6 col-md-6 col-lg-6" ng-if="person.roles">
+                      <div sympozer-with-locals locals-role="role" ng-include="GLOBAL_CONFIG.app.modules.roles.urls.partials+'views/roles-tile-sm.html'"></div>
                   </div>
-                </div>
 
               </panel>
             </div>
@@ -186,13 +181,11 @@
                     <panel-control-collapse class="fa fa-chevron-down"></panel-control-collapse>
                   </a>
                 </panel-controls>
-                <div class="row">
-                  <div class="col-md-4 col-lg-4 well" ng-repeat="paper in person.papers track by $index" ng-if="person.papers">
-                    <i class="fa fa-book fa-4x"></i>
-                    <h4>{{ paper.label }}</h4>
-                    <a class="btn btn-default" href="#papers/show/{{ paper.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>
+                  <div class="row">
+                      <div ng-repeat="paper in person.papers track by $index"  ng-show="person.papers" class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                          <div sympozer-with-locals locals-paper="paper" ng-include="GLOBAL_CONFIG.app.modules.papers.urls.partials+'views/papers-tile-sm.html'"></div>
+                      </div>
                   </div>
-                </div>
               </panel>
             </div>
           </div>

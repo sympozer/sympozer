@@ -10,11 +10,11 @@ angular.module('teammatesApp')
         function ($routeProvider)
         {
             $routeProvider
-                .when('/conference/:mainEventId/teammates', {
+                .when('/home/conference/:mainEventId/teammates', {
                     templateUrl: globalConfig.app.modules.teammates.urls.partials + 'page/teammates-index.html',
                     controller : 'teammatesIndexCtrl'
                 })
-                .when('/conference/:mainEventId/teammates/new', {
+                .when('/home/conference/:mainEventId/teammates/new', {
                     templateUrl: globalConfig.app.modules.teammates.urls.partials + 'page/teammates-new.html',
                     controller : 'teammatesNewCtrl'
                 })

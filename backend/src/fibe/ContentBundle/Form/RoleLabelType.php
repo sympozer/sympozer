@@ -22,12 +22,8 @@ class RoleLabelType extends AbstractType
         $builder
             ->add('id')
             ->add('label')
-            ->add('description')
-            ->add('mainEvent', 'sympozer_entity_type', array(
-                'type'            => new MainEventType(),
-                'required'        => true,
-                'cascade_persist' => false,
-            ));
+            ->add('description');
+
 
 //            ->add('roles', 'collection', array(
 //                'type' => new RoleType(),

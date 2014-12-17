@@ -60,6 +60,7 @@ class MainEvent extends VEvent
      * Roles
      *
      * @ORM\OneToMany(targetEntity="fibe\ContentBundle\Entity\Role", mappedBy="mainEvent",cascade={"persist", "remove"})
+     * @Expose
      */
     private $roles;
     /**

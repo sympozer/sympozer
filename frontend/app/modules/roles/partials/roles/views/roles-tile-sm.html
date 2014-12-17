@@ -1,0 +1,28 @@
+<tile type="midnightblue">
+    <tile-heading>
+        <div class="row">
+            <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                <span class="ellipsis">{{ role.roleLabel.label }}</span>
+
+            </div>
+            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                <a ng-if="role.event" class="btn btn-default btn-xs" href="#/home/conference/{{ role.mainEvent.id }}/events/show/{{ role.event.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>
+                <a ng-if="!role.event" class="btn btn-default btn-xs" href="#/home/mainEvents/{{ role.mainEvent.id }}/overview/settings" role="button"><i class="fa fa-eye fa-1x"></i></a>
+            </div>
+        </div>
+        </button>
+    </tile-heading>
+    <div class="row">
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+            <img class="img-responsive" no-image ng-src="{{role.mainEvent.logo}}">
+        </div>
+
+        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+            <p ng-if="role.event" class="ellipsis">{{ role.event.label}} </p>
+            <p ng-if="!role.event" class="ellipsis">{{ role.mainEvent.label}} </p>
+        </div>
+    </div>
+</tile>
+
+
+<h4></h4>

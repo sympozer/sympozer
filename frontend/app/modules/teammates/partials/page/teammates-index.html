@@ -1,6 +1,6 @@
 <div id="page-heading">
   <div ng-include="GLOBAL_CONFIG.app.urls.partials+'navigation/breadcrumb.html'"></div>
-  <h1>{{'teammates.links.team' | translate }}</h1>
+  <h1>{{'teammates.actions.index.subtitle' | translate }}</h1>
   <div class="options">
     <div class="btn-toolbar">
       <div ng-include="GLOBAL_CONFIG.app.modules.teammates.urls.partials+'views/teammates-actions.html'"></div>
@@ -14,7 +14,6 @@
 
       <div class="panel">
         <div class="panel-heading">
-          <h4>{{'teammates.actions.index.subtitle' | translate }}</h4>
         </div>
         <div class="panel-body">
           <div class="search-classic" entity-list-handler="teammates" limit="2" data-order-by="person">
