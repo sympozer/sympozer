@@ -126,13 +126,15 @@ angular.module('locationsApp').controller('locationsNewCtrl', [ '$scope', '$filt
             $scope.location.state = selectedAddress.state;
             $scope.location.country = selectedAddress.country;
             $scope.location.countryCode = selectedAddress.countryCode;
+            $scope.location.address = selectedAddress.address;
+
         }
 
         //Define a location on map from an address string
         var submitGeocoding = function (address)
         {
             GMaps.geocode({
-                address: address.label,
+                address: address.address,
                 callback: function (results, status)
                 {
                     if (status == 'OK')

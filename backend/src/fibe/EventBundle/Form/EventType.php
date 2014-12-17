@@ -31,15 +31,15 @@ class EventType extends VEventType
             ))
             ->add('papers', 'sympozer_collection_type', array(
                 'type' => new PaperType(),
-                'required' => 'false'
+                'required' => false
             ))
             ->add('roles', 'sympozer_collection_type', array(
                 'type' => new RoleType(),
-                'required' => 'false'
+                'required' => false
             ))
             ->add('topics', 'sympozer_collection_type', array(
                 'type' => new TopicType(),
-                'required' => 'false'
+                'required' => false
             ))
         ;
 

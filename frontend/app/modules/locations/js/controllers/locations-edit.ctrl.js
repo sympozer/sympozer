@@ -8,12 +8,14 @@ angular.module('locationsApp').controller('locationsEditCtrl', [ '$scope', '$win
     function ($scope, $window, $filter, $rootScope, $routeParams, $location, equipmentsFact, locationsFact, pinesNotifications, translateFilter)
 {
 
-    $scope.location = locationsFact.get({id: $routeParams.locationId}, function(location){
-        //initialize map with current location
-        $scope.mapInstanceOption.lat = location.latitude || 48;
-        $scope.mapInstanceOption.long = location.longitude || 8;
-        $scope.mapInstanceOption.zoom = 4;
-    });
+    var fetchSuccess = function(location){
+
+        if(location.address){
+            geoCode(location.address);
+        }
+    }
+
+    $scope.location = locationsFact.get({id: $routeParams.locationId}, fetchSuccess);
 
 
     var error = function (response, args)
@@ -84,14 +86,53 @@ angular.module('locationsApp').controller('locationsEditCtrl', [ '$scope', '$win
         }
     });
 
-    //Set default options for map
+    //Set default options for map rendering (mandatory)
     $scope.mapInstanceOption = {
         lat: -12.043333,
         lng: -77.028333,
-        zoom: 12,
-        click: function (e)
-        {
-            console.log(e);
-        }
+        zoom: 12
     }
+
+    /**
+     * Set the map with a marker at a specific address
+     * @param address, address to geocode and put the marker on
+     */
+    var geoCode = function(address){
+        GMaps.geocode({
+            address: address,
+            callback: function (results, status)
+            {
+                if (status == 'OK')
+                {
+                    //Get geolocalization object
+                    var latlng = results[0].geometry.location;
+
+                    //Set map center
+                    $scope.geoCodingMapInstance.setCenter(latlng.lat(), latlng.lng());
+                    //Set marker
+                    $scope.geoCodingMapInstance.addMarker({
+                        lat: latlng.lat(),
+                        lng: latlng.lng()
+                    });
+                }
+            }
+        });
+    }
+
+    //On address defintion
+    $scope.selectAddress = function(selectedAddress){
+        //trigger map rendering of the selected address
+        geoCode(selectedAddress.address);
+        //Set new conference address
+        $scope.location.streetNumber = selectedAddress.streetNumber;
+        $scope.location.street = selectedAddress.street;
+        $scope.location.city = selectedAddress.city;
+        $scope.location.postalCode = selectedAddress.postalCode;
+        $scope.location.state = selectedAddress.state;
+        $scope.location.country = selectedAddress.country;
+        $scope.location.countryCode = selectedAddress.countryCode;
+        $scope.location.address = selectedAddress.address;
+
+    }
+
 }]);

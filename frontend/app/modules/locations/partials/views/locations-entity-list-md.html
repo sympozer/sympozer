@@ -5,8 +5,7 @@
             <th>{{'locations.model.label' | translate}}<i class="fa fa-sort-asc" ng-click="order('label','ASC')"></i><i class="fa fa-sort-desc" ng-click="order('label','DESC')"></i>
             <th>{{'locations.model.capacity' | translate}}</th>
             <th>{{'locations.model.description' | translate}}</th>
-            <th>{{'locations.model.latitude' | translate}}</th>
-            <th>{{'locations.model.longitude' | translate}}</th>
+            <th>{{'equipments.links.equipments' | translate}}</th>
         </tr>
         </thead>
         <tbody infinite-scroll='load()' infinite-scroll-disabled='busy' infinite-scroll-distance='0.5'>
@@ -14,8 +13,9 @@
             <td>{{ location.label }}</td>
             <td>{{ location.capacity }}</td>
             <td>{{ location.description }}</td>
-            <td>{{ location.latitude }}</td>
-            <td>{{ location.longitude }}</td>
+            <td>
+                <i ng-repeat="equipment in location.equipments  track by $index" class="fa fa-{{equipment.icon}} fa-1x"></i>
+            </td>
             <td>
                 <a class="btn btn-warning btn-sm" href="#/home/conference/{{currentMainEvent.id}}/locations/edit/{{ location.id }}" role="button"><i class="fa fa-edit fa-1x"></i></a>
                 <a class="btn btn-default btn-sm" href="#/home/conference/{{currentMainEvent.id}}/locations/show/{{ location.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>

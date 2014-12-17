@@ -106,7 +106,7 @@ sympozerApp.controller('navMainCtrl', ['$scope', '$rootScope', '$location', '$ti
                         label: 'navleft.analytics',
                         iconClasses: 'fa fa-line-chart',
                         url: '#/home/conference/'+$rootScope.currentMainEvent.id+'/analytics/index'
-                    },
+                    }
                 ]
             }
         ];

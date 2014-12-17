@@ -27,7 +27,7 @@
     <label  class="col-sm-3 control-label">{{ 'locations.links.location' | translate}} </label>
 
     <div class="col-sm-6">
-        <input google-place-autocomplete="" type="text" class="form-control"  on-select="selectAddress" ng-model="location.localization" /></td>
+        <input google-place-autocomplete="" type="text" class="form-control"  on-select="selectAddress" ng-model="location.address" /></td>
         <div style="height: 300px" gmap options="mapInstanceOption" instance="geoCodingMapInstance"></div>
     </div>
 </div>
@@ -36,22 +36,6 @@
     <label class="col-sm-3 control-label">{{'equipments.links.equipments' | translate}}</label>
     <div class="col-sm-6">
         <div sympozer-autocomplete="equipments" on-select="addEquipment" on-keyup="searchEquipments"></div>
-        <ul class="nav nav-pills" ng-show="location.equipments.length > 0">
-            <li ng-repeat="equipment in location.equipments track by $index" class="active">
-                <a ng-click="deleteEquipment($index)">
-                    <i class="fa fa-{{equipment.icon}} fa-1x"></i>
-                    {{ equipment.label }}
-                    <i class="fa fa-close"></i>
-                </a>
-            </li>
-        </ul>
-
+        <div ng-show="location.equipments.length > 0" sympozer-with-locals locals-equipments="location.equipments" ng-include="GLOBAL_CONFIG.app.modules.equipments.urls.partials+'views/equipments-list-thumbnail-xs.html'"></div>
     </div>
 </div>
-
-<!--<div>-->
-<!--<br/>-->
-<!--<div class="caption well">-->
-<!--<leaflet  center="center" markers="markers" height="300px" width="100%"></leaflet>-->
-<!--</div>-->
-<!--</div>-->

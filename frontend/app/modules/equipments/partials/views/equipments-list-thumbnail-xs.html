@@ -1,0 +1,9 @@
+<ul class="nav nav-pills">
+    <li ng-repeat="equipment in equipments track by $index" class="active">
+        <a ng-click="deleteEquipment($index)">
+            <i class="fa fa-{{equipment.icon}} fa-1x"></i>
+            {{ equipment.label }}
+            <i class="fa fa-close"></i>
+        </a>
+    </li>
+</ul>
