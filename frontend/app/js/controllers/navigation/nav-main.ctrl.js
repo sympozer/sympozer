@@ -50,7 +50,6 @@ sympozerApp.controller('navMainCtrl', ['$scope', '$rootScope', '$location', '$ti
         //Set number off object on nav barre
         var badgeEvents = $rootScope.currentMainEvent.events ? $rootScope.currentMainEvent.events.length : 0;
         var badgeLocations = $rootScope.currentMainEvent.eventLocations ? $rootScope.currentMainEvent.eventLocations.length : 0;
-        var badgeCategories =$rootScope.currentMainEvent.categoryVersions ? $rootScope.currentMainEvent.categoryVersions.length : 0;
 
         return [
             {
@@ -100,12 +99,6 @@ sympozerApp.controller('navMainCtrl', ['$scope', '$rootScope', '$location', '$ti
                                 html: '<span class="badge badge-magenta">'+ badgeLocations +'</span>',
                                 iconClasses: 'fa fa-map-marker red',
                                 url: '#/home/conference/'+$rootScope.currentMainEvent.id+'/locations/list'
-                            },
-                            {
-                                label: 'categories.links.categories',
-                                iconClasses: 'fa fa-tag',
-                                html: '<span class="badge badge-orange">'+ badgeCategories +'</span>',
-                                url: '#/home/conference/'+$rootScope.currentMainEvent.id+'/categories/list'
                             }
                         ]
                     },

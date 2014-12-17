@@ -33,6 +33,8 @@ class Paper
      */
     private $id;
 
+
+
     /**
      * label (or title of the paper)
      *
@@ -450,5 +452,29 @@ class Paper
         $this->mainEvent = $mainEvent;
 
         return $this;
+    }
+
+    /**
+     * @param mixed $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @param mixed $events
+     */
+    public function setEvents($events)
+    {
+        $this->events = $events;
+    }
+
+    /**
+     * @param mixed $topics
+     */
+    public function setTopics($topics)
+    {
+        $this->topics = $topics;
     }
 }

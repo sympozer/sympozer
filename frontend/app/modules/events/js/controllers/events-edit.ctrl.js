@@ -87,24 +87,22 @@ angular.module('eventsApp').controller('eventsEditCtrl', ['$scope', '$filter', '
         {
             if (!categoryModel.id)
             {
-                var modalInstance = $modal.open({
-                    templateUrl: GLOBAL_CONFIG.app.modules.categories.urls.partials + 'modals/categories-modal-form.html',
-                    controller : 'categoriesNewCtrl',
-                    size       : "large",
-                    resolve    : {
-                    }
-                });
-                modalInstance.result.then(function (newCategory)
-                {
-                    $scope.event.category = newCategory;
-                }, function ()
-                {
-                    //$log.info('Modal dismissed at: ' + new Date());
+                //If topic doesn't exist, create it
+                categoriesFact.create(categoriesFact.serialize({ label : categoryModel}), function(category){
+                    $scope.event.category = category;
+
+                },function(error){
+                    //Notify of the creation action error
+                    pinesNotifications.notify({
+                        title: translateFilter('global.validations.error'),
+                        text : translateFilter('categories.validations.not_created'),
+                        type : 'error'
+                    });
                 });
             }
             else
             {
-                $scope.event.category = categoryModel;
+                $scope.event.category = category;
             }
         };
 
@@ -114,26 +112,22 @@ angular.module('eventsApp').controller('eventsEditCtrl', ['$scope', '$filter', '
         {
             if (!topicModel.id)
             {
-                var modalInstance = $modal.open({
-                    templateUrl: GLOBAL_CONFIG.app.modules.topics.urls.partials + 'modals/topics-modal-form.html',
-                    controller : 'topicsNewCtrl',
-                    size       : "large",
-                    resolve    : {
-                    }
-                });
-                modalInstance.result.then(function (newTopic)
-                {
-                    $scope.addRelationship('topics', newTopic);
+                //If topic doesn't exist, create it
+                topicsFact.create(topicsFact.serialize({ label : topicModel}), function(topic){
+                    $scope.addRelationship('topics', topic);
 
-                }, function ()
-                {
-                    //$log.info('Modal dismissed at: ' + new Date());
+                },function(error){
+                    //Notify of the creation action error
+                    pinesNotifications.notify({
+                        title: translateFilter('global.validations.error'),
+                        text : translateFilter('topics.validations.not_created'),
+                        type : 'error'
+                    });
                 });
             }
             else
             {
-                $scope.addRelationship('topics', topicModel);
-
+                $scope.addRelationship('topics', topicModel)
             }
         };
 
@@ -152,7 +146,7 @@ angular.module('eventsApp').controller('eventsEditCtrl', ['$scope', '$filter', '
                 });
                 modalInstance.result.then(function (newLocation)
                 {
-                    $scope.addRelationship('eventLocations', newLocation);
+                    $scope.event.location = newLocation;
                 }, function ()
                 {
                     //$log.info('Modal dismissed at: ' + new Date());
@@ -160,7 +154,7 @@ angular.module('eventsApp').controller('eventsEditCtrl', ['$scope', '$filter', '
             }
             else
             {
-                $scope.addRelationship('eventLocations', locationModel);
+                $scope.event.location = locationModel;
             }
         };
 
@@ -221,8 +215,24 @@ angular.module('eventsApp').controller('eventsEditCtrl', ['$scope', '$filter', '
             });
         };
 
+        //Remove a role from the event role list by index
         $scope.deleteRole = function (index)
         {
             $scope.event.roles.splice(index, 1);
         };
+
+        //Delete the location of the event
+        $scope.deleteLocation = function(){
+            delete $scope.event.location;
+        }
+
+        //Delete the category of the event
+        $scope.deleteCategory = function(){
+            delete $scope.event.category;
+        }
+
+        //Delete a paper from the event paper list using its index
+        $scope.deletePaper = function(index){
+            $scope.removeRelationship('papers', index)
+        }
     }]);

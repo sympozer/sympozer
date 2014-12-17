@@ -19,10 +19,10 @@ class EventType extends VEventType
     {
         parent::buildForm($builder, $options);
         $builder
-//            ->add('category', 'sympozer_entity_type', array(
-//                'type' => new CategoryType(),
-//                'required' => false,
-//            ))
+            ->add('category', 'sympozer_entity_type', array(
+                'type' => new CategoryType(),
+                'required' => false,
+            ))
             ->add('mainEvent', 'sympozer_entity_type', array(
                 'type' => new MainEventType(),
                 'required' => true,

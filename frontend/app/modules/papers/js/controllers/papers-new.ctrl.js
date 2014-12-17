@@ -50,7 +50,7 @@ angular.module('papersApp').controller('papersNewCtrl', [ '$scope', '$window', '
             //If the view is a modal, close it
             if ($scope.$close)
             {
-                $scope.$close($scope.paper);
+                $scope.$close(response);
             }
             //If not, go back to previous page
             else

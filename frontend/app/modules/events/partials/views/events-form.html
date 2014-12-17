@@ -102,13 +102,7 @@
 
     <div class="col-sm-6">
         <div sympozer-autocomplete="locations" on-select="addLocation" on-keyup="searchLocations"></div>
-        <ul class="nav nav-pills">
-            <li class="active" ng-show="event.location">
-                <a href="javascript:void(0)">
-                    {{ event.location.label }}
-                </a>
-            </li>
-        </ul>
+        <div ng-show="event.location" sympozer-with-locals locals-location="event.location" ng-include="GLOBAL_CONFIG.app.modules.locations.urls.partials+'views/locations-thumbnail-xs.html'"></div>
     </div>
 
 </div>
@@ -119,15 +113,11 @@
 
     <div class="col-sm-6">
         <div sympozer-autocomplete="papers" on-select="addPaper" on-keyup="searchPapers"></div>
+        <div ng-repeat="paper in event.papers  track by $index" class="col-sm-5 col-md-5 col-lg-5">
+            <div sympozer-with-locals locals-paper="paper" locals-edit="true" ng-include="GLOBAL_CONFIG.app.modules.papers.urls.partials+'views/papers-tile-sm.html'"></div>
+        </div>
     </div>
-    <div ng-repeat="paper in event.papers  track by $index" class="col-sm-2 col-md-2 col-lg-2  well">
 
-        <i class="fa fa-book fa-3x"></i>
-
-        <h3>{{ paper.label }}</h3>
-        <a class="btn btn-default" href="#conference/{{paper.mainEvent.id}}/papers/show/{{ paper.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>
-        <a class="btn btn-danger" href="javascript:void(0)" ng-click="removeRelationship('papers', $index)" role="button"><i class="fa fa-times"></i></a>
-    </div>
 </div>
 
 

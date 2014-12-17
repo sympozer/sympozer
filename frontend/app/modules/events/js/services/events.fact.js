@@ -6,7 +6,7 @@
  * @type {factory}
  */
 angular.module('eventsApp').factory('eventsFact',
-    ['$resource', '$cachedResource', '$routeParams', function ($resource, $cachedResource, $routeParams)
+    ['$resource', function ($resource)
     {
         //Define CRUD functions
         var resource = $resource(
@@ -18,7 +18,7 @@ angular.module('eventsApp').factory('eventsFact',
                 update         : {method: 'PUT', url: globalConfig.api.urls.get_events + '/:id', params: {id: '@id'}, isArray: false},
                 delete         : {method: 'DELETE', url: globalConfig.api.urls.get_events + '/:id', params: {id: '@id'}, isArray: false},
                 all            : {method: 'GET', params: {}, isArray: false},
-                allByConference: {method: 'GET', url: globalConfig.api.urls.get_mainEvents + '/:mainEventId/events', params: {'mainEventId': $routeParams.mainEventId}, isArray: false}
+                allByConference: {method: 'GET', url: globalConfig.api.urls.get_mainEvents + '/:mainEventId/events', params: {'mainEventId': '@mainEventId'}, isArray: false}
             }
         );
 
@@ -38,7 +38,7 @@ angular.module('eventsApp').factory('eventsFact',
                 'description': object.description,
                 'dtype'      : object.dtype,
                 'facebook'   : object.facebook,
-                'papers'     : object.papers,
+                'papers'     : [],
                 'priority'   : object.priority,
                 'topics'     : [],
                 'twitter'    : object.twitter,
@@ -47,16 +47,21 @@ angular.module('eventsApp').factory('eventsFact',
             }
 
             //Serialize topics
-            for (var topic in object.topics)
-            {
-                DTObject.topics.push({id: topic.id});
+            if(object.topics){
+                for (var i = 0; i < object.topics.length; i++)
+                {
+                    DTObject.topics.push({id: object.topics[i].id});
+                }
             }
 
-            //Serialize sponsors
-//            for (var sponsor in object.sponsors)
-//            {
-//                DTObject.sponsors.push({id: sponsor.id});
-//            }
+
+            //Serialize papers
+            if(object.papers) {
+                for (var i = 0; i < object.papers.length; i++)
+                {
+                    DTObject.papers.push({id: object.papers[i].id});
+                }
+            }
 
             //create the new resource object from DTObject
             return new resource(DTObject);
@@ -67,7 +72,7 @@ angular.module('eventsApp').factory('eventsFact',
         {
             var cloneEvent = angular.copy(event);
             delete cloneEvent.id;
-            cloneEvent.label = cloneEvent.label + "(" + (++i) + ")";
+            cloneEvent.label = cloneEvent.label + "(" + new Date() + ")";
             this.create(this.serialize(cloneEvent), success, error);
         };
 

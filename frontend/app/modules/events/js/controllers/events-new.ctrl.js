@@ -229,5 +229,20 @@ angular.module('eventsApp').controller('eventsNewCtrl', [
 
         };
 
+        //Delete the location of the event
+        $scope.deleteLocation = function(){
+            delete $scope.event.location;
+        }
+
+        //Delete the category of the event
+        $scope.deleteCategory = function(){
+            delete $scope.event.category;
+        }
+
+        //Delete a paper from the event paper list using its index
+        $scope.deletePaper = function(index){
+            $scope.removeRelationship('papers', index)
+        }
+
     }
 ]);
