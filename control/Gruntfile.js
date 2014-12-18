@@ -85,7 +85,8 @@ module.exports = function(grunt) {
                     'vendors/bootstrap-social/bootstrap-social.css',
 
                     'app/css/app.css',
-                    'app/css/animations.css'
+                    'app/css/animations.css',
+                    'app/css/angular-social.css'
                 ]
             },
             scripts: {
