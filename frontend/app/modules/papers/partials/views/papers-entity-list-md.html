@@ -14,11 +14,10 @@
         <tr ng-repeat="paper in entities  track by $index">
             <td>{{ paper.label }}</td>
             <td>
-
                 <img style="height:10%" no-image ng-src="author.img" ng-repeat="author in paper.authors  track by $index">
             </td>
             <td>{{ paper.url }}</td>
-            <td>{{ paper.publisher }} - {{ paper.publishDate }}</td>
+            <td>{{ paper.publisher }} - {{ paper.publishDate | date:'short'}}</td>
             <td>
 
                 <a class="btn btn-warning btn-sm" href="#/home/conference/{{ paper.mainEvent.id }}/papers/edit/{{ paper.id }}" role="button"><i class="fa fa-edit fa-1x"></i></a>

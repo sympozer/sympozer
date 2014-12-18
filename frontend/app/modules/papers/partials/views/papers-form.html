@@ -49,7 +49,7 @@
 
     <div class="col-sm-6">
         <div sympozer-autocomplete="topics" on-select="addTopic" on-keyup="searchTopics"></div>
-        <div ng-show="paper.topics.length > 0" sympozer-with-locals locals-topics="paper.topics" ng-include="GLOBAL_CONFIG.app.modules.topics.urls.partials+'views/topics-list-thumbnail-xs.html'"></div>
+        <div ng-show="paper.topics.length > 0" locals-edit="true" sympozer-with-locals locals-topics="paper.topics" ng-include="GLOBAL_CONFIG.app.modules.topics.urls.partials+'views/topics-list-thumbnail-xs.html'"></div>
     </div>
 </div>
 

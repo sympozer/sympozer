@@ -36,7 +36,7 @@
     <label class="col-sm-3 control-label">{{ 'topics.links.topics' | translate }}</label>
     <div class="col-sm-6">
         <div sympozer-autocomplete="topics" on-select="addTopic" on-keyup="searchTopics"></div>
-        <div ng-show="event.topics.length > 0" sympozer-with-locals locals-topics="event.topics" ng-include="GLOBAL_CONFIG.app.modules.topics.urls.partials+'views/topics-list-thumbnail-xs.html'"></div>
+        <div ng-show="event.topics.length > 0" sympozer-with-locals locals-edit="true" locals-topics="event.topics" ng-include="GLOBAL_CONFIG.app.modules.topics.urls.partials+'views/topics-list-thumbnail-xs.html'"></div>
     </div>
 </div>
 
