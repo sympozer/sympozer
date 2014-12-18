@@ -4,8 +4,8 @@
  * @type {controller}
  */
 angular.module('personsApp').controller('personsEditCtrl', [
-    '$scope', '$q', '$filter', '$rootScope', '$modal', 'GLOBAL_CONFIG', '$routeParams', '$location', 'personsFact', 'organizationsFact', 'papersFact', 'pinesNotifications', 'translateFilter',
-    function ($scope, $q, $filter, $rootScope, $modal, GLOBAL_CONFIG, $routeParams, $location, personsFact, organizationsFact, papersFact, pinesNotifications, translateFilter)
+    '$scope', '$q', '$filter', '$rootScope', '$modal', 'GLOBAL_CONFIG', '$routeParams', '$location', 'personsFact', 'organizationsFact', 'papersFact', 'pinesNotifications', 'translateFilter', 'authenticationFact',
+    function ($scope, $q, $filter, $rootScope, $modal, GLOBAL_CONFIG, $routeParams, $location, personsFact, organizationsFact, papersFact, pinesNotifications, translateFilter, authenticationFact)
     {
         //Fetch person info
         $scope.person = personsFact.get({id: $routeParams.personId});
@@ -31,6 +31,8 @@ angular.module('personsApp').controller('personsEditCtrl', [
                 text : translateFilter('global.validations.modifications_saved'),
                 type : 'success'
             });
+
+            authenticationFact.updatePerson(response);
         }
 
         //Send patch request on the field to be persisted

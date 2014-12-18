@@ -22,6 +22,10 @@ angular.module('authenticationApp').factory('authenticationFact', ['$rootScope',
         localStorage.setItem('currentUser', JSON.stringify(newUser));
     };
 
+    authenticationFact.updatePerson = function (newPerson){
+        $rootScope.currentUser.person = newPerson;
+    };
+
     authenticationFact.removeUser = function (){
         $rootScope.isLoggedIn = false;
         localStorage.removeItem('currentUser');
