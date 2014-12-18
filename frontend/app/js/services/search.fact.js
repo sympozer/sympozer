@@ -71,7 +71,7 @@ angular.module('sympozerApp').factory('searchService', [
                         }
                     }
 
-                    queryNb++;
+                    //queryNb++;
 
                     //Send request to server
                     searchConfig.request(requestParams, success);

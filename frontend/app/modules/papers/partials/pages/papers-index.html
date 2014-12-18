@@ -30,102 +30,102 @@
 -->
 <div id="page-heading">
 
-  <div ng-include="GLOBAL_CONFIG.app.urls.partials+'navigation/breadcrumb.html'"></div>
+    <div ng-include="GLOBAL_CONFIG.app.urls.partials+'navigation/breadcrumb.html'"></div>
 
-  <h1>{{'papers.links.papers' | translate }}</h1>
+    <h1>{{'papers.links.papers' | translate }}</h1>
 
-  <div class="options">
-    <div class="btn-toolbar">
-      <div class="btn-group" dropdown>
-        <button type="button" class="btn btn-default dropdown-toggle">
-          Action <span class="caret"></span>
-        </button>
-        <ul class="dropdown-menu" role="menu">
-          <li>
-            <a href="" ng-click="showNewTopicsPopup()">{{ 'authentication.actions.signup' | translate }}</a>
-          </li>
-          <li><a href="#">Another action</a></li>
-          <li><a href="#">Something else here</a></li>
-          <li class="divider"></li>
-          <li><a href="#">Separated link</a></li>
-        </ul>
-      </div>
-      <a href="#" class="btn btn-default hidden-xs"><i class="fa fa-cog"></i></a>
+    <div class="options">
+        <div class="btn-toolbar">
+            <div class="btn-group" dropdown>
+                <button type="button" class="btn btn-default dropdown-toggle">
+                    Action <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                    <li>
+                        <a href="" ng-click="showNewTopicsPopup()">{{ 'authentication.actions.signup' | translate }}</a>
+                    </li>
+                    <li><a href="#">Another action</a></li>
+                    <li><a href="#">Something else here</a></li>
+                    <li class="divider"></li>
+                    <li><a href="#">Separated link</a></li>
+                </ul>
+            </div>
+            <a href="#" class="btn btn-default hidden-xs"><i class="fa fa-cog"></i></a>
+        </div>
     </div>
-  </div>
 </div>
 
 <div class="container-fluid">
-  <div class="row">
-    <div class="col-md-12">
+    <div class="row">
+        <div class="col-md-12">
 
-      <div class="panel">
-        <div class="panel-heading">
-          <h4>{{'papers.actions.index.subtitle' | translate }}</h4>
-        </div>
-        <div class="panel-body">
-          <div class="search-classic">
-            <form action="#">
-              <div class="input-group well w100">
-                <input type="text" placeholder="{{'global.actions.placeHolderSearch' | translate }}" class="form-control"/>
+            <div class="panel">
+                <div class="panel-heading">
+                    <h4>{{'papers.actions.index.subtitle' | translate }}</h4>
+                </div>
+                <div class="panel-body">
+                    <div class="search-classic">
+                        <form action="#">
+                            <div class="input-group well w100">
+                                <input type="text" placeholder="{{'global.actions.placeHolderSearch' | translate }}" class="form-control"/>
                   <span class="input-group-btn">
                     <button type="button" class="btn btn-primary">
-                      <i class="fa fa-search"></i> {{'global.actions.search' | translate }}
+                        <i class="fa fa-search"></i> {{'global.actions.search' | translate }}
                     </button>
                   </span>
-              </div>
-            </form>
-            <h3>{{'global.labels.search.displaying' | translate }} 'Forza'</h3>
-            <hr>
-            <div class="search-result" ng-repeat-start="paper in entities  track by $index">
-              <div class="row">
-                <!-- @TODO : DO A PARTIAL TO SHOW CONTENT -->
-                <h4 class="col-lg-8 col-md-12"><a href="#">{{ paper.label }}</a></h4>
+                            </div>
+                        </form>
+                        <h3>{{'global.labels.search.displaying' | translate }} 'Forza'</h3>
+                        <hr>
+                        <div class="search-result" ng-repeat-start="paper in entities  track by $index">
+                            <div class="row">
+                                <!-- @TODO : DO A PARTIAL TO SHOW CONTENT -->
+                                <h4 class="col-lg-8 col-md-12"><a href="#">{{ paper.label }}</a></h4>
 
-                <h4 class="col-lg-4 col-md-12 text-right-lg">
-                  <span ng-repeat="topic in paper.topics" class="labels label-primary">{{ topic }}</span>
-                </h4>
-              </div>
-              <div class="row" ng-if="paper.publisher || paper.publishDate || paper.authors">
-                <!-- @TODO : TRANSLATE DATE -->
-                <h5 class="col-lg-8 col-md-12" ng-if="paper.authors">
-                  {{ (paper.authors.length > 1) ? 'papers.labels.authors' : 'papers.labels.author' | translate }}
-                  <em ng-repeat="author in paper.authors">{{ author }}{{$last ? '' : ', '}}</em>
-                </h5>
-                <h6 class="{{ paper.authors ? 'col-lg-4 col-md-12 ' : '' }}text-right-lg" ng-if="paper.publisher || paper.publishDate">
-                  <em ng-if="paper.publisher">{{'papers.labels.publishedBy' | translate }} {{ paper.publisher }} </em>
-                  <em ng-if="paper.publisher && paper.publishDate">{{ 'global.labels.on' | translate }} </em>
-                  <em ng-if="paper.publishDate">{{ paper.publishDate | date:'medium' }}</em>
-                </h6>
-              </div>
-              <div>
-                <a href="{{ paper.url }}" target="_blank" ng-if="paper.url">{{ paper.url }}</a>
+                                <h4 class="col-lg-4 col-md-12 text-right-lg">
+                                    <span ng-repeat="topic in paper.topics" class="labels label-primary">{{ topic }}</span>
+                                </h4>
+                            </div>
+                            <div class="row" ng-if="paper.publisher || paper.publishDate || paper.authors">
+                                <!-- @TODO : TRANSLATE DATE -->
+                                <h5 class="col-lg-8 col-md-12" ng-if="paper.authors">
+                                    {{ (paper.authors.length > 1) ? 'papers.labels.authors' : 'papers.labels.author' | translate }}
+                                    <em ng-repeat="author in paper.authors">{{ author }}{{$last ? '' : ', '}}</em>
+                                </h5>
+                                <h6 class="{{ paper.authors ? 'col-lg-4 col-md-12 ' : '' }}text-right-lg" ng-if="paper.publisher || paper.publishDate">
+                                    <em ng-if="paper.publisher">{{'papers.labels.publishedBy' | translate }} {{ paper.publisher }} </em>
+                                    <em ng-if="paper.publisher && paper.publishDate">{{ 'global.labels.on' | translate }} </em>
+                                    <em ng-if="paper.publishDate">{{ paper.publishDate | date:'medium' }}</em>
+                                </h6>
+                            </div>
+                            <div>
+                                <a href="{{ paper.url }}" target="_blank" ng-if="paper.url">{{ paper.url }}</a>
 
-                <p ng-if="paper.abstract">{{ paper.abstract }}</p>
+                                <p ng-if="paper.abstract">{{ paper.abstract }}</p>
 
-                <p ng-if="!paper.abstract">
-                  <small><em>{{ 'papers.messages.no_abstract' | translate }}</em></small>
-                </p>
-              </div>
+                                <p ng-if="!paper.abstract">
+                                    <small><em>{{ 'papers.messages.no_abstract' | translate }}</em></small>
+                                </p>
+                            </div>
+                        </div>
+                        <hr ng-repeat-end="">
+                        <!-- @TODO : PAGINATION ? OR SCROLL-INFINITE ? -->
+                        <ol class="pagination text-center pull-right">
+                            <li class="prev disabled"><a href="#"><i class="fa fa-long-arrow-left"></i> Previous</a></li>
+                            <li class="active"><a href="#">1</a></li>
+                            <li><a href="#">2</a></li>
+                            <li><a href="#">3</a></li>
+                            <li><a href="#">4</a></li>
+                            <li><a href="#">5</a></li>
+                            <li class="next"><a href="#">Next <i class="fa fa-long-arrow-right"></i></a></li>
+                        </ol>
+                    </div>
+                </div>
             </div>
-            <hr ng-repeat-end="">
-            <!-- @TODO : PAGINATION ? OR SCROLL-INFINITE ? -->
-            <ol class="pagination text-center pull-right">
-              <li class="prev disabled"><a href="#"><i class="fa fa-long-arrow-left"></i> Previous</a></li>
-              <li class="active"><a href="#">1</a></li>
-              <li><a href="#">2</a></li>
-              <li><a href="#">3</a></li>
-              <li><a href="#">4</a></li>
-              <li><a href="#">5</a></li>
-              <li class="next"><a href="#">Next <i class="fa fa-long-arrow-right"></i></a></li>
-            </ol>
-          </div>
-        </div>
-      </div>
 
+        </div>
+        <!-- col-md-12 -->
     </div>
-    <!-- col-md-12 -->
-  </div>
-  <!-- row -->
+    <!-- row -->
 </div> <!-- container -->
 </div>
