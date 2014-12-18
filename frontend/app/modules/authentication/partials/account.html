@@ -5,19 +5,7 @@
 
     <div class="options">
         <div class="btn-toolbar">
-            <div class="btn-group" dropdown>
-                <button type="button" class="btn btn-default dropdown-toggle">
-                    Export as <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu" role="menu">
-                    <li><a href="#">Action</a></li>
-                    <li><a href="#">Another action</a></li>
-                    <li><a href="#">Something else here</a></li>
-                    <li class="divider"></li>
-                    <li><a href="#">Separated link</a></li>
-                </ul>
-            </div>
-            <a href="#" class="btn btn-default hidden-xs"><i class="fa fa-cog"></i></a>
+
         </div>
     </div>
 </div>
@@ -25,7 +13,7 @@
 
     <div ng-if="currentUser.random_pwd">
         <div class="alert alert-warning" role="alert">{{ 'authentication.messages.pwd_not_set' | translate }}</div>
-        <div ng-include="GLOBAL_CONFIG.app.modules.authentication.urls.partials+'changepwd.html'"></div>
+        <div ng-include="GLOBAL_CONFIG.app.modules.authentication.urls.partials+'change-pwd.html'"></div>
     </div>
     <!--<h2>{{ 'authentication.labels.profile' | translate }}</h2>-->
     <!--<h4>{{ 'authentication.labels.enrich_profile' | translate }}</h4>-->
