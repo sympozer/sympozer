@@ -108,6 +108,7 @@ angular.module('mainEventsApp').controller('mainEventsNewCtrl', [ '$scope', '$ro
     //On new conference request error
     var error = function (response, args)
     {
+        debugger;
         //Check errors from the server
         if("Validation Failed" == response.data.message)
         {
@@ -119,7 +120,7 @@ angular.module('mainEventsApp').controller('mainEventsNewCtrl', [ '$scope', '$ro
             //Notify of the creation action error
             pinesNotifications.notify({
                 title: translateFilter('global.validations.error'),
-                text: translateFilter('mainEvents.validations.not_created'),
+                text: translateFilter(response.data.error || 'mainEvents.validations.not_created'),
                 type: 'error'
             });
         }

@@ -76,9 +76,9 @@
                                 <div class="row">
                                     <h4>{{mainEvent.location.label}}</h4>
 
-                                    <h5>{{ 'mainEvents.labels.from' | translate}} : {{mainEvent.startAt}}</h5>
+                                    <h5>{{ 'mainEvents.labels.from' | translate}} : {{mainEvent.startAt | date:'short'}}</h5>
 
-                                    <h5>{{ 'mainEvents.labels.to' | translate}} : {{mainEvent.endAt}}</h5>
+                                    <h5>{{ 'mainEvents.labels.to' | translate}} : {{mainEvent.endAt | date:'short'}}</h5>
                                     <div style="height: 300px" gmap options="{ lat: -12.043333,lng: -77.028333}" instance="geoCodingMapInstance"></div>
                                 </div>
                             </panel>

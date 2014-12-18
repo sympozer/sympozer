@@ -17,7 +17,7 @@
 
 <div class="input-group">
     <div>
-        <input type="text" name="roleLabelInput" ng-model="entity" ng-init="entity=$viewValue" typeahead-min-length="3" typeahead-editable="true" typeahead-template-url="roleLabels-typeahead.html" typeahead-on-select="select($item, $model, $viewValue)" placeholder="{{ 'topics.actions.search' | translate }}..." typeahead-wait-ms="500" typeahead="entity as entity.label for entity in keyup($viewValue)" typeahead-loading="loading" class="form-control">
+        <input type="text" name="roleLabelInput" ng-model="entity" ng-init="entity=$viewValue" typeahead-min-length="3" typeahead-editable="true" typeahead-template-url="roleLabels-typeahead.html" typeahead-on-select="select($item, $model, $viewValue)" placeholder="{{ 'roleLabels.actions.search' | translate }}..." typeahead-wait-ms="500" typeahead="entity as entity.label for entity in keyup($viewValue)" typeahead-loading="loading" class="form-control">
     </div>
 
     <div class="input-group-btn">
