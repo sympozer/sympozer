@@ -728,16 +728,21 @@ module.exports = function (grunt) {
 
 
     /** INSTALL **/
-    grunt.registerTask('install', ['shell:protractor_install', 'f2-console:database_create'])
+    grunt.registerTask('install', ['shell:protractor_install', 'f2-console:database_create', 'sf2-console:copy_ws_config']);
 
     /** DEVELOPMENT **/
-    grunt.registerTask('reset_db', ['chmod:cache_log', 'sf2-console:database_create','sf2-console:database_drop', 'sf2-console:database_create', 'sf2-console:database_update',
-        'sf2-console:database_init', 'sf2-console:admin_create', 'cache_clear'])
+    grunt.registerTask('reset_db', ['chmod:cache_log', 'sf2-console:database_drop', 'sf2-console:database_create', 'sf2-console:database_update',
+                                    'sf2-console:database_init', 'sf2-console:admin_create', 'cache_clear']);
+
+    /** DEVELOPMENT **/
+    grunt.registerTask('update_db', ['chmod:cache_log', 'sf2-console:database_update', 'cache_clear']);
 
 
-    grunt.registerTask('update_dependencies', ['bower-install-simple', 'bowerInstall', 'sf2-console:copy_ws_config',  'chmod:cache_log']);
+    grunt.registerTask('update_dependencies', ['bower-install-simple', 'bowerInstall', 'chmod:cache_log']);
 
     grunt.registerTask('dev', ['reset_db', 'update_dependencies', 'open:devserver']);
+
+    grunt.registerTask('update', ['update_db', 'update_dependencies']);
 
 
 
