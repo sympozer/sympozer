@@ -4,6 +4,7 @@ namespace fibe\CommunityBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
+use JMS\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 
@@ -22,6 +23,7 @@ class Position
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      * @Expose
+     * @Groups({"list"})
      */
     private $id;
 
@@ -29,6 +31,7 @@ class Position
      * label
      * @ORM\Column(type="string", name="label", nullable=false)
      * @Expose
+     * @Groups({"list"})
      */
     private $label;
 
@@ -37,6 +40,7 @@ class Position
      * String expression representing person's position in the selected organization
      * @ORM\Column(type="string", name="position", nullable =false)
      * @Expose
+     * @Groups({"list"})
      */
     private $position;
 

@@ -10,6 +10,7 @@ use fibe\EventBundle\Entity\MainEvent;
 use fibe\EventBundle\Entity\VEvent;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
+use JMS\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 use fibe\ContentBundle\Util\StringTools;
@@ -30,6 +31,7 @@ class Topic
    * @ORM\Column(type="integer")
    * @ORM\GeneratedValue()
    * @Expose
+   * @Groups({"list"})
    */
   private $id;
 
@@ -38,6 +40,7 @@ class Topic
    *
    * @ORM\Column(type="string", unique=true)
    * @Expose
+   * @Groups({"list"})
    */
   private $label;
 

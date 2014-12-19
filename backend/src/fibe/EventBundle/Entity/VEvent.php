@@ -9,6 +9,7 @@ use fibe\ContentBundle\Entity\Sponsor;
 use fibe\ContentBundle\Entity\Topic;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
+use JMS\Serializer\Annotation\Groups;
 use JMS\Serializer\Annotation\SerializedName;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -51,6 +52,7 @@ abstract class VEvent
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue()
      * @Expose
+     * @Groups({"list"})
      */
     protected $id;
     /**
@@ -62,6 +64,7 @@ abstract class VEvent
      * @Assert\NotBlank()
      * @SerializedName("startAt")
      * @Expose
+     * @Groups({"list"})
      */
     protected $startAt;
     /**
@@ -74,6 +77,7 @@ abstract class VEvent
      * @Assert\NotBlank()
      * @SerializedName("endAt")
      * @Expose
+     * @Groups({"list"})
      */
     protected $endAt;
     /**

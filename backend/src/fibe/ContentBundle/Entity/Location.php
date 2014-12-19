@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
+use JMS\Serializer\Annotation\Groups;
 use JMS\Serializer\Annotation\SerializedName;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -26,6 +27,7 @@ class Location extends Localization
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      * @Expose
+     * @Groups({"list"})
      */
     protected $id;
     /**
@@ -39,6 +41,7 @@ class Location extends Localization
      * Equipments who are in the location
      * @ORM\ManyToMany(targetEntity="fibe\ContentBundle\Entity\Equipment",  cascade={"all"})
      * @Expose
+     * @Groups({"list"})
      */
     protected $equipments;
     /**
@@ -46,6 +49,7 @@ class Location extends Localization
      *
      * @ORM\Column(type="text", nullable=true)
      * @Expose
+     * @Groups({"list"})
      */
     protected $description;
     /**
@@ -62,6 +66,7 @@ class Location extends Localization
      * @ORM\ManyToOne(targetEntity="fibe\EventBundle\Entity\MainEvent", inversedBy="eventLocations")
      * @ORM\JoinColumn(name="main_event_id", referencedColumnName="id")
      * @Expose
+     * @Groups({"list"})
      * @SerializedName("mainEvent")
      */
     protected $mainEvent;
