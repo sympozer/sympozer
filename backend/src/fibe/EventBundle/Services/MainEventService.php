@@ -7,6 +7,7 @@ use fibe\RestBundle\Services\AbstractBusinessService;
 use fibe\SecurityBundle\Entity\Team;
 use fibe\SecurityBundle\Entity\User;
 use fibe\SecurityBundle\Services\Acl\ACLUserPermissionHelper;
+use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Symfony\Component\Security\Acl\Permission\MaskBuilder;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 
@@ -47,7 +48,7 @@ class MainEventService extends AbstractBusinessService
         }
 
         if(!is_object($user)){
-            throw new \Exception("signin_required" );
+            throw new UnauthorizedHttpException('negotiate', 'You must be logged in');
         }
 
         $mainEvent->setOwner($user->getPerson());

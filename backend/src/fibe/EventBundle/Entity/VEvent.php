@@ -399,7 +399,7 @@ abstract class VEvent
     {
         if ($this->startAt && $this->endAt)
         {
-            return $this->startAt < $this->endAt;
+            return $this->startAt <= $this->endAt;
         }
 
         return true;
