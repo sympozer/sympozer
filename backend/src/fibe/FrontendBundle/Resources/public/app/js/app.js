@@ -24,7 +24,7 @@ angular.module('mainEventsApp', ['fundoo.services']);
 angular.module('angularTranslateApp', ['pascalprecht.translate']);
 angular.module('authenticationApp', ['ngCookies', 'personsApp']);
 angular.module('contextualizationApp', ['mainEventsApp']);
-
+angular.module('twitterApp', ['ngResource']);
 
 /**
  * Main App Module
@@ -61,7 +61,9 @@ var sympozerApp = angular.module('sympozerApp', [
     'ngSanitize',
     'ui.select',
     'xeditable',
-    'colorpicker.module'
+    'colorpicker.module',
+    'twitterApp'
+
 ]);
 
 
@@ -76,6 +78,8 @@ sympozerApp.run(function (editableOptions, editableThemes)
     // overwrite submit button template
     editableThemes['bs3'].submitTpl = '<button type="submit" class="btn btn-primary"><i class="fa fa-check"></i></button>';
     editableThemes['bs3'].cancelTpl =  '<button type="button" class="btn btn-default" ng-click="$form.$cancel()"><i class="fa fa-times"></i></button>';
+
+    //$http.defaults.headers.common.Authorization = 'Bearer AAAAAAAAAAAAAAAAAAAAAC0tbAAAAAAAIJZl5zoJ%2BWAe1JJVTQtMjtgVrs0%3DQkEZO1cNGouPpIET1eeJTshdaPjP3rTrOMvINGP4lsQOIh6jAr';
 });
 
 /**

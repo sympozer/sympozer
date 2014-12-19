@@ -46,7 +46,7 @@ module.exports = function(config) {
         basePath: '../',
         frameworks: ['jasmine'],
         reporters: ['progress'],
-        browsers: ['/usr/bin/chromium-browser', 'PhantomJS'],
+        browsers: ['/usr/bin/chromium-browser'],
         autoWatch: false,
         singleRun: true,
         logLevel: config.LOG_DEBUG,

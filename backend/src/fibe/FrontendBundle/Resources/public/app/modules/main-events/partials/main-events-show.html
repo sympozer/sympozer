@@ -8,6 +8,7 @@
     </div>
     <div class="col-sm-8 col-md-8 col-lg-8">
       <h3>{{mainEvent.label}}</span></h3>
+      <div style="text-align: right; margin-bottom: 5px;"><img src="https://g.twimg.com/twitter-bird-16x16.png" alt="">  {{mainEvent.twitterid }}</div>
       <pre>{{mainEvent.description}}</pre>
       <a sympozer-acl-show="mainEvent" class="btn btn-info" href="#mainEvents/edit/{{mainEvent.id}}" role="button">
         <i class="fa fa-edit fa-1x"></i> Edit my conference
@@ -58,4 +59,5 @@
   </div>
 </div>
 
-
+<!-- Appel de la timeline correspondant a l'identifiant Twitter (# ou @) -->
+<div class="well" ng-show="currentMainEvent.chk_timeline" ng-include="GLOBAL_CONFIG.app.modules.twitter.urls.partials + 'twitterTimeline-show.html'"/>

@@ -11,8 +11,17 @@
         </div>
         <div class="col-sm-8 col-md-8 col-lg-8">
             <h3 ><span editable-text="mainEvent.label" onbeforesave="updateMainEvent('label', $data)">{{mainEvent.label}}</span></h3>
+            <div style="text-align: right; margin-bottom: 5px;">
+                <span editable-text="mainEvent.twitterid" onbeforesave="updateMainEvent('twitterid', $data)">{{mainEvent.twitterid || "Add a hashtag (ex: #MaConference)"}}</span><br/>
+                <span editable-checkbox="mainEvent.chk_timeline" e-title="Afficher la Timeline Twitter de la conférence ?" onbeforesave="updateMainEvent('chkTimeline', $data)">
+                    {{ mainEvent.chk_timeline && "(Timeline Twitter activée)" || "(Timeline Twitter désactivée)" }}
+                </span><br/>
+                <span editable-checkbox="mainEvent.chk_social" e-title="Activer le partage de la conférence sur les réseaux sociaux ?" onbeforesave="updateMainEvent('chkSocial', $data)">
+                    {{ mainEvent.chk_social && "(Fonctionnalités de partage activées)" || "(Fonctionnalités de partage désactivées)" }}
+                </span>
+            </div>
             <a href="#" e-placeholder="description" onbeforesave="updateMainEvent('description', $data)" editable-textarea="mainEvent.description" e-rows="7" e-cols="60">
-                <pre>{{mainEvent.description || 'add a descrption'}}</pre>
+                <pre>{{mainEvent.description || 'add a description'}}</pre>
             </a>
             <span editable-text="mainEvent.url" onbeforesave="updateMainEvent('url', $data)">{{mainEvent.url || 'http://...'}}</span>
         </div>

@@ -4,7 +4,8 @@
     <div class="row">
         <div class="col-sm-3 col-md-3 col-lg-3">
             <div class="img-container-lg">
-                <img  class="scale-img" no-image ng-src="{{ person.img }}"/>
+                <img  class="scale-img" src="{{ person.img }}"/>
+                <img ng-show="!person.img" class="scale-img " src="{{GLOBAL_CONFIG.app.urls.img+'no-picture.jpg'}}"/>
             </div>
             <p>{{person.country}}</p>
 
@@ -30,7 +31,7 @@
     </div>
     <div class="col-md-6 col-lg-6">
         <h1>Social</h1>
-        <p><i class="fa fa-twitter fa-3x"></i>{{person.twitter || ''}}</p>
+        <p><i class="fa fa-twitter fa-3x"></i>{{person.twitterid || ''}}</p>
         <p><i class="fa fa-linkedin fa-3x"></i>{{person.linkedIn || ''}}</p>
         <p><i class="fa fa-facebook fa-3x"></i>{{person.facebook || ''}}</p>
     </div>
@@ -65,3 +66,6 @@
         </div>
     </div>
 </div>
+
+<!-- Appel de la timeline correspondant a l'identifiant Twitter (# ou @) -->
+<div class="well" ng-show="person.chk_timeline" ng-include="GLOBAL_CONFIG.app.modules.twitter.urls.partials + 'twitterTimelinePerson-show.html'"/>
