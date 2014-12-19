@@ -1,6 +1,6 @@
 <?php
 namespace fibe\SecurityBundle\Services;
- 
+
 use Doctrine\ORM\ORMException;
 use fibe\SecurityBundle\Entity\User;
 use FOS\UserBundle\Model\UserManagerInterface;
@@ -20,72 +20,79 @@ class FOSUBUserProvider extends BaseFOSUBUserProvider
     protected $userService;
 
 
-  /**
-   * Constructor.
-   *
-   * @param UserManagerInterface $userManager FOSUB user provider.
-   * @param array $properties Property mapping.
-   * @param \Symfony\Component\HttpFoundation\Session\Session $session
-   * @param $mailer
-   */
-    public function __construct(UserManagerInterface $userManager, array $properties, Session $session,$mailer,UserService $userService)
+    /**
+     * Constructor.
+     *
+     * @param UserManagerInterface $userManager FOSUB user provider.
+     * @param array $properties Property mapping.
+     * @param \Symfony\Component\HttpFoundation\Session\Session $session
+     * @param $mailer
+     * @param UserService $userService
+     */
+    public function __construct(UserManagerInterface $userManager, array $properties, Session $session, $mailer, UserService $userService)
     {
-      parent::__construct($userManager, $properties); 
-      $this->session = $session;
-      $this->mailer = $mailer;
-      $this->userService = $userService;
+        parent::__construct($userManager, $properties);
+        $this->session = $session;
+        $this->mailer = $mailer;
+        $this->userService = $userService;
     }
- 
+
     /**
      * {@inheritdoc}
      */
     public function loadUserByOAuthUserResponse(UserResponseInterface $response)
     {
-      $socialServiceId = $response->getUsername();
-      $socialServiceUser = $this->userManager->findUserBy(array($this->getProperty($response) => $socialServiceId));
-      $loggedUser = $this->userManager->findUserBy(array('id' => $this->session->get("userId")));
-      $this->session->remove("userId");
-      $serviceName = $response->getResourceOwner()->getName();
+        $socialServiceId = $response->getUsername();
+        $socialServiceUser = $this->userManager->findUserBy(array($this->getProperty($response) => $socialServiceId));
+        $loggedUser = $this->userManager->findUserBy(array('id' => $this->session->get("userId")));
+        $this->session->remove("userId");
+        $serviceName = $response->getResourceOwner()->getName();
 
-      if (null === $socialServiceUser)
-      { //social service user not found
-        if($loggedUser instanceof UserInterface)
-        { //first account  
-          $setter = 'set' . ucfirst($serviceName) . 'Id';
-          $loggedUser->$setter($socialServiceId);
-          return $this->enrich($loggedUser,$serviceName,$response);  
+        echo "loadUserByOAuthUserResponse";
+        \Doctrine\Common\Util\Debug::dump($response);
+        if (null === $socialServiceUser)
+        { //social service user not found
+            if ($loggedUser instanceof UserInterface)
+            { //first account
+                $setter = 'set' . ucfirst($serviceName) . 'Id';
+                $loggedUser->$setter($socialServiceId);
+
+                return $this->enrich($loggedUser, $serviceName, $response);
+            }
+            else
+            { //no user with this social service Id and not logged
+                // => creating a new user
+                return $this->create($serviceName, $response, $socialServiceId);
+            }
         }
         else
-        { //no user with this social service Id and not logged
-          // => creating a new user 
-          return $this->create($serviceName,$response,$socialServiceId);
-        } 
-      }
-      else 
-      { //social service user found
-        if($loggedUser instanceof UserInterface)
-        { //social service already registered by current user 
-          if($socialServiceUser->getId() === $loggedUser->getId())
-          { //enrich account on demand
-            return $this->enrich($loggedUser,$serviceName,$response);
-          }else
-          { //social service already registered for another user
-            $this->session->getFlashBag()->add('warning', 'This '.ucfirst($serviceName).' account is already registered for another account.');
-            return $loggedUser;
-          } 
+        { //social service user found
+            if ($loggedUser instanceof UserInterface)
+            { //social service already registered by current user
+                if ($socialServiceUser->getId() === $loggedUser->getId())
+                { //enrich account on demand
+                    return $this->enrich($loggedUser, $serviceName, $response);
+                }
+                else
+                { //social service already registered for another user
+                    $this->session->getFlashBag()->add('warning', 'This ' . ucfirst($serviceName) . ' account is already registered for another account.');
+
+                    return $loggedUser;
+                }
+            }
+            else
+            { //just login
+                return $this->login($socialServiceUser, $serviceName, $response);
+            }
         }
-        else
-        { //just login     
-          return $this->login($socialServiceUser,$serviceName,$response); 
-        } 
-      }
-    } 
+    }
+
     //just login 
 
     private function enrich(UserInterface $user, $serviceName, UserResponseInterface $response)
     {
-      $setter = 'set' . ucfirst($serviceName) . 'AccessToken';
-      $user->$setter($response->getAccessToken());
+        $setter = 'set' . ucfirst($serviceName) . 'AccessToken';
+        $user->$setter($response->getAccessToken());
         $this->enrichUserDatas($user, $serviceName, $response);
         $this->session->getFlashBag()->add('success', 'account enriched.');
 
@@ -121,56 +128,58 @@ class FOSUBUserProvider extends BaseFOSUBUserProvider
         $this->userService->put($user);
     }
 
-  /**
-   *  No user with this social service Id and not logged
-   *  try to get the existing email user
-   *      if none found create a new user with userName = email && random password
-   *
-   * @param $serviceName
-   * @param UserResponseInterface $response
-   * @param $socialServiceId
-   * @return User
-   * @throws \Doctrine\ORM\ORMException
-   */
-  private function create($serviceName,UserResponseInterface $response,$socialServiceId)
+    /**
+     *  No user with this social service Id and not logged
+     *  try to get the existing email user
+     *      if none found create a new user with userName = email && random password
+     *
+     * @param $serviceName
+     * @param UserResponseInterface $response
+     * @param $socialServiceId
+     * @return User
+     * @throws \Doctrine\ORM\ORMException
+     */
+    private function create($serviceName, UserResponseInterface $response, $socialServiceId)
     {
 
-      // check no-mail
-      $mail = $response->getEmail();
-      if(empty($mail))
-        throw new ORMException("Couldn't have got an email address from ".$serviceName);
-      /** @var User $user */
-      $user = $this->userManager->findUserByEmail($mail);
-      $newUser = false;
-      if(! $user instanceof UserInterface)
-      {
-        $newUser =true;
-        $user = $this->userManager->createUser();
-      }
+        // check no-mail
+        $mail = $response->getEmail();
+        if (empty($mail))
+        {
+            throw new ORMException("Couldn't have got an email address from " . $serviceName);
+        }
+        /** @var User $user */
+        $user = $this->userManager->findUserByEmail($mail);
+        $newUser = false;
+        if (!$user instanceof UserInterface)
+        {
+            $newUser = true;
+            $user = $this->userManager->createUser();
+        }
 
-      $setter = 'set'.ucfirst($serviceName);
-      $setter_id = $setter.'Id';
-      $setter_token = $setter.'AccessToken';
-      $user->$setter_id($socialServiceId);
-      $user->$setter_token($response->getAccessToken());
-
-
-      if($newUser)
-      {
-        $user->setUsername($mail);
-        $user->setEmail($mail);
-        $user->setPlainPassword(substr(base_convert(bin2hex(hash('sha256', uniqid(mt_rand(), true), true)), 16, 36), 0, 12));
-        $user->setRandomPwd(true);
-        $user->setEnabled(true);
-      }
-
-      $this->userService->post($user);
-      $this->enrichUserDatas($user,$serviceName,$response);
-      $this->userManager->updateUser($user);
-      $this->mailer->sendRandomPwdEmailMessage($user,$serviceName);
+        $setter = 'set' . ucfirst($serviceName);
+        $setter_id = $setter . 'Id';
+        $setter_token = $setter . 'AccessToken';
+        $user->$setter_id($socialServiceId);
+        $user->$setter_token($response->getAccessToken());
 
 
-      return $user;
+        if ($newUser)
+        {
+            $user->setUsername($mail);
+            $user->setEmail($mail);
+            $user->setPlainPassword(substr(base_convert(bin2hex(hash('sha256', uniqid(mt_rand(), true), true)), 16, 36), 0, 12));
+            $user->setRandomPwd(true);
+            $user->setEnabled(true);
+        }
+
+        $this->userService->post($user);
+        $this->enrichUserDatas($user, $serviceName, $response);
+        $this->userManager->updateUser($user);
+        $this->mailer->sendRandomPwdEmailMessage($user, $serviceName);
+
+
+        return $user;
     }
 
     private function login(UserInterface $user, $serviceName, UserResponseInterface $response)
@@ -188,29 +197,30 @@ class FOSUBUserProvider extends BaseFOSUBUserProvider
      */
     public function connect(UserInterface $user, UserResponseInterface $response)
     {
-      throw new \Exception('FOSUBUserProvider:connect()');
-      $property = $this->getProperty($response);
-      $username = $response->getUsername();
+        throw new \Exception('FOSUBUserProvider:connect()');
+        $property = $this->getProperty($response);
+        $username = $response->getUsername();
 
-      //on connect - get the access token and the user ID
-      $serviceName = $response->getResourceOwner()->getName();
+        //on connect - get the access token and the user ID
+        $serviceName = $response->getResourceOwner()->getName();
 
-      $setter = 'set'.ucfirst($serviceName);
-      $setter_id = $setter.'Id';
-      $setter_token = $setter.'AccessToken';
+        $setter = 'set' . ucfirst($serviceName);
+        $setter_id = $setter . 'Id';
+        $setter_token = $setter . 'AccessToken';
 
-      //we "disconnect" previously connected users
-      if (null !== $previousUser = $this->userManager->findUserBy(array($property => $username))) {
-        $previousUser->$setter_id(null);
-        $previousUser->$setter_token(null);
-        $this->userManager->updateUser($previousUser);
-      }
+        //we "disconnect" previously connected users
+        if (null !== $previousUser = $this->userManager->findUserBy(array($property => $username)))
+        {
+            $previousUser->$setter_id(null);
+            $previousUser->$setter_token(null);
+            $this->userManager->updateUser($previousUser);
+        }
 
-      //we connect current user
-      $user->$setter_id($username);
-      $user->$setter_token($response->getAccessToken());
+        //we connect current user
+        $user->$setter_id($username);
+        $user->$setter_token($response->getAccessToken());
 
-      $this->userManager->updateUser($user);
+        $this->userManager->updateUser($user);
     }
 
     /*

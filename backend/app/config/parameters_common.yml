@@ -1,13 +1,13 @@
 parameters: 
 
-    front_end_path:    http://localhost/sympozer/sympozer-front/app/#/
+    front_end_path:    http://localhost/sympozer/frontend/app/#/
     front_end_confirm_path:    confirm
     front_end_reset_path:    reset
 
     routing_dev_file:  routing_dev.yml
 
     locale:            en
-    secret:            ThisTokenIsNotSoSecretChangeIt
+    secret:            ThisTokenIsNotSoSecretSoChangeIt
 
     bootstrap_source:  http://twitter.github.com/bootstrap/assets/bootstrap.zip
     max_per_page:      20

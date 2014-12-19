@@ -28,8 +28,6 @@ class SympozerCollectionType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-
-
         //use the symfony's default Listener for collection  (@see \Symfony\Component\Form\Extension\Core\Type\CollectionType]
         // => build a 'sympozer_entity_type' instead of the one given in the 'type' param
         $options['options'] = array(

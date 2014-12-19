@@ -7,10 +7,21 @@
 angular.module('authenticationApp').controller('signinCtrl',
     ['$scope', '$rootScope', '$routeParams', 'GLOBAL_CONFIG', 'usersFact', '$location', '$modal', '$timeout', 'pinesNotifications', 'translateFilter', 'authenticationFact', function ($scope, $rootScope, $routeParams, GLOBAL_CONFIG, usersFact, $location, $modal, $timeout, pinesNotifications, translateFilter, authenticationFact)
     {
-        //
-        $rootScope.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-        $scope.user = new usersFact;
+        //log user after a social account login.
+        var id = getURLParameter('id'),
+            username = getURLParameter('username');
+        if (id && username)
+        {
+//            todo : fetch this ?
+            success({username: username, id: id}, false);
+        }
+        //todo : is it used ?
+//        else
+//        {
+//            $rootScope.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+//        }
 
+        $scope.user = $rootScope.currentUser || new usersFact;
 
         var error = function (response, args)
         {
@@ -22,7 +33,7 @@ angular.module('authenticationApp').controller('signinCtrl',
             });
         };
 
-        var success = function (user)
+        function success(user, notif)
         {
             $scope.user = user;
 
@@ -30,17 +41,18 @@ angular.module('authenticationApp').controller('signinCtrl',
             authenticationFact.addUser(user);
 
             //Notify of the signin action success
-            pinesNotifications.notify({
+            if (notif)pinesNotifications.notify({
                 title: translateFilter('global.validations.success'),
                 text: translateFilter('authentication.validations.signin_success'),
                 type: 'success'
             });
 
             //Close modal
-            if($scope.$close){
+            if ($scope.$close)
+            {
                 $scope.$close();
             }
-        };
+        }
 
         //Manage the signin modal
         $scope.showSigninPopup = $scope.$root.showSigninPopup = function ()
@@ -54,8 +66,21 @@ angular.module('authenticationApp').controller('signinCtrl',
         }
 
         //Send signin request with signin form information
-        $scope.signinAction = function(user)
+        $scope.signinAction = function (user)
         {
             usersFact.signin({}, {"_username": $scope.user.username, "_password": $scope.user.password}, success, error);
         };
+
+        function getURLParameter(param)
+        {
+            var sURLVariables = window.location.hash.split('?')[1].split('&');
+            for (var i = 0; i < sURLVariables.length; i++)
+            {
+                var parameterName = sURLVariables[i].split('=');
+                if (parameterName[0] == param)
+                {
+                    return parameterName[1];
+                }
+            }
+        }
     }]);
