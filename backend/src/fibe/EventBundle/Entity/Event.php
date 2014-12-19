@@ -8,6 +8,7 @@ use fibe\ContentBundle\Entity\Paper;
 use fibe\ContentBundle\Util\StringTools;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
+use JMS\Serializer\Annotation\Groups;
 use JMS\Serializer\Annotation\MaxDepth;
 use JMS\Serializer\Annotation\SerializedName;
 
@@ -30,6 +31,7 @@ class Event extends VEvent
      * @ORM\ManyToOne(targetEntity="Category", inversedBy="events")
      * @ORM\JoinColumn(name="event_id", referencedColumnName="id")
      * @Expose
+     * @Groups({"list"})
      */
     protected $category;
     /**
@@ -39,6 +41,7 @@ class Event extends VEvent
      * calendar component.
      * @ORM\Column(type="string", length=255, unique=false, nullable=false)
      * @Expose
+     * @Groups({"list"})
      */
     protected $label;
     /**
@@ -62,6 +65,8 @@ class Event extends VEvent
      * @ORM\JoinColumn(name="mainevent_id", referencedColumnName="id")
      * @Expose
      * @SerializedName("mainEvent")
+     * @Groups({"list"})
+     * @MaxDepth(1)
      */
     protected $mainEvent;
     /**
@@ -82,8 +87,8 @@ class Event extends VEvent
 
     /**
      * Roles for the event
-     *
      * @ORM\OneToMany(targetEntity="fibe\ContentBundle\Entity\Role", mappedBy="event", cascade={"persist"})
+     *
      */
     protected $roles;
 

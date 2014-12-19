@@ -65,8 +65,8 @@ module.exports = function (grunt) {
             cd_frontend: {
                 command: 'cd frontend'
             },
-            bower_install: {
-                command: 'bower install'
+            clear_cache_dir: {
+                command: 'rm -R backend/app/cache/*'
             }
 
         },
@@ -692,6 +692,18 @@ module.exports = function (grunt) {
             admin_create: {
                 cmd: 'sympozer:admin:create admin admin@admin.fr admin'
             },
+            //clear metadata from cache
+            clear_metadata: {
+                cmd: 'doctrine:cache:clear-metadata'
+            },
+            //clear query from cache
+            clear_query: {
+                cmd: 'doctrine:cache:clear-query'
+            },
+            //clear query result result from cache
+            clear_result: {
+                cmd: 'doctrine:cache:clear-result'
+            },
             //copy the ws config file
             copy_ws_config: {
                 cmd: 'sympozer:wsconfig:copy --to-path <%= yeoman.app %>/js/ws-config.js --server-base-path <%= yeoman.local_config.serverRootPath %>'
@@ -711,52 +723,57 @@ module.exports = function (grunt) {
     grunt.registerTask('test:e2e', ['chmod:cache_log', 'connect:testserver', 'protractor:singlerun']);
 
 
+    /** UTILS **/
+    grunt.registerTask('cache_clear', ['chmod:cache_log', 'shell:clear_cache_dir', 'sf2-console:clear_metadata','sf2-console:clear_query', 'sf2-console:clear_result', 'chmod:cache_log'])
+
 
     /** INSTALL **/
-    grunt.registerTask('install', ['shell:protractor_install', 'reset'])
+    grunt.registerTask('install', ['shell:protractor_install', 'f2-console:database_create'])
 
     /** DEVELOPMENT **/
-    grunt.registerTask('reset', ['chmod:cache_log', 'sf2-console:database_create','sf2-console:database_drop', 'sf2-console:database_create', 'sf2-console:database_update',
-        'sf2-console:database_init', 'sf2-console:admin_create', 'sf2-console:cache_clear',  'bower-install-simple', 'bowerInstall', 'sf2-console:copy_ws_config',  'chmod:cache_log']);
+    grunt.registerTask('reset_db', ['chmod:cache_log', 'sf2-console:database_create','sf2-console:database_drop', 'sf2-console:database_create', 'sf2-console:database_update',
+        'sf2-console:database_init', 'sf2-console:admin_create', 'cache_clear'])
 
 
-    grunt.registerTask('dev', ['reset', 'open:devserver']);
+    grunt.registerTask('update_dependencies', ['bower-install-simple', 'bowerInstall', 'sf2-console:copy_ws_config',  'chmod:cache_log']);
+
+    grunt.registerTask('dev', ['reset_db', 'update_dependencies', 'open:devserver']);
 
 
 
 
     /** PRODUCTION **/
 
-//    grunt.registerTask('test', [
-//        'clean:server',
-//        'concurrent:test',
-//        'autoprefixer',
-//        'connect:test',
-//        'karma'
-//    ]);
-
-    grunt.registerTask('build', [
-        'clean:dist',
-        'bowerInstall',
-        'ngtemplates',
-        'useminPrepare',
-        'concurrent:dist',
-        'less:dist',
+    grunt.registerTask('prod', [
+        'clean:server',
+        'concurrent:test',
         'autoprefixer',
-        'concat',
-        // 'ngmin',
-        'copy:dist',
-        // 'cdnify',
-        'cssmin',
-        'uglify',
-        'rev',
-        'usemin',
-        'imagemin',
-        'processhtml:dist',
-        'sf2-console:copy_ws_config'
-        // 'htmlmin',
-
+        'connect:test',
+        'karma'
     ]);
+
+//    grunt.registerTask('build', [
+//        'clean:dist',
+//        'bowerInstall',
+//        'ngtemplates',
+//        'useminPrepare',
+//        'concurrent:dist',
+//        'less:dist',
+//        'autoprefixer',
+//        'concat',
+//        // 'ngmin',
+//        'copy:dist',
+//        // 'cdnify',
+//        'cssmin',
+//        'uglify',
+//        'rev',
+//        'usemin',
+//        'imagemin',
+//        'processhtml:dist',
+//        'sf2-console:copy_ws_config'
+//        // 'htmlmin',
+//
+//    ]);
 
     grunt.registerTask('default', [
         // 'newer:jshint',

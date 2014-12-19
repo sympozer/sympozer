@@ -7,6 +7,8 @@ use fibe\EventBundle\Entity\MainEvent;
 use fibe\EventBundle\Entity\VEvent;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
+use JMS\Serializer\Annotation\Groups;
+use JMS\Serializer\Annotation\MaxDepth;
 use JMS\Serializer\Annotation\SerializedName;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -34,6 +36,7 @@ class Role
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      * @Expose
+     * @Groups({"list"})
      */
     private $id;
 
@@ -42,6 +45,7 @@ class Role
      * label
      * @ORM\Column(type="string", name="label", nullable=false)
      * @Expose
+     * @Groups({"list"})
      */
     private $label;
 
@@ -51,6 +55,8 @@ class Role
      * @ORM\ManyToOne(targetEntity="fibe\CommunityBundle\Entity\Person", inversedBy="roles")
      * @Assert\NotBlank(message="You have to choose a Person")
      * @Expose
+     * @Groups({"list"})
+     * @MaxDepth(1)
      */
     private $person;
 
@@ -58,6 +64,8 @@ class Role
      * @ORM\ManyToOne(targetEntity="fibe\EventBundle\Entity\Event", inversedBy="roles")
      *
      * @Expose
+     * @Groups({"list"})
+     * @MaxDepth(1)
      */
     private $event;
 
@@ -68,6 +76,8 @@ class Role
      * @ORM\JoinColumn(name="main_event_id", referencedColumnName="id")
      * @Expose
      * @SerializedName("mainEvent")
+     * @Groups({"list"})
+     * @MaxDepth(1)
      */
     private $mainEvent;
 
@@ -77,6 +87,8 @@ class Role
      * @Assert\NotBlank(message="You have to choose a role type")
      * @Expose
      * @SerializedName("roleLabel")
+     * @Groups({"list"})
+     * @MaxDepth(1)
      */
     private $roleLabel;
 

@@ -31,6 +31,7 @@ class Equipment
    * @ORM\Column(type="integer")
    * @ORM\GeneratedValue(strategy="AUTO")
    * @Expose
+   * @Groups({"list"})
    */
   private $id;
 
@@ -41,6 +42,7 @@ class Equipment
    *
    * @ORM\Column(type="string", length=255,name="label")
    * @Expose
+   * @Groups({"list"})
    */
   private $label;
 
@@ -56,6 +58,7 @@ class Equipment
    * @var string $icon
    * @ORM\Column(name="icon", type="string", length=255, nullable=true)
    * @Expose
+   * @Groups({"list"})
    */
   private $icon;
 

@@ -5,6 +5,8 @@ namespace fibe\ContentBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
+use JMS\Serializer\Annotation\Groups;
+use JMS\Serializer\Annotation\MaxDepth;
 use JMS\Serializer\Annotation\SerializedName;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -31,11 +33,13 @@ class Localization
    * @ORM\Column(type="integer")
    * @ORM\GeneratedValue(strategy="AUTO")
    * @Expose
+   * @Groups({"list"})
    */
   protected $id;
   /**
    * @ORM\Column(type="string", length=255)
    * @Expose
+   * @Groups({"list"})
    */
   protected $label;
   /**
@@ -121,6 +125,7 @@ class Localization
    * @ORM\OneToOne(targetEntity="fibe\CommunityBundle\Entity\Person", cascade={"all"})
    * @ORM\JoinColumn(name="uid", referencedColumnName="id", onDelete="cascade")
    * @Expose
+   * @MaxDepth(1)
    */
   protected $person;
 

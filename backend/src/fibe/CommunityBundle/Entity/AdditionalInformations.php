@@ -6,6 +6,7 @@ use Doctrine\ORM\Event\PreFlushEventArgs;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
+use JMS\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -33,6 +34,7 @@ class AdditionalInformations
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue()
      * @Expose
+     * @Groups({"list"})
      */
     protected $id;
     /**
@@ -40,6 +42,7 @@ class AdditionalInformations
      *
      * @ORM\Column(type="string")
      * @Expose
+     * @Groups({"list"})
      */
     protected $label;
     /**
@@ -61,6 +64,7 @@ class AdditionalInformations
      * img
      * @ORM\Column(type="text", nullable=true, length=2056, name="img")
      * @Expose
+     * @Groups({"list"})
      */
     protected $img;
     /**

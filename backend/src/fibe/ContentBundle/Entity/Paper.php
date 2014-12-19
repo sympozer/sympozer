@@ -10,6 +10,7 @@ use fibe\EventBundle\Entity\Event;
 use fibe\EventBundle\Entity\MainEvent;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
+use JMS\Serializer\Annotation\Groups;
 use JMS\Serializer\Annotation\MaxDepth;
 use JMS\Serializer\Annotation\SerializedName;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -30,6 +31,7 @@ class Paper
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      * @Expose
+     * @Groups({"list"})
      */
     private $id;
 
@@ -40,6 +42,7 @@ class Paper
      *
      * @ORM\Column(type="string")
      * @Expose
+     * @Groups({"list"})
      */
     private $label;
 
@@ -49,6 +52,8 @@ class Paper
      *
      * @ORM\Column(type="text", name="abstract", nullable=true)
      * @Expose
+     * @Groups({"list"})
+     *
      */
     private $abstract;
 
@@ -69,6 +74,7 @@ class Paper
      *     inverseJoinColumns={@ORM\JoinColumn(name="person_id", referencedColumnName="id")})
      * @Expose
      * @MaxDepth(1)
+     * @Groups({"list"})
      */
     private $authors;
 
@@ -77,6 +83,7 @@ class Paper
      *
      * @ORM\Column(type="string", nullable=true, name="publisher")
      * @Expose
+     * @Groups({"list"})
      */
     private $publisher;
 
@@ -86,6 +93,7 @@ class Paper
      * @ORM\Column(type="string", nullable=true, name="publishDate")
      * @SerializedName("publishDate")
      * @Expose
+     * @Groups({"list"})
      */
     private $publishDate;
 
@@ -114,6 +122,8 @@ class Paper
      * @ORM\JoinColumn(name="main_event_id", referencedColumnName="id")
      * @SerializedName("mainEvent")
      * @Expose
+     * @Groups({"list"})
+     * @MaxDepth(1)
      */
     private $mainEvent;
 

@@ -27,6 +27,7 @@ class Category
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      * @Expose
+     * @Groups({"list"})
      */
     private $id;
 
@@ -38,6 +39,7 @@ class Category
     /**
      * @ORM\Column(type="string", length=128)
      * @Expose
+     * @Groups({"list"})
      */
     private $label;
 

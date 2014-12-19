@@ -149,7 +149,9 @@ angular.module('sympozerApp').directive('entityListHandler', ['GLOBAL_CONFIG', '
                     angular.extend(scope.entities, items);
                 }
 
-                scope.busy = false;
+                if(items.length > 0){
+                    scope.busy = false;
+                }
             }
         }
     };
