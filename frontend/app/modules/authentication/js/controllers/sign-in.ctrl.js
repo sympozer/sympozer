@@ -83,4 +83,5 @@ angular.module('authenticationApp').controller('signinCtrl',
                 }
             }
         }
+
     }]);
