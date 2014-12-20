@@ -73,7 +73,7 @@ angular.module('authenticationApp').controller('signinCtrl',
 
         function getURLParameter(param)
         {
-            var sURLVariables = window.location.hash.split('?')[1].split('&');
+            var sURLVariables = window.location.hash.split('?').length > 1 ? window.location.hash.split('?')[1].split('&') : {};
             for (var i = 0; i < sURLVariables.length; i++)
             {
                 var parameterName = sURLVariables[i].split('=');
