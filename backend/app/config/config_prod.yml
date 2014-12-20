@@ -1,4 +1,4 @@
-  imports:
+imports:
     - { resource: config.yml }
 
 # CORS Support

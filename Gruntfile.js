@@ -667,7 +667,7 @@ module.exports = function (grunt) {
             },
             //Install all assets (take everything from Resources directory of each bundle to append it in web/bundle/
             assets_install: {
-                cmd: 'assets:install web',
+                cmd: 'assets:install backend/web',
                 args: { symlink: true}
             },
             //Remove the database (specified in app/config/parameters.yml)
