@@ -728,7 +728,7 @@ module.exports = function (grunt) {
 
 
     /** INSTALL **/
-    grunt.registerTask('install', ['shell:protractor_install', 'f2-console:database_create', 'sf2-console:copy_ws_config']);
+    grunt.registerTask('install', ['shell:protractor_install', 'sf2-console:database_create', 'sf2-console:copy_ws_config']);
 
     /** DEVELOPMENT **/
     grunt.registerTask('reset_db', ['chmod:cache_log', 'sf2-console:database_drop', 'sf2-console:database_create', 'sf2-console:database_update',

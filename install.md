@@ -21,10 +21,10 @@ The organization is now easier than ever with our specialized tools following at
 	cd <path to the www folder of your Apache Server>
 	git clone https://github.com/BenoitDdlp/Sympozer-event-manager-app.git sympozer
 	cd sympozer
+    cd backend
 	
 ####Download vendors
 
-    cd backend
     sudo mkdir vendors
     sudo chmod 777 vendors/
 	composer update

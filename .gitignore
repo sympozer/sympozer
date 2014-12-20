@@ -35,12 +35,12 @@ web/smlink
 src/fibe/FrontendBundle/Resources/public/public
 
 
+frontend/app/js/ws-config.js
 .tmp/*
 frontend/.tmp/*
-frontend/app/js/ws-config.js
 frontend/dist/*
-frontend/app/bower
-frontend/app/scripts
+frontend/app/bower/*
+frontend/app/scripts/*
 frontend/local-config.json
 src/fibe/FrontendBundle/Resources/public/vendors/*
 npm-debug.log
