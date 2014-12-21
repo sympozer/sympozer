@@ -12,9 +12,3 @@ app/console doctrine:cache:clear-query
 app/console doctrine:cache:clear-result 
 chmod -R 777 app/cache
 chmod -R 777 app/logs
-{
-    "serverRootPath" : "http://localhost/sympozer/backend/web/app_dev.php",
-    "clientRootPath" : "http://localhost/sympozer/frontend/app",
-    "defaultBrowser" : "chromium-browser"
-
-}
