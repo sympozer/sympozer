@@ -50,7 +50,7 @@ class Category
     private $color;
 
     /**
-     * Events related to an category
+     * Events related to a category
      *
      * @ORM\OneToMany(targetEntity="Event", mappedBy="category")
      * @ORM\JoinColumn( onDelete="CASCADE")

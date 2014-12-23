@@ -14,7 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * This entity define a role for a person in an event
  *
  *
- * @ORM\Table(name="role_type")
+ * @ORM\Table(name="role_label")
  * @ORM\Entity(repositoryClass="fibe\ContentBundle\Repository\RoleLabelRepository")
  * @ORM\HasLifecycleCallbacks
  * @ExclusionPolicy("all")
