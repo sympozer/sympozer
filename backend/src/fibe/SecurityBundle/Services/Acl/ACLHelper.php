@@ -91,7 +91,7 @@ abstract class ACLHelper
             'classpath' => 'fibe\\CommunityBundle\\Entity',
         ),
         'RoleLabel'           => array(
-            'parent'    => 'getMainEvent',
+            'parent'    => 'getRoles',
             'classpath' => 'fibe\\ContentBundle\\Entity',
         ),
         //    'Topic' => array(

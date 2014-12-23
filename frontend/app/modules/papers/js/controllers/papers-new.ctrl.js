@@ -109,7 +109,7 @@ angular.module('papersApp').controller('papersNewCtrl', [ '$scope', '$window', '
             if (!personModel.id)
             {
                 var modalPersonInstance = $modal.open({
-                    templateUrl: GLOBAL_CONFIG.app.modules.persons.urls.partials + 'persons-modal-form.html',
+                    templateUrl: GLOBAL_CONFIG.app.modules.persons.urls.partials + 'modals/persons-modal-form.html',
                     controller : 'personsNewCtrl',
                     size       : "large",
                     resolve    : {

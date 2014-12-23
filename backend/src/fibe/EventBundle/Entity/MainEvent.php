@@ -65,20 +65,8 @@ class MainEvent extends VEvent
      * @Expose
      */
     private $roles;
-    /**
-     * RoleLabels
-     *
-     * @ORM\OneToMany(targetEntity="fibe\ContentBundle\Entity\RoleLabel", mappedBy="mainEvent")
-     */
-    private $roleLabels;
 
 
-    /**
-     *
-     * @ORM\ManyToMany(targetEntity="fibe\CommunityBundle\Entity\Person",  mappedBy="mainEvents", cascade={"persist","merge","remove"})
-     * @Expose
-     */
-    private $persons;
     /**
      * Team
      *
@@ -122,12 +110,11 @@ class MainEvent extends VEvent
         $this->setIsAllDay(true);
         $this->events = new ArrayCollection();
         $this->roles = new ArrayCollection();
-        $this->roleLabels = new ArrayCollection();
         $this->eventLocations = new ArrayCollection();
 
 
         $this->papers = new ArrayCollection();
-        $this->persons = new ArrayCollection();
+
         $this->topics = new ArrayCollection();
         $this->sponsors = new ArrayCollection();
         $this->organizations = new ArrayCollection();
@@ -236,41 +223,6 @@ class MainEvent extends VEvent
         $this->roles = $roles;
     }
 
-    /**
-     * Get roleLabels
-     *
-     * @return Collection
-     */
-    public function getRoleLabels()
-    {
-        return $this->roleLabels;
-    }
-
-    /**
-     * @param Collection $roleLabels
-     */
-    public function setRoleLabels(Collection $roleLabels)
-    {
-        $this->roleLabels = $roleLabels;
-    }
-
-    /**
-     * Get persons
-     *
-     * @return Collection
-     */
-    public function getPersons()
-    {
-        return $this->persons;
-    }
-
-    /**
-     * @param mixed $persons
-     */
-    public function setPersons($persons)
-    {
-        $this->persons = $persons;
-    }
 
     /**
      *
@@ -364,7 +316,6 @@ class MainEvent extends VEvent
         return (count($this->events) <= 1)
         and (count($this->eventLocations) <= 1)
         and (count($this->papers) == 0)
-        and (count($this->persons) == 0)
         and (count($this->organizations) == 0)
         and (count($this->topics) == 0);
 

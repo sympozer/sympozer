@@ -51,16 +51,6 @@ class RoleLabel
      * @Expose
      */
     private $roles;
-    /**
-     * The mainEvent associated
-     *
-     * @ORM\ManyToOne(targetEntity="fibe\EventBundle\Entity\MainEvent", inversedBy="roleLabels")
-     * @ORM\JoinColumn(name="main_event_id", referencedColumnName="id")
-     * @Expose
-     * @SerializedName("mainEvent")
-     */
-    private $mainEvent;
-
 
     /**
      * Constructor
@@ -179,22 +169,6 @@ class RoleLabel
         $this->roles = $roles;
     }
 
-
-    /**
-     * @return mixed
-     */
-    public function getMainEvent()
-    {
-        return $this->mainEvent;
-    }
-
-    /**
-     * @param mixed $mainEvent
-     */
-    public function setMainEvent($mainEvent)
-    {
-        $this->mainEvent = $mainEvent;
-    }
 
 
 }
