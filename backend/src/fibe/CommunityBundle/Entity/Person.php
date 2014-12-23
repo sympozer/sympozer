@@ -26,7 +26,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ExclusionPolicy("ALL")
  *
  */
-class Person extends AdditionalInformations
+class Person extends Agent
 {
 
     /**

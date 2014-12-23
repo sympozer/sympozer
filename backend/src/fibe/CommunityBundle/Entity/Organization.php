@@ -17,7 +17,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\HasLifecycleCallbacks
  * @ExclusionPolicy("all")
  */
-class Organization extends AdditionalInformations
+class Organization extends Agent
 {
 
   /**

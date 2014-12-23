@@ -13,8 +13,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  * This entity complete informations on a person or on an organization as well
  *
  *
- * @ORM\Table(name="additional_informations")
- * @ORM\Entity(repositoryClass="fibe\CommunityBundle\Repository\AdditionalInformationsRepository")
+ * @ORM\Table(name="agent")
+ * @ORM\Entity(repositoryClass="fibe\CommunityBundle\Repository\AgentRepository")
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\HasLifecycleCallbacks
  * @ORM\DiscriminatorMap({
@@ -23,7 +23,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * })
  * @ExclusionPolicy("all")
  */
-class AdditionalInformations
+class Agent
 {
     /**
      * fix an issue with jms-serializer and form validation when applied to a doctrine InheritanceType("SINGLE_TABLE")

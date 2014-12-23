@@ -5,7 +5,7 @@ namespace fibe\CommunityBundle\Form;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class OrganizationType extends AdditionalInformationsType
+class OrganizationType extends AgentType
 {
 
 

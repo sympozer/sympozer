@@ -11,7 +11,7 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
  *
  * @package fibe\CommunityBundle\Form
  */
-class PersonType extends AdditionalInformationsType
+class PersonType extends AgentType
 {
 
   /**

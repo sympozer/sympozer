@@ -7,7 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-abstract class AdditionalInformationsType extends AbstractType
+abstract class AgentType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -43,7 +43,7 @@ abstract class AdditionalInformationsType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'fibe\CommunityBundle\Entity\AdditionalInformations',
+            'data_class' => 'fibe\CommunityBundle\Entity\Agent',
             'csrf_protection' => false,
         ));
     }
@@ -53,6 +53,6 @@ abstract class AdditionalInformationsType extends AbstractType
      */
     public function getName()
     {
-        return 'fibe_communitybundle_additionalinformations';
+        return 'fibe_communitybundle_agent';
     }
 }
