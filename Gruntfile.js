@@ -431,19 +431,23 @@ module.exports = function (grunt) {
         },
 
         htmlmin: {
-            dist: {
-                options: {
-                    collapseWhitespace: true,
-                    collapseBooleanAttributes: true,
-                    removeCommentsFromCDATA: true,
-                    removeOptionalTags: true
-                },
+            options: {
+                collapseBooleanAttributes:      true,
+                collapseWhitespace:             true,
+                removeAttributeQuotes:          true,
+                removeComments:                 true, // Only if you don't use comment directives!
+                removeEmptyAttributes:          true,
+                removeRedundantAttributes:      true,
+                removeScriptTypeAttributes:     true,
+                removeStyleLinkTypeAttributes:  true
+            },
+            tmp: {
                 files: [
                     {
                         expand: true,
-                        cwd: '<%= yeoman.dist %>',
-                        src: ['*.html', 'views/{,*/}*.html'],
-                        dest: '<%= yeoman.dist %>'
+                        cwd: '<%= yeoman.frontend %>',
+                        src: ['app/partials/**/*.html', 'app/modules/**/*.html'],
+                        dest: '<%= yeoman.tmp %>/templates/'
                     }
                 ]
             }
@@ -533,11 +537,11 @@ module.exports = function (grunt) {
 
         ngtemplates: {
             app: {
-                src: 'app/**/*.html',
+                src: '<%= yeoman.tmp %>/**/*.html',
                 dest: '<%= yeoman.dist %>/templates/templates.js',
                 options: {
                     url: function (url) {
-                        return url.replace('app/views/', '');
+                       return  url.replace('frontend/.tmp/templates/app/', 'http://localhost/sympozer/frontend/dist/');
                     },
                     bootstrap: function (module, script) {
                         return "angular.module('sympozerApp', []).run(['$templateCache', function ($templateCache) {\n" + script + "}])";
@@ -757,28 +761,27 @@ module.exports = function (grunt) {
         'karma'
     ]);
 
-//    grunt.registerTask('build', [
-//        'clean:dist',
-//        'bowerInstall',
-//        'ngtemplates',
-//        'useminPrepare',
-//        'concurrent:dist',
-//        'less:dist',
-//        'autoprefixer',
-//        'concat',
-//        // 'ngmin',
-//        'copy:dist',
-//        // 'cdnify',
-//        'cssmin',
-//        'uglify',
-//        'rev',
-//        'usemin',
-//        'imagemin',
-//        'processhtml:dist',
-//        'sf2-console:copy_ws_config'
-//        // 'htmlmin',
-//
-//    ]);
+    grunt.registerTask('build', [
+        'clean:dist',
+        'bowerInstall',
+        'htmlmin:tmp',
+        'ngtemplates:app',
+        'useminPrepare',
+        'concurrent:dist',
+        'less:dist',
+        'autoprefixer',
+        'concat',
+        // 'ngmin',
+        'copy:dist',
+        // 'cdnify',
+        'cssmin',
+        'uglify',
+        'rev',
+        'usemin',
+        'imagemin',
+        'processhtml:dist',
+        'sf2-console:copy_ws_config'
+    ]);
 
     grunt.registerTask('default', [
         // 'newer:jshint',
