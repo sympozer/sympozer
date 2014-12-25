@@ -9,7 +9,7 @@ angular.module('papersApp').config([ '$routeProvider', function ($routeProvider)
     $routeProvider
         .when('/home/papers/index', {
             templateUrl: globalConfig.app.modules.papers.urls.partials + 'pages/papers-index.html',
-            controller: 'papersIndexCtrl'
+            controller: 'papersCommunityListCtrl'
         })
         .when('/home/papers/list', {
             templateUrl: globalConfig.app.modules.papers.urls.communityPartials + 'papers-community-thumb.html',

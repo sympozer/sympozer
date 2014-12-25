@@ -2,7 +2,7 @@
 /**
  * Main Sympozer Angular app controller from FORZA
  */
-sympozerApp.controller('mainCtrl', ['$scope', '$rootScope', '$global', '$timeout', 'progressLoader', '$location', 'GLOBAL_CONFIG', function ($scope, $rootScope, $global, $timeout, progressLoader, $location, GLOBAL_CONFIG)
+angular.module('sympozerApp').controller('mainCtrl', ['$scope', '$rootScope', '$global', '$timeout', 'progressLoader', '$location', 'GLOBAL_CONFIG', function ($scope, $rootScope, $global, $timeout, progressLoader, $location, GLOBAL_CONFIG)
 {
     /**
      * Getting main html attribute configurations

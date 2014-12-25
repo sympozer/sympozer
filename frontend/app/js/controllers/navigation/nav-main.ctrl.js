@@ -3,7 +3,7 @@
 /**
  * Navigation main controller. Handles the configuration of the nav bars and search system
  */
-sympozerApp.controller('navMainCtrl', ['$scope', '$rootScope', '$location', '$timeout', '$global', function ($scope, $rootScope, $location, $timeout, $global)
+angular.module('sympozerApp').controller('navMainCtrl', ['$scope', '$rootScope', '$location', '$timeout', '$global', function ($scope, $rootScope, $location, $timeout, $global)
 {
 
 

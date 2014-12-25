@@ -1,0 +1,28 @@
+<div class="row">
+    <h4 class="col-lg-8 col-md-12"><a href="#">{{ paper.label }}</a></h4>
+
+    <h4 class="col-lg-4 col-md-12 text-right-lg">
+        <span ng-repeat="topic in paper.topics" class="labels label-primary">{{ topic }}</span>
+    </h4>
+</div>
+<div class="row" ng-if="paper.publisher || paper.publishDate || paper.authors">
+    <!-- @TODO : TRANSLATE DATE -->
+    <h5 class="col-lg-8 col-md-12" ng-if="paper.authors">
+        {{ (paper.authors.length > 1) ? 'papers.labels.authors' : 'papers.labels.author' | translate }}
+        <em ng-repeat="author in paper.authors">{{ author }}{{$last ? '' : ', '}}</em>
+    </h5>
+    <h6 class="{{ paper.authors ? 'col-lg-4 col-md-12 ' : '' }}text-right-lg" ng-if="paper.publisher || paper.publishDate">
+        <em ng-if="paper.publisher">{{'papers.labels.publishedBy' | translate }} {{ paper.publisher }} </em>
+        <em ng-if="paper.publisher && paper.publishDate">{{ 'global.labels.on' | translate }} </em>
+        <em ng-if="paper.publishDate">{{ paper.publishDate | date:'medium' }}</em>
+    </h6>
+</div>
+<div>
+    <a href="{{ paper.url }}" target="_blank" ng-if="paper.url">{{ paper.url }}</a>
+
+    <p ng-if="paper.abstract">{{ paper.abstract }}</p>
+
+    <p ng-if="!paper.abstract">
+        <small><em>{{ 'papers.messages.no_abstract' | translate }}</em></small>
+    </p>
+</div>

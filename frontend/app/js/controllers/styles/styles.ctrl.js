@@ -4,7 +4,7 @@
  * stylesCtrl
  * Controller managing styles changes on the nav top bar
  */
-sympozerApp.controller('stylesCtrl', ['$scope', '$global', function ($scope, $global)
+angular.module('sympozerApp').controller('stylesCtrl', ['$scope', '$global', function ($scope, $global)
 {
     $scope.headerStylesheet = 'header-midnightblue.css';
     $scope.sidebarStylesheet = 'sidebar-gray.css';

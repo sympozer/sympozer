@@ -52,7 +52,7 @@
 /**
  * Man Sympozer angular application router from FORZA
  */
-sympozerApp.config(['$provide', '$routeProvider', function ($provide, $routeProvider)
+angular.module('sympozerApp').config(['$provide', '$routeProvider', function ($provide, $routeProvider)
 {
     $routeProvider
         .when('/', {

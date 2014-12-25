@@ -88,7 +88,7 @@ class CrudHandler
         $form->submit($formData, 'PATCH' !== $method);
 
         //perform acl check
-        // $this->validateAction($method, $entity);
+         //$this->validateAction($method, $entity);
 
         if ($form->isValid())
         {

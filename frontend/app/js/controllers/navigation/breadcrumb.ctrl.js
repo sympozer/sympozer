@@ -3,7 +3,7 @@
 /**
  * Breadcrumb controller (or also called 'fil d'ariane')
  */
-sympozerApp.controller('breadcrumbCtrl', ['$scope', '$rootScope', '$location', function ($scope, $rootScope, $location)
+angular.module('sympozerApp').controller('breadcrumbCtrl', ['$scope', '$rootScope', '$location', function ($scope, $rootScope, $location)
 {
     /**
      * Definitions for breadcrump

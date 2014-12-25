@@ -104,7 +104,7 @@ sympozerApp = angular.module('sympozerApp', [
  * Configurations at run for xEditable live-edit plugin
  * (execute after injection)
  */
-sympozerApp.run(function (editableOptions, editableThemes)
+angular.module('sympozerApp').run(function (editableOptions, editableThemes)
 {
     //Set bootstrap 3 theme
     editableOptions.theme = 'bs3';

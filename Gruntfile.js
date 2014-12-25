@@ -432,14 +432,14 @@ module.exports = function (grunt) {
 
         htmlmin: {
             options: {
-                collapseBooleanAttributes:      true,
-                collapseWhitespace:             true,
-                removeAttributeQuotes:          true,
-                removeComments:                 true, // Only if you don't use comment directives!
-                removeEmptyAttributes:          true,
-                removeRedundantAttributes:      true,
-                removeScriptTypeAttributes:     true,
-                removeStyleLinkTypeAttributes:  true
+//                collapseBooleanAttributes:      false,
+//                collapseWhitespace:             true,
+//                removeAttributeQuotes:          true,
+//                removeComments:                 true, // Only if you don't use comment directives!
+//                removeEmptyAttributes:          true,
+//                removeRedundantAttributes:      true,
+//                removeScriptTypeAttributes:     true,
+//                removeStyleLinkTypeAttributes:  true
             },
             tmp: {
                 files: [
@@ -771,7 +771,7 @@ module.exports = function (grunt) {
         'less:dist',
         'autoprefixer',
         'concat',
-        // 'ngmin',
+        'ngmin',
         'copy:dist',
         // 'cdnify',
         'cssmin',
