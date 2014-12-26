@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
 use JMS\Serializer\Annotation\Groups;
+use JMS\Serializer\Annotation\SerializedName;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -52,6 +53,28 @@ class Agent
      * @Expose
      */
     protected $website;
+    /**
+     * Url of the twitter
+     *
+     * @ORM\Column(type="string", nullable=true)
+     * @Expose
+     */
+    protected $twitter;
+    /**
+     * Url of the facebook
+     *
+     * @ORM\Column(type="string", nullable=true)
+     * @Expose
+     */
+    protected $facebook;
+    /**
+     * Url of the linkedIn
+     *
+     * @ORM\Column(type="string", nullable=true)
+     * @Expose
+     * @SerializedName("linkedIn")
+     */
+    protected $linkedIn;
     /**
      * @TODO Enum : I18N (CodeInfo/JS/...)
      *
@@ -165,6 +188,54 @@ class Agent
     public function setWebsite($website)
     {
         $this->website = $website;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFacebook()
+    {
+        return $this->facebook;
+    }
+
+    /**
+     * @param mixed $facebook
+     */
+    public function setFacebook($facebook)
+    {
+        $this->facebook = $facebook;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLinkedIn()
+    {
+        return $this->linkedIn;
+    }
+
+    /**
+     * @param mixed $linkedIn
+     */
+    public function setLinkedIn($linkedIn)
+    {
+        $this->linkedIn = $linkedIn;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTwitter()
+    {
+        return $this->twitter;
+    }
+
+    /**
+     * @param mixed $twitter
+     */
+    public function setTwitter($twitter)
+    {
+        $this->twitter = $twitter;
     }
 
     /**
