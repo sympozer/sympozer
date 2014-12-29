@@ -581,7 +581,7 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
             },
             model      : {
                 label       : 'Label',
-                positions   : 'Postiions',
+                positions: 'Positions',
                 website     : 'Website',
                 localization: 'Localization',
                 country     : 'Country',
@@ -1158,7 +1158,7 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
             model      : {
                 label       : 'Label',
                 localization: 'Localisation',
-                positions   : 'Postiions',
+                positions: 'Positions',
                 website     : 'Site web',
                 country     : 'Pays',
                 city        : 'Ville',
