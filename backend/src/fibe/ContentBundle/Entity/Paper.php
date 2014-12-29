@@ -74,7 +74,7 @@ class Paper
      *     joinColumns={@ORM\JoinColumn(name="paper_id", referencedColumnName="id")},
      *     inverseJoinColumns={@ORM\JoinColumn(name="person_id", referencedColumnName="id")})
      * @Expose
-     * @MaxDepth(1)
+     * @MaxDepth(2)
      * @Groups({"list"})
      */
     private $authors;

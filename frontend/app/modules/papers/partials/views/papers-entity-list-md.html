@@ -15,9 +15,12 @@
             <td>{{ paper.label }}</td>
             <td>
                 <div class="row" ng-repeat="author in paper.authors  track by $index">
-
-                    <img class="img-responsive" no-image ng-src="{{author.img}}" >
-                    <p>{{author.label}}</p>
+                    <div class="col-sm-6">
+                        <img class="img-responsive" no-image ng-src="{{author.img}}" >
+                    </div>
+                    <div class="col-sm-6 ellipsis ">
+                        <p>{{author.label}}</p>
+                    </div>
                 </div>
             </td>
             <td><a ng-href="{{ paper.url }}" target="_blank">{{ paper.url }}</a></td>
