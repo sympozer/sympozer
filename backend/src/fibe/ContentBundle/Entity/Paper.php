@@ -62,6 +62,7 @@ class Paper
      *
      * @ORM\Column(type="string", nullable=true)
      * @Expose
+     * @Groups({"list"})
      */
     private $url;
 

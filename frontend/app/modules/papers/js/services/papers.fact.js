@@ -39,14 +39,18 @@ angular.module('papersApp').factory('papersFact', ['$resource', function ($resou
 
         };
         //Serialize topics
-        for (var i = 0; i < object.topics.length; i++)
-        {
-            DTObject.topics.push({id: object.topics[i].id});
+        if(object.topics){
+            for (var i = 0; i < object.topics.length; i++)
+            {
+                DTObject.topics.push({id: object.topics[i].id});
+            }
         }
+
         //Serialize authors
-        for (var i = 0; i < object.authors.length; i++)
-        {
-            DTObject.authors.push({id: object.authors[i].id});
+        if(object.authors) {
+            for (var i = 0; i < object.authors.length; i++) {
+                DTObject.authors.push({id: object.authors[i].id});
+            }
         }
 
         //create the new resource object from DTObject

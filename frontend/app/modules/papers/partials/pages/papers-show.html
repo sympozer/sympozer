@@ -31,8 +31,8 @@
                             <div class="col-sm-10 col-md-10 col-lg-10">
 
                                 <h2>{{paper.label}}</h2>
-                                <h5>{{paper.publisher || '???'}} {{paper.publishDate || '???'}}</h5>
-                                <p>{{ paper.url }}</p>
+                                <h5>{{paper.publisher}} - {{paper.publishDate | date:'shortDate'}}</h5>
+                                <a ng-href="{{ paper.url }}" target="_blank">{{ paper.url }}</a>
                                 <p>{{paper.abstract}}</p>
                             </div>
                         </div>

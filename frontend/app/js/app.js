@@ -62,6 +62,7 @@ var sympozerApp = angular.module('sympozerApp', [
  */
 sympozerApp = angular.module('sympozerApp', [
     'easypiechart',
+    'validation.match',
     'toggle-switch',
     'ui.bootstrap',
     'ui.tree',

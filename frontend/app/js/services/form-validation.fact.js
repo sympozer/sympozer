@@ -146,6 +146,7 @@ angular.module('sympozerApp').factory('formValidation', [
                 formFieldElement.addClass("ng-invalid").addClass("ng-dirty")
                     .removeClass("ng-valid");
                 var template = '<div class="alert alert-danger" role="alert">';
+                debugger;
                 for (var i in newValue)
                 {
                     template += "<p> {{ '" + newValue[i] + "' | translate }} </p>";

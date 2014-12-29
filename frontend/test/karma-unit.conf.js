@@ -71,6 +71,7 @@ module.exports = function(config) {
             '../app/bower/angular-translate/angular-translate.js',
             '../app/bower/bootstrap-tags/dist/js/bootstrap-tags.js',
             '../app/bower/angular-cached-resource/angular-cached-resource.js',
+            '../app/bower/angular-validation-match/dist/angular-input-match.js',
             <!-- endbower -->
             <!-- plugin files -->
             '../app/assets/plugins/form-daterangepicker/daterangepicker.min.js',

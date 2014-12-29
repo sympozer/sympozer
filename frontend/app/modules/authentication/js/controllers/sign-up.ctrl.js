@@ -17,7 +17,7 @@ angular.module('authenticationApp').controller('signupCtrl',
             }
             else
             {
-                //Notify of the signin action error
+                //Notify of the signup action error
                 pinesNotifications.notify({
                     title: translateFilter('global.validations.error'),
                     text: translateFilter('authentication.validations.signup_error'),

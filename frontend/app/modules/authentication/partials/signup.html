@@ -40,8 +40,8 @@
                         <input type="password" required="" name="password" id="inputPassword" class="form-control" placeholder="{{ 'authentication.labels.password' | translate }}" ng-model="user.plainPassword.first" ng-minlength="5"
                                ng-maxlength="20" ng-pattern=/(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z].*[a-z].*[a-z])(?=.*[\S])/ required/>
                     </div>
-                    <span class="help-block" ng-show="signupForm._password.$error.minlength">{{ 'authentication.validations.pwd_too_short' | translate }}</span>
-                    <span class="help-block" ng-show="signupForm._password.$error.maxlength">{{ 'authentication.validations.pwd_too_long' | translate }}</span>
+                    <span class="help-block" ng-show="signupForm.password.$error.minlength">{{ 'authentication.validations.pwd_too_short' | translate }}</span>
+                    <span class="help-block" ng-show="signupForm.password.$error.maxlength">{{ 'authentication.validations.pwd_too_long' | translate }}</span>
                     <span class="help-block" ng-show="signupForm.password.$error.pattern">{{ 'authentication.validations.pwd_not_enough_strength' | translate }}</span>
                 </div>
             </div>
@@ -49,13 +49,13 @@
                 <div class="col-sm-12">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-lock"></i></span>
-                        <input required="" type="password" name="confirmpassword" id="inputPasswordConfirm" class="form-control" placeholder="{{ 'authentication.labels.pwd_check' | translate }}" ng-model="user.plainPassword.second"/>
+                        <input required="" type="password" name="confirmpassword" id="inputPasswordConfirm" class="form-control" placeholder="{{ 'authentication.labels.pwd_check' | translate }}" ng-model="user.plainPassword.second" data-match="user.plainPassword.first"/>
                     </div>
-                    <span class="help-block" ng-show="signupForm.confirmpassword.$dirty && ( signupForm.password != signupForm.confirmpassword)">{{ 'authentication.validations.pwd_not_match' | translate }}</span>
+                    <span class="help-block" ng-show="signupForm.confirmpassword.$error.match">{{ 'authentication.validations.pwd_not_match' | translate }}</span>
                 </div>
             </div>
             <div class="checkbox block" style="text-align:center">
-                <input icheck type="checkbox">
+                <input required="" ng-model="signupForm.agreement" icheck type="checkbox">
                 <span>
                     {{ 'authentication.labels.agreement_acceptance' | translate }} <a href="" ng-click="showUserAgreementPopup()">{{ 'authentication.labels.agreement' | translate }}</a>
                 </span>
