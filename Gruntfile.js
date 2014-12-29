@@ -742,7 +742,7 @@ module.exports = function (grunt) {
     grunt.registerTask('update_db', ['chmod:cache_log', 'sf2-console:database_update', 'cache_clear']);
 
 
-    grunt.registerTask('update_dependencies', ['bower-install-simple', 'bowerInstall', 'chmod:cache_log']);
+    grunt.registerTask('update_dependencies', ['bower-install-simple', 'bowerInstall']);
 
     grunt.registerTask('dev', ['reset_db', 'update_dependencies', 'open:devserver']);
 
