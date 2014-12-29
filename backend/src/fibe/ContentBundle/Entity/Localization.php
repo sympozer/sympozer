@@ -52,6 +52,7 @@ class Localization
    *      maxMessage = "You must be between -90 and 90."
    * )
    * @Expose
+   * @Groups({"list"})
    */
   protected $latitude;
   /**
@@ -63,6 +64,7 @@ class Localization
    *      maxMessage = "You must be between -180 and 180."
    * )
    * @Expose
+   * @Groups({"list"})
    */
   protected $longitude;
   /**
@@ -70,6 +72,7 @@ class Localization
    * The fully formatted address line containing street number, street, city, state, country
    * @ORM\Column(type="string", nullable=true)
    * @Expose
+   * @Groups({"list"})
    */
   protected $address;
   /**
@@ -77,14 +80,16 @@ class Localization
    *
    * @ORM\Column(type="string", nullable=true)
    * @Expose
+   * @Groups({"list"})
    */
   protected $street;
   /**
    * street number
    *
    * @ORM\Column(type="integer", nullable=true)
-   * @SerializedName("streetNumbe")
+   * @SerializedName("streetNumber")
    * @Expose
+   * @Groups({"list"})
    */
   protected $streetNumber;
   /**
@@ -92,6 +97,7 @@ class Localization
    *
    * @ORM\Column(type="string", nullable=true)
    * @Expose
+   * @Groups({"list"})
    */
   protected $city;
   /**
@@ -99,6 +105,7 @@ class Localization
    *
    * @ORM\Column(type="string", nullable=true)
    * @Expose
+   * @Groups({"list"})
    */
   protected $state;
   /**
@@ -112,6 +119,7 @@ class Localization
    * @ORM\Column(type="string", nullable=true)
    * @SerializedName("countryCode")
    * @Expose
+   * @Groups({"list"})
    */
   protected $countryCode;
   /**
@@ -119,6 +127,7 @@ class Localization
    * @ORM\Column(type="string", nullable=true)
    * @SerializedName("postalCode")
    * @Expose
+   * @Groups({"list"})
    */
   protected $postalCode;
   /**

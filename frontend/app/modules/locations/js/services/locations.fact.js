@@ -51,7 +51,7 @@ angular.module('locationsApp').factory('locationsFact', ['$resource', '$cachedRe
     {
         var locationClone = angular.copy(location);
         delete locationClone.id;
-        locationClone.label = location.label + new Date();
+        locationClone.label = location.label + " - copy";
         this.create(this.serialize(locationClone), success, error);
     };
 

@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
 use JMS\Serializer\Annotation\Groups;
+use JMS\Serializer\Annotation\MaxDepth;
 use JMS\Serializer\Annotation\SerializedName;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -35,6 +36,7 @@ class Location extends Localization
      *
      * @ORM\Column(type="integer", nullable=true)
      * @Expose
+     * @Groups({"list"})
      */
     protected $capacity;
     /**
@@ -57,6 +59,7 @@ class Location extends Localization
      *
      * @ORM\Column(type="text", nullable=true)
      * @Expose
+     * @Groups({"list"})
      */
     protected $accesibility;
     /**
@@ -67,6 +70,7 @@ class Location extends Localization
      * @ORM\JoinColumn(name="main_event_id", referencedColumnName="id")
      * @Expose
      * @Groups({"list"})
+     * @MaxDepth(1)
      * @SerializedName("mainEvent")
      */
     protected $mainEvent;

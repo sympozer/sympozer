@@ -62,6 +62,7 @@ angular.module('eventsApp').controller('eventsListCtrl', ['$scope', 'categoriesF
         };
         var success = function (response, args)
         {
+            debugger;
             //Notify of the creation action success
             pinesNotifications.notify({
                 title: translateFilter('global.validations.success'),
