@@ -64,8 +64,7 @@ class SocialConnectRESTController extends ConnectController
         $userInformation = $resourceOwner->getUserInformation($accessToken);
         /** @var \fibe\SecurityBundle\Entity\User $user */
         $user = $this->container->get('hwi_oauth.account.connector')->loadUserByOAuthUserResponse($userInformation);
-
-        //TODO : send cookie
+        $this->authenticateUser($request, $user, $service, $accessToken);
         return new RedirectResponse(sprintf("%s?username=%s&id=%s",
 
             $this->container->getParameter('front_end_path'),

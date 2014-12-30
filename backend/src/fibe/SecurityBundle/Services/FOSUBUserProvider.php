@@ -48,20 +48,19 @@ class FOSUBUserProvider extends BaseFOSUBUserProvider
         $this->session->remove("userId");
         $serviceName = $response->getResourceOwner()->getName();
 
-        echo "loadUserByOAuthUserResponse";
-        \Doctrine\Common\Util\Debug::dump($response);
         if (null === $socialServiceUser)
-        { //social service user not found
+        { //no user known with this social service Id
             if ($loggedUser instanceof UserInterface)
-            { //first account
+            { //user is logged
+                // => enrich him
                 $setter = 'set' . ucfirst($serviceName) . 'Id';
                 $loggedUser->$setter($socialServiceId);
 
                 return $this->enrich($loggedUser, $serviceName, $response);
             }
             else
-            { //no user with this social service Id and not logged
-                // => creating a new user
+            { //not logged
+                // => create a new user
                 return $this->create($serviceName, $response, $socialServiceId);
             }
         }
@@ -75,8 +74,7 @@ class FOSUBUserProvider extends BaseFOSUBUserProvider
                 }
                 else
                 { //social service already registered for another user
-                    $this->session->getFlashBag()->add('warning', 'This ' . ucfirst($serviceName) . ' account is already registered for another account.');
-
+                    //TODO merge both account ??
                     return $loggedUser;
                 }
             }
@@ -86,8 +84,6 @@ class FOSUBUserProvider extends BaseFOSUBUserProvider
             }
         }
     }
-
-    //just login 
 
     private function enrich(UserInterface $user, $serviceName, UserResponseInterface $response)
     {
@@ -101,7 +97,7 @@ class FOSUBUserProvider extends BaseFOSUBUserProvider
 
     //enrich account on demand
 
-    private function enrichUserDatas(User $user, $serviceName, UserResponseInterface $response)
+    protected function enrichUserDatas(User $user, $serviceName, UserResponseInterface $response)
     {
         $mail = $response->getEmail();
         if (!empty($mail))
@@ -132,6 +128,12 @@ class FOSUBUserProvider extends BaseFOSUBUserProvider
      *  No user with this social service Id and not logged
      *  try to get the existing email user
      *      if none found create a new user with userName = email && random password
+     *
+     *  /!\ security leak /!\
+     * => if user A hasn't an account on every proposed social
+     *  service to signup, user B can create one an then signin
+     *  in sympozer with A's account
+     *  /!\ security leak /!\
      *
      * @param $serviceName
      * @param UserResponseInterface $response
@@ -192,7 +194,7 @@ class FOSUBUserProvider extends BaseFOSUBUserProvider
     }
 
     /**
-     * actually, don't know when this function is called...
+     * actually, don't know when this function is called..
      * {@inheritDoc}
      */
     public function connect(UserInterface $user, UserResponseInterface $response)
