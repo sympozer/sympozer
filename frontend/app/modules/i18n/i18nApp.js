@@ -58,7 +58,7 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
         },
 
 
-        navleft          : {
+        navleft       : {
             home        : 'Home',
             overview    : 'Overview',
             analytics   : 'Analytics',
@@ -82,7 +82,7 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
 
 
         //Authentication
-        authentication   : {
+        authentication: {
             actions    : {
                 signin: 'Sign In',
                 signup: 'Sign Up',
@@ -151,7 +151,7 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
 
 
         //mainEvent
-        mainEvents       : {
+        mainEvents    : {
             actions    : {
                 search  : 'Search a conference',
                 new     : 'New conference',
@@ -201,7 +201,7 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
         },
 
         //event
-        events           : {
+        events        : {
             actions    : {
                 search: 'Search an event',
                 new  : 'New event',
@@ -244,7 +244,7 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
         },
 
         //papers
-        papers           : {
+        papers        : {
             actions    : {
                 search: 'Search a paper',
                 new  : 'New paper',
@@ -253,7 +253,7 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 import: 'Import paper',
                 export: 'Export paper',
                 print: 'Print paper',
-                view    : 'Paper details',
+                view : 'Paper details',
                 index: {
                     subtitle: 'Search papers'
                 }
@@ -263,7 +263,7 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 paper: 'Paper'
             },
             validations: {
-                created: 'The paper has been saved',
+                created    : 'The paper has been saved',
                 not_created: 'Sorry, the paper has not been saved',
                 deletion_success: 'Paper deleted',
                 deletion_error  : 'Sorry, we couldn\'nt delete this Paper'
@@ -288,7 +288,7 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
         },
 
         //teammates
-        teammates        : {
+        teammates     : {
             actions    : {
                 search: 'Search a teammate',
                 new  : 'New teammate',
@@ -321,7 +321,7 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
 
 
         //topics
-        topics           : {
+        topics        : {
             actions    : {
                 search: 'Search a topic',
                 new  : 'New topic',
@@ -351,7 +351,7 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
 
 
         //categories
-        categories       : {
+        categories    : {
             actions    : {
                 search: 'Search a category',
                 new  : 'New category',
@@ -381,7 +381,7 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
         },
 
         //locations
-        locations        : {
+        locations     : {
             actions    : {
                 search: 'Search a location',
                 new  : 'New location',
@@ -396,7 +396,7 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 location: 'Location'
             },
             validations: {
-                'created': 'The location has been saved',
+                'created'    : 'The location has been saved',
                 'not_created': 'Sorry, the location has not been saved',
                 deletion_success: 'Location deleted',
                 deletion_error  : 'Sorry, we could delete this location'
@@ -417,7 +417,7 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
 
 
         //equipments
-        equipments       : {
+        equipments    : {
             actions    : {
                 search: 'Search an equipment',
                 new: 'New equipment',
@@ -443,7 +443,7 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
 
 
         //organizations
-        organizations    : {
+        organizations : {
             actions    : {
                 search: 'Search an organization',
                 new  : 'New organization',
@@ -481,7 +481,7 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
 
 
         //roleLabels
-        roleLabels       : {
+        roleLabels    : {
             actions    : {
                 search: 'Search a role label',
                 new  : 'New role label',
@@ -511,7 +511,7 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
 
 
         //roles
-        roles            : {
+        roles         : {
             actions    : {
                 search: 'Search a role',
                 new  : 'New role',
@@ -542,7 +542,7 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
         },
 
         //person
-        persons          : {
+        persons       : {
             actions    : {
                 search      : 'Search a person',
                 new         : 'New person',
@@ -592,8 +592,14 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 email       : 'Email',
                 img         : 'Image'
             }
-        }
+        },
 
+        import: {
+            select_file    : 'Select the csv file to import.',
+            download_sample: 'Download a sample file.',
+            send_to_server : 'Send to server.',
+            processing     : 'The server is processing datas... This may take a while.'
+        }
 
     });
 
@@ -636,7 +642,7 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
         },
 
 
-        navleft          : {
+        navleft       : {
             home        : 'Accueil',
             overview    : 'Aperçu',
             analytics   : 'Analytics',
@@ -660,7 +666,7 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
 
 
         //Authentication
-        authentication   : {
+        authentication: {
             actions    : {
                 signin: 'Connexion',
                 signup: 'Inscription',
@@ -728,7 +734,7 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
 
 
         //mainEvent
-        mainEvents       : {
+        mainEvents    : {
             actions    : {
                 search  : 'Rechercher une conférence',
                 new     : 'Nouvelle conférence',
@@ -778,7 +784,7 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
         },
 
         //event
-        events           : {
+        events        : {
             actions    : {
                 search: 'Rechercher un évènement',
                 new  : 'Nouvel évènement',
@@ -821,7 +827,7 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
         },
 
         //event
-        papers           : {
+        papers        : {
             actions    : {
                 search: 'Rechercher une publication',
                 new  : 'Nouvelle publication',
@@ -830,7 +836,7 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 import: 'Importer publications',
                 export: 'Exporter publications',
                 print: 'Imprimer publications',
-                view    : 'Détails du papier',
+                view : 'Détails du papier',
                 index: {
                     subtitle: 'Consulter des publications'
                 }
@@ -840,7 +846,7 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 paper: 'Publication'
             },
             validations: {
-                created: 'La publication a été enregistrée',
+                created    : 'La publication a été enregistrée',
                 not_created: 'Désolé, la publication n\'a pas été sauvegardée',
                 deletion_success: 'Publication supprimée',
                 deletion_error  : 'Désolé, nous n\'avons pas pu supprimer cette publication'
@@ -865,7 +871,7 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
         },
 
         //teammates
-        teammates        : {
+        teammates     : {
             actions    : {
                 search: 'Rechercher un équipier',
                 new  : 'Nouvel équipier',
@@ -897,7 +903,7 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
 
 
         //topics
-        topics           : {
+        topics        : {
             actions    : {
                 search: 'Rechercher un tag',
                 new  : 'Nouveau tag',
@@ -926,7 +932,7 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
 
 
         //categories
-        categories       : {
+        categories    : {
             actions    : {
                 search: 'Rechercher une catégorie',
                 new  : 'Nouvelle catégorie',
@@ -955,7 +961,7 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
         },
 
         //locations
-        locations        : {
+        locations     : {
             actions    : {
                 search: 'Rechercher une localisation',
                 new  : 'Nouvelle localisation',
@@ -970,7 +976,7 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 location : 'Location'
             },
             validations: {
-                'created': 'La localisation a été enregistré',
+                'created'    : 'La localisation a été enregistré',
                 'not_created': 'Désolé, la localisation n\'a pas été sauvegardée',
                 deletion_success: 'Location supprimée',
                 deletion_error  : 'Désolé, nous n\'avons pas pu supprimer cette location'
@@ -990,7 +996,7 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
 
 
         //equipments
-        equipments       : {
+        equipments    : {
             actions    : {
                 search: 'Rechercher un équipement',
                 new: 'Nouvel équipement',
@@ -1016,7 +1022,7 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
 
 
         //organizations
-        organizations    : {
+        organizations : {
             actions    : {
                 search: 'Rechercher une organisation',
                 new  : 'Nouvelle organisation',
@@ -1056,7 +1062,7 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
 
 
         //roleLabels
-        roleLabels       : {
+        roleLabels    : {
             actions : {
                 search: 'Rechercher un type de rôle',
                 new  : 'Nouveau type de rôle',
@@ -1083,7 +1089,7 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
 
 
         //roles
-        roles            : {
+        roles         : {
             actions    : {
                 search: 'Ajouter un rôle',
                 new  : 'Nouveau rôle',
@@ -1115,7 +1121,7 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
         },
 
         //person
-        persons          : {
+        persons       : {
             actions    : {
                 search      : 'Rechercher une personne',
                 new         : 'Nouvelle personne',
@@ -1168,6 +1174,13 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 email       : 'Email',
                 img         : 'Image'
             }
+        },
+
+        import: {
+            select_file    : 'Sélectionnez le fichier csv à importer.',
+            download_sample: 'Téléchargez un fichier d\'éxample.',
+            send_to_server : 'Envoyer au server.',
+            processing     : 'Le serveur traite les données... Cela peut prendre un moment.'
         }
     });
 

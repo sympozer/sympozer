@@ -23,9 +23,7 @@ angular.module('sympozerApp').directive('sympozerAclShow', [
                 //default is to hide button
                 element.hide();
                 //watch acl attribute
-                var fieldToWatch = "$parent." + scope.promiseName + ".acl";
-
-                scope.$watch(fieldToWatch, function (newValue, oldValue, $scope)
+                scope.$watch("$parent." + scope.promiseName + ".acl", function (newValue, oldValue, $scope)
                 {
                     //not at initialization
                     if (!newValue)

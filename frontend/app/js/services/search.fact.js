@@ -3,7 +3,7 @@
  * Handles formatting complex backend requests with queries, order, offset,limit and filter parameters
  */
 angular.module('sympozerApp').factory('searchService', [
-    '$injector', '$timeout', function ($injector, $timeout)
+    '$timeout', function ($timeout)
     {
         var searchTimeout;
         return {

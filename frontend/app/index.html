@@ -42,19 +42,19 @@
 
   <!-- build:css assets/css/vendor.css -->
   <!-- bower:css -->
-  <link rel="stylesheet" href="bower/font-awesome/css/font-awesome.css" />
-  <link rel="stylesheet" href="bower/seiyria-bootstrap-slider/dist/css/bootstrap-slider.min.css" />
-  <link rel="stylesheet" href="bower/angular-ui-tree/dist/angular-ui-tree.min.css" />
-  <link rel="stylesheet" href="bower/angular-toggle-switch/angular-toggle-switch.css" />
-  <link rel="stylesheet" href="bower/ng-grid/ng-grid.css" />
-  <link rel="stylesheet" href="bower/angular-xeditable/dist/css/xeditable.css" />
-  <link rel="stylesheet" href="bower/select2/select2.css" />
-  <link rel="stylesheet" href="bower/jScrollPane/style/jquery.jscrollpane.css" />
-  <link rel="stylesheet" href="bower/pnotify/pnotify.core.css" />
-  <link rel="stylesheet" href="bower/pnotify/pnotify.buttons.css" />
-  <link rel="stylesheet" href="bower/pnotify/pnotify.history.css" />
-  <link rel="stylesheet" href="bower/bootstrap-social/bootstrap-social.css" />
-  <link rel="stylesheet" href="bower/bootstrap-tags/dist/css/bootstrap-tags.css" />
+  <link rel="stylesheet" href="bower/font-awesome/css/font-awesome.css"/>
+  <link rel="stylesheet" href="bower/seiyria-bootstrap-slider/dist/css/bootstrap-slider.min.css"/>
+  <link rel="stylesheet" href="bower/angular-ui-tree/dist/angular-ui-tree.min.css"/>
+  <link rel="stylesheet" href="bower/angular-toggle-switch/angular-toggle-switch.css"/>
+  <link rel="stylesheet" href="bower/ng-grid/ng-grid.css"/>
+  <link rel="stylesheet" href="bower/angular-xeditable/dist/css/xeditable.css"/>
+  <link rel="stylesheet" href="bower/select2/select2.css"/>
+  <link rel="stylesheet" href="bower/jScrollPane/style/jquery.jscrollpane.css"/>
+  <link rel="stylesheet" href="bower/pnotify/pnotify.core.css"/>
+  <link rel="stylesheet" href="bower/pnotify/pnotify.buttons.css"/>
+  <link rel="stylesheet" href="bower/pnotify/pnotify.history.css"/>
+  <link rel="stylesheet" href="bower/bootstrap-social/bootstrap-social.css"/>
+  <link rel="stylesheet" href="bower/bootstrap-tags/dist/css/bootstrap-tags.css"/>
   <!-- endbower -->
 
   <link rel='stylesheet' type='text/css' href='assets/plugins/icheck/all.css'/>
@@ -187,7 +187,7 @@
 <script src="bower/json3/lib/json3.min.js"></script>
 <![endif]-->
 
-<script type="text/javascript"  src="https://maps.googleapis.com/maps/api/js?libraries=places"></script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places"></script>
 
 
 <!-- build:js js/vendor.js -->
@@ -229,6 +229,8 @@
 <script src="bower/google-code-prettify/src/prettify.js"></script>
 <script src="bower/bootbox.js/bootbox.js"></script>
 <script src="bower/jquery-autosize/jquery.autosize.js"></script>
+<script src="bower/jquery-validation/dist/jquery.validate.js"></script>
+<script src="bower/stepy/lib/jquery.stepy.js"></script>
 <script src="bower/gmaps/gmaps.js"></script>
 <script src="bower/jquery.pulsate/jquery.pulsate.js"></script>
 <script src="bower/jquery.knob/js/jquery.knob.js"></script>
@@ -266,6 +268,7 @@
 <script type='text/javascript' src='assets/plugins/form-colorpicker/js/bootstrap-colorpicker.min.js'></script>
 <script type='text/javascript' src='assets/plugins/form-fseditor/jquery.fseditor-min.js'></script>
 <script type='text/javascript' src='assets/plugins/form-jasnyupload/fileinput.js'></script>
+<script type='text/javascript' src='assets/plugins/csv-to-array/csvToArray.v2.1.min.js'></script>
 
 <script type='text/javascript' src='assets/plugins/progress-skylo/skylo.js'></script>
 
@@ -273,7 +276,6 @@
 <script type='text/javascript' src='assets/plugins/bootstro.js/bootstro.min.js'></script>
 
 <!-- endbuild -->
-
 
 
 <!--
@@ -300,6 +302,7 @@
 <script src="js/controllers/main.ctrl.js"></script>
 <script src="js/controllers/dashboard.ctrl.js"></script>
 
+
 <!--TEMPLATES-->
 <script src="js/templates/templates.js"></script>
 <script src="js/templates/overrides.js"></script>
@@ -313,6 +316,7 @@
 <script src="js/directives/dates/daterangepicker.drv.js"></script>
 
 <script src="js/directives/ui-components/icheck.drv.js"></script>
+<script src="js/directives/ui-components/sympozer-dragover.drv.js"></script>
 <script src="js/directives/ui-components/panel.drv.js"></script>
 <script src="js/directives/ui-components/panel-control-collapse.drv.js"></script>
 <script src="js/directives/ui-components/panel-control.drv.js"></script>
@@ -329,6 +333,8 @@
 <script src="js/directives/validations/date-before-now.vld.js"></script>
 
 <script src="js/directives/forms/colorpicker.drv.js"></script>
+<script src="js/directives/forms/wizard.drv.js"></script>
+<script src="js/directives/forms/on-read-file.drv.js"></script>
 <script src="js/directives/forms/textarea-autosize.drv.js"></script>
 <script src="js/directives/forms/textarea-fullscreen.drv.js"></script>
 
@@ -577,11 +583,16 @@
 <script src="modules/analytics/js/controllers/date-range-demo.ctrl.js"></script>
 
 
+<!-- SYMPOZER IMPORT APP -->
+<script src="modules/import/js/controllers/import.ctrl.js"></script>
+<script src="modules/import/js/services/import-service.fact.js"></script>
+<script src="modules/import/js/services/import.fact.js"></script>
+
 <!-- endbuild -->
 
 
 <!-- [REQUIRED] template loading for prod environement -->
- <script type="text/javascript"  src="templates/templates.js"></script>
+<script type="text/javascript" src="templates/templates.js"></script>
 
 </body>
 </html>

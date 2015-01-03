@@ -3,6 +3,7 @@ namespace fibe\ContentBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use fibe\CommunityBundle\Entity\Person;
+use fibe\ContentBundle\Annotation\Importer;
 use fibe\EventBundle\Entity\MainEvent;
 use fibe\EventBundle\Entity\VEvent;
 use JMS\Serializer\Annotation\ExclusionPolicy;
@@ -53,10 +54,14 @@ class Role
      * Person : the person who has this role
      *
      * @ORM\ManyToOne(targetEntity="fibe\CommunityBundle\Entity\Person", inversedBy="roles")
+     *
      * @Assert\NotBlank(message="You have to choose a Person")
+     *
      * @Expose
      * @Groups({"list"})
      * @MaxDepth(1)
+     *
+     * @Importer(uniqField="email", entity="fibe\CommunityBundle\Entity\Person")
      */
     private $person;
 
@@ -84,11 +89,15 @@ class Role
     /**
      * @ORM\ManyToOne(targetEntity="fibe\ContentBundle\Entity\RoleLabel", inversedBy="roles")
      * @ORM\JoinColumn(name="roleLabelId", referencedColumnName="id")
+     *
      * @Assert\NotBlank(message="You have to choose a role type")
+     *
      * @Expose
      * @SerializedName("roleLabel")
      * @Groups({"list"})
      * @MaxDepth(1)
+     *
+     * @Importer(uniqField="label", entity="fibe\ContentBundle\Entity\RoleLabel")
      */
     private $roleLabel;
 

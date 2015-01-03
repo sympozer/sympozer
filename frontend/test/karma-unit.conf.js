@@ -1,7 +1,8 @@
-module.exports = function(config) {
+module.exports = function (config)
+{
     config.set({
         //Declare all file to load before executing tests
-        files : [
+        files     : [
 
             <!-- google map to load first -->
             '../app/assets/plugins/google-map/google-map-places-api.js',
@@ -72,6 +73,8 @@ module.exports = function(config) {
             '../app/bower/bootstrap-tags/dist/js/bootstrap-tags.js',
             '../app/bower/angular-cached-resource/angular-cached-resource.js',
             '../app/bower/angular-validation-match/dist/angular-input-match.js',
+            '../app/bower/angular-validation-match/dist/angular-input-match.js',
+            '../app/bower/flow.js/dist/flow.js',
             <!-- endbower -->
             <!-- plugin files -->
             '../app/assets/plugins/form-daterangepicker/daterangepicker.min.js',
@@ -104,11 +107,11 @@ module.exports = function(config) {
         ],
 //        basePath: '../app/',
         frameworks: ['jasmine'],
-        reporters: ['progress'],
-        browsers: ['/usr/bin/chromium-browser', 'PhantomJS'],
-        autoWatch: false,
-        singleRun: true,
-        logLevel: config.LOG_DEBUG,
-        colors: true
+        reporters : ['progress'],
+        browsers  : ['/usr/bin/chromium-browser', 'PhantomJS'],
+        autoWatch : false,
+        singleRun : true,
+        logLevel  : config.LOG_DEBUG,
+        colors    : true
     });
 };

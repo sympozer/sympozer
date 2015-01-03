@@ -1,29 +1,31 @@
 var wsConfig = {
 api : {
 urls: {
-get_organizations: "{{ serverBasePath | raw }}{{ path('community_organizations_post')  | raw }}",
-
+get_organizations      : "{{ serverBasePath | raw }}{{ path('community_organizations_post')  | raw }}",
 get_persons            : "{{ serverBasePath | raw }}{{ path('community_persons_post')  | raw }}",
+get_events             : "{{ serverBasePath | raw }}{{ path('schedule_events_post')  | raw }}",
+get_categories         : "{{ serverBasePath | raw }}{{ path('schedule_category_post')  | raw }}",
+get_mainEvents         : "{{ serverBasePath | raw }}{{ path('schedule_mainEvents_post')  | raw }}",
+get_teammates          : "{{ serverBasePath | raw }}{{ path('security_teammates_post')  | raw }}",
 get_locations          : "{{ serverBasePath | raw }}{{ path('content_locations_post')  | raw }}",
 get_equipments         : "{{ serverBasePath | raw }}{{ path('content_equipments_post')  | raw }}",
-get_events             : "{{ serverBasePath | raw }}{{ path('schedule_events_post')  | raw }}",
+get_roles              : "{{ serverBasePath | raw }}{{ path('content_roles_post')  | raw }}",
+get_roleLabels         : "{{ serverBasePath | raw }}{{ path('content_roleLabels_post')  | raw }}",
+get_papers             : "{{ serverBasePath | raw }}{{ path('content_papers_post')  | raw }}",
+get_topics             : "{{ serverBasePath | raw }}{{ path('content_topics_post')  | raw }}",
 
-get_teammates        : "{{ serverBasePath | raw }}{{ path('security_teammates_post')  | raw }}",
-get_roles            : "{{ serverBasePath | raw }}{{ path('content_roles_post')  | raw }}",
-get_roleLabels       : "{{ serverBasePath | raw }}{{ path('content_roleLabels_post')  | raw }}",
+get_import_header      : "{{ serverBasePath | raw }}{{ path('content_import_get_header')  | raw }}",
 
-get_papers       : "{{ serverBasePath | raw }}{{ path('content_papers_post')  | raw }}",
-get_topics       : "{{ serverBasePath | raw }}{{ path('content_topics_post')  | raw }}",
-get_categories   : "{{ serverBasePath | raw }}{{ path('schedule_category_post')  | raw }}",
-get_mainEvents   : "{{ serverBasePath | raw }}{{ path('schedule_mainEvents_post')  | raw }}",
-login            : "{{ serverBasePath | raw }}{{ path('login_check', {_format: 'json'})  | raw }}",
-logout           : "{{ serverBasePath | raw }}{{ path('logout')  | raw }}",
-registration     : "{{ serverBasePath | raw }}{{ path('security_signup')  | raw }}",
-confirm          : "{{ serverBasePath | raw }}{{ path('security_confirm')  | raw }}",
-changepwd        : "{{ serverBasePath | raw }}{{ path('security_changepwd')  | raw }}",
-reset_pwd_request: "{{ serverBasePath | raw }}{{ path('security_resetpwdrequest')  | raw }}",
-reset_pwd        : "{{ serverBasePath | raw }}{{ path('security_resetpwd')  | raw }}",
-socialnetworks   : [
+login                  : "{{ serverBasePath | raw }}{{ path('login_check', {_format: 'json'})  | raw }}",
+logout                 : "{{ serverBasePath | raw }}{{ path('logout')  | raw }}",
+registration           : "{{ serverBasePath | raw }}{{ path('security_signup')  | raw }}",
+confirm                : "{{ serverBasePath | raw }}{{ path('security_confirm')  | raw }}",
+changepwd              : "{{ serverBasePath | raw }}{{ path('security_changepwd')  | raw }}",
+reset_pwd_request      : "{{ serverBasePath | raw }}{{ path('security_resetpwdrequest')  | raw }}",
+reset_pwd              : "{{ serverBasePath | raw }}{{ path('security_resetpwd')  | raw }}",
+
+
+socialnetworks         : [
 {% for owner in hwi_oauth_resource_owners() %}{% if loop.first %}{% else %},{% endif %}
   {
   name        : "{{ owner  | raw }}",

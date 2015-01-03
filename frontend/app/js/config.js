@@ -124,6 +124,13 @@ var globalConfig = {
                     partials: "modules/analytics/partials/",
                     img     : "modules/analytics/img/"
                 }
+            },
+
+            import: {
+                urls: {
+                    base    : "modules/import/",
+                    partials: "modules/import/partials/"
+                }
             }
         }
     },

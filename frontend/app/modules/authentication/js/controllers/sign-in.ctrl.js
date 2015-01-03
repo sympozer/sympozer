@@ -28,8 +28,8 @@ angular.module('authenticationApp').controller('signinCtrl',
             //Notify of the signin action error
             pinesNotifications.notify({
                 title: translateFilter('global.validations.error'),
-                text: translateFilter('authentication.validations.signin_error'),
-                type: 'error'
+                text : translateFilter('authentication.validations.signin_error'),
+                type : 'error'
             });
         };
 
@@ -41,11 +41,14 @@ angular.module('authenticationApp').controller('signinCtrl',
             authenticationFact.addUser(user);
 
             //Notify of the signin action success
-            if (notif)pinesNotifications.notify({
-                title: translateFilter('global.validations.success'),
-                text: translateFilter('authentication.validations.signin_success'),
-                type: 'success'
-            });
+            if (notif)
+            {
+                pinesNotifications.notify({
+                    title: translateFilter('global.validations.success'),
+                    text : translateFilter('authentication.validations.signin_success'),
+                    type : 'success'
+                });
+            }
 
             //Close modal
             if ($scope.$close)
@@ -73,6 +76,7 @@ angular.module('authenticationApp').controller('signinCtrl',
 
         function getURLParameter(param)
         {
+            var sURLVariables = window.location.hash.split('?').length > 1 ? window.location.hash.split('?')[1].split('&') : {};
             var sURLVariables = window.location.hash.split('?').length > 1 ? window.location.hash.split('?')[1].split('&') : {};
             for (var i = 0; i < sURLVariables.length; i++)
             {

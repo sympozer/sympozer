@@ -1,0 +1,70 @@
+<div class="modal-header">
+  <h3 class="modal-title">{{ entityLbl + 's.actions.import' | translate}}</h3>
+</div>
+<div class="modal-body">
+  <form action="#" data-wizard="{select:changeStep}" class="form-horizontal ng-scope ng-isolate-scope ng-pristine ng-valid">
+
+    <fieldset title="Step 1">
+      <legend>{{'import.select_file' | translate}}</legend>
+      <div flow-init flow-files-submitted="fileChanged()">
+        <div class="drop" flow-drop flow-drag-enter="style={'border-color':'#BBB'}" flow-drag-leave="style={'border-color':'#DDD'}">
+          <span class="btn btn-default" flow-btn>Upload File</span>
+          <b>OR</b>
+          Drag And Drop your file here
+        </div>
+
+        <div>
+          <div ng-repeat="file in $flow.files" class="transfer-box">
+            {{file.relativePath}} ({{file.size}}bytes)
+            <div class="progress progress-striped" ng-class="{active: file.isUploading()}">
+              <div class="progress-bar" role="progressbar"
+                   aria-valuenow="{{file.progress() * 100}}"
+                   aria-valuemin="0"
+                   aria-valuemax="100"
+                   ng-style="{width: (file.progress() * 100) + '%'}">
+                <span class="sr-only">{{file.progress()}}% Complete</span>
+              </div>
+            </div>
+            <div class="btn-group">
+              <a class="btn btn-xs btn-danger" ng-click="file.cancel();fileChanged()">
+                {{ 'global.actions.cancel' | translate}}
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </fieldset>
+
+    <fieldset title="Step 2">
+      <legend>{{'global.labels.search.results' | translate}}</legend>
+
+      <table class="table table-striped ">
+        <thead>
+        <tr>
+          <th ng-repeat="field in header.header">
+            {{field}}
+          </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="entity in results">
+          <td ng-repeat="field in entity">
+            {{field}}
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </fieldset>
+
+    <fieldset title="Step 3">
+      <legend>{{'import.send_to_server' | translate}}</legend>
+      <h5>{{'import.processing' | translate}}</h5>
+
+    </fieldset>
+  </form>
+</div>
+<div class="modal-footer">
+  <button class="btn btn-default" ng-click="$dismiss('cancel')">{{ 'global.actions.cancel' | translate}}</button>
+</div>
