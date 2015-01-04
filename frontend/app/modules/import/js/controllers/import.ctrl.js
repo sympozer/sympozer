@@ -57,7 +57,7 @@ angular.module('importApp').controller('importCtrl', ['$scope', 'GLOBAL_CONFIG',
                         $scope.importResults = importResults;
                         $scope.sent = true;
 
-                    }, function (error)
+                    }, function ()
                     {
                         $scope.error = true;
                         $scope.sent = true;

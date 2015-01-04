@@ -2,10 +2,10 @@
 
 namespace fibe\CommunityBundle\Controller;
 
-use Symfony\Component\HttpFoundation\Request;
 use FOS\RestBundle\Controller\Annotations as Rest;
-use FOS\RestBundle\Request\ParamFetcherInterface;
 use FOS\RestBundle\Controller\FOSRestController;
+use FOS\RestBundle\Request\ParamFetcherInterface;
+use Symfony\Component\HttpFoundation\Request;
 
 
 /**
@@ -23,7 +23,7 @@ class PersonRESTController extends FOSRestController
     /**
      * Lists all Person entities.
      * @Rest\Get("/persons", name="community_persons_all")
-     * @Rest\View
+     * @Rest\View(serializerEnableMaxDepthChecks=true, serializerGroups={"list"})
      * @Rest\QueryParam(name="offset", requirements="\d+", nullable=true, description="Offset from which to start listing pages.")
      * @Rest\QueryParam(name="limit", requirements="\d+", default="70", description="How many entity to return.")
      * @Rest\QueryParam(name="query", requirements=".{1,64}", nullable=true, description="the query to search.")

@@ -7,6 +7,7 @@ use fibe\SecurityBundle\Services\Acl\ACLHelper;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Controller\FOSRestController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
@@ -25,20 +26,25 @@ class ImportRESTController extends FOSRestController
     }
 
     /**
-     * @Rest\Get("/import/{entityLabel}")
-     * @Rest\View
+     * @Rest\Get("/import/{entityLabel}-sample.csv")
      */
-    public function getImportHeaderAction(Request $request, $entityLabel)
+    public function getImportSampleAction(Request $request, $entityLabel)
     {
         $header = $this->getHeaderFromShortClassName($entityLabel, true);
 
-        return array(
-            "header" => $header,
-            "entity" => $entityLabel
-        );
-    }
+        $handle = fopen('php://memory', 'r+');
 
-    //TODO : create method in ACLHelper
+        fputcsv($handle, $header);
+
+        rewind($handle);
+        $content = stream_get_contents($handle);
+        fclose($handle);
+
+        return new Response($content, 200, array(
+            'Content-Type'        => 'application/force-download',
+            'Content-Disposition' => 'attachment; filename="import-' . strtolower($entityLabel) . '-sample.csv"'
+        ));
+    }
 
     /**
      * @param $shortClassName
@@ -85,6 +91,8 @@ class ImportRESTController extends FOSRestController
         return $importFields;
     }
 
+    //TODO : create method in ACLHelper
+
     protected function getClassNameFromShortClassName($shortClassName)
     {
         if (isset(ACLHelper::$ACLEntityNameArray[$shortClassName]))
@@ -92,6 +100,20 @@ class ImportRESTController extends FOSRestController
             return ACLHelper::$ACLEntityNameArray[$shortClassName]["classpath"] . "\\" . $shortClassName;
         }
         throw new \Exception("$shortClassName' is not configured to be imported");
+    }
+
+    /**
+     * @Rest\Get("/import/{entityLabel}")
+     * @Rest\View
+     */
+    public function getImportHeaderAction(Request $request, $entityLabel)
+    {
+        $header = $this->getHeaderFromShortClassName($entityLabel, true);
+
+        return array(
+            "header" => $header,
+            "entity" => $entityLabel
+        );
     }
 
     /**

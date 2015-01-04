@@ -3,11 +3,9 @@
 namespace fibe\ContentBundle\Controller;
 
 use FOS\RestBundle\Controller\Annotations as Rest;
+use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Request\ParamFetcherInterface;
 use Symfony\Component\HttpFoundation\Request;
-
-use FOS\RestBundle\Controller\FOSRestController;
-use FOS\RestBundle\Util\Codes;
 
 /**
  * Role rest controller.
@@ -76,7 +74,8 @@ class RoleRESTController extends FOSRestController
      * Creates a new Role from the submitted data.
      *
      * @Rest\Post("/roles", name="content_roles_post")
-     *
+     * @Rest\View(serializerEnableMaxDepthChecks=true, serializerGroups={"list"})
+
      * @param Request $request the request object
      *
      * @return array|\FOS\RestBundle\View\View

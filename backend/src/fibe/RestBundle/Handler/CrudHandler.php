@@ -83,11 +83,12 @@ class CrudHandler
         {
             $entity = $this->em->getRepository($entityClassName)->find($id);
         }
-        //perform acl check
-        $this->validateAction($method, $entity);
 
         $form = $this->container->get("form.factory")->create(new $formClassName(), $entity, array('method' => $method));
         $form->submit($formData, 'PATCH' !== $method);
+
+        //perform acl check
+        $this->validateAction($method, $entity);
 
         if ($form->isValid())
         {
