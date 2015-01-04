@@ -21,6 +21,7 @@ angular.module('importApp').controller('importCtrl', ['$scope', 'GLOBAL_CONFIG',
     //opens modal
     $scope.startImport = function (entityLbl)
     {
+        $scope.entityLbl = entityLbl;
         $scope.header = importService.init(entityLbl);
         var modalInstance = $modal.open({
             templateUrl: GLOBAL_CONFIG.app.modules.import.urls.partials + 'modals/import.html',
@@ -55,6 +56,7 @@ angular.module('importApp').controller('importCtrl', ['$scope', 'GLOBAL_CONFIG',
                     importService.send($scope.results, $scope.$root.currentMainEvent ? $scope.$root.currentMainEvent.id : undefined, function (importResults)
                     {
                         $scope.importResults = importResults;
+                        $scope.error = false;
                         $scope.sent = true;
 
                     }, function ()
@@ -104,6 +106,12 @@ angular.module('importApp').controller('importCtrl', ['$scope', 'GLOBAL_CONFIG',
             }
 
         }
+    };
+
+    $scope.retrySend = function ()
+    {
+        $scope.sent = false;
+        $scope.changeStep(importStep);
     };
 
 }])

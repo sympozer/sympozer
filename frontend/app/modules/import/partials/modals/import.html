@@ -63,12 +63,17 @@
       <h4 ng-show="!sent"></h4>
 
       <alert ng-show="!sent" type="info"><span>{{'import.processing' | translate}}</span></alert>
-      <alert ng-show="sent && importResults.errors.length == 0 && !error" type="success"><span><b>Well done!</b> Import was successfull!</span>
+      <alert ng-show="sent && error" type="danger">
+        <a ng-click="retrySend()" class="btn btn-sm alert-danger pull-right" style="margin-top: -0.5em;" href="javascript:void(0)"><i class="fa fa-refresh"></i> Retry</a>
+        <span><b>Oh snap!</b> Something bad happened!</span>
       </alert>
-      <alert ng-show="sent && error" type="danger"><span><b>Oh snap!</b> Something bad happened!</span></alert>
+
+      <alert ng-show="sent && importResults.errors.length == 0 && !error" type="success"><span><b>Well done!</b> {{ importResults.imported }} {{ entityLbl }}(s) was successfully imported!</span>
+      </alert>
 
       <div ng-show="importResults.errors.length > 0 ">
-        <alert type="warning"><span><strong>Oh snap!</strong> There was errors during import</span></alert>
+        <alert type="warning"><span><strong>Oh snap!</strong> {{ importResults.imported }} {{ entityLbl.toLowerCase() }}(s) was successfully imported, but there's also errors!</span>
+        </alert>
 
         <table class="table table-striped ">
           <thead>
@@ -80,7 +85,7 @@
           <tbody>
           <tr ng-repeat="error in importResults.errors">
             <td>{{error.line}}</td>
-            <td>{{error.location}}</td>
+            <td>{{error.msg}}</td>
           </tr>
           </tbody>
         </table>

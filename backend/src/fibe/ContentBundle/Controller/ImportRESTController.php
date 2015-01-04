@@ -79,9 +79,10 @@ class ImportRESTController extends FOSRestController
                 else
                 {
                     $fieldName = array(
-                        "field"           => $reflectionProperty->getName(),
-                        "uniqField"       => $annotation->uniqField,
-                        "entityClassName" => $annotation->entity,
+                        "field"                => $reflectionProperty->getName(),
+                        "uniqField"            => $annotation->uniqField,
+                        "entityClassName"      => $annotation->entity,
+                        "entityShortClassName" => (new \ReflectionClass($annotation->entity))->getShortName(),
                     );
                 }
                 $importFields[] = $fieldName;
@@ -90,8 +91,6 @@ class ImportRESTController extends FOSRestController
 
         return $importFields;
     }
-
-    //TODO : create method in ACLHelper
 
     protected function getClassNameFromShortClassName($shortClassName)
     {
@@ -115,6 +114,8 @@ class ImportRESTController extends FOSRestController
             "entity" => $entityLabel
         );
     }
+
+    //TODO : create method in ACLHelper
 
     /**
      * @Rest\Post("/mainEvents/{mainEventId}/import/{entityLabel}")
@@ -147,7 +148,7 @@ class ImportRESTController extends FOSRestController
             );
         }
 
-        $return = array("errors" => array());
+        $return = array("errors" => array(), "imported" => 0);
 
         for ($i = 0; $i < count($datas); $i++)
         {
@@ -155,36 +156,52 @@ class ImportRESTController extends FOSRestController
 
             $entityInstance = clone $entity;
 
-            for ($j = 0; $j < count($header); $j++)
+            try
             {
-                $value = $row[$j];
-
-                $field = $header[$j]["field"];
-                $uniqField = $header[$j]["uniqField"];
-
-//                echo "\n$field => $value";
-
-
-                //its a linked entity!
-                if (!empty($header[$j]["entityClassName"]))
+                for ($j = 0; $j < count($header); $j++)
                 {
-                    $linkedEntityClassName = $header[$j]["entityClassName"];
+                    $value = $row[$j];
 
-                    //create the linked entity
-//                    $linkedEntity = new $linkedEntityClassName();
-//                    $setter = "set" . ucwords($uniqField);
-//                    $linkedEntity->$setter($value);
+                    $field = $header[$j]["field"];
+                    $uniqField = $header[$j]["uniqField"];
 
-                    //get the linked entity
-                    $linkedEntity = $em->getRepository($linkedEntityClassName)->findOneBy(array($uniqField => $value));
+                    //                echo "\n$field => $value";
 
-                    $value = $linkedEntity;
+
+                    //its a linked entity!
+                    if (!empty($header[$j]["entityClassName"]))
+                    {
+                        $linkedEntityClassName = $header[$j]["entityClassName"];
+
+                        //create the linked entity
+                        //                    $linkedEntity = new $linkedEntityClassName();
+                        //                    $setter = "set" . ucwords($uniqField);
+                        //                    $linkedEntity->$setter($value);
+
+                        //get the linked entity
+                        $linkedEntity = $em->getRepository($linkedEntityClassName)->findOneBy(array($uniqField => $value));
+                        if (!$linkedEntity)
+                        {
+                            throw new \Exception(sprintf("%s with field '%s' = '%s' was not found.",
+                                    $header[$j]["entityShortClassName"],
+                                    $uniqField,
+                                    $value)
+                            );
+                        }
+
+                        $value = $linkedEntity;
+                    }
+
+                    $setter = "set" . ucwords($field);
+                    $entityInstance->$setter($value);
                 }
+                $return["imported"]++;
+                $em->persist($entityInstance);
 
-                $setter = "set" . ucwords($field);
-                $entityInstance->$setter($value);
+            } catch (\Exception $ex)
+            {
+                $return["errors"][] = array("line" => $i + 1, "msg" => $ex->getMessage());
             }
-            $em->persist($entityInstance);
         }
         $em->flush();
 
