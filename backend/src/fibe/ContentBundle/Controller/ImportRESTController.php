@@ -3,6 +3,8 @@
 namespace fibe\ContentBundle\Controller;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\EntityNotFoundException;
+use fibe\ContentBundle\Annotation\Importer;
 use fibe\SecurityBundle\Services\Acl\ACLHelper;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Controller\FOSRestController;
@@ -17,7 +19,8 @@ class ImportRESTController extends FOSRestController
 {
 
     /**
-     * controller used export url
+     * controller used to expose url to ws-config
+     *
      * @Rest\Get("/import", name="content_import_get_header")
      * @Rest\View
      */
@@ -26,11 +29,14 @@ class ImportRESTController extends FOSRestController
     }
 
     /**
+     * Get a sample csv file to download.
+     * The sample is got from Importer annotations for the given entity provided by $entityLabel
+     *
      * @Rest\Get("/import/{entityLabel}-sample.csv")
      */
     public function getImportSampleAction(Request $request, $entityLabel)
     {
-        $header = $this->getHeaderFromShortClassName($entityLabel, true);
+        $header = $this->getImportConfigFromShortClassName($entityLabel, true);
 
         $handle = fopen('php://memory', 'r+');
 
@@ -47,12 +53,12 @@ class ImportRESTController extends FOSRestController
     }
 
     /**
+     * get an array of Importer annotation which is containing Importer Configuration
      * @param $shortClassName
      * @param bool $asString
-     * @throws \Exception if $shortClassName
-     * @return array
+     * @return array of Importer
      */
-    protected function getHeaderFromShortClassName($shortClassName, $asString = false)
+    protected function getImportConfigFromShortClassName($shortClassName, $asString = false)
     {
         $importFields = [];
 
@@ -64,26 +70,18 @@ class ImportRESTController extends FOSRestController
 
         foreach ($reflectionObject->getProperties() as $reflectionProperty)
         {
-            /** @var \fibe\ContentBundle\Annotation\Importer $annotation */
-            $annotation = $reader->getPropertyAnnotation($reflectionProperty, $importerAnnotationClass);
-            if (null !== $annotation)
+            /** @var \fibe\ContentBundle\Annotation\Importer $importerAnnot */
+            $importerAnnot = $reader->getPropertyAnnotation($reflectionProperty, $importerAnnotationClass);
+            if (null !== $importerAnnot)
             {
-                //TODO : build a real object, its toString method and its interface!
+                $importerAnnot->propertyName = $reflectionProperty->getName();
                 if ($asString)
                 {
-                    $fieldName = sprintf("%s(%s)",
-                        $reflectionProperty->getName(),
-                        $annotation->uniqField
-                    );
+                    $fieldName = (string) $importerAnnot; //force __toString to be called
                 }
                 else
                 {
-                    $fieldName = array(
-                        "field"                => $reflectionProperty->getName(),
-                        "uniqField"            => $annotation->uniqField,
-                        "entityClassName"      => $annotation->entity,
-                        "entityShortClassName" => (new \ReflectionClass($annotation->entity))->getShortName(),
-                    );
+                    $fieldName = $importerAnnot;
                 }
                 $importFields[] = $fieldName;
             }
@@ -92,6 +90,16 @@ class ImportRESTController extends FOSRestController
         return $importFields;
     }
 
+    /**
+     * get full class name from the short class name
+     * ex : Role => fibe\\ContentBundle\\Entity\\Role
+     *
+     * TODO : put this in ACLHelper
+     *
+     * @param $shortClassName
+     * @return string
+     * @throws \Exception
+     */
     protected function getClassNameFromShortClassName($shortClassName)
     {
         if (isset(ACLHelper::$ACLEntityNameArray[$shortClassName]))
@@ -102,12 +110,14 @@ class ImportRESTController extends FOSRestController
     }
 
     /**
+     * Get iport config in json.
+     * The config is got from Importer annotations for the given entity provided by $entityLabel
      * @Rest\Get("/import/{entityLabel}")
      * @Rest\View
      */
     public function getImportHeaderAction(Request $request, $entityLabel)
     {
-        $header = $this->getHeaderFromShortClassName($entityLabel, true);
+        $header = $this->getImportConfigFromShortClassName($entityLabel, true);
 
         return array(
             "header" => $header,
@@ -115,15 +125,19 @@ class ImportRESTController extends FOSRestController
         );
     }
 
-    //TODO : create method in ACLHelper
-
     /**
+     * Receive datas and perform the import.
+     *
+     * The config is got from Importer annotations for the given entity provided by $entityLabel
+     * and is used to parse input datas.
+     *
+     *
      * @Rest\Post("/mainEvents/{mainEventId}/import/{entityLabel}")
      * @Rest\View
      */
     public function postImportAction(Request $request, $mainEventId, $entityLabel)
     {
-        $header = $this->getHeaderFromShortClassName($entityLabel);
+        $header = $this->getImportConfigFromShortClassName($entityLabel);
         //TODO : secure this!
         $datas = $request->request->all();
         /** @var EntityManagerInterface $em */
@@ -150,6 +164,10 @@ class ImportRESTController extends FOSRestController
 
         $return = array("errors" => array(), "imported" => 0);
 
+        /** @var Importer $fieldConfig */
+        $fieldConfig = null;
+        $value = null;
+
         for ($i = 0; $i < count($datas); $i++)
         {
             $row = $datas[$i];
@@ -161,46 +179,51 @@ class ImportRESTController extends FOSRestController
                 for ($j = 0; $j < count($header); $j++)
                 {
                     $value = $row[$j];
-
-                    $field = $header[$j]["field"];
-                    $uniqField = $header[$j]["uniqField"];
-
-                    //                echo "\n$field => $value";
-
+                    $fieldConfig = $header[$j];
 
                     //its a linked entity!
-                    if (!empty($header[$j]["entityClassName"]))
+                    if (null != $linkedEntityClassName = $fieldConfig->targetEntity)
                     {
-                        $linkedEntityClassName = $header[$j]["entityClassName"];
-
                         //create the linked entity
                         //                    $linkedEntity = new $linkedEntityClassName();
                         //                    $setter = "set" . ucwords($uniqField);
                         //                    $linkedEntity->$setter($value);
 
                         //get the linked entity
-                        $linkedEntity = $em->getRepository($linkedEntityClassName)->findOneBy(array($uniqField => $value));
+                        $linkedEntity = $em->getRepository($linkedEntityClassName)->findOneBy(array($fieldConfig->uniqField => $value));
                         if (!$linkedEntity)
                         {
-                            throw new \Exception(sprintf("%s with field '%s' = '%s' was not found.",
-                                    $header[$j]["entityShortClassName"],
-                                    $uniqField,
-                                    $value)
-                            );
+                            if ($fieldConfig->optional)
+                            {
+                                //break the for loop
+                                break;
+                            }
+                            throw new EntityNotFoundException("");
                         }
 
                         $value = $linkedEntity;
                     }
 
-                    $setter = "set" . ucwords($field);
+                    //call the setter
+                    $setter = "set" . ucwords($fieldConfig->propertyName);
                     $entityInstance->$setter($value);
                 }
+
                 $return["imported"]++;
                 $em->persist($entityInstance);
-
-            } catch (\Exception $ex)
+            }
+            catch (EntityNotFoundException $ex)
             {
-                $return["errors"][] = array("line" => $i + 1, "msg" => $ex->getMessage());
+                $return["errors"][] = array(
+                    "line"   => $i + 1,
+                    "column" => (string) $fieldConfig,
+                    "value"  => $value,
+                    "msg"    => sprintf("%s with field '%s' = '%s' was not found and is mandatory.",
+                        $fieldConfig->getTargetEntityShortClassName(),
+                        $fieldConfig->uniqField,
+                        $value
+                    )
+                );
             }
         }
         $em->flush();
@@ -210,6 +233,11 @@ class ImportRESTController extends FOSRestController
         return $return;
     }
 
+    /**
+     * shortcut to get mainEvent by id
+     * @param $mainEventId
+     * @return \fibe\EventBundle\Entity\MainEvent
+     */
     protected function getMainEventByid($mainEventId)
     {
         /** @var EntityManagerInterface $em */

@@ -61,18 +61,9 @@ class Role
      * @Groups({"list"})
      * @MaxDepth(1)
      *
-     * @Importer(uniqField="email", entity="fibe\CommunityBundle\Entity\Person")
+     * @Importer(uniqField="email", targetEntity="fibe\CommunityBundle\Entity\Person")
      */
     private $person;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="fibe\EventBundle\Entity\Event", inversedBy="roles")
-     *
-     * @Expose
-     * @Groups({"list"})
-     * @MaxDepth(1)
-     */
-    private $event;
 
     /**
      * The mainEvent associated
@@ -97,9 +88,20 @@ class Role
      * @Groups({"list"})
      * @MaxDepth(1)
      *
-     * @Importer(uniqField="label", entity="fibe\ContentBundle\Entity\RoleLabel")
+     * @Importer(uniqField="label", targetEntity="fibe\ContentBundle\Entity\RoleLabel")
      */
     private $roleLabel;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="fibe\EventBundle\Entity\Event", inversedBy="roles")
+     *
+     * @Expose
+     * @Groups({"list"})
+     * @MaxDepth(1)
+     *
+     * @Importer(targetEntity="fibe\EventBundle\Entity\Event", optional=true)
+     */
+    private $event;
 
     /**
      *

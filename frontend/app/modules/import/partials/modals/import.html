@@ -65,29 +65,37 @@
       <legend>{{'import.send_to_server' | translate}}</legend>
       <h4 ng-show="!sent"></h4>
 
-      <alert ng-show="!sent" type="info"><span>{{'import.processing' | translate}}</span></alert>
+      <alert ng-show="!sent" type="info"><span>{{'import.processing' | translate}}</span>
+        <i class="fa fa-spinner fa-spin"></i></alert>
+
       <alert ng-show="sent && error" type="danger">
         <a ng-click="retrySend()" class="btn btn-sm alert-danger pull-right" style="margin-top: -0.5em;" href="javascript:void(0)"><i class="fa fa-refresh"></i> Retry</a>
-        <span><b>Oh snap!</b> Something bad happened!</span>
+        <span><strong>Oh snap!</strong> Something bad happened!</span>
       </alert>
 
-      <alert ng-show="sent && importResults.errors.length == 0 && !error" type="success"><span><b>Well done!</b> {{ importResults.imported }} {{ entityLbl }}(s) was successfully imported!</span>
+      <alert ng-show="sent && importResults.errors.length == 0 && !error" type="success">
+        <span><strong>Well done!</strong> {{ importResults.imported }} {{ entityLbl }}(s) was/were successfully imported!</span>
       </alert>
 
       <div ng-show="importResults.errors.length > 0 ">
-        <alert type="warning"><span><strong>Oh snap!</strong> {{ importResults.imported }} {{ entityLbl.toLowerCase() }}(s) was successfully imported, but there's also errors!</span>
+        <alert type="success"><span><strong>Well done!</strong>  {{ importResults.imported }} {{ entityLbl }}(s) was/were successfully imported!</span>
         </alert>
+        <alert type="warning"><span> There's errors!</span></alert>
 
         <table class="table table-striped ">
           <thead>
           <tr>
             <th>line</th>
-            <th>error</th>
+            <th>column</th>
+            <th>value</th>
+            <th>message</th>
           </tr>
           </thead>
           <tbody>
           <tr ng-repeat="error in importResults.errors">
             <td>{{error.line}}</td>
+            <td>{{error.column}}</td>
+            <td>{{error.value}}</td>
             <td>{{error.msg}}</td>
           </tr>
           </tbody>
