@@ -5,7 +5,6 @@ angular.module('importApp').controller('importCtrl', ['$scope', 'GLOBAL_CONFIG',
 {
     var csvsAsArrays,
         processed = false,
-        sent = false,
 
         csvRowSeparator = '\n',
         csvFieldSeparator = ';',
@@ -16,6 +15,8 @@ angular.module('importApp').controller('importCtrl', ['$scope', 'GLOBAL_CONFIG',
         resultStep = 2,
         importStep = 3
         ;
+
+    $scope.sent = false;
 
     //opens modal
     $scope.startImport = function (entityLbl)
@@ -39,14 +40,28 @@ angular.module('importApp').controller('importCtrl', ['$scope', 'GLOBAL_CONFIG',
                 {
                     $scope.results = importService.processImport(csvsAsArrays);
                     processed = true;
-                    sent = false;
+                    $scope.sent = false;
                 }
                 break;
             case importStep:
-                if (!sent)
+                if (!$scope.sent)
                 {
-                    importService.send($scope.results, $scope.$root.currentMainEvent ? $scope.$root.currentMainEvent.id : undefined);
-                    sent = true;
+                    if (!processed)
+                    {
+                        $scope.results = importService.processImport(csvsAsArrays);
+                        processed = true;
+                    }
+
+                    importService.send($scope.results, $scope.$root.currentMainEvent ? $scope.$root.currentMainEvent.id : undefined, function (importResults)
+                    {
+                        $scope.importResults = importResults;
+                        $scope.sent = true;
+
+                    }, function (error)
+                    {
+                        $scope.error = true;
+                        $scope.sent = true;
+                    });
                 }
                 break;
         }
@@ -54,10 +69,10 @@ angular.module('importApp').controller('importCtrl', ['$scope', 'GLOBAL_CONFIG',
 
     //parses csvs into arrays and put in csvsAsArrays
     // called when files were drop or selected
-    $scope.fileChanged = function ()
+    $scope.fileChanged = function (isRemoved)
     {
         csvsAsArrays = [];
-        processed = sent = false;
+        processed = $scope.sent = false;
         this.$flow.upload();//just update ui
         var i = 0,
             reader = new FileReader(),
@@ -83,6 +98,11 @@ angular.module('importApp').controller('importCtrl', ['$scope', 'GLOBAL_CONFIG',
             {
                 reader.readAsText(files[index].file);
             }
+            else if (!isRemoved)
+            { //nothing else to read
+                $scope.wizard.step(resultStep);
+            }
+
         }
     };
 

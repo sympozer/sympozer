@@ -7,7 +7,6 @@ use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
 use JMS\Serializer\Annotation\Groups;
-use JMS\Serializer\Annotation\SerializedName;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -49,6 +48,7 @@ class RoleLabel
      * Categories
      * @ORM\OneToMany(targetEntity="Role", mappedBy="roleLabel")
      * @Expose
+     * @Groups({"list"})
      */
     private $roles;
 
@@ -168,7 +168,6 @@ class RoleLabel
     {
         $this->roles = $roles;
     }
-
 
 
 }

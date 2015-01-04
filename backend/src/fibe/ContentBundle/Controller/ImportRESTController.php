@@ -7,6 +7,7 @@ use fibe\SecurityBundle\Services\Acl\ACLHelper;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Controller\FOSRestController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
  * Import rest controller.
@@ -36,6 +37,8 @@ class ImportRESTController extends FOSRestController
             "entity" => $entityLabel
         );
     }
+
+    //TODO : create method in ACLHelper
 
     /**
      * @param $shortClassName
@@ -91,8 +94,6 @@ class ImportRESTController extends FOSRestController
         throw new \Exception("$shortClassName' is not configured to be imported");
     }
 
-    //TODO : create method in ACLHelper
-
     /**
      * @Rest\Post("/mainEvents/{mainEventId}/import/{entityLabel}")
      * @Rest\View
@@ -102,17 +103,35 @@ class ImportRESTController extends FOSRestController
         $header = $this->getHeaderFromShortClassName($entityLabel);
         //TODO : secure this!
         $datas = $request->request->all();
-        $em = $this->get("doctrine.orm.entity_manager");
         /** @var EntityManagerInterface $em */
+        $em = $this->get("doctrine.orm.entity_manager");
+        $mainEvent = $this->getMainEventByid($mainEventId);
 
         //TODO : create method in ACLHelper
         $entityClassName = $this->getClassNameFromShortClassName($entityLabel);
+
+        $entity = new $entityClassName();
+        $entity->setMainEvent($mainEvent);
+
+        //perform acl check
+        $right = "CREATE";
+        if (false === $this->container->get("security.context")->isGranted($right, $entity))
+        {
+            throw new AccessDeniedException(
+                sprintf('You don\'t have the authorization to perform %s on %s',
+                    $right,
+                    '#' . $entity->getId()
+                )
+            );
+        }
+
+        $return = array("errors" => array());
+
         for ($i = 0; $i < count($datas); $i++)
         {
             $row = $datas[$i];
 
-            echo "\n\n$entityLabel#$i";
-            $entity = new $entityClassName();
+            $entityInstance = clone $entity;
 
             for ($j = 0; $j < count($header); $j++)
             {
@@ -121,7 +140,7 @@ class ImportRESTController extends FOSRestController
                 $field = $header[$j]["field"];
                 $uniqField = $header[$j]["uniqField"];
 
-                echo "\n$field => $value";
+//                echo "\n$field => $value";
 
 
                 //its a linked entity!
@@ -141,13 +160,23 @@ class ImportRESTController extends FOSRestController
                 }
 
                 $setter = "set" . ucwords($field);
-                $entity->$setter($value);
+                $entityInstance->$setter($value);
             }
-            $em->persist($entity);
+            $em->persist($entityInstance);
         }
         $em->flush();
 
-        return "OK";
+        $return["result"] = "done";
+
+        return $return;
+    }
+
+    protected function getMainEventByid($mainEventId)
+    {
+        /** @var EntityManagerInterface $em */
+        $em = $this->get("doctrine.orm.entity_manager");
+
+        return $em->getRepository("fibeEventBundle:MainEvent")->find($mainEventId);
     }
 }
         

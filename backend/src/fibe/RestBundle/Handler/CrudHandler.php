@@ -83,12 +83,11 @@ class CrudHandler
         {
             $entity = $this->em->getRepository($entityClassName)->find($id);
         }
+        //perform acl check
+        $this->validateAction($method, $entity);
 
         $form = $this->container->get("form.factory")->create(new $formClassName(), $entity, array('method' => $method));
         $form->submit($formData, 'PATCH' !== $method);
-
-        //perform acl check
-         //$this->validateAction($method, $entity);
 
         if ($form->isValid())
         {
@@ -103,38 +102,6 @@ class CrudHandler
         return array(
             'form' => $form,
         );
-    }
-
-    /**
-     * get the service of the entity conventionally named fibe.{entityName}Service
-     * @param $entity
-     * @param $entityClassName
-     * @param $method
-     */
-    protected function callBusinessService($entity, $entityClassName, $method)
-    {
-        try
-        {
-            if ($entityService = $this->container->get('fibe.' . substr($entityClassName, strrpos($entityClassName, '\\') + 1) . 'Service'))
-            {
-                if (method_exists($entityService, strtolower($method)))
-                {
-                    call_user_func_array(array($entityService, strtolower($method)), array($entity, $entityClassName));
-                }
-            }
-        } catch (ServiceNotFoundException $e)
-        {
-            //no business service defined, just do nothing
-        }
-    }
-
-    public function delete($entityClassName, $id)
-    {
-        $entity = $this->em->getRepository($entityClassName)->find($id);
-        $this->validateAction("DELETE", $entity);
-        $this->callBusinessService($entity, $entityClassName, 'delete');
-        $this->em->remove($entity);
-        $this->em->flush($entity);
     }
 
     protected function validateAction($method, $entity)
@@ -168,6 +135,38 @@ class CrudHandler
                 )
             );
         }
+    }
+
+    /**
+     * get the service of the entity conventionally named fibe.{entityName}Service
+     * @param $entity
+     * @param $entityClassName
+     * @param $method
+     */
+    protected function callBusinessService($entity, $entityClassName, $method)
+    {
+        try
+        {
+            if ($entityService = $this->container->get('fibe.' . substr($entityClassName, strrpos($entityClassName, '\\') + 1) . 'Service'))
+            {
+                if (method_exists($entityService, strtolower($method)))
+                {
+                    call_user_func_array(array($entityService, strtolower($method)), array($entity, $entityClassName));
+                }
+            }
+        } catch (ServiceNotFoundException $e)
+        {
+            //no business service defined, just do nothing
+        }
+    }
+
+    public function delete($entityClassName, $id)
+    {
+        $entity = $this->em->getRepository($entityClassName)->find($id);
+        $this->validateAction("DELETE", $entity);
+        $this->callBusinessService($entity, $entityClassName, 'delete');
+        $this->em->remove($entity);
+        $this->em->flush($entity);
     }
 
 }

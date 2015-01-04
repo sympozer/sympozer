@@ -43,10 +43,10 @@ angular.module('eventsApp').factory('importService', [
                 console.log("Found " + results.length + " entity(ies) : ", results);
                 return results;
             },
-            send         : function (data, mainEventId)
+            send: function (data, mainEventId, success, error)
             {
                 console.log("Sending " + data.length + " entity(ies) : ", data);
-                return new importFact(data).$import({entityLabel: entityLbl, mainEventId: mainEventId});
+                new importFact(data).$import({entityLabel: entityLbl, mainEventId: mainEventId}, success, error);
             }
         };
     }

@@ -10,7 +10,7 @@ angular.module('sympozerApp').directive('wizard', ['translateFilter', function (
         finishButton: false,
         titleClick  : true,
         block       : true,
-        validate    : true,
+        validate: false,
         transition  : 'slide',
         translate   : translateFilter
     };
@@ -25,7 +25,15 @@ angular.module('sympozerApp').directive('wizard', ['translateFilter', function (
             element.prev().find("> li > span").each(function ()
             {
                 $(this).text(options.translate($(this).text()));
-            })
+            });
+
+            //expose step functions
+            scope.$parent.wizard = {
+                step: function (step)
+                {
+                    return element.stepy('step', step);
+                }
+            };
         }
     }
 }]);

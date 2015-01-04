@@ -100,14 +100,6 @@ class Person extends Agent
     protected $roles;
 
     /**
-     * @ORM\ManyToMany(targetEntity="fibe\EventBundle\Entity\MainEvent", inversedBy="persons", cascade={"persist"})
-     * @ORM\JoinTable(name="main_event_person",
-     *     joinColumns={@ORM\JoinColumn(name="mainevent_id", referencedColumnName="id")},
-     *     inverseJoinColumns={@ORM\JoinColumn(name="person_id", referencedColumnName="id")})
-     */
-    protected $mainEvents;
-
-    /**
      * @ORM\OneToMany(targetEntity="SocialServiceAccount",  mappedBy="owner", cascade={"persist", "remove"})
      */
     protected $accounts;
@@ -404,14 +396,14 @@ class Person extends Agent
     /**
      * Add ownMainEvents
      *
-     * @param MainEvent $ownMainEvents
+     * @param MainEvent $ownMainEvent
      *
      * @return $this
      */
-    public function addOwnMainEvent(MainEvent $ownMainEvents)
+    public function addOwnMainEvent(MainEvent $ownMainEvent)
     {
-        $this->ownMainEvents[] = $ownMainEvents;
-        $ownMainEvents->setOwner($this);
+        $this->ownMainEvents[] = $ownMainEvent;
+        $ownMainEvent->setOwner($this);
 
         return $this;
     }
@@ -419,11 +411,11 @@ class Person extends Agent
     /**
      * Remove ownMainEvents
      *
-     * @param MainEvent $ownMainEvents
+     * @param MainEvent $ownMainEvent
      */
-    public function removeOwnMainEvent(MainEvent $ownMainEvents)
+    public function removeOwnMainEvent(MainEvent $ownMainEvent)
     {
-        $this->ownMainEvents->removeElement($ownMainEvents);
+        $this->ownMainEvents->removeElement($ownMainEvent);
     }
 
     /**
@@ -548,37 +540,6 @@ class Person extends Agent
     public function setRoles($roles)
     {
         $this->roles = $roles;
-    }
-
-    /**
-     * Set mainEvents
-     *
-     * @param ArrayCollection $mainEvents
-     * @return $this
-     */
-    public function setMainEvent(ArrayCollection $mainEvents)
-    {
-        $this->mainEvents = $mainEvents;
-
-        return $this;
-    }
-
-    /**
-     * Get mainEvents
-     *
-     * @return ArrayCollection
-     */
-    public function getMainEvents()
-    {
-        return $this->mainEvents;
-    }
-
-    /**
-     * @param mixed $mainEvents
-     */
-    public function setMainEvents($mainEvents)
-    {
-        $this->mainEvents = $mainEvents;
     }
 
     /**

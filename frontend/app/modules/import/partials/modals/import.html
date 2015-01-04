@@ -1,5 +1,5 @@
 <div class="modal-header">
-  <h3 class="modal-title">{{ entityLbl + 's.actions.import' | translate}}</h3>
+  <h3 class="modal-title">{{ entityLbl.toLowerCase() + 's.actions.import' | translate}}</h3>
 </div>
 <div class="modal-body">
   <form action="#" data-wizard="{select:changeStep}" class="form-horizontal ng-scope ng-isolate-scope ng-pristine ng-valid">
@@ -26,8 +26,8 @@
               </div>
             </div>
             <div class="btn-group">
-              <a class="btn btn-xs btn-danger" ng-click="file.cancel();fileChanged()">
-                {{ 'global.actions.cancel' | translate}}
+              <a class="btn btn-xs btn-danger" ng-click="file.cancel();fileChanged(true)">
+              {{ 'global.actions.cancel' | translate}}
               </a>
             </div>
           </div>
@@ -60,7 +60,31 @@
 
     <fieldset title="Step 3">
       <legend>{{'import.send_to_server' | translate}}</legend>
-      <h5>{{'import.processing' | translate}}</h5>
+      <h4 ng-show="!sent"></h4>
+
+      <alert ng-show="!sent" type="info"><span>{{'import.processing' | translate}}</span></alert>
+      <alert ng-show="sent && importResults.errors.length == 0 && !error" type="success"><span><b>Well done!</b> Import was successfull!</span>
+      </alert>
+      <alert ng-show="sent && error" type="danger"><span><b>Oh snap!</b> Something bad happened!</span></alert>
+
+      <div ng-show="importResults.errors.length > 0 ">
+        <alert type="warning"><span><strong>Oh snap!</strong> There was errors during import</span></alert>
+
+        <table class="table table-striped ">
+          <thead>
+          <tr>
+            <th>line</th>
+            <th>error</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr ng-repeat="error in importResults.errors">
+            <td>{{error.line}}</td>
+            <td>{{error.location}}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
 
     </fieldset>
   </form>
