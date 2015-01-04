@@ -3,8 +3,8 @@
 namespace fibe\ContentBundle\Controller;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\EntityNotFoundException;
 use fibe\ContentBundle\Annotation\Importer;
+use fibe\ContentBundle\Exception\SympozerImportErrorException;
 use fibe\SecurityBundle\Services\Acl\ACLHelper;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Controller\FOSRestController;
@@ -29,27 +29,19 @@ class ImportRESTController extends FOSRestController
     }
 
     /**
-     * Get a sample csv file to download.
-     * The sample is got from Importer annotations for the given entity provided by $entityLabel
-     *
-     * @Rest\Get("/import/{entityLabel}-sample.csv")
+     * Get import config in json.
+     * The config is got from Importer annotations for the given entity provided by $entityLabel
+     * @Rest\Get("/import/{entityLabel}")
+     * @Rest\View
      */
-    public function getImportSampleAction(Request $request, $entityLabel)
+    public function getImportHeaderAction(Request $request, $entityLabel)
     {
         $header = $this->getImportConfigFromShortClassName($entityLabel, true);
 
-        $handle = fopen('php://memory', 'r+');
-
-        fputcsv($handle, $header);
-
-        rewind($handle);
-        $content = stream_get_contents($handle);
-        fclose($handle);
-
-        return new Response($content, 200, array(
-            'Content-Type'        => 'application/force-download',
-            'Content-Disposition' => 'attachment; filename="import-' . strtolower($entityLabel) . '-sample.csv"'
-        ));
+        return array(
+            "header" => $header,
+            "entity" => $entityLabel
+        );
     }
 
     /**
@@ -110,23 +102,31 @@ class ImportRESTController extends FOSRestController
     }
 
     /**
-     * Get iport config in json.
-     * The config is got from Importer annotations for the given entity provided by $entityLabel
-     * @Rest\Get("/import/{entityLabel}")
-     * @Rest\View
+     * Get a sample csv file to download.
+     * The sample is got from Importer annotations for the given entity provided by $entityLabel
+     *
+     * @Rest\Get("/import/{entityLabel}-sample.csv")
      */
-    public function getImportHeaderAction(Request $request, $entityLabel)
+    public function getImportSampleAction(Request $request, $entityLabel)
     {
         $header = $this->getImportConfigFromShortClassName($entityLabel, true);
 
-        return array(
-            "header" => $header,
-            "entity" => $entityLabel
-        );
+        $handle = fopen('php://memory', 'r+');
+
+        fputcsv($handle, $header);
+
+        rewind($handle);
+        $content = stream_get_contents($handle);
+        fclose($handle);
+
+        return new Response($content, 200, array(
+            'Content-Type'        => 'application/force-download',
+            'Content-Disposition' => 'attachment; filename="import-' . strtolower($entityLabel) . '-sample.csv"'
+        ));
     }
 
     /**
-     * Receive datas and perform the import.
+     * Process received datas .
      *
      * The config is got from Importer annotations for the given entity provided by $entityLabel
      * and is used to parse input datas.
@@ -138,8 +138,6 @@ class ImportRESTController extends FOSRestController
     public function postImportAction(Request $request, $mainEventId, $entityLabel)
     {
         $header = $this->getImportConfigFromShortClassName($entityLabel);
-        //TODO : secure this!
-        $datas = $request->request->all();
         /** @var EntityManagerInterface $em */
         $em = $this->get("doctrine.orm.entity_manager");
         $mainEvent = $this->getMainEventByid($mainEventId);
@@ -167,6 +165,9 @@ class ImportRESTController extends FOSRestController
         /** @var Importer $fieldConfig */
         $fieldConfig = null;
         $value = null;
+
+        //TODO : secure this!
+        $datas = $request->request->all();
 
         for ($i = 0; $i < count($datas); $i++)
         {
@@ -198,7 +199,15 @@ class ImportRESTController extends FOSRestController
                                 //break the for loop
                                 break;
                             }
-                            throw new EntityNotFoundException("");
+                            throw new SympozerImportErrorException(
+                                sprintf("%s with field '%s' = '%s' was not found and is mandatory.",
+                                    $fieldConfig->getTargetEntityShortClassName(),
+                                    $fieldConfig->uniqField,
+                                    $value
+                                ),
+                                $i + 1,
+                                (string) $fieldConfig,
+                                $value);
                         }
 
                         $value = $linkedEntity;
@@ -212,17 +221,13 @@ class ImportRESTController extends FOSRestController
                 $return["imported"]++;
                 $em->persist($entityInstance);
             }
-            catch (EntityNotFoundException $ex)
+            catch (SympozerImportErrorException $ex)
             {
                 $return["errors"][] = array(
-                    "line"   => $i + 1,
-                    "column" => (string) $fieldConfig,
-                    "value"  => $value,
-                    "msg"    => sprintf("%s with field '%s' = '%s' was not found and is mandatory.",
-                        $fieldConfig->getTargetEntityShortClassName(),
-                        $fieldConfig->uniqField,
-                        $value
-                    )
+                    "line"   => $ex->getLine(),
+                    "column" => $ex->getColumn(),
+                    "value"  => $ex->getValue(),
+                    "msg"    => $ex->getMessage()
                 );
             }
         }
