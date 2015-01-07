@@ -2,12 +2,10 @@
  * @type {factory}
  */
 angular.module('eventsApp').factory('importService', [
-    '$injector',
     'importFact',
-    function ($injector, importFact)
+    function (importFact)
     {
         var entityLbl,
-            entityFact,
             header;
 
         return {
@@ -15,7 +13,6 @@ angular.module('eventsApp').factory('importService', [
             {
                 entityLbl = entity;
                 console.log("Importing " + entityLbl + "...");
-                entityFact = $injector.get(entityLbl.toLocaleLowerCase() + "sFact");
                 return header = importFact.get_header({entityLabel: entityLbl});
             },
             processImport: function (csvs)

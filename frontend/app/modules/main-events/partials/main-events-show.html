@@ -1,139 +1,156 @@
 <div id="page-heading">
 
-    <div ng-include="GLOBAL_CONFIG.app.urls.partials+'navigation/breadcrumb.html'"></div>
+  <div ng-include="GLOBAL_CONFIG.app.urls.partials+'navigation/breadcrumb.html'"></div>
 
-    <h1>{{'mainEvents.links.mainEvents' | translate }}</h1>
+  <h1>{{'mainEvents.links.mainEvents' | translate }}</h1>
 
-    <!--Options bar containing possible actions-->
-    <div class="options">
-        <div class="btn-toolbar">
-            <!--@TODO : add ACL-->
-            <a class="btn btn-info" href="#/home/mainEvents/edit/{{mainEvent.id}}" role="button">
-                <i class="fa fa-edit fa-1x"></i>  <span class="visible-sm-inline visible-lg-inline visible-md-inline">{{ 'mainEvents.actions.edit' | translate}}</span>
-            </a>
-        </div>
+  <!--Options bar containing possible actions-->
+  <div class="options">
+    <div class="btn-toolbar">
+      <!--@TODO : add ACL-->
+      <button ng-controller="importCtrl" ng-click="startImport()" class="btn btn-info" title="{{ 'import.import' | translate}}">
+        <i class="fa fa-caret-square-o-down"></i>
+        <span class="visible-sm-inline visible-lg-inline visible-md-inline"> {{ 'import.import' | translate}}</span>
+      </button>
+      <a class="btn btn-info" href="#/home/mainEvents/edit/{{mainEvent.id}}" role="button">
+        <i class="fa fa-edit fa-1x"></i>
+        <span class="visible-sm-inline visible-lg-inline visible-md-inline">{{ 'mainEvents.actions.edit' | translate}}</span>
+      </a>
     </div>
+  </div>
 </div>
 
 <!--Page content-->
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="panel">
-                <div class="panel-body">
-                    <panel panel-class="panel panel-gray"  heading="{{mainEvent.label}}">
-                        <div class="row">
-                            <div class="col-xs-5 col-sm-5 col-md-3 col-lg-3">
-                                <img  no-image ng-src="{{ mainEvent.logo }}" alt="" class="pull-left img-responsive" style="margin: 0 20px 20px 0">
-                            </div>
-                            <div class="col-xs-12 col-sm-5 col-md-5 col-lg-5">
-                                <h3>{{'mainEvents.model.description' | translate }}</h3>
-                                <p>{{mainEvent.description}}</p>
-                            </div>
-                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-                                <div class="table-responsive">
-                                    <table class="table table-condensed">
-                                        <tbody>
-                                        <tr>
-                                            <td>{{'mainEvents.model.city' | translate }}</td>
-                                            <td><span>{{mainEvent.location.city}}</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>{{'mainEvents.model.country' | translate }}</td>
-                                            <td><span>{{mainEvent.location.country}}</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>{{'mainEvents.model.url' | translate }}</td>
-                                            <td><a href="{{mainEvent.url}}">{{mainEvent.url}}</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>{{'persons.labels.social' | translate }}</td>
-                                            <td>
-                                                <!--<a href="#" class="btn btn-xs"><i class="fa fa-skype"></i></a>-->
-                                                <a href="{{mainEvent.facebook}}" ng-disabled="!mainEvent.facebook" target="_blank" class="btn btn-xs"><i class="fa fa-facebook"></i>{{mainEvent.facebook || ''}}</a>
-                                                <a href="{{mainEvent.twitter}}" ng-disabled="!mainEvent.twitter" target="_blank" class="btn btn-xs"><i class="fa fa-twitter"></i>{{mainEvent.twitter}}</a>
-                                                <!--<a href="#" class="btn btn-xs"><i class="fa fa-dribbble"></i></a>-->
-                                                <!--<a href="#" class="btn btn-xs"><i class="fa fa-tumblr"></i></a>-->
-                                                <a href="{{mainEvent.youtube}}" ng-disabled="!mainEvent.youtube" target="_blank"  class="btn btn-xs"><i class="fa fa-youtube"></i>{{mainEvent.youtube || ''}}</a>
-                                            </td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="panel">
+        <div class="panel-body">
+          <panel panel-class="panel panel-gray" heading="{{mainEvent.label}}">
+            <div class="row">
+              <div class="col-xs-5 col-sm-5 col-md-3 col-lg-3">
+                <img no-image ng-src="{{ mainEvent.logo }}" alt="" class="pull-left img-responsive" style="margin: 0 20px 20px 0">
+              </div>
+              <div class="col-xs-12 col-sm-5 col-md-5 col-lg-5">
+                <h3>{{'mainEvents.model.description' | translate }}</h3>
 
-                        </div>
-
-                    </panel>
-                    <hr>
-
-                    <div class="row">
-                        <div class="col-md-6">
-                            <panel panel-class="panel panel-gray" heading="{{ 'mainEvents.labels.time_localization' | translate}}">
-                                <panel-controls>
-                                    <a href=""><panel-control-collapse class="fa fa-chevron-down"></panel-control-collapse></a>
-                                </panel-controls>
-                                <div class="row">
-                                    <h4>{{mainEvent.location.label}}</h4>
-
-                                    <h5>{{ 'mainEvents.labels.from' | translate}} : {{mainEvent.startAt | date:'short'}}</h5>
-
-                                    <h5>{{ 'mainEvents.labels.to' | translate}} : {{mainEvent.endAt | date:'short'}}</h5>
-                                    <div style="height: 300px" gmap options="{ lat: -12.043333,lng: -77.028333}" instance="geoCodingMapInstance"></div>
-                                </div>
-                            </panel>
-                        </div>
-                        <div class="col-md-6">
-
-                            <panel panel-class="panel panel-gray" heading="{{mainEvent.events.length}} {{'events.links.events' | translate }}">
-                                <panel-controls>
-                                    <a href=""><panel-control-collapse class="fa fa-chevron-down"></panel-control-collapse></a>
-                                </panel-controls>
-                                <div class="row">
-                                    <div ng-repeat="event in mainEvent.events  track by $index" class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                                        <div sympozer-with-locals locals-event="event" ng-include="GLOBAL_CONFIG.app.modules.events.urls.partials+'views/events-tile-sm.html'"></div>
-                                    </div>
-                                </div>
-                            </panel>
-
-                            <panel panel-class="panel panel-gray" heading="{{mainEvent.roles.length}} {{'persons.links.persons' | translate }}">
-                                <panel-controls>
-                                    <a href=""><panel-control-collapse class="fa fa-chevron-down"></panel-control-collapse></a>
-                                </panel-controls>
-                                <div class="row">
-                                    <div  ng-repeat="role in mainEvent.roles  track by $index" class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                                        <a href="#home/persons/show/{{role.person.id}}"><img ng-src="{{role.person.img}}" alt="{{role.person.label}}" no-image class="img-responsive"></a>
-                                    </div>
-                                </div>
-
-                            </panel>
-
-                            <panel panel-class="panel panel-gray" heading="{{mainEvent.papers.length}} {{'papers.links.papers' | translate }}">
-                                <panel-controls>
-                                    <a href=""><panel-control-collapse class="fa fa-chevron-down"></panel-control-collapse></a>
-                                </panel-controls>
-                                <div class="row">
-                                    <div ng-repeat="paper in mainEvent.papers track by $index" class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                                        <div sympozer-with-locals locals-paper="paper" ng-include="GLOBAL_CONFIG.app.modules.papers.urls.partials+'views/papers-tile-sm.html'"></div>
-                                    </div>
-                                </div>
-                            </panel>
-
-
-                            <panel panel-class="panel panel-gray" heading="{{mainEvent.topics.length}} {{'topics.links.topics' | translate }}">
-                                <panel-controls>
-                                    <a href=""><panel-control-collapse class="fa fa-chevron-down"></panel-control-collapse></a>
-                                </panel-controls>
-                                <div class="row">
-                                    <div sympozer-with-locals locals-topics="mainEvent.topics" ng-include="GLOBAL_CONFIG.app.modules.topics.urls.partials+'views/topics-list-thumbnail-xs.html'"></div>
-                                </div>
-                            </panel>
-                        </div>
-                    </div>
+                <p>{{mainEvent.description}}</p>
+              </div>
+              <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                <div class="table-responsive">
+                  <table class="table table-condensed">
+                    <tbody>
+                    <tr>
+                      <td>{{'mainEvents.model.city' | translate }}</td>
+                      <td><span>{{mainEvent.location.city}}</span></td>
+                    </tr>
+                    <tr>
+                      <td>{{'mainEvents.model.country' | translate }}</td>
+                      <td><span>{{mainEvent.location.country}}</span></td>
+                    </tr>
+                    <tr>
+                      <td>{{'mainEvents.model.url' | translate }}</td>
+                      <td><a href="{{mainEvent.url}}">{{mainEvent.url}}</a></td>
+                    </tr>
+                    <tr>
+                      <td>{{'persons.labels.social' | translate }}</td>
+                      <td>
+                        <!--<a href="#" class="btn btn-xs"><i class="fa fa-skype"></i></a>-->
+                        <a href="{{mainEvent.facebook}}" ng-disabled="!mainEvent.facebook" target="_blank" class="btn btn-xs"><i class="fa fa-facebook"></i>{{mainEvent.facebook || ''}}</a>
+                        <a href="{{mainEvent.twitter}}" ng-disabled="!mainEvent.twitter" target="_blank" class="btn btn-xs"><i class="fa fa-twitter"></i>{{mainEvent.twitter}}</a>
+                        <!--<a href="#" class="btn btn-xs"><i class="fa fa-dribbble"></i></a>-->
+                        <!--<a href="#" class="btn btn-xs"><i class="fa fa-tumblr"></i></a>-->
+                        <a href="{{mainEvent.youtube}}" ng-disabled="!mainEvent.youtube" target="_blank" class="btn btn-xs"><i class="fa fa-youtube"></i>{{mainEvent.youtube || ''}}</a>
+                      </td>
+                    </tr>
+                    </tbody>
+                  </table>
                 </div>
+              </div>
+
             </div>
+
+          </panel>
+          <hr>
+
+          <div class="row">
+            <div class="col-md-6">
+              <panel panel-class="panel panel-gray" heading="{{ 'mainEvents.labels.time_localization' | translate}}">
+                <panel-controls>
+                  <a href="">
+                    <panel-control-collapse class="fa fa-chevron-down"></panel-control-collapse>
+                  </a>
+                </panel-controls>
+                <div class="row">
+                  <h4>{{mainEvent.location.label}}</h4>
+
+                  <h5>{{ 'mainEvents.labels.from' | translate}} : {{mainEvent.startAt | date:'short'}}</h5>
+
+                  <h5>{{ 'mainEvents.labels.to' | translate}} : {{mainEvent.endAt | date:'short'}}</h5>
+
+                  <div style="height: 300px" gmap options="{ lat: -12.043333,lng: -77.028333}" instance="geoCodingMapInstance"></div>
+                </div>
+              </panel>
+            </div>
+            <div class="col-md-6">
+
+              <panel panel-class="panel panel-gray" heading="{{mainEvent.events.length}} {{'events.links.events' | translate }}">
+                <panel-controls>
+                  <a href="">
+                    <panel-control-collapse class="fa fa-chevron-down"></panel-control-collapse>
+                  </a>
+                </panel-controls>
+                <div class="row">
+                  <div ng-repeat="event in mainEvent.events  track by $index" class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                    <div sympozer-with-locals locals-event="event" ng-include="GLOBAL_CONFIG.app.modules.events.urls.partials+'views/events-tile-sm.html'"></div>
+                  </div>
+                </div>
+              </panel>
+
+              <panel panel-class="panel panel-gray" heading="{{mainEvent.roles.length}} {{'persons.links.persons' | translate }}">
+                <panel-controls>
+                  <a href="">
+                    <panel-control-collapse class="fa fa-chevron-down"></panel-control-collapse>
+                  </a>
+                </panel-controls>
+                <div class="row">
+                  <div ng-repeat="role in mainEvent.roles  track by $index" class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                    <a href="#home/persons/show/{{role.person.id}}"><img ng-src="{{role.person.img}}" alt="{{role.person.label}}" no-image class="img-responsive"></a>
+                  </div>
+                </div>
+
+              </panel>
+
+              <panel panel-class="panel panel-gray" heading="{{mainEvent.papers.length}} {{'papers.links.papers' | translate }}">
+                <panel-controls>
+                  <a href="">
+                    <panel-control-collapse class="fa fa-chevron-down"></panel-control-collapse>
+                  </a>
+                </panel-controls>
+                <div class="row">
+                  <div ng-repeat="paper in mainEvent.papers track by $index" class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                    <div sympozer-with-locals locals-paper="paper" ng-include="GLOBAL_CONFIG.app.modules.papers.urls.partials+'views/papers-tile-sm.html'"></div>
+                  </div>
+                </div>
+              </panel>
+
+
+              <panel panel-class="panel panel-gray" heading="{{mainEvent.topics.length}} {{'topics.links.topics' | translate }}">
+                <panel-controls>
+                  <a href="">
+                    <panel-control-collapse class="fa fa-chevron-down"></panel-control-collapse>
+                  </a>
+                </panel-controls>
+                <div class="row">
+                  <div sympozer-with-locals locals-topics="mainEvent.topics" ng-include="GLOBAL_CONFIG.app.modules.topics.urls.partials+'views/topics-list-thumbnail-xs.html'"></div>
+                </div>
+              </panel>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </div>
 </div>
 
