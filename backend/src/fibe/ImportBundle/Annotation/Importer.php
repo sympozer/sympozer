@@ -1,5 +1,5 @@
 <?php
-namespace fibe\ContentBundle\Annotation;
+namespace fibe\ImportBundle\Annotation;
 
 /**
  * Importer annotation.

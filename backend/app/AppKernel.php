@@ -38,7 +38,8 @@ class AppKernel extends Kernel
             new fibe\FrontendBundle\FrontendBundle(),
             new fibe\EventBundle\fibeEventBundle(),
             new fibe\ContentBundle\fibeContentBundle(),
-            new fibe\CommunityBundle\fibeCommunityBundle()
+            new fibe\CommunityBundle\fibeCommunityBundle(),
+            new fibe\ImportBundle\fibeImportBundle(),
         );
 
         // SONATA ADMIN BUNDLE

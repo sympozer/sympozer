@@ -1,3 +1,8 @@
+fibe_import:
+    resource: "@fibeImportBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
 fos_user_registration:
     resource: "@FOSUserBundle/Resources/config/routing/registration.xml"
     prefix: user/register
