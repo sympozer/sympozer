@@ -1,0 +1,49 @@
+<!-- Filter Right bar -->
+<div sticky-scroll="40" filterbox-right-position="style_layoutBoxed">
+    <h2 style="color:red">In construction</h2>
+    <div class="input-group well w100">
+        <input type="text" ng-model="query" placeholder="{{'global.actions.placeHolderSearch' | translate }}" class="form-control"/>
+         <span class="input-group-btn">
+                                <button role="submit" type="submit" class="btn btn-primary">
+                                    <i class="fa fa-search"></i> {{'global.actions.search' | translate }}
+                                </button>
+                              </span>
+    </div>
+    <accordion close-others="filterboxAccordionsShowOne">
+            <accordion-group is-open="filterboxAccordions[0].open" ng-class="{open:filterboxAccordions[0].open}">
+                <accordion-heading>{{'global.labels.days' | translate }}</accordion-heading>
+
+
+            </accordion-group>
+
+            <accordion-group is-open="filterboxAccordions[1].open" ng-class="{open:filterboxAccordions[1].open}">
+                <accordion-heading>
+                    {{'locations.links.locations' | translate }}
+                </accordion-heading>
+
+
+            </accordion-group>
+            <accordion-group is-open="filterboxAccordions[2].open" ng-class="{open:filterboxAccordions[2].open}" id="chatbar">
+                <accordion-heading>
+                    {{'events.model.sessions' | translate }}
+                </accordion-heading>
+
+            </accordion-group>
+            <accordion-group is-open="filterboxAccordions[3].open" ng-class="{open:filterboxAccordions[3].open}">
+                <accordion-heading>
+                    {{'categories.links.categories' | translate }}
+                </accordion-heading>
+
+
+            </accordion-group>
+        <accordion-group is-open="filterboxAccordions[4].open" ng-class="{open:filterboxAccordions[4].open}">
+                <accordion-heading>
+                    {{'events.labels.unscheduled_Event' | translate }}
+                </accordion-heading>
+
+
+            </accordion-group>
+
+
+        </accordion>
+</div>

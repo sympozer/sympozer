@@ -22,6 +22,12 @@ class MainEventType extends VEventType
     {
         parent::buildForm($builder, $options);
         $builder
+            ->add('startAt', 'datetime', array(
+                'widget' => 'single_text',
+            ))
+            ->add('endAt', 'datetime', array(
+                'widget' => 'single_text',
+            ))
             ->add('acronym')
             ->add('label')
             ->add('logo')

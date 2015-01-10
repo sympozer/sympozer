@@ -42,19 +42,19 @@
 
   <!-- build:css assets/css/vendor.css -->
   <!-- bower:css -->
-  <link rel="stylesheet" href="bower/font-awesome/css/font-awesome.css"/>
-  <link rel="stylesheet" href="bower/seiyria-bootstrap-slider/dist/css/bootstrap-slider.min.css"/>
-  <link rel="stylesheet" href="bower/angular-ui-tree/dist/angular-ui-tree.min.css"/>
-  <link rel="stylesheet" href="bower/angular-toggle-switch/angular-toggle-switch.css"/>
-  <link rel="stylesheet" href="bower/ng-grid/ng-grid.css"/>
-  <link rel="stylesheet" href="bower/angular-xeditable/dist/css/xeditable.css"/>
-  <link rel="stylesheet" href="bower/select2/select2.css"/>
-  <link rel="stylesheet" href="bower/jScrollPane/style/jquery.jscrollpane.css"/>
-  <link rel="stylesheet" href="bower/pnotify/pnotify.core.css"/>
-  <link rel="stylesheet" href="bower/pnotify/pnotify.buttons.css"/>
-  <link rel="stylesheet" href="bower/pnotify/pnotify.history.css"/>
-  <link rel="stylesheet" href="bower/bootstrap-social/bootstrap-social.css"/>
-  <link rel="stylesheet" href="bower/bootstrap-tags/dist/css/bootstrap-tags.css"/>
+  <link rel="stylesheet" href="bower/font-awesome/css/font-awesome.css" />
+  <link rel="stylesheet" href="bower/seiyria-bootstrap-slider/dist/css/bootstrap-slider.min.css" />
+  <link rel="stylesheet" href="bower/angular-ui-tree/dist/angular-ui-tree.min.css" />
+  <link rel="stylesheet" href="bower/angular-toggle-switch/angular-toggle-switch.css" />
+  <link rel="stylesheet" href="bower/ng-grid/ng-grid.css" />
+  <link rel="stylesheet" href="bower/angular-xeditable/dist/css/xeditable.css" />
+  <link rel="stylesheet" href="bower/select2/select2.css" />
+  <link rel="stylesheet" href="bower/jScrollPane/style/jquery.jscrollpane.css" />
+  <link rel="stylesheet" href="bower/pnotify/pnotify.core.css" />
+  <link rel="stylesheet" href="bower/pnotify/pnotify.buttons.css" />
+  <link rel="stylesheet" href="bower/pnotify/pnotify.history.css" />
+  <link rel="stylesheet" href="bower/bootstrap-social/bootstrap-social.css" />
+  <link rel="stylesheet" href="bower/bootstrap-tags/dist/css/bootstrap-tags.css" />
   <!-- endbower -->
 
   <link rel='stylesheet' type='text/css' href='assets/plugins/icheck/all.css'/>
@@ -141,7 +141,7 @@
             'fixed-layout': style_layoutBoxed,
             'collapse-leftbar': style_leftbarCollapsed && !style_leftbarShown,
             'show-rightbar': style_rightbarCollapsed,
-            'show-leftbar': style_leftbarShown
+            'show-leftbar': style_leftbarShown$, 'show-events-filterbar' : style_eventsFilterBarCollapsed
     }"
       ng-click="hideSearchBar();hideHeaderBar();"
       ng-cloak
@@ -258,9 +258,9 @@
 <script src="bower/bootstrap-tags/dist/js/bootstrap-tags.js"></script>
 <script src="bower/angular-cached-resource/angular-cached-resource.js"></script>
 <script src="bower/angular-validation-match/dist/angular-input-match.min.js"></script>
+<script src="bower/nsPopover/src/nsPopover.js"></script>
 <!-- endbower -->
 <script type='text/javascript' src='assets/plugins/form-daterangepicker/daterangepicker.min.js'></script>
-<script type='text/javascript' src='assets/plugins/fullcalendar/fullcalendar.min.js'></script>
 <script type='text/javascript' src='assets/plugins/form-datepicker/js/bootstrap-datepicker.js'></script>
 <script type='text/javascript' src='assets/plugins/easypiechart/angular.easypiechart.js'></script>
 <script type='text/javascript' src='assets/plugins/datepaginator/bootstrap-datepaginator.js'></script>
@@ -269,6 +269,7 @@
 <script type='text/javascript' src='assets/plugins/form-fseditor/jquery.fseditor-min.js'></script>
 <script type='text/javascript' src='assets/plugins/form-jasnyupload/fileinput.js'></script>
 <script type='text/javascript' src='assets/plugins/csv-to-array/csvToArray.v2.1.min.js'></script>
+<script type='text/javascript' src='assets/plugins/fullcalendar/fullcalendar.js'></script>
 
 <script type='text/javascript' src='assets/plugins/progress-skylo/skylo.js'></script>
 
@@ -314,6 +315,7 @@
 <!--DIRECTIVES-->
 <script src="js/directives/dates/datetime-format.drv.js"></script>
 <script src="js/directives/dates/daterangepicker.drv.js"></script>
+<script src="js/directives/dates/sympozer-event-days-dropdown.drv.js"></script>
 
 <script src="js/directives/ui-components/icheck.drv.js"></script>
 <script src="js/directives/ui-components/sympozer-dragover.drv.js"></script>
@@ -324,6 +326,7 @@
 <script src="js/directives/ui-components/tile.drv.js"></script>
 <script src="js/directives/ui-components/tile-large.drv.js"></script>
 <script src="js/directives/ui-components/tile-mini.drv.js"></script>
+<script src="js/directives/ui-components/sideboxright.drv.js"></script>
 
 
 <script src="js/directives/lists/entity-list-handler.drv.js"></script>
@@ -525,8 +528,8 @@
 <script src="modules/events/js/controllers/events-new.ctrl.js"></script>
 <script src="modules/events/js/controllers/events-schedule.ctrl.js"></script>
 <script src="modules/events/js/controllers/events-show.ctrl.js"></script>
+<script src="modules/events/js/controllers/events-filters.ctrl.js"></script>
 <!-- DIRECTIVES -->
-<script src="modules/events/js/directives/fullCalendar.drv.js"></script>
 <script src="modules/events/js/directives/draggableEvent.drv.js"></script>
 <!-- SERVICES -->
 <script src="modules/events/js/services/events.fact.js"></script>
@@ -592,7 +595,8 @@
 
 
 <!-- [REQUIRED] template loading for prod environement -->
-<script type="text/javascript" src="templates/templates.js"></script>
+ <script type="text/javascript"  src="templates/app-templates.js"></script>
+ <script type="text/javascript"  src="templates/modules-templates.js"></script>
 
 </body>
 </html>

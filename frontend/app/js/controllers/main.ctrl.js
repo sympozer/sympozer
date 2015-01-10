@@ -5,7 +5,7 @@
 angular.module('sympozerApp').controller('mainCtrl', ['$scope', '$rootScope', '$global', '$timeout', 'progressLoader', '$location', 'GLOBAL_CONFIG', function ($scope, $rootScope, $global, $timeout, progressLoader, $location, GLOBAL_CONFIG)
 {
     /**
-     * Getting main html attribute configurations
+     * Getting main html attribute configurations for styles
      */
     $rootScope.style_fixedHeader = $global.get('fixedHeader');
     $rootScope.style_headerBarHidden = $global.get('headerBarHidden');
@@ -14,6 +14,8 @@ angular.module('sympozerApp').controller('mainCtrl', ['$scope', '$rootScope', '$
     $rootScope.style_leftbarCollapsed = $global.get('leftbarCollapsed');
     $rootScope.style_leftbarShown = $global.get('leftbarShown');
     $rootScope.style_rightbarCollapsed = $global.get('rightbarCollapsed');
+    $rootScope.style_eventsFilterBarCollapsed = $global.get('eventsFilterBarCollapsed');
+
     $rootScope.style_isSmallScreen = false;
     $rootScope.style_showSearchCollapsed = $global.get('showSearchCollapsed');
     $rootScope.style_layoutHorizontal = $global.get('layoutHorizontal');

@@ -21,9 +21,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * a schedulable element.
  *
  * @ORM\Entity(repositoryClass="fibe\EventBundle\Repository\VEventRepository")
- * @ORM\Table(name="vevent", indexes={
- *    @ORM\Index(name="start_at_idx", columns={"start_at"})
- * })
+ * @ORM\Table(name="vevent")
  * @ExclusionPolicy("all")
  * @ORM\HasLifecycleCallbacks
  * @ORM\InheritanceType("SINGLE_TABLE")
@@ -55,31 +53,7 @@ abstract class VEvent
      * @Groups({"list"})
      */
     protected $id;
-    /**
-     * dtstart
-     *
-     * This property specifies when the calendar component begins.
-     *
-     * @ORM\Column(type="datetime", name="start_at")
-     * @Assert\NotBlank()
-     * @SerializedName("startAt")
-     * @Expose
-     * @Groups({"list"})
-     */
-    protected $startAt;
-    /**
-     * dtend
-     *
-     * This property specifies the date and time that a calendar
-     * component ends.
-     *
-     * @ORM\Column(type="datetime", name="end_at")
-     * @Assert\NotBlank()
-     * @SerializedName("endAt")
-     * @Expose
-     * @Groups({"list"})
-     */
-    protected $endAt;
+
     /**
      * description
      *
@@ -88,6 +62,7 @@ abstract class VEvent
      *
      * @ORM\Column(type="text", nullable=true)
      * @Expose
+     * @Groups({"list"})
      */
     protected $description;
 
@@ -238,12 +213,7 @@ abstract class VEvent
     protected $youtube;
 
 
-    /*
-     * Is an all day event
-     * Used for ui representation in the calendar view
-     *
-     * @ORM\Column(name="is_all_day", type="boolean")
-     */
+
     /**
      * facebook
      *
@@ -253,14 +223,7 @@ abstract class VEvent
      * @expose
      */
     protected $facebook;
-    protected $isAllDay = false;
-    /**
-     * Is an all day event
-     * Used for ui representation in the calendar view
-     *
-     * @ORM\Column(name="is_instant", type="boolean")
-     */
-    protected $isInstant;
+
     /**
      * created_at
      *
@@ -342,29 +305,6 @@ abstract class VEvent
         );
     }
 
-    /**
-     * Get startAt
-     *
-     * @return \DateTime
-     */
-    public function getStartAt()
-    {
-        return $this->startAt;
-    }
-
-    /**
-     * Set startAt
-     *
-     * @param \DateTime $startAt
-     *
-     * @return $this
-     */
-    public function setStartAt($startAt)
-    {
-        $this->startAt = $startAt;
-
-        return $this;
-    }
 
     /**
      * Get id
@@ -392,69 +332,8 @@ abstract class VEvent
         return $this->label;
     }
 
-    /**
-     * Validates start is before end
-     *  don't perform the check if one date is missing
-     * @Assert\True(message = "{'field' : 'endAt', 'msg' : 'mainEvents.validations.end_date_after_start'}")
-     *
-     * @return bool
-     */
-    public function isDatesValid()
-    {
-        if ($this->startAt && $this->endAt)
-        {
-            return $this->startAt <= $this->endAt;
-        }
 
-        return true;
-    }
 
-    /**
-     * computeEndAt
-     *
-     * @ORM\PrePersist()
-     * @ORM\PreUpdate()
-     */
-    public function computeEndAt()
-    {
-        if (!$this->getEndAt() && $this->getStartAt())
-        {
-            $endAt = clone $this->getStartAt();
-            $endAt->modify(self::DEFAULT_EVENT_DURATION);
-            $this->setEndAt($endAt);
-            $this->setIsInstant(false);
-        }
-        else if (!$this->getStartAt())
-        {
-            $this->setEndAt((new \DateTime("now"))->modify(self::DEFAULT_EVENT_DURATION));
-            $this->setStartAt(new \DateTime("now"));
-            $this->setIsInstant(false);
-        }
-        else if ($this->getStartAt() == $this->getEndAt())
-        {
-            $this->setIsInstant(true);
-        }
-        else
-        {
-            $this->setIsInstant(false);
-        }
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getEndAt()
-    {
-        return $this->endAt;
-    }
-
-    /**
-     * @param mixed $endAt
-     */
-    public function setEndAt($endAt)
-    {
-        $this->endAt = $endAt;
-    }
 
     /**
      * onCreation
@@ -540,13 +419,13 @@ abstract class VEvent
      *
      * @return bool
      */
-    public function fitChildrenDate()
+    /*public function fitChildrenDate()
     {
         $earliestStart = new \DateTime('6000-10-10');
         $latestEnd = new \DateTime('1000-10-10');
         foreach ($this->getChildren() as $child)
         {
-            /** @var Event $child */
+            // @var Event $child
             if ($child->getIsInstant())
             {
                 continue;
@@ -577,31 +456,9 @@ abstract class VEvent
         }
 
         return false;
-    }
+    }*/
 
-    /**
-     * Get isInstant
-     *
-     * @return string
-     */
-    public function getIsInstant()
-    {
-        return $this->isInstant;
-    }
 
-    /**
-     * Set isInstant
-     *
-     * @param string $isInstant
-     *
-     * @return VEvent
-     */
-    public function setIsInstant($isInstant)
-    {
-        $this->isInstant = $isInstant;
-
-        return $this;
-    }
 
     /**
      * @param mixed $label
@@ -706,29 +563,7 @@ abstract class VEvent
         return $this;
     }
 
-    /**
-     * Get isAllDay
-     *
-     * @return string
-     */
-    public function getIsAllDay()
-    {
-        return $this->isAllDay;
-    }
 
-    /**
-     * Set isAllDay
-     *
-     * @param string $isAllDay
-     *
-     * @return VEvent
-     */
-    public function setIsAllDay($isAllDay)
-    {
-        $this->isAllDay = $isAllDay;
-
-        return $this;
-    }
 
     /**
      * Get url

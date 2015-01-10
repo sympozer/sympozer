@@ -5,8 +5,8 @@
  */
 
 angular.module('eventsApp').controller('eventsNewCtrl', [
-    '$scope', '$window', 'GLOBAL_CONFIG', '$routeParams', '$rootScope', '$location', 'eventsFact', 'categoriesFact', 'topicsFact', 'locationsFact', 'papersFact', '$modal', 'formValidation', '$filter', 'pinesNotifications', 'translateFilter',
-    function ($scope, $window, GLOBAL_CONFIG, $routeParams, $rootScope, $location, eventsFact, categoriesFact, topicsFact, locationsFact, papersFact, $modal, formValidation, $filter, pinesNotifications, translateFilter)
+    '$scope', '$rootScope', '$window', 'GLOBAL_CONFIG', '$routeParams', '$rootScope', '$location', 'eventsFact', 'categoriesFact', 'topicsFact', 'locationsFact', 'papersFact', '$modal', 'formValidation', '$filter', 'pinesNotifications', 'translateFilter',
+    function ($scope, $rootScope, $window, GLOBAL_CONFIG, $routeParams, $rootScope, $location, eventsFact, categoriesFact, topicsFact, locationsFact, papersFact, $modal, formValidation, $filter, pinesNotifications, translateFilter)
     {
         $scope.event = new eventsFact;
         $scope.dateRange = "";
@@ -14,6 +14,8 @@ angular.module('eventsApp').controller('eventsNewCtrl', [
         $scope.endAtOpened = false;
         $scope.startAtOpened = false;
 
+        //In case the view is a modal
+        $scope.modalTitle = 'events.actions.new';
 
         var error = function (response, args)
         {
@@ -54,21 +56,44 @@ angular.module('eventsApp').controller('eventsNewCtrl', [
             }
         };
 
-        var setDateRange = function (dateRange)
-        {
-            var dateTab = $('#dateRange').val().split('-');
-            $scope.event.startAt = new Date(dateTab[0]);
-            $scope.event.endAt = new Date(dateTab[1]);
+        //Initialize the day dropdown value
+        $scope.event.selectedDay = new Date($rootScope.currentMainEvent.startAt);
+        //Initialize the timer for start time
+        $scope.event.timeStart = new Date($rootScope.currentMainEvent.startAt);
+        //Initialize the timer for end time
+        $scope.event.timeEnd = new Date($rootScope.currentMainEvent.endAt);
 
+        /**
+         * Convert the selected day + selected and time and selected start time to actual dates.
+         * Validates end > start
+         * @returns {boolean}
+         */
+        var setStartEndDates = function ()
+        {
+            //Initialize start date from the selected day
+            $scope.event.startAt = new Date($scope.event.selectedDay);
+            //Set hours from timer for start value
+            $scope.event.startAt.setHours($scope.event.timeStart.getHours());
+            //Set minutes from timer for start value
+            $scope.event.startAt.setMinutes($scope.event.timeStart.getMinutes());
+
+            //Initialize end date from the selected day
+            $scope.event.endAt = new Date($scope.event.selectedDay);
+            //Set hours from timer for end value
+            $scope.event.endAt.setHours($scope.event.timeEnd.getHours());
+            //Set minutes from timer for end value
+            $scope.event.endAt.setMinutes($scope.event.timeEnd.getMinutes());
+
+            //Validate start < end date
             return $scope.event.startAt <= $scope.event.endAt;
 
         };
 
-        $scope.create = function (form)
+        $scope.save = function (form)
         {
             $scope.event.mainEvent = $rootScope.currentMainEvent;
 
-            if (form.$valid && setDateRange())
+            if (form.$valid && setStartEndDates())
             {
                 eventsFact.create(eventsFact.serialize($scope.event), success, error);
             }
