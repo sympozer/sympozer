@@ -502,28 +502,17 @@ class MainEvent extends VEvent
      */
     public function computeEndAt()
     {
-        if (!$this->getEndAt() && $this->getStartAt())
-        {
+        /*if (!$this->getEndAt() && $this->getStartAt()) {
             $endAt = clone $this->getStartAt();
             $endAt->modify(self::DEFAULT_EVENT_DURATION);
             $this->setEndAt($endAt);
-            $this->setIsInstant(false);
-        }
-        else if (!$this->getStartAt())
-        {
+        } else if (!$this->getStartAt()) {
             $this->setEndAt((new \DateTime("now"))->modify(self::DEFAULT_EVENT_DURATION));
             $this->setStartAt(new \DateTime("now"));
-            $this->setIsInstant(false);
-        }
-        else if ($this->getStartAt() == $this->getEndAt())
-        {
-            $this->setIsInstant(true);
-        }
-        else
-        {
-            $this->setIsInstant(false);
-        }
+
+        }*/
     }
+
 
     /**
      * @return mixed
@@ -543,3 +532,4 @@ class MainEvent extends VEvent
 
 
 }
+

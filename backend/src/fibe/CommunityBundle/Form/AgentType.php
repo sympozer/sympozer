@@ -29,7 +29,7 @@ abstract class AgentType extends AbstractType
             ->add('description')
             ->add('localization', 'sympozer_entity_type', array(
                 'type' => new LocalizationType(),
-                'required' => true
+                'required' => false
             ))
             ->add('positions', 'sympozer_collection_type', array(
                 'type'            => new PositionType(),
