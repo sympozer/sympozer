@@ -5,6 +5,7 @@ namespace fibe\ImportBundle\Controller;
 use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Controller\FOSRestController;
+use FOS\RestBundle\Request\ParamFetcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -13,6 +14,11 @@ class ImportController extends FOSRestController
 
     const IMPORT_ALL = "all";
     const IMPORTER_ANNOTATION = 'fibe\\ContentBundle\\Annotation\\Importer';
+
+    //return results label
+    const IMPORT_ERROR = "error";
+    const IMPORT_DONE_COMMIT = "done(commit)";
+    const IMPORT_DONE_ROLLBACK = "done(rollback)";
 
 
     /**
@@ -27,23 +33,6 @@ class ImportController extends FOSRestController
     }
 
     /**
-     * Get import config in json.
-     * The config is got from Importer annotations for the given entity provided by $entityLabel
-     * @Rest\Get("/import/{entityLabel}", defaults={"entityLabel" = "all"})
-     * @Rest\View
-     */
-    public function getImportHeaderAction(Request $request, $entityLabel)
-    {
-        //TODO put this in a dedicated importService
-        $header = $this->get('fibe_import.import_service')->getImportConfigFromShortClassName($entityLabel, true);
-
-        return array(
-            "header" => $header,
-            "entity" => $entityLabel
-        );
-    }
-
-    /**
      * Get a sample csv file to download.
      * The sample is got from Importer annotations for the given entity provided by $entityLabel
      *
@@ -51,7 +40,6 @@ class ImportController extends FOSRestController
      */
     public function getImportSampleAction(Request $request, $entityLabel)
     {
-        //TODO put this in a dedicated importService
         $header = $this->get('fibe_import.import_service')->getImportConfigFromShortClassName($entityLabel, true);
 
         $handle = fopen('php://memory', 'r+');
@@ -69,15 +57,33 @@ class ImportController extends FOSRestController
     }
 
     /**
+     * Get import config in json.
+     * The config is got from Importer annotations for the given entity provided by $entityLabel
+     * @Rest\Get("/import/{entityLabel}", defaults={"entityLabel" = "all"})
+     * @Rest\View
+     */
+    public function getImportHeaderAction(Request $request, $entityLabel)
+    {
+        $header = $this->get('fibe_import.import_service')->getImportConfigFromShortClassName($entityLabel, true);
+
+        return array(
+            "header" => $header,
+            "entity" => $entityLabel
+        );
+    }
+
+    /**
      * Process received datas.
      *
      * The config is got from Importer annotations for the given entity provided by $entityLabel
      * and is used to parse input datas.
      *
      * @Rest\Post("/mainEvents/{mainEventId}/import/{entityLabel}", defaults={"entityLabel" = "all"})
-     * @Rest\View
+     * @Rest\Get("/mainEvents/{mainEventId}/import/{entityLabel}", defaults={"entityLabel" = "all"})
+     * @Rest\View(serializerEnableMaxDepthChecks=true, serializerGroups={"list"})
+     * @Rest\QueryParam(name="commit", requirements="true|false", default="false", description="How many entity to return.")
      */
-    public function postImportAction(Request $request, $mainEventId, $entityLabel)
+    public function postImportAction(Request $request, ParamFetcherInterface $paramFetcher, $mainEventId, $entityLabel)
     {
         //TODO : secure this?
         $datas = $request->request->all();
@@ -86,23 +92,32 @@ class ImportController extends FOSRestController
         $em = $this->get("doctrine.orm.entity_manager");
 
         $mainEvent = $this->getMainEventByid($mainEventId);
+        $setMainEventSetter = 'setMainEvent';
 
-        //TODO put this in a dedicated importService
         $return = $this->get('fibe_import.import_service')->importEntities($datas, $entityLabel, $mainEvent, $em);
-
 
         if (count($return["errors"]) > 0)
         {
-            $return["result"] = "error";
+            unset($return['entities']);
+            $return["result"] = self::IMPORT_ERROR;
         }
-        else
+        else if ($paramFetcher->get('commit') == "true")
         {
-            foreach ($return - ['entities'] as $entity)
+            foreach ($return['entities'] as $entity)
             {
+                if (method_exists($entity, '$setMainEventSetter'))
+                {
+                    $entity->$setMainEventSetter($mainEvent);
+                }
                 $em->persist($entity);
             }
             $em->flush();
-            $return["result"] = "done";
+            $return["result"] = self::IMPORT_DONE_COMMIT;
+        }
+        else
+        {
+            unset($return['entities']);
+            $return["result"] = self::IMPORT_DONE_ROLLBACK;
         }
 
         return $return;

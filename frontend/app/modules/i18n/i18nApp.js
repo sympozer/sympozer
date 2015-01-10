@@ -41,9 +41,9 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 on    : 'on',
                 at    : 'at',
                 day   : 'day',
-                days   : 'Days',
-                to          : 'To',
-                from        : 'From',
+                days  : 'Days',
+                to    : 'To',
+                from  : 'From',
                 search: {
                     displaying: 'Displaying results for',
                     no_result: 'No results.',
@@ -222,11 +222,11 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 calendar: 'Calendar'
             },
             labels     : {
-                general_info: 'General informations',
+                general_info     : 'General informations',
                 time_localization: 'Time & localization',
-                to          : 'To',
-                from        : 'From',
-                unscheduled_Event : 'Unscheduled events'
+                to               : 'To',
+                from             : 'From',
+                unscheduled_Event: 'Unscheduled events'
             },
             validations: {
                 start_before_end: 'The start date must be before the end date',
@@ -240,13 +240,13 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 delete_confirm: 'Are you sure you want to delete this event ?'
             },
             model      : {
-                label  : 'Label',
+                label   : 'Label',
                 description: 'Description',
-                url    : 'Url',
-                day   : 'Day',
-                startAt: 'Start at',
-                endAt  : 'End at',
-                sessions : 'Sessions'
+                url     : 'Url',
+                day     : 'Day',
+                startAt : 'Start at',
+                endAt   : 'End at',
+                sessions: 'Sessions'
 
             }
         },
@@ -603,7 +603,8 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
         },
 
         import: {
-            import: 'Import',
+            import    : 'Import',
+            validating: 'The server is validating datas... This may take a while.',
             select_file    : 'Select the csv file to import.',
             download_sample: 'Download a sample file.',
             send_to_server : 'Send to server.',
@@ -635,8 +636,8 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 at    : 'à',
                 from  : 'De',
                 to    : 'Jusq\'à',
-                day  : 'jour',
-                days   : 'Jours',
+                day   : 'jour',
+                days  : 'Jours',
                 searchResult: 'Résultat pour',
                 search: {
                     displaying: 'Résultat pour',
@@ -814,11 +815,11 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 calendar: 'Planning'
             },
             labels     : {
-                general_info: 'Informations générales',
+                general_info     : 'Informations générales',
                 time_localization: 'Durée & localisation',
-                to          : 'Jusqu\'à',
-                from        : 'Depuis',
-                unscheduled_Event : 'Non plannifié'
+                to               : 'Jusqu\'à',
+                from             : 'Depuis',
+                unscheduled_Event: 'Non plannifié'
 
             },
             validations: {
@@ -833,13 +834,13 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 delete_confirm: 'Etes-vous sur de vouloir supprimer cet évènement ?'
             },
             model      : {
-                label  : 'Label',
+                label   : 'Label',
                 description: 'Descritpion',
-                day   : 'Jour',
-                url    : 'Lien',
-                startAt: 'Début',
-                endAt  : 'Fin',
-                sessions : 'Sessions'
+                day     : 'Jour',
+                url     : 'Lien',
+                startAt : 'Début',
+                endAt   : 'Fin',
+                sessions: 'Sessions'
             }
         },
 
@@ -1194,7 +1195,8 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
         },
 
         import: {
-            import: 'Importer',
+            import    : 'Importer',
+            validating: 'Le serveur valide les données... Cela peut prendre un moment.',
             select_file    : 'Sélectionnez le fichier csv à importer.',
             download_sample: 'Téléchargez un fichier d\'éxample.',
             send_to_server : 'Envoyer au server.',
