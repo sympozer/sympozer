@@ -603,6 +603,7 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
         },
 
         import: {
+            import: 'Import',
             select_file    : 'Select the csv file to import.',
             download_sample: 'Download a sample file.',
             send_to_server : 'Send to server.',
@@ -1193,6 +1194,7 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
         },
 
         import: {
+            import: 'Importer',
             select_file    : 'Sélectionnez le fichier csv à importer.',
             download_sample: 'Téléchargez un fichier d\'éxample.',
             send_to_server : 'Envoyer au server.',

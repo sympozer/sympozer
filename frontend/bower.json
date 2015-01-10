@@ -51,7 +51,7 @@
     "bootstrap-social": "~4.8.0",
     "bootstrap-tags": "~1.1.5",
     "angular-cached-resource": "~1.0.0",
-    "angular-validation-match": "~1.2.0",
+      "angular-validation-match": "~1.2.0"
   },
   "resolutions": {
     "jquery": "~1.11.0",

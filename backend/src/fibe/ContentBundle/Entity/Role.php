@@ -3,9 +3,9 @@ namespace fibe\ContentBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use fibe\CommunityBundle\Entity\Person;
-use fibe\ContentBundle\Annotation\Importer;
 use fibe\EventBundle\Entity\MainEvent;
 use fibe\EventBundle\Entity\VEvent;
+use fibe\ImportBundle\Annotation\Importer;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
 use JMS\Serializer\Annotation\Groups;
