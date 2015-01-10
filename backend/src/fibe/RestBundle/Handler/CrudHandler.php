@@ -97,13 +97,18 @@ class CrudHandler
             $this->em->persist($entity);
             $this->em->flush($entity);
 
-            return $entity;
+            //Return only a string to avoid network overload
+            if('POST' !== $method){
+                return  "";
+            }
+            return  $entity;
         }
 
         return array(
             'form' => $form,
         );
     }
+
 
     protected function validateAction($method, $entity)
     {

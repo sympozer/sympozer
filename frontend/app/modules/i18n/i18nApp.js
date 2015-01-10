@@ -40,6 +40,10 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 or    : 'Or',
                 on    : 'on',
                 at    : 'at',
+                day   : 'day',
+                days   : 'Days',
+                to          : 'To',
+                from        : 'From',
                 search: {
                     displaying: 'Displaying results for',
                     no_result: 'No results.',
@@ -221,7 +225,8 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 general_info: 'General informations',
                 time_localization: 'Time & localization',
                 to          : 'To',
-                from        : 'From'
+                from        : 'From',
+                unscheduled_Event : 'Unscheduled events'
             },
             validations: {
                 start_before_end: 'The start date must be before the end date',
@@ -238,8 +243,11 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 label  : 'Label',
                 description: 'Description',
                 url    : 'Url',
+                day   : 'Day',
                 startAt: 'Start at',
-                endAt  : 'End at'
+                endAt  : 'End at',
+                sessions : 'Sessions'
+
             }
         },
 
@@ -624,6 +632,10 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
             labels     : {
                 or    : 'Ou',
                 at    : 'à',
+                from  : 'De',
+                to    : 'Jusq\'à',
+                day  : 'jour',
+                days   : 'Jours',
                 searchResult: 'Résultat pour',
                 search: {
                     displaying: 'Résultat pour',
@@ -804,7 +816,9 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 general_info: 'Informations générales',
                 time_localization: 'Durée & localisation',
                 to          : 'Jusqu\'à',
-                from        : 'Depuis'
+                from        : 'Depuis',
+                unscheduled_Event : 'Non plannifié'
+
             },
             validations: {
                 start_before_end: 'La date de fin doit être après la date de début',
@@ -820,9 +834,11 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
             model      : {
                 label  : 'Label',
                 description: 'Descritpion',
+                day   : 'Jour',
                 url    : 'Lien',
                 startAt: 'Début',
-                endAt  : 'Fin'
+                endAt  : 'Fin',
+                sessions : 'Sessions'
             }
         },
 

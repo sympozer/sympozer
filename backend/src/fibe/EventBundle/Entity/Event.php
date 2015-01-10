@@ -18,7 +18,9 @@ use JMS\Serializer\Annotation\SerializedName;
  *
  * @package fibe\EventBundle\Entity
  *
- * @ORM\Table(name="event")
+ * @ORM\Table(name="event", indexes={
+ *    @ORM\Index(name="start_at_idx", columns={"start_at"})
+ * })
  * @ORM\Entity(repositoryClass="fibe\EventBundle\Repository\EventRepository")
  * @ORM\HasLifecycleCallbacks
  * @ExclusionPolicy("all")
@@ -59,6 +61,31 @@ class Event extends VEvent
      */
     protected $children;
     /**
+     * dtstart
+     *
+     * This property specifies when the calendar component begins.
+     *
+     * @ORM\Column(type="datetime", name="start_at")
+     * @SerializedName("startAt")
+     * @Expose
+     * @Groups({"list"})
+     */
+    protected $startAt;
+    /**
+     * dtend
+     *
+     * This property specifies the date and time that a calendar
+     * component ends.
+     *
+     * @ORM\Column(type="datetime", name="end_at")
+     * @SerializedName("endAt")
+     * @Expose
+     * @Groups({"list"})
+     */
+    protected $endAt;
+
+
+    /**
      * Main Event
      *
      * @ORM\ManyToOne(targetEntity="fibe\EventBundle\Entity\MainEvent", inversedBy="events", cascade={"persist"})
@@ -86,9 +113,23 @@ class Event extends VEvent
     protected $papers;
 
     /**
+     * Is an all day event
+     * Used for ui representation in the calendar view
+     *
+     * @ORM\Column(name="all_day", type="boolean")
+     * @Expose
+     * @SerializedName("allDay")
+     * @Groups({"list"})
+     */
+    protected $allDay;
+
+
+    /**
      * Roles for the event
      * @ORM\OneToMany(targetEntity="fibe\ContentBundle\Entity\Role", mappedBy="event", cascade={"persist"})
-     *
+     * @Expose
+     * @Groups({"list"})
+     * @MaxDepth(3)
      */
     protected $roles;
 
@@ -363,4 +404,78 @@ class Event extends VEvent
     {
         $this->category = $category;
     }
+
+    /**
+     * Get allDay
+     *
+     * @return string
+     */
+    public function getallDay()
+    {
+        return $this->allDay;
+    }
+
+    /**
+     * Set allDay
+     *
+     * @param string $allDay
+     *
+     * @return VEvent
+     */
+    public function setallDay($allDay)
+    {
+        $this->allDay = $allDay;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEndAt()
+    {
+        return $this->endAt;
+    }
+
+    /**
+     * @param mixed $endAt
+     */
+    public function setEndAt($endAt)
+    {
+        $this->endAt = $endAt;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getStartAt()
+    {
+        return $this->startAt;
+    }
+
+    /**
+     * @param mixed $startAt
+     */
+    public function setStartAt($startAt)
+    {
+        $this->startAt = $startAt;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLabel()
+    {
+        return $this->label;
+    }
+
+    /**
+     * @param mixed $label
+     */
+    public function setLabel($label)
+    {
+        $this->label = $label;
+    }
+
+
 }

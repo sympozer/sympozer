@@ -19,6 +19,13 @@ class EventType extends VEventType
     {
         parent::buildForm($builder, $options);
         $builder
+            ->add('allDay')
+            ->add('startAt', 'datetime', array(
+                'widget' => 'single_text',
+            ))
+            ->add('endAt', 'datetime', array(
+                'widget' => 'single_text',
+            ))
             ->add('category', 'sympozer_entity_type', array(
                 'type' => new CategoryType(),
                 'required' => false,

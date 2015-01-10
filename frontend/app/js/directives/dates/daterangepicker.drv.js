@@ -2,7 +2,7 @@
  * daterangepicker directive
  * select range of date
  */
-angular.module('sympozerApp')  .directive('daterangepicker', function ()
+angular.module('sympozerApp').directive('daterangepicker', function ()
 {
     return {
         restrict: 'A',

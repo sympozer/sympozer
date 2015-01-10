@@ -29,6 +29,7 @@ angular.module('sympozerApp').controller('breadcrumbCtrl', ['$scope', '$rootScop
                             idUrl: 'index',
                             label: 'Index'
                         }
+
                     ]
                 },
                 {
@@ -158,6 +159,10 @@ angular.module('sympozerApp').controller('breadcrumbCtrl', ['$scope', '$rootScop
                                 {
                                     idUrl: 'show',
                                     label: 'global.actions.show'
+                                },
+                                {
+                                    idUrl: 'schedule',
+                                    label: 'Schedule'
                                 }
                             ]
                         },

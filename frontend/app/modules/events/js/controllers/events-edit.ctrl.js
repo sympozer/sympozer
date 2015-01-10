@@ -3,11 +3,44 @@
  *
  * @type {controller}
  */
-angular.module('eventsApp').controller('eventsEditCtrl', ['$scope', '$filter', '$window', 'GLOBAL_CONFIG', '$routeParams', '$rootScope', '$location', 'eventsFact', 'categoriesFact', 'topicsFact', 'locationsFact', 'papersFact', '$modal', 'pinesNotifications', 'translateFilter',
-    function ($scope, $filter, $window, GLOBAL_CONFIG, $routeParams, $rootScope, $location, eventsFact, categoriesFact, topicsFact, locationsFact, papersFact, $modal, pinesNotifications, translateFilter)
+angular.module('eventsApp').controller('eventsEditCtrl', ['$scope', '$rootScope', '$filter', '$window', 'GLOBAL_CONFIG', '$routeParams', '$rootScope', '$location', 'eventsFact', 'categoriesFact', 'topicsFact', 'locationsFact', 'papersFact', '$modal', 'pinesNotifications', 'translateFilter', 'eventId',
+    function ($scope, $rootScope, $filter, $window, GLOBAL_CONFIG, $routeParams, $rootScope, $location, eventsFact, categoriesFact, topicsFact, locationsFact, papersFact, $modal, pinesNotifications, translateFilter, eventId)
     {
-        //Get the event
-        $scope.event = eventsFact.get({id: $routeParams.eventId});
+
+
+        var fetchSuccess = function(event){
+
+            //Initialize the day dropdown value and time inputs
+            if(event.startAt){
+                $scope.event.selectedDay = new moment(event.startAt).format('dd DD MMM YYYY');
+                //Initialize the timer for start time
+                $scope.event.timeStart = new Date(event.startAt);
+            }else{
+                $scope.event.selectedDay = new moment($rootScope.currentMainEvent.startAt).format('dd DD MMM YYYY');
+                //Initialize the timer for start time
+                $scope.event.timeStart = new Date().setHours('12');
+            }
+
+            //Initialize the day dropdown value and time inputs
+            if(event.endAt) {
+                //Initialize the timer for end time
+                $scope.event.timeEnd = new Date(event.endAt);
+            }else{
+                //Initialize the timer for end time
+                $scope.event.timeEnd = new Date().setHours('13');
+            }
+
+
+        }
+
+        //Get the event from id in the route or directly in injected id (in case of a modal view)
+        if(eventId){
+            $scope.event = eventsFact.get({id: eventId}, fetchSuccess);
+            $scope.modalTitle = 'events.actions.edit';
+        }else{
+            $scope.event = eventsFact.get({id: $routeParams.eventId}, fetchSuccess);
+        }
+
 
         //Error on event edit request
         var error = function (response, args)
@@ -29,15 +62,50 @@ angular.module('eventsApp').controller('eventsEditCtrl', ['$scope', '$filter', '
                 text: translateFilter('events.validations.created'),
                 type: 'success'
             });
-            //Go back to previous page
-            $window.history.back();
+            //If view is a modal instance then close (resolve promise with new role)
+            if ($scope.$close)
+            {
+                $scope.$close($scope.event);
+            }
+            else {
+                //If view is a page, go back to previous page
+                $window.history.back();
+            }
+        };
+
+
+
+        /**
+         * Convert the selected day + selected and time and selected start time to actual dates.
+         * Validates end > start
+         * @returns {boolean}
+         */
+        var setStartEndDates = function ()
+        {
+            //Initialize start date from the selected day
+            $scope.event.startAt = new Date($scope.event.selectedDay);
+            //Set hours from timer for start value
+            $scope.event.startAt.setHours($scope.event.timeStart.getHours());
+            //Set minutes from timer for start value
+            $scope.event.startAt.setMinutes($scope.event.timeStart.getMinutes());
+
+            //Initialize end date from the selected day
+            $scope.event.endAt = new Date($scope.event.selectedDay);
+            //Set hours from timer for end value
+            $scope.event.endAt.setHours($scope.event.timeEnd.getHours());
+            //Set minutes from timer for end value
+            $scope.event.endAt.setMinutes($scope.event.timeEnd.getMinutes());
+
+            //Validate start < end date
+            return $scope.event.startAt <= $scope.event.endAt;
+
         };
 
         //Send put request to the server
-        $scope.update = function (form)
+        $scope.save = function (form)
         {
             //Verify form validity
-            if (form.$valid)
+            if (form.$valid && setStartEndDates())
             {
                 eventsFact.update( eventsFact.serialize($scope.event), success, error);
             }

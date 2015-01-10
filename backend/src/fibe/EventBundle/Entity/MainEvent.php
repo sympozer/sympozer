@@ -13,6 +13,7 @@ use fibe\ContentBundle\Util\StringTools;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
 use JMS\Serializer\Annotation\Groups;
+use JMS\Serializer\Annotation\MaxDepth;
 use JMS\Serializer\Annotation\SerializedName;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -20,7 +21,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Main Event entity
  *
- * @ORM\Table(name="main_event")
+ * @ORM\Table(name="main_event", indexes={
+ *    @ORM\Index(name="start_at_idx", columns={"start_at"})
+ * })
  * @ORM\Entity(repositoryClass="fibe\EventBundle\Repository\MainEventRepository")
  * @ORM\HasLifecycleCallbacks
  * @ExclusionPolicy("ALL")
@@ -48,6 +51,7 @@ class MainEvent extends VEvent
      * Events
      *
      * @ORM\OneToMany(targetEntity="fibe\EventBundle\Entity\Event", mappedBy="mainEvent",cascade={"persist", "remove"})
+     * @MaxDepth(2)
      * @Expose
      */
     private $events;
@@ -55,6 +59,7 @@ class MainEvent extends VEvent
      * Papers
      *
      * @ORM\OneToMany(targetEntity="fibe\ContentBundle\Entity\Paper", mappedBy="mainEvent",cascade={"persist", "remove"})
+     * @MaxDepth(2)
      * @Expose
      */
     private $papers;
@@ -62,10 +67,53 @@ class MainEvent extends VEvent
      * Roles
      *
      * @ORM\OneToMany(targetEntity="fibe\ContentBundle\Entity\Role", mappedBy="mainEvent",cascade={"persist", "remove"})
+     * @MaxDepth(2)
      * @Expose
      */
     private $roles;
+    /**
+     * dtstart
+     *
+     * This property specifies when the calendar component begins.
+     *
+     * @ORM\Column(type="datetime", name="start_at")
+     * @Assert\NotBlank()
+     * @SerializedName("startAt")
+     * @Expose
+     * @Groups({"list"})
+     */
+    private $startAt;
 
+
+
+    /**
+     * @return mixed
+     */
+    public function getStartAt()
+    {
+        return $this->startAt;
+    }
+
+    /**
+     * @param mixed $startAt
+     */
+    public function setStartAt($startAt)
+    {
+        $this->startAt = $startAt;
+    }
+    /**
+     * dtend
+     *
+     * This property specifies the date and time that a calendar
+     * component ends.
+     *
+     * @ORM\Column(type="datetime", name="end_at")
+     * @Assert\NotBlank()
+     * @SerializedName("endAt")
+     * @Expose
+     * @Groups({"list"})
+     */
+    private $endAt;
 
     /**
      * Team
@@ -79,15 +127,18 @@ class MainEvent extends VEvent
      * @ORM\OneToOne(targetEntity="fibe\EventBundle\Entity\MainEventSettings", mappedBy="mainEvent", cascade={"all"})
      */
     private $setting;
+
     /**
      * @ORM\Column(type="string", length=256, nullable=true)
      * @Expose
+     * @Groups({"list"})
      */
     private $logo;
     /**
      * @ORM\Column(type="string", length=256, nullable=true)
      */
     private $slug;
+
     /**
      *
      * @ORM\Column(type="string", length=128, nullable=true)
@@ -96,6 +147,7 @@ class MainEvent extends VEvent
 
     /**
      * @ORM\OneToMany(targetEntity="fibe\ContentBundle\Entity\Location", mappedBy="mainEvent",cascade={"persist", "remove"})
+     * @MaxDepth(2)
      * @Expose
      * @SerializedName("eventLocations")
      */
@@ -107,7 +159,6 @@ class MainEvent extends VEvent
     public function __construct()
     {
         parent::__construct();
-        $this->setIsAllDay(true);
         $this->events = new ArrayCollection();
         $this->roles = new ArrayCollection();
         $this->eventLocations = new ArrayCollection();
@@ -422,5 +473,73 @@ class MainEvent extends VEvent
         }
 
     }
+
+
+    /**
+     * Validates start is before end
+     *  don't perform the check if one date is missing
+     * @Assert\True(message = "{'field' : 'endAt', 'msg' : 'mainEvents.validations.end_date_after_start'}")
+     *
+     * @return bool
+     */
+    public function isDatesValid()
+    {
+        if ($this->startAt && $this->endAt)
+        {
+            return $this->startAt <= $this->endAt;
+        }
+
+        return true;
+    }
+
+
+
+    /**
+     * computeEndAt
+     *
+     * @ORM\PrePersist()
+     * @ORM\PreUpdate()
+     */
+    public function computeEndAt()
+    {
+        if (!$this->getEndAt() && $this->getStartAt())
+        {
+            $endAt = clone $this->getStartAt();
+            $endAt->modify(self::DEFAULT_EVENT_DURATION);
+            $this->setEndAt($endAt);
+            $this->setIsInstant(false);
+        }
+        else if (!$this->getStartAt())
+        {
+            $this->setEndAt((new \DateTime("now"))->modify(self::DEFAULT_EVENT_DURATION));
+            $this->setStartAt(new \DateTime("now"));
+            $this->setIsInstant(false);
+        }
+        else if ($this->getStartAt() == $this->getEndAt())
+        {
+            $this->setIsInstant(true);
+        }
+        else
+        {
+            $this->setIsInstant(false);
+        }
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEndAt()
+    {
+        return $this->endAt;
+    }
+
+    /**
+     * @param mixed $endAt
+     */
+    public function setEndAt($endAt)
+    {
+        $this->endAt = $endAt;
+    }
+
 
 }

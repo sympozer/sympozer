@@ -14,58 +14,40 @@
 </div>
 
 
+<!-- CALENDAR -->
+
 <div class="container-fluid">
     <div class="row">
-        <div class="col-xs-12">
-            <div class="panel panel-danger calendar">
-                <div class="panel-heading">
-
-                    <h4>Basic Calendar</h4>
-
-                    <div class="options">
-
-                    </div>
-                </div>
-                <div class="panel-body">
-                    <div class="alert alert-info">Click on a date to create an event, drag &amp; drop to move events or extend time ranges</div>
-                    <div data-full-calendar="{ events: demoEvents }"></div>
-                </div>
-            </div>
-        </div>
-
-
-        <div class="col-xs-12">
-
-            <div class="panel panel-warning">
-                <div class="panel-heading">
-                    <h4>Calendar with External Drag &amp; Drop</h4>
-
-                    <div class="options">
-
-                    </div>
-                </div>
-                <div class="panel-body">
-                    <div class="row">
-                        <div id='external-events' class="col-sm-3">
-                            <h4>Draggable Events</h4>
-
-                            <form ng-submit="addEvent()" style="margin-bottom: 10px;" class="clearfix">
-                                <label for="" class="control-label">Enter a name for an event:</label>
-                                <input type="text" ng-model="newEvent" class="form-control" style="margin-bottom: 10px;" placeholder="Event Name...">
-                                <button class="btn btn-primary pull-right" ng-click="addEvent()">Create Event</button>
-                            </form>
-                            <div ng-repeat="event in events" style="margin-bottom: 5px;">
-                                <div class='external-event label label-info' data-draggable-event="{ title: event.title }">{{event.title}}</div>
-                            </div>
-                        </div>
-
-                        <div data-full-calendar="{ droppable: true, removeDroppedEvent: true }" class="col-sm-9"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
+        <button class="btn-success btn btn-large" ng-click="showSideboxRight=!showSideboxRight" ng-init="showSideboxRight=false">Filters</button>
+        <div id="calendar"  class="calendar"></div>
     </div>
+</div>
 
-</div> <!-- container -->
+<!-- FILTERS SIDEBOX -->
+<div sideboxright="" show-sidebox-right="showFilterBar" inner-template-url="{{GLOBAL_CONFIG.app.modules.events.urls.partials}}pages/events-filters.html" ng-controller="eventsFiltersCtrl"></div>
+
+
+<!-- POPOVER TEMPLATE -->
+<script type="text/ng-template" id="event-popover-lg.html">
+    <div class="row">
+        <div class="col-xs-2">
+<a class="btn btn-info btn-xs" ng-disabled="disabled" href="#/home/conference/{{currentMainEvent.id}}/events/new/">
+    <i class="fa fa-plus"></i> Add to cal
+</a>
+        </div>
+        <div style="float:right" class="col-xs-2">
+            <a class="btn btn-success btn-xs"  ng-click="editCalEvent(currentCalEvent)">
+                <i class="fa fa-plus"></i> {{ 'global.actions.edit' | translate }}
+            </a>
+        </div>
+    </div>
+    <hr>
+      <p>{{currentCalEvent.description }}</p>
+      <img ng-if="currentCalEvent.img" ng-src=">{{currentCalEvent.img}}" class="img-responsive">{{currentCalEvent.description }}</p>
+
+    <div ng-repeat="i in [1]">{{i}}</div>
+      <div ng-repeat="role in currentCalEvent.roles track by $index">
+          <h2>{{role}}</h2>
+          <h2>{{role}}</h2>
+      </div>
+</script>

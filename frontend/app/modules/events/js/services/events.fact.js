@@ -32,11 +32,12 @@ angular.module('eventsApp').factory('eventsFact',
                 'endAt'      : object.endAt,
                 'startAt'    : object.startAt,
                 'mainEvent'  : object.mainEvent ? {id: object.mainEvent.id} : undefined,
-                'roles'      : object.roles,
+                'roles'      : [],
                 'category'   : object.category ? {id: object.category.id} : undefined,
                 'comment'    : object.comment,
                 'description': object.description,
                 'dtype'      : object.dtype,
+                'allDay'     : object.allDay,
                 'facebook'   : object.facebook,
                 'papers'     : [],
                 'priority'   : object.priority,
@@ -51,6 +52,15 @@ angular.module('eventsApp').factory('eventsFact',
                 for (var i = 0; i < object.topics.length; i++)
                 {
                     DTObject.topics.push({id: object.topics[i].id});
+                }
+            }
+
+
+            //Serialize roles
+            if(object.roles){
+                for (var i = 0; i < object.roles.length; i++)
+                {
+                    DTObject.roles.push({id: object.roles[i].id});
                 }
             }
 

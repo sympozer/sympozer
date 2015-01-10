@@ -59,7 +59,7 @@ class Role
      *
      * @Expose
      * @Groups({"list"})
-     * @MaxDepth(1)
+     * @MaxDepth(2)
      *
      * @Importer(uniqField="email", targetEntity="fibe\CommunityBundle\Entity\Person")
      */
@@ -86,7 +86,7 @@ class Role
      * @Expose
      * @SerializedName("roleLabel")
      * @Groups({"list"})
-     * @MaxDepth(1)
+     * @MaxDepth(2)
      *
      * @Importer(uniqField="label", targetEntity="fibe\ContentBundle\Entity\RoleLabel")
      */

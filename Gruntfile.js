@@ -536,12 +536,29 @@ module.exports = function (grunt)
 
         ngtemplates: {
             app: {
-                src    : '<%= yeoman.tmp %>/**/*.html',
-                dest   : '<%= yeoman.dist %>/templates/templates.js',
+                src: '<%= yeoman.app %>/partials/**/*.html',
+                dest: '<%= yeoman.dist %>/templates/app-templates.js',
                 options: {
-                    url      : function (url)
-                    {
-                        return  url.replace('frontend/.tmp/templates/app/', 'http://localhost/sympozer/frontend/dist/');
+                    url: function (url) {
+//                        return  url.replace('frontend/.tmp/templates/app/', 'http://localhost/sympozer/frontend/dist/templates');
+                        return  url.replace('frontend/app/', 'http://localhost/frontend/dist/');
+                        //return url;
+                    },
+                    bootstrap: function (module, script) {
+                        return "angular.module('sympozerApp', []).run(['$templateCache', function ($templateCache) {\n" + script + "}])";
+                    }
+                }
+            },
+
+            modules : {
+                src: '<%= yeoman.app %>/modules/**/*.html',
+                dest: '<%= yeoman.dist %>/templates/modules-templates.js',
+                options: {
+                    url: function (url) {
+                        // return  url.replace('frontend/.tmp/templates/app/', 'http://localhost/sympozer/frontend/dist/templates');
+                        return  url.replace('frontend/app/', 'http://localhost/frontend/dist/');
+
+                       // return url;
                     },
                     bootstrap: function (module, script)
                     {
@@ -764,6 +781,7 @@ module.exports = function (grunt)
         'bowerInstall',
         'htmlmin:tmp',
         'ngtemplates:app',
+        'ngtemplates:modules',
         'useminPrepare',
         'concurrent:dist',
         'less:dist',

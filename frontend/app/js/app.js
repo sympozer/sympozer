@@ -36,28 +36,7 @@ angular.module('contextualizationApp', ['mainEventsApp']).run(function (contextF
 });
 
 
-/**
- * Main App Module from SYMPOZER
- *
- * @type {module}
- */
-//var sympozerApp = angular.module('sympozerApp', [
-//    'ngRoute',
-//    'ui.bootstrap',
-//    'ui.bootstrap.modal',
-//    'ngAnimate',
-//    'ngResource',
-//    'ngCookies',
-//    'angular-loading-bar',
-//    'ngCachedResource',
-//
-//    'angularMoment',
-//    'ui.bootstrap.datetimepicker',
-//    'ngSanitize',
-//    'ui.select',
-//    'xeditable',
-//    'colorpicker.module'
-//]);
+
 
 /**
  * Main Sympozer Angular app depedencies
@@ -72,7 +51,7 @@ var sympozerApp = angular.module('sympozerApp', [
     'ngGrid',
     'xeditable',
     'flow',
-
+    'angularMoment',
     'ngCookies',
     'ngResource',
     'ngSanitize',
@@ -85,7 +64,6 @@ var sympozerApp = angular.module('sympozerApp', [
     'importApp',
     'contextualizationApp',
     'i18nApp',
-
     'organizationsApp',
     'personsApp',
     'topicsApp',
