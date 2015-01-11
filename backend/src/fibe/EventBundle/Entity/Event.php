@@ -32,7 +32,6 @@ class Event extends VEvent
      *
      * @ORM\ManyToOne(targetEntity="Category", inversedBy="events")
      * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
-     * @Expose
      * @Groups({"list"})
      */
     protected $category;
@@ -51,7 +50,6 @@ class Event extends VEvent
      *
      * @ORM\ManyToOne(targetEntity="fibe\EventBundle\Entity\Event", inversedBy="children", cascade={"persist","detach"})
      * @ORM\JoinColumn(name="parent_id", referencedColumnName="id", onDelete="SET NULL", nullable=true)
-     * @Expose
      */
     protected $parent;
     /**
@@ -93,7 +91,6 @@ class Event extends VEvent
      * @Expose
      * @SerializedName("mainEvent")
      * @Groups({"list"})
-     * @MaxDepth(1)
      */
     protected $mainEvent;
     /**
@@ -107,7 +104,6 @@ class Event extends VEvent
      * @ORM\JoinTable(name="event_paper",
      *     joinColumns={@ORM\JoinColumn(name="event_id", referencedColumnName="id")},
      *     inverseJoinColumns={@ORM\JoinColumn(name="paper_id", referencedColumnName="id")})
-     * @Expose
      * @MaxDepth(1)
      */
     protected $papers;
@@ -178,6 +174,22 @@ class Event extends VEvent
     }
 
     /**
+     * @return mixed
+     */
+    public function getLabel()
+    {
+        return $this->label;
+    }
+
+    /**
+     * @param mixed $label
+     */
+    public function setLabel($label)
+    {
+        $this->label = $label;
+    }
+
+    /**
      * Has children
      *
      * @return \Doctrine\Common\Collections\Collection
@@ -186,8 +198,6 @@ class Event extends VEvent
     {
         return count($this->children) != 0;
     }
-
-
 
     /**
      * Get slug
@@ -459,22 +469,6 @@ class Event extends VEvent
     public function setStartAt($startAt)
     {
         $this->startAt = $startAt;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getLabel()
-    {
-        return $this->label;
-    }
-
-    /**
-     * @param mixed $label
-     */
-    public function setLabel($label)
-    {
-        $this->label = $label;
     }
 
 
