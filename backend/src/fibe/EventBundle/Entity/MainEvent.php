@@ -51,7 +51,7 @@ class MainEvent extends VEvent
      * Events
      *
      * @ORM\OneToMany(targetEntity="fibe\EventBundle\Entity\Event", mappedBy="mainEvent",cascade={"persist", "remove"})
-     * @MaxDepth(2)
+     * @MaxDepth(3)
      * @Expose
      */
     private $events;
@@ -85,22 +85,6 @@ class MainEvent extends VEvent
     private $startAt;
 
 
-
-    /**
-     * @return mixed
-     */
-    public function getStartAt()
-    {
-        return $this->startAt;
-    }
-
-    /**
-     * @param mixed $startAt
-     */
-    public function setStartAt($startAt)
-    {
-        $this->startAt = $startAt;
-    }
     /**
      * dtend
      *
@@ -530,6 +514,23 @@ class MainEvent extends VEvent
         $this->endAt = $endAt;
     }
 
+
+
+    /**
+     * @return mixed
+     */
+    public function getStartAt()
+    {
+        return $this->startAt;
+    }
+
+    /**
+     * @param mixed $startAt
+     */
+    public function setStartAt($startAt)
+    {
+        $this->startAt = $startAt;
+    }
 
 }
 

@@ -93,7 +93,7 @@ class Event extends VEvent
      * @Expose
      * @SerializedName("mainEvent")
      * @Groups({"list"})
-     * @MaxDepth(1)
+     * @MaxDepth(3)
      */
     protected $mainEvent;
     /**

@@ -1,133 +1,136 @@
 <!DOCTYPE html>
 <html>
 <head lang="en">
-  <meta charset="utf-8">
-  <title>Sympozer</title>
+    <meta charset="utf-8">
+    <title>Sympozer</title>
 
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Sympozer">
-  <meta name="author" content="Benoît Durant de la pastellière">
-  <meta name="author" content="Lionel Médini">
-  <meta name="author" content="Vincent Sebille">
-  <meta name="author" content="Brice Buffa">
-  <meta name="author" content="Fiona Le peutrec">
-  <meta name="author" content="Florian Bacle">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sympozer">
+    <meta name="author" content="Benoît Durant de la pastellière">
+    <meta name="author" content="Lionel Médini">
+    <meta name="author" content="Vincent Sebille">
+    <meta name="author" content="Brice Buffa">
+    <meta name="author" content="Fiona Le peutrec">
+    <meta name="author" content="Florian Bacle">
 
-  <!-- Favicons -->
-  <link rel="icon" type="image/png" sizes="192x192" href="favicon.ico">
-  <link rel="icon" type="image/png" sizes="160x160" href="favicon.ico">
-  <link rel="icon" type="image/png" sizes="96x96" href="favicon.ico">
-  <link rel="icon" type="image/png" sizes="16x16" href="favicon.ico">
-  <link rel="icon" type="image/png" sizes="32x32" href="favicon.ico">
+    <!-- Favicons -->
+    <link rel="icon" type="image/png" sizes="192x192" href="favicon.ico">
+    <link rel="icon" type="image/png" sizes="160x160" href="favicon.ico">
+    <link rel="icon" type="image/png" sizes="96x96" href="favicon.ico">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon.ico">
 
-  <!-- prochtml:remove:dist -->
-  <link href="assets/less/styles.less" rel="stylesheet/less" media="all">
-  <!-- /prochtml -->
+    <!-- prochtml:remove:dist -->
+    <link href="assets/less/styles.less" rel="stylesheet/less" media="all">
+    <!-- /prochtml -->
 
-  <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries. Placeholdr.js enables the placeholder attribute -->
-  <!--[if lt IE 9]>
-  <link rel="stylesheet" href="assets/css/ie8.css">
-  <script type="text/javascript" src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-  <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/respond.js/1.1.0/respond.min.js"></script>
-  <script type="text/javascript" src="assets/plugins/charts-flot/excanvas.min.js"></script>
-  <script type='text/javascript' src='bower/placeholdr/placeholdr.min.js'></script>
-  <![endif]-->
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries. Placeholdr.js enables the placeholder attribute -->
+    <!--[if lt IE 9]>
+    <link rel="stylesheet" href="assets/css/ie8.css">
+    <script type="text/javascript" src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/respond.js/1.1.0/respond.min.js"></script>
+    <script type="text/javascript" src="assets/plugins/charts-flot/excanvas.min.js"></script>
+    <script type='text/javascript' src='bower/placeholdr/placeholdr.min.js'></script>
+    <![endif]-->
 
-  <!--[if IE 9]>
-  <script type="text/javascript" src="assets/plugins/misc/media.match.min.js"></script>
-  <![endif]-->
+    <!--[if IE 9]>
+    <script type="text/javascript" src="assets/plugins/misc/media.match.min.js"></script>
+    <![endif]-->
 
-  <!-- The following CSS are included as plugins and can be removed if unused-->
+    <!-- The following CSS are included as plugins and can be removed if unused-->
 
-  <!-- build:css assets/css/vendor.css -->
-  <!-- bower:css -->
-  <link rel="stylesheet" href="bower/font-awesome/css/font-awesome.css"/>
-  <link rel="stylesheet" href="bower/seiyria-bootstrap-slider/dist/css/bootstrap-slider.min.css"/>
-  <link rel="stylesheet" href="bower/angular-ui-tree/dist/angular-ui-tree.min.css"/>
-  <link rel="stylesheet" href="bower/angular-toggle-switch/angular-toggle-switch.css"/>
-  <link rel="stylesheet" href="bower/ng-grid/ng-grid.css"/>
-  <link rel="stylesheet" href="bower/angular-xeditable/dist/css/xeditable.css"/>
-  <link rel="stylesheet" href="bower/select2/select2.css"/>
-  <link rel="stylesheet" href="bower/jScrollPane/style/jquery.jscrollpane.css"/>
-  <link rel="stylesheet" href="bower/pnotify/pnotify.core.css"/>
-  <link rel="stylesheet" href="bower/pnotify/pnotify.buttons.css"/>
-  <link rel="stylesheet" href="bower/pnotify/pnotify.history.css"/>
-  <link rel="stylesheet" href="bower/bootstrap-social/bootstrap-social.css"/>
-  <link rel="stylesheet" href="bower/bootstrap-tags/dist/css/bootstrap-tags.css"/>
-  <!-- endbower -->
+    <!-- build:css assets/css/vendor.css -->
+    <!-- bower:css -->
+    <link rel="stylesheet" href="bower/font-awesome/css/font-awesome.css" />
+    <link rel="stylesheet" href="bower/seiyria-bootstrap-slider/dist/css/bootstrap-slider.min.css" />
+    <link rel="stylesheet" href="bower/angular-ui-tree/dist/angular-ui-tree.min.css" />
+    <link rel="stylesheet" href="bower/angular-toggle-switch/angular-toggle-switch.css" />
+    <link rel="stylesheet" href="bower/ng-grid/ng-grid.css" />
+    <link rel="stylesheet" href="bower/angular-xeditable/dist/css/xeditable.css" />
+    <link rel="stylesheet" href="bower/select2/select2.css" />
+    <link rel="stylesheet" href="bower/jScrollPane/style/jquery.jscrollpane.css" />
+    <link rel="stylesheet" href="bower/pnotify/pnotify.core.css" />
+    <link rel="stylesheet" href="bower/pnotify/pnotify.buttons.css" />
+    <link rel="stylesheet" href="bower/pnotify/pnotify.history.css" />
+    <link rel="stylesheet" href="bower/bootstrap-social/bootstrap-social.css" />
+    <link rel="stylesheet" href="bower/bootstrap-tags/dist/css/bootstrap-tags.css" />
+    <!-- endbower -->
 
-  <link rel='stylesheet' type='text/css' href='assets/plugins/icheck/all.css'/>
-  <link rel='stylesheet' type='text/css' href='assets/plugins/form-multiselect/css/multi-select.css'/>
-  <link rel='stylesheet' type='text/css' href='assets/plugins/form-fseditor/fseditor.css'/>
-  <link rel='stylesheet' type='text/css' href='assets/plugins/form-tokenfield/bootstrap-tokenfield.css'/>
-  <link rel='stylesheet' type='text/css' href='assets/plugins/datepaginator/bootstrap-datepaginator.css'/>
-  <link rel='stylesheet' type='text/css' href='assets/plugins/jquery-fileupload/css/jquery.fileupload-ui.css'/>
-  <link rel='stylesheet' type='text/css' href='assets/plugins/bootstro.js/bootstro.min.css'/>
-  <link rel='stylesheet' type='text/css' href='assets/plugins/progress-skylo/skylo.css'/>
-  <link rel='stylesheet' type='text/css' href='assets/plugins/jcrop/css/jquery.Jcrop.min.css'/>
-  <link rel='stylesheet' type='text/css' href='assets/plugins/form-daterangepicker/daterangepicker-bs3.css'/>
-  <link rel='stylesheet' type='text/css' href='assets/plugins/form-markdown/css/bootstrap-markdown.min.css'/>
-  <link rel='stylesheet' type='text/css' href='assets/plugins/codeprettifier/prettify.css'/>
-  <link rel='stylesheet' type='text/css' href='assets/plugins/form-select2/select2.css'/>
-  <link rel='stylesheet' type='text/css' href='assets/plugins/fullcalendar/fullcalendar.css'/>
-  <!-- endbuild -->
+    <link rel='stylesheet' type='text/css' href='assets/plugins/icheck/all.css'/>
+    <link rel='stylesheet' type='text/css' href='assets/plugins/form-multiselect/css/multi-select.css'/>
+    <link rel='stylesheet' type='text/css' href='assets/plugins/form-fseditor/fseditor.css'/>
+    <link rel='stylesheet' type='text/css' href='assets/plugins/form-tokenfield/bootstrap-tokenfield.css'/>
+    <link rel='stylesheet' type='text/css' href='assets/plugins/datepaginator/bootstrap-datepaginator.css'/>
+    <link rel='stylesheet' type='text/css' href='assets/plugins/jquery-fileupload/css/jquery.fileupload-ui.css'/>
+    <link rel='stylesheet' type='text/css' href='assets/plugins/bootstro.js/bootstro.min.css'/>
+    <link rel='stylesheet' type='text/css' href='assets/plugins/progress-skylo/skylo.css'/>
+    <link rel='stylesheet' type='text/css' href='assets/plugins/jcrop/css/jquery.Jcrop.min.css'/>
+    <link rel='stylesheet' type='text/css' href='assets/plugins/form-daterangepicker/daterangepicker-bs3.css'/>
+    <link rel='stylesheet' type='text/css' href='assets/plugins/form-markdown/css/bootstrap-markdown.min.css'/>
+    <link rel='stylesheet' type='text/css' href='assets/plugins/codeprettifier/prettify.css'/>
+    <link rel='stylesheet' type='text/css' href='assets/plugins/form-select2/select2.css'/>
+    <link rel='stylesheet' type='text/css' href='assets/plugins/fullcalendar/fullcalendar.css'/>
+    <!-- endbuild -->
 
-  <!-- prochtml:remove:dist -->
-  <script type="text/javascript">less = {};
-  less.env = 'development';</script>
-  <script type="text/javascript" src="assets/plugins/misc/less.js"></script>
-  <!-- /prochtml -->
+    <!-- Sympozer styles -->
+    <link rel='stylesheet' type='text/css' href="assets/css/styles.css"/>
 
-  <style type="text/css">
-    [ng-cloak]
-    {
-      display: none;
-    }
+    <!-- prochtml:remove:dist -->
+    <script type="text/javascript">less = {};
+    less.env = 'development';</script>
+    <script type="text/javascript" src="assets/plugins/misc/less.js"></script>
+    <!-- /prochtml -->
 
-    .topNegative1000
-    {
-      top: -1000px !important;
-    }
+    <style type="text/css">
+        [ng-cloak]
+        {
+            display: none;
+        }
 
-    .topZero
-    {
-      top: 0 !important;
-    }
+        .topNegative1000
+        {
+            top: -1000px !important;
+        }
 
-    .mainview-animation
-    {
-      position: relative;
-    }
+        .topZero
+        {
+            top: 0 !important;
+        }
 
-    .mainview-animation.ng-enter
-    {
-      -webkit-transition: .3s linear all; /* Safari/Chrome */
-      -moz-transition: .3s linear all; /* Firefox */
-      -o-transition: .3s linear all; /* Opera */
-      transition: .3s linear all; /* IE10+ and Future Browsers */
-    }
+        .mainview-animation
+        {
+            position: relative;
+        }
 
-    .mainview-animation.ng-enter
-    {
-      opacity: 0;
-    }
+        .mainview-animation.ng-enter
+        {
+            -webkit-transition: .3s linear all; /* Safari/Chrome */
+            -moz-transition: .3s linear all; /* Firefox */
+            -o-transition: .3s linear all; /* Opera */
+            transition: .3s linear all; /* IE10+ and Future Browsers */
+        }
 
-    .mainview-animation.ng-enter.ng-enter-active
-    {
-      opacity: 1;
-    }
+        .mainview-animation.ng-enter
+        {
+            opacity: 0;
+        }
 
-    .navbar.navbar-default.ng-hide
-    {
-      display: none;
-    }
+        .mainview-animation.ng-enter.ng-enter-active
+        {
+            opacity: 1;
+        }
 
-    .fc-grid .fc-day-number
-    {
-      padding: 5px 6px;
-    }
-  </style>
+        .navbar.navbar-default.ng-hide
+        {
+            display: none;
+        }
+
+        .fc-grid .fc-day-number
+        {
+            padding: 5px 6px;
+        }
+    </style>
 
 
 </head>
