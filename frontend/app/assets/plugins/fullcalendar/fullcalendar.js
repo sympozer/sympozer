@@ -11,7 +11,8 @@
     else {
         factory(jQuery, moment);
     }
-})(function($, moment) {
+})//Spac added by FLO
+(function($, moment) {
 
     ;;
 

@@ -38,7 +38,7 @@ angular.module('mainEventsApp').controller('mainEventsShowCtrl', [ '$scope', '$r
     }
 
     //Send get request to server to fetch mainEvent
-    $scope.mainEvent = mainEventsFact.get({id: $routeParams.mainEventId}, success, error);
+    $scope.mainEvent = mainEventsFact.get({id: $routeParams.mainEventId}, success);
 
     //Context change
     contextFact.changeContext($routeParams.mainEventId);

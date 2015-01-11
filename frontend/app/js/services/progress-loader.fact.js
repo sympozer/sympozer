@@ -7,15 +7,22 @@ angular.module('sympozerApp').factory('progressLoader', function ()
     return {
         start: function ()
         {
-            $(document).skylo('start');
+            if(this.isLoaded()) {
+                $(document).skylo('start');
+            }
         },
         set: function (position)
         {
-            $(document).skylo('set', position);
+            if(this.isLoaded()) {
+                $(document).skylo('set', position);
+            }
         },
         end: function ()
         {
-            $(document).skylo('end');
+            if(this.isLoaded()){
+                $(document).skylo('end');
+
+            }
         },
         get: function ()
         {
@@ -23,10 +30,15 @@ angular.module('sympozerApp').factory('progressLoader', function ()
         },
         inch: function (amount)
         {
-            $(document).skylo('show', function ()
-            {
-                $(document).skylo('inch', amount);
-            });
+            if(this.isLoaded()) {
+
+                $(document).skylo('show', function () {
+                    $(document).skylo('inch', amount);
+                });
+            }
+        },
+        isLoaded : function(){
+            return  $(document).skylo;
         }
     }
 
