@@ -3,9 +3,9 @@ namespace fibe\ImportBundle\Services;
 
 use Doctrine\Common\Annotations\Reader;
 use Doctrine\ORM\EntityManagerInterface;
-use fibe\ContentBundle\Exception\SympozerImportErrorException;
 use fibe\EventBundle\Entity\MainEvent;
 use fibe\ImportBundle\Annotation\Importer;
+use fibe\ImportBundle\Exception\SympozerImportErrorException;
 use fibe\SecurityBundle\Services\Acl\ACLHelper;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\SecurityContextInterface;
@@ -17,7 +17,6 @@ use Symfony\Component\Security\Core\SecurityContextInterface;
 class ImportService
 {
     const IMPORT_ALL = "all";
-    const IMPORTER_ANNOTATION = 'fibe\\ContentBundle\\Annotation\\Importer';
 
     function __construct(SecurityContextInterface $security, Reader $reader)
     {
@@ -53,7 +52,7 @@ class ImportService
                 )
             );
         }
-        $header = $this->getImportConfigFromShortClassName($shortClassName, $mainEvent);
+        $header = $this->getImportConfigFromShortClassName($shortClassName);
 
         $return = array("errors" => array(), "imported" => 0);
         //loop over received rows
@@ -95,6 +94,7 @@ class ImportService
                                     $value
                                 ),
                                 $i + 1,
+                                $j + 1,
                                 (string) $fieldConfig,
                                 $value);
                         }
@@ -107,13 +107,19 @@ class ImportService
                     $entityInstance->$setter($value);
                 }
 
+                $return["entities"][] = $entityInstance;
                 $return["imported"]++;
             }
             catch (SympozerImportErrorException $ex)
             {
-                $return["errors"][] = array(
+                if (!isset($return["errors"][$ex->getLine()]))
+                {
+                    $return["errors"][$ex->getLine()] = array();
+                }
+                $return["errors"][$ex->getLine()][$ex->getColumnNb()] = array(
                     "line"   => $ex->getLine(),
                     "column" => $ex->getColumn(),
+                    "columnNb" => $ex->getColumnNb(),
                     "value"  => $ex->getValue(),
                     "msg"    => $ex->getMessage()
                 );
@@ -132,45 +138,40 @@ class ImportService
         throw new \Exception("$shortClassName' is not configured to be imported");
     }
 
-    public function getImportConfigFromShortClassName($shortClassName, MainEvent $mainEvent, $asString = false)
+    public function getImportConfigFromShortClassName($shortClassName, $asString = false)
     {
-        //create a new entity
-        $entityClassName = $this->getClassNameFromShortClassName($shortClassName);
-        $entity = new $entityClassName();
-        $entity->setMainEvent($mainEvent);
-
         $className = $this->getClassNameFromShortClassName($shortClassName);
 
-        $importFields = getImportConfig($className, $this->reader, $asString);
+        $importFields = $this->getImportConfig($className, $this->reader, $asString);
 
         return $importFields;
+    }
 
-        function getImportConfig($entityClassName, Reader $reader, $asString)
+    protected function getImportConfig($entityClassName, Reader $reader, $asString)
+    {
+        $importFields = [];
+        $importerAnnotationClass = get_class(new Importer());
+
+        $reflectionObject = new \ReflectionObject(new $entityClassName());
+        foreach ($reflectionObject->getProperties() as $reflectionProperty)
         {
-            $importFields = [];
-            $importerAnnotationClass = self::IMPORTER_ANNOTATION;;
-
-            $reflectionObject = new \ReflectionObject(new $entityClassName());
-            foreach ($reflectionObject->getProperties() as $reflectionProperty)
+            /** @var Importer $importerAnnot */
+            $importerAnnot = $reader->getPropertyAnnotation($reflectionProperty, $importerAnnotationClass);
+            if (null !== $importerAnnot)
             {
-                /** @var Importer $importerAnnot */
-                $importerAnnot = $reader->getPropertyAnnotation($reflectionProperty, $importerAnnotationClass);
-                if (null !== $importerAnnot)
+                $importerAnnot->propertyName = $reflectionProperty->getName();
+                if ($asString)
                 {
-                    $importerAnnot->propertyName = $reflectionProperty->getName();
-                    if ($asString)
-                    {
-                        $fieldName = (string) $importerAnnot; //call __toString()
-                    }
-                    else
-                    {
-                        $fieldName = $importerAnnot;
-                    }
-                    $importFields[] = $fieldName;
+                    $fieldName = (string) $importerAnnot; //call __toString()
                 }
+                else
+                {
+                    $fieldName = $importerAnnot;
+                }
+                $importFields[] = $fieldName;
             }
-
-            return $importFields;
         }
+
+        return $importFields;
     }
 }
