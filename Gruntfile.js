@@ -745,7 +745,7 @@ module.exports = function (grunt)
 
     grunt.registerTask('dev', ['reset_db', 'update_dependencies', 'open:devserver']);
 
-    grunt.registerTask('update', ['update_db', 'update_dependencies']);
+    grunt.registerTask('update', ['update_db', 'update_dependencies',  'sf2-console:copy_ws_config']);
 
 
     /** PRODUCTION **/
