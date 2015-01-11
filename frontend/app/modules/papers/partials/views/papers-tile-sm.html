@@ -6,7 +6,9 @@
 
             </div>
             <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                <a ng-if="!edit" class="btn btn-default btn-xs" href="#/home/conference/{{ paper.mainEvent.id }}/papers/show/{{ paper.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>
+                <a ng-if="!edit && paper.mainEvent.id" class="btn btn-default btn-xs" href="#/home/conference/{{ paper.mainEvent.id }}/papers/show/{{ paper.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>
+                <!-- Fallback to current main event if no main event (mandatory for displaying event in the main event show page because of serialization infinite loop problem)-->
+                <a ng-if="!edit && !paper.mainEvent.id" class="btn btn-default btn-xs" href="#/home/conference/{{ currentMainEvent.id }}/papers/show/{{ paper.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>
                 <button  ng-if="edit" class="btn btn-danger btn-xs" ng-click="deletePaper($index)">
                     <i class="fa fa-close"></i>
                 </button>

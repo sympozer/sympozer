@@ -142,7 +142,10 @@
                   </a>
                 </panel-controls>
                 <div class="row">
-                  <div sympozer-with-locals locals-topics="mainEvent.topics" ng-include="GLOBAL_CONFIG.app.modules.topics.urls.partials+'views/topics-list-thumbnail-xs.html'"></div>
+                    <!-- @TODO find a better way to aggregate all topic of a conference-->
+                        <div sympozer-with-locals locals-events-topics="topics" ng-include="GLOBAL_CONFIG.app.modules.topics.urls.partials+'views/topics-list-thumbnail-xs.html'"></div>
+
+
                 </div>
               </panel>
             </div>
