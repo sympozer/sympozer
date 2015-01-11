@@ -64,7 +64,7 @@ class PersonService extends AbstractBusinessService
       //add the current logged user as "godfather"
       $person->setInvitedBy($user->getPerson());
     }
-    $this->$aclHelper->performUpdateUserACL($user, MaskBuilder::MASK_OWNER, $person);
+      $this->aclHelper->performUpdateUserACL($user, MaskBuilder::MASK_OWNER, $person);
 
     $this->mailer->sendConfirmationEmailMessage($newUser);
   }
