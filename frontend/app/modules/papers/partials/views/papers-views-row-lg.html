@@ -9,7 +9,7 @@
     <!-- @TODO : TRANSLATE DATE -->
     <h5 class="col-lg-8 col-md-12" ng-if="paper.authors">
         {{ (paper.authors.length > 1) ? 'papers.labels.authors' : 'papers.labels.author' | translate }}
-        <em ng-repeat="author in paper.authors">{{ author }}{{$last ? '' : ', '}}</em>
+        <em ng-repeat="author in paper.authors">{{ author.label }}{{$last ? '' : ', '}}</em>
     </h5>
     <h6 class="{{ paper.authors ? 'col-lg-4 col-md-12 ' : '' }}text-right-lg" ng-if="paper.publisher || paper.publishDate">
         <em ng-if="paper.publisher">{{'papers.labels.publishedBy' | translate }} {{ paper.publisher }} </em>
