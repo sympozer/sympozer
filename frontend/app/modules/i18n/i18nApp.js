@@ -200,7 +200,10 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 endAt  : 'End at',
                 description: 'Description',
                 logo   : 'Logo',
-                'url'  : 'Url'
+                'url'  : 'Url',
+                'twitterid' : 'Twitter',
+                'chkTimeline' : 'Timeline',
+                'chkSocial' : 'Social',
             }
         },
 
@@ -792,7 +795,10 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 endAt  : 'Fin',
                 description: 'Description',
                 logo   : 'Logo',
-                'url'  : 'Lien'
+                'url'  : 'Lien',
+                'twitterid' : 'Twitter',
+                'chkTimeline' : 'Timeline',
+                'chkSocial' : 'Social',
             }
         },
 

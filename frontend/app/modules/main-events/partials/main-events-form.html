@@ -28,6 +28,25 @@
         <input type="url" class="form-control" id="inputUrl" placeholder="http://..." ng-model="conference.url">
     </div>
 </div>
+<div class="form-group">
+    <label class="col-sm-3 control-label" for="inputTwitterid">{{ 'mainEvents.model.twitterid' | translate}}</label>
+    <div class="col-sm-6">
+        <input type="url" class="form-control" id="inputTwitterid" placeholder="{{conference.twitterid}}" ng-model="conference.twitterid">
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-sm-3 control-label" for="inputChkSocial">{{ 'mainEvents.model.chkSocial' | translate}}</label>
+    <div class="col-sm-6">
+        <input type="url" class="form-control" id="inputChkSocial" placeholder="{{conference.chkSocial}}" ng-model="conference.chkSocial">
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-sm-3 control-label" for="inputChkTimeline">{{ 'mainEvents.model.chkTimeline' | translate}}</label>
+    <div class="col-sm-6">
+        <input type="url" class="form-control" id="inputChkTimeline" placeholder="{{conference.chkTimeline}}" ng-model="conference.chkTimeline">
+    </div>
+</div>
+
 
 
 <h2>{{ 'mainEvents.labels.time_localization' | translate}}</h2>
