@@ -8,7 +8,7 @@
   <div class="options">
     <div class="btn-toolbar">
       <!--@TODO : add ACL-->
-      <button ng-controller="importCtrl" ng-click="startImport()" class="btn btn-info" title="{{ 'import.import' | translate}}">
+      <button ng-controller="importCtrl" disabled="disabled" ng-click="startImport()" class="btn btn-info" title="{{ 'import.import' | translate}}">
         <i class="fa fa-caret-square-o-down"></i>
         <span class="visible-sm-inline visible-lg-inline visible-md-inline"> {{ 'import.import' | translate}}</span>
       </button>
@@ -135,7 +135,7 @@
               </panel>
 
 
-              <panel panel-class="panel panel-gray" heading="{{mainEvent.topics.length}} {{'topics.links.topics' | translate }}">
+              <panel panel-class="panel panel-gray" heading="{{mainEventTopics.count}} {{'topics.links.topics' | translate }}">
                 <panel-controls>
                   <a href="">
                     <panel-control-collapse class="fa fa-chevron-down"></panel-control-collapse>
@@ -143,9 +143,7 @@
                 </panel-controls>
                 <div class="row">
                     <!-- @TODO find a better way to aggregate all topic of a conference-->
-                        <div sympozer-with-locals locals-events-topics="topics" ng-include="GLOBAL_CONFIG.app.modules.topics.urls.partials+'views/topics-list-thumbnail-xs.html'"></div>
-
-
+                        <div sympozer-with-locals locals-topics="mainEventTopics.results" ng-include="GLOBAL_CONFIG.app.modules.topics.urls.partials+'views/topics-list-thumbnail-xs.html'"></div>
                 </div>
               </panel>
             </div>

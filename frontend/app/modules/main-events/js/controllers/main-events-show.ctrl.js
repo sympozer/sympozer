@@ -46,7 +46,7 @@ angular.module('mainEventsApp').controller('mainEventsShowCtrl', [ '$scope', '$r
     $scope.mainEvent = mainEventsFact.get({id: $routeParams.mainEventId}, success);
 
     //Send get request to server to fetch mainEvent events and papers topics
-    $scope.mainEventTopics = topicsFact.allByConference({id: $routeParams.mainEventId});
+    $scope.mainEventTopics = topicsFact.allByConference({'mainEventId': $routeParams.mainEventId});
 
     //Context change
     contextFact.changeContext($routeParams.mainEventId);

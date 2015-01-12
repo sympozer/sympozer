@@ -90,11 +90,29 @@
 
                                     <!--<datepicker style="width:50px" ng-model="mainEvent.startAt" min-date="minDate" show-weeks="true" class="datepicker" datepicker-options="dateOptions"></datepicker>-->
                                     <!--<datepicker ng-model="mainEvent.endAte" min-date="minDate" show-weeks="true" class="datepicker" datepicker-options="dateOptions"></datepicker>-->
-                                    <h3>{{ 'mainEvents.labels.from' | translate}} :<a editable-date="mainEvent.startAt" onbeforesave="onSelectStart($data)" > {{ (mainEvent.startAt | date:"shortDate") || '?' }}</a></h3>
-                                    <div class="alert alert-danger" role="alert" ng-show="mainEvent.startAt > mainEvent.endAt">{{ 'mainEvents.validations.end_date_after_start' | translate}}</div>
-                                    <h3>{{ 'mainEvents.labels.to' | translate}} :<a editable-date="mainEvent.endAt" onbeforesave="onSelectEnd($data)"> {{ (mainEvent.endAt | date:"shortDate") || '?' }}</a></h3>
-                                    <div class="alert alert-danger" role="alert" ng-show="mainEvent.startAt > mainEvent.endAt">{{ 'mainEvents.validations.start_date_before_end' | translate}}</div>
+                                    <div class="row">
+                                        <div class="col-xs-3">
+                                            <p>{{ 'mainEvents.labels.from' | translate}} :</p>
 
+                                        </div>
+                                        <div class="col-xs-9">
+                                            <input type="text" class="form-control datepicker" datepicker-popup="{{shortDate}}" ng-change="updateMainEvent('startAt',mainEvent.startAt)" ng-click="startAtOpened = !startAtOpened" ng-model="mainEvent.startAt" is-open="startAtOpened"   ng-required="true"/>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-xs-3">
+                                            <p>{{ 'mainEvents.labels.to' | translate}} :</p>
+                                        </div>
+                                        <div class="col-xs-9">
+                                            <input type="text" class="form-control datepicker" datepicker-popup="{{shortDate}}" ng-change="updateMainEvent('endAt',mainEvent.endAt)" ng-click="endAtOpened = !endAtOpened" ng-model="mainEvent.endAt" is-open="endAtOpened" min-date="mainEvent.startAt"  datepicker-options="dateOptions"  ng-required="true"/>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="alert alert-danger" role="alert" ng-show="mainEvent.startAt > mainEvent.endAt">{{ 'mainEvents.validations.end_date_after_start' | translate}}</div>
+                                    <div class="alert alert-danger" role="alert" ng-show="mainEvent.startAt > mainEvent.endAt">{{ 'mainEvents.validations.start_date_before_end' | translate}}</div>
+                                    <hr>
                                     <input google-place-autocomplete="" type="text" class="form-control"  on-select="setAddress" ng-model="mainEvent.location.label" /></td>
                                     <div style="height: 300px" gmap options="mapInstanceOption" instance="geoCodingMapInstance"></div>
                                 </div>
@@ -140,12 +158,15 @@
                             </panel>
 
 
-                            <panel panel-class="panel panel-gray" heading="{{mainEvent.topics.length}} {{'topics.links.topics' | translate }}">
+                            <panel panel-class="panel panel-gray" heading="{{mainEventTopics.count}} {{'topics.links.topics' | translate }}">
                                 <panel-controls>
-                                    <a href=""><panel-control-collapse class="fa fa-chevron-down"></panel-control-collapse></a>
+                                    <a href="">
+                                        <panel-control-collapse class="fa fa-chevron-down"></panel-control-collapse>
+                                    </a>
                                 </panel-controls>
                                 <div class="row">
-                                    <div sympozer-with-locals locals-topics="mainEvent.topics" ng-include="GLOBAL_CONFIG.app.modules.topics.urls.partials+'views/topics-list-thumbnail-xs.html'"></div>
+                                    <!-- @TODO find a better way to aggregate all topic of a conference-->
+                                    <div sympozer-with-locals locals-topics="mainEventTopics.results" ng-include="GLOBAL_CONFIG.app.modules.topics.urls.partials+'views/topics-list-thumbnail-xs.html'"></div>
                                 </div>
                             </panel>
                         </div>

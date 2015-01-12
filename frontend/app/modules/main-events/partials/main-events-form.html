@@ -37,10 +37,10 @@
 
     <div class="col-md-6">
         <div class="input-group">
-            <input type="text" class="form-control datepicker" datepicker-popup="{{format}}" ng-model="conference.startAt" is-open="startAtOpened" min-date="today"  datepicker-options="dateOptions"  ng-required="true"/>
+            <input type="text" class="form-control datepicker" datepicker-popup="{{shortDate}}" ng-model="conference.startAt" is-open="startAtOpened" ng-click="startAtOpened = !startAtOpened" min-date="today"  datepicker-options="dateOptions"  ng-required="true"/>
 
             <div class="input-group-btn">
-                <button type="button" class="btn btn-default" ng-click="openStartAtDatePicker($event)"><i class="fa fa-calendar"></i>
+                <button type="button" class="btn btn-default" ng-click="startAtOpened = !startAtOpened"><i class="fa fa-calendar"></i>
                 </button>
             </div>
         </div>
@@ -56,10 +56,10 @@
 
     <div class="col-md-6">
         <div class="input-group">
-            <input type="text" class="form-control datepicker" datepicker-popup="{{format}}" ng-model="conference.endAt" is-open="endAtOpened" min-date="conference.startAt"  datepicker-options="dateOptions"  ng-required="true"/>
+            <input type="text" class="form-control datepicker" datepicker-popup="{{shortDate}}" ng-model="conference.endAt" is-open="endAtOpened" ng-click="endAtOpened = !endAtOpened" min-date="conference.startAt"  datepicker-options="dateOptions"  ng-required="true"/>
 
             <div class="input-group-btn">
-                <button type="button" class="btn btn-default" ng-click="openEndAtDatePicker($event)"><i class="fa fa-calendar"></i>
+                <button type="button" class="btn btn-default" ng-click="endAtOpened = !endAtOpened" ><i class="fa fa-calendar"></i>
                 </button>
             </div>
         </div>

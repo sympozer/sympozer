@@ -22,28 +22,11 @@ angular.module('mainEventsApp').controller('mainEventsNewCtrl', [ '$scope', '$ro
     };
     $scope.toggleMin();
 
-    //Manage start at datepicker visibility
-    $scope.openStartAtDatePicker = function (event)
-    {
-        event.preventDefault();
-        event.stopPropagation();
-        $scope.startAtOpened = true;
-    };
 
-    //Manage end at datepicker visibility
-    $scope.openEndAtDatePicker = function (event)
-    {
-        event.preventDefault();
-        event.stopPropagation();
-        $scope.endAtOpened = true;
-    };
 
 
     //Set init date
     $scope.initDate = $scope.today;
-    //@TODO : Define one format
-    $scope.formats = ['shortDate', 'dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy'];
-    $scope.format = $scope.formats[0];
 
 
     //Mandatory for the map plugin gmap to work

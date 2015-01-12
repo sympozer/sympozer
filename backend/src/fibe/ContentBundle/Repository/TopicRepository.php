@@ -21,6 +21,14 @@ class TopicRepository extends EntityRepository
      */
     public function filter($qb, $params)
     {
+        if (isset($params['mainEventId'])) {
+            $qb->leftJoin('qb.vEvents', 'vEvents')
+                ->leftJoin('qb.papers', 'papers')
+                ->andWhere('vEvents.mainEvent = (:mainEventId)')
+                ->andWhere('papers.mainEvent = (:mainEventId)')
+                ->setParameter('mainEventId', $params['mainEventId']);
+            return $qb;
+        }
         return $qb;
     }
 }

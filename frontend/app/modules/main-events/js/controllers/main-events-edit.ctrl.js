@@ -3,7 +3,7 @@
  *
  * @type {controller}
  */
-angular.module('mainEventsApp').controller('mainEventsEditCtrl', [ '$scope', '$rootScope', '$routeParams', '$location', 'mainEventsFact', 'pinesNotifications', 'translateFilter', '$modal', 'GLOBAL_CONFIG', function ($scope, $rootScope, $routeParams, $location, mainEventsFact, pinesNotifications, translateFilter, $modal, GLOBAL_CONFIG)
+angular.module('mainEventsApp').controller('mainEventsEditCtrl', [ '$scope', '$rootScope', '$routeParams', '$location', 'mainEventsFact', 'pinesNotifications', 'translateFilter', '$modal', 'GLOBAL_CONFIG', 'topicsFact', function ($scope, $rootScope, $routeParams, $location, mainEventsFact, pinesNotifications, translateFilter, $modal, GLOBAL_CONFIG, topicsFact)
 {
     //Execute only if not in a modal context
     if (!$scope.$close)
@@ -18,9 +18,18 @@ angular.module('mainEventsApp').controller('mainEventsEditCtrl', [ '$scope', '$r
         }
 
 
+        //Initialize date pickers visibility
+        $scope.endAtOpened = false;
+        $scope.startAtOpened = false;
+
+
+
         //Fetch the mainEvent
         $scope.mainEvent = mainEventsFact.get({id: $routeParams.mainEventId}, fetchSuccess);
 
+
+        //Send get request to server to fetch mainEvent events and papers topics
+        $scope.mainEventTopics = topicsFact.allByConference({'mainEventId': $routeParams.mainEventId});
 
         //Mandatory for the map plugin gmap to work
         $scope.geoCodingMapInstance;
