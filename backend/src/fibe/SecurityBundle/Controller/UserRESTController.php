@@ -29,6 +29,7 @@ class UserRESTController extends Controller
 {
 
 
+
   /**********************************   signup & confirm  ***********************************************/
 
 
@@ -143,7 +144,7 @@ class UserRESTController extends Controller
   public function confirmRedirectAction(Request $request, ParamFetcherInterface $paramFetcher)
   {
     $token = $paramFetcher->get('token');
-    return $this->redirect($this->generateUrl('fibe_frontend_front_index') . '#/confirm/' . $token);
+    return $this->redirect($this->container->getParameter('front_end_path') . '#/confirm/' . $token);
   }
 
   /**
@@ -282,7 +283,7 @@ class UserRESTController extends Controller
   public function confirmResetPwdAction(Request $request, ParamFetcherInterface $paramFetcher)
   {
     $token = $paramFetcher->get('token');
-    return $this->redirect($this->generateUrl('fibe_frontend_front_index') . '#/reset/' . $token);
+    return $this->redirect($this->container->getParameter('front_end_path') . '#/reset/' . $token);
   }
 
   /**
