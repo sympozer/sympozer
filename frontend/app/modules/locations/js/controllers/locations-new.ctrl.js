@@ -33,7 +33,7 @@ angular.module('locationsApp').controller('locationsNewCtrl', [ '$scope', '$filt
             //Close modal if the view is a modal
             if ($scope.$close)
             {
-                $scope.$close($scope.location);
+                $scope.$close(response);
             }
             //Go to the previous page if view is not a modal
             else

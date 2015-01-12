@@ -3,8 +3,24 @@
  *
  * @type {controller}
  */
-angular.module('eventsApp').controller('eventsEditCtrl', ['$scope', '$rootScope', '$filter', '$window', 'GLOBAL_CONFIG', '$routeParams', '$rootScope', '$location', 'eventsFact', 'categoriesFact', 'topicsFact', 'locationsFact', 'papersFact', '$modal', 'pinesNotifications', 'translateFilter', 'eventId',
-    function ($scope, $rootScope, $filter, $window, GLOBAL_CONFIG, $routeParams, $rootScope, $location, eventsFact, categoriesFact, topicsFact, locationsFact, papersFact, $modal, pinesNotifications, translateFilter, eventId)
+angular.module('eventsApp').controller('eventsEditCtrl', [
+    '$scope',
+    '$rootScope',
+    '$filter',
+    '$window',
+    'GLOBAL_CONFIG',
+    '$routeParams',
+    '$rootScope',
+    '$location',
+    'eventsFact',
+    'categoriesFact',
+    'topicsFact',
+    'locationsFact',
+    'papersFact',
+    '$modal',
+    'pinesNotifications',
+    'translateFilter',
+    function ($scope, $rootScope, $filter, $window, GLOBAL_CONFIG, $routeParams, $rootScope, $location, eventsFact, categoriesFact, topicsFact, locationsFact, papersFact, $modal, pinesNotifications, translateFilter)
     {
 
 
@@ -31,11 +47,12 @@ angular.module('eventsApp').controller('eventsEditCtrl', ['$scope', '$rootScope'
             }
 
 
-        }
+        };
 
         //Get the event from id in the route or directly in injected id (in case of a modal view)
-        if(eventId){
-            $scope.event = eventsFact.get({id: eventId}, fetchSuccess);
+        if ($scope.eventId)
+        {
+            $scope.event = eventsFact.get({id: $scope.eventId}, fetchSuccess);
             $scope.modalTitle = 'events.actions.edit';
         }else{
             $scope.event = eventsFact.get({id: $routeParams.eventId}, fetchSuccess);
