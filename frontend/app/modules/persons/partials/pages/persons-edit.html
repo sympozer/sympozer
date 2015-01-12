@@ -89,7 +89,7 @@
                                 <span>{{'global.labels.at' | translate }}</span>
                               </td>
                               <td style="width:30%">
-                                <input type="text" ng-model="position.organization" typeahead-template-url="organizations-typeahead.html" typeahead-on-select="select($item, $model)" placeholder="{{ 'persons.actions.search' | translate }} ..." typeahead-wait-ms="500" typeahead="organization as organization.label  for organization in getOrganizations($viewValue)" typeahead-loading="loading" class="form-control">
+                                <input type="text" ng-model="position.organization" typeahead-template-url="organizations-typeahead.html" typeahead-on-select="select($item, $model)" placeholder="{{ 'organizations.actions.search' | translate }} ..." typeahead-wait-ms="500" typeahead="organization as organization.label  for organization in getOrganizations($viewValue)" typeahead-loading="loading" class="form-control">
                                 <i ng-show="loading" class="fa fa-spinner fa-spin"></i>
                                 <script type="text/ng-template" id="organizations-typeahead.html">
                                   <div style="width:100%">
