@@ -3,7 +3,7 @@
  *
  * @type {controller}
  */
-angular.module('mainEventsApp').controller('mainEventsShowCtrl', [ '$scope', '$rootScope', '$routeParams', 'mainEventsFact', 'contextFact', function ($scope, $rootScope, $routeParams, mainEventsFact, contextFact)
+angular.module('mainEventsApp').controller('mainEventsShowCtrl', [ '$scope', '$rootScope', '$routeParams', 'mainEventsFact', 'contextFact', 'topicsFact', function ($scope, $rootScope, $routeParams, mainEventsFact, contextFact, topicsFact)
 {
 
     //Mandatory for the map plugin gmap to work
@@ -15,8 +15,12 @@ angular.module('mainEventsApp').controller('mainEventsShowCtrl', [ '$scope', '$r
         zoom: 12
     }
 
+    //Mandatory for the map plugin gmap to work
+    $scope.geoCodingMapInstance;
+
     //When main event correctly loaded, update map
     var success = function(){
+        //Initialize the map with main event location
         if($scope.mainEvent.location){
             GMaps.geocode({
                 address: $scope.mainEvent.location.label,
@@ -35,10 +39,14 @@ angular.module('mainEventsApp').controller('mainEventsShowCtrl', [ '$scope', '$r
             });
         }
 
+
     }
 
     //Send get request to server to fetch mainEvent
-    $scope.mainEvent = mainEventsFact.get({id: $routeParams.mainEventId}, success, error);
+    $scope.mainEvent = mainEventsFact.get({id: $routeParams.mainEventId}, success);
+
+    //Send get request to server to fetch mainEvent events and papers topics
+    $scope.mainEventTopics = topicsFact.allByConference({'mainEventId': $routeParams.mainEventId});
 
     //Context change
     contextFact.changeContext($routeParams.mainEventId);
@@ -50,5 +58,7 @@ angular.module('mainEventsApp').controller('mainEventsShowCtrl', [ '$scope', '$r
             $scope[mapInstance.key] = mapInstance.map;
         }
     });
+
+
 
 }]);

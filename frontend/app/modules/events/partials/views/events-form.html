@@ -12,12 +12,13 @@
     <label class="col-sm-3 control-label" for="inputDescription">{{ 'events.model.description' | translate }}</label>
 
     <div class="col-sm-6">
-        <textarea class="form-control" autosize id="inputDesc" name="description" placeholder="{{ 'events.model.description' | translate}}" ng-model="event.description"/>
+        <textarea class="form-control" autosize id="inputDesc" name="description" placeholder="{{ 'events.model.description' | translate}}" ng-model="event.description">
+        </textarea>
     </div>
 </div>
+
 <div class="form-group">
     <label class="col-sm-3 control-label" for="inputUrl">{{ 'events.model.url' | translate }}</label>
-
     <div class="col-sm-6">
         <input type="url" class="form-control" id="inputUrl" placeholder="http://..." ng-model="event.url">
     </div>
@@ -43,7 +44,6 @@
 
 <div class="form-group">
     <label class="col-sm-3 control-label">{{ 'categories.links.category' | translate }}</label>
-
     <div class="col-sm-6">
         <div sympozer-autocomplete="categories" on-select="addCategory" on-keyup="searchCategories"></div>
         <div ng-show="event.category" sympozer-with-locals locals-category="event.category" ng-include="GLOBAL_CONFIG.app.modules.categories.urls.partials+'views/categories-thumbnail-xs.html'"></div>

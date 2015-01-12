@@ -71,20 +71,6 @@ class MainEvent extends VEvent
      * @Expose
      */
     private $roles;
-    /**
-     * dtstart
-     *
-     * This property specifies when the calendar component begins.
-     *
-     * @ORM\Column(type="datetime", name="start_at")
-     * @Assert\NotBlank()
-     * @SerializedName("startAt")
-     * @Expose
-     * @Groups({"list"})
-     */
-    private $startAt;
-
-
 
     /**
      * @return mixed
@@ -101,6 +87,20 @@ class MainEvent extends VEvent
     {
         $this->startAt = $startAt;
     }
+    /**
+     * dtstart
+     *
+     * This property specifies when the calendar component begins.
+     *
+     * @ORM\Column(type="datetime", name="start_at")
+     * @Assert\NotBlank()
+     * @SerializedName("startAt")
+     * @Expose
+     * @Groups({"list"})
+     */
+    private $startAt;
+
+
     /**
      * dtend
      *

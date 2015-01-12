@@ -15,11 +15,10 @@ angular.module('authenticationApp').controller('signinCtrl',
 //            todo : fetch this ?
             success({username: username, id: id}, false);
         }
-        //todo : is it used ?
-//        else
-//        {
-//            $rootScope.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-//        }
+        else
+        {
+            $rootScope.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        }
 
         $scope.user = $rootScope.currentUser || new usersFact;
 

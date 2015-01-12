@@ -170,15 +170,12 @@ angular.module('eventsApp').controller('eventsScheduleCtrl', ['$scope', '$templa
      */
     $scope.editCalEvent = function (calEvent, jsEvent, view)
     {
+        $scope.eventId = calEvent.id;
         var modalInstance = $modal.open({
             templateUrl: GLOBAL_CONFIG.app.modules.events.urls.partials + 'modals/events-modal-form.html',
             controller : 'eventsEditCtrl',
             size       : "large",
-            resolve    : {
-                eventId : function(){
-                    return calEvent.id;
-                }
-            }
+            scope: $scope
         });
         modalInstance.result.then(function (sympozerEvent)
         {

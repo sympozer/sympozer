@@ -1,5 +1,5 @@
-<div class="modal-header">
-  <h3 class="modal-title">{{ entityLbl.toLowerCase() + 's.actions.import' | translate}}</h3>
+<div class="modal-header" xmlns="http://www.w3.org/1999/html">
+<h3 class="modal-title">{{ entityLbl.toLowerCase() + 's.actions.import' | translate}}</h3>
 </div>
 <div class="modal-body">
   <form action="#" data-wizard="{select:changeStep}" class="form-horizontal ng-scope ng-isolate-scope ng-pristine ng-valid">
@@ -40,66 +40,80 @@
 
     </fieldset>
 
+
     <fieldset title="Step 2">
       <legend>{{'global.labels.search.results' | translate}}</legend>
 
-      <table class="table table-striped ">
+
+      <alert type="info" ng-show="busy">
+        <span>{{'import.validating' | translate}}</span>
+        <i class="fa fa-spinner fa-spin"></i>
+      </alert>
+
+      <alert type="danger" ng-show="!busy && error">
+        <a ng-click="retrySend(2)" class="btn btn-sm alert-danger pull-right" style="margin-top: -0.5em;" href="javascript:void(0)"><i class="fa fa-refresh"></i> Retry</a>
+        <span><strong>Oh snap!</strong> Something bad happened!</span>
+      </alert>
+
+      <alert type="success" ng-show="!busy && !validationError && !error">
+        <span><strong>Well done!</strong>{{ results.length }} {{ entityLbl }}s are ready to be imported!</span>
+      </alert>
+      <alert type="warning" ng-show="!busy && validationError && !error">
+        <span> There's errors. Cannot {{'import.send_to_server' | translate  | lowercase}}</span></alert>
+
+      <table class="table table-responsive table-striped ">
         <thead>
         <tr>
           <th ng-repeat="field in header.header">
             {{field}}
           </th>
+          <th>errors</th>
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="entity in results">
-          <td ng-repeat="field in entity">
-            {{field}}
+        <tr ng-repeat="entity in results track by $index"
+            ng-init="lineNb = $index">
+          <td ng-repeat="field in entity track by $index"
+              ng-class="importResults.errors[lineNb + 1][$index + 1] ? 'warning' : ''">
+            <div popover-trigger="mouseenter"
+                 popover="{{ importResults.errors[lineNb + 1][$index + 1].msg }}"
+                 popover-title="error">
+              {{ field }}
+            </div>
+          </td>
+          <td>
+            <p ng-repeat="error in importResults.errors[$index + 1] track by $index">
+              {{error.msg}}
+            </p>
           </td>
         </tr>
         </tbody>
       </table>
     </fieldset>
 
+
     <fieldset title="Step 3">
       <legend>{{'import.send_to_server' | translate}}</legend>
-      <h4 ng-show="!sent"></h4>
 
-      <alert ng-show="!sent" type="info"><span>{{'import.processing' | translate}}</span>
-        <i class="fa fa-spinner fa-spin"></i></alert>
 
-      <alert ng-show="sent && error" type="danger">
-        <a ng-click="retrySend()" class="btn btn-sm alert-danger pull-right" style="margin-top: -0.5em;" href="javascript:void(0)"><i class="fa fa-refresh"></i> Retry</a>
+      <alert type="info" ng-show="busy">
+        <span>{{'import.processing' | translate}}</span>
+        <i class="fa fa-spinner fa-spin"></i>
+      </alert>
+
+      <alert type="danger" ng-show="!busy && error">
+        <a ng-click="retrySend(2)" class="btn btn-sm alert-danger pull-right" style="margin-top: -0.5em;" href="javascript:void(0)"><i class="fa fa-refresh"></i> Retry</a>
         <span><strong>Oh snap!</strong> Something bad happened!</span>
       </alert>
 
-      <alert ng-show="sent && importResults.errors.length == 0 && !error" type="success">
-        <span><strong>Well done!</strong> {{ importResults.imported }} {{ entityLbl }}(s) was/were successfully imported!</span>
+      <alert type="success" ng-show="!busy && !validationError && !error">
+        <span><strong>Well done!</strong>{{ results.length }} {{ entityLbl }} were correctly imported!</span>
       </alert>
-
-      <div ng-show="importResults.errors.length > 0 ">
-        <alert type="success"><span><strong>Well done!</strong>  {{ importResults.imported }} {{ entityLbl }}(s) was/were successfully imported!</span>
-        </alert>
-        <alert type="warning"><span> That's an error.</span></alert>
-
-        <table class="table table-striped ">
-          <thead>
-          <tr>
-            <th>line</th>
-            <th>column</th>
-            <th>value</th>
-            <th>message</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr ng-repeat="error in importResults.errors">
-            <td>{{error.line}}</td>
-            <td>{{error.column}}</td>
-            <td>{{error.value}}</td>
-            <td>{{error.msg}}</td>
-          </tr>
-          </tbody>
-        </table>
+      <alert type="warning" ng-show="!busy && validationError && !error">
+        <span> There's errors. Cannot {{'import.send_to_server' | translate  | lowercase}}</span></alert>
+      <!--todo : indclude dynamic tempalte-->
+      <div ng-repeat="role in importResults.entities  track by $index" class="col-sm-5 col-md-5 col-lg-5">
+        <div sympozer-with-locals locals-role="role" locals-edit="true" ng-include="GLOBAL_CONFIG.app.modules.roles.urls.partials+'views/roles-tile-sm.html'"></div>
       </div>
 
     </fieldset>

@@ -10,7 +10,7 @@ angular.module('mainEventsApp').controller('mainEventsNewCtrl', [ '$scope', '$ro
 
     //Initialize date pickers visibility
     $scope.endAtOpened = false;
-    $scope.startAtOpened= false;
+    $scope.startAtOpened = false;
 
     //Set today
     $scope.today = new Date();
@@ -22,45 +22,30 @@ angular.module('mainEventsApp').controller('mainEventsNewCtrl', [ '$scope', '$ro
     };
     $scope.toggleMin();
 
-    //Manage start at datepicker visibility
-    $scope.openStartAtDatePicker = function (event)
-    {
-        event.preventDefault();
-        event.stopPropagation();
-        $scope.startAtOpened = true;
-    };
 
-    //Manage end at datepicker visibility
-    $scope.openEndAtDatePicker = function (event)
-    {
-        event.preventDefault();
-        event.stopPropagation();
-        $scope.endAtOpened = true;
-    };
 
 
     //Set init date
     $scope.initDate = $scope.today;
-    //@TODO : Define one format
-    $scope.formats = ['shortDate', 'dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy'];
-    $scope.format = $scope.formats[0];
 
 
     //Mandatory for the map plugin gmap to work
     $scope.geoCodingMapInstance;
 
     //Bind new map instance from plugin to scope
-    $scope.$on('GMaps:created', function (event, mapInstance) {
-        if (mapInstance.key) {
+    $scope.$on('GMaps:created', function (event, mapInstance)
+    {
+        if (mapInstance.key)
+        {
             $scope[mapInstance.key] = mapInstance.map;
         }
     });
 
     //Set default options for map
     $scope.mapInstanceOption = {
-        lat: -12.043333,
-        lng: -77.028333,
-        zoom: 12,
+        lat  : -12.043333,
+        lng  : -77.028333,
+        zoom : 12,
         click: function (e)
         {
             console.log(e);
@@ -68,7 +53,8 @@ angular.module('mainEventsApp').controller('mainEventsNewCtrl', [ '$scope', '$ro
     }
 
     //On address defintion
-    $scope.selectAddress = function(selectedAddress){
+    $scope.selectAddress = function (selectedAddress)
+    {
         //trigger map rendering of the selected address
         submitGeocoding(selectedAddress);
 
@@ -80,7 +66,7 @@ angular.module('mainEventsApp').controller('mainEventsNewCtrl', [ '$scope', '$ro
     var submitGeocoding = function (address)
     {
         GMaps.geocode({
-            address: address.label,
+            address : address.label,
             callback: function (results, status)
             {
                 if (status == 'OK')
@@ -98,19 +84,18 @@ angular.module('mainEventsApp').controller('mainEventsNewCtrl', [ '$scope', '$ro
 
     //Geolocate the user to initilize the map next to where he is
     GMaps.geolocate({
-        success: function(position) {
+        success: function (position)
+        {
             $scope.geoCodingMapInstance.setCenter(position.coords.latitude, position.coords.longitude);
         }
     });
 
 
-
     //On new conference request error
     var error = function (response, args)
     {
-        debugger;
         //Check errors from the server
-        if("Validation Failed" == response.data.message)
+        if ("Validation Failed" == response.data.message)
         {
             //Display server error
             formValidation.transformFromServer(response);
@@ -120,8 +105,8 @@ angular.module('mainEventsApp').controller('mainEventsNewCtrl', [ '$scope', '$ro
             //Notify of the creation action error
             pinesNotifications.notify({
                 title: translateFilter('global.validations.error'),
-                text: translateFilter(response.data.error || 'mainEvents.validations.not_created'),
-                type: 'error'
+                text : translateFilter(response.data.error || 'mainEvents.validations.not_created'),
+                type : 'error'
             });
         }
     };
@@ -132,10 +117,10 @@ angular.module('mainEventsApp').controller('mainEventsNewCtrl', [ '$scope', '$ro
         //Notify of the creation action success
         pinesNotifications.notify({
             title: translateFilter('global.validations.success'),
-            text: translateFilter('mainEvents.validations.created'),
-            type: 'success'
+            text : translateFilter('mainEvents.validations.created'),
+            type : 'success'
         });
-        $location.path('/home/mainEvents/show/'+response.id);
+        $location.path('/home/mainEvents/show/' + response.id);
     };
 
     //Send post request to server

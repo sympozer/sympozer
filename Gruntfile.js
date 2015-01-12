@@ -162,13 +162,13 @@ module.exports = function (grunt)
                 src       : ['<%= yeoman.app %>/index.html'],
                 ignorePath: '<%= yeoman.app %>/',
                 exclude   : ['requirejs',
-                             'mocha',
-                             'jquery.vmap.europe.js',
-                             'jquery.vmap.usa.js',
-                             'Chart.min.js',
-                             'raphael',
-                             'morris',
-                             'jquery.inputmask'
+                    'mocha',
+                    'jquery.vmap.europe.js',
+                    'jquery.vmap.usa.js',
+                    'Chart.min.js',
+                    'raphael',
+                    'morris',
+                    'jquery.inputmask'
                 ]
             }
         },
@@ -253,7 +253,7 @@ module.exports = function (grunt)
         // Watches files for changes and runs tasks based on the changed files
         watch       : {
             bower     : {
-                files: ['bower.json'],
+                files: ['<%= yeoman.app %>/bower.json'],
                 tasks: ['bowerInstall']
             },
             js        : {
@@ -431,22 +431,32 @@ module.exports = function (grunt)
 
         htmlmin   : {
             options: {
-//                collapseBooleanAttributes:      false,
-//                collapseWhitespace:             true,
-//                removeAttributeQuotes:          true,
-//                removeComments:                 true, // Only if you don't use comment directives!
-//                removeEmptyAttributes:          true,
-//                removeRedundantAttributes:      true,
-//                removeScriptTypeAttributes:     true,
-//                removeStyleLinkTypeAttributes:  true
+                collapseBooleanAttributes:      false,
+                collapseWhitespace:             true,
+                removeAttributeQuotes:          true,
+                removeComments:                 true, // Only if you don't use comment directives!
+                removeEmptyAttributes:          true,
+                removeRedundantAttributes:      true,
+                removeScriptTypeAttributes:     true,
+                removeStyleLinkTypeAttributes:  true
             },
-            tmp    : {
+            app    : {
                 files: [
                     {
                         expand: true,
-                        cwd   : '<%= yeoman.frontend %>',
-                        src   : ['app/partials/**/*.html', 'app/modules/**/*.html'],
-                        dest  : '<%= yeoman.tmp %>/templates/'
+                        cwd   : '<%= yeoman.frontend %>/app',
+                        src   : ['partials/**/*.html'],
+                        dest  : '<%= yeoman.dist %>/'
+                    }
+                ]
+            },
+            modules    : {
+                files: [
+                    {
+                        expand: true,
+                        cwd   : '<%= yeoman.frontend %>/app',
+                        src   : ['modules/**/*.html'],
+                        dest  : '<%= yeoman.dist %>/'
                     }
                 ]
             }
@@ -492,14 +502,8 @@ module.exports = function (grunt)
                             'images/{,*/}*.{webp}',
                             'fonts/*',
                             'assets/**',
-                            'bower/jquery.inputmask/dist/jquery.inputmask.bundle.js',
-                            'bower/jquery-validation/dist/jquery.validate.js',
-                            'bower/jqvmap/jqvmap/maps/jquery.vmap.europe.js',
-                            'bower/jqvmap/jqvmap/maps/jquery.vmap.usa.js',
-                            'bower/stepy/lib/jquery.stepy.js',
-                            'bower/Chart.js/Chart.min.js',
-                            'bower/raphael/raphael.js',
-                            'bower/morris.js/morris.js'
+                            'bower/font-awesome/fonts/*',
+                            'bower/bootstrap/fonts/*'
                         ]
                     },
                     {
@@ -558,7 +562,7 @@ module.exports = function (grunt)
                         // return  url.replace('frontend/.tmp/templates/app/', 'http://localhost/sympozer/frontend/dist/templates');
                         return  url.replace('frontend/app/', 'http://localhost/frontend/dist/');
 
-                       // return url;
+                        // return url;
                     },
                     bootstrap: function (module, script)
                     {
@@ -569,6 +573,7 @@ module.exports = function (grunt)
         },
 
         less       : {
+
             server: {
                 options: {
                     // strictMath: true,
@@ -589,7 +594,17 @@ module.exports = function (grunt)
             },
             dist  : {
                 options: {
-                    cleancss: true,
+
+                    compress: true,
+                    yuicompress: false,
+                    optimization: 2,
+                    cleancss:true,
+                    paths: ["css"],
+                    syncImport: false,
+                    strictUnits:false,
+                    strictMath: true,
+                    strictImports: true,
+                    ieCompat: false,
                     report  : 'min'
                 },
                 files  : [
@@ -597,46 +612,13 @@ module.exports = function (grunt)
                         expand: true,
                         cwd   : "<%= yeoman.app %>/assets/less",
                         src   : "styles.less",
-                        dest  : "<%= yeoman.tmp %>/assets/css",
+                        dest  : "<%= yeoman.dist %>/assets/css",
                         ext   : ".css"
                     }
                 ]
             }
         },
 
-        // By default, your `index.html`'s <!-- Usemin block --> will take care of
-        // minification. These next options are pre-configured if you do not wish
-        // to use the Usemin blocks.
-        // cssmin: {
-        //   dist: {
-        //     files: {
-        //       '<%= yeoman.dist %>/styles/main.css': [
-        //         '.tmp/styles/{,*/}*.css',
-        //         '<%= yeoman.app %>/styles/{,*/}*.css'
-        //       ]
-        //     }
-        //   }
-        // },
-        // uglify: {
-        //   dist: {
-        //     files: {
-        //       '<%= yeoman.dist %>/scripts/scripts.js': [
-        //         '<%= yeoman.dist %>/scripts/scripts.js'
-        //       ]
-        //     }
-        //   }
-        // },
-        // concat: {
-        //   dist: {}
-        // },
-
-        // Test settings
-//        karma: {
-//            unit: {
-//                configFile: 'karma.conf.js',
-//                singleRun: true
-//            }
-//        },
         processhtml: {
             options: {
                 commentMarker: 'prochtml',
@@ -753,7 +735,7 @@ module.exports = function (grunt)
 
     /** DEVELOPMENT **/
     grunt.registerTask('reset_db', ['chmod:cache_log', 'sf2-console:database_drop', 'sf2-console:database_create', 'sf2-console:database_update',
-                                    'sf2-console:database_init', 'sf2-console:admin_create', 'cache_clear']);
+        'sf2-console:database_init', 'sf2-console:admin_create', 'cache_clear']);
 
     /** DEVELOPMENT **/
     grunt.registerTask('update_db', ['chmod:cache_log', 'sf2-console:database_update', 'cache_clear']);
@@ -763,7 +745,7 @@ module.exports = function (grunt)
 
     grunt.registerTask('dev', ['reset_db', 'update_dependencies', 'open:devserver']);
 
-    grunt.registerTask('update', ['update_db', 'update_dependencies']);
+    grunt.registerTask('update', ['update_db', 'update_dependencies',  'sf2-console:copy_ws_config']);
 
 
     /** PRODUCTION **/
@@ -777,11 +759,19 @@ module.exports = function (grunt)
     ]);
 
     grunt.registerTask('build', [
+        //Empty dist folder
         'clean:dist',
+        //Install bower dependencies
         'bowerInstall',
-        'htmlmin:tmp',
-        'ngtemplates:app',
-        'ngtemplates:modules',
+        //Compile html template files (remove comments etc..) and append to Dist dir
+        'htmlmin:app',
+        //Compile module html template files (remove comments etc..) and append to Dist dir
+        'htmlmin:modules',
+        //Append all html template into a single js file
+//        'ngtemplates:app',
+        //Append all module html template into a single js file
+//        'ngtemplates:modules',
+        //Read the index.html build markup
         'useminPrepare',
         'concurrent:dist',
         'less:dist',
@@ -792,7 +782,7 @@ module.exports = function (grunt)
         // 'cdnify',
         'cssmin',
         'uglify',
-        'rev',
+//        'rev',
         'usemin',
         'imagemin',
         'processhtml:dist',
