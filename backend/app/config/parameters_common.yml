@@ -1,5 +1,9 @@
 parameters:
 
+
+    #default value in case the user didn"t define the url for his environnement in parameters.yml
+    front_end_path:    http://localhost/sympozer/frontend/app/#/
+
     routing_dev_file:  routing_dev.yml
 
     locale:            en

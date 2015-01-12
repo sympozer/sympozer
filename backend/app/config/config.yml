@@ -1,6 +1,6 @@
 imports:
-    - { resource: parameters.yml }
     - { resource: parameters_common.yml }
+    - { resource: parameters.yml }
     - { resource: security.yml }
     - { resource: @fibeEventBundle/Resources/config/services.yml}
     - { resource: @AdminBundle/Resources/config/admin.yml }
