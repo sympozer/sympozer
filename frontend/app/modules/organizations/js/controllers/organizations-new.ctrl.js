@@ -34,7 +34,7 @@ angular.module('organizationsApp').controller('organizationsNewCtrl', [ '$scope'
         //If view is in a modal instance, close it. Go back to previous page otherwise
         if ($scope.$close)
         {
-            $scope.$close($scope.organization);
+            $scope.$close(response);
         }
         else
         {
@@ -49,19 +49,20 @@ angular.module('organizationsApp').controller('organizationsNewCtrl', [ '$scope'
         $scope.organization.mainEvent = {id: $routeParams.mainEventId};
 
         //If organization version created from person, then set the owner
-        if (personModel)
-        {
+        //=> TODO : remove this
+//        if (personModel)
+//        {
             //personModel.acl.delete();
-            $scope.organization.organizationVersionOwner = personModel;
-        }
+//            $scope.organization.organizationVersionOwner = personModel;
+//        }
 
         //Form validation
         if (form.$valid)
         {
             //New organization version creation
-            $scope.organization.$createVersions({}, success, error);
+            organizationsFact.createVersions(organizationsFact.serialize($scope.organization), success, error);
         }
-    }
+    };
 
     //Click on modal "cancel" button action
     $scope.cancel = function ()

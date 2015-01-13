@@ -42,7 +42,7 @@ class OrganizationRESTController extends FOSRestController
     /**
      * Lists all Organizations entities.
      * @Rest\Get("/organizations", name="community_organizations_all")
-     * @Rest\View
+     * @Rest\View(serializerEnableMaxDepthChecks=true, serializerGroups={"list"})
      * @Rest\QueryParam(name="offset", requirements="\d+", nullable=true, description="Offset from which to start listing pages.")
      * @Rest\QueryParam(name="limit", requirements="\d+", default="70", description="How many entity to return.")
      * @Rest\QueryParam(name="query", requirements=".{1,64}", nullable=true, description="the query to search.")
@@ -59,6 +59,7 @@ class OrganizationRESTController extends FOSRestController
 
     /**
      * @Rest\Get("/organizations/{id}", name="community_organizations_get")
+     * @Rest\View(serializerEnableMaxDepthChecks=true)
      **/
     public function getOrganizationAction($id)
     {

@@ -8,7 +8,7 @@
 angular.module('organizationsApp').factory('organizationsFact',
     ['$resource', '$routeParams', function ($resource, $routeParams)
     {
-        return $resource(
+        var resource = $resource(
             globalConfig.api.urls.get_organizations,
             {},
             {
@@ -27,4 +27,22 @@ angular.module('organizationsApp').factory('organizationsFact',
                 allVersionsByConference: {method: 'GET', url: globalConfig.api.urls.get_mainEvents + '/:mainEventId/organizations', params: {'mainEventId': '@mainEventId'}, isArray: false}
             }
         );
+
+        //Construct a DTO object to send to server (Data Transfert Object)
+        resource.serialize = function (object)
+        {
+            //Serialize DTO object to be sent
+            var DTObject = {
+                image       : object.image,
+                label       : object.label,
+                website     : object.website,
+                localization: object.localization ? {id: object.localization.id} : undefined,
+                description : object.description
+            };
+
+            //create the new resource object from DTObject
+            return new resource(DTObject);
+        };
+
+        return resource;
     }]);

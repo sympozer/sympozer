@@ -8,7 +8,7 @@
 angular.module('personsApp').factory('personsFact', ['$resource', function ($resource)
 {
 
-    return $resource(
+    var resource = $resource(
         globalConfig.api.urls.get_persons,
         {},
         {
@@ -22,4 +22,25 @@ angular.module('personsApp').factory('personsFact', ['$resource', function ($res
 
         }
     );
+
+    //Construct a DTO object to send to server (Data Transfert Object)
+    resource.serialize = function (object)
+    {
+        //Serialize DTO object to be sent
+        var DTObject = {
+            firstName   : object.firstName,
+            familyName  : object.familyName,
+            email       : object.email,
+            image       : object.image,
+            website     : object.website,
+            description : object.description,
+            localization: object.localization ? {id: object.localization.id} : undefined,
+            positions   : object.positions
+        };
+
+        //create the new resource object from DTObject
+        return new resource(DTObject);
+    };
+
+    return resource;
 }]);

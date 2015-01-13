@@ -29,12 +29,12 @@ angular.module('personsApp').controller('personsNewCtrl', [ '$scope', 'GLOBAL_CO
 
             //close modal if view is a modal instance (resolve promise with the new person)
             if($scope.$close){
-                $scope.$close($scope.person);
+                $scope.$close(response);
             }else{
                 //Go back to previous page otherwise
                 $window.history.back();
             }
-        }
+        };
 
         //Fct to close the modal if the view is a modal instance
         $scope.cancel = function () {
@@ -46,9 +46,10 @@ angular.module('personsApp').controller('personsNewCtrl', [ '$scope', 'GLOBAL_CO
         {
             if (form.$valid)
             {
-                $scope.person.$create({}, success, error);
+//                $scope.person.$create({}, success, error);
+                personsFact.create(personsFact.serialize($scope.person), success, error);
             }
-        }
+        };
 
 
         //Populate array of a specific linked entity
@@ -62,14 +63,14 @@ angular.module('personsApp').controller('personsNewCtrl', [ '$scope', 'GLOBAL_CO
             if(! $filter('inArray')('id', model.id, $scope.person[key])){
                 //If no duplicate add the selected object to the specified array
                 $scope.person[key].push(model);
-            };
-        }
+            }
+        };
 
         $scope.removeRelationship = function(key, index){
             $scope.person[key].splice(index, 1);
 //        personsFact.update($scope.person);
             $scope.updatePerson(key, $scope.person[key]);
-        }
+        };
 
         //Autocomplete and add organization workflow
         $scope.searchOrganizations = organizationsFact.all;
