@@ -32,6 +32,8 @@ angular.module('mainEventsApp').factory('mainEventsFact',
                 'location'   : object.location,
                 'endAt'      : object.endAt,
                 'startAt'    : object.startAt,
+                'share'      : object.share,
+                'twitter'    : object.twitter,
                 'logo'       : object.logo
             };
 

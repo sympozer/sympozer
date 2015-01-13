@@ -52,6 +52,10 @@ fibe_security_www_conf:
     resource: "@fibeSecurityBundle/Controller/"
     type:     annotation
 
+fibe_tweets_bundle:
+    resource: "@fibeTweetsBundle/Controller/"
+    type:     annotation
+
 login:
     pattern:   /login
     defaults:  { _controller: FrontendBundle:Front:login }

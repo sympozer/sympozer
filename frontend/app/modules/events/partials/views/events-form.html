@@ -23,6 +23,24 @@
         <input type="url" class="form-control" id="inputUrl" placeholder="http://..." ng-model="event.url">
     </div>
 </div>
+<div class="form-group">
+    <label class="col-sm-3 control-label" for="inputTwitterid">{{ 'events.model.twitterid' | translate}}</label>
+    <div class="col-sm-6">
+        <input type="url" class="form-control" id="inputTwitterid" placeholder="{{event.twitterid}}" ng-model="event.twitterid">
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-sm-3 control-label" for="inputChkSocial">{{ 'events.model.chkSocial' | translate}}</label>
+    <div class="col-sm-6">
+        <input type="url" class="form-control" id="inputChkSocial" placeholder="{{event.chkSocial}}" ng-model="event.chkSocial">
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-sm-3 control-label" for="inputChkTimeline">{{ 'events.model.chkTimeline' | translate}}</label>
+    <div class="col-sm-6">
+        <input type="url" class="form-control" id="inputChkTimeline" placeholder="{{event.chkTimeline}}" ng-model="event.chkTimeline">
+    </div>
+</div>
 
 <div class="form-group">
     <label class="col-sm-3 control-label">{{ 'categories.links.category' | translate }}</label>

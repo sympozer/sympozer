@@ -10,7 +10,6 @@ use fibe\ContentBundle\Entity\Topic;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
 use JMS\Serializer\Annotation\Groups;
-use JMS\Serializer\Annotation\SerializedName;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -184,6 +183,7 @@ abstract class VEvent
      * @ORM\JoinColumn(name="sponsor_id", referencedColumnName="id", onDelete="cascade")
      */
     protected $sponsors;
+
     /**
      * url
      *
@@ -194,6 +194,7 @@ abstract class VEvent
      * @expose
      */
     protected $url;
+
     /**
      * twitter hashtag
      *
@@ -203,6 +204,17 @@ abstract class VEvent
      * @expose
      */
     protected $twitter;
+
+    /**
+     * share
+     *
+     * This property defines whether we display share buttons or not
+     *
+     * @ORM\Column(type="boolean")
+     * @Expose
+     */
+    protected $share = true;
+
     /**
      * youtube
      * This property defines the youtube id of the event resource
@@ -211,8 +223,6 @@ abstract class VEvent
      * @expose
      */
     protected $youtube;
-
-
 
     /**
      * facebook
@@ -298,6 +308,7 @@ abstract class VEvent
     public function __toString()
     {
         $startAt = $this->getStartAt();
+
         return sprintf("%d] start at %s : %s",
             $this->getId(),
             isset($startAt) ? $startAt->format('Y-m-d') : null,
@@ -331,8 +342,6 @@ abstract class VEvent
     {
         return $this->label;
     }
-
-
 
 
     /**
@@ -459,7 +468,6 @@ abstract class VEvent
     }*/
 
 
-
     /**
      * @param mixed $label
      */
@@ -512,6 +520,7 @@ abstract class VEvent
     public function setLastModifiedAt(\DateTime $lastModifiedAt)
     {
         $this->lastModifiedAt = $lastModifiedAt;
+
         return $this;
     }
 
@@ -562,7 +571,6 @@ abstract class VEvent
 
         return $this;
     }
-
 
 
     /**
@@ -646,11 +654,11 @@ abstract class VEvent
 //    return $this->roles;
 //  }
 
-  /**
-   * Get location
-   *
-   * @return Location
-   */
+    /**
+     * Get location
+     *
+     * @return Location
+     */
     public function getLocation()
     {
         return $this->location;
@@ -802,6 +810,22 @@ abstract class VEvent
     }
 
     /**
+     * @return bool
+     */
+    public function getShare()
+    {
+        return $this->share;
+    }
+
+    /**
+     * @param bool $share
+     */
+    public function setShare($share)
+    {
+        $this->share = $share;
+    }
+
+    /**
      * @return mixed
      */
     public function getYoutube()
@@ -816,9 +840,6 @@ abstract class VEvent
     {
         $this->youtube = $youtube;
     }
-
-
-
 
 
     /**

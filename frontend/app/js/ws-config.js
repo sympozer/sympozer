@@ -14,6 +14,8 @@ get_roleLabels         : "http://localhost/sympozer/backend/web/app_dev.php/role
 get_papers             : "http://localhost/sympozer/backend/web/app_dev.php/papers",
 get_topics             : "http://localhost/sympozer/backend/web/app_dev.php/topics",
 
+socials                : "http://localhost/sympozer/backend/web/app_dev.php/twitter-api/search",
+
 get_import_header      : "http://localhost/sympozer/backend/web/app_dev.php/import",
 
 login                  : "http://localhost/sympozer/backend/web/app_dev.php/login/login_check?_format=json",

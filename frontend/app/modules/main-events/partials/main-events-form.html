@@ -1,82 +1,106 @@
 <h2>{{ 'mainEvents.labels.general_info' | translate}}</h2>
 
 <div class="form-group">
-    <label class="col-sm-3 control-label" for="inputLabel">{{ 'mainEvents.model.label' | translate}}</label>
-    <div class="col-sm-6">
-        <input type="text" required="" class="form-control" server-error="serverError" id="inputLabel" placeholder="{{conference.label}}" ng-model="conference.label" />
-    </div>
+  <label class="col-sm-3 control-label" for="inputLabel">{{ 'mainEvents.model.label' | translate}}</label>
+
+  <div class="col-sm-6">
+    <input type="text" required="" class="form-control" server-error="serverError" id="inputLabel" placeholder="{{conference.label}}" ng-model="conference.label"/>
+  </div>
 </div>
 
 <div class="form-group">
-    <label class="col-sm-3 control-label" for="inputDescription">{{ 'mainEvents.model.description' | translate}}</label>
-    <div class="col-sm-6">
-        <textarea  class="form-control"  autosize id="inputDescription" placeholder="{{conference.description}}" ng-model="conference.description"></textarea>
-    </div>
+  <label class="col-sm-3 control-label" for="inputDescription">{{ 'mainEvents.model.description' | translate}}</label>
+
+  <div class="col-sm-6">
+    <textarea class="form-control" autosize id="inputDescription" placeholder="{{conference.description}}" ng-model="conference.description"></textarea>
+  </div>
 </div>
 
 <div class="form-group">
-    <label class="col-sm-3 control-label" for="inputLogo">{{ 'mainEvents.model.logo' | translate}}</label>
-    <div class="col-sm-6">
-        <input type="url" class="form-control" id="inputLogo" placeholder="http://..." ng-model="conference.logo">
-        <img ng-show="conference.logo" class="img-responsive" no-image ng-src="{{ conference.logo }}"/>
-    </div>
+  <label class="col-sm-3 control-label" for="inputLogo">{{ 'mainEvents.model.logo' | translate}}</label>
+
+  <div class="col-sm-6">
+    <input type="url" class="form-control" id="inputLogo" placeholder="http://..." ng-model="conference.logo">
+    <img ng-show="conference.logo" class="img-responsive" no-image ng-src="{{ conference.logo }}"/>
+  </div>
 </div>
 
 <div class="form-group">
-    <label class="col-sm-3 control-label" for="inputUrl">{{ 'mainEvents.model.url' | translate}}</label>
-    <div class="col-sm-6">
-        <input type="url" class="form-control" id="inputUrl" placeholder="http://..." ng-model="conference.url">
+  <label class="col-sm-3 control-label" for="inputUrl">{{ 'mainEvents.model.url' | translate}}</label>
+
+  <div class="col-sm-6">
+    <input type="url" class="form-control" id="inputUrl" placeholder="http://..." ng-model="conference.url">
+  </div>
+</div>
+<div class="form-group">
+  <label class="col-sm-3 control-label" for="inputTwitter">{{ 'mainEvents.model.twitter' | translate}}</label>
+
+  <div class="col-sm-6">
+    <input class="form-control" id="inputTwitter" placeholder="{{conference.twitter}}" ng-model="conference.twitter">
+  </div>
+</div>
+<div class="form-group">
+  <div class="checkbox block">
+    <label class="col-sm-3 control-label" for="inputShare">{{ 'mainEvents.model.share' | translate}}</label>
+    <div class="icheckbox_minimal-blue">
+      <input id="inputShare" icheck="" type="checkbox" ng-model="conference.share"/>
+      <ins class="iCheck-helper">
+      </ins>
     </div>
+  </div>
 </div>
 
 
 <h2>{{ 'mainEvents.labels.time_localization' | translate}}</h2>
 
 <div class="form-group">
-    <label class="col-sm-3 control-label" for="inputStartAt">{{ 'mainEvents.model.startAt' | translate}}</label>
+  <label class="col-sm-3 control-label" for="inputStartAt">{{ 'mainEvents.model.startAt' | translate}}</label>
 
-    <div class="col-md-6">
-        <div class="input-group">
-            <input type="text" class="form-control datepicker" datepicker-popup="{{shortDate}}" ng-model="conference.startAt" is-open="startAtOpened" ng-click="startAtOpened = !startAtOpened" min-date="today"  datepicker-options="dateOptions"  ng-required="true"/>
+  <div class="col-md-6">
+    <div class="input-group">
+      <input type="text" class="form-control datepicker" datepicker-popup="{{shortDate}}" ng-model="conference.startAt" is-open="startAtOpened" ng-click="startAtOpened = !startAtOpened" min-date="today" datepicker-options="dateOptions" ng-required="true"/>
 
-            <div class="input-group-btn">
-                <button type="button" class="btn btn-default" ng-click="startAtOpened = !startAtOpened"><i class="fa fa-calendar"></i>
-                </button>
-            </div>
-        </div>
+      <div class="input-group-btn">
+        <button type="button" class="btn btn-default" ng-click="startAtOpened = !startAtOpened">
+          <i class="fa fa-calendar">
+          </i>
+        </button>
+      </div>
     </div>
+  </div>
 
-    <span class="help-block" ng-show="inputStartAt.startAt.$dirty && conferenceForm.startAt > conferenceForm.endAt">{{ 'mainEvents.validations.start_date_before_end' | translate }}</span>
+  <span class="help-block" ng-show="inputStartAt.startAt.$dirty && conferenceForm.startAt > conferenceForm.endAt">{{ 'mainEvents.validations.start_date_before_end' | translate }}</span>
     <span class="help-block" ng-if="formServerErrors.startAt" ng-repeat="error in formServerErrors.startAt">
         {{ error | translate }}
     </span>
 </div>
 <div class="form-group">
-    <label  class="col-sm-3 control-label" for="inputEndAt">{{ 'mainEvents.model.endAt' | translate}}</label>
+  <label class="col-sm-3 control-label" for="inputEndAt">{{ 'mainEvents.model.endAt' | translate}}</label>
 
-    <div class="col-md-6">
-        <div class="input-group">
-            <input type="text" class="form-control datepicker" datepicker-popup="{{shortDate}}" ng-model="conference.endAt" is-open="endAtOpened" ng-click="endAtOpened = !endAtOpened" min-date="conference.startAt"  datepicker-options="dateOptions"  ng-required="true"/>
+  <div class="col-md-6">
+    <div class="input-group">
+      <input type="text" class="form-control datepicker" datepicker-popup="{{shortDate}}" ng-model="conference.endAt" is-open="endAtOpened" ng-click="endAtOpened = !endAtOpened" min-date="conference.startAt" datepicker-options="dateOptions" ng-required="true"/>
 
-            <div class="input-group-btn">
-                <button type="button" class="btn btn-default" ng-click="endAtOpened = !endAtOpened" ><i class="fa fa-calendar"></i>
-                </button>
-            </div>
-        </div>
+      <div class="input-group-btn">
+        <button type="button" class="btn btn-default" ng-click="endAtOpened = !endAtOpened">
+          <i class="fa fa-calendar"></i>
+        </button>
+      </div>
     </div>
-    <span class="help-block" ng-show="inputEndAt.endAt.$dirty && conferenceForm.endAt < eventNewForm.startAt ">{{ 'mainEvents.validations.end_date_after_start' | translate}}</span>
+  </div>
+  <span class="help-block" ng-show="inputEndAt.endAt.$dirty && conferenceForm.endAt < eventNewForm.startAt ">{{ 'mainEvents.validations.end_date_after_start' | translate}}</span>
     <span class="help-block" ng-if="formServerErrors.endAt" ng-repeat="error in formServerErrors.endAt">
         {{ error | translate }}
     </span>
 </div>
 
 <div class="form-group">
-    <label  class="col-sm-3 control-label">{{ 'locations.links.locations' | translate}} </label>
+  <label class="col-sm-3 control-label">{{ 'locations.links.locations' | translate}} </label>
 
-    <div class="col-sm-6">
-        <input google-place-autocomplete="" ng-required="" type="text" class="form-control"  on-select="selectAddress" ng-model="conference.location.label" /></td>
-        <div style="height: 300px" gmap options="mapInstanceOption" instance="geoCodingMapInstance"></div>
-    </div>
+  <div class="col-sm-6">
+    <input google-place-autocomplete="" ng-required="" type="text" class="form-control" on-select="selectAddress" ng-model="conference.location.label"/></td>
+    <div style="height: 300px" gmap options="mapInstanceOption" instance="geoCodingMapInstance"></div>
+  </div>
 </div>
 
 <!--@TODO : restore when teammate module ready-->

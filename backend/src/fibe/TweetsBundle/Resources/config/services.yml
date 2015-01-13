@@ -1,0 +1,4 @@
+services:
+#    fibe_tweets.example:
+#        class: fibe\TweetsBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]
