@@ -11,6 +11,7 @@
 'bundles/frontend/vendors/bootstrap-social/bootstrap-social.css'
 'bundles/frontend/app/css/app.css'
 'bundles/frontend/app/css/animations.css'
+'bundles/frontend/app/css/angular-social.css'
 output='css/compiled/vendors.css' %}
 <link rel="stylesheet" href="{{ asset_url }}"/>
 <link href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.css" rel="stylesheet">
@@ -237,6 +238,10 @@ output='js/compiled/main.js' %}
 'bundles/frontend/app/modules/i18n/i18nApp.js'
 'bundles/frontend/app/modules/authentication/js/controllers/change-pwd.ctrl.js'
 'bundles/frontend/app/modules/authentication/js/controllers/confirm.ctrl.js'
+'bundles/frontend/app/modules/socials/js/controllers/twittertimeline.ctrl.js'
+'bundles/frontend/app/modules/socials/js/services/twitter.fact.js'
+'bundles/frontend/app/modules/socials/js/directives/social-buttons.drv.js'
+'bundles/frontend/app/modules/socials/js/directives/social.drv.js'
 
 'bundles/frontend/app/modules/twitterTimeline/js/controllers/twittertimeline.ctrl.js'
 'bundles/frontend/app/modules/twitterTimeline/js/services/twitter.fact.js'
@@ -417,6 +422,13 @@ output='js/compiled/app.js' %}
                     }
                 },
                 socials: {
+                    twitter: {
+                        urls: {
+                            base: "{{ asset('bundles/frontend/app/modules/socials/') }}",
+                            partials: "{{ asset('bundles/frontend/app/modules/socials/partials/') }}",
+                            getTimeline: "{{ path('fibe_security_twitterapisearchtag_api') }}"
+                        }
+                    },
                     getInfo: function(mapping, selector){
                         var info = {};
                         info.varName = (mapping[selector])["varName"];
