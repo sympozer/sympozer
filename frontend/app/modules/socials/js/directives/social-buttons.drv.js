@@ -1,4 +1,4 @@
-angular.module('socials').
+angular.module('socialsApp').
     directive('ngSocialFacebook', ['GLOBAL_CONFIG',
         function(GLOBAL_CONFIG) {
             'use strict';
@@ -54,7 +54,7 @@ angular.module('socials').
         }]);
 
 
-angular.module('socials').
+angular.module('socialsApp').
     directive('ngSocialGooglePlus', ['$parse','GLOBAL_CONFIG',
         function($parse, GLOBAL_CONFIG) {
             'use strict';
@@ -123,7 +123,7 @@ angular.module('socials').
         }]);
 
 
-angular.module('socials').
+angular.module('socialsApp').
     directive('ngSocialLinkedin',['GLOBAL_CONFIG',
         function(GLOBAL_CONFIG) {
             'use strict';
@@ -175,7 +175,7 @@ angular.module('socials').
             };
         }]);
 
-angular.module('socials').
+angular.module('socialsApp').
     directive('ngSocialTwitter', ['GLOBAL_CONFIG',
         function(GLOBAL_CONFIG) {
             'use strict';

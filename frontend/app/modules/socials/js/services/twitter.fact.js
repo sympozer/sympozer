@@ -5,17 +5,16 @@
  *
  * @type {factory}
  */
-angular.module('socials').factory('twitterFact',
+angular.module('socialsApp').factory('twitterFact',
     ['$resource',
         function ($resource)
         {
             return $resource(
-                globalConfig.app.modules.socials.twitter.urls.getTimeline,
+                globalConfig.api.urls,
                 {'tag': '@tag', 'type': '@type' },
                 {
-                    getPersonTag   : {method: 'GET', url: globalConfig.app.modules.socials.twitter.urls.getTimeline + '/:tag' + '/:type', params: {'tag': '@tag', 'type': '@type'}, isArray: true},
-                    getHashTag     : {method: 'GET', url: globalConfig.app.modules.socials.twitter.urls.getTimeline + '/:tag' + '/:type', params: {'tag': '@tag', 'type': '@type'}, isArray: false}
-
+                    getPersonTag   : {method: 'GET', url: globalConfig.api.urls.socials + '/timeline/:tag' + '/:type', params: {'tag': '@tag', 'type': '@type'}, isArray: true},
+                    getHashTag     : {method: 'GET', url: globalConfig.api.urls.socials + '/timeline/:tag' + '/:type', params: {'tag': '@tag', 'type': '@type'}, isArray: false}
                 }
             );
         }]);

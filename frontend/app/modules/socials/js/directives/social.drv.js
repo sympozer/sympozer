@@ -7,7 +7,7 @@ function template(tmpl, context, filter) {
     });
 }
 
-angular.module('socials').directive('ngSocialButtons', ['GLOBAL_CONFIG', '$compile', '$q', '$parse', '$http', '$location',
+angular.module('socialsApp').directive('ngSocialButtons', ['GLOBAL_CONFIG', '$compile', '$q', '$parse', '$http', '$location',
     function (GLOBAL_CONFIG, $compile, $q, $parse, $http, $location) {
         'use strict';
         return {

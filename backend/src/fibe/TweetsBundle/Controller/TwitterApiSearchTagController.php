@@ -1,41 +1,49 @@
 <?php
 
-namespace fibe\SecurityBundle\Controller;
+namespace fibe\TweetsBundle\Controller;
 
-use FOS\UserBundle\Model\UserInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use fibe\SecurityBundle\Services\TwitterAPI;
+use FOS\RestBundle\Controller\Annotations as Rest;
+use FOS\RestBundle\Controller\FOSRestController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
-class TwitterApiSearchTagController extends Controller
+class TwitterApiSearchTagController extends FOSRestController
 {
+    /**
+     * controller used to expose url to ws-config
+     * /!\ do not remove
+     *
+     * @Rest\Get("/twitter-api/search", name="tweets_twitter_get")
+     * @Rest\View
+     */
+    public function importAction(Request $request, $shortClassName)
+    {
+    }
+
     /**
      * Passes a request to the Twitter API while adding OAuth headers. This enables
      * you to expose the Twitter API on your own domain.
      *
-     * @Route("/twitter-api/search/{tag}/{type}", defaults={"tag"="sympozer", "type"=""})
-     * @Template()
+     * @Rest\Get("/twitter-api/search/timeline/{tag}/{type}", defaults={"tag"="sympozer", "type"=""}, name="tweets_twitter_get")
      */
     public function apiAction($tag, $type, Request $request)
     {
-        $method = $request->getMethod();
-
         $parameters = array();
 
-
-
         // Retrieve the tweets
-        $twitter = $this->container->get('fibe_security.twitter');
+        /** @var TwitterAPI $twitter */
+        $twitter = $this->get('fibe_security.twitter');
 
-        if($type == "person"){
+        if ($type == "person")
+        {
             // Get tag
             $parameters["screen_name"] = $tag;
             $parameters['count'] = "15";
             $response = $twitter->query('statuses/user_timeline', "GET", "json", $parameters);
-        }else {
+        }
+        else
+        {
             // Get tag
             $parameters["q"] = $tag;
             // Get most recent tweets

@@ -201,9 +201,8 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 description: 'Description',
                 logo   : 'Logo',
                 'url'  : 'Url',
-                'twitterid' : 'Twitter',
-                'chkTimeline' : 'Timeline',
-                'chkSocial' : 'Social',
+                'twitter' : 'Twitter',
+                'share' : 'Share'
             }
         },
 
@@ -797,9 +796,8 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 description: 'Description',
                 logo   : 'Logo',
                 'url'  : 'Lien',
-                'twitterid' : 'Twitter',
-                'chkTimeline' : 'Timeline',
-                'chkSocial' : 'Social',
+                'twitter' : 'Twitter',
+                'share' : 'Partager'
             }
         },
 

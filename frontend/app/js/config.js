@@ -125,6 +125,34 @@ var globalConfig = {
                     img     : "modules/analytics/img/"
                 }
             },
+            socials  : {
+                urls: {
+                    base    : "modules/socials/",
+                    partials: "modules/socials/partials/"
+                },
+                getInfo: function(mapping, selector){
+                    var info = {};
+                    info.varName = (mapping[selector])["varName"];
+                    info.name = (mapping[selector])["name"];
+                    info.tags = (mapping[selector])["tags"];
+                    info.display = (mapping[selector])["display"];
+                    return info
+                },
+                mapping: {
+                    mainEvents: {
+                        varName: "currentMainEvent",
+                        name: "label",
+                        tags: "twitterid",
+                        display: "chk_timeline"
+                    },
+                    persons: {
+                        varName: "person",
+                        name: "firstName",
+                        tags: "twitterid",
+                        display: "chk_timeline"
+                    }
+                }
+            },
 
             import: {
                 urls: {

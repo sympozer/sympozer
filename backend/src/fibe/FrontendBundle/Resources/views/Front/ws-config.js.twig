@@ -14,6 +14,8 @@ get_roleLabels         : "{{ serverBasePath | raw }}{{ path('content_roleLabels_
 get_papers             : "{{ serverBasePath | raw }}{{ path('content_papers_post')  | raw }}",
 get_topics             : "{{ serverBasePath | raw }}{{ path('content_topics_post')  | raw }}",
 
+socials                : "{{ serverBasePath | raw }}{{ path('tweets_twitter_get')  | raw  }}",
+
 get_import_header      : "{{ serverBasePath | raw }}{{ path('content_import_get_header')  | raw }}",
 
 login                  : "{{ serverBasePath | raw }}{{ path('login_check', {_format: 'json'})  | raw }}",

@@ -1,3 +1,0 @@
-fibe_tweets_get:
-    path:      /{tag}
-    defaults:  { _controller: fibeTweetsBundle:Default:get }

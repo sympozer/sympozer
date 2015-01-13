@@ -39,6 +39,7 @@ class AppKernel extends Kernel
             new fibe\EventBundle\fibeEventBundle(),
             new fibe\ContentBundle\fibeContentBundle(),
             new fibe\CommunityBundle\fibeCommunityBundle(),
+            new fibe\TweetsBundle\fibeTweetsBundle(),
             new fibe\ImportBundle\fibeImportBundle(),
         );
 

@@ -19,6 +19,7 @@ class VEventType extends AbstractType
             ->add('id')
             ->add('label')
             ->add('twitter')
+            ->add('share')
             ->add('facebook')
             ->add('youtube')
             ->add('priority')
