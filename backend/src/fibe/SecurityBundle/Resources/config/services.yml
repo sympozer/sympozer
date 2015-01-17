@@ -50,6 +50,7 @@ services:
             - @session
             - @fibe_security.mailer
             - @fibe.UserService
+            - @fibe_security.acl_user_permission_helper
 
     fibe.UserService:
         class:  fibe\SecurityBundle\Services\UserService

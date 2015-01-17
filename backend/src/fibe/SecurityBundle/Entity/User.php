@@ -88,7 +88,7 @@ class User extends BaseUser
     /**
      * Person
      *
-     * @ORM\OneToOne(targetEntity="fibe\CommunityBundle\Entity\Person", cascade={"all"})
+     * @ORM\OneToOne(targetEntity="fibe\CommunityBundle\Entity\Person", cascade={"all"}, inversedBy="user")
      * @Expose
      */
     private $person;

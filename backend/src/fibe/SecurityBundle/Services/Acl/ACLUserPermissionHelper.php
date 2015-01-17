@@ -5,6 +5,7 @@ use FOS\UserBundle\Model\UserInterface;
 use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
 use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
 use Symfony\Component\Security\Acl\Exception\AclNotFoundException;
+use Symfony\Component\Security\Acl\Exception\InvalidDomainObjectException;
 use Symfony\Component\Security\Acl\Exception\NoAceFoundException;
 use Symfony\Component\Security\Acl\Model\EntryInterface;
 use Symfony\Component\Security\Acl\Model\MutableAclInterface;
@@ -23,10 +24,18 @@ class ACLUserPermissionHelper extends ACLEntityHelper
      * @param \FOS\UserBundle\Model\UserInterface $user
      * @param $action
      * @param $entity
+     * @throws \LogicException
      */
     public function performUpdateUserACL(Userinterface $user, $action, $entity)
     {
-        $entitySecurityIdentity = ObjectIdentity::fromDomainObject($entity);
+        try
+        {
+            $entitySecurityIdentity = ObjectIdentity::fromDomainObject($entity);
+        }
+        catch (InvalidDomainObjectException $e)
+        {
+            throw new \LogicException("[AclUserPermissionHelper] Object " . get_class($entity) . ' has no id! Make sure you have called $em->flush()');
+        }
         $acl = $this->getOrCreateAcl($entitySecurityIdentity, $user);
         $this->updateOrCreateAce($acl, $entity, $user, $action);
     }

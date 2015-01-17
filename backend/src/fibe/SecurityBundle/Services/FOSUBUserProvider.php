@@ -3,14 +3,18 @@ namespace fibe\SecurityBundle\Services;
 
 use Doctrine\ORM\ORMException;
 use fibe\SecurityBundle\Entity\User;
+use fibe\SecurityBundle\Services\Acl\ACLUserPermissionHelper;
 use FOS\UserBundle\Model\UserManagerInterface;
 use HWI\Bundle\OAuthBundle\OAuth\Response\UserResponseInterface;
 use HWI\Bundle\OAuthBundle\Security\Core\User\FOSUBUserProvider as BaseFOSUBUserProvider;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\Security\Acl\Permission\MaskBuilder;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  *  Social media user provider @see https://gist.github.com/danvbe/4476697#file-fosubuserprovider-php
+ *
+ *  This handle all kind of authentication stuff related to social service
  */
 class FOSUBUserProvider extends BaseFOSUBUserProvider
 {
@@ -18,6 +22,7 @@ class FOSUBUserProvider extends BaseFOSUBUserProvider
     protected $session;
     protected $mailer;
     protected $userService;
+    protected $aclHelper;
 
 
     /**
@@ -26,15 +31,17 @@ class FOSUBUserProvider extends BaseFOSUBUserProvider
      * @param UserManagerInterface $userManager FOSUB user provider.
      * @param array $properties Property mapping.
      * @param \Symfony\Component\HttpFoundation\Session\Session $session
-     * @param $mailer
+     * @param \fibe\SecurityBundle\Services\Mailer $mailer
      * @param UserService $userService
+     * @param Acl\ACLUserPermissionHelper $aclHelper
      */
-    public function __construct(UserManagerInterface $userManager, array $properties, Session $session, $mailer, UserService $userService)
+    public function __construct(UserManagerInterface $userManager, array $properties, Session $session, Mailer $mailer, UserService $userService, ACLUserPermissionHelper $aclHelper)
     {
         parent::__construct($userManager, $properties);
         $this->session = $session;
         $this->mailer = $mailer;
         $this->userService = $userService;
+        $this->aclHelper = $aclHelper;
     }
 
     /**
@@ -43,7 +50,9 @@ class FOSUBUserProvider extends BaseFOSUBUserProvider
     public function loadUserByOAuthUserResponse(UserResponseInterface $response)
     {
         $socialServiceId = $response->getUsername();
+        /** @var User $socialServiceUser */
         $socialServiceUser = $this->userManager->findUserBy(array($this->getProperty($response) => $socialServiceId));
+        /** @var User $loggedUser */
         $loggedUser = $this->userManager->findUserBy(array('id' => $this->session->get("userId")));
         $this->session->remove("userId");
         $serviceName = $response->getResourceOwner()->getName();
@@ -175,10 +184,16 @@ class FOSUBUserProvider extends BaseFOSUBUserProvider
             $user->setEnabled(true);
         }
 
+        //create the corresponding person
         $this->userService->post($user);
+
+
         $this->enrichUserDatas($user, $serviceName, $response);
-        $this->userManager->updateUser($user);
         $this->mailer->sendRandomPwdEmailMessage($user, $serviceName);
+        $this->userManager->updateUser($user);
+        $this->aclHelper->performUpdateUserACL($user, MaskBuilder::MASK_OWNER, $user->getPerson());
+
+//        $this->
 
 
         return $user;
