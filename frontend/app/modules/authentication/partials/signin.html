@@ -15,7 +15,7 @@
         <div class="col-sm-12">
           <div class="input-group">
             <span class="input-group-addon"><i class="fa fa-user"></i></span>
-            <input required="" type="text" name="_username" class="form-control" id="inputUsername" placeholder="{{ 'authentication.labels.username' | translate }}" ng-model="user.username" ng-minlength="3"
+            <input required="" type="text" name="_username" class="form-control" id="inputUsername" placeholder="{{ 'authentication.labels.username' | translate }}" ng-model="user._username" ng-minlength="3"
                    ng-maxlength="128"/>
           </div>
         </div>
@@ -25,13 +25,13 @@
         <div class="col-sm-12">
           <div class="input-group">
             <span class="input-group-addon"><i class="fa fa-lock"></i></span>
-            <input required="" type="password" name="_password" class="form-control" id="inputPassword" placeholder="{{ 'authentication.labels.password' | translate }}" ng-model="user.password"/>
+            <input required="" type="password" name="_password" class="form-control" id="inputPassword" placeholder="{{ 'authentication.labels.password' | translate }}" ng-model="user._password"/>
           </div>
         </div>
       </div>
       <div class="clearfix">
         <div class="pull-right">
-          <label><input type="checkbox" style="margin-bottom: 20px" checked=""> {{ 'authentication.labels.remember_me' | translate }} -
+          <label><input type="checkbox" ng-model="user._remember_me" style="margin-bottom: 20px" checked=""> {{ 'authentication.labels.remember_me' | translate }} -
           </label>
           <a href="" ng-click="showForgottenPwdPopup()" ng-controller="resetPwdRequestCtrl">{{ 'authentication.labels.forgotten_pwd' | translate }}</a>
         </div>

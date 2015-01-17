@@ -69,7 +69,7 @@ class SocialConnectRESTController extends ConnectController
 
             $this->container->getParameter('front_end_path'),
             $user->getUsername(),
-            $user->getId()
+            $user->getPerson()->getId()
         ));
     }
 }

@@ -21,6 +21,7 @@ angular.module('authenticationApp').controller('signinCtrl',
         }
 
         $scope.user = $rootScope.currentUser || new usersFact;
+        $scope.user._remember_me = true;
 
         var error = function (response, args)
         {
@@ -65,12 +66,13 @@ angular.module('authenticationApp').controller('signinCtrl',
                 controller : 'signinCtrl',
                 size       : "large"
             });
-        }
+        };
 
         //Send signin request with signin form information
         $scope.signinAction = function (user)
         {
-            usersFact.signin({}, {"_username": $scope.user.username, "_password": $scope.user.password}, success, error);
+            //TODO serialize login method in resource
+            usersFact.signin({}, {"_username": $scope.user._username, "_password": $scope.user._password, "_remember_me": $scope.user._remember_me}, success, error);
         };
 
         function getURLParameter(param)

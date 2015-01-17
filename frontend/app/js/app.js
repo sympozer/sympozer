@@ -37,8 +37,6 @@ angular.module('contextualizationApp', ['mainEventsApp']).run(function (contextF
 });
 
 
-
-
 /**
  * Main Sympozer Angular app depedencies
  */
@@ -108,6 +106,7 @@ angular.module('sympozerApp').config(['$provide', '$httpProvider', function ($pr
     $httpProvider.interceptors.push('globalHttpInterceptor');
 
     //Enable cors authentication (otherwise doesn't set session cookie)
+    $httpProvider.defaults.useXDomain = true;
     $httpProvider.defaults.withCredentials = true;
 
 }]);

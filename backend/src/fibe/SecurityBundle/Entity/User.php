@@ -16,283 +16,294 @@ use JMS\Serializer\Annotation\Type;
  */
 class User extends BaseUser
 {
-  /**
-   * @ORM\Id
-   * @ORM\Column(type="integer")
-   * @ORM\GeneratedValue(strategy="AUTO")
-   * @Expose
-   */
-  protected $id;
-  /**
-   * @var string
-   * @Type("string")
-   * @Expose
-   */
-  protected $username;
-  /**
-   * has the user set his password himself ?
-   *
-   * @ORM\Column(type="boolean")
-   * @Expose
-   */
-  protected $randomPwd;
-  /**
-   * Person
-   *
-   * @ORM\Column(name="name", type="string", length=255, nullable=true)
-   * @Expose
-   */
-  protected $name;
-  /**
-   * Langage
-   *
-   * @ORM\Column(type="string",nullable=true)
-   * @Expose
-   */
-  protected $langage;
-  /**
-   * @ORM\Column(name="picture", type="string", length=255, nullable=true)
-   * @Expose
-   */
-  protected $picture;
+    /**
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     * @Expose
+     */
+    protected $id;
+    /**
+     * @var string
+     * @Type("string")
+     * @Expose
+     */
+    protected $username;
+    /**
+     * has the user set his password himself ?
+     *
+     * @ORM\Column(type="boolean")
+     * @Expose
+     */
+    protected $randomPwd;
+    /**
+     * Person
+     *
+     * @ORM\Column(name="name", type="string", length=255, nullable=true)
+     * @Expose
+     */
+    protected $name;
+    /**
+     * Langage
+     *
+     * @ORM\Column(type="string",nullable=true)
+     * @Expose
+     */
+    protected $langage;
+    /**
+     * @ORM\Column(name="picture", type="string", length=255, nullable=true)
+     * @Expose
+     */
+    protected $picture;
+    /**
+     * expose remember me token to be displayed after login success
+     * @Expose
+     */
+    protected $remember_me_token;
 
 
 
-  /************************************
-   * SOCIAL NETWORK ID
-   * @TODO : put it in the table social_service_account
-   ************************************/
-  /** @ORM\Column(name="google_id", type="string", length=255, nullable=true) */
-  protected $google_id;
-  /** @ORM\Column(name="google_access_token", type="string", length=255, nullable=true) */
-  protected $google_access_token;
-  /** @ORM\Column(name="twitter_id", type="string", length=255, nullable=true) */
-  protected $twitter_id;
-  /** @ORM\Column(name="twitter_access_token", type="string", length=255, nullable=true) */
-  protected $twitter_access_token;
-  /** @ORM\Column(name="twitter_screen_name", type="string", length=255, nullable=true) */
-  protected $twitter_screen_name;
-  /** @ORM\Column(name="facebook_id", type="string", length=255, nullable=true) */
-  protected $facebook_id;
-  /** @ORM\Column(name="facebook_access_token", type="string", length=255, nullable=true) */
-  protected $facebook_access_token;
-  /** @ORM\Column(name="linkedin_id", type="string", length=255, nullable=true) */
-  protected $linkedin_id;
-  /** @ORM\Column(name="linkedin_access_token", type="string", length=255, nullable=true) */
-  protected $linkedin_access_token;
-  /**
-   * Person
-   *
-   * @ORM\OneToOne(targetEntity="fibe\CommunityBundle\Entity\Person", cascade={"all"})
-   * @Expose
-   */
-  private $person;
+    /************************************
+     * SOCIAL NETWORK ID
+     * @TODO : put it in the table social_service_account
+     ************************************/
+    /** @ORM\Column(name="google_id", type="string", length=255, nullable=true) */
+    protected $google_id;
+    /** @ORM\Column(name="google_access_token", type="string", length=255, nullable=true) */
+    protected $google_access_token;
+    /** @ORM\Column(name="twitter_id", type="string", length=255, nullable=true) */
+    protected $twitter_id;
+    /** @ORM\Column(name="twitter_access_token", type="string", length=255, nullable=true) */
+    protected $twitter_access_token;
+    /** @ORM\Column(name="twitter_screen_name", type="string", length=255, nullable=true) */
+    protected $twitter_screen_name;
+    /** @ORM\Column(name="facebook_id", type="string", length=255, nullable=true) */
+    protected $facebook_id;
+    /** @ORM\Column(name="facebook_access_token", type="string", length=255, nullable=true) */
+    protected $facebook_access_token;
+    /** @ORM\Column(name="linkedin_id", type="string", length=255, nullable=true) */
+    protected $linkedin_id;
+    /** @ORM\Column(name="linkedin_access_token", type="string", length=255, nullable=true) */
+    protected $linkedin_access_token;
+    /**
+     * Person
+     *
+     * @ORM\OneToOne(targetEntity="fibe\CommunityBundle\Entity\Person", cascade={"all"})
+     * @Expose
+     */
+    private $person;
 
-  /**
-   * Constructor
-   */
-  public function __construct()
-  {
-    parent::__construct();
-    $this->setRandomPwd(false);
-  }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        parent::__construct();
+        $this->setRandomPwd(false);
+    }
 
-  /**
-   * @param boolean $randomPwd
-   *
-   * @return $this
-   */
-  public function setRandomPwd($randomPwd)
-  {
-    $this->randomPwd = $randomPwd;
+    /**
+     * @param boolean $randomPwd
+     *
+     * @return $this
+     */
+    public function setRandomPwd($randomPwd)
+    {
+        $this->randomPwd = $randomPwd;
 
-    return $this;
-  }
+        return $this;
+    }
 
-  /**
-   * has the user set his own password yet ?
-   * @return boolean
-   */
-  public function isRandomPwd()
-  {
-    return $this->randomPwd;
-  }
+    /**
+     * has the user set his own password yet ?
+     * @return boolean
+     */
+    public function isRandomPwd()
+    {
+        return $this->randomPwd;
+    }
 
-  /**
-   * Get conferences
-   *
-   * @return \Doctrine\Common\Collections\Collection
-   */
-  public function getMainEvents()
-  {
-    return $this->conferences;
-  }
-
-  public function getName()
-  {
-    return $this->name;
-  }
+    public function getName()
+    {
+        return $this->name;
+    }
 
 
-  public function setName($name)
-  {
-    $this->name = $name;
+    public function setName($name)
+    {
+        $this->name = $name;
 
-    return $this;
-  }
+        return $this;
+    }
 
-  public function getLangage()
-  {
-    return $this->langage;
-  }
-
-
-  public function setLangage($langage)
-  {
-    $this->langage = $langage;
-
-    return $this;
-  }
-
-  public function getPicture()
-  {
-    return $this->picture;
-  }
+    public function getLangage()
+    {
+        return $this->langage;
+    }
 
 
-  public function setPicture($picture)
-  {
-    $this->picture = $picture;
+    public function setLangage($langage)
+    {
+        $this->langage = $langage;
 
-    return $this;
-  }
+        return $this;
+    }
 
-  /***************** SOCIAL NETWORK ID *******************/
-
-  public function getGoogleId()
-  {
-    return $this->google_id;
-  }
-
-  public function setGoogleId($googleId)
-  {
-    $this->google_id = $googleId;
-
-    return $this;
-  }
-
-  public function getGoogleAccessToken()
-  {
-    return $this->google_access_token;
-  }
-
-  public function setGoogleAccessToken($googleAccessToken)
-  {
-    $this->google_access_token = $googleAccessToken;
-
-    return $this;
-  }
+    public function getPicture()
+    {
+        return $this->picture;
+    }
 
 
-  public function getTwitterId()
-  {
-    return $this->twitter_id;
-  }
+    public function setPicture($picture)
+    {
+        $this->picture = $picture;
 
-  public function setTwitterId($twitterId)
-  {
-    $this->twitter_id = $twitterId;
+        return $this;
+    }
 
-    return $this;
-  }
+    /***************** SOCIAL NETWORK ID *******************/
 
-  public function getTwitterScreenName()
-  {
-    return $this->twitter_screen_name;
-  }
+    public function getGoogleId()
+    {
+        return $this->google_id;
+    }
 
-  public function setTwitterScreenName($twitterScreenName)
-  {
-    $this->twitter_screen_name = $twitterScreenName;
+    public function setGoogleId($googleId)
+    {
+        $this->google_id = $googleId;
 
-    return $this;
-  }
+        return $this;
+    }
 
-  public function getTwitterAccessToken()
-  {
-    return $this->twitter_access_token;
-  }
+    public function getGoogleAccessToken()
+    {
+        return $this->google_access_token;
+    }
 
-  public function setTwitterAccessToken($twitterAccessToken)
-  {
-    $this->twitter_access_token = $twitterAccessToken;
+    public function setGoogleAccessToken($googleAccessToken)
+    {
+        $this->google_access_token = $googleAccessToken;
 
-    return $this;
-  }
+        return $this;
+    }
 
 
-  public function getFacebookId()
-  {
-    return $this->facebook_id;
-  }
+    public function getTwitterId()
+    {
+        return $this->twitter_id;
+    }
 
-  public function setFacebookId($facebookId)
-  {
-    $this->facebook_id = $facebookId;
+    public function setTwitterId($twitterId)
+    {
+        $this->twitter_id = $twitterId;
 
-    return $this;
-  }
+        return $this;
+    }
 
-  public function getFacebookAccessToken()
-  {
-    return $this->facebook_access_token;
-  }
+    public function getTwitterScreenName()
+    {
+        return $this->twitter_screen_name;
+    }
 
-  public function setFacebookAccessToken($facebookAccessToken)
-  {
-    $this->facebook_access_token = $facebookAccessToken;
+    public function setTwitterScreenName($twitterScreenName)
+    {
+        $this->twitter_screen_name = $twitterScreenName;
 
-    return $this;
-  }
+        return $this;
+    }
+
+    public function getTwitterAccessToken()
+    {
+        return $this->twitter_access_token;
+    }
+
+    public function setTwitterAccessToken($twitterAccessToken)
+    {
+        $this->twitter_access_token = $twitterAccessToken;
+
+        return $this;
+    }
 
 
-  public function getLinkedinId()
-  {
-    return $this->linkedin_id;
-  }
+    public function getFacebookId()
+    {
+        return $this->facebook_id;
+    }
 
-  public function setLinkedinId($linkedinId)
-  {
-    $this->linkedin_id = $linkedinId;
+    public function setFacebookId($facebookId)
+    {
+        $this->facebook_id = $facebookId;
 
-    return $this;
-  }
+        return $this;
+    }
 
-  public function getLinkedinAccessToken()
-  {
-    return $this->linkedin_access_token;
-  }
+    public function getFacebookAccessToken()
+    {
+        return $this->facebook_access_token;
+    }
 
-  public function setLinkedinAccessToken($linkedinAccessToken)
-  {
-    $this->linkedin_access_token = $linkedinAccessToken;
+    public function setFacebookAccessToken($facebookAccessToken)
+    {
+        $this->facebook_access_token = $facebookAccessToken;
 
-    return $this;
-  }
+        return $this;
+    }
 
-  /**
-   * @return Person
-   */
-  public function getPerson()
-  {
-    return $this->person;
-  }
 
-  /**
-   * @param Person $person
-   */
-  public function setPerson(Person $person = null)
-  {
-    $this->person = $person;
-  }
+    public function getLinkedinId()
+    {
+        return $this->linkedin_id;
+    }
+
+    public function setLinkedinId($linkedinId)
+    {
+        $this->linkedin_id = $linkedinId;
+
+        return $this;
+    }
+
+    public function getLinkedinAccessToken()
+    {
+        return $this->linkedin_access_token;
+    }
+
+    public function setLinkedinAccessToken($linkedinAccessToken)
+    {
+        $this->linkedin_access_token = $linkedinAccessToken;
+
+        return $this;
+    }
+
+    /**
+     * @return Person
+     */
+    public function getPerson()
+    {
+        return $this->person;
+    }
+
+    /**
+     * @param Person $person
+     */
+    public function setPerson(Person $person = null)
+    {
+        $this->person = $person;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRememberMeToken()
+    {
+        return $this->remember_me_token;
+    }
+
+    /**
+     * @param string $remember_me_token
+     */
+    public function setRememberMeToken($remember_me_token)
+    {
+        $this->remember_me_token = $remember_me_token;
+    }
 }
