@@ -15,4 +15,8 @@ parameters:
     mailer_password:   <your gmail pwd>
 
     #used to generate frontend mail url
-    front_end_path:    http://localhost/sympozer/sympozer-front/app/
+    front_end_path:    http://localhost/sympozer/frontend/app/
+
+    #curl proxy settings
+    curl_proxy.address: ~
+    curl_proxy.port: ~

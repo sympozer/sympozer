@@ -28,8 +28,15 @@ parameters:
         Regards,
         the Symposer team
 
-
 services:
+
+    #enable proxy setting for curl ( params : "curl_proxy.address" and "curl_proxy.port")
+    sympozer_proxy_aware_curl:
+        class: fibe\SecurityBundle\Services\SympozerProxyAwareCurl
+        decorates: hwi_oauth.http_client
+        arguments:
+            - "@service_container"
+
     my_user_provider:
         class: "%my_user_provider.class%"
         #this is the place where the properties are passed to the UserProvider - see config.yml
