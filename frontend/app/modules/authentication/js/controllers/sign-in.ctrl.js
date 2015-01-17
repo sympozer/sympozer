@@ -12,6 +12,8 @@ angular.module('authenticationApp').controller('signinCtrl',
             username = getURLParameter('username');
         if (id && username)
         {
+            //remove username and id param from url
+            window.location.href = window.location.href.replace(/&?(username|id)=.[^&]*/g, "");
 //            todo : fetch this ?
             success({username: username, id: id}, false);
         }
