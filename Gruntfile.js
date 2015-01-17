@@ -880,6 +880,7 @@ module.exports = function (grunt)
         'usemin',
         'imagemin',
         'processhtml:dist',
+        'update_db',
         'sf2-console:copy_ws_config'
     ]);
 
