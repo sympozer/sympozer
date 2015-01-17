@@ -43,6 +43,7 @@ angular.module('eventsApp').factory('eventsFact',
                 'priority'   : object.priority,
                 'topics'     : [],
                 'twitter'    : object.twitter,
+                'share'      : object.share,
                 'url'        : object.url,
                 'youtube'    : object.youtube
             }

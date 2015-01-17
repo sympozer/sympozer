@@ -248,7 +248,9 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 day     : 'Day',
                 startAt : 'Start at',
                 endAt   : 'End at',
-                sessions: 'Sessions'
+                sessions: 'Sessions',
+                twitter : 'Twitter',
+                share   : 'Share'
 
             }
         },
@@ -600,7 +602,9 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 firstname   : 'First name',
                 familyname  : 'Family name',
                 email       : 'Email',
-                img         : 'Image'
+                img         : 'Image',
+                twitter     : 'Twitter',
+                share       : 'Share'
             }
         },
 
@@ -795,9 +799,9 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 endAt  : 'Fin',
                 description: 'Description',
                 logo   : 'Logo',
-                'url'  : 'Lien',
-                'twitter' : 'Twitter',
-                'share' : 'Partager'
+                url  : 'Lien',
+                twitter : 'Twitter',
+                share : 'Partager'
             }
         },
 
@@ -844,7 +848,9 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 url     : 'Lien',
                 startAt : 'Début',
                 endAt   : 'Fin',
-                sessions: 'Sessions'
+                sessions: 'Sessions',
+                twitter : 'Twitter',
+                share   : 'Partager'
             }
         },
 
@@ -1194,7 +1200,9 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 firstname   : 'Prénom',
                 familyname  : 'Nom',
                 email       : 'Email',
-                img         : 'Image'
+                img         : 'Image',
+                twitter     : 'Twitter',
+                share       : 'Partager'
             }
         },
 

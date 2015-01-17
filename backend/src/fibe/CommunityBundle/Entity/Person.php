@@ -133,6 +133,27 @@ class Person extends Agent
     private $guests;
 
     /**
+     * twitter hashtag
+     *
+     * This property defines the hashtag of the event resource
+     *
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @expose
+     */
+    protected $twitter;
+
+    /**
+     * share
+     *
+     * This property defines whether we display share buttons or not
+     *
+     * @ORM\Column(type="boolean")
+     * @Expose
+     */
+    protected $share = true;
+
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -660,5 +681,37 @@ class Person extends Agent
     public function setGuests($guests)
     {
         $this->guests = $guests;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTwitter()
+    {
+        return $this->twitter;
+    }
+
+    /**
+     * @param mixed $twitter
+     */
+    public function setTwitter($twitter)
+    {
+        $this->twitter = $twitter;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getShare()
+    {
+        return $this->share;
+    }
+
+    /**
+     * @param bool $share
+     */
+    public function setShare($share)
+    {
+        $this->share = $share;
     }
 }

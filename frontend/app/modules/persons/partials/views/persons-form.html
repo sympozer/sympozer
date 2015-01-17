@@ -42,6 +42,23 @@
         <input type="url" class="form-control" id="inputWebsite" placeholder="http://..." ng-model="person.website">
     </div>
 </div>
+<div class="form-group">
+  <label class="col-sm-3 control-label" for="inputTwitter">{{ 'persons.model.twitter' | translate}}</label>
+
+  <div class="col-sm-6">
+    <input class="form-control" id="inputTwitter" placeholder="{{person.twitter}}" ng-model="person.twitter">
+  </div>
+</div>
+<div class="form-group">
+  <div class="checkbox block">
+    <label class="col-sm-3 control-label" for="inputShare">{{ 'persons.model.share' | translate}}</label>
+    <div class="icheckbox_minimal-blue">
+      <input id="inputShare" icheck="" type="checkbox" ng-model="person.share"/>
+      <ins class="iCheck-helper">
+      </ins>
+    </div>
+  </div>
+</div>
 
 
 <div class="form-group">
