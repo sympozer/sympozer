@@ -512,53 +512,6 @@ module.exports = function (grunt)
                     }
                 ]
             },
-            js    : {
-                files: [
-                    {
-                        expand: true,
-                        dot   : true,
-                        cwd   : '<%= yeoman.app %>',
-                        dest  : '<%= yeoman.dist %>',
-                        src   : [
-                            '**/*.js'
-                        ]
-                    }
-                ]
-            },
-            img   : {
-                files: [
-                    {
-                        expand: true,
-                        dot   : true,
-                        cwd   : '<%= yeoman.app %>',
-                        dest  : '<%= yeoman.dist %>',
-                        src   : [
-                            '*.{ico,png,txt}',
-                            'images/{,*/}*.{webp}'
-                        ]
-                    },
-                    {
-                        expand: true,
-                        cwd   : '<%= yeoman.tmp %>/images',
-                        dest  : '<%= yeoman.dist %>/images',
-                        src   : ['generated/*']
-                    }
-                ]
-            },
-            fonts : {
-                files: [
-                    {
-                        expand: true,
-                        dot   : true,
-                        cwd   : '<%= yeoman.app %>',
-                        dest  : '<%= yeoman.dist %>',
-                        src   : [
-                            'bower/font-awesome/fonts/*',
-                            'bower/bootstrap/fonts/*'
-                        ]
-                    }
-                ]
-            },
             styles: {
                 expand: true,
                 cwd   : '<%= yeoman.app %>/assets/css',
@@ -605,7 +558,7 @@ module.exports = function (grunt)
                 src    : '<%= yeoman.app %>/modules/**/*.html',
                 dest   : '<%= yeoman.dist %>/templates/modules-templates.js',
                 options: {
-                    url      : function (url)
+                    url: function (url)
                     {
                         // return  url.replace('frontend/.tmp/templates/app/', 'http://localhost/sympozer/frontend/dist/templates');
                         return  url.replace('frontend/app/', 'http://localhost/frontend/dist/');
@@ -643,17 +596,17 @@ module.exports = function (grunt)
             dist  : {
                 options: {
 
-                    compress     : true,
-                    yuicompress  : false,
-                    optimization : 2,
-                    cleancss     : true,
-                    paths        : ["css"],
-                    syncImport   : false,
-                    strictUnits  : false,
-                    strictMath   : true,
+                    compress    : true,
+                    yuicompress : false,
+                    optimization: 2,
+                    cleancss    : true,
+                    paths       : ["css"],
+                    syncImport  : false,
+                    strictUnits : false,
+                    strictMath  : true,
                     strictImports: true,
-                    ieCompat     : false,
-                    report       : 'min'
+                    ieCompat    : false,
+                    report      : 'min'
                 },
                 files  : [
                     {
@@ -661,31 +614,6 @@ module.exports = function (grunt)
                         cwd   : "<%= yeoman.app %>/assets/less",
                         src   : "styles.less",
                         dest  : "<%= yeoman.dist %>/assets/css",
-                        ext   : ".css"
-                    }
-                ]
-            },
-            app   : {
-                options: {
-
-                    compress     : true,
-                    yuicompress  : false,
-                    optimization : 2,
-                    cleancss     : true,
-                    paths        : ["css"],
-                    syncImport   : false,
-                    strictUnits  : false,
-                    strictMath   : true,
-                    strictImports: true,
-                    ieCompat     : false,
-                    report       : 'min'
-                },
-                files  : [
-                    {
-                        expand: true,
-                        cwd   : "<%= yeoman.app %>/assets/less",
-                        src   : "styles.less",
-                        dest  : "<%= yeoman.app %>/assets/css",
                         ext   : ".css"
                     }
                 ]
@@ -831,27 +759,6 @@ module.exports = function (grunt)
         'karma'
     ]);
 
-    grunt.registerTask('compile-less', [
-        //Empty dist folder
-        'clean:dist',
-        //Compile html template files (remove comments etc..) and append to Dist dir
-        'htmlmin:app',
-        //Compile module html template files (remove comments etc..) and append to Dist dir
-        'htmlmin:modules',
-        //Read the index.html build markup
-        'useminPrepare',
-        'less:dist',
-        'autoprefixer',
-//        'concat',
-//        'ngmin',
-        // 'cdnify',
-        'cssmin',
-//        'rev',
-//        'usemin',
-        'processhtml:dist',
-        'sf2-console:copy_ws_config'
-    ]);
-
     grunt.registerTask('build', [
         //Empty dist folder
         'clean:dist',
@@ -875,12 +782,11 @@ module.exports = function (grunt)
         'copy:dist',
         // 'cdnify',
         'cssmin',
-//        'uglify',
+        'uglify',
 //        'rev',
         'usemin',
         'imagemin',
         'processhtml:dist',
-        'update_db',
         'sf2-console:copy_ws_config'
     ]);
 
