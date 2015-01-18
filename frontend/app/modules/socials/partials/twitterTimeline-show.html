@@ -21,14 +21,14 @@
           <li class="timeline-{{ ['primary','danger','success','info','inverse','brown','indigo','orange','sky','midnightblue','magenta','green'][$index%12] }}">
             <div class="timeline-icon">
               <img class="img-circle" ng-src="{{t.user.profile_image_url}}"/>
-              <span class="hashtag">@{{ t.user.screen_name }}</span>
             </div>
 
             <div class="timeline-body">
               <div class="timeline-content">
-                <span class="author">
+                <span class="author pull-right">
                   {{ t.user.name }} wrotes at <span class="date">{{ t.created_at | dateToISO | date:"EEEE, MMMM d,y hh:mm:ss a" }}</span>:
                 </span>
+                <b>@{{ t.user.screen_name }}</b>
                 <h4 ng-bind-html="t.text | highlightQuery: tweets.search_metadata.query"></h4>
               </div>
             </div>
