@@ -206,7 +206,8 @@
   float: right;
 }
 
-/** table color **/
+/** table color
+TODO : use less power **/
 .table tbody tr > td.success
 {
   background-color: #dff0d8 !important;
@@ -245,4 +246,29 @@
 .table-hover tbody tr:hover > td.info
 {
   background-color: #c4e3f3 !important;
+}
+
+/** twitter timeline **/
+.timeline > li .timeline-icon > .hashtag
+{
+  font-size: @font-size-base;
+}
+
+@media (max-width: 991px)
+{
+  .timeline > li .timeline-icon
+  {
+    margin: 20px 70px 100px 0;
+    z-index: 1;
+    img
+    {
+      right: 10px;
+      position: relative;
+    }
+    .hashtag
+    {
+      position: relative;
+      right: 20px;
+    }
+  }
 }

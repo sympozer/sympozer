@@ -10,6 +10,8 @@ security:
         fibe\SecurityBundle\Entity\User:
          # id : fos_user.password_provider.encoder
           algorithm: sha512
+          iterations: 1
+          encode_as_base64: false
 
     providers:
         main:

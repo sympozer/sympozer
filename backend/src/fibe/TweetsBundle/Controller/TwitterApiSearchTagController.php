@@ -25,7 +25,7 @@ class TwitterApiSearchTagController extends FOSRestController
      * Passes a request to the Twitter API while adding OAuth headers. This enables
      * you to expose the Twitter API on your own domain.
      *
-     * @Rest\Get("/twitter-api/search/timeline/{tag}/{type}", defaults={"tag"="sympozer", "type"=""}, name="tweets_twitter_get")
+     * @Rest\Get("/twitter-api/search/timeline/{tag}/{type}", defaults={"tag"="sympozer", "type"=""})
      */
     public function apiAction($tag, $type, Request $request)
     {
@@ -50,6 +50,7 @@ class TwitterApiSearchTagController extends FOSRestController
             $parameters['result_type'] = "recent";
             $response = $twitter->query('search/tweets', "GET", "json", $parameters);
         }
+
         return new Response(
             $response->getContent(),
             $response->getStatusCode(),

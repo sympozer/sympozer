@@ -193,9 +193,6 @@ class FOSUBUserProvider extends BaseFOSUBUserProvider
         $this->userManager->updateUser($user);
         $this->aclHelper->performUpdateUserACL($user, MaskBuilder::MASK_OWNER, $user->getPerson());
 
-//        $this->
-
-
         return $user;
     }
 

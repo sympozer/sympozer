@@ -14,7 +14,7 @@ var wsConfig = {
             get_papers       : "http://localhost/sympozer/backend/web/app_dev.php/papers",
             get_topics       : "http://localhost/sympozer/backend/web/app_dev.php/topics",
 
-            socials: "http://localhost/sympozer/backend/web/app_dev.php/twitter-api/search/timeline",
+            socials: "http://localhost/sympozer/backend/web/app_dev.php/twitter-api/search",
 
             get_import_header: "http://localhost/sympozer/backend/web/app_dev.php/import",
 
