@@ -99,6 +99,7 @@ class Agent
     /**
      * @ORM\Column(type="text", length=2056, nullable=true)
      * @Expose
+     * @Groups({"list"})
      */
     protected $description;
     /**
