@@ -16,7 +16,7 @@ class UserService extends AbstractBusinessService
     {
         $person = new Person();
         $person->setUser($user);
-        $person->setFirstName($user->getEmail());
+        $person->setFirstName($user->getUsername());
         $person->setEmail($user->getEmail());
         $this->entityManager->persist($person);
 
