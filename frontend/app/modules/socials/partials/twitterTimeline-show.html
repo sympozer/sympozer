@@ -1,50 +1,35 @@
 <div class="row" ng-controller="twitterTimelineCtrl">
-  <div class="col-xs-12" id="results" ng-switch="info.varName">
-    <div ng-switch-when="persons">
-      <div class="row" ng-repeat="t in tweets">
-        <div class="col-xs-2 col-sm-1">
-          <img ng-src="{{t.user.profile_image_url}}" class="img-circle">
+  <h4 class="timeline-month"><i class="fa fa-twitter"></i><span>Timeline</span></h4>
+
+  <div class="row" ng-repeat="t in tweets track by $index">
+
+    <ul class="timeline">
+      <li class="timeline-{{ ['primary','danger','success','info','inverse','brown','indigo','orange','sky','midnightblue','magenta','green'][$index%12] }}">
+        <div class="timeline-icon">
+          <img class="img-circle" ng-src="{{t.user.profile_image_url}}"/>
         </div>
-        <div class="col-xs-10 col-sm-11">
-          <small>{{t.user.name}}</small>
-          <br/>{{t.text}}
-          <br/>{{t.created_at}}
-        </div>
-      </div>
-    </div>
-    <div ng-switch-default>
-      <h4 class="timeline-month"><i class="fa fa-twitter"></i><span>Timeline</span></h4>
 
-      <div class="row" ng-repeat="t in tweets.statuses track by $index">
-
-        <ul class="timeline">
-          <li class="timeline-{{ ['primary','danger','success','info','inverse','brown','indigo','orange','sky','midnightblue','magenta','green'][$index%12] }}">
-            <div class="timeline-icon">
-              <img class="img-circle" ng-src="{{t.user.profile_image_url}}"/>
-            </div>
-
-            <div class="timeline-body">
-              <div class="timeline-content">
+        <div class="timeline-body">
+          <div class="timeline-content">
                 <span class="author pull-right">
                   {{ t.user.name }} wrotes at <span class="date">{{ t.created_at | dateToISO | date:"EEEE, MMMM d,y hh:mm:ss a" }}</span>:
                 </span>
-                <b>@{{ t.user.screen_name }}</b>
-                <h4 ng-bind-html="t.text | highlightQuery: tweets.search_metadata.query"></h4>
-              </div>
-            </div>
-          </li>
-        </ul>
-      </div>
-
-      <!--<div class="col-xs-2 col-sm-1">
-        <img ng-src="{{t.user.profile_image_url}}" class="img-circle">
-      </div>
-      <div class="col-xs-10 col-sm-11">
-        <small>{{t.user.name}}</small>
-        <br/>{{t.text}}
-        <br/>{{t.created_at}}
-      </div>-->
-    </div>
+            <b>@{{ t.user.screen_name }}</b>
+            <h4 ng-bind-html="t.text | highlightQuery: tweets.search_metadata.query"></h4>
+          </div>
+        </div>
+      </li>
+    </ul>
   </div>
+
+  <!--<div class="col-xs-2 col-sm-1">
+    <img ng-src="{{t.user.profile_image_url}}" class="img-circle">
+  </div>
+  <div class="col-xs-10 col-sm-11">
+    <small>{{t.user.name}}</small>
+    <br/>{{t.text}}
+    <br/>{{t.created_at}}
+  </div>-->
+</div>
 </div>
 </div>

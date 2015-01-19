@@ -8,7 +8,7 @@
 angular.module('personsApp').factory('personsFact', ['$resource', function ($resource)
 {
 
-    return $resource(
+    var resource = $resource(
         globalConfig.api.urls.get_persons,
         {},
         {
@@ -42,4 +42,6 @@ angular.module('personsApp').factory('personsFact', ['$resource', function ($res
 
         //create the new resource object from DTObject
         return new resource(DTObject);
+    };
+    return resource;
 }]);

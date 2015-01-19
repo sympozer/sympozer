@@ -4,7 +4,6 @@ namespace fibe\SecurityBundle\Controller;
 
 use FOS\UserBundle\Model\UserInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,7 +16,6 @@ class TwitterApiController extends Controller
      * you to expose the Twitter API on your own domain.
      *
      * @Route("/twitter-api/{name}.{format}", requirements={"name"=".+", "format"="(json|xml)"})
-     * @Template()
      */
     public function apiAction($name, $format, Request $request)
     {
@@ -35,7 +33,7 @@ class TwitterApiController extends Controller
         if (!is_object($user) || !$user instanceof UserInterface) {
             throw new AccessDeniedException('This user does not have access to this section.');
         }
- 
+
         // Retrieve the user's timeline
 
         $twitter = $this->container->get('fibe_security.twitter');

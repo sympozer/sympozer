@@ -8,19 +8,29 @@ angular.module('socialsApp').controller('twitterTimelineCtrl',
       function ($scope, $rootScope, $routeParams, GLOBAL_CONFIG, twitterFact, $location)
       {
           // Retrieve the url and get the specific scope
-          //TODO change this !!!
-          $scope.info = GLOBAL_CONFIG.app.modules.socials.getInfo(
-              GLOBAL_CONFIG.app.modules.socials.mapping, $location.$$path.split('/')[2]);
+          //TODO change this !
+          // => use angular's scope inheritance properties or $routeParams or something more appropriated
+          $scope.entitiesLbl = $location.$$path.split('/')[2];
 
-          if ($scope.currentMainEvent.twitter)
+          if ($scope.entitiesLbl == "mainEvents" && $scope.$root.currentMainEvent.twitter)
           {
-              if ($scope.info.varName == "persons")
+              $scope.tweets = twitterFact.getHashTag({tag: $scope.currentMainEvent.twitter}, function success(data)
               {
-                  $scope.tweets = twitterFact.getPersonTag({tag: $scope.currentMainEvent.twitter, type: $scope.info.varName });
-              }
-              else
+                  $scope.tweets = data.statuses;
+              });
+          }
+          else if ($scope.entitiesLbl == "persons")
+          {
+
+              $scope.$watch('$parent.person', function (person)
               {
-                  $scope.tweets = twitterFact.getHashTag({tag: $scope.currentMainEvent.twitter, type: $scope.info.varName });
-              }
+                  if (person && person.twitter)
+                  {
+                      $scope.tweets = twitterFact.getPersonTag({tag: person.twitter }, function success(data)
+                      {
+                          $scope.tweets = data;
+                      });
+                  }
+              }, true);
           }
       }]);

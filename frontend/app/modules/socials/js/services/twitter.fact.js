@@ -11,10 +11,10 @@ angular.module('socialsApp').factory('twitterFact',
         {
             return $resource(
                 globalConfig.api.urls,
-                {'tag': '@tag', 'type': '@type' },
+                {'tag': '@tag'},
                 {
-                    getPersonTag   : {method: 'GET', url: globalConfig.api.urls.socials + '/timeline/:tag' + '/:type', params: {'tag': '@tag', 'type': '@type'}, isArray: true},
-                    getHashTag     : {method: 'GET', url: globalConfig.api.urls.socials + '/timeline/:tag' + '/:type', params: {'tag': '@tag', 'type': '@type'}, isArray: false}
+                    getPersonTag: {method: 'GET', url: globalConfig.api.urls.socials + '/timeline/@:tag', params: {'tag': '@tag'}, isArray: true},
+                    getHashTag  : {method: 'GET', url: globalConfig.api.urls.socials + '/timeline/%23:tag', params: {'tag': '@tag'}, isArray: false}
                 }
             );
         }]);
