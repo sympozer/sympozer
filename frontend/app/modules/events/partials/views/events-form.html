@@ -24,22 +24,21 @@
     </div>
 </div>
 <div class="form-group">
-    <label class="col-sm-3 control-label" for="inputTwitterid">{{ 'events.model.twitterid' | translate}}</label>
-    <div class="col-sm-6">
-        <input type="url" class="form-control" id="inputTwitterid" placeholder="{{event.twitterid}}" ng-model="event.twitterid">
-    </div>
+  <label class="col-sm-3 control-label" for="inputTwitter">{{ 'events.model.twitter' | translate}}</label>
+
+  <div class="col-sm-6">
+    <input class="form-control" id="inputTwitter" placeholder="{{event.twitter}}" ng-model="event.twitter">
+  </div>
 </div>
 <div class="form-group">
-    <label class="col-sm-3 control-label" for="inputChkSocial">{{ 'events.model.chkSocial' | translate}}</label>
-    <div class="col-sm-6">
-        <input type="url" class="form-control" id="inputChkSocial" placeholder="{{event.chkSocial}}" ng-model="event.chkSocial">
+  <div class="checkbox block">
+    <label class="col-sm-3 control-label" for="inputShare">{{ 'events.model.share' | translate}}</label>
+    <div class="icheckbox_minimal-blue">
+      <input id="inputShare" icheck="" type="checkbox" ng-model="event.share"/>
+      <ins class="iCheck-helper">
+      </ins>
     </div>
-</div>
-<div class="form-group">
-    <label class="col-sm-3 control-label" for="inputChkTimeline">{{ 'events.model.chkTimeline' | translate}}</label>
-    <div class="col-sm-6">
-        <input type="url" class="form-control" id="inputChkTimeline" placeholder="{{event.chkTimeline}}" ng-model="event.chkTimeline">
-    </div>
+  </div>
 </div>
 
 <div class="form-group">

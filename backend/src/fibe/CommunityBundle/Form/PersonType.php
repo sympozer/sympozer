@@ -23,6 +23,8 @@ class PersonType extends AgentType
     $builder
       ->add('firstName')
       ->add('familyName')
+      ->add('twitter')
+      ->add('share')
       ->add('email', 'email')
       ->add('positions', 'sympozer_collection_type', array(
         'type' => new PositionType(),
