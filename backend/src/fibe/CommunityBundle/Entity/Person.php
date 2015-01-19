@@ -67,12 +67,6 @@ class Person extends Agent
     protected $firstName;
 
     /**
-     * @ORM\Column(type="string", length=1024, nullable=true, name="description")
-     * @Expose
-     */
-    protected $description;
-
-    /**
      * @ORM\Column(type="integer", nullable=true,  name="age")
      * @Expose
      */
@@ -303,30 +297,6 @@ class Person extends Agent
     public function setFirstName($firstName)
     {
         $this->firstName = $firstName;
-
-        return $this;
-    }
-
-    /**
-     * Get description
-     *
-     * @return string
-     */
-    public function getDescription()
-    {
-        return $this->description;
-    }
-
-    /**
-     * Set description
-     *
-     * @param string $description
-     *
-     * @return $this
-     */
-    public function setDescription($description)
-    {
-        $this->description = $description;
 
         return $this;
     }

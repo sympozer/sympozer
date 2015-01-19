@@ -32,7 +32,7 @@
               <div class="col-xs-12 col-sm-12 col-md-12 col-lg-10">
                 <h3>{{'persons.labels.about' | translate }}</h3>
                 <a href="#" e-placeholder="{{ 'persons.model.description' | translate}}" onbeforesave="updatePerson('description', $data)" editable-textarea="person.description" e-rows="6" e-cols="70">
-                  <pre>{{person.description || '?'}}</pre>
+                  <pre>{{person.description || 'global.constants.editable_field' | translate }}</pre>
                 </a>
               </div>
               <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -45,13 +45,13 @@
                     <tr>
                       <td>{{'persons.model.firstname' | translate }}</td>
                       <td>
-                        <span editable-text="person.firstName" onbeforesave="updatePerson('firstName', $data)">{{person.firstName || '?'}}</span>
+                        <span editable-text="person.firstName" onbeforesave="updatePerson('firstName', $data)">{{person.firstName || 'global.constants.editable_field' | translate }}</span>
                       </td>
                     </tr>
                     <tr>
                       <td>{{'persons.model.familyname' | translate }}</td>
                       <td>
-                        <span editable-text="person.familyName" onbeforesave="updatePerson('familyName', $data)">{{person.familyName || '?'}}</span>
+                        <span editable-text="person.familyName" onbeforesave="updatePerson('familyName', $data)">{{person.familyName || 'global.constants.editable_field' | translate }}</span>
                       </td>
                     </tr>
                     <tr>
@@ -63,13 +63,13 @@
                     <tr>
                       <td>{{'persons.model.website' | translate }}</td>
                       <td>
-                        <span editable-url="person.website" e-placeholder="http://" onbeforesave="updatePerson('website', $data)">{{person.website || '?'}}</span>
+                        <span editable-url="person.website" e-placeholder="http://" onbeforesave="updatePerson('website', $data)">{{person.website || 'global.constants.editable_field' | translate }}</span>
                       </td>
                     </tr>
                     <tr>
                       <td>{{'persons.model.email' | translate }}</td>
                       <td>
-                        <span editable-email="person.email" onbeforesave="updatePerson('email', $data)">{{person.email || '?'}}</span>
+                        <span editable-email="person.email" onbeforesave="updatePerson('email', $data)">{{person.email || 'global.constants.editable_field' | translate }}</span>
                       </td>
                     </tr>
                     <tr>
@@ -130,14 +130,14 @@
                       <td><i class="fa fa-twitter"></i></td>
                       <td>
                         <!--<a href="#" class="btn btn-xs"><i class="fa fa-skype"></i></a>-->
-                        <span editable-text="person.twitter" onbeforesave="updatePerson('twitter', $data)" class="btn btn-xs">{{person.twitter || '?'}}</span>
+                        <span editable-text="person.twitter" onbeforesave="updatePerson('twitter', $data)" class="btn btn-xs">{{person.twitter || 'global.constants.editable_field' | translate }}</span>
                       </td>
                     </tr>
                     <tr>
                       <td><i class="fa fa-facebook"></i></td>
                       <td>
                         <!--<a href="#" class="btn btn-xs"><i class="fa fa-skype"></i></a>-->
-                        <span editable-text="person.facebook" onbeforesave="updatePerson('facebook', $data)" class="btn btn-xs">{{person.facebook || '?'}}</span>
+                        <span editable-text="person.facebook" onbeforesave="updatePerson('facebook', $data)" class="btn btn-xs">{{person.facebook || 'global.constants.editable_field' | translate }}</span>
                       </td>
                     </tr>
 
@@ -145,7 +145,7 @@
                       <td><i class="fa fa-linkedin"></i></td>
                       <td>
                         <!--<a href="#" class="btn btn-xs"><i class="fa fa-skype"></i></a>-->
-                        <span editable-text="person.linkedIn" onbeforesave="updatePerson('linkedIn', $data)" class="btn btn-xs">{{person.linkedIn || '?'}}</span>
+                        <span editable-text="person.linkedIn" onbeforesave="updatePerson('linkedIn', $data)" class="btn btn-xs">{{person.linkedIn || 'global.constants.editable_field' | translate }}</span>
                       </td>
                     </tr>
 

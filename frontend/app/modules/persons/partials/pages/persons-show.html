@@ -56,7 +56,7 @@
                                             </td>
                                             <td>
                                                 <span ng-repeat="position in person.positions track by $index">
-                                                    {{position.position}} {{'global.labels.at' | translate }} {{position.organization.label}} </br>
+                                                    {{position.position}} {{'global.labels.at' | translate }} {{position.organization.label}}{{$last ? '' : ', '}} </br>
                                                 </span>
                                             </td>
                                         </tr>
