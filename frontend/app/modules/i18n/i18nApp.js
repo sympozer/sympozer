@@ -58,6 +58,9 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 success            : 'Success',
                 modifications_saved: 'Modifications saved'
 
+            },
+            constants  : {
+              editable_field       : 'Click here to edit this field'
             }
         },
 
@@ -654,6 +657,9 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 error              : 'Erreur',
                 success            : 'Success',
                 modifications_saved: 'Modifications sauvegardées'
+            },
+            constants  : {
+              editable_field       : 'Cliquez ici pour éditer ce champ'
             }
         },
 
