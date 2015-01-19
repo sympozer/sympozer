@@ -578,7 +578,7 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
             },
             labels     : {
                 contact: 'Contact',
-                social: 'Social',
+                social: 'Social accounts',
                 about : 'About'
             },
             validations: {
@@ -1168,7 +1168,7 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
             },
             labels     : {
                 contact: 'Contact',
-                social: 'Social',
+                social: 'Réseaux sociaux',
                 profil: 'Profil',
 
                 about: 'A propos'
