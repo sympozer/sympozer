@@ -41,15 +41,11 @@ angular.module('contextualizationApp', ['mainEventsApp']).run(function (contextF
  * Main Sympozer Angular app depedencies
  */
 var sympozerApp = angular.module('sympozerApp', [
-    'easypiechart',
     'validation.match',
     'toggle-switch',
     'ui.bootstrap',
-    'ui.tree',
     'ui.select2',
-    'ngGrid',
     'xeditable',
-    'flow',
     'angularMoment',
     'ngCookies',
     'ngResource',

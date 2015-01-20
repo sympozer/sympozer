@@ -1,194 +1,208 @@
 <!-- Navigation top bar -->
-<header class="navbar navbar-inverse" ng-class="{'navbar-fixed-top': style_fixedHeader, 'navbar-static-top': !style_fixedHeader}" role="banner">
-  <a id="leftmenu-trigger" tooltip-placement="right" tooltip="Toggle Sidebar" ng-click="toggleLeftBar()"></a>
-  <a id="rightmenu-trigger" tooltip-placement="left" tooltip="Toggle Infobar" ng-click="toggleRightBar()"></a>
+<header class="navbar navbar-inverse" ng-class="navbar-static-top" role="banner">
 
-  <div class="navbar-header pull-left">
-    <a class="navbar-brand" href="#/">Sympozer</a>
-  </div>
+<div class="navbar-header pull-left">
+    <div class="navbar-brand">
+        <a ng-click="toggleLeftBar()"><i class="fa fa-bars"></i></a>
+        <a id="navTop-logo" href="#/"></a>
+    </div>
+</div>
 
-  <!-- USER DROPDOWN MENU : -->
-  <ul class="nav navbar-nav pull-right toolbar">
+<ul class="nav navbar-nav pull-right">
+    <li>
+        <a class="pull-right" ng-click="toggleRightBar()"><i class="fa fa-bars"></i></a>
+    </li>
+</ul>
+
+<!-- USER DROPDOWN MENU : -->
+<ul class="nav navbar-nav pull-right navList">
 
     <li class="dropdown" ng-show="!isLoggedIn">
-      <a href="" ng-click="showSigninPopup()" ng-controller="signinCtrl" style="font-size: 14px"><i class="fa fa-sign-in"></i> {{ 'authentication.actions.signin' | translate }}</a>
+        <a href="" ng-click="showSigninPopup()" ng-controller="signinCtrl" style="font-size: 14px"><i class="fa fa-sign-in"></i> {{ 'authentication.actions.signin' | translate }}</a>
     </li>
     <li class="dropdown" disabled="disabled" ng-show="isLoggedIn">
-      <a href="#" class="dropdown-toggle username"><span class="hidden-xs">{{currentUser.username}}</span><img class="img-responsive" no-image ng-src="{{currentUser.person.img}}" alt=""/></a>
-      <ul class="dropdown-menu userinfo arrow">
-        <li class="userlinks">
-          <ul class="dropdown-menu">
-            <li><a href="#/home/persons/show/{{currentUser.id}}">{{ 'authentication.labels.profile' | translate }}
-              <i class="pull-right fa fa-fw fa-eye"></i></a></li>
-            <li><a href="#/home/authentication/account">{{ 'authentication.labels.account' | translate }} <i class="pull-right fa fa-fw fa-user"></i></a></li>
-            <li><a href="#/home/authentication/settings">{{ 'authentication.labels.settings' | translate }} <i class="pull-right fa fa-fw fa-cog"></i></a></li>
-            <li class="divider"></li>
-            <li><a href="#">{{ 'persons.links.my_events' | translate }} <i class="pull-right fa fa-fw fa-calendar"></i></a></li>
-            <!--<li><a href="#">{{ 'persons.links.my_tickets' | translate }} <i class="pull-right fa fa-fw fa-ticket"></i></a></li>-->
-            <li><a href="#">{{ 'persons.links.my_recommandations' | translate }}<i class="pull-right fa fa-fw fa-thumbs-o-up"></i></a></li>
-            <li class="divider"></li>
-            <li>
-              <a href="" class="text-right" ng-controller="signoutCtrl" ng-click="signoutAction()">{{ 'authentication.actions.signout' | translate }}</a>
+        <a href="#" class="dropdown-toggle username"><span class="hidden-xs">{{currentUser.username}}</span>
+            <div class="img-container-xs">
+                <img class="img-responsive" no-image ng-src="{{currentUser.person.img}}" alt=""/>
+            </div>
+        </a>
+        <ul class="dropdown-menu userinfo arrow">
+            <li class="userlinks">
+                <ul class="dropdown-menu">
+                    <li><a href="#/home/persons/show/{{currentUser.id}}">{{ 'authentication.labels.profile' | translate }}
+                        <i class="pull-right fa fa-fw fa-eye"></i></a></li>
+                    <li><a href="#/home/authentication/account">{{ 'authentication.labels.account' | translate }} <i class="pull-right fa fa-fw fa-user"></i></a></li>
+                    <li><a href="#/home/authentication/settings">{{ 'authentication.labels.settings' | translate }} <i class="pull-right fa fa-fw fa-cog"></i></a></li>
+                    <li class="divider"></li>
+                    <li><a href="#">{{ 'persons.links.my_events' | translate }} <i class="pull-right fa fa-fw fa-calendar"></i></a></li>
+                    <!--<li><a href="#">{{ 'persons.links.my_tickets' | translate }} <i class="pull-right fa fa-fw fa-ticket"></i></a></li>-->
+                    <li><a href="#">{{ 'persons.links.my_recommandations' | translate }}<i class="pull-right fa fa-fw fa-thumbs-o-up"></i></a></li>
+                    <li class="divider"></li>
+                    <li>
+                        <a href="" class="text-right" ng-controller="signoutCtrl" ng-click="signoutAction()">{{ 'authentication.actions.signout' | translate }}</a>
+                    </li>
+                </ul>
             </li>
-          </ul>
-        </li>
-      </ul>
+        </ul>
     </li>
     <li class="dropdown" ng-controller="messagesPopoverCtrl" ng-show="isLoggedIn"
         data-bootstro
         data-bootstro-step="2"
         data-bootstro-placement='bottom'
         data-bootstro-content="Click to mark messages as read."
-      >
-      <a href="#" class="dropdown-toggle">
-        <i class="fa fa-envelope"></i><span class="badge badge-danger" ng-if="unseenCount>0" ng-bind="unseenCount"></span>
-      </a>
-      <ul class="dropdown-menu messages arrow">
-        <li class="dd-header">
-          <span>You have {{unseenCount}} new message(s)</span>
-          <span><a href="#" ng-click="setReadAll($event)">Mark all Read</a></span>
-        </li>
-        <div class="scrollthis" jscrollpane="{autoReinitialise:true, autoReinitialiseDelay: 20}">
-          <li ng-repeat="item in messages">
-            <a href="#/messages/chatroom" ng-class="{active: !item.read}">
-              <button tooltip-placement="top" tooltip-append-to-body="true" tooltip="Mark Read" class="btn-mark-read" ng-if="!item.read" ng-click="setRead(item, $event)">
-                <i class="fa fa-circle"></i></button>
-              <button tooltip-placement="top" tooltip-append-to-body="true" tooltip="Mark Unread" class="btn-mark-unread" ng-if="item.read" ng-click="setUnread(item, $event)">
-                <i class="fa fa-circle-thin"></i></button>
-              <span class="time">{{item.time}}</span>
-              <img ng-src="{{item.thumb}}" alt="avatar"/>
+            >
+        <a href="#" class="dropdown-toggle">
+            <i class="fa fa-envelope"></i><span class="badge badge-danger" ng-if="unseenCount>0" ng-bind="unseenCount"></span>
+        </a>
+        <ul class="dropdown-menu messages arrow">
+            <li class="dd-header">
+                <span>You have {{unseenCount}} new message(s)</span>
+                <span><a href="#" ng-click="setReadAll($event)">Mark all Read</a></span>
+            </li>
+            <div class="scrollthis" jscrollpane="{autoReinitialise:true, autoReinitialiseDelay: 20}">
+                <li ng-repeat="item in messages">
+                    <a href="#/messages/chatroom" ng-class="{active: !item.read}">
+                        <button tooltip-placement="top" tooltip-append-to-body="true" tooltip="Mark Read" class="btn-mark-read" ng-if="!item.read" ng-click="setRead(item, $event)">
+                            <i class="fa fa-circle"></i></button>
+                        <button tooltip-placement="top" tooltip-append-to-body="true" tooltip="Mark Unread" class="btn-mark-unread" ng-if="item.read" ng-click="setUnread(item, $event)">
+                            <i class="fa fa-circle-thin"></i></button>
+                        <span class="time">{{item.time}}</span>
+                        <img ng-src="{{item.thumb}}" alt="avatar"/>
 
-              <div>
-                <span class="name">{{item.name}}</span>
-                <span class="msg">{{item.message}}</span>
-              </div>
-            </a>
-          </li>
-        </div>
-        <li class="dd-footer"><a href="#/messages/inbox">View All Messages</a></li>
-      </ul>
+                        <div>
+                            <span class="name">{{item.name}}</span>
+                            <span class="msg">{{item.message}}</span>
+                        </div>
+                    </a>
+                </li>
+            </div>
+            <li class="dd-footer"><a href="#/messages/inbox">View All Messages</a></li>
+        </ul>
     </li>
     <li class="dropdown" ng-controller="notificationsPopoverCtrl" ng-show="isLoggedIn"
         data-bootstro
         data-bootstro-step="1"
         data-bootstro-placement='bottom'
         data-bootstro-content="Click here to check out the dynamic notifications section. You can mark items as read and see the changes in real time."
-      >
-      <a href="#" class="dropdown-toggle">
-        <i class="fa fa-bell"></i><span class="badge badge-orange" ng-if="unseenCount>0" ng-bind="unseenCount"></span>
-      </a>
-      <ul class="dropdown-menu notifications arrow">
-        <li class="dd-header">
-          <span>You have {{unseenCount}} new notification(s)</span>
-          <span><a href="javascript:;" ng-click="setSeenAll($event)">Mark all Seen</a></span>
-        </li>
-        <div class="scrollthis" jscrollpane="{autoReinitialise:true, autoReinitialiseDelay: 20}">
-          <li ng-repeat="item in notifications">
-            <a href="#/notifications" class="{{item.class}}" ng-class="{active: !item.seen}">
-              <button tooltip-placement="top" tooltip-append-to-body="true" tooltip="Mark Seen" class="btn-mark-read" ng-if="!item.seen" ng-click="setSeen(item, $event)">
-                <i class="fa fa-circle"></i></button>
-              <button tooltip-placement="top" tooltip-append-to-body="true" tooltip="Mark Unseen" class="btn-mark-unread" ng-if="item.seen" ng-click="setUnseen(item, $event)">
-                <i class="fa fa-circle-thin"></i></button>
-              <span class="time">{{item.time}}</span>
-              <i class="{{item.iconClasses}}"></i>
-              <span class="msg">{{item.text}}</span>
-            </a>
-          </li>
-        </div>
-        <li class="dd-footer"><a href="#/notifications">View All Notifications</a></li>
-      </ul>
+            >
+        <a href="#" class="dropdown-toggle">
+            <i class="fa fa-bell"></i><span class="badge badge-orange" ng-if="unseenCount>0" ng-bind="unseenCount"></span>
+        </a>
+        <ul class="dropdown-menu notifications arrow">
+            <li class="dd-header">
+                <span>You have {{unseenCount}} new notification(s)</span>
+                <span><a href="javascript:;" ng-click="setSeenAll($event)">Mark all Seen</a></span>
+            </li>
+            <div class="scrollthis" jscrollpane="{autoReinitialise:true, autoReinitialiseDelay: 20}">
+                <li ng-repeat="item in notifications">
+                    <a href="#/notifications" class="{{item.class}}" ng-class="{active: !item.seen}">
+                        <button tooltip-placement="top" tooltip-append-to-body="true" tooltip="Mark Seen" class="btn-mark-read" ng-if="!item.seen" ng-click="setSeen(item, $event)">
+                            <i class="fa fa-circle"></i></button>
+                        <button tooltip-placement="top" tooltip-append-to-body="true" tooltip="Mark Unseen" class="btn-mark-unread" ng-if="item.seen" ng-click="setUnseen(item, $event)">
+                            <i class="fa fa-circle-thin"></i></button>
+                        <span class="time">{{item.time}}</span>
+                        <i class="{{item.iconClasses}}"></i>
+                        <span class="msg">{{item.text}}</span>
+                    </a>
+                </li>
+            </div>
+            <li class="dd-footer"><a href="#/notifications">View All Notifications</a></li>
+        </ul>
     </li>
     <li ng-click="showHeaderBar($event)">
-      <a href="" id="headerbardropdown"><span><i class="fa fa-level-down"></i></span></a>
+        <a href="" id="headerbardropdown"><span><i class="fa fa-level-down"></i></span></a>
     </li>
 
     <li class="dropdown demodrop" ng-controller="stylesCtrl">
-    <!--<li class="dropdown demodrop" ng-controller="stylesCtrl" data-pulsate="{glow:false, repeat: 3}">-->
-      <a href="#" class="dropdown-toggle tooltips"><i class="fa fa-cog"></i></a>
+        <!--<li class="dropdown demodrop" ng-controller="stylesCtrl" data-pulsate="{glow:false, repeat: 3}">-->
+        <a href="#" class="dropdown-toggle tooltips"><i class="fa fa-cog"></i></a>
 
-      <ul class="dropdown-menu arrow dropdown-menu-form" id="demo-dropdown">
-        <li>
-          <label for="demo-header-variations" class="control-label">Header Colors</label>
+        <ul class="dropdown-menu arrow dropdown-menu-form" id="demo-dropdown">
+            <li>
+                <label for="demo-header-variations" class="control-label">Header Colors</label>
 
-          <ul class="list-inline demo-color-variation" id="demo-header-variations">
-            <li><a class="color-dark" href="javascript:;" ng-click="setHeaderStyle('default.css', $event)"></a></li>
-            <li><a class="color-black" href="javascript:;" ng-click="setHeaderStyle('header-black.css', $event)"></a>
+                <ul class="list-inline demo-color-variation" id="demo-header-variations">
+                    <li><a class="color-dark" href="javascript:;" ng-click="setHeaderStyle('default.css', $event)"></a></li>
+                    <li><a class="color-black" href="javascript:;" ng-click="setHeaderStyle('header-black.css', $event)"></a>
+                    </li>
+                    <li>
+                        <a class="color-inverse" href="javascript:;" ng-click="setHeaderStyle('header-inverse.css', $event)"></a>
+                    </li>
+                    <li>
+                        <a class="color-default" href="javascript:;" ng-click="setHeaderStyle('header-midnightblue.css', $event)"></a>
+                    </li>
+                    <li>
+                        <a class="color-dangerdark" href="javascript:;" ng-click="setHeaderStyle('header-dangerdark.css', $event)"></a>
+                    </li>
+                </ul>
             </li>
+            <li class="divider"></li>
             <li>
-              <a class="color-inverse" href="javascript:;" ng-click="setHeaderStyle('header-inverse.css', $event)"></a>
+                <label for="demo-color-variations" class="control-label">Sidebar Colors</label>
+                <ul class="list-inline demo-color-variation">
+                    <li><a class="color-default" href="javascript:;" ng-click="setSidebarStyle('default.css', $event)"></a></li>
+                    <li>
+                        <a class="color-inverse" href="javascript:;" ng-click="setSidebarStyle('sidebar-inverse.css', $event)"></a>
+                    </li>
+                    <li>
+                        <a class="color-primary" href="javascript:;" ng-click="setSidebarStyle('sidebar-primary.css', $event)"></a>
+                    </li>
+                    <li><a class="color-gray" href="javascript:;" ng-click="setSidebarStyle('sidebar-gray.css', $event)"></a>
+                    </li>
+                    <li>
+                        <a class="color-indigo" href="javascript:;" ng-click="setSidebarStyle('sidebar-indigo.css', $event)"></a>
+                    </li>
+                    <li>
+                        <a class="color-dangerdark" href="javascript:;" ng-click="setSidebarStyle('sidebar-dangerdark.css', $event)"></a>
+                    </li>
+                </ul>
             </li>
+            <li class="divider"></li>
             <li>
-              <a class="color-default" href="javascript:;" ng-click="setHeaderStyle('header-midnightblue.css', $event)"></a>
-            </li>
-            <li>
-              <a class="color-dangerdark" href="javascript:;" ng-click="setHeaderStyle('header-dangerdark.css', $event)"></a>
-            </li>
-          </ul>
-        </li>
-        <li class="divider"></li>
-        <li>
-          <label for="demo-color-variations" class="control-label">Sidebar Colors</label>
-          <ul class="list-inline demo-color-variation">
-            <li><a class="color-default" href="javascript:;" ng-click="setSidebarStyle('default.css', $event)"></a></li>
-            <li>
-              <a class="color-inverse" href="javascript:;" ng-click="setSidebarStyle('sidebar-inverse.css', $event)"></a>
-            </li>
-            <li>
-              <a class="color-primary" href="javascript:;" ng-click="setSidebarStyle('sidebar-primary.css', $event)"></a>
-            </li>
-            <li><a class="color-gray" href="javascript:;" ng-click="setSidebarStyle('sidebar-gray.css', $event)"></a>
-            </li>
-            <li>
-              <a class="color-indigo" href="javascript:;" ng-click="setSidebarStyle('sidebar-indigo.css', $event)"></a>
-            </li>
-            <li>
-              <a class="color-dangerdark" href="javascript:;" ng-click="setSidebarStyle('sidebar-dangerdark.css', $event)"></a>
-            </li>
-          </ul>
-        </li>
-        <li class="divider"></li>
-        <li>
-          <label for="fixedheader">Fixed Header</label>
+                <label for="fixedheader">Fixed Header</label>
 
-          <div ng-click="$event.stopPropagation()">
-            <toggle-switch model="headerFixed" class="success"></toggle-switch>
-          </div>
-        </li>
-        <li class="divider"></li>
-        <li>
-          <label for="boxedlayout"><a href="#/layout-fixed">Boxed Layout</a></label>
+                <div ng-click="$event.stopPropagation()">
+                    <toggle-switch model="headerFixed" class="success"></toggle-switch>
+                </div>
+            </li>
+            <li class="divider"></li>
+            <li>
+                <label for="boxedlayout"><a href="#/layout-fixed">Boxed Layout</a></label>
 
-          <div ng-click="$event.stopPropagation()">
-            <toggle-switch model="layoutFixed" class="success"></toggle-switch>
-          </div>
-        </li>
-        <li class="divider"></li>
-        <li>
-          <label for="layoutHorizontal">Horizontal Nav</label>
+                <div ng-click="$event.stopPropagation()">
+                    <toggle-switch model="layoutFixed" class="success"></toggle-switch>
+                </div>
+            </li>
+            <li class="divider"></li>
+            <li>
+                <label for="layoutHorizontal">Horizontal Nav</label>
 
-          <div ng-click="$event.stopPropagation()">
-            <toggle-switch model="layoutHorizontal" class="success"></toggle-switch>
-          </div>
-        </li>
-      </ul>
-      <link rel="stylesheet" type="text/css" ng-href="{{GLOBAL_CONFIG.app.urls.base}}/demo/variations/{{headerStylesheet}}">
-      <link rel="stylesheet" type="text/css" ng-href="{{GLOBAL_CONFIG.app.urls.base}}/demo/variations/{{sidebarStylesheet}}">
+                <div ng-click="$event.stopPropagation()">
+                    <toggle-switch model="layoutHorizontal" class="success"></toggle-switch>
+                </div>
+            </li>
+        </ul>
+        <link rel="stylesheet" type="text/css" ng-href="{{GLOBAL_CONFIG.app.urls.base}}/demo/variations/{{headerStylesheet}}">
+        <link rel="stylesheet" type="text/css" ng-href="{{GLOBAL_CONFIG.app.urls.base}}/demo/variations/{{sidebarStylesheet}}">
     </li>
     <!-- TRANSLATION DROPDOWN MENU -->
     <li class="dropdown demodrop" ng-controller="translateCtrl">
-      <a href="#" class="dropdown-toggle tooltips"><img ng-src="{{ currentLocal.src }}" style="height: 15px; width: 20px;"/></a>
+        <a href="#" class="dropdown-toggle tooltips"><img ng-src="{{ currentLocal.src }}" style="height: 15px; width: 20px;"/></a>
 
-      <ul class="dropdown-menu local" id="navtop-local-dropdown">
-        <li ng-repeat="local in locals">
-          <a ng-click="changeLocal(local)" href="#">
-              <img ng-src="{{ local.src }}" class="pull-left"/>
+        <ul class="dropdown-menu local" id="navtop-local-dropdown">
+            <li ng-repeat="local in locals">
+                <a ng-click="changeLocal(local)" href="#">
+                    <img ng-src="{{ local.src }}" class="pull-left"/>
 
-              <div class="pull-right">
-                {{ local.label }}
-              </div>
-          </a>
-        </li>
-      </ul>
+                    <div class="pull-right">
+                        {{ local.label }}
+                    </div>
+                </a>
+            </li>
+        </ul>
     </li>
-  </ul>
+
+</ul>
+
+
 </header>

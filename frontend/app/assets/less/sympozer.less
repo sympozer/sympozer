@@ -1,11 +1,4 @@
 /**
- * Bootstrap less var
- */
-/* gray is definitely not viewable with forza background color*/
-@gray-light: lighten(@gray-base, 40%);
-// #777;
-
-/**
  * Alignment screen's espacelized
  *
  * Description : espacelized alignement wich consider the size of the screen to apply the named effect
@@ -206,8 +199,7 @@
   float: right;
 }
 
-/** table color
-TODO : use less power **/
+/** table color **/
 .table tbody tr > td.success
 {
   background-color: #dff0d8 !important;
@@ -248,18 +240,11 @@ TODO : use less power **/
   background-color: #c4e3f3 !important;
 }
 
-/** twitter timeline **/
-@media (max-width: 991px)
+
+.navbar-logo
 {
-  .timeline > li .timeline-icon
-  {
-    margin: 20px 70px 50px 0;
-    z-index: 1;
-    float: left;
-    img
-    {
-      right: 10px;
-      position: relative;
-    }
-  }
+  background: url("../img/logo.png") no-repeat center center;
+  height: 50px;
+  width: 190px;
+  display: block;
 }

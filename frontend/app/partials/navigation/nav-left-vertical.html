@@ -1,8 +1,10 @@
 <!-- Navigation left bar in vertical mode -->
-<nav id="page-leftbar" role="navigation">
+
+
+<nav id="navLeft" class="col-sm-3" role="navigation">
 
     <div>
-        <ul ng-controller="navMainCtrl" id="sidebar" sticky-scroll="40">
+        <ul class="nav nav-sidebar" ng-controller="navMainCtrl">
             <li id="search" ng-class="{'keep-open':style_showSearchCollapsed}">
                 <a href=""
                    ng-class="{blockImportant:style_leftbarCollapsed && !style_showSearchCollapsed}"
