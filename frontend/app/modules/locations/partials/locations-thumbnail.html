@@ -13,7 +13,7 @@
     <p>{{ location.latitude }}</p>
 
     <p>{{ location.longitude }}</p>
-    <a class="btn btn-warning" href="#conference/{{currentMainEvent.id}}/locations/edit/{{ location.id }}" role="button"><i class="fa fa-edit fa-1x"></i></a>
+    <a class="btn btn-warning" sympozer-acl-show="location" href="#conference/{{currentMainEvent.id}}/locations/edit/{{ location.id }}" role="button"><i class="fa fa-edit fa-1x"></i></a>
     <a class="btn btn-default" href="#conference/{{currentMainEvent.id}}/locations/show/{{ location.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>
     <a class="btn btn-primary" href="" data-ng-click="clone(location)" role="button"><i class="fa fa-files-o fa-1x"></i></a>
     <button class="btn btn-danger" data-ng-click="deleteModal($index, location)" role="button">

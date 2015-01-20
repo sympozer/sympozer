@@ -9,8 +9,8 @@
                 <a ng-if="!edit && event.mainEvent.id" class="btn btn-default btn-xs" href="#/home/conference/{{ event.mainEvent.id }}/events/show/{{ event.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>
                 <!-- Fallback to current main event if no main event (mandatory for displaying event in the main event show page because of serialization infinite loop problem)-->
                 <a ng-if="!edit && !event.mainEvent.id" class="btn btn-default btn-xs" href="#/home/conference/{{ currentMainEvent.id }}/events/show/{{ event.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>
-                <button  ng-if="edit" class="btn btn-danger btn-xs" ng-click="deleteEvent($index)">
-                    <i class="fa fa-close"></i>
+              <button sympozer-acl-show="event" sympozer-acl-show="event" ng-if="edit" class="btn btn-danger btn-xs" ng-click="deleteEvent($index)">
+              <i class="fa fa-close"></i>
                 </button>
             </div>
         </div>

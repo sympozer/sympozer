@@ -13,7 +13,7 @@
     <p>{{event.url}}</p>
 
     <p>{{event.description}}</p>
-    <a class="btn btn-warning" href="#conference/{{ event.mainEvent.id }}/events/edit/{{ event.id }}" role="button"><i class="fa fa-edit fa-1x"></i></a>
+    <a class="btn btn-warning" sympozer-acl-show="event" href="#conference/{{ event.mainEvent.id }}/events/edit/{{ event.id }}" role="button"><i class="fa fa-edit fa-1x"></i></a>
     <a class="btn btn-default" href="#conference/{{ event.mainEvent.id }}/events/show/{{ event.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>
     <a class="btn btn-primary" href="" data-ng-click="clone(event)" role="button"><i class="fa fa-files-o fa-1x"></i></a>
     <button class="btn btn-danger" data-ng-click="deleteModal($index, event)" role="button">

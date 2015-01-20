@@ -12,7 +12,7 @@
         <i class="fa fa-caret-square-o-down"></i>
         <span class="visible-sm-inline visible-lg-inline visible-md-inline"> {{ 'import.import' | translate}}</span>
       </button>
-      <a class="btn btn-info" href="#/home/mainEvents/edit/{{mainEvent.id}}" role="button">
+      <a class="btn btn-info" sympozer-acl-show="mainEvent" href="#/home/mainEvents/edit/{{mainEvent.id}}" role="button">
         <i class="fa fa-edit fa-1x"></i>
         <span class="visible-sm-inline visible-lg-inline visible-md-inline">{{ 'mainEvents.actions.edit' | translate}}</span>
       </a>
@@ -142,8 +142,8 @@
                   </a>
                 </panel-controls>
                 <div class="row">
-                    <!-- @TODO find a better way to aggregate all topic of a conference-->
-                        <div sympozer-with-locals locals-topics="mainEventTopics.results" ng-include="GLOBAL_CONFIG.app.modules.topics.urls.partials+'views/topics-list-thumbnail-xs.html'"></div>
+                  <!-- @TODO find a better way to aggregate all topic of a conference-->
+                  <div sympozer-with-locals locals-topics="mainEventTopics.results" ng-include="GLOBAL_CONFIG.app.modules.topics.urls.partials+'views/topics-list-thumbnail-xs.html'"></div>
                 </div>
               </panel>
             </div>

@@ -24,8 +24,8 @@
                         <div class="img-container-lg">
                             <i class="fa fa-calendar fa-5x"></i>
                         </div>
-                        <a class="btn btn-info" href="#/home/conference/{{event.mainEvent.id}}/events/edit/{{event.id}}" role="button">
-                            <i class="fa fa-edit fa-1x"></i>
+                      <a class="btn btn-info" sympozer-acl-show="event" href="#/home/conference/{{event.mainEvent.id}}/events/edit/{{event.id}}" role="button">
+                      <i class="fa fa-edit fa-1x"></i>
                              <span class="visible-sm-inline visible-lg-inline visible-md-inline">
                                  {{ 'events.actions.edit' | translate }}
                                  </span>

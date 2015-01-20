@@ -26,8 +26,8 @@
                                 <div class="img-container-lg">
                                     <i class="fa fa-map-marker fa-5x"></i>
                                 </div>
-                                <a class="btn btn-info" href="#/home/conference/{{location.mainEvent.id}}/locations/edit/{{location.id}}" role="button">
-                                    <i class="fa fa-edit fa-1x"></i>
+                              <a class="btn btn-info" sympozer-acl-show="location" href="#/home/conference/{{location.mainEvent.id}}/locations/edit/{{location.id}}" role="button">
+                              <i class="fa fa-edit fa-1x"></i>
                                     <span class="visible-sm-inline visible-lg-inline  visible-md-inline ">
                                         {{'global.actions.edit' | translate}}
                                     </span>
@@ -64,8 +64,8 @@
                                     <h1>{{'events.labels.to' | translate}} : {{mainEvent.endAt}}</h1>
 
                                     <pre>{{event.description}}</pre>
-                                    <a class="btn btn-warning" href="#conference/{{ event.mainEvent.id }}/events/edit/{{ event.id }}" role="button"><i class="fa fa-edit fa-1x"></i></a>
-                                    <a class="btn btn-default" href="#conference/{{ event.mainEvent.id }}/events/show/{{ event.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>
+                                  <a class="btn btn-warning" sympozer-acl-show="event" href="#conference/{{ event.mainEvent.id }}/events/edit/{{ event.id }}" role="button"><i class="fa fa-edit fa-1x"></i></a>
+                                  <a class="btn btn-default" href="#conference/{{ event.mainEvent.id }}/events/show/{{ event.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>
                                 </div>
                             </panel>
                         </div>

@@ -9,6 +9,7 @@
 angular.module('sympozerApp').directive('sympozerAclShow', [
     'sympozerAclService', function (sympozerAclService)
     {
+        //operator right can do everything but delete the whole mainEvent
         var defaultRightToAsk = "OPERATOR";
 
         return {
@@ -31,13 +32,22 @@ angular.module('sympozerApp').directive('sympozerAclShow', [
                         return;
                     }
 
-                    if (sympozerAclService.isGranted($scope.promise, $scope.right || defaultRightToAsk))
+                    if (!$scope.$root.currentUser)
                     {
-                        element.show();
+                        element.hide();
                     }
                     else
                     {
-                        element.hide();
+
+                        //if the current logged user has right on the entity : display the button.
+                        if (sympozerAclService.isGranted($scope.promise, $scope.right || defaultRightToAsk))
+                        {
+                            element.show();
+                        }
+                        else
+                        {
+                            element.show().addClass("disabled");
+                        }
                     }
                 })
             }

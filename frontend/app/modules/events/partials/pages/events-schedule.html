@@ -1,26 +1,26 @@
 <div id="page-heading">
 
-    <div ng-include="GLOBAL_CONFIG.app.urls.partials+'navigation/breadcrumb.html'"></div>
+  <div ng-include="GLOBAL_CONFIG.app.urls.partials+'navigation/breadcrumb.html'"></div>
 
-    <h1>{{'events.links.events' | translate }}</h1>
+  <h1>{{'events.links.events' | translate }}</h1>
 
-    <div class="options">
-        <div class="btn-toolbar">
-            <div class="btn-group" dropdown>
-                <div ng-include="GLOBAL_CONFIG.app.modules.events.urls.partials+'views/events-actions.html'"></div>
-            </div>
-        </div>
+  <div class="options">
+    <div class="btn-toolbar">
+      <div class="btn-group" dropdown>
+        <div ng-include="GLOBAL_CONFIG.app.modules.events.urls.partials+'views/events-actions.html'"></div>
+      </div>
     </div>
+  </div>
 </div>
 
 
 <!-- CALENDAR -->
 
 <div class="container-fluid">
-    <div class="row">
-        <button class="btn-success btn btn-large" ng-click="showSideboxRight=!showSideboxRight" ng-init="showSideboxRight=false">Filters</button>
-        <div id="calendar"  class="calendar"></div>
-    </div>
+  <div class="row">
+    <button class="btn-success btn btn-large" ng-click="showSideboxRight=!showSideboxRight" ng-init="showSideboxRight=false">Filters</button>
+    <div id="calendar" class="calendar"></div>
+  </div>
 </div>
 
 <!-- FILTERS SIDEBOX -->
@@ -29,25 +29,26 @@
 
 <!-- POPOVER TEMPLATE -->
 <script type="text/ng-template" id="event-popover-lg.html">
-    <div class="row">
-        <div class="col-xs-2">
-<a class="btn btn-info btn-xs" ng-disabled="disabled" href="#/home/conference/{{currentMainEvent.id}}/events/new/">
-    <i class="fa fa-plus"></i> Add to cal
-</a>
-        </div>
-        <div style="float:right" class="col-xs-2">
-            <a class="btn btn-success btn-xs"  ng-click="editCalEvent(currentCalEvent)">
-                <i class="fa fa-plus"></i> {{ 'global.actions.edit' | translate }}
-            </a>
-        </div>
+  <div class="row">
+    <div class="col-xs-2">
+      <a class="btn btn-info btn-xs" ng-disabled="disabled" href="#/home/conference/{{currentMainEvent.id}}/events/new/">
+        <i class="fa fa-plus"></i> Add to cal
+      </a>
     </div>
-    <hr>
-      <p>{{currentCalEvent.description }}</p>
-      <img ng-if="currentCalEvent.img" ng-src=">{{currentCalEvent.img}}" class="img-responsive">{{currentCalEvent.description }}</p>
+    <div style="float:right" class="col-xs-2">
+      <a class="btn btn-success btn-xs" sympozer-acl-show="currentCalEvent" ng-click="editCalEvent(currentCalEvent)">
+        <i class="fa fa-plus"></i> {{ 'global.actions.edit' | translate }}
+      </a>
+    </div>
+  </div>
+  <hr>
+  <p>{{currentCalEvent.description }}</p>
+  <img ng-if="currentCalEvent.img" ng-src=">{{currentCalEvent.img}}" class="img-responsive">{{currentCalEvent.description }}</p>
 
-    <div ng-repeat="i in [1]">{{i}}</div>
-      <div ng-repeat="role in currentCalEvent.roles track by $index">
-          <h2>{{role}}</h2>
-          <h2>{{role}}</h2>
-      </div>
+  <div ng-repeat="i in [1]">{{i}}</div>
+  <div ng-repeat="role in currentCalEvent.roles track by $index">
+    <h2>{{role}}</h2>
+
+    <h2>{{role}}</h2>
+  </div>
 </script>

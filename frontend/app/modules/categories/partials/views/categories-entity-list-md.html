@@ -17,8 +17,8 @@
                 </div>
             </td>
             <td>
-                <a class="btn btn-warning" href="#conference/{{currentMainEvent.id}}/categories/edit/{{ category.id }}" role="button"><i class="fa fa-edit fa-1x"></i></a>
-                <a class="btn btn-default" href="#conference/{{currentMainEvent.id}}/categories/show/{{ category.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>
+              <a class="btn btn-warning" sympozer-acl-show="category" href="#conference/{{currentMainEvent.id}}/categories/edit/{{ category.id }}" role="button"><i class="fa fa-edit fa-1x"></i></a>
+              <a class="btn btn-default" href="#conference/{{currentMainEvent.id}}/categories/show/{{ category.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>
                 <a class="btn btn-primary" href="" data-ng-click="clone(category)" role="button"><i class="fa fa-files-o fa-1x"></i></a>
                 <button class="btn btn-danger" data-ng-click="deleteModal($index, category)" role="button">
                     <i class="fa fa-trash-o fa-1x"></i></button>
