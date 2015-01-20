@@ -41,8 +41,6 @@ angular.module('sympozerApp').controller('navMainCtrl', ['$scope', '$rootScope',
     /**
      * Current main conference menu
      *
-     * @TODO FORZA : TO RETHINK... ?
-     *
      * @type {{label: string, iconClasses: string, children: *[]}[]}
      */
     var menuCurrentConference = function(){

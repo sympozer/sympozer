@@ -4,7 +4,7 @@
  * gmap directive
  *
  * @Description :
- * Directive for gmap plugin interaction from forza
+ * Directive for gmap plugin interaction
  * @example :  <div gmap options="{ lat: -12.043333,lng: -77.028333}" instance="geoCodingMapInstance"></div>
  * @type {directive}
  */

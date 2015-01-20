@@ -2,7 +2,7 @@
  * tile directive
  * use to handle tile component rendering
  */
-angular.module('sympozerApp').directive('tile', function ()
+angular.module('sympozerApp').directive('tile',[ 'GLOBAL_CONFIG' ,function (GLOBAL_CONFIG)
 {
     return {
         restrict: 'E',
@@ -11,7 +11,7 @@ angular.module('sympozerApp').directive('tile', function ()
             type: '@'
         },
         transclude: true,
-        templateUrl: 'templates/tile-generic.html',
+        templateUrl: GLOBAL_CONFIG.app.urls.partials + 'tiles/tile-generic.html',
         link: function (scope, element, attr)
         {
             var heading = element.find('tile-heading');
@@ -22,4 +22,4 @@ angular.module('sympozerApp').directive('tile', function ()
         },
         replace: true
     }
-})
+}])

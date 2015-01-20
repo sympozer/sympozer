@@ -2,7 +2,7 @@
  * panel directive
  * use to handle panel component rendering
  */
-angular.module('sympozerApp').directive('panel', function ()
+angular.module('sympozerApp').directive('panel',[ 'GLOBAL_CONFIG' ,function (GLOBAL_CONFIG)
 {
     return {
         restrict: 'E',
@@ -12,6 +12,6 @@ angular.module('sympozerApp').directive('panel', function ()
             heading: '@',
             panelIcon: '@'
         },
-        templateUrl: 'templates/panel.html'
+        templateUrl: GLOBAL_CONFIG.app.urls.partials + 'panels/panel.html'
     }
-})
+}])

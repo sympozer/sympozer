@@ -1,6 +1,6 @@
 
 /**
- * Main Sympozer Angular app controller from FORZA
+ * Main Sympozer Angular app controller
  */
 angular.module('sympozerApp').controller('mainCtrl', ['$scope', '$rootScope', '$global', '$timeout', 'progressLoader', '$location', 'GLOBAL_CONFIG', function ($scope, $rootScope, $global, $timeout, progressLoader, $location, GLOBAL_CONFIG)
 {
@@ -19,8 +19,6 @@ angular.module('sympozerApp').controller('mainCtrl', ['$scope', '$rootScope', '$
     $rootScope.style_isSmallScreen = false;
     $rootScope.style_showSearchCollapsed = $global.get('showSearchCollapsed');
     $rootScope.style_layoutHorizontal = $global.get('layoutHorizontal');
-
-
 
 
 

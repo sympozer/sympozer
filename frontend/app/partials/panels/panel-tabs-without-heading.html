@@ -1,0 +1,16 @@
+<div class="panel {{panelClass}}">
+  <div class="panel-heading">
+        <h4>
+            <ul class="nav nav-{{type || 'tabs'}}" ng-class="{'nav-stacked': vertical, 'nav-justified': justified}" ng-transclude></ul>
+        </h4>
+  </div>
+  <div class="panel-body">
+    <div class="tab-content">
+        <div class="tab-pane"
+            ng-repeat="tab in tabs"
+            ng-class="{active: tab.active}"
+            tab-content-transclude="tab">
+        </div>
+    </div>
+  </div>
+</div>
