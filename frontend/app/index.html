@@ -130,14 +130,14 @@
       ng-app="sympozerApp"
       ng-controller="mainCtrl"
       ng-class="{
-    'static-header': !style_fixedHeader,
-            'focusedform': style_fullscreen,
-            'layout-horizontal': style_layoutHorizontal,
-            'fixed-layout': style_layoutBoxed,
-            'collapse-leftbar': style_leftbarCollapsed && !style_leftbarShown,
-            'show-rightbar': style_rightbarCollapsed,
-            'show-leftbar': style_leftbarShown$, 'show-events-filterbar' : style_eventsFilterBarCollapsed
-    }"
+            'static-header': true,
+            'layout-horizontal': false,
+            'fixed-layout': false,
+            'collapse-leftbar': ui_navLeftCollapsed && !ui_navLeftShown,
+            'show-rightbar': ui_navRightCollapsed,
+            'show-leftbar': ui_navLeftShown,
+            'show-events-filterbar' : ui_eventsFilterBarCollapsed
+      }"
       ng-click="hideSearchBar();hideHeaderBar();"
       ng-cloak
         >
@@ -271,8 +271,6 @@
 <script src="js/controllers/navigation/nav-right.ctrl.js"></script>
 <script src="js/controllers/navigation/nav-main.ctrl.js"></script>
 
-<script src="js/controllers/styles/styles.ctrl.js"></script>
-
 <script src="js/controllers/main.ctrl.js"></script>
 <script src="js/controllers/dashboard.ctrl.js"></script>
 
@@ -330,13 +328,11 @@
 <script src="js/services/global-http-interceptor.fact.js"></script>
 <script src="js/services/sympozer-acl-service.fact.js"></script>
 <script src="js/services/template-loader.fact.js"></script>
-<script src="js/services/lazy-load.fact.js"></script>
-<script src="js/services/bootbox.fact.js"></script>
 <script src="js/services/progress-loader.fact.js"></script>
 <script src="js/services/pines-notifications.fact.js"></script>
 <script src="js/services/search.fact.js"></script>
 <script src="js/services/gmaps.fact.js"></script>
-<script src="js/services/global.fact.js"></script>
+<script src="js/services/uiConfig.fact.js"></script>
 
 
 <!-- SYMPOZER AUTHENTICATION APP -->

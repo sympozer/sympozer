@@ -2,14 +2,14 @@
  * HeaderBarCtrl
  * Controller component that handles the header nav bar with tiles
  */
-angular.module('sympozerApp').controller('navHeaderCtrl', ['$scope', '$rootScope', '$global', function ($scope, $rootScope, $global)
+angular.module('sympozerApp').controller('navHeaderCtrl', ['$scope', '$rootScope', '$uiConfig', function ($scope, $rootScope, $uiConfig)
 {
     /**
      * Action that hide the header bar
      */
     $rootScope.hideHeaderBar = function ()
     {
-        $global.set('headerBarHidden', true);
+        $uiConfig.set('navHeaderHidden', true);
     };
 
     /**
@@ -18,7 +18,7 @@ angular.module('sympozerApp').controller('navHeaderCtrl', ['$scope', '$rootScope
     $rootScope.showHeaderBar = function ($event)
     {
         $event.stopPropagation();
-        $global.set('headerBarHidden', false);
+        $uiConfig.set('navHeaderHidden', false);
     };
 
 

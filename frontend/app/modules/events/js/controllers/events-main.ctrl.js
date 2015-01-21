@@ -10,7 +10,7 @@ angular.module('eventsApp').controller('eventsMainCtrl', [function ($scope){
      */
     $rootScope.toggleRightBar = function ()
     {
-        $global.set('events-filterBarCollapsed', !$scope.style_events-filterBarCollapsed);
+        $uiConfig.set('events-filterBarCollapsed', !$scope.style_events-filterBarCollapsed);
     };
 
 }]);

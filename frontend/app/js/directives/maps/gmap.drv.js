@@ -26,16 +26,9 @@ angular.module('sympozerApp') .directive('gmap', ['$timeout', 'GMaps', function 
             }
             scope.options.el = '#' + attr.id;
 
-            //Declare new panorama if argument found
-            if (attr.panorama !== undefined)
-            {
-                GMaps.newPanorama(scope.options, scope.instance);
-            }
             //Generate a new map instance
-            else
-            {
-                GMaps.new(scope.options, scope.instance);
-            }
+            GMaps.new(scope.options, scope.instance);
+
         }
     }
 }])

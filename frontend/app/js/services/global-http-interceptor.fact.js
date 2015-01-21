@@ -6,7 +6,7 @@
  *
  *
  */
-angular.module('sympozerApp').factory('globalHttpInterceptor', ['$q', '$rootScope', 'pinesNotifications', 'translateFilter', function ($q, $rootScope, pinesNotifications, translateFilter)
+angular.module('sympozerApp').factory('globalHttpInterceptor', ['$q', '$rootScope', 'pinesNotifications', 'translateFilter', 'progressLoader', function ($q, $rootScope, pinesNotifications, translateFilter, progressLoader)
 {
 
     /**
@@ -71,6 +71,8 @@ angular.module('sympozerApp').factory('globalHttpInterceptor', ['$q', '$rootScop
         //Executed whenever a request is made by the client
         'request'      : function (config)
         {
+            // console.log('start: ', $location.path());
+            progressLoader.start();
             if (["POST", "PUT", "PATCH"].indexOf(config.method) >= 0)
             {
                 {
@@ -78,13 +80,15 @@ angular.module('sympozerApp').factory('globalHttpInterceptor', ['$q', '$rootScop
                     config.data = cleanEntityDepth(config.data);
                 }
             }
-
+            progressLoader.set(50);
             return config;
         },
 
         //Executed whenever a valid request is received by the client
         'response'     : function (response)
         {
+            //Stop progress loader
+            progressLoader.end();
             return response || $q.when(response);
         },
 
@@ -92,7 +96,8 @@ angular.module('sympozerApp').factory('globalHttpInterceptor', ['$q', '$rootScop
         //Executed whenever an error is received
         'responseError': function (rejection)
         {
-
+            //Stop progress loader
+            progressLoader.end();
             //Watch for unauthorized status
             if (rejection.status == "401")
             {
