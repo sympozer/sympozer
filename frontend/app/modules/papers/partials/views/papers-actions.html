@@ -1,19 +1,20 @@
-<a class="btn btn-info" href="#/home/conference/{{currentMainEvent.id}}/papers/new/" title=" {{ 'papers.actions.add' | translate}}">
-    <i class="fa fa-plus"></i><span class="visible-sm-inline visible-lg-inline visible-md-inline">  {{ 'papers.actions.new' | translate}}</span>
+<a class="btn btn-info" sympozer-acl-show="currentMainEvent" href="#/home/conference/{{currentMainEvent.id}}/papers/new/" title=" {{ 'papers.actions.add' | translate}}">
+  <i class="fa fa-plus"></i><span class="visible-sm-inline visible-lg-inline visible-md-inline">  {{ 'papers.actions.new' | translate}}</span>
 </a>
 
 
-<a class="btn btn-info" href="#/home/conference/{{currentMainEvent.id}}/papers/import/" title=" {{ 'papers.actions.import' | translate}}" disabled="disabled">
-    <i class="fa fa-caret-square-o-down"></i>
-    <span class="visible-sm-inline visible-lg-inline visible-md-inline"> {{ 'papers.actions.import' | translate}}</span>
+<a class="btn btn-info" sympozer-acl-show="currentMainEvent" href="#/home/conference/{{currentMainEvent.id}}/papers/import/" title=" {{ 'papers.actions.import' | translate}}" disabled="disabled">
+  <i class="fa fa-caret-square-o-down"></i>
+  <span class="visible-sm-inline visible-lg-inline visible-md-inline"> {{ 'papers.actions.import' | translate}}</span>
 </a>
 
-<a class="btn btn-info" href="#/home/conference/{{currentMainEvent.id}}/papers/export/" title="{{ 'papers.actions.export' | translate}}" disabled="disabled">
-    <i class="fa fa-caret-square-o-up"></i><span class="visible-sm-inline visible-lg-inline  visible-md-inline "> {{ 'papers.actions.export' | translate}}</span>
+<a class="btn btn-info" sympozer-acl-show="currentMainEvent" href="#/home/conference/{{currentMainEvent.id}}/papers/export/" title="{{ 'papers.actions.export' | translate}}" disabled="disabled">
+  <i class="fa fa-caret-square-o-up"></i><span class="visible-sm-inline visible-lg-inline  visible-md-inline "> {{ 'papers.actions.export' | translate}}</span>
 </a>
 
-<a class="btn btn-info" href="#/home/conference/{{currentMainEvent.id}}/papers/print/" title="Print papers" disabled="disabled"> <i class="fa fa-print"></i>
-    <span class="visible-sm-inline visible-lg-inline visible-md-inline "> {{ 'papers.actions.print' | translate}}</span>
+<a class="btn btn-info" sympozer-acl-show="currentMainEvent" href="#/home/conference/{{currentMainEvent.id}}/papers/print/" title="Print papers" disabled="disabled">
+  <i class="fa fa-print"></i>
+  <span class="visible-sm-inline visible-lg-inline visible-md-inline "> {{ 'papers.actions.print' | translate}}</span>
 </a>
 
 

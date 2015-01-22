@@ -1,19 +1,19 @@
-<a class="btn btn-info" href="#/home/conference/{{currentMainEvent.id}}/locations/new/" title="{{ 'locations.actions.add' | translate }} ">
-    <i class="fa fa-plus"></i><span class="visible-sm-inline visible-lg-inline visible-md-inline"> {{ 'locations.actions.new' | translate }}</span>
+<a class="btn btn-info" sympozer-acl-show="currentMainEvent" href="#/home/conference/{{currentMainEvent.id}}/locations/new/" title="{{ 'locations.actions.add' | translate }} ">
+  <i class="fa fa-plus"></i><span class="visible-sm-inline visible-lg-inline visible-md-inline"> {{ 'locations.actions.new' | translate }}</span>
 </a>
 
-<a class="btn btn-info" disabled="disabled" href="#/home/conference/{{currentMainEvent.id}}/locations/import/" title="{{ 'locations.actions.import' | translate }}" disabled="disabled">
-    <i class="fa fa-caret-square-o-down"></i>
-    <span class="visible-sm-inline visible-lg-inline visible-md-inline"> {{ 'locations.actions.import' | translate }}</span>
+<a class="btn btn-info" sympozer-acl-show="currentMainEvent" disabled="disabled" href="#/home/conference/{{currentMainEvent.id}}/locations/import/" title="{{ 'locations.actions.import' | translate }}" disabled="disabled">
+  <i class="fa fa-caret-square-o-down"></i>
+  <span class="visible-sm-inline visible-lg-inline visible-md-inline"> {{ 'locations.actions.import' | translate }}</span>
 </a>
 
-<a class="btn btn-info" disabled="disabled" href="#/home/conference/{{currentMainEvent.id}}/locations/export/" title=" {{ 'locations.actions.export' | translate }}" disabled="disabled">
-    <i class="fa fa-caret-square-o-up"></i><span class="visible-sm-inline visible-lg-inline  visible-md-inline ">  {{ 'locations.actions.export' | translate }}</span>
+<a class="btn btn-info" sympozer-acl-show="currentMainEvent" disabled="disabled" href="#/home/conference/{{currentMainEvent.id}}/locations/export/" title=" {{ 'locations.actions.export' | translate }}" disabled="disabled">
+  <i class="fa fa-caret-square-o-up"></i><span class="visible-sm-inline visible-lg-inline  visible-md-inline ">  {{ 'locations.actions.export' | translate }}</span>
 </a>
 
-<a class="btn btn-info" disabled="disabled" href="#/home/conference/{{currentMainEvent.id}}/locations/print/" title="Print locations" disabled="disabled">
-    <i class="fa fa-print"></i>
-    <span class="visible-sm-inline visible-lg-inline visible-md-inline ">  {{ 'locations.actions.print' | translate }}</span>
+<a class="btn btn-info" sympozer-acl-show="currentMainEvent" disabled="disabled" href="#/home/conference/{{currentMainEvent.id}}/locations/print/" title="Print locations" disabled="disabled">
+  <i class="fa fa-print"></i>
+  <span class="visible-sm-inline visible-lg-inline visible-md-inline ">  {{ 'locations.actions.print' | translate }}</span>
 </a>
 
 <a class="btn btn-default" href="#/home/conference/{{currentMainEvent.id}}/locations/list/" role="button"><i class="fa fa-list fa-1x"></i></a>

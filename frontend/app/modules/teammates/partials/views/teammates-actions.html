@@ -1,14 +1,14 @@
-<a class="btn btn-info" href="#/home/conference/{{currentMainEvent.id}}/teammates/new/" title="{{ 'teammates.actions.add' | translate}}">
+<a class="btn btn-info" sympozer-acl-show="currentMainEvent" href="#/home/conference/{{currentMainEvent.id}}/teammates/new/" title="{{ 'teammates.actions.add' | translate}}">
   <i class="fa fa-plus"></i><span class="visible-sm-inline visible-lg-inline visible-md-inline"> {{ 'teammates.actions.add' | translate}}</span>
 </a>
-<a class="btn btn-info" href="#/home/conference/{{currentMainEvent.id}}/teammates/import/" title="{{ 'teammates.actions.import' | translate}}" disabled="disabled">
+<a class="btn btn-info" sympozer-acl-show="currentMainEvent" href="#/home/conference/{{currentMainEvent.id}}/teammates/import/" title="{{ 'teammates.actions.import' | translate}}" disabled="disabled">
   <i class="fa fa-caret-square-o-down"></i>
   <span class="visible-sm-inline visible-lg-inline visible-md-inline"> {{ 'teammates.actions.import' | translate}}</span>
 </a>
-<a class="btn btn-info" href="#/home/conference/{{currentMainEvent.id}}/teammates/export/" title="{{ 'teammates.actions.export' | translate}}" disabled="disabled">
+<a class="btn btn-info" sympozer-acl-show="currentMainEvent" href="#/home/conference/{{currentMainEvent.id}}/teammates/export/" title="{{ 'teammates.actions.export' | translate}}" disabled="disabled">
   <i class="fa fa-caret-square-o-up"></i><span class="visible-sm-inline visible-lg-inline  visible-md-inline "> {{ 'teammates.actions.export' | translate}}</span>
 </a>
-<a class="btn btn-info" href="#/home/conference/{{currentMainEvent.id}}/teammates/print/" title="{{ 'teammates.actions.print' | translate}}" disabled="disabled">
+<a class="btn btn-info" sympozer-acl-show="currentMainEvent" href="#/home/conference/{{currentMainEvent.id}}/teammates/print/" title="{{ 'teammates.actions.print' | translate}}" disabled="disabled">
   <i class="fa fa-print"></i>
   <span class="visible-sm-inline visible-lg-inline visible-md-inline "> {{ 'teammates.actions.print' | translate}}</span>
 </a>
