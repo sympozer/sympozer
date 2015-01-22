@@ -27,6 +27,8 @@ angular.module('sympozerApp').directive('sympozerAclShow', [
                     return console.error('Cannot get ' + scope.promiseName + ' from parent scope in "sympozer-acl-show".');
                 }
 
+                scope.promise.isAclUpToDate = false;
+
                 //watch logged user to refresh rights
                 scope.$watch("$root.currentUser", function (newValue, oldValue, $scope)
                 {
@@ -35,9 +37,16 @@ angular.module('sympozerApp').directive('sympozerAclShow', [
                         return;
                     }
 
+                    if ($scope.promise.isAclUpToDate)
+                    { //the update has already been handled by another sympozerAclShow directive.
+                        return;
+                    }
+                    $scope.promise.isAclUpToDate = true;
+
                     if (!newValue || !newValue.id)
                     { //user has just logged out
                         delete $scope.promise.acl;
+                        $scope.promise.isAclUpToDate = false;
                         return;
                     }
 
@@ -45,7 +54,11 @@ angular.module('sympozerApp').directive('sympozerAclShow', [
                     justLoggedIn = true;
 
                     // we refetch the parent promise to update the acl field
-                    $scope.promise.$get({});
+                    $scope.promise.$get({})
+                        .then(function ()
+                        {
+                            $scope.promise.isAclUpToDate = false;
+                        });
                 });
 
                 //watch promise
@@ -70,6 +83,11 @@ angular.module('sympozerApp').directive('sympozerAclShow', [
                             if (justLoggedIn)
                             {
                                 $(element).pulsate({repeat: 2});
+                                //wait before all other directive are processed to change this shared value.
+                                setTimeout(function ()
+                                {
+                                    justLoggedIn = false;
+                                }, 100)
                             }
                         }
                         else
