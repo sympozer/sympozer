@@ -4,7 +4,7 @@
  * gmap directive
  *
  * @Description :
- * Directive for gmap plugin interaction from forza
+ * Directive for gmap plugin interaction
  * @example :  <div gmap options="{ lat: -12.043333,lng: -77.028333}" instance="geoCodingMapInstance"></div>
  * @type {directive}
  */
@@ -26,16 +26,9 @@ angular.module('sympozerApp') .directive('gmap', ['$timeout', 'GMaps', function 
             }
             scope.options.el = '#' + attr.id;
 
-            //Declare new panorama if argument found
-            if (attr.panorama !== undefined)
-            {
-                GMaps.newPanorama(scope.options, scope.instance);
-            }
             //Generate a new map instance
-            else
-            {
-                GMaps.new(scope.options, scope.instance);
-            }
+            GMaps.new(scope.options, scope.instance);
+
         }
     }
 }])

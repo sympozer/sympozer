@@ -3,7 +3,7 @@
 /**
  * Navigation main controller. Handles the configuration of the nav bars and search system
  */
-angular.module('sympozerApp').controller('navMainCtrl', ['$scope', '$rootScope', '$location', '$timeout', '$global', function ($scope, $rootScope, $location, $timeout, $global)
+angular.module('sympozerApp').controller('navMainCtrl', ['$scope', '$rootScope', '$location', '$timeout', '$uiConfig', function ($scope, $rootScope, $location, $timeout, $uiConfig)
 {
 
 
@@ -40,8 +40,6 @@ angular.module('sympozerApp').controller('navMainCtrl', ['$scope', '$rootScope',
 
     /**
      * Current main conference menu
-     *
-     * @TODO FORZA : TO RETHINK... ?
      *
      * @type {{label: string, iconClasses: string, children: *[]}[]}
      */
@@ -270,12 +268,12 @@ angular.module('sympozerApp').controller('navMainCtrl', ['$scope', '$rootScope',
     $scope.showSearchBar = function ($e)
     {
         $e.stopPropagation();
-        $global.set('showSearchCollapsed', true);
+        $uiConfig.set('searchCollapsed', true);
     };
 
-    $scope.$on('globalStyles:changed:showSearchCollapsed', function (event, newVal)
+    $scope.$on('uiConfig:change:searchCollapsed', function (event, newVal)
     {
-        $scope.style_showSearchCollapsed = newVal;
+        $scope.style_searchCollapsed = newVal;
     });
 
     /**

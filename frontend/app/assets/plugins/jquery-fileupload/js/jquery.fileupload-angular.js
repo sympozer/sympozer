@@ -47,8 +47,8 @@
                         scope.$apply();
                     });
                 },
-                $config;
-            $config = this.defaults = {
+                $uiConfig;
+            $uiConfig = this.defaults = {
                 handleResponse: function (e, data) {
                     var files = data.result && data.result.files;
                     if (files) {
@@ -145,7 +145,7 @@
             this.$get = [
                 function () {
                     return {
-                        defaults: $config
+                        defaults: $uiConfig
                     };
                 }
             ];
@@ -153,7 +153,7 @@
 
         // Format byte numbers to readable presentations:
         .provider('formatFileSizeFilter', function () {
-            var $config = {
+            var $uiConfig = {
                 // Byte units following the IEC format
                 // http://en.wikipedia.org/wiki/Kilobyte
                 units: [
@@ -162,7 +162,7 @@
                     {size: 1000, suffix: ' KB'}
                 ]
             };
-            this.defaults = $config;
+            this.defaults = $uiConfig;
             this.$get = function () {
                 return function (bytes) {
                     if (!angular.isNumber(bytes)) {
@@ -173,10 +173,10 @@
                         prefix,
                         suffix;
                     while (unit) {
-                        unit = $config.units[i];
+                        unit = $uiConfig.units[i];
                         prefix = unit.prefix || '';
                         suffix = unit.suffix || '';
-                        if (i === $config.units.length - 1 || bytes >= unit.size) {
+                        if (i === $uiConfig.units.length - 1 || bytes >= unit.size) {
                             return prefix + (bytes / unit.size).toFixed(2) + suffix;
                         }
                         i += 1;

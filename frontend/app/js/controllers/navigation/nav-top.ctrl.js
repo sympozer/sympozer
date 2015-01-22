@@ -2,28 +2,24 @@
  * navTopCtrl
  * Controller component that handles the fixed top navigation bar
  */
-angular.module('sympozerApp').controller('navTopCtrl', ['$scope', '$rootScope', '$global', function ($scope, $rootScope, $global)
+angular.module('sympozerApp').controller('navTopCtrl', ['$scope', '$rootScope', '$uiConfig', function ($scope, $rootScope, $uiConfig)
 {
 
 
     /**
      * Action that toggle the left menu bar
      */
-    $rootScope.toggleLeftBar = function ()
+    $rootScope.toggleNavLeft = function ()
     {
-        if ($rootScope.style_isSmallScreen)
-        {
-            return $global.set('leftbarShown', !$scope.style_leftbarShown);
-        }
-        $global.set('leftbarCollapsed', !$scope.style_leftbarCollapsed);
+        $uiConfig.set('navLeftCollapsed', !$scope.ui_navLeftCollapsed);
     };
 
     /**
      * Action that toggle the right bar
      */
-    $rootScope.toggleRightBar = function ()
+    $rootScope.toggleNavRight = function ()
     {
-        $global.set('rightbarCollapsed', !$scope.style_rightbarCollapsed);
+        $uiConfig.set('navRightCollapsed', !$scope.ui_navRightCollapsed);
     };
 
 

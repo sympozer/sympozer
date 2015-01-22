@@ -1,7 +1,7 @@
 <!-- Navigation top bar -->
-<header class="navbar navbar-inverse" ng-class="{'navbar-fixed-top': style_fixedHeader, 'navbar-static-top': !style_fixedHeader}" role="banner">
-  <a id="leftmenu-trigger" tooltip-placement="right" tooltip="Toggle Sidebar" ng-click="toggleLeftBar()"></a>
-  <a id="rightmenu-trigger" tooltip-placement="left" tooltip="Toggle Infobar" ng-click="toggleRightBar()"></a>
+<header class="navbar navbar-inverse" class="navbar-fixed-top" role="banner">
+  <a id="leftmenu-trigger" tooltip-placement="right" tooltip="Toggle Sidebar" ng-click="toggleNavLeft()"></a>
+  <a id="rightmenu-trigger" tooltip-placement="left" tooltip="Toggle Infobar" ng-click="toggleNavRight()"></a>
 
   <div class="navbar-header pull-left">
     <a class="navbar-brand" href="#/">Sympozer</a>
@@ -68,12 +68,7 @@
         <li class="dd-footer"><a href="#/messages/inbox">View All Messages</a></li>
       </ul>
     </li>
-    <li class="dropdown" ng-controller="notificationsPopoverCtrl" ng-show="isLoggedIn"
-        data-bootstro
-        data-bootstro-step="1"
-        data-bootstro-placement='bottom'
-        data-bootstro-content="Click here to check out the dynamic notifications section. You can mark items as read and see the changes in real time."
-      >
+    <li class="dropdown" ng-controller="notificationsPopoverCtrl" ng-show="isLoggedIn">
       <a href="#" class="dropdown-toggle">
         <i class="fa fa-bell"></i><span class="badge badge-orange" ng-if="unseenCount>0" ng-bind="unseenCount"></span>
       </a>
@@ -102,78 +97,6 @@
       <a href="" id="headerbardropdown"><span><i class="fa fa-level-down"></i></span></a>
     </li>
 
-    <li class="dropdown demodrop" ng-controller="stylesCtrl">
-    <!--<li class="dropdown demodrop" ng-controller="stylesCtrl" data-pulsate="{glow:false, repeat: 3}">-->
-      <a href="#" class="dropdown-toggle tooltips"><i class="fa fa-cog"></i></a>
-
-      <ul class="dropdown-menu arrow dropdown-menu-form" id="demo-dropdown">
-        <li>
-          <label for="demo-header-variations" class="control-label">Header Colors</label>
-
-          <ul class="list-inline demo-color-variation" id="demo-header-variations">
-            <li><a class="color-dark" href="javascript:;" ng-click="setHeaderStyle('default.css', $event)"></a></li>
-            <li><a class="color-black" href="javascript:;" ng-click="setHeaderStyle('header-black.css', $event)"></a>
-            </li>
-            <li>
-              <a class="color-inverse" href="javascript:;" ng-click="setHeaderStyle('header-inverse.css', $event)"></a>
-            </li>
-            <li>
-              <a class="color-default" href="javascript:;" ng-click="setHeaderStyle('header-midnightblue.css', $event)"></a>
-            </li>
-            <li>
-              <a class="color-dangerdark" href="javascript:;" ng-click="setHeaderStyle('header-dangerdark.css', $event)"></a>
-            </li>
-          </ul>
-        </li>
-        <li class="divider"></li>
-        <li>
-          <label for="demo-color-variations" class="control-label">Sidebar Colors</label>
-          <ul class="list-inline demo-color-variation">
-            <li><a class="color-default" href="javascript:;" ng-click="setSidebarStyle('default.css', $event)"></a></li>
-            <li>
-              <a class="color-inverse" href="javascript:;" ng-click="setSidebarStyle('sidebar-inverse.css', $event)"></a>
-            </li>
-            <li>
-              <a class="color-primary" href="javascript:;" ng-click="setSidebarStyle('sidebar-primary.css', $event)"></a>
-            </li>
-            <li><a class="color-gray" href="javascript:;" ng-click="setSidebarStyle('sidebar-gray.css', $event)"></a>
-            </li>
-            <li>
-              <a class="color-indigo" href="javascript:;" ng-click="setSidebarStyle('sidebar-indigo.css', $event)"></a>
-            </li>
-            <li>
-              <a class="color-dangerdark" href="javascript:;" ng-click="setSidebarStyle('sidebar-dangerdark.css', $event)"></a>
-            </li>
-          </ul>
-        </li>
-        <li class="divider"></li>
-        <li>
-          <label for="fixedheader">Fixed Header</label>
-
-          <div ng-click="$event.stopPropagation()">
-            <toggle-switch model="headerFixed" class="success"></toggle-switch>
-          </div>
-        </li>
-        <li class="divider"></li>
-        <li>
-          <label for="boxedlayout"><a href="#/layout-fixed">Boxed Layout</a></label>
-
-          <div ng-click="$event.stopPropagation()">
-            <toggle-switch model="layoutFixed" class="success"></toggle-switch>
-          </div>
-        </li>
-        <li class="divider"></li>
-        <li>
-          <label for="layoutHorizontal">Horizontal Nav</label>
-
-          <div ng-click="$event.stopPropagation()">
-            <toggle-switch model="layoutHorizontal" class="success"></toggle-switch>
-          </div>
-        </li>
-      </ul>
-      <link rel="stylesheet" type="text/css" ng-href="{{GLOBAL_CONFIG.app.urls.base}}/demo/variations/{{headerStylesheet}}">
-      <link rel="stylesheet" type="text/css" ng-href="{{GLOBAL_CONFIG.app.urls.base}}/demo/variations/{{sidebarStylesheet}}">
-    </li>
     <!-- TRANSLATION DROPDOWN MENU -->
     <li class="dropdown demodrop" ng-controller="translateCtrl">
       <a href="#" class="dropdown-toggle tooltips"><img ng-src="{{ currentLocal.src }}" style="height: 15px; width: 20px;"/></a>

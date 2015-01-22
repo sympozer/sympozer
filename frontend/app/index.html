@@ -42,13 +42,11 @@
 
     <!-- build:css assets/css/vendor.css -->
     <!-- bower:css -->
-    <link rel="stylesheet" href="bower/font-awesome/css/font-awesome.css" />
-    <link rel="stylesheet" href="bower/seiyria-bootstrap-slider/dist/css/bootstrap-slider.min.css" />
-    <link rel="stylesheet" href="bower/angular-ui-tree/dist/angular-ui-tree.min.css" />
     <link rel="stylesheet" href="bower/angular-toggle-switch/angular-toggle-switch.css" />
-    <link rel="stylesheet" href="bower/ng-grid/ng-grid.css" />
     <link rel="stylesheet" href="bower/angular-xeditable/dist/css/xeditable.css" />
     <link rel="stylesheet" href="bower/select2/select2.css" />
+    <link rel="stylesheet" href="bower/font-awesome/css/font-awesome.css" />
+    <link rel="stylesheet" href="bower/seiyria-bootstrap-slider/dist/css/bootstrap-slider.min.css" />
     <link rel="stylesheet" href="bower/jScrollPane/style/jquery.jscrollpane.css" />
     <link rel="stylesheet" href="bower/pnotify/pnotify.core.css" />
     <link rel="stylesheet" href="bower/pnotify/pnotify.buttons.css" />
@@ -59,16 +57,10 @@
 
     <link rel='stylesheet' type='text/css' href='assets/plugins/icheck/all.css'/>
     <link rel='stylesheet' type='text/css' href='assets/plugins/form-multiselect/css/multi-select.css'/>
-    <link rel='stylesheet' type='text/css' href='assets/plugins/form-fseditor/fseditor.css'/>
-    <link rel='stylesheet' type='text/css' href='assets/plugins/form-tokenfield/bootstrap-tokenfield.css'/>
     <link rel='stylesheet' type='text/css' href='assets/plugins/datepaginator/bootstrap-datepaginator.css'/>
     <link rel='stylesheet' type='text/css' href='assets/plugins/jquery-fileupload/css/jquery.fileupload-ui.css'/>
-    <link rel='stylesheet' type='text/css' href='assets/plugins/bootstro.js/bootstro.min.css'/>
     <link rel='stylesheet' type='text/css' href='assets/plugins/progress-skylo/skylo.css'/>
-    <link rel='stylesheet' type='text/css' href='assets/plugins/jcrop/css/jquery.Jcrop.min.css'/>
     <link rel='stylesheet' type='text/css' href='assets/plugins/form-daterangepicker/daterangepicker-bs3.css'/>
-    <link rel='stylesheet' type='text/css' href='assets/plugins/form-markdown/css/bootstrap-markdown.min.css'/>
-    <link rel='stylesheet' type='text/css' href='assets/plugins/codeprettifier/prettify.css'/>
     <link rel='stylesheet' type='text/css' href='assets/plugins/form-select2/select2.css'/>
     <link rel='stylesheet' type='text/css' href='assets/plugins/fullcalendar/fullcalendar.css'/>
     <!-- endbuild -->
@@ -138,14 +130,14 @@
       ng-app="sympozerApp"
       ng-controller="mainCtrl"
       ng-class="{
-    'static-header': !style_fixedHeader,
-            'focusedform': style_fullscreen,
-            'layout-horizontal': style_layoutHorizontal,
-            'fixed-layout': style_layoutBoxed,
-            'collapse-leftbar': style_leftbarCollapsed && !style_leftbarShown,
-            'show-rightbar': style_rightbarCollapsed,
-            'show-leftbar': style_leftbarShown$, 'show-events-filterbar' : style_eventsFilterBarCollapsed
-    }"
+            'static-header': true,
+            'layout-horizontal': false,
+            'fixed-layout': false,
+            'collapse-leftbar': ui_navLeftCollapsed && !ui_navLeftShown,
+            'show-rightbar': ui_navRightCollapsed,
+            'show-leftbar': ui_navLeftShown,
+            'show-events-filterbar' : ui_eventsFilterBarCollapsed
+      }"
       ng-click="hideSearchBar();hideHeaderBar();"
       ng-cloak
         >
@@ -204,9 +196,17 @@
 <script src="bower/angular-sanitize/angular-sanitize.js"></script>
 <script src="bower/angular-route/angular-route.js"></script>
 <script src="bower/angular-animate/angular-animate.js"></script>
-<script src="bower/bootstrap/dist/js/bootstrap.js"></script>
-<script src="bower/seiyria-bootstrap-slider/js/bootstrap-slider.js"></script>
+<script src="bower/angular-toggle-switch/angular-toggle-switch.min.js"></script>
+<script src="bower/angular-xeditable/dist/js/xeditable.js"></script>
 <script src="bower/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+<script src="bower/select2/select2.js"></script>
+<script src="bower/angular-ui-select2/src/select2.js"></script>
+<script src="bower/angular-mocks/angular-mocks.js"></script>
+<script src="bower/moment/moment.js"></script>
+<script src="bower/angular-moment/angular-moment.js"></script>
+<script src="bower/angular-translate/angular-translate.js"></script>
+<script src="bower/angular-cached-resource/angular-cached-resource.js"></script>
+<script src="bower/angular-validation-match/dist/angular-input-match.min.js"></script>
 <script src="bower/jquery.ui/ui/jquery.ui.core.js"></script>
 <script src="bower/jquery.ui/ui/jquery.ui.widget.js"></script>
 <script src="bower/jquery.ui/ui/jquery.ui.mouse.js"></script>
@@ -214,37 +214,16 @@
 <script src="bower/jquery.ui/ui/jquery.ui.resizable.js"></script>
 <script src="bower/jquery.slimscroll/jquery.slimscroll.min.js"></script>
 <script src="bower/jquery.easing/js/jquery.easing.js"></script>
-<script src="bower/flot/jquery.flot.js"></script>
-<script src="bower/flot/jquery.flot.stack.js"></script>
-<script src="bower/flot/jquery.flot.pie.js"></script>
-<script src="bower/flot/jquery.flot.resize.js"></script>
-<script src="bower/flot.tooltip/js/jquery.flot.tooltip.js"></script>
-<script src="bower/angular-ui-tree/dist/angular-ui-tree.js"></script>
-<script src="bower/moment/moment.js"></script>
-<script src="bower/jqvmap/jqvmap/jquery.vmap.js"></script>
-<script src="bower/jqvmap/jqvmap/maps/jquery.vmap.world.js"></script>
-<script src="bower/jqvmap/jqvmap/data/jquery.vmap.sampledata.js"></script>
-<script src="bower/angular-toggle-switch/angular-toggle-switch.min.js"></script>
-<script src="bower/ng-grid/build/ng-grid.js"></script>
-<script src="bower/angular-xeditable/dist/js/xeditable.js"></script>
-<script src="bower/select2/select2.js"></script>
-<script src="bower/angular-ui-select2/src/select2.js"></script>
-<script src="bower/google-code-prettify/src/prettify.js"></script>
-<script src="bower/bootbox.js/bootbox.js"></script>
 <script src="bower/jquery-autosize/jquery.autosize.js"></script>
 <script src="bower/jquery-validation/dist/jquery.validate.js"></script>
-<script src="bower/stepy/lib/jquery.stepy.js"></script>
-<script src="bower/gmaps/gmaps.js"></script>
 <script src="bower/jquery.pulsate/jquery.pulsate.js"></script>
-<script src="bower/jquery.knob/js/jquery.knob.js"></script>
-<script src="bower/jquery.sparkline/index.js"></script>
-<script src="bower/flow.js/dist/flow.js"></script>
-<script src="bower/ng-flow/dist/ng-flow.js"></script>
+<script src="bower/bootstrap/dist/js/bootstrap.js"></script>
+<script src="bower/seiyria-bootstrap-slider/js/bootstrap-slider.js"></script>
+<script src="bower/gmaps/gmaps.js"></script>
 <script src="bower/jScrollPane/script/jquery.mousewheel.js"></script>
 <script src="bower/jScrollPane/script/mwheelIntent.js"></script>
 <script src="bower/jScrollPane/script/jquery.jscrollpane.min.js"></script>
 <script src="bower/enquire/dist/enquire.js"></script>
-<script src="bower/shufflejs/dist/jquery.shuffle.js"></script>
 <script src="bower/pnotify/pnotify.core.js"></script>
 <script src="bower/pnotify/pnotify.buttons.js"></script>
 <script src="bower/pnotify/pnotify.callbacks.js"></script>
@@ -255,31 +234,20 @@
 <script src="bower/json3/lib/json3.js"></script>
 <script src="bower/placeholdr/placeholdr.js"></script>
 <script src="bower/iCheck/icheck.min.js"></script>
-<script src="bower/angular-mocks/angular-mocks.js"></script>
-<script src="bower/angular-moment/angular-moment.js"></script>
-<script src="bower/angular-translate/angular-translate.js"></script>
 <script src="bower/bootstrap-tags/dist/js/bootstrap-tags.js"></script>
-<script src="bower/angular-cached-resource/angular-cached-resource.js"></script>
-<script src="bower/angular-validation-match/dist/angular-input-match.min.js"></script>
 <!-- endbower -->
 <!-- endbuild -->
 
 <!-- build:js js/assets.js -->
 <script type='text/javascript' src='assets/plugins/form-daterangepicker/daterangepicker.min.js'></script>
 <script type='text/javascript' src='assets/plugins/form-datepicker/js/bootstrap-datepicker.js'></script>
-<script type='text/javascript' src='assets/plugins/easypiechart/angular.easypiechart.js'></script>
 <script type='text/javascript' src='assets/plugins/datepaginator/bootstrap-datepaginator.js'></script>
-<script type='text/javascript' src='assets/plugins/form-multiselect/js/jquery.multi-select.min.js'></script>
 <script type='text/javascript' src='assets/plugins/form-colorpicker/js/bootstrap-colorpicker.min.js'></script>
-<script type='text/javascript' src='assets/plugins/form-fseditor/jquery.fseditor-min.js'></script>
 <script type='text/javascript' src='assets/plugins/form-jasnyupload/fileinput.js'></script>
 <script type='text/javascript' src='assets/plugins/csv-to-array/csvToArray.v2.1.min.js'></script>
 <script type='text/javascript' src='assets/plugins/fullcalendar/fullcalendar.js'></script>
 
 <script type='text/javascript' src='assets/plugins/progress-skylo/skylo.js'></script>
-
-<!--step by step demo plugin-->
-<script type='text/javascript' src='assets/plugins/bootstro.js/bootstro.min.js'></script>
 
 <!-- endbuild -->
 
@@ -303,15 +271,9 @@
 <script src="js/controllers/navigation/nav-right.ctrl.js"></script>
 <script src="js/controllers/navigation/nav-main.ctrl.js"></script>
 
-<script src="js/controllers/styles/styles.ctrl.js"></script>
-
 <script src="js/controllers/main.ctrl.js"></script>
 <script src="js/controllers/dashboard.ctrl.js"></script>
 
-
-<!--TEMPLATES-->
-<script src="js/templates/templates.js"></script>
-<script src="js/templates/overrides.js"></script>
 
 <!--ANIMATIONS-->
 <script src="js/animations/pulsate.drv.js"></script>
@@ -341,24 +303,21 @@
 <script src="js/directives/validations/date-before-now.vld.js"></script>
 
 <script src="js/directives/forms/colorpicker.drv.js"></script>
-<script src="js/directives/forms/wizard.drv.js"></script>
-<script src="js/directives/forms/on-read-file.drv.js"></script>
 <script src="js/directives/forms/textarea-autosize.drv.js"></script>
-<script src="js/directives/forms/textarea-fullscreen.drv.js"></script>
 
 <script src="js/directives/acl/sympozer-acl-show.drv.js"></script>
 
 <script src="js/directives/maps/google-place-autocomplete.drv.js"></script>
 <script src="js/directives/maps/gmap.drv.js"></script>
 
-<script src="js/directives/charts/flot-chart.drv.js"></script>
-<script src="js/directives/charts/sparklines-chart.drv.js"></script>
-<script src="js/directives/charts/svg-chart.drv.js"></script>
-<script src="js/directives/charts/canvas-chart.drv.js"></script>
 
 <script src="js/directives/no-image.drv.js"></script>
 <script src="js/directives/sympozer-autocomplete.drv.js"></script>
 <script src="js/directives/sympozer-include-with-locals.drv.js"></script>
+
+<script src="module/socials/js/directives/social.drv.js"></script>
+<script src="module/socials/js/directives/social-buttons.drv.js"></script>
+
 <!--FILTERS -->
 <script src="js/filters/sympozer-checkmark.fltr.js"></script>
 <script src="js/filters/sympozer-in-array.fltr.js"></script>
@@ -373,13 +332,11 @@
 <script src="js/services/global-http-interceptor.fact.js"></script>
 <script src="js/services/sympozer-acl-service.fact.js"></script>
 <script src="js/services/template-loader.fact.js"></script>
-<script src="js/services/lazy-load.fact.js"></script>
-<script src="js/services/bootbox.fact.js"></script>
 <script src="js/services/progress-loader.fact.js"></script>
 <script src="js/services/pines-notifications.fact.js"></script>
 <script src="js/services/search.fact.js"></script>
 <script src="js/services/gmaps.fact.js"></script>
-<script src="js/services/global.fact.js"></script>
+<script src="js/services/uiConfig.fact.js"></script>
 
 
 <!-- SYMPOZER AUTHENTICATION APP -->
@@ -536,8 +493,6 @@
 <script src="modules/events/js/controllers/events-schedule.ctrl.js"></script>
 <script src="modules/events/js/controllers/events-show.ctrl.js"></script>
 <script src="modules/events/js/controllers/events-filters.ctrl.js"></script>
-<!-- DIRECTIVES -->
-<script src="modules/events/js/directives/draggableEvent.drv.js"></script>
 <!-- SERVICES -->
 <script src="modules/events/js/services/events.fact.js"></script>
 
@@ -587,9 +542,6 @@
 <!-- CONTROLLERS -->
 <script src="modules/analytics/js/routes.js"></script>
 <script src="modules/analytics/js/controllers/analytics.ctrl.js"></script>
-<script src="modules/analytics/js/controllers/flot-charts.ctrl.js"></script>
-<script src="modules/analytics/js/controllers/task.ctrl.js"></script>
-<script src="modules/analytics/js/controllers/vector-map.ctrl.js"></script>
 <script src="modules/analytics/js/controllers/date-range-demo.ctrl.js"></script>
 
 

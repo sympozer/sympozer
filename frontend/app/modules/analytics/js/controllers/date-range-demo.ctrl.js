@@ -3,7 +3,6 @@
 
 /**
  * DatepickerDemoController controller
- * @TODO : decide to keep or not (from forza)
  */
 angular.module('analyticsApp').controller('DateRangePickerDemo', ['$scope', function ($scope)
 {

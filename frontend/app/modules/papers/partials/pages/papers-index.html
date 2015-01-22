@@ -45,7 +45,6 @@
                                   </span>
                             </div>
                         </form>
-                        <!--<h3>{{'global.labels.search.displaying' | translate }} 'Forza'</h3>-->
                         <hr>
                         <div ng-repeat-start="paper in entities  track by $index" infinite-scroll='load()' infinite-scroll-disabled='busy' infinite-scroll-distance='0.5'>
                             <div class="row search-result"  ng-include="GLOBAL_CONFIG.app.modules.papers.urls.partials+'views/papers-views-row-lg.html'"></div>

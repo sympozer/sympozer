@@ -72,7 +72,7 @@
 
 
 <!-- Appel de la timeline correspondant a l'identifiant Twitter (# ou @) -->
-<div class="well" ng-if="paper.mainEvent.chk_timeline && paper.mainEvent.twitterid" ng-include="GLOBAL_CONFIG.app.urls.partials+'layout/twittertimeline.html'"
+<div class="well" ng-if="paper.mainEvent.chk_timeline && paper.mainEvent.twitterid" ng-include="GLOBAL_CONFIG.app.urls.partials+'twittertimeline/twittertimeline.html'"
      ng-controller="twitterTimelineCtrl"
      ng-init="getTweets(paper.mainEvent.twitterid + 'Paper' + paper.id)">
 </div>

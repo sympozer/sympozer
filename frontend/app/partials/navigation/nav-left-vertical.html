@@ -3,19 +3,19 @@
 
     <div>
         <ul ng-controller="navMainCtrl" id="sidebar" sticky-scroll="40">
-            <li id="search" ng-class="{'keep-open':style_showSearchCollapsed}">
+            <li id="search" ng-class="{'keep-open':ui_searchCollapsed}">
                 <a href=""
-                   ng-class="{blockImportant:style_leftbarCollapsed && !style_showSearchCollapsed}"
+                   ng-class="{blockImportant:ui_navLeftCollapsed && !ui_searchCollapsed}"
                    ng-click="showSearchBar($event)"
                         ><i class="fa fa-search opacity-control"></i></a>
 
-                <form ng-show="!style_leftbarCollapsed || style_showSearchCollapsed"
-                      ng-style="{display: style_showSearchCollapsed? 'block':''}"
+                <form ng-show="!ui_navLeftCollapsed || ui_searchCollapsed"
+                      ng-style="{display: ui_searchCollapsed? 'block':''}"
                       ng-click="$event.stopPropagation()"
                       ng-submit="goToSearch()"
                         >
                     <input type="text" ng-model="searchQuery" class="search-query" placeholder="Search..."
-                           ng-style="{width: style_showSearchCollapsed? 'auto':''}"
+                           ng-style="{width: ui_searchCollapsed? 'auto':''}"
                             >
                     <button type="submit" ng-click="goToSearch()"><i class="fa fa-search"></i></button>
                 </form>
