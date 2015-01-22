@@ -5,7 +5,7 @@ angular.module('sympozerApp').factory('sympozerAclService', [
          * right hierarchy map ( right : superRight )
          *
          * backend-side representative implementation.
-         * The complexity results from old l*ùùùùùùùùùùùùùivecon's v1 permission hierarchy spec.
+         * The complexity results from old livecon's v1 permission hierarchy spec.
          * Actually in back-end side in sympozer's v2 are implemented:
          *   - READ :       default for logged user without permission
          *   - OPERATOR :   for operator role
@@ -22,12 +22,14 @@ angular.module('sympozerApp').factory('sympozerAclService', [
         };
         return {
             /**
-             * TODO : comment
-             *
-             * at this moment the promise must have the acl attribute set
+             * Find out through the hierarchy tree if the param right is a allowed in the "acl" field of the promise param.
              */
             isGranted: function (promise, right)
             {
+                if (!promise.id)
+                { //promise is not yet resolved
+                    return false;
+                }
                 if (right && right == promise.acl)
                 {
                     return true;

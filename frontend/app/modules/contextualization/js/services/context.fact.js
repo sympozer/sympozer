@@ -16,14 +16,14 @@ angular.module('contextualizationApp').factory('contextFact', [ '$rootScope', '$
         this.initContext = function(){
 
             //Get The current conference from localstorage
-            $rootScope.currentMainEvent = JSON.parse(localStorage.getItem('currentMainEvent')) || "";
+            $rootScope.currentMainEvent = new mainEventsFact(JSON.parse(localStorage.getItem('currentMainEvent')) || "");
 
             //If a current mainEvent exist at init, trigger changes
             if($rootScope.currentMainEvent){
                 $rootScope.$broadcast('contextFact:changeContext', {'newMainEvent' : $rootScope.currentMainEvent });
 
             }
-        }
+        };
 
         /**
          * Triggered whenever the current conference has to change. The id of the new conference is given as an argument and the conference fetched
@@ -54,7 +54,7 @@ angular.module('contextualizationApp').factory('contextFact', [ '$rootScope', '$
                     });
                 });
             }
-        }
+        };
 
         return this;
     }]);
