@@ -18,31 +18,38 @@ angular.module('sympozerApp').factory('sympozerAclService', [
             DELETE  : "OPERATOR",
             OPERATOR: "MASTER",
             MASTER  : "OWNER",
-            OWNER   : ""
+            OWNER: "OWNER"
         };
         return {
             /**
              * Find out through the hierarchy tree if the param right is a allowed in the "acl" field of the promise param.
              */
-            isGranted: function (promise, right)
+            isGranted: function (promise, askedRight)
             {
                 if (!promise.id)
                 { //promise is not yet resolved
                     return false;
                 }
-                if (right && right == promise.acl)
+
+                var actualRight = promise.acl;
+
+                if (askedRight && askedRight == actualRight)
                 {
                     return true;
                 }
-                while (hierarchy[right])
+                while (hierarchy[askedRight])
                 {
-                    if (hierarchy[right] == promise.acl)
+                    if (askedRight == hierarchy[askedRight])
+                    { //top of the tree reached without finding the correct askedRight
+                        return false;
+                    }
+                    if (hierarchy[askedRight] == actualRight)
                     {
                         return true;
                     }
-                    right = hierarchy[right];
+                    askedRight = hierarchy[askedRight];
                 }
-                console.error("unknown right " + right + " asked for ", promise);
+                console.error("unknown askedRight " + askedRight + " asked for ", promise);
             }
         };
     }
