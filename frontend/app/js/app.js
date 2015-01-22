@@ -23,7 +23,7 @@ angular.module('analyticsApp', []);
 angular.module('locationsApp', ['equipmentsApp']);
 angular.module('equipmentsApp', []);
 angular.module('eventsApp', ['categoriesApp']);
-angular.module('mainEventsApp', []);
+angular.module('mainEventsApp', ['socialsApp']);
 angular.module('angularTranslateApp', ['pascalprecht.translate']);
 angular.module('authenticationApp', ['ngCookies', 'personsApp']);
 angular.module('socialsApp', []);
