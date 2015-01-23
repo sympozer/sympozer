@@ -7,11 +7,17 @@
  *
  */
 angular.module('sympozerApp').directive('sympozerAclShow', [
-    'sympozerAclService', function (sympozerAclService)
+    'sympozerAclService',
+    'contextFact',
+    function (sympozerAclService, contextFact)
     {
         //operator right can do everything but delete the whole mainEvent
         var defaultRightToAsk = "OPERATOR",
-            justLoggedIn = false;
+            justLoggedIn = false,
+            isMainEvent = function (entity)
+            {
+                return entity.dtype && entity.dtype == "MainEvent";
+            };
 
         return {
             restrict: 'A',
@@ -29,7 +35,7 @@ angular.module('sympozerApp').directive('sympozerAclShow', [
 
                 scope.promise.isAclUpToDate = false;
 
-                //watch logged user to refresh rights
+                //watch logged user to refresh its rights
                 scope.$watch("$root.currentUser", function (newValue, oldValue, $scope)
                 {
                     if (newValue == oldValue)
@@ -46,22 +52,30 @@ angular.module('sympozerApp').directive('sympozerAclShow', [
                     if (!newValue || !newValue.id)
                     { //user has just logged out
                         delete $scope.promise.acl;
+
                         $scope.promise.isAclUpToDate = false;
                         return;
                     }
 
                     //user has just logged in
                     justLoggedIn = true;
+                    //refresh context
+//                    contextFact.refreshContext();
 
                     // we refetch the parent promise to update the acl field
                     $scope.promise.$get({})
                         .then(function ()
                         {
+                            //the mainConfEvent needs to be saved in localStorage
+                            if (isMainEvent($scope.promise))
+                            {
+                                contextFact.setContext($scope.promise);
+                            }
                             $scope.promise.isAclUpToDate = false;
                         });
                 });
 
-                //watch promise
+                //watch promise acl attribute to change button style (shown, hidden or disabled)
                 scope.$watch("$parent." + scope.promiseName + ".acl", function (newValue, oldValue, $scope)
                 {
                     if (!newValue)
