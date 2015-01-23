@@ -1,4 +1,5 @@
 /**
+ * importService used to import stuff
  * @type {factory}
  */
 angular.module('eventsApp').factory('importService', [
