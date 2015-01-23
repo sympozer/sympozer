@@ -9,10 +9,10 @@
 	right: 0;
 	bottom: 0;
 	height: 100%;
-	z-index: @zindex-navbar-fixed - 1;
+	z-index: 1001 - 1;
 	overflow: hidden;
 	position: fixed;
-	border-left: 1px solid @border-darker;
+	border-left: 1px solid @gray;
 	// padding-bottom: 40px;
 
 	//> div {padding: 0 10px;}
@@ -33,7 +33,7 @@
 			background-color: #f5f6f7;
 			a {
 				color: @gray !important;
-				font-size:@font-size-mini;
+				font-size:@font-size-sm;
 				display: block;
 				text-transform: uppercase;
 				letter-spacing: 0.1em;
@@ -72,7 +72,7 @@
 			.clearfix();
 			.more {
 				padding-top: 0px;
-				font-size: @font-size-mini;
+				font-size: @font-size-sm;
 				float: right;
 
 			}
@@ -81,7 +81,7 @@
 				.clearfix();
 				 padding: 10px;
 				 margin-bottom: 10px;
-				 border-radius: @border-radius-small;
+				 border-radius: @border-radius-sm;
 				 small {
 				 	display: block;
 				 	color: #fff;

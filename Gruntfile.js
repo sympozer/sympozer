@@ -160,13 +160,13 @@ module.exports = function (grunt)
                 src       : ['<%= yeoman.app %>/index.html'],
                 ignorePath: '<%= yeoman.app %>/',
                 exclude   : ['requirejs',
-                             'mocha',
-                             'jquery.vmap.europe.js',
-                             'jquery.vmap.usa.js',
-                             'Chart.min.js',
-                             'raphael',
-                             'morris',
-                             'jquery.inputmask'
+                    'mocha',
+                    'jquery.vmap.europe.js',
+                    'jquery.vmap.usa.js',
+                    'Chart.min.js',
+                    'raphael',
+                    'morris',
+                    'jquery.inputmask'
                 ]
             }
         },
@@ -254,38 +254,14 @@ module.exports = function (grunt)
                 files: ['<%= yeoman.app %>/bower.json'],
                 tasks: ['bowerInstall']
             },
-            js        : {
-                files  : ['<%= yeoman.app %>/scripts/{,*/}*.js'],
-                tasks  : ['newer:jshint:all'],
-                options: {
-                    livereload: true
-                }
-            },
-            jsTest    : {
-                files: ['test/spec/{,*/}*.js'],
-                tasks: ['newer:jshint:test', 'karma']
-            },
-            styles    : {
-                files: ['<%= yeoman.app %>/styles/{,*/}*.css'],
-                tasks: ['newer:copy:styles', 'autoprefixer']
-            },
             less      : {
-                files: ['<%= yeoman.app %>/assets/less/*.less'],
+                files: ['<%= yeoman.app %>/assets/less/**/*.less'],
                 tasks: ['less:server']
             },
             gruntfile : {
                 files: ['Gruntfile.old.js']
-            },
-            livereload: {
-                options: {
-                    livereload: '<%= connect.options.livereload %>'
-                },
-                files  : [
-                    '<%= yeoman.app %>/{,*/}*.html',
-                    '<%= yeoman.tmp %>/assets/{,*/}*.css',
-                    '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
-                ]
             }
+
         },
 
 
@@ -430,7 +406,7 @@ module.exports = function (grunt)
         htmlmin   : {
             options: {
                 collapseBooleanAttributes    : false,
-                collapseWhitespace           : true,
+                collapseWhitespace           : false,
                 removeAttributeQuotes        : true,
                 removeComments               : true, // Only if you don't use comment directives!
                 removeEmptyAttributes        : true,
@@ -587,7 +563,7 @@ module.exports = function (grunt)
                     {
                         expand: true,
                         cwd   : "<%= yeoman.app %>/assets/less",
-                        src   : "styles.less",
+                        src   : "**/*.less",
                         dest  : "<%= yeoman.tmp %>/assets/css",
                         ext   : ".css"
                     }
@@ -612,7 +588,7 @@ module.exports = function (grunt)
                     {
                         expand: true,
                         cwd   : "<%= yeoman.app %>/assets/less",
-                        src   : "styles.less",
+                        src   : "import.less",
                         dest  : "<%= yeoman.dist %>/assets/css",
                         ext   : ".css"
                     }
@@ -713,6 +689,23 @@ module.exports = function (grunt)
             copy_ws_config  : {
                 cmd: 'sympozer:wsconfig:copy --to-path <%= yeoman.app %>/js/ws-config.js --server-base-path <%= yeoman.local_config.serverRootPath %>'
             }
+        },
+
+        //Insert all import tag for theme files if exists into the import.less file
+        unfold: {
+            options: {
+                types : {
+                    'less' : {
+                        template: '<link href="$PATH$" rel="stylesheet/less" media="all">'
+                    }
+                }
+
+            },
+
+            files: {
+                src: '<%= yeoman.app %>/index.html'
+
+            }
         }
 
     });
@@ -732,19 +725,19 @@ module.exports = function (grunt)
 
 
     /** INSTALL **/
-    grunt.registerTask('install', ['shell:protractor_install', 'sf2-console:database_create', 'sf2-console:copy_ws_config']);
+    grunt.registerTask('install', ['shell:protractor_install', 'sf2-console:database_create', 'sf2-console:copy_ws_config', 'update']);
 
     /** DEVELOPMENT **/
     grunt.registerTask('reset_db', ['chmod:cache_log', 'sf2-console:database_drop', 'sf2-console:database_create', 'sf2-console:database_update',
-                                    'sf2-console:database_init', 'sf2-console:admin_create', 'cache_clear']);
+        'sf2-console:database_init', 'sf2-console:admin_create', 'cache_clear']);
 
     /** DEVELOPMENT **/
     grunt.registerTask('update_db', ['chmod:cache_log', 'sf2-console:database_update', 'cache_clear']);
 
 
-    grunt.registerTask('update_dependencies', ['bower-install-simple', 'bowerInstall', 'cache_clear']);
+    grunt.registerTask('update_dependencies', ['bower-install-simple', 'bowerInstall', 'unfold', 'cache_clear']);
 
-    grunt.registerTask('dev', ['reset_db', 'update_dependencies', 'open:devserver']);
+    grunt.registerTask('dev', ['reset_db', 'update_dependencies', 'watch', 'open:devserver']);
 
     grunt.registerTask('update', ['update_db', 'update_dependencies', 'sf2-console:copy_ws_config']);
 

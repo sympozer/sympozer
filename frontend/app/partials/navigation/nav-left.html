@@ -1,6 +1,4 @@
-<!-- Navigation left bar in vertical mode -->
 <nav id="page-leftbar" role="navigation">
-
     <div>
         <ul ng-controller="navMainCtrl" id="sidebar" sticky-scroll="40">
             <li id="search" ng-class="{'keep-open':ui_searchCollapsed}">
@@ -12,19 +10,18 @@
                 <form ng-show="!ui_navLeftCollapsed || ui_searchCollapsed"
                       ng-style="{display: ui_searchCollapsed? 'block':''}"
                       ng-click="$event.stopPropagation()"
-                      ng-submit="goToSearch()"
                         >
                     <input type="text" ng-model="searchQuery" class="search-query" placeholder="Search..."
                            ng-style="{width: ui_searchCollapsed? 'auto':''}"
                             >
-                    <button type="submit" ng-click="goToSearch()"><i class="fa fa-search"></i></button>
+                    <button type="submit" ng-click="globalSearch()"><i class="fa fa-search"></i></button>
                 </form>
             </li>
-            <li ng-repeat="item in menu"
-                ng-class="{ hasChild: (item.children!==undefined),
-                                    active: item.selected,
-                                      open: (item.children!==undefined) && item.open }"
-                ng-include="GLOBAL_CONFIG.app.urls.partials+'navigation/nav-left-items-vertical.html'"
+            <li ng-repeat="node in menu"
+                ng-class="{ hasChild: (node.childNodes!==undefined),
+                                    active: node.selected,
+                                      open: (node.childNodes!==undefined) && node.open }"
+                ng-include="GLOBAL_CONFIG.app.urls.partials+'navigation/nav-left-tab.html'"
                     ></li>
         </ul>
     </div>

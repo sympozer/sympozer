@@ -21,9 +21,13 @@
     <link rel="icon" type="image/png" sizes="16x16" href="favicon.ico">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon.ico">
 
+
     <!-- prochtml:remove:dist -->
-    <link href="assets/less/styles.less" rel="stylesheet/less" media="all">
+    <link href="assets/less/import.less" rel="stylesheet/less" media="all">
     <!-- /prochtml -->
+
+    <link rel="stylesheet" href="assets/css/import.css" />
+
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries. Placeholdr.js enables the placeholder attribute -->
     <!--[if lt IE 9]>
@@ -46,7 +50,6 @@
     <link rel="stylesheet" href="bower/angular-xeditable/dist/css/xeditable.css" />
     <link rel="stylesheet" href="bower/select2/select2.css" />
     <link rel="stylesheet" href="bower/font-awesome/css/font-awesome.css" />
-    <link rel="stylesheet" href="bower/seiyria-bootstrap-slider/dist/css/bootstrap-slider.min.css" />
     <link rel="stylesheet" href="bower/jScrollPane/style/jquery.jscrollpane.css" />
     <link rel="stylesheet" href="bower/pnotify/pnotify.core.css" />
     <link rel="stylesheet" href="bower/pnotify/pnotify.buttons.css" />
@@ -66,7 +69,7 @@
     <!-- endbuild -->
 
     <!-- Sympozer styles -->
-    <link rel='stylesheet' type='text/css' href="assets/css/styles.css"/>
+    <!--<link rel='stylesheet' type='text/css' href="assets/css/styles.css"/>-->
 
     <!-- prochtml:remove:dist -->
     <script type="text/javascript">less = {};
@@ -148,14 +151,11 @@
 <!-- NAV TOP -->
 <div ng-include="GLOBAL_CONFIG.app.urls.partials+'navigation/nav-top.html'" ng-controller="navTopCtrl"></div>
 
-<!-- NAV LEFT HORIZONTAL -->
-<div ng-include="GLOBAL_CONFIG.app.urls.partials+'navigation/nav-left-horizontal.html'" ng-controller="navLeftCtrl"></div>
-
-
+<!-- MAIN BLOCK-->
 <div id="page-container" class="clearfix">
 
     <!-- NAV LEFT VERTICAL -->
-    <div ng-include="GLOBAL_CONFIG.app.urls.partials+'navigation/nav-left-vertical.html'" ng-controller="navLeftCtrl"></div>
+    <div ng-include="GLOBAL_CONFIG.app.urls.partials+'navigation/nav-left.html'" ng-controller="navLeftCtrl"></div>
 
     <!-- NAV RIGHT -->
     <div ng-include="GLOBAL_CONFIG.app.urls.partials+'navigation/nav-right.html'" ng-controller="navRightCtrl"></div>
@@ -216,7 +216,6 @@
 <script src="bower/jquery.easing/js/jquery.easing.js"></script>
 <script src="bower/jquery-autosize/jquery.autosize.js"></script>
 <script src="bower/jquery-validation/dist/jquery.validate.js"></script>
-<script src="bower/jquery.pulsate/jquery.pulsate.js"></script>
 <script src="bower/bootstrap/dist/js/bootstrap.js"></script>
 <script src="bower/seiyria-bootstrap-slider/js/bootstrap-slider.js"></script>
 <script src="bower/gmaps/gmaps.js"></script>
@@ -276,7 +275,6 @@
 
 
 <!--ANIMATIONS-->
-<script src="js/animations/pulsate.drv.js"></script>
 <script src="js/animations/slide-out-nav.drv.js"></script>
 
 <!--DIRECTIVES-->

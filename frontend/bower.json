@@ -26,7 +26,6 @@
         "jquery-autosize": "1.18.9",
         "jquery-validation": "*",
         "jquery.inputmask": "3.0.0",
-        "jquery.pulsate": "*",
 
         "font-awesome": "~4.0.3",
         "seiyria-bootstrap-slider": "~1.9.0",
@@ -54,12 +53,7 @@
         "responsive-tables": "*"
     },
     "overrides": {
-        "stepy": {
-            "main": "lib/jquery.stepy.js"
-        },
-        "jquery.knob": {
-            "name": "aterrien/jQuery-Knob"
-        },
+
         "jquery.ui": {
             "main": [
                 "ui/jquery.ui.core.js",
@@ -69,32 +63,12 @@
                 "ui/jquery.ui.resizable.js"
             ]
         },
-        "jqvmap": {
-            "main": [
-                "jqvmap/jquery.vmap.js",
-                "jqvmap/maps/jquery.vmap.world.js",
-                "jqvmap/maps/jquery.vmap.europe.js",
-                "jqvmap/maps/jquery.vmap.usa.js",
-                "jqvmap/data/jquery.vmap.sampledata.js"
-            ]
-        },
+
         "iCheck": {
             "main": "icheck.min.js"
         },
-        "flot": {
-            "main": [
-                "jquery.flot.js",
-                "jquery.flot.stack.js",
-                "jquery.flot.pie.js",
-                "jquery.flot.resize.js"
-            ]
-        },
-        "seiyria-bootstrap-slider": {
-            "main": [
-                "js/bootstrap-slider.js",
-                "dist/css/bootstrap-slider.min.css"
-            ]
-        },
+
+
         "angular-toggle-switch": {
             "main": [
                 "angular-toggle-switch.min.js",

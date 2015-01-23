@@ -2,46 +2,50 @@
 
 /**
  * Navigation main controller. Handles the configuration of the nav bars and search system
+ * @TODO : replace code
  */
 angular.module('sympozerApp').controller('navMainCtrl', ['$scope', '$rootScope', '$location', '$timeout', '$uiConfig', function ($scope, $rootScope, $location, $timeout, $uiConfig)
 {
 
 
+    //Array containing the open nodes (nodes clicked)
+    $scope.openNodes = [];
+    //Array containing the open nodes (nodes clicked)
+    $scope.selectedNodes = [];
+
 
     /**
      * This menu is always present
-     * @type {{label: string, iconClasses: string, url: string}[]}
+     * @type {{label: string, iconClass: string, link: string}[]}
      */
     var basicMenu = [
         {
             label: 'mainEvents.links.mainEvents',
-            iconClasses: 'fa fa-calendar',
-            url: '#/home/mainEvents/index'
+            iconClass: 'fa fa-calendar',
+            link: '#/home/mainEvents/index'
         },
         {
             label: 'organizations.links.organizations',
-            iconClasses: 'fa fa-group',
-            url: '#/home/organizations/index'
+            iconClass: 'fa fa-group',
+            link: '#/home/organizations/index'
         },
         {
             label: 'persons.links.persons',
-            iconClasses: 'fa fa-user',
-            url: '#/home/persons/index'
+            iconClass: 'fa fa-user',
+            link: '#/home/persons/index'
         },
         {
             label: 'papers.links.papers',
-            iconClasses: 'glyphicon glyphicon-book',
-            url: '#/home/papers/index'
+            iconClass: 'glyphicon glyphicon-book',
+            link: '#/home/papers/index'
         }
-
-
     ];
 
 
     /**
      * Current main conference menu
      *
-     * @type {{label: string, iconClasses: string, children: *[]}[]}
+     * @type {{label: string, iconClass: string, childNodes: *[]}[]}
      */
     var menuCurrentConference = function(){
 
@@ -52,58 +56,58 @@ angular.module('sympozerApp').controller('navMainCtrl', ['$scope', '$rootScope',
         return [
             {
                 label: $rootScope.currentMainEvent ? $rootScope.currentMainEvent.label : '' ,
-                iconClasses: 'fa fa-certificate',
-                children: [
+                iconClass: 'fa fa-certificate',
+                childNodes: [
                     {
                         label: 'navleft.informations',
-                        iconClasses: 'fa fa-info-circle',
-                        url: '#/home/mainEvents/'+$rootScope.currentMainEvent.id+'/overview/settings'
+                        iconClass: 'fa fa-info-circle',
+                        link: '#/home/mainEvents/'+$rootScope.currentMainEvent.id+'/overview/settings'
                     },
                     {
                         label: 'teammates.links.team',
-                        iconClasses: 'fa fa-graduation-cap',
-                        url        : '#/home/conference/'+$rootScope.currentMainEvent.id+'/teammates'
+                        iconClass: 'fa fa-graduation-cap',
+                        link        : '#/home/conference/'+$rootScope.currentMainEvent.id+'/teammates'
 
                     },
                     {
                         label: 'navleft.community',
-                        iconClasses: 'fa fa-group',
-                        url: '#/home/conference/'+$rootScope.currentMainEvent.id+'/roles/list'
+                        iconClass: 'fa fa-group',
+                        link: '#/home/conference/'+$rootScope.currentMainEvent.id+'/roles/list'
 
                     },
                     {
                         label: 'navleft.resource',
-                        iconClasses: 'fa fa-folder-open',
-                        children: [
+                        iconClass: 'fa fa-folder-open',
+                        childNodes: [
                             {
                                 label: 'papers.links.papers',
-                                iconClasses: 'glyphicon glyphicon-book',
-                                url: '#/home/conference/'+$rootScope.currentMainEvent.id+'/papers/list'
+                                iconClass: 'glyphicon glyphicon-book',
+                                link: '#/home/conference/'+$rootScope.currentMainEvent.id+'/papers/list'
                             }
                         ]
                     },
                     {
                         label: 'events.links.schedule',
-                        iconClasses: 'fa fa-calendar',
-                        children: [
+                        iconClass: 'fa fa-calendar',
+                        childNodes: [
                             {
                                 label: 'events.links.events',
                                 html: '<span class="badge badge-indigo">'+ badgeEvents +'</span>', /** menu notification **/
-                                iconClasses: 'fa fa-clock-o',
-                                url: '#/home/conference/'+$rootScope.currentMainEvent.id+'/events/list'
+                                iconClass: 'fa fa-clock-o',
+                                link: '#/home/conference/'+$rootScope.currentMainEvent.id+'/events/list'
                             },
                             {
                                 label: 'locations.links.locations',
                                 html: '<span class="badge badge-magenta">'+ badgeLocations +'</span>',
-                                iconClasses: 'fa fa-map-marker red',
-                                url: '#/home/conference/'+$rootScope.currentMainEvent.id+'/locations/list'
+                                iconClass: 'fa fa-map-marker red',
+                                link: '#/home/conference/'+$rootScope.currentMainEvent.id+'/locations/list'
                             }
                         ]
                     },
                     {
                         label: 'navleft.analytics',
-                        iconClasses: 'fa fa-line-chart',
-                        url: '#/home/conference/'+$rootScope.currentMainEvent.id+'/analytics/index'
+                        iconClass: 'fa fa-line-chart',
+                        link: '#/home/conference/'+$rootScope.currentMainEvent.id+'/analytics/index'
                     }
                 ]
             }
@@ -111,123 +115,113 @@ angular.module('sympozerApp').controller('navMainCtrl', ['$scope', '$rootScope',
     }
 
     /**
-     * Set hierarchy among the menu items
+     * Set parent for all nodes
      *
-     * @param children
+     * @param childNodes
      * @param parent
      */
-    var setParent = function (children, parent)
+    var setParent = function (childNodes, parent)
     {
-        angular.forEach(children, function (child)
+        angular.forEach(childNodes, function (child)
         {
             child.parent = parent;
-            if (child.children !== undefined)
+            if (child.childNodes !== undefined)
             {
-                setParent(child.children, child);
+                setParent(child.childNodes, child);
             }
         });
     };
 
     /**
-     * Get the menu item from the url
-     * Goal : set the correct left menu item selected whenever the user
-     * change the current main page (or directly from the url)
+     * Get the menu node from the link
+     * Goal : set the correct left menu node selected whenever the user
+     * change the current main page (or directly from the link)
      *
-     * @param children
-     * @param url
-     * @returns {*} the item from the menu architecture
+     * @param childNodes
+     * @param link
+     * @returns {*} the node from the menu architecture
      */
-    $scope.findItemByUrl = function (children, url)
+    $scope.findNodeByUrl = function (childNodes, link)
     {
-        for (var i = 0, length = children.length; i < length; i++)
+        for (var i = 0, length = childNodes.length; i < length; i++)
         {
-            if (children[i].url && children[i].url.replace('#', '') == url)
+            if (childNodes[i].link && childNodes[i].link.replace('#', '') == link)
             {
-                return children[i];
+                return childNodes[i];
             }
-            if (children[i].children !== undefined)
+            if (childNodes[i].childNodes !== undefined)
             {
-                var item = $scope.findItemByUrl(children[i].children, url);
-                if (item)
+                var node = $scope.findNodeByUrl(childNodes[i].childNodes, link);
+                if (node)
                 {
-                    return item;
+                    return node;
                 }
             }
         }
     };
 
-    /**
-     * Default opened menus
-     *
-     * @type {Array}
-     */
-    $scope.openItems = [];
-    /**
-     * Default selected menu items
-     *
-     * @type {Array}
-     */
-    $scope.selectedItems = [];
-    $scope.selectedFromNavMenu = false;
+
 
     /**
-     * Action triggerred when an item is selected
-     * @param item
+     * Action triggerred when an node is selected
+     * @param node
      */
-    $scope.select = function (item)
+    $scope.navigate = function (node)
     {
-        // close open nodes
-        if (item.open)
+        // Close the node and stop if selected node opened
+        if (node.open)
         {
-            item.open = false;
+            node.open = false;
             return;
         }
-        for (var i = $scope.openItems.length - 1; i >= 0; i--)
+        //Close all nodes
+        for (var i = $scope.openNodes.length - 1; i >= 0; i--)
         {
-            $scope.openItems[i].open = false;
+            $scope.openNodes[i].open = false;
         }
-        $scope.openItems = [];
-        var parentRef = item;
-        while (parentRef !== null)
+        $scope.openNodes = [];
+        var parentNode = node;
+
+        //Open all the parent
+        while (parentNode !== null)
         {
-            parentRef.open = true;
-            $scope.openItems.push(parentRef);
-            parentRef = parentRef.parent;
+            parentNode.open = true;
+            $scope.openNodes.push(parentNode);
+            parentNode = parentNode.parent;
         }
 
         // handle leaf nodes
-        if (!item.children || (item.children && item.children.length < 1))
+        if (!node.childNodes || (node.childNodes && node.childNodes.length < 1))
         {
-            $scope.selectedFromNavMenu = true;
-            for (var j = $scope.selectedItems.length - 1; j >= 0; j--)
+            for (var j = $scope.selectedNodes.length - 1; j >= 0; j--)
             {
-                $scope.selectedItems[j].selected = false;
+                $scope.selectedNodes[j].selected = false;
             }
-            $scope.selectedItems = [];
-            parentRef = item;
-            while (parentRef !== null)
+            $scope.selectedNodes = [];
+            parentNode = node;
+            while (parentNode !== null)
             {
-                parentRef.selected = true;
-                $scope.selectedItems.push(parentRef);
-                parentRef = parentRef.parent;
+                parentNode.selected = true;
+                $scope.selectedNodes.push(parentNode);
+                parentNode = parentNode.parent;
             }
         }
     };
 
     /**
-     * Select item according to the current url
+     * Select node according to the current link
      */
     var initSelected = function(){
-        //Find current item from url
-        var currentItem = $scope.findItemByUrl($scope.menu, $location.path());
-        if(currentItem){
+        //Find current node from link
+        var currentNode = $scope.findNodeByUrl($scope.menu, $location.path());
+        if(currentNode){
             //Mark as selected
-            $scope.select(currentItem);
+            $scope.navigate(currentNode);
         }
     }
 
     /**
-     * Initialize menu with current mainEvent and current url path
+     * Initialize menu with current mainEvent and current link path
      * @returns {string}
      */
     var initMenu = function ()
@@ -235,7 +229,6 @@ angular.module('sympozerApp').controller('navMainCtrl', ['$scope', '$rootScope',
         /**
          * Each time there is a change, the menu is actualize
          *
-         * @TODO FORZA : TO RETHINK... ?
          */
         $scope.menu = basicMenu;
 
@@ -246,12 +239,12 @@ angular.module('sympozerApp').controller('navMainCtrl', ['$scope', '$rootScope',
         }
 
         /**
-         * Set hierarchy for a menu item
+         * Set hierarchy for a menu node
          */
         setParent($scope.menu, null);
 
         /**
-         * Set selected item
+         * Set selected node
          */
         initSelected();
 
@@ -271,19 +264,6 @@ angular.module('sympozerApp').controller('navMainCtrl', ['$scope', '$rootScope',
         $uiConfig.set('searchCollapsed', true);
     };
 
-    $scope.$on('uiConfig:change:searchCollapsed', function (event, newVal)
-    {
-        $scope.style_searchCollapsed = newVal;
-    });
-
-    /**
-     * Action trigger when the user use the search form from the menu
-     */
-    $scope.goToSearch = function ()
-    {
-        $location.path('/extras-search')
-    };
-
 
     /**
      * Event listener whenever a new conference context loaded
@@ -292,10 +272,6 @@ angular.module('sympozerApp').controller('navMainCtrl', ['$scope', '$rootScope',
         //Update conference menu with new conference infos
         initMenu();
     });
-
-
-
-
 
 }]);
 

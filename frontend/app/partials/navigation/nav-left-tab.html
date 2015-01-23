@@ -1,0 +1,15 @@
+<hr ng-show="node.label == 'separator'"/>
+
+<a ng-click="navigate(node)" ng-href="{{node.link}}">
+    <i ng-if="node.iconClass" class="{{node.iconClass}}"></i><span class="ellipsis">{{ node.label | translate }}</span>
+    <span ng-bind-html="node.html"></span>
+</a>
+<ul ng-if="node.childNodes.length" data-slide-out-nav="node.open">
+    <li ng-repeat="node in node.childNodes"
+        ng-class="{ hasChild: (node.childNodes!==undefined),
+                      active: node.selected,
+                        open: (node.childNodes!==undefined) && node.open }"
+        ng-include="GLOBAL_CONFIG.app.urls.partials+'navigation/nav-left-tab.html'"
+            ></li>
+</ul>
+

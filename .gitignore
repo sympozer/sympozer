@@ -44,3 +44,6 @@ frontend/app/scripts/*
 frontend/local-config.json
 src/fibe/FrontendBundle/Resources/public/vendors/*
 npm-debug.log
+
+#Proprietary theme files
+frontend/app/assets/less/theme

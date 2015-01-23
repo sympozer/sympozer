@@ -16,20 +16,20 @@ The organization is now easier than ever with our specialized tools following at
 
 #Installation guide
 	
-####Clone Repository
+##Clone Repository
 
 	cd <path to the www folder of your Apache Server>
-	git clone https://github.com/BenoitDdlp/Sympozer-event-manager-app.git sympozer
+	git clone https://github.com/sympozer/sympozer.git sympozer
 	cd sympozer
     cd backend
 	
-####Download vendors
+##Download vendors
 
     sudo mkdir vendors
     sudo chmod 777 vendors/
 	composer update
 
-####Create app/config/parameters.yml from the .TEMPLATE file
+##Step 1 : Create the symfony configuration file app/config/parameters.yml from the .TEMPLATE file
 Next, configure a parameters.yml file with your local properties :
 
     sudo cp app/config/parameters.yml.TEMPLATE app/config/parameters.yml
@@ -38,58 +38,57 @@ Next, configure a parameters.yml file with your local properties :
 For  "database_user" put your mysql user name, and "database_password" , and use your mysql password.
 After that, save and add this file to : app/config
 
-##Step 1 : Quick initialize (linux)
+##Step 2 : Prepare node and grunt
 
-    php ./vendor/sensio/distribution-bundle/Sensio/Bundle/DistributionBundle/Resources/bin/build_bootstrap.php
-    ./reset.sh
-    ./cache.sh
-    php app/console server:run -v &
-
-###Step 1 : Step-by-step initialize
-####Initialize db, generate assets
-
-    php app/console doctrine:database:create
-    php app/console doctrine:schema:update --force
-    php app/console assets:install web
-
-####Create an admin
-
-    php app/console sympozer:admin:create admin admin@admin.fr admin
+Install node package : npm install
+Install grunt command line tool : npm install -g grunt-cli
 
 
-####Populate database
+##Step 3 : Prepare protractor web driver for e2e testing
 
-    php app/console wwwconf:database:init
+Update web drivers for protractors : sudo ./node_modules/protractor/bin/webdriver-manager update 
+If you have problems downloading the zip file, execute the following :
+cp control/selenium-server-standalone-2.42.2.jar node_modules/protractor/selenium/selenium-server-standalone-2.42.2.jar
 
-####Generate bootstrap.php.cache
 
-    php ./vendor/sensio/distribution-bundle/Sensio/Bundle/DistributionBundle/Resources/bin/build_bootstrap.php
-
-####Run the backend in background
-
-    php app/console server:run -v &
-
-##Step 2 : FrontEnd
-
-    cd ..
-    npm install
-
-####Setup your absolute url to app_dev.php
+##Step 4 : Setup your absolute url to app_dev.php
 
     sudo cp local-config.json.TEMPLATE local-config.json
     sudo nano local-config.json
     
-####Bower and grunt
-    cd frontend
-    mkdir app
-    chmod -R 777 app
-    bower install
+   Open the local-config file and set up the backend access according to your domain configuration
 
-####build frontend
+##Step 5 : Generate links to the api according to the local config
 
-    sudo grunt
+    sudo grunt sf2-console:copy_ws_config
+
+##Step 6 : create the database
+
+  sudo grunt reset_db
+  
+
+##Step  7: update bower dependencies
+
+  sudo grunt update_dependencies
+
+##Step  8: install the theme (only if needed)
+
+     sudo git clone https://github.com/E-Conference/sympozer-theme.git /frontend/app/assets/less/theme
+ 
+
+#Step  9 : Run the backend symfony server in background
+
+    cd backend
+    php app/console server:run -v &
     
+    
+##Uselful cmd : 
 
+Reset the database : sudo grunt reset_db
+Start developpment :  sudo grunt dev
+Check prod environnement : sudo grunt build
+Launch unit test :sudo grunt test:unit
+Launch e2e tests :sudo grunt test:e2e
 
 Start your Apache server and go to :
 
