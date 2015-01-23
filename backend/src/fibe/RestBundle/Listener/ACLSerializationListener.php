@@ -20,61 +20,48 @@ use Symfony\Component\Security\Core\SecurityContextInterface;
  */
 class ACLSerializationListener implements EventSubscriberInterface
 {
-  private $logger;
-  private $aclHelper;
-  private $securityContext;
+    /** default value for "acl" property added to each serialized entity when the user is logged but have no permission */
+    const LOGGED_WITHOUT_RIGHT = "READ";
+    private $logger;
+    private $aclHelper;
+    private $securityContext;
 
-  function __construct(ACLEntityHelper $aclHelper, SecurityContextInterface $securityContext, LoggerInterface $logger = null)
-  {
-    $this->aclHelper = $aclHelper;
-    $this->securityContext = $securityContext;
-    $this->logger = $logger;
-  }
-
-  /**
-   * @inheritdoc
-   */
-  static public function getSubscribedEvents()
-  {
-    return array(
-      array('event' => 'serializer.post_serialize', 'method' => 'onPostSerialize'),
-    );
-  }
-
-  /**
-   * serialize acl
-   * @param ObjectEvent $event
-   */
-  public function onPostSerialize(ObjectEvent $event)
-  {
-    $object = $event->getObject();
-    if (ACLHelper::isManaged(get_class($object)))
-//    if (isset(ACLHelper::$ACLEntityNameArray[ACLHelper::getRepositoryNameByClassName(get_class($object))]))
+    function __construct(ACLEntityHelper $aclHelper, SecurityContextInterface $securityContext, LoggerInterface $logger = null)
     {
-      $user = $this->securityContext->getToken()->getUser();
-        if ($user instanceof UserInterface &&
-            null != $right = $this->aclHelper->getHierarchicalACEByEntity($object, $user)
-        )
-      {
-        $event->getVisitor()->addData('acl', $right);
-      }
+        $this->aclHelper = $aclHelper;
+        $this->securityContext = $securityContext;
+        $this->logger = $logger;
     }
-//    try
-//    {
-//    } catch (UnauthorizedHttpException $e)
-//    {
-//      //user not logged : just ignore
-//      if (null !== $this->logger)
-//      {
-//        $this->logger->debug("[ACLSerializationListener]" . $e->getMessage(),array('acl'));
-//      }
-//    } catch (\Exception $e)
-//    {
-//      //no ace / acl : just ignore
-//      if (null !== $this->logger)
-//      {
-//        $this->logger->debug("[ACLSerializationListener]" . $e->getMessage(),array('acl'));
-//      }
-//    }
-  }
+
+    /**
+     * @inheritdoc
+     */
+    static public function getSubscribedEvents()
+    {
+        return array(
+            array('event' => 'serializer.post_serialize', 'method' => 'onPostSerialize'),
+        );
+    }
+
+    /**
+     * serialize acl
+     * @param ObjectEvent $event
+     */
+    public function onPostSerialize(ObjectEvent $event)
+    {
+        $object = $event->getObject();
+        if (ACLHelper::isManaged(get_class($object)))
+        {
+            $user = $this->securityContext->getToken()->getUser();
+            if ($user instanceof UserInterface)
+            {
+                $right = $right = $this->aclHelper->getHierarchicalACEByEntity($object, $user);
+                if ($right == null)
+                {
+                    $right = static::LOGGED_WITHOUT_RIGHT;;
+                }
+                $event->getVisitor()->addData('acl', $right);
+            }
+        }
+    }
 }

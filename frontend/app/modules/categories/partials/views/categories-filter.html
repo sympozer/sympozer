@@ -1,24 +1,28 @@
 <div class="row">
-    <div  ng-repeat="category in categories track by $index"  class="col-sm-2 col-md-2 col-lg-2 ellipsis">
-        <label class="checkbox-inline icheck-label">
-            <div class="btn btn-primary icheckbox_minimal-blue"><input icheck="" ng-click="addFilter(category.id)" type="checkbox" id="inlinecheckbox1" value="option1" ><ins class="iCheck-helper"></ins></div> {{ category.label }} <span class="badge pull-right"> {{category.events.length}}</span>
-        </label>
-    </div>
-    <div  class="col-sm-2 col-md-2 col-lg-2 ellipsis">
-        <a class="btn" href="#conference/{{currentMainEvent.id}}/categories/new/" title="{{ 'categories.actions.add' | translate }}">
-            <i class="fa fa-plus"></i><span class="visible-sm-inline visible-lg-inline visible-md-inline"> New category</span>
-        </a>
-    </div>
+  <div ng-repeat="category in categories track by $index" class="col-sm-2 col-md-2 col-lg-2 ellipsis">
+    <label class="checkbox-inline icheck-label">
+      <div class="btn btn-primary icheckbox_minimal-blue">
+        <input icheck="" ng-click="addFilter(category.id)" type="checkbox" id="inlinecheckbox1" value="option1">
+        <ins class="iCheck-helper"></ins>
+      </div>
+      {{ category.label }} <span class="badge pull-right"> {{category.events.length}}</span>
+    </label>
+  </div>
+  <div class="col-sm-2 col-md-2 col-lg-2 ellipsis">
+    <a class="btn" sympozer-acl-show="currentMainEvent" href="#conference/{{currentMainEvent.id}}/categories/new/" title="{{ 'categories.actions.add' | translate }}">
+      <i class="fa fa-plus"></i><span class="visible-sm-inline visible-lg-inline visible-md-inline"> New category</span>
+    </a>
+  </div>
 </div>
 
 <!--<ul class="nav nav-pills">-->
-  <!--<li class="active" ng-repeat="category in categories track by $index">-->
-    <!--<a href="javascript:void(0)" filter="categoryId" ng-click="addFilter(category.id)">-->
-      <!--<span class="badge pull-right">{{category.events.length}}</span>-->
-      <!--{{ category.label }}-->
-    <!--</a>-->
-  <!--</li>-->
-  <!--<li>-->
-   <!---->
-  <!--</li>-->
+<!--<li class="active" ng-repeat="category in categories track by $index">-->
+<!--<a href="javascript:void(0)" filter="categoryId" ng-click="addFilter(category.id)">-->
+<!--<span class="badge pull-right">{{category.events.length}}</span>-->
+<!--{{ category.label }}-->
+<!--</a>-->
+<!--</li>-->
+<!--<li>-->
+<!---->
+<!--</li>-->
 <!--</ul>-->

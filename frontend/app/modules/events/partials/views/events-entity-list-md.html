@@ -18,8 +18,8 @@
         <td>{{ event.startAt | date:'short'}}</td>
         <td>{{ event.endAt | date:'short'}}</td>
         <td>
-            <a class="btn btn-warning btn-sm" href="#/home/conference/{{ event.mainEvent.id }}/events/edit/{{ event.id }}" role="button"><i class="fa fa-edit fa-1x"></i></a>
-            <a class="btn btn-default btn-sm" href="#/home/conference/{{ event.mainEvent.id }}/events/show/{{ event.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>
+          <a class="btn btn-warning btn-sm" sympozer-acl-show="event" href="#/home/conference/{{ event.mainEvent.id }}/events/edit/{{ event.id }}" role="button"><i class="fa fa-edit fa-1x"></i></a>
+          <a class="btn btn-default btn-sm" href="#/home/conference/{{ event.mainEvent.id }}/events/show/{{ event.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>
             <a class="btn btn-primary btn-sm" href="" data-ng-click="clone(event, $index)" role="button"><i class="fa fa-files-o fa-1x"></i></a>
             <button class="btn btn-danger btn-sm" data-ng-click="deleteModal($index, event)" role="button">
                 <i class="fa fa-trash-o fa-1x"></i>

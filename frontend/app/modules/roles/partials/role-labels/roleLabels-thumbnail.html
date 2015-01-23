@@ -9,7 +9,7 @@
     <p>{{ roleLabel.publisher }}</p>
 
     <p>{{ roleLabel.publishDate }}</p>
-    <a class="btn btn-warning" href="#roleLabels/edit/{{ roleLabel.id }}" role="button"><i class="fa fa-edit fa-1x"></i></a>
+    <a class="btn btn-warning" sympozer-acl-show="roleLabel" href="#roleLabels/edit/{{ roleLabel.id }}" role="button"><i class="fa fa-edit fa-1x"></i></a>
     <a class="btn btn-default" href="#roleLabels/show/{{ roleLabel.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>
     <a class="btn btn-primary" href="" data-ng-click="clone(roleLabel)" role="button"><i class="fa fa-files-o fa-1x"></i></a>
     <button class="btn btn-danger" data-ng-click="deleteModal($index, roleLabel)" role="button">

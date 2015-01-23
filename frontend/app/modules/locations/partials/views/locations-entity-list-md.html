@@ -17,8 +17,8 @@
                 <i ng-repeat="equipment in location.equipments  track by $index" class="fa fa-{{equipment.icon}} fa-1x"></i>
             </td>
             <td>
-                <a class="btn btn-warning btn-sm" href="#/home/conference/{{currentMainEvent.id}}/locations/edit/{{ location.id }}" role="button"><i class="fa fa-edit fa-1x"></i></a>
-                <a class="btn btn-default btn-sm" href="#/home/conference/{{currentMainEvent.id}}/locations/show/{{ location.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>
+              <a class="btn btn-warning btn-sm" oçiiiiiisympozer-acl-show="location" href="#/home/conference/{{currentMainEvent.id}}/locations/edit/{{ location.id }}" role="button"><i class="fa fa-edit fa-1x"></i></a>
+              <a class="btn btn-default btn-sm" href="#/home/conference/{{currentMainEvent.id}}/locations/show/{{ location.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>
                 <a class="btn btn-primary btn-sm" href="" data-ng-click="clone(location, $index)" role="button"><i class="fa fa-files-o fa-1x"></i></a>
                 <button class="btn btn-danger btn-sm" data-ng-click="deleteModal($index, location)" role="button">
                     <i class="fa fa-trash-o fa-1x"></i>

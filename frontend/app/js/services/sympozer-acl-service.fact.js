@@ -3,35 +3,53 @@ angular.module('sympozerApp').factory('sympozerAclService', [
     {
         /**
          * right hierarchy map ( right : superRight )
+         *
+         * backend-side representative implementation.
+         * The complexity results from old livecon's v1 permission hierarchy spec.
+         * Actually in back-end side in sympozer's v2 are implemented:
+         *   - READ :       default for logged user without permission
+         *   - OPERATOR :   for operator role
+         *   - OWNER :      for the creator in order to delete the mainEvent
          */
         var hierarchy = {
-            "EDIT"    : "OPERATOR",
-            "CREATE"  : "OPERATOR",
-            "DELETE"  : "OPERATOR",
-            "OPERATOR": "MASTER",
-            "MASTER"  : "OWNER"
+            READ    : "EDIT",
+            EDIT    : "OPERATOR",
+            CREATE  : "OPERATOR",
+            DELETE  : "OPERATOR",
+            OPERATOR: "MASTER",
+            MASTER  : "OWNER",
+            OWNER: "OWNER"
         };
         return {
             /**
-             * TODO : comment
-             *
-             * at this moment the promise must have the acl attribute set
+             * Find out through the hierarchy tree if the param right is a allowed in the "acl" field of the promise param.
              */
-            isGranted: function (promise, right)
+            isGranted: function (promise, askedRight)
             {
-                if (right && right == promise.acl)
+                if (!promise.id)
+                { //promise is not yet resolved
+                    return false;
+                }
+
+                var actualRight = promise.acl;
+
+                if (askedRight && askedRight == actualRight)
                 {
                     return true;
                 }
-                while (hierarchy[right])
+                while (hierarchy[askedRight])
                 {
-                    if (hierarchy[right] == promise.acl)
+                    if (askedRight == hierarchy[askedRight])
+                    { //top of the tree reached without finding the correct askedRight
+                        return false;
+                    }
+                    if (hierarchy[askedRight] == actualRight)
                     {
                         return true;
                     }
-                    right = hierarchy[right];
+                    askedRight = hierarchy[askedRight];
                 }
-                console.error("unknown right " + right + " asked for ", promise);
+                console.error("unknown askedRight " + askedRight + " asked for ", promise);
             }
         };
     }
