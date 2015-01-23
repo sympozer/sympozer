@@ -82,10 +82,8 @@ angular.module('sympozerApp').directive('sympozerAclShow', [
                     {
                         element.hide();
                     }
-
-                    //hide if not logged
-                    if (!$scope.$root.currentUser || !$scope.$root.currentUser.id)
-                    {
+                    else if (!$scope.$root.currentUser || !$scope.$root.currentUser.id)
+                    { //hide if not logged
                         element.hide();
                     }
                     else
@@ -93,7 +91,8 @@ angular.module('sympozerApp').directive('sympozerAclShow', [
                         //if the current logged user has right on the entity : display the button.
                         if (sympozerAclService.isGranted($scope.promise, $scope.right || defaultRightToAsk))
                         {
-                            element.show().removeClass("disabled");
+                            element.show();
+                            //if the user has just logged in, make it pulsate!
                             if (justLoggedIn)
                             {
                                 $(element).pulsate({repeat: 2});
@@ -106,7 +105,7 @@ angular.module('sympozerApp').directive('sympozerAclShow', [
                         }
                         else
                         {
-                            element.show().addClass("disabled");
+                            element.hide();
                         }
                     }
                 });

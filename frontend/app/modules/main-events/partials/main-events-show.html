@@ -7,9 +7,8 @@
   <!--Options bar containing possible actions-->
   <div class="options">
     <div class="btn-toolbar">
-      <!--@TODO : add ACL-->
-      <button ng-controller="importCtrl" disabled="disabled" ng-click="startImport()" class="btn btn-info" title="{{ 'import.import' | translate}}">
-        <i class="fa fa-caret-square-o-down"></i>
+      <button ng-controller="importCtrl" disabled="disabled" sympozer-acl-show="mainEvent" ng-click="startImport()" class="btn btn-info" title="{{ 'import.import' | translate}}">
+      <i class="fa fa-caret-square-o-down"></i>
         <span class="visible-sm-inline visible-lg-inline visible-md-inline"> {{ 'import.import' | translate}}</span>
       </button>
       <a class="btn btn-info" sympozer-acl-show="mainEvent" href="#/home/mainEvents/edit/{{mainEvent.id}}" role="button">

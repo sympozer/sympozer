@@ -22,22 +22,22 @@ angular.module('sympozerApp').controller('navMainCtrl', ['$scope', '$rootScope',
         {
             label: 'mainEvents.links.mainEvents',
             iconClass: 'fa fa-calendar',
-            link: '#/home/mainEvents/index'
+            link : '#/home/mainEvents/index'
         },
         {
             label: 'organizations.links.organizations',
             iconClass: 'fa fa-group',
-            link: '#/home/organizations/index'
+            link : '#/home/organizations/index'
         },
         {
             label: 'persons.links.persons',
             iconClass: 'fa fa-user',
-            link: '#/home/persons/index'
+            link : '#/home/persons/index'
         },
         {
             label: 'papers.links.papers',
             iconClass: 'glyphicon glyphicon-book',
-            link: '#/home/papers/index'
+            link : '#/home/papers/index'
         }
     ];
 
@@ -47,7 +47,8 @@ angular.module('sympozerApp').controller('navMainCtrl', ['$scope', '$rootScope',
      *
      * @type {{label: string, iconClass: string, childNodes: *[]}[]}
      */
-    var menuCurrentConference = function(){
+    var menuCurrentConference = function ()
+    {
 
         //Set number off object on nav barre
         var badgeEvents = $rootScope.currentMainEvent.events ? $rootScope.currentMainEvent.events.length : 0;
@@ -55,64 +56,64 @@ angular.module('sympozerApp').controller('navMainCtrl', ['$scope', '$rootScope',
 
         return [
             {
-                label: $rootScope.currentMainEvent ? $rootScope.currentMainEvent.label : '' ,
-                iconClass: 'fa fa-certificate',
+                label     : $rootScope.currentMainEvent ? $rootScope.currentMainEvent.label : '',
+                iconClass : 'fa fa-certificate',
                 childNodes: [
                     {
                         label: 'navleft.informations',
                         iconClass: 'fa fa-info-circle',
-                        link: '#/home/mainEvents/'+$rootScope.currentMainEvent.id+'/overview/settings'
+                        link : '#/home/mainEvents/' + $rootScope.currentMainEvent.id + '/overview/settings'
                     },
                     {
                         label: 'teammates.links.team',
                         iconClass: 'fa fa-graduation-cap',
-                        link        : '#/home/conference/'+$rootScope.currentMainEvent.id+'/teammates'
+                        link : '#/home/conference/' + $rootScope.currentMainEvent.id + '/teammates'
 
                     },
                     {
                         label: 'navleft.community',
                         iconClass: 'fa fa-group',
-                        link: '#/home/conference/'+$rootScope.currentMainEvent.id+'/roles/list'
+                        link : '#/home/conference/' + $rootScope.currentMainEvent.id + '/roles/list'
 
                     },
                     {
-                        label: 'navleft.resource',
-                        iconClass: 'fa fa-folder-open',
+                        label     : 'navleft.resource',
+                        iconClass : 'fa fa-folder-open',
                         childNodes: [
                             {
                                 label: 'papers.links.papers',
                                 iconClass: 'glyphicon glyphicon-book',
-                                link: '#/home/conference/'+$rootScope.currentMainEvent.id+'/papers/list'
+                                link : '#/home/conference/' + $rootScope.currentMainEvent.id + '/papers/list'
                             }
                         ]
                     },
                     {
-                        label: 'events.links.schedule',
-                        iconClass: 'fa fa-calendar',
+                        label     : 'events.links.schedule',
+                        iconClass : 'fa fa-calendar',
                         childNodes: [
                             {
                                 label: 'events.links.events',
-                                html: '<span class="badge badge-indigo">'+ badgeEvents +'</span>', /** menu notification **/
-                                iconClass: 'fa fa-clock-o',
-                                link: '#/home/conference/'+$rootScope.currentMainEvent.id+'/events/list'
+                                html : '<span class="badge badge-indigo">' + badgeEvents + '</span>', /** menu notification **/
+                            iconClass: 'fa fa-clock-o',
+                                link : '#/home/conference/' + $rootScope.currentMainEvent.id + '/events/list'
                             },
                             {
                                 label: 'locations.links.locations',
-                                html: '<span class="badge badge-magenta">'+ badgeLocations +'</span>',
+                                html : '<span class="badge badge-magenta">' + badgeLocations + '</span>',
                                 iconClass: 'fa fa-map-marker red',
-                                link: '#/home/conference/'+$rootScope.currentMainEvent.id+'/locations/list'
+                                link : '#/home/conference/' + $rootScope.currentMainEvent.id + '/locations/list'
                             }
                         ]
                     },
                     {
                         label: 'navleft.analytics',
                         iconClass: 'fa fa-line-chart',
-                        link: '#/home/conference/'+$rootScope.currentMainEvent.id+'/analytics/index'
+                        link : '#/home/conference/' + $rootScope.currentMainEvent.id + '/analytics/index'
                     }
                 ]
             }
         ];
-    }
+    };
 
     /**
      * Set parent for all nodes
@@ -161,9 +162,8 @@ angular.module('sympozerApp').controller('navMainCtrl', ['$scope', '$rootScope',
     };
 
 
-
     /**
-     * Action triggerred when an node is selected
+     * Action triggerred when a node is selected
      * @param node
      */
     $scope.navigate = function (node)
@@ -211,10 +211,12 @@ angular.module('sympozerApp').controller('navMainCtrl', ['$scope', '$rootScope',
     /**
      * Select node according to the current link
      */
-    var initSelected = function(){
+    var initSelected = function ()
+    {
         //Find current node from link
         var currentNode = $scope.findNodeByUrl($scope.menu, $location.path());
-        if(currentNode){
+        if (currentNode)
+        {
             //Mark as selected
             $scope.navigate(currentNode);
         }
@@ -227,7 +229,7 @@ angular.module('sympozerApp').controller('navMainCtrl', ['$scope', '$rootScope',
     var initMenu = function ()
     {
         /**
-         * Each time there is a change, the menu is actualize
+         * Each time there is a change, the menu is actualized
          *
          */
         $scope.menu = basicMenu;
@@ -249,7 +251,7 @@ angular.module('sympozerApp').controller('navMainCtrl', ['$scope', '$rootScope',
         initSelected();
 
         return $location.path();
-    }
+    };
 
     //Trigger init
     initMenu();
@@ -268,7 +270,8 @@ angular.module('sympozerApp').controller('navMainCtrl', ['$scope', '$rootScope',
     /**
      * Event listener whenever a new conference context loaded
      */
-    $scope.$on('contextFact:changeContext', function(){
+    $scope.$on('contextFact:changeContext', function ()
+    {
         //Update conference menu with new conference infos
         initMenu();
     });
