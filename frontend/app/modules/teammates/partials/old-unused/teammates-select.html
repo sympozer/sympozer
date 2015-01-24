@@ -2,7 +2,7 @@
 <div>
   <span ng-repeat="entity in resource[parentField]  track by $index" class="tag label label-info">
     <span>{{ entity.label }}</span>
-    <a ng-click="deleteEntity($index,entity)"><span class="fa fa-times"></span></a>
+    <a sympozer-acl-show="entity" ng-click="deleteEntity($index,entity)"><span class="fa fa-times"></span></a>
   </span>
 </div>
 

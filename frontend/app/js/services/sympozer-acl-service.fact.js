@@ -18,7 +18,7 @@ angular.module('sympozerApp').factory('sympozerAclService', [
             DELETE  : "OPERATOR",
             OPERATOR: "MASTER",
             MASTER  : "OWNER",
-            OWNER: "OWNER"
+            OWNER   : "OWNER"
         };
         return {
             /**
@@ -43,7 +43,7 @@ angular.module('sympozerApp').factory('sympozerAclService', [
                     { //top of the tree reached without finding the correct askedRight
                         return false;
                     }
-                    if (hierarchy[askedRight] == actualRight)
+                    if (actualRight == hierarchy[askedRight])
                     {
                         return true;
                     }

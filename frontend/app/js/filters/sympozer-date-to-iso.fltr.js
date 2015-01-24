@@ -5,8 +5,12 @@
  */
 
 /**
- * Titleize filter
- * Put string first character to upper case
+ * dateToISO filter
+ * format dates from db in this format:
+ *
+ * use it like :
+ *      <span class="date">{{ t.created_at | dateToISO | date:"EEEE, MMMM d,y hh:mm:ss a" }}</span>
+ *
  * @type {filter}
  */
 angular.module('sympozerApp').filter('dateToISO', function ()

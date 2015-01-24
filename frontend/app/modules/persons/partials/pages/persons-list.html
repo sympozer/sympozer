@@ -20,9 +20,9 @@
     <td>
       <a class="btn btn-warning" sympozer-acl-show="person" href="#persons/edit/{{ person.id }}" role="button"><i class="fa fa-edit fa-1x"></i></a>
       <a class="btn btn-default" href="#persons/show/{{ person.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>
-      <a class="btn btn-primary" href="" data-ng-click="clone(person)" role="button"><i class="fa fa-files-o fa-1x"></i></a>
-      <button class="btn btn-danger" data-ng-click="deleteModal($index, person)" role="button">
-        <i class="fa fa-trash-o fa-1x"></i></button>
+      <a class="btn btn-primary" sympozer-acl-show="person" href="" data-ng-click="clone(person)" role="button"><i class="fa fa-files-o fa-1x"></i></a>
+      <button class="btn btn-danger" sympozer-acl-show="person" data-ng-click="deleteModal($index, person)" role="button">
+      <i class="fa fa-trash-o fa-1x"></i></button>
     </td>
   </tr>
   </tbody>

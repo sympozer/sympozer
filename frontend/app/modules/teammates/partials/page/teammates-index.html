@@ -36,8 +36,8 @@
             </h3>
             <div class="search-result" ng-repeat-start="teammate in entities  track by $index">
               <div ng-include="GLOBAL_CONFIG.app.modules.teammates.urls.partials+'views/teammate-entity-row-lg.html'"></div>
-              <button class="btn btn-danger" data-ng-click="deleteTeammateModal($index, teammate)" role="button">
-                <i class="fa fa-trash-o fa-1x"></i>
+              <button class="btn btn-danger" sympozer-acl-show="teammate" data-ng-click="deleteTeammateModal($index, teammate)" role="button">
+              <i class="fa fa-trash-o fa-1x"></i>
               </button>
             </div>
             <hr ng-repeat-end="">

@@ -28,8 +28,8 @@
     <td>
       <a class="btn btn-warning" sympozer-acl-show="conference" href="#mainEvents/edit/{{ conference.id }}" role="button"><i class="fa fa-edit fa-1x"></i></a>
       <a class="btn btn-default" href="#mainEvents/show/{{ conference.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>
-      <a class="btn btn-primary" href="" data-ng-click="clone(conference, $index)" role="button"><i class="fa fa-files-o fa-1x"></i></a>
-      <button class="btn btn-danger" data-ng-click="deleteModal($index, conference)" role="button">
+      <a class="btn btn-primary" sympozer-acl-show="conference" href="" data-ng-click="clone(conference, $index)" role="button"><i class="fa fa-files-o fa-1x"></i></a>
+      <button class="btn btn-danger" sympozer-acl-show="conference" data-ng-click="deleteModal($index, conference)" role="button">
         <i class="fa fa-trash-o fa-1x"></i></button>
     </td>
   </tr>

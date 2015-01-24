@@ -99,7 +99,7 @@ angular.module('mainEventsApp').controller('mainEventsEditCtrl', [ '$scope', '$r
                     }
                 }
             });
-        }
+        };
 
         //Context change
         $rootScope.$broadcast('contextCtrl:changeContext', {mainEventId: $routeParams.mainEventId});

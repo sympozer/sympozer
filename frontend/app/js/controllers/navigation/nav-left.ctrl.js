@@ -11,5 +11,4 @@ angular.module('sympozerApp').controller('navLeftCtrl', ['$scope', '$rootScope',
     {
         $uiConfig.set('searchCollapsed', false);
     };
-
 }]);

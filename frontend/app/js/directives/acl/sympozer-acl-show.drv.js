@@ -7,11 +7,17 @@
  *
  */
 angular.module('sympozerApp').directive('sympozerAclShow', [
-    'sympozerAclService', function (sympozerAclService)
+    'sympozerAclService',
+    'contextFact',
+    function (sympozerAclService, contextFact)
     {
         //operator right can do everything but delete the whole mainEvent
         var defaultRightToAsk = "OPERATOR",
-            justLoggedIn = false;
+            justLoggedIn = false,
+            isMainEvent = function (entity)
+            {
+                return entity.dtype && entity.dtype == "MainEvent";
+            };
 
         return {
             restrict: 'A',
@@ -29,7 +35,7 @@ angular.module('sympozerApp').directive('sympozerAclShow', [
 
                 scope.promise.isAclUpToDate = false;
 
-                //watch logged user to refresh rights
+                //watch logged user to refresh its rights
                 scope.$watch("$root.currentUser", function (newValue, oldValue, $scope)
                 {
                     if (newValue == oldValue)
@@ -46,32 +52,43 @@ angular.module('sympozerApp').directive('sympozerAclShow', [
                     if (!newValue || !newValue.id)
                     { //user has just logged out
                         delete $scope.promise.acl;
+
                         $scope.promise.isAclUpToDate = false;
                         return;
                     }
 
                     //user has just logged in
                     justLoggedIn = true;
+                    //refresh context
+//                    contextFact.refreshContext();
 
+                    if (!$scope.promise.$promise)
+                    {
+                        //TODO : find a way to get angular Resource for each entities in arrays when fetching from server...
+                        return console.warn('Cannot get ' + $scope.promiseName + ' as promise from parent scope in.');
+                    }
                     // we refetch the parent promise to update the acl field
                     $scope.promise.$get({})
                         .then(function ()
                         {
+                            //the mainConfEvent needs to be saved in localStorage
+                            if (isMainEvent($scope.promise))
+                            {
+                                contextFact.setContext($scope.promise);
+                            }
                             $scope.promise.isAclUpToDate = false;
                         });
                 });
 
-                //watch promise
+                //watch promise acl attribute to change button style (shown, hidden or disabled)
                 scope.$watch("$parent." + scope.promiseName + ".acl", function (newValue, oldValue, $scope)
                 {
                     if (!newValue)
                     {
                         element.hide();
                     }
-
-                    //hide if not logged
-                    if (!$scope.$root.currentUser || !$scope.$root.currentUser.id)
-                    {
+                    else if (!$scope.$root.currentUser || !$scope.$root.currentUser.id)
+                    { //hide if not logged
                         element.hide();
                     }
                     else
@@ -79,7 +96,8 @@ angular.module('sympozerApp').directive('sympozerAclShow', [
                         //if the current logged user has right on the entity : display the button.
                         if (sympozerAclService.isGranted($scope.promise, $scope.right || defaultRightToAsk))
                         {
-                            element.show().removeClass("disabled");
+                            element.show();
+                            //if the user has just logged in, make it pulsate!
                             if (justLoggedIn)
                             {
                                 $(element).pulsate({repeat: 2});
@@ -92,7 +110,7 @@ angular.module('sympozerApp').directive('sympozerAclShow', [
                         }
                         else
                         {
-                            element.show().addClass("disabled");
+                            element.hide();
                         }
                     }
                 });
