@@ -26,6 +26,8 @@ angular.module('teammatesApp').controller('teammatesIndexCtrl',
                          }
                      }
                  })
+                 //when modal is closed with success, update the list view
+                 //TODO : use bidirectional update for directive sympozer-with-locals
                  .result.then(function (teammate)
                  {
                      var index = $.grep($scope.entities, function (e)
@@ -46,10 +48,9 @@ angular.module('teammatesApp').controller('teammatesIndexCtrl',
                              return;
                          }
                      }
-
                  }, function ()
                  {
-                     //delete canceled
+                     //delete cancelled
                  });
          };
 

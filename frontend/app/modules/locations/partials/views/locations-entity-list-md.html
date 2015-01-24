@@ -1,30 +1,30 @@
 <div class="table-responsive">
-    <table class="table table-striped">
-        <thead>
-        <tr>
-            <th>{{'locations.model.label' | translate}}<i class="fa fa-sort-asc" ng-click="order('label','ASC')"></i><i class="fa fa-sort-desc" ng-click="order('label','DESC')"></i>
-            <th>{{'locations.model.capacity' | translate}}</th>
-            <th>{{'locations.model.description' | translate}}</th>
-            <th>{{'equipments.links.equipments' | translate}}</th>
-        </tr>
-        </thead>
-        <tbody infinite-scroll='load()' infinite-scroll-disabled='busy' infinite-scroll-distance='0.5'>
-        <tr ng-repeat="location in entities  track by $index">
-            <td>{{ location.label }}</td>
-            <td>{{ location.capacity }}</td>
-            <td>{{ location.description }}</td>
-            <td>
-                <i ng-repeat="equipment in location.equipments  track by $index" class="fa fa-{{equipment.icon}} fa-1x"></i>
-            </td>
-            <td>
-              <a class="btn btn-warning btn-sm" oçiiiiiisympozer-acl-show="location" href="#/home/conference/{{currentMainEvent.id}}/locations/edit/{{ location.id }}" role="button"><i class="fa fa-edit fa-1x"></i></a>
-              <a class="btn btn-default btn-sm" href="#/home/conference/{{currentMainEvent.id}}/locations/show/{{ location.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>
-                <a class="btn btn-primary btn-sm" href="" data-ng-click="clone(location, $index)" role="button"><i class="fa fa-files-o fa-1x"></i></a>
-                <button class="btn btn-danger btn-sm" data-ng-click="deleteModal($index, location)" role="button">
-                    <i class="fa fa-trash-o fa-1x"></i>
-                </button>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>{{'locations.model.label' | translate}}<i class="fa fa-sort-asc" ng-click="order('label','ASC')"></i><i class="fa fa-sort-desc" ng-click="order('label','DESC')"></i>
+      <th>{{'locations.model.capacity' | translate}}</th>
+      <th>{{'locations.model.description' | translate}}</th>
+      <th>{{'equipments.links.equipments' | translate}}</th>
+    </tr>
+    </thead>
+    <tbody infinite-scroll='load()' infinite-scroll-disabled='busy' infinite-scroll-distance='0.5'>
+    <tr ng-repeat="location in entities  track by $index">
+      <td>{{ location.label }}</td>
+      <td>{{ location.capacity }}</td>
+      <td>{{ location.description }}</td>
+      <td>
+        <i ng-repeat="equipment in location.equipments  track by $index" class="fa fa-{{equipment.icon}} fa-1x"></i>
+      </td>
+      <td>
+        <a class="btn btn-warning btn-sm" sympozer-acl-show="location" href="#/home/conference/{{currentMainEvent.id}}/locations/edit/{{ location.id }}" role="button"><i class="fa fa-edit fa-1x"></i></a>
+        <a class="btn btn-default btn-sm" href="#/home/conference/{{currentMainEvent.id}}/locations/show/{{ location.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>
+        <a class="btn btn-primary btn-sm" sympozer-acl-show="location" href="" data-ng-click="clone(location, $index)" role="button"><i class="fa fa-files-o fa-1x"></i></a>
+        <button class="btn btn-danger btn-sm" sympozer-acl-show="location" data-ng-click="deleteModal($index, location)" role="button">
+          <i class="fa fa-trash-o fa-1x"></i>
+        </button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
 </div>

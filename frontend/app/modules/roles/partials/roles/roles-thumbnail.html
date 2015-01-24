@@ -12,9 +12,9 @@
     <p>{{ role.event.label }}</p>
     <a class="btn btn-warning" sympozer-acl-show="role" href="#conference/{{ role.mainEvent.id }}/roles/edit/{{ role.id }}" role="button"><i class="fa fa-edit fa-1x"></i></a>
     <a class="btn btn-default" href="#conference/{{ role.mainEvent.id }}/roles/show/{{ role.id }}" role="button"><i class="fa fa-eye fa-1x"></i></a>
-    <a class="btn btn-primary" href="" data-ng-click="clone(role)" role="button"><i class="fa fa-files-o fa-1x"></i></a>
-    <button class="btn btn-danger" data-ng-click="deleteModal($index, role)" role="button">
-      <i class="fa fa-trash-o fa-1x"></i></button>
+    <a class="btn btn-primary" sympozer-acl-show="role" href="" data-ng-click="clone(role)" role="button"><i class="fa fa-files-o fa-1x"></i></a>
+    <button class="btn btn-danger" sympozer-acl-show="role" data-ng-click="deleteModal($index, role)" role="button">
+    <i class="fa fa-trash-o fa-1x"></i></button>
   </div>
 </div>
 

@@ -62,6 +62,11 @@ angular.module('sympozerApp').directive('sympozerAclShow', [
                     //refresh context
 //                    contextFact.refreshContext();
 
+                    if (!$scope.promise.$promise)
+                    {
+                        //TODO : find a way to get angular Resource for each entities in arrays when fetching from server...
+                        return console.warn('Cannot get ' + $scope.promiseName + ' as promise from parent scope in.');
+                    }
                     // we refetch the parent promise to update the acl field
                     $scope.promise.$get({})
                         .then(function ()

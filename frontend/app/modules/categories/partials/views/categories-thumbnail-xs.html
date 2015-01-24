@@ -1,9 +1,9 @@
 <ul class="nav nav-pills">
-    <li class="active">
-        <a ng-click="deleteCategory()">
-            <i class="fa fa-database"></i>
-            {{ event.category.label }}
-            <i class="fa fa-close"></i>
-        </a>
-    </li>
+  <li class="active">
+    <a sympozer-acl-show="event" ng-click="deleteCategory()">
+      <i class="fa fa-database"></i>
+      {{ event.category.label }}
+      <i class="fa fa-close"></i>
+    </a>
+  </li>
 </ul>
