@@ -30,7 +30,7 @@ angular.module('sympozerApp').directive('sympozerAclShow', [
             {
                 if (!scope.promise)
                 {
-                    return console.error('Cannot get ' + scope.promiseName + ' from parent scope in "sympozer-acl-show".');
+                    return console.error('Cannot get ' + scope.promiseName + ' from parent scope in "sympozer-acl-show". Thus, cannot refresh rights');
                 }
 
                 scope.promise.isAclUpToDate = false;
