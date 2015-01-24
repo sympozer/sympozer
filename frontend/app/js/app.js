@@ -89,6 +89,13 @@ angular.module('sympozerApp').run(function (editableOptions, editableThemes)
     // overwrite submit button template
     editableThemes['bs3'].submitTpl = '<button type="submit" class="btn btn-primary"><i class="fa fa-check"></i></button>';
     editableThemes['bs3'].cancelTpl = '<button type="button" class="btn btn-default" ng-click="$form.$cancel()"><i class="fa fa-times"></i></button>';
+
+    $("#page-content").css("min-height", window.innerHeight - $('header.navbar').height());
+    $(window).resize(function ()
+    {
+        $("#page-content").css("min-height", window.innerHeight - $('header.navbar').height());
+    });
+
 });
 
 /**

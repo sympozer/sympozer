@@ -6,66 +6,67 @@
  *
  * @type {controller}
  */
-angular.module('contextualizationApp').factory('contextFact', [ '$rootScope', '$routeParams', 'GLOBAL_CONFIG', 'mainEventsFact', '$location', 'pinesNotifications', 'translateFilter',
-                                                                function ($rootScope, $routeParams, GLOBAL_CONFIG, mainEventsFact, $location, pinesNotifications, translateFilter)
-                                                                {
+angular.module('contextualizationApp').factory('contextFact', [
+    '$rootScope', '$routeParams', 'GLOBAL_CONFIG', 'mainEventsFact', '$location', 'pinesNotifications', 'translateFilter',
+    function ($rootScope, $routeParams, GLOBAL_CONFIG, mainEventsFact, $location, pinesNotifications, translateFilter)
+    {
+        var self = this;
+        /**
+         * Get current main event from local storage and set current context with it
+         */
+        this.initContext = function ()
+        {
 
-                                                                    /**
-                                                                     * Get current main event from local storage and set current context with it
-                                                                     */
-                                                                    this.initContext = function ()
-                                                                    {
+            //Get The current conference from localstorage
+            $rootScope.currentMainEvent = new mainEventsFact(JSON.parse(localStorage.getItem('currentMainEvent')) || "");
 
-                                                                        //Get The current conference from localstorage
-                                                                        $rootScope.currentMainEvent = new mainEventsFact(JSON.parse(localStorage.getItem('currentMainEvent')) || "");
+            //If a current mainEvent exist at init, trigger changes
+            if ($rootScope.currentMainEvent)
+            {
+                $rootScope.$broadcast('contextFact:changeContext', {'newMainEvent': $rootScope.currentMainEvent });
+            }
+        };
 
-                                                                        //If a current mainEvent exist at init, trigger changes
-                                                                        if ($rootScope.currentMainEvent)
-                                                                        {
-                                                                            $rootScope.$broadcast('contextFact:changeContext', {'newMainEvent': $rootScope.currentMainEvent });
-                                                                        }
-                                                                    };
+        /**
+         * Set Context to given mainEvent.
+         * @param mainEvent
+         */
+        this.setContext = function (mainEvent)
+        {
+            //Set global currentMainEvent variable
+            $rootScope.currentMainEvent = mainEvent;
 
-                                                                    /**
-                                                                     * Set Context to given mainEvent.
-                                                                     * @param mainEvent
-                                                                     */
-                                                                    this.setContext = function (mainEvent)
-                                                                    {
-                                                                        //Set global currentMainEvent variable
-                                                                        $rootScope.currentMainEvent = mainEvent;
+            //Trigger event for any object synchronized with context change (nav-bar for exemple)
+            $rootScope.$broadcast('contextFact:changeContext', {'newMainEvent': mainEvent });
 
-                                                                        //Trigger event for any object synchronized with context change (nav-bar for exemple)
-                                                                        $rootScope.$broadcast('contextFact:changeContext', {'newMainEvent': mainEvent });
+            //Persist new main event to local storage
+            localStorage.setItem('currentMainEvent', JSON.stringify(mainEvent));
+        };
 
-                                                                        //Persist new main event to local storage
-                                                                        localStorage.setItem('currentMainEvent', JSON.stringify(mainEvent));
-                                                                    };
+        /**
+         * Triggered whenever the current conference has to change. The id of the new conference is given as an argument and the conference fetched
+         * @param mainEventId
+         */
+        this.changeContext = function (mainEventId)
+        {
+            //Check if new conference different
+            if ($rootScope.currentMainEvent.id != mainEventId)
+            {
 
-                                                                    /**
-                                                                     * Triggered whenever the current conference has to change. The id of the new conference is given as an argument and the conference fetched
-                                                                     * @param mainEventId
-                                                                     */
-                                                                    this.changeContext = function (mainEventId)
-                                                                    {
-                                                                        //Check if new conference different
-                                                                        if ($rootScope.currentMainEvent.id != mainEventId)
-                                                                        {
+                //Fetch new conference
+                mainEventsFact.get({id: mainEventId}, function (mainEvent)
+                {
+                    self.setContext(mainEvent);
 
-                                                                            //Fetch new conference
-                                                                            mainEventsFact.get({id: mainEventId}, function (mainEvent)
-                                                                            {
-                                                                                setContext(mainEvent);
+                    //Welcoming user in new conference
+                    pinesNotifications.notify({
+                        title: translateFilter('global.validations.success'),
+                        text : translateFilter('Welcome to ' + $rootScope.currentMainEvent.label),
+                        type : 'success'
+                    });
+                });
+            }
+        };
 
-                                                                                //Welcoming user in new conference
-                                                                                pinesNotifications.notify({
-                                                                                    title: translateFilter('global.validations.success'),
-                                                                                    text : translateFilter('Welcome to ' + $rootScope.currentMainEvent.label),
-                                                                                    type : 'success'
-                                                                                });
-                                                                            });
-                                                                        }
-                                                                    };
-
-                                                                    return this;
-                                                                }]);
+        return this;
+    }]);
