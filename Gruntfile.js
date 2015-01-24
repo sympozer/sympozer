@@ -160,13 +160,13 @@ module.exports = function (grunt)
                 src       : ['<%= yeoman.app %>/index.html'],
                 ignorePath: '<%= yeoman.app %>/',
                 exclude   : ['requirejs',
-                    'mocha',
-                    'jquery.vmap.europe.js',
-                    'jquery.vmap.usa.js',
-                    'Chart.min.js',
-                    'raphael',
-                    'morris',
-                    'jquery.inputmask'
+                             'mocha',
+                             'jquery.vmap.europe.js',
+                             'jquery.vmap.usa.js',
+                             'Chart.min.js',
+                             'raphael',
+                             'morris',
+                             'jquery.inputmask'
                 ]
             }
         },
@@ -250,15 +250,15 @@ module.exports = function (grunt)
 
         // Watches files for changes and runs tasks based on the changed files
         watch       : {
-            bower     : {
+            bower    : {
                 files: ['<%= yeoman.app %>/bower.json'],
                 tasks: ['bowerInstall']
             },
-            less      : {
+            less     : {
                 files: ['<%= yeoman.app %>/assets/less/**/*.less'],
                 tasks: ['less:server']
             },
-            gruntfile : {
+            gruntfile: {
                 files: ['Gruntfile.old.js']
             }
 
@@ -534,7 +534,7 @@ module.exports = function (grunt)
                 src    : '<%= yeoman.app %>/modules/**/*.html',
                 dest   : '<%= yeoman.dist %>/templates/modules-templates.js',
                 options: {
-                    url: function (url)
+                    url      : function (url)
                     {
                         // return  url.replace('frontend/.tmp/templates/app/', 'http://localhost/sympozer/frontend/dist/templates');
                         return  url.replace('frontend/app/', 'http://localhost/frontend/dist/');
@@ -572,17 +572,17 @@ module.exports = function (grunt)
             dist  : {
                 options: {
 
-                    compress    : true,
-                    yuicompress : false,
-                    optimization: 2,
-                    cleancss    : true,
-                    paths       : ["css"],
-                    syncImport  : false,
-                    strictUnits : false,
-                    strictMath  : true,
+                    compress     : true,
+                    yuicompress  : false,
+                    optimization : 2,
+                    cleancss     : true,
+                    paths        : ["css"],
+                    syncImport   : false,
+                    strictUnits  : false,
+                    strictMath   : true,
                     strictImports: true,
-                    ieCompat    : false,
-                    report      : 'min'
+                    ieCompat     : false,
+                    report       : 'min'
                 },
                 files  : [
                     {
@@ -692,10 +692,10 @@ module.exports = function (grunt)
         },
 
         //Insert all import tag for theme files if exists into the import.less file
-        unfold: {
+        unfold       : {
             options: {
-                types : {
-                    'less' : {
+                types: {
+                    'less': {
                         template: '<link href="$PATH$" rel="stylesheet/less" media="all">'
                     }
                 }
@@ -725,11 +725,11 @@ module.exports = function (grunt)
 
 
     /** INSTALL **/
-    grunt.registerTask('install', ['shell:protractor_install', 'sf2-console:database_create', 'sf2-console:copy_ws_config', 'update']);
+    grunt.registerTask('install', ['shell:protractor_install', 'sf2-console:database_create', 'update']);
 
     /** DEVELOPMENT **/
     grunt.registerTask('reset_db', ['chmod:cache_log', 'sf2-console:database_drop', 'sf2-console:database_create', 'sf2-console:database_update',
-        'sf2-console:database_init', 'sf2-console:admin_create', 'cache_clear']);
+                                    'sf2-console:database_init', 'sf2-console:admin_create', 'cache_clear']);
 
     /** DEVELOPMENT **/
     grunt.registerTask('update_db', ['chmod:cache_log', 'sf2-console:database_update', 'cache_clear']);
