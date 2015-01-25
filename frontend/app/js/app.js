@@ -78,7 +78,8 @@ var sympozerApp = angular.module('sympozerApp', [
     'notificationsApp',
     'analyticsApp',
     'angulartics',
-    'angulartics.google.analytics'
+    'angulartics.google.analytics',
+    'flow',
 ]);
 
 
