@@ -3,7 +3,7 @@
  * Manage colors and change style event
  * @type {service}
  */
-angular.module('sympozerApp').service('$uiConfig', ['$rootScope', '$document', function ($rootScope, $document)
+angular.module('sympozerApp').service('$uiConfig', ['$rootScope', '$document', '$window', function ($rootScope, $document, $window)
 {
     this.settings = {
         fixedHeader: true,
@@ -24,6 +24,20 @@ angular.module('sympozerApp').service('$uiConfig', ['$rootScope', '$document', f
         this.settings[key] = value;
         $rootScope.$broadcast('uiConfig:change', {key: key, value: this.settings[key]});
     };
+
+    $document.ready(function ()
+    {
+        $window.enquire.register("screen and (max-width: 767px)", {
+            match  : function ()
+            {
+                $rootScope.$broadcast('uiConfig:maxWidth767', true);
+            },
+            unmatch: function ()
+            {
+                $rootScope.$broadcast('uiConfig:maxWidth767', false);
+            }
+        });
+    });
 
 }])
 
