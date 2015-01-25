@@ -36,6 +36,7 @@ class Role
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
+     *
      * @Expose
      * @Groups({"list"})
      */
@@ -45,6 +46,7 @@ class Role
     /**
      * label
      * @ORM\Column(type="string", name="label", nullable=false)
+     *
      * @Expose
      * @Groups({"list"})
      */
@@ -70,6 +72,8 @@ class Role
      *
      * @ORM\ManyToOne(targetEntity="fibe\EventBundle\Entity\MainEvent", inversedBy="roles", cascade={"persist"})
      * @ORM\JoinColumn(name="main_event_id", referencedColumnName="id")
+     * @Assert\NotNull
+     *
      * @Expose
      * @SerializedName("mainEvent")
      * @Groups({"list"})
