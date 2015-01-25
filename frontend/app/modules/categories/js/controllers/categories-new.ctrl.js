@@ -19,11 +19,11 @@ angular.module('categoriesApp').controller('categoriesNewCtrl', [ '$scope', '$wi
     var success = function (response, args)
     {
         //Notify user of creation success
-        pinesNotifications.notify({
-            title: translateFilter('global.validations.error'),
-            text : translateFilter('categories.validations.created'),
-            type : 'error'
-        });
+//        pinesNotifications.notify({
+//            title: translateFilter('global.validations.error'),
+//            text : translateFilter('categories.validations.created'),
+//            type : 'error'
+//        });
 
         //If view is a modal instance then close (resolve promise with new category)
         if ($scope.$close)

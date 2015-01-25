@@ -15,19 +15,19 @@ angular.module('organizationsApp').controller('organizationsEditCtrl', [ '$scope
         //Notify of error on organization post request
         pinesNotifications.notify({
             title: translateFilter('global.validations.error'),
-            text: translateFilter('organizations.validations.not_created'),
-            type: 'error'
+            text : translateFilter('organizations.validations.not_created'),
+            type : 'error'
         });
     }
 
     var success = function (response, args)
     {
         //Notify of error on post request
-        pinesNotifications.notify({
-            title: translateFilter('global.validations.success'),
-            text: translateFilter('organizations.validations.created'),
-            type: 'success'
-        });
+//        pinesNotifications.notify({
+//            title: translateFilter('global.validations.success'),
+//            text: translateFilter('organizations.validations.created'),
+//            type: 'success'
+//        });
         $window.history.back();
     }
 

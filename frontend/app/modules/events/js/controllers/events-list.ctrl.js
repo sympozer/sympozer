@@ -12,7 +12,8 @@ angular.module('eventsApp').controller('eventsListCtrl', ['$scope', 'categoriesF
     $scope.entities = [];
 
     //Fetch all current main event event categories
-    categoriesFact.allByConference({'mainEventId': $routeParams.mainEventId}, function(response){
+    categoriesFact.allByConference({'mainEventId': $routeParams.mainEventId}, function (response)
+    {
         $scope.categories = response.results;
     });
 
@@ -56,19 +57,18 @@ angular.module('eventsApp').controller('eventsListCtrl', ['$scope', 'categoriesF
             //Notify of the creation action error
             pinesNotifications.notify({
                 title: translateFilter('global.validations.error'),
-                text: translateFilter('events.validations.not_created'),
-                type: 'error'
+                text : translateFilter('events.validations.not_created'),
+                type : 'error'
             });
         };
         var success = function (response, args)
         {
-            debugger;
             //Notify of the creation action success
-            pinesNotifications.notify({
-                title: translateFilter('global.validations.success'),
-                text: translateFilter('events.validations.created'),
-                type: 'success'
-            });
+//            pinesNotifications.notify({
+//                title: translateFilter('global.validations.success'),
+//                text: translateFilter('events.validations.created'),
+//                type: 'success'
+//            });
             $scope.entities.splice($scope.index + 1, 0, response);
         };
         eventsFact.clone(event, success, error);
@@ -84,17 +84,19 @@ angular.module('eventsApp').controller('eventsListCtrl', ['$scope', 'categoriesF
         //Open a new modal with delete template
         var modalInstance = $modal.open({
             templateUrl: GLOBAL_CONFIG.app.modules.events.urls.partials + 'modals/events-delete-modal.html',
-            controller: 'eventsDeleteCtrl',
-            size: "large",
-            resolve: {
-                eventModel : function(){
+            controller : 'eventsDeleteCtrl',
+            size       : "large",
+            resolve    : {
+                eventModel: function ()
+                {
                     return event;
                 }
             }
         });
 
         //When modal instance promise is resolved with 'ok' then remove the event from the list
-        modalInstance.result.then(function (event){
+        modalInstance.result.then(function (event)
+        {
             $scope.entities.splice($scope.index, 1);
         })
     }

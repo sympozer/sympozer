@@ -44,7 +44,7 @@ angular.module('sympozerApp').controller('mainCtrl', ['$scope', '$rootScope', '$
             }
             else
             {
-                $uiConfig.set('leftbarCollapsed', false);
+                $uiConfig.set('navLeftCollapsed', false);
             }
         });
     });

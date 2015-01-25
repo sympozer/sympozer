@@ -38,11 +38,11 @@ angular.module('eventsApp').controller('eventsNewCtrl', [
         var success = function (response, args)
         {
             //Notify of the creation action success
-            pinesNotifications.notify({
-                title: translateFilter('global.validations.success'),
-                text : translateFilter('events.validations.created'),
-                type : 'success'
-            });
+//            pinesNotifications.notify({
+//                title: translateFilter('global.validations.success'),
+//                text : translateFilter('events.validations.created'),
+//                type : 'success'
+//            });
 
             //If view is a modal instance then close (resolve promise with new role)
             if ($scope.$close)
@@ -133,10 +133,12 @@ angular.module('eventsApp').controller('eventsNewCtrl', [
             if (!categoryModel.id)
             {
                 //If topic doesn't exist, create it
-                categoriesFact.create(categoriesFact.serialize({ label : categoryModel}), function(category){
+                categoriesFact.create(categoriesFact.serialize({ label: categoryModel}), function (category)
+                {
                     $scope.event.category = category;
 
-                },function(error){
+                }, function (error)
+                {
                     //Notify of the creation action error
                     pinesNotifications.notify({
                         title: translateFilter('global.validations.error'),
@@ -158,10 +160,12 @@ angular.module('eventsApp').controller('eventsNewCtrl', [
             if (!topicModel.id)
             {
                 //If topic doesn't exist, create it
-                topicsFact.create(topicsFact.serialize({ label : topicModel}), function(topic){
+                topicsFact.create(topicsFact.serialize({ label: topicModel}), function (topic)
+                {
                     $scope.addRelationship('topics', topic);
 
-                },function(error){
+                }, function (error)
+                {
                     //Notify of the creation action error
                     pinesNotifications.notify({
                         title: translateFilter('global.validations.error'),
@@ -255,17 +259,20 @@ angular.module('eventsApp').controller('eventsNewCtrl', [
         };
 
         //Delete the location of the event
-        $scope.deleteLocation = function(){
+        $scope.deleteLocation = function ()
+        {
             delete $scope.event.location;
         }
 
         //Delete the category of the event
-        $scope.deleteCategory = function(){
+        $scope.deleteCategory = function ()
+        {
             delete $scope.event.category;
         }
 
         //Delete a paper from the event paper list using its index
-        $scope.deletePaper = function(index){
+        $scope.deletePaper = function (index)
+        {
             $scope.removeRelationship('papers', index)
         }
 

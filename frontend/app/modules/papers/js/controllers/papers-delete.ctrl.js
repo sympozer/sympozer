@@ -14,8 +14,8 @@ angular.module('papersApp').controller('papersDeleteCtrl', [ '$scope', 'paperMod
         //Notify of error on delete request
         pinesNotifications.notify({
             title: translateFilter('global.validations.error'),
-            text: translateFilter('response.data.error.message'),
-            type: 'error'
+            text : translateFilter('response.data.error.message'),
+            type : 'error'
         });
     }
 
@@ -24,30 +24,32 @@ angular.module('papersApp').controller('papersDeleteCtrl', [ '$scope', 'paperMod
     {
 
         //Notify of success on delete request
-        pinesNotifications.notify({
-            title: translateFilter('global.validations.success'),
-            text: translateFilter('papers.validations.deletion_success'),
-            type: 'success'
-        });
+//        pinesNotifications.notify({
+//            title: translateFilter('global.validations.success'),
+//            text: translateFilter('papers.validations.deletion_success'),
+//            type: 'success'
+//        });
 
         //If view is a modal, resolve modal promise with role object
-        if($scope.$close)
+        if ($scope.$close)
         {
             $scope.$close($scope.paper);
-        }else
+        }
+        else
         {
             $window.history.back();
         }
     }
 
     //Cancel event if the view is a modal
-    $scope.cancel = function () {
+    $scope.cancel = function ()
+    {
         $scope.$dismiss('cancel');
     };
 
     //Send delete request
     $scope.delete = function ()
     {
-        papersFact.delete({id:$scope.paper.id}, success, error);
+        papersFact.delete({id: $scope.paper.id}, success, error);
     }
 }]);

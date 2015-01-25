@@ -25,11 +25,11 @@ angular.module('organizationsApp').controller('organizationsNewCtrl', [ '$scope'
     var success = function (response, args)
     {
         //Notify of success on post request
-        pinesNotifications.notify({
-            title: translateFilter('global.validations.error'),
-            text : translateFilter('organizations.validations.created'),
-            type : 'error'
-        });
+//        pinesNotifications.notify({
+//            title: translateFilter('global.validations.error'),
+//            text : translateFilter('organizations.validations.created'),
+//            type : 'success'
+//        });
 
         //If view is in a modal instance, close it. Go back to previous page otherwise
         if ($scope.$close)
@@ -52,7 +52,7 @@ angular.module('organizationsApp').controller('organizationsNewCtrl', [ '$scope'
         //=> TODO : remove this
 //        if (personModel)
 //        {
-            //personModel.acl.delete();
+        //personModel.acl.delete();
 //            $scope.organization.organizationVersionOwner = personModel;
 //        }
 

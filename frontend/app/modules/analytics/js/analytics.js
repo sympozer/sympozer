@@ -81,7 +81,7 @@ angular.module('analyticsApp')
     .factory('AJAXInterceptor', function ($q, $analytics)
     {
         return {
-            // Ici on traite les réponses AJAX qui ont réussi
+            // Ici on traite les réponses AJAX qui ont réussies
             response     : function (response)
             {
                 //console.log("HTTPResponse: " + response.config.url);
@@ -99,7 +99,7 @@ angular.module('analyticsApp')
 
                 return response;
             },
-            // Ici on traite les réponses AJAX qui ont échoué
+            // Ici on traite les réponses AJAX qui ont échouées
             responseError: function (rejection)
             {
                 $analytics.eventTrack(rejection.config.url, {  category: 'AJAXResponseError', label: '[status="' + rejection.status + '"]' });

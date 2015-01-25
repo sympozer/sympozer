@@ -59,11 +59,11 @@ angular.module('rolesApp').controller('rolesListCtrl', [
             var success = function (response, args)
             {
                 //Notify of the creation action success
-                pinesNotifications.notify({
-                    title: translateFilter('global.validations.success'),
-                    text : translateFilter('roles.validations.created'),
-                    type : 'success'
-                });
+//                pinesNotifications.notify({
+//                    title: translateFilter('global.validations.success'),
+//                    text : translateFilter('roles.validations.created'),
+//                    type : 'success'
+//                });
                 $scope.entities.push(response);
             };
 

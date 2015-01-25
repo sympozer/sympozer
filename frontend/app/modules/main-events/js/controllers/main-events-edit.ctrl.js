@@ -23,7 +23,6 @@ angular.module('mainEventsApp').controller('mainEventsEditCtrl', [ '$scope', '$r
         $scope.startAtOpened = false;
 
 
-
         //Fetch the mainEvent
         $scope.mainEvent = mainEventsFact.get({id: $routeParams.mainEventId}, fetchSuccess);
 
@@ -69,11 +68,11 @@ angular.module('mainEventsApp').controller('mainEventsEditCtrl', [ '$scope', '$r
         var success = function (response, args)
         {
             //Notify of the field update action success
-            pinesNotifications.notify({
-                title: translateFilter('global.validations.success'),
-                text : translateFilter('global.validations.modifications_saved'),
-                type : 'success'
-            });
+//            pinesNotifications.notify({
+//                title: translateFilter('global.validations.success'),
+//                text : translateFilter('global.validations.modifications_saved'),
+//                type : 'success'
+//            });
         };
 
         /**

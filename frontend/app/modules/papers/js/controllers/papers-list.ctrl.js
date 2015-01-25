@@ -24,8 +24,8 @@ angular.module('papersApp').controller('papersListCtrl', ['$scope', '$routeParam
             //Notify of the creation action error
             pinesNotifications.notify({
                 title: translateFilter('global.validations.error'),
-                text: translateFilter('papers.validations.not_created'),
-                type: 'error'
+                text : translateFilter('papers.validations.not_created'),
+                type : 'error'
             });
         };
 
@@ -33,11 +33,11 @@ angular.module('papersApp').controller('papersListCtrl', ['$scope', '$routeParam
         var success = function (response, args)
         {
             //Notify of the creation action success
-            pinesNotifications.notify({
-                title: translateFilter('global.validations.success'),
-                text: translateFilter('papers.validations.created'),
-                type: 'success'
-            });
+//            pinesNotifications.notify({
+//                title: translateFilter('global.validations.success'),
+//                text: translateFilter('papers.validations.created'),
+//                type: 'success'
+//            });
 
             $scope.entities.splice($scope.index + 1, 0, response);
 
@@ -57,10 +57,11 @@ angular.module('papersApp').controller('papersListCtrl', ['$scope', '$routeParam
         //Open a new modal with delete template
         var modalInstance = $modal.open({
             templateUrl: GLOBAL_CONFIG.app.modules.papers.urls.partials + 'modals/papers-delete-modal.html',
-            controller: 'papersDeleteCtrl',
-            size: "large",
-            resolve: {
-                paperModel : function(){
+            controller : 'papersDeleteCtrl',
+            size       : "large",
+            resolve    : {
+                paperModel: function ()
+                {
                     return paper;
                 }
             }

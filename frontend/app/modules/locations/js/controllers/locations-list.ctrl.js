@@ -23,19 +23,19 @@ angular.module('locationsApp').controller('locationsListCtrl', ['$scope', '$rout
             //Notify of error on delete request
             pinesNotifications.notify({
                 title: translateFilter('global.validations.error'),
-                text: translateFilter('Clone not completed'),
-                type: 'error'
+                text : translateFilter('Clone not completed'),
+                type : 'error'
             });
         }
 
         var success = function (response, args)
         {
             //Notify of success on post request
-            pinesNotifications.notify({
-                title: translateFilter('global.validations.error'),
-                text: translateFilter('location saved'),
-                type: 'success'
-            });
+//            pinesNotifications.notify({
+//                title: translateFilter('global.validations.error'),
+//                text: translateFilter('location saved'),
+//                type: 'success'
+//            });
             $scope.entities.splice($scope.index + 1, 0, response);
         }
 
@@ -52,11 +52,12 @@ angular.module('locationsApp').controller('locationsListCtrl', ['$scope', '$rout
         //Open the new modal with specific ctrl and view
         var modalInstance = $modal.open({
             templateUrl: GLOBAL_CONFIG.app.modules.locations.urls.partials + 'modals/locations-delete-modal.html',
-            controller: 'locationsDeleteCtrl',
-            size: "large",
-            resolve: {
+            controller : 'locationsDeleteCtrl',
+            size       : "large",
+            resolve    : {
                 //Pass the clicked location to the modal
-                locationModel : function(){
+                locationModel: function ()
+                {
                     return location;
                 }
             }

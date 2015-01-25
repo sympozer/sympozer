@@ -24,11 +24,11 @@ angular.module('topicsApp').controller('topicsNewCtrl', [ '$scope', '$rootScope'
 
         var success = function (response, args)
         {
-             pinesNotifications.notify({
-                title: translateFilter('global.validations.success'),
-                text: translateFilter('topics.validations.created'),
-                type: 'success'
-            });
+//             pinesNotifications.notify({
+//                title: translateFilter('global.validations.success'),
+//                text: translateFilter('topics.validations.created'),
+//                type: 'success'
+//            });
             if($scope.$close){
                 $scope.$close($scope.topic);
             }else{
