@@ -535,7 +535,9 @@
 
 
 <!-- SYMPOZER ANALYTICS APP -->
-<!-- CONTROLLERS -->
+<script src="assets/plugins/angulartics/angulartics-ga.js"></script>
+<script src="assets/plugins/angulartics/angulartics.js"></script>
+<script src="modules/analytics/js/analytics.js"></script>
 <script src="modules/analytics/js/routes.js"></script>
 <script src="modules/analytics/js/controllers/analytics.ctrl.js"></script>
 <script src="modules/analytics/js/controllers/date-range-demo.ctrl.js"></script>
@@ -553,7 +555,10 @@
 <script src="modules/import/js/services/import-service.fact.js"></script>
 <script src="modules/import/js/services/import.fact.js"></script>
 
-<!-- endbuild -->
-
+<script type="text/javascript" id="views/template-main.html">
+  // Remplacer ici la clé 'UA-XXXXXXXX-X' par la clé du compte Google Analytics que vous souhaitez suivre
+  var gaToken = ""
+</script>
+<!-- /build -->
 </body>
 </html>
