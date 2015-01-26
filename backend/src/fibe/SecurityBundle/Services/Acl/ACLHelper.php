@@ -123,6 +123,7 @@ abstract class ACLHelper
     /**
      *  return the parent in the hierarchical tree for the given entity
      * @param $entity mixed   the entity to get the parent
+     * @throws \LogicException
      * @return mixed|null     the parent or null
      */
     public static function getParent($entity)
@@ -130,7 +131,13 @@ abstract class ACLHelper
         $ACLEntityInfo = self::isManaged(get_class($entity));
         if ($ACLEntityInfo && isset($ACLEntityInfo['parent']))
         {
-            return call_user_func_array(array($entity, $ACLEntityInfo['parent']), array());
+            $parent = call_user_func_array(array($entity, $ACLEntityInfo['parent']), array());
+            if (null == $parent)
+            {
+                throw new \LogicException("[ACL] Parent " . $ACLEntityInfo['parent'] . " is null for " . get_class($entity) . ".");
+            }
+
+            return $parent;
         }
 
         return null;

@@ -87,7 +87,7 @@ class Person extends Agent
 
     /**
      *
-     * @ORM\OneToMany(targetEntity="fibe\ContentBundle\Entity\Role",  mappedBy="person",cascade={"persist","remove"})
+     * @ORM\OneToMany(targetEntity="fibe\ContentBundle\Entity\Role",  mappedBy="person")
      * @ORM\JoinColumn(onDelete="CASCADE")
      * @Expose
      */
@@ -113,19 +113,6 @@ class Person extends Agent
      * @ORM\JoinColumn(onDelete="CASCADE")
      */
     protected $invitedBy;
-
-    /**
-     * @ORM\OneToMany(targetEntity="fibe\CommunityBundle\Entity\Position", mappedBy="person", cascade={"all"}, orphanRemoval=true)
-     * @Expose
-     */
-    private $positions;
-
-    /**
-     *  Persons invited by this person
-     * @ORM\OneToMany(targetEntity="Person", mappedBy="invitedBy", cascade={"all"}, orphanRemoval=true)
-     */
-    private $guests;
-
     /**
      * twitter hashtag
      *
@@ -135,7 +122,6 @@ class Person extends Agent
      * @expose
      */
     protected $twitter;
-
     /**
      * share
      *
@@ -145,7 +131,16 @@ class Person extends Agent
      * @Expose
      */
     protected $share = true;
-
+    /**
+     * @ORM\OneToMany(targetEntity="fibe\CommunityBundle\Entity\Position", mappedBy="person", cascade={"all"}, orphanRemoval=true)
+     * @Expose
+     */
+    private $positions;
+    /**
+     *  Persons invited by this person
+     * @ORM\OneToMany(targetEntity="Person", mappedBy="invitedBy", cascade={"all"}, orphanRemoval=true)
+     */
+    private $guests;
 
     /**
      * Constructor

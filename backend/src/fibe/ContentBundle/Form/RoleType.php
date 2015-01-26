@@ -28,11 +28,11 @@ class RoleType extends AbstractType
             ->add('roleLabel', 'sympozer_entity_type', array(
                 'cascade_persist' => false,
                 'type' => new RoleLabelType(),
-                'required' => false
+                'required' => true
             ))
             ->add('person', 'sympozer_entity_type', array(
                 'type' => new PersonType(),
-                'required' => false,
+                'required' => true,
                 'cascade_persist' => false,
                 'allow_extra_fields' => true,
             ))
@@ -57,7 +57,8 @@ class RoleType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'fibe\ContentBundle\Entity\Role',
-            'csrf_protection' => false
+            'csrf_protection'    => false,
+            'cascade_validation' => true
         ));
     }
 

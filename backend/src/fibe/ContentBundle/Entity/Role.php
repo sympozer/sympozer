@@ -57,7 +57,7 @@ class Role
      *
      * @ORM\ManyToOne(targetEntity="fibe\CommunityBundle\Entity\Person", inversedBy="roles")
      *
-     * @Assert\NotBlank(message="You have to choose a Person")
+     * @Assert\NotNull(message="You have to choose a Person")
      *
      * @Expose
      * @Groups({"list"})
