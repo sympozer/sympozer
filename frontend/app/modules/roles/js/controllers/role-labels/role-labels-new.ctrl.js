@@ -20,11 +20,11 @@ angular.module('roleLabelsApp').controller('roleLabelsNewCtrl', [ '$scope', '$ro
     var success = function (response, args)
     {
         //Notify of the creation action success
-        pinesNotifications.notify({
-            title: translateFilter('global.validations.success'),
-            text : translateFilter('roleLabels.validations.created'),
-            type : 'success'
-        });
+//        pinesNotifications.notify({
+//            title: translateFilter('global.validations.success'),
+//            text : translateFilter('roleLabels.validations.created'),
+//            type : 'success'
+//        });
 
         //If the view is a modal instance, then resolve the promise with the new role label
         if ($scope.$close)

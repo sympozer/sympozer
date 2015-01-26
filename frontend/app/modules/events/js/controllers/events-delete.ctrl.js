@@ -13,8 +13,8 @@ angular.module('eventsApp').controller('eventsDeleteCtrl', [ '$scope', 'eventMod
         //Notify of error on delete request
         pinesNotifications.notify({
             title: translateFilter('global.validations.error'),
-            text: translateFilter('response.data.error.message'),
-            type: 'error'
+            text : translateFilter('response.data.error.message'),
+            type : 'error'
         });
     };
 
@@ -23,11 +23,11 @@ angular.module('eventsApp').controller('eventsDeleteCtrl', [ '$scope', 'eventMod
     {
 
         //Notify of success on delete request
-        pinesNotifications.notify({
-            title: translateFilter('global.validations.success'),
-            text: translateFilter('events.validations.deletion_success'),
-            type: 'success'
-        });
+//        pinesNotifications.notify({
+//            title: translateFilter('global.validations.success'),
+//            text: translateFilter('events.validations.deletion_success'),
+//            type: 'success'
+//        });
 
         //If view is a modal, resolve modal promise with role object
         if ($scope.$close)

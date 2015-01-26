@@ -10,11 +10,11 @@ angular.module('teammatesApp').controller('teammatesDeleteCtrl',
 
         var success = function (response, args)
         {
-            pinesNotifications.notify({
-                title: translateFilter('global.validations.success'),
-                text : translateFilter('teammates.validations.deleted'),
-                type : 'success'
-            });
+//            pinesNotifications.notify({
+//                title: translateFilter('global.validations.success'),
+//                text : translateFilter('teammates.validations.deleted'),
+//                type : 'success'
+//            });
             $scope.$close($scope.teammate);
         };
 

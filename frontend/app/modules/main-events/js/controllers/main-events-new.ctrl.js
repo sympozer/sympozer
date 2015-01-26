@@ -23,8 +23,6 @@ angular.module('mainEventsApp').controller('mainEventsNewCtrl', [ '$scope', '$ro
     $scope.toggleMin();
 
 
-
-
     //Set init date
     $scope.initDate = $scope.today;
 
@@ -115,11 +113,11 @@ angular.module('mainEventsApp').controller('mainEventsNewCtrl', [ '$scope', '$ro
     var success = function (response, args)
     {
         //Notify of the creation action success
-        pinesNotifications.notify({
-            title: translateFilter('global.validations.success'),
-            text : translateFilter('mainEvents.validations.created'),
-            type : 'success'
-        });
+//        pinesNotifications.notify({
+//            title: translateFilter('global.validations.success'),
+//            text : translateFilter('mainEvents.validations.created'),
+//            type : 'success'
+//        });
         $location.path('/home/mainEvents/show/' + response.id);
     };
 

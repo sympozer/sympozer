@@ -26,11 +26,11 @@ angular.module('personsApp').controller('personsEditCtrl', [
         var success = function (response, args)
         {
             //Notify of success on patch request
-            pinesNotifications.notify({
-                title: translateFilter('global.validations.success'),
-                text : translateFilter('global.validations.modifications_saved'),
-                type : 'success'
-            });
+//            pinesNotifications.notify({
+//                title: translateFilter('global.validations.success'),
+//                text : translateFilter('global.validations.modifications_saved'),
+//                type : 'success'
+//            });
 
             authenticationFact.updatePerson(response);
         }
@@ -81,13 +81,13 @@ angular.module('personsApp').controller('personsEditCtrl', [
         {
             //Fetch organization filter by the query and resolve the promise when results comes back
             var promise = organizationsFact.all({query: val}).$promise;
-             promise.then(function(organizations) {
+            promise.then(function (organizations)
+            {
                 return organizations.results;
             });
             return promise;
 
         }
-
 
 
         $scope.addPosition = function (position)
@@ -101,7 +101,6 @@ angular.module('personsApp').controller('personsEditCtrl', [
                 });
             }
         };
-
 
 
         $scope.setLocalization = function (formattedLocalization)

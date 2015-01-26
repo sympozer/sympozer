@@ -6,8 +6,8 @@
  * @type {controller}
  */
 angular.module('teammatesApp').controller('teammatesIndexCtrl',
-    ['$scope', '$routeParams', '$rootScope', 'teammatesFact', '$cachedResource', '$modal', 'pinesNotifications', 'translateFilter',
-     function ($scope, $routeParams, $rootScope, teammatesFact, $cachedResource, $modal, pinesNotifications, translateFilter)
+    ['$scope', '$routeParams', '$rootScope', 'teammatesFact', '$cachedResource', '$modal',
+     function ($scope, $routeParams, $rootScope, teammatesFact, $cachedResource, $modal)
      {
          $scope.request = teammatesFact.allByConference;
          $scope.entities = $scope.request();

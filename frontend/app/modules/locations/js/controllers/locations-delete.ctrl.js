@@ -13,8 +13,8 @@ angular.module('locationsApp').controller('locationsDeleteCtrl', [ '$scope', 'lo
         //Notify of error on delete request
         pinesNotifications.notify({
             title: translateFilter('global.validations.error'),
-            text: translateFilter('response.data.error.message'),
-            type: 'error'
+            text : translateFilter('response.data.error.message'),
+            type : 'error'
         });
     }
 
@@ -23,22 +23,26 @@ angular.module('locationsApp').controller('locationsDeleteCtrl', [ '$scope', 'lo
     {
 
         //Notify of success on delete request
-        pinesNotifications.notify({
-            title: translateFilter('global.validations.success'),
-            text: translateFilter('locations.validations.deletion_success'),
-            type: 'success'
-        });
+//        pinesNotifications.notify({
+//            title: translateFilter('global.validations.success'),
+//            text: translateFilter('locations.validations.deletion_success'),
+//            type: 'success'
+//        });
 
         //If view is a modal, resolve modal promise with role object
-        if($scope.$close){
+        if ($scope.$close)
+        {
             $scope.$close($scope.location);
-        }else{
+        }
+        else
+        {
             $window.history.back();
         }
     }
 
     //Cancel event if the view is a modal
-    $scope.cancel = function () {
+    $scope.cancel = function ()
+    {
         $scope.$dismiss('cancel');
     };
 

@@ -13,8 +13,8 @@ angular.module('personsApp').controller('personsDeleteCtrl', [ '$scope', 'person
         //Notify of error on delete request
         pinesNotifications.notify({
             title: translateFilter('global.validations.error'),
-            text: translateFilter('response.data.error.message'),
-            type: 'error'
+            text : translateFilter('response.data.error.message'),
+            type : 'error'
         });
     }
 
@@ -23,22 +23,26 @@ angular.module('personsApp').controller('personsDeleteCtrl', [ '$scope', 'person
     {
 
         //Notify of success on delete request
-        pinesNotifications.notify({
-            title: translateFilter('global.validations.success'),
-            text: translateFilter('response.data.error.message'),
-            type: 'success'
-        });
+//        pinesNotifications.notify({
+//            title: translateFilter('global.validations.success'),
+//            text: translateFilter('response.data.error.message'),
+//            type: 'success'
+//        });
 
         //If view is a modal, resolve modal promise with person object
-        if($scope.$close){
+        if ($scope.$close)
+        {
             $scope.$close($scope.person);
-        }else{
+        }
+        else
+        {
             $window.history.back();
         }
     }
 
     //Cancel event if the view is a modal
-    $scope.cancel = function () {
+    $scope.cancel = function ()
+    {
         $scope.$dismiss('cancel');
     };
 

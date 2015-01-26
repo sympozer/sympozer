@@ -24,24 +24,31 @@ angular.module('eventsApp').controller('eventsEditCtrl', [
     {
 
 
-        var fetchSuccess = function(event){
+        var fetchSuccess = function (event)
+        {
 
             //Initialize the day dropdown value and time inputs
-            if(event.startAt){
+            if (event.startAt)
+            {
                 $scope.event.selectedDay = new moment(event.startAt).format('dd DD MMM YYYY');
                 //Initialize the timer for start time
                 $scope.event.timeStart = new Date(event.startAt);
-            }else{
+            }
+            else
+            {
                 $scope.event.selectedDay = new moment($rootScope.currentMainEvent.startAt).format('dd DD MMM YYYY');
                 //Initialize the timer for start time
                 $scope.event.timeStart = new Date().setHours('12');
             }
 
             //Initialize the day dropdown value and time inputs
-            if(event.endAt) {
+            if (event.endAt)
+            {
                 //Initialize the timer for end time
                 $scope.event.timeEnd = new Date(event.endAt);
-            }else{
+            }
+            else
+            {
                 //Initialize the timer for end time
                 $scope.event.timeEnd = new Date().setHours('13');
             }
@@ -54,7 +61,9 @@ angular.module('eventsApp').controller('eventsEditCtrl', [
         {
             $scope.event = eventsFact.get({id: $scope.eventId}, fetchSuccess);
             $scope.modalTitle = 'events.actions.edit';
-        }else{
+        }
+        else
+        {
             $scope.event = eventsFact.get({id: $routeParams.eventId}, fetchSuccess);
         }
 
@@ -65,8 +74,8 @@ angular.module('eventsApp').controller('eventsEditCtrl', [
             //Notify of the creation action error
             pinesNotifications.notify({
                 title: translateFilter('global.validations.error'),
-                text: translateFilter('events.validations.not_created'),
-                type: 'error'
+                text : translateFilter('events.validations.not_created'),
+                type : 'error'
             });
         };
 
@@ -74,22 +83,22 @@ angular.module('eventsApp').controller('eventsEditCtrl', [
         var success = function (response, args)
         {
             //Notify of the creation action success
-            pinesNotifications.notify({
-                title: translateFilter('global.validations.success'),
-                text: translateFilter('events.validations.created'),
-                type: 'success'
-            });
+//            pinesNotifications.notify({
+//                title: translateFilter('global.validations.success'),
+//                text: translateFilter('events.validations.created'),
+//                type: 'success'
+//            });
             //If view is a modal instance then close (resolve promise with new role)
             if ($scope.$close)
             {
                 $scope.$close($scope.event);
             }
-            else {
+            else
+            {
                 //If view is a page, go back to previous page
                 $window.history.back();
             }
         };
-
 
 
         /**
@@ -124,7 +133,7 @@ angular.module('eventsApp').controller('eventsEditCtrl', [
             //Verify form validity
             if (form.$valid && setStartEndDates())
             {
-                eventsFact.update( eventsFact.serialize($scope.event), success, error);
+                eventsFact.update(eventsFact.serialize($scope.event), success, error);
             }
         };
 
@@ -173,10 +182,12 @@ angular.module('eventsApp').controller('eventsEditCtrl', [
             if (!categoryModel.id)
             {
                 //If topic doesn't exist, create it
-                categoriesFact.create(categoriesFact.serialize({ label : categoryModel}), function(category){
+                categoriesFact.create(categoriesFact.serialize({ label: categoryModel}), function (category)
+                {
                     $scope.event.category = category;
 
-                },function(error){
+                }, function (error)
+                {
                     //Notify of the creation action error
                     pinesNotifications.notify({
                         title: translateFilter('global.validations.error'),
@@ -198,10 +209,12 @@ angular.module('eventsApp').controller('eventsEditCtrl', [
             if (!topicModel.id)
             {
                 //If topic doesn't exist, create it
-                topicsFact.create(topicsFact.serialize({ label : topicModel}), function(topic){
+                topicsFact.create(topicsFact.serialize({ label: topicModel}), function (topic)
+                {
                     $scope.addRelationship('topics', topic);
 
-                },function(error){
+                }, function (error)
+                {
                     //Notify of the creation action error
                     pinesNotifications.notify({
                         title: translateFilter('global.validations.error'),
@@ -307,17 +320,20 @@ angular.module('eventsApp').controller('eventsEditCtrl', [
         };
 
         //Delete the location of the event
-        $scope.deleteLocation = function(){
+        $scope.deleteLocation = function ()
+        {
             delete $scope.event.location;
         }
 
         //Delete the category of the event
-        $scope.deleteCategory = function(){
+        $scope.deleteCategory = function ()
+        {
             delete $scope.event.category;
         }
 
         //Delete a paper from the event paper list using its index
-        $scope.deletePaper = function(index){
+        $scope.deletePaper = function (index)
+        {
             $scope.removeRelationship('papers', index)
         }
     }]);

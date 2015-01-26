@@ -23,11 +23,11 @@ angular.module('rolesApp').controller('rolesDeleteCtrl', [ '$scope', 'roleModel'
     {
 
         //Notify of success on delete request
-        pinesNotifications.notify({
-            title: translateFilter('global.validations.success'),
-            text: translateFilter('roles.validations.deletion_success'),
-            type: 'success'
-        });
+//        pinesNotifications.notify({
+//            title: translateFilter('global.validations.success'),
+//            text: translateFilter('roles.validations.deletion_success'),
+//            type: 'success'
+//        });
 
         //If view is a modal, resolve modal promise with role object
         if($scope.$close){

@@ -12,6 +12,17 @@ angular.module('sympozerApp').controller('mainCtrl', ['$scope', '$rootScope', '$
     $rootScope.ui_navRightCollapsed = $uiConfig.get('navRightCollapsed');
     $rootScope.ui_searchCollapsed = $uiConfig.get('searchCollapsed');
     $rootScope.ui_eventsFilterBarCollapsed = $uiConfig.get('eventsFilterBarCollapsed');
+    $rootScope.ui_isSmallScreen = false;
+
+
+    $scope.toggleNavLeft = function ()
+    {
+        if ($rootScope.ui_isSmallScreen)
+        {
+            return $uiConfig.set('navLeftShown', !$uiConfig.get('navLeftShown'));
+        }
+        $uiConfig.set('navLeftCollapsed', !$uiConfig.get('navLeftCollapsed'));
+    };
 
     /**
      * Event triggered whenever a global change of layout append
@@ -20,6 +31,22 @@ angular.module('sympozerApp').controller('mainCtrl', ['$scope', '$rootScope', '$
     $scope.$on('uiConfig:change', function (event, newVal)
     {
         $scope['ui_' + newVal.key] = newVal.value;
+    });
+
+    $scope.$on('uiConfig:maxWidth767', function (event, newVal)
+    {
+        $timeout(function ()
+        {
+            $rootScope.ui_isSmallScreen = newVal;
+            if (!newVal)
+            {
+                $uiConfig.set('navLeftShown', false);
+            }
+            else
+            {
+                $uiConfig.set('navLeftCollapsed', false);
+            }
+        });
     });
 
 
