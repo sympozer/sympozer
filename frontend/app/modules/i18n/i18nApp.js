@@ -115,7 +115,7 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 pwd_too_long            : 'Your password cannot be longer than 20 characters',
                 pwd_not_enough_strength : 'Your password must contains 2 Uppercase Letters, 1 Special Caracteres as !@#$&*,2 digits,3 Lowercase letters, 0 space',
                 pwd_not_match           : 'Passwords must match',
-                username_too_short      : 'Your username is required to be at least 3 characters',
+                username_too_short      : 'Your username is required to be at least 5 characters',
                 username_too_long       : 'Your username cannot be longer than 128 characters',
                 username_with_whitespace: 'Your username cannot contain white spaces'
 
