@@ -30,16 +30,16 @@
 
     <div class="col-sm-6">
 
-        <div class="input-group">
-            <input type="text" date-before-now-validator id="inputPublishDate" class="form-control datepicker" datepicker-popup="{{format}}" ng-model="paper.publishDate" is-open="publishDateOpened"/>
+        <div class=input-group>
+            <input class="form-control datepicker" datepicker-popup={{shortDate}} ng-model=paper.publishDate is-open=publishDateOpened ng-click="publishDateOpened = !publishDateOpened" max-date=today>
 
-            <div class="input-group-btn">
-                <button type="button" class="btn btn-default" ng-click="openPublishDateOpened($event)">
-                    <i class="fa fa-calendar"></i>
+            <div class=input-group-btn>
+                <button type=button class="btn btn-default" ng-click="publishDateOpened = !publishDateOpened">
+                    <i class="fa fa-calendar">
+                    </i>
                 </button>
             </div>
         </div>
-        <div class="alert alert-danger" role="alert" ng-show="paperForm.inputPublishDate.$error.dateBeforeNow">This publish date is in the futur</div>
     </div>
 </div>
 
