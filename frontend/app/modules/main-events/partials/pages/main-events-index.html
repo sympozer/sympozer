@@ -1,0 +1,48 @@
+
+<div id="page-heading">
+
+    <div ng-include="GLOBAL_CONFIG.app.urls.partials+'navigation/breadcrumb.html'"></div>
+
+    <h1>{{'mainEvents.links.mainEvents' | translate }}</h1>
+
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+
+            <div class="panel">
+                <div class="panel-heading">
+                    <h4>{{'mainEvents.actions.search' | translate }}</h4>
+                </div>
+                <div class="panel-body" entity-list-handler="mainEvents">
+                    <div class="search-classic">
+                        <form action="#">
+                            <div class="input-group well w100">
+                                <input type="text" ng-model="query" placeholder="{{'global.actions.placeHolderSearch' | translate }}" class="form-control"/>
+                                  <span ng-click="querySended = true" class="input-group-btn">
+                                    <button ng-click="sendQuery(query)" type="button" class="btn btn-primary">
+                                        <i class="fa fa-search"></i><span class="visible-sm-inline visible-lg-inline visible-md-inline"> {{'global.actions.search' | translate }}</span>
+                                    </button>
+                                  </span>
+                            </div>
+                        </form>
+                        <h3 ng-if="count==0"> {{'global.labels.search.no_result' | translate }}</h3>
+                        <hr>
+                        <div class="search-result" ng-repeat="mainEvent in entities  track by $index" infinite-scroll='load()' infinite-scroll-disabled='busy' infinite-scroll-distance='0.5'>
+                            <div ng-include="GLOBAL_CONFIG.app.modules.mainEvents.urls.partials+'views/main-events-list-lg.html'"></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- col-md-12 -->
+        </div>
+        <!-- row -->
+    </div> <!-- container -->
+</div>
+
+
+
+
+

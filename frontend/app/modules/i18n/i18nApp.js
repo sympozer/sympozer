@@ -46,7 +46,7 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 from  : 'From',
                 search: {
                     displaying: 'Displaying results for',
-                    no_result: 'No results.',
+                    no_result: 'No results found',
                     results  : 'Results'
                 },
                 list  : 'List',
@@ -651,7 +651,7 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 searchResult: 'Résultat pour',
                 search: {
                     displaying: 'Résultat pour',
-                    no_result: 'Aucun résultat.',
+                    no_result: 'Aucun résultat trouvé.',
                     results  : 'Résultats'
                 },
                 on    : 'le',

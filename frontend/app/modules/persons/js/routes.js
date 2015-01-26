@@ -11,10 +11,6 @@ angular.module('personsApp').config([ '$routeProvider', function ($routeProvider
             templateUrl: globalConfig.app.modules.persons.urls.partials + 'pages/persons-index.html',
             controller : 'personsCommunityIndexCtrl'
         })
-        .when('/home/conference/:mainEventId/persons/list', {
-            templateUrl: globalConfig.app.modules.persons.urls.partials + 'pages/persons-list.html',
-            controller : 'personsListCtrl'
-        })
         .when('/home/conference/:mainEventId/persons/thumbnail', {
             templateUrl: globalConfig.app.modules.persons.urls.partials + 'pages/persons-thumbnail.html',
             controller : 'personsListCtrl'
