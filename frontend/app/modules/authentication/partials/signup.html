@@ -19,10 +19,11 @@
                 <div class="col-sm-12">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                        <input type="text" required="" server-error="serverError" name="username" class="form-control" id="inputUsername" placeholder="{{ 'authentication.labels.username' | translate }}" ng-model="user.username" ng-minlength="3" ng-maxlength="128" required/>
+                        <input type="text" required="" server-error="serverError" name="username" class="form-control" id="inputUsername" placeholder="{{ 'authentication.labels.username' | translate }}" ng-model="user.username" ng-minlength="5" ng-maxlength="128" required ng-pattern=/^[\S]*$/>
                     </div>
-                    <span class="help-block" ng-show="signinForm._username.$error.minlength">{{ 'authentication.validations.username_too_short' | translate }}</span>
-                    <span class="help-block" ng-show="signinForm._username.$error.maxlength">{{ 'authentication.validations.username_too_long' | translate }}</span>
+                    <span class="help-block" ng-show="signupForm.username.$error.minlength">{{ 'authentication.validations.username_too_short' | translate }}</span>
+                    <span class="help-block" ng-show="signupForm.username.$error.maxlength">{{ 'authentication.validations.username_too_long' | translate }}</span>
+                    <span class="help-block" ng-show="signupForm.username.$error.pattern">{{ 'authentication.validations.username_with_whitespace' | translate }}</span>
                 </div>
             </div>
             <div class="form-group">
