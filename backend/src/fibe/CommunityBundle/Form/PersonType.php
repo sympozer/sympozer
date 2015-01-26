@@ -25,6 +25,7 @@ class PersonType extends AgentType
       ->add('familyName')
       ->add('twitter')
       ->add('share')
+      ->add('label')
       ->add('email', 'email')
       ->add('positions', 'sympozer_collection_type', array(
         'type' => new PositionType(),

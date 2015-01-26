@@ -38,14 +38,7 @@ class Agent
      * @Groups({"list"})
      */
     protected $id;
-    /**
-     * label
-     *
-     * @ORM\Column(type="string")
-     * @Expose
-     * @Groups({"list"})
-     */
-    protected $label;
+
     /**
      * Url of the website
      *

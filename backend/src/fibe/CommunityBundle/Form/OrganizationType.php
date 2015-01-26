@@ -17,13 +17,9 @@ class OrganizationType extends AgentType
     {
 
         parent::buildForm($builder, $options);
-//      throw new \Exception("OrganizationType buildForm");
 
-//    $builder
-//      ->add('sponsors', 'sympozer_collection_type', array(
-//        'class' => 'fibeContentBundle:Sponsor',
-//        'required' => false,
-//      ))
+        $builder
+            ->add('label')
         ;
     }
 

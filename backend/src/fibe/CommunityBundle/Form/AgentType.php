@@ -18,7 +18,6 @@ abstract class AgentType extends AbstractType
         $builder
             ->add('id')
             ->add('dtype')
-            ->add('label')
             ->add('website')
             ->add('twitter')
             ->add('facebook')
