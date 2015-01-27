@@ -28,7 +28,7 @@ class PositionType extends AbstractType
             ))
             ->add('organization', 'sympozer_entity_type', array(
                 'type' => new OrganizationType(),
-                'required' => false
+                'required' => false,
             ));
     }
 

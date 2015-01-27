@@ -37,6 +37,7 @@ class Organization extends Agent
      * @ORM\OneToMany(targetEntity="fibe\ContentBundle\Entity\Sponsor", mappedBy="organization", cascade={"all"})
      */
     protected $sponsors;
+
     /**
      * @ORM\Column(type="string", length=256, nullable=true)
      */
