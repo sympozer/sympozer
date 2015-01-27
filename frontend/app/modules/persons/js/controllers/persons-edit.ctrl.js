@@ -96,8 +96,9 @@ angular.module('personsApp').controller('personsEditCtrl', [
             {
                 position.person = $scope.person;
                 positionsFact.create(positionsFact.serialize(position), function(position){
-                    $scope.person.positions.push(position);
                 }, error);
+                $scope.person.positions.push(position);
+
 
             }
         };
