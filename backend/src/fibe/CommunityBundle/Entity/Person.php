@@ -59,7 +59,7 @@ class Person extends Agent
     protected $familyName;
 
     /**
-     * @Assert\NotBlank(message="Please give a first name")
+     * @Assert\NotBlank(message = "{'field' : 'firstNames', 'msg' : 'positions.validations.first_name_required'}")
      * @ORM\Column(type="string", nullable=true,  name="firstName")
      * @Expose
      * @SerializedName("firstName")

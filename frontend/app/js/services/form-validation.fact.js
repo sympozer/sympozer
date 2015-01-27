@@ -135,7 +135,7 @@ angular.module('sympozerApp').factory('formValidation', [
                 formFieldElement = formFieldElement.parent();
             }
             //remove old errors
-            formFieldElement.next(".alert-danger").remove();
+            formFieldElement.siblings(".help-block").remove();
             formFieldElement.removeClass("ng-invalid")
                 .addClass("ng-valid");
 
@@ -143,17 +143,21 @@ angular.module('sympozerApp').factory('formValidation', [
             {
                 //element.parents("a").length > 0 ? element.parents("a") : element
                 //add new errors
-                formFieldElement.addClass("ng-invalid").addClass("ng-dirty")
+                formFieldElement.find(".form-control").addClass("ng-invalid").addClass("ng-dirty")
                     .removeClass("ng-valid");
-                var template = '<div class="alert alert-danger" role="alert">';
+
+                var template = '';
                 for (var i in newValue)
                 {
-                    template += "<p> {{ '" + newValue[i] + "' | translate }} </p>";
+                    template += '<span class="help-block">{{ "' + newValue[i] + '" | translate }}</span>';
                 }
-                template += "</div>";
+
                 //do the translation
+                var compiledTmpl = $compile(template)($scope);
+
+                //append before/after
                 var appendFn = appendBefore ? "before" : "after";
-                formFieldElement[appendFn]($compile(template)($scope));
+                formFieldElement[appendFn](compiledTmpl);
                 //do it async
                 setTimeout(function ()
                 {

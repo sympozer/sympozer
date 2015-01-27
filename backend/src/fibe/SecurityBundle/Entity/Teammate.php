@@ -33,7 +33,7 @@ class Teammate
     /**
      * @ORM\ManyToOne(targetEntity="fibe\CommunityBundle\Entity\Person", inversedBy="teammates")
      * @ORM\JoinColumn(name="person_id", referencedColumnName="id", onDelete="Set Null")
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(message = "{'field' : 'persons', 'msg' : 'teammates.validations.person_required'}")
      * @Expose
      */
     protected $person;
@@ -41,7 +41,7 @@ class Teammate
     /**
      * @ORM\ManyToOne(targetEntity="Team", inversedBy="teammates")
      * @ORM\JoinColumn(onDelete="Set Null")
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(message = "{'field' : 'teams', 'msg' : 'teammates.validations.team_required'}")
      * @Expose
      */
     protected $team;

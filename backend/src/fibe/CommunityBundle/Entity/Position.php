@@ -49,14 +49,14 @@ class Position
      *
      * @ORM\ManyToOne(targetEntity="fibe\CommunityBundle\Entity\Person", inversedBy="positions")
      * @ORM\JoinColumn(nullable=false)
-     * @Assert\NotBlank(message="You have to choose a Person")
+     * @Assert\NotBlank(message = "{'field' : 'persons', 'msg' : 'positions.validations.person_required'}")
      * @Expose
      */
     private $person;
 
     /**
      * @ORM\ManyToOne(targetEntity="fibe\CommunityBundle\Entity\Organization", inversedBy="positions")
-     * @Assert\NotBlank(message="You have to choose an Organization")
+     * @Assert\NotBlank(message = "{'field' : 'organizations', 'msg' : 'positions.validations.organization_required'}")
      * @Expose
      */
     private $organization;

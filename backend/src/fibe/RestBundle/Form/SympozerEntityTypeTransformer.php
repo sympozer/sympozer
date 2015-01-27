@@ -60,7 +60,7 @@ class SympozerEntityTypeTransformer extends AbstractSympozerTypeTransformer
             throw new EntityNotFoundException($entityClassName);
         }
 
-        //if required and cascaded the linked entity must have an id
+        //if required and not cascaded the linked entity must have an id
         if (!$this->options['cascade_persist'] && $this->options['required'] && null == $entity->getId())
         {
             return null;

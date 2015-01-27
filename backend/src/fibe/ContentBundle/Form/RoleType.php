@@ -27,25 +27,22 @@ class RoleType extends AbstractType
             ->add('label')
             ->add('roleLabel', 'sympozer_entity_type', array(
                 'cascade_persist' => false,
-                'type' => new RoleLabelType(),
-                'required' => true
+                'type'            => new RoleLabelType(),
+                'required'        => true
             ))
             ->add('person', 'sympozer_entity_type', array(
-                'type' => new PersonType(),
-                'required' => true,
-                'cascade_persist' => false,
+                'type'               => new PersonType(),
+                'cascade_persist'    => false,
                 'allow_extra_fields' => true,
             ))
             ->add('event', 'sympozer_entity_type', array(
-                'type' => new EventType(),
-                'required' => false,
-                'cascade_persist' => false,
+                'type'               => new EventType(),
+                'cascade_persist'    => false,
                 'allow_extra_fields' => true,
             ))
             ->add('mainEvent', 'sympozer_entity_type', array(
-                'type' => new MainEventType(),
-                'required' => true,
-                'cascade_persist' => false,
+                'type'               => new MainEventType(),
+                'cascade_persist'    => false,
                 'allow_extra_fields' => true,
             ));
     }
@@ -56,7 +53,7 @@ class RoleType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'fibe\ContentBundle\Entity\Role',
+            'data_class'         => 'fibe\ContentBundle\Entity\Role',
             'csrf_protection'    => false,
             'cascade_validation' => true
         ));

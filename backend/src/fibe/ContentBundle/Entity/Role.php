@@ -57,7 +57,7 @@ class Role
      *
      * @ORM\ManyToOne(targetEntity="fibe\CommunityBundle\Entity\Person", inversedBy="roles")
      *
-     * @Assert\NotNull(message="You have to choose a Person")
+     * @Assert\NotNull(message = "{'field' : 'persons', 'msg' : 'roles.validations.person_required'}")
      *
      * @Expose
      * @Groups({"list"})
@@ -72,7 +72,7 @@ class Role
      *
      * @ORM\ManyToOne(targetEntity="fibe\EventBundle\Entity\MainEvent", inversedBy="roles", cascade={"persist"})
      * @ORM\JoinColumn(name="main_event_id", referencedColumnName="id")
-     * @Assert\NotNull
+     * @Assert\NotNull(message = "{'field' : 'mainEvents', 'msg' : 'roles.validations.main_event_required'}")
      *
      * @Expose
      * @SerializedName("mainEvent")
@@ -85,7 +85,7 @@ class Role
      * @ORM\ManyToOne(targetEntity="fibe\ContentBundle\Entity\RoleLabel", inversedBy="roles")
      * @ORM\JoinColumn(name="roleLabelId", referencedColumnName="id")
      *
-     * @Assert\NotBlank(message="You have to choose a role type")
+     * @Assert\NotBlank(message = "{'field' : 'roleLabels', 'msg' : 'roles.validations.role_label_required'}")
      *
      * @Expose
      * @SerializedName("roleLabel")

@@ -9,7 +9,6 @@ namespace fibe\RestBundle\Form;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\Exception\UnexpectedTypeException;
-use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 
@@ -50,13 +49,14 @@ class SympozerExtractIdFormListener implements EventSubscriberInterface
 
         if (null === $data)
         {
-            if ($form->isRequired())
-            {
-                //TODO put this to the correct field
-                $form->addError(new FormError('field required'));
-
-                return;
-            }
+            //use @Assert on entity field instead
+//            if ($form->isRequired())
+//            {
+//                //TODO put this to the correct field
+//                $form->addError(new FormError('field required'));
+//
+//                return;
+//            }
             $data = array("id" => self::TO_IGNORE);
         }
 
