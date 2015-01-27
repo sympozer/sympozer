@@ -90,12 +90,12 @@ class UserRESTController extends Controller
 
     if(null != $userManager->findUserByUsername($form->getData()->getUsername()))
     {
-      $result['errors']['errors'][] = "{'field' : 'username', 'msg' : 'signup_username_in_use'}";
+      $result['errors']['errors'][] = "{'field' : 'username', 'msg' : 'authentication.validations.signup_username_in_use'}";
     }
 
     if(null != $userManager->findUserByEmail($form->getData()->getEmail()))
     {
-      $result['errors']['errors'][] = "{'field' : 'email', 'msg' : 'signup_email_in_use'}";
+      $result['errors']['errors'][] = "{'field' : 'email', 'msg' : 'authentication.validations.signup_email_in_use'}";
     }
 
     if(count($result['errors']['errors']) > 0)

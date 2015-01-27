@@ -1,5 +1,5 @@
 angular.module('sympozerApp').factory('formValidation', [
-    '$compile', function ($compile)
+    '$compile', 'translateFilter', function ($compile, translateFilter)
     {
         var serverError = {};
         return {
@@ -145,12 +145,12 @@ angular.module('sympozerApp').factory('formValidation', [
                 //add new errors
                 formFieldElement.addClass("ng-invalid").addClass("ng-dirty")
                     .removeClass("ng-valid");
-                var template = '<div class="alert alert-danger" role="alert">';
+                var template = '<span class="help-block" >';
                 for (var i in newValue)
                 {
                     template += "<p> {{ '" + newValue[i] + "' | translate }} </p>";
                 }
-                template += "</div>";
+                template += "</span>";
                 //do the translation
                 var appendFn = appendBefore ? "before" : "after";
                 formFieldElement[appendFn]($compile(template)($scope));
