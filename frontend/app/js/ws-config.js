@@ -2,6 +2,7 @@ var wsConfig = {
 api : {
 urls: {
 get_organizations      : "http://localhost/sympozer/backend/web/app_dev.php/organizations",
+get_positions          : "http://localhost/sympozer/backend/web/app_dev.php/positions",
 get_persons            : "http://localhost/sympozer/backend/web/app_dev.php/persons",
 get_events             : "http://localhost/sympozer/backend/web/app_dev.php/events",
 get_categories         : "http://localhost/sympozer/backend/web/app_dev.php/categories",

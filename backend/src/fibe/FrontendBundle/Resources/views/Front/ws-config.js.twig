@@ -2,6 +2,7 @@ var wsConfig = {
 api : {
 urls: {
 get_organizations      : "{{ serverBasePath | raw }}{{ path('community_organizations_post')  | raw }}",
+get_positions          : "{{ serverBasePath | raw }}{{ path('community_positions_post')  | raw }}",
 get_persons            : "{{ serverBasePath | raw }}{{ path('community_persons_post')  | raw }}",
 get_events             : "{{ serverBasePath | raw }}{{ path('schedule_events_post')  | raw }}",
 get_categories         : "{{ serverBasePath | raw }}{{ path('schedule_category_post')  | raw }}",

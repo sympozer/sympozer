@@ -1,15 +1,16 @@
 
-
-
 <div id="page-heading">
 
     <div ng-include="GLOBAL_CONFIG.app.urls.partials+'navigation/breadcrumb.html'"></div>
 
-    <h1>{{'organizations.links.organizations' | translate }}</h1>
+    <h1>{{'mainEvents.links.mainEvents' | translate }}</h1>
 
     <div class="options">
-        <!--<div class="btn-toolbar">-->
+        <div class="btn-toolbar">
+            <a href="#/home/mainEvents/new" id="newMainEventBtn" class="btn btn-primary"><i class="fa fa-plus"></i> {{ 'mainEvents.actions.new' | translate}}</a>
+
             <!--<div class="btn-group" dropdown>-->
+
                 <!--<button type="button" class="btn btn-default dropdown-toggle">-->
                     <!--Export as <span class="caret"></span>-->
                 <!--</button>-->
@@ -22,8 +23,10 @@
                 <!--</ul>-->
             <!--</div>-->
             <!--<a href="#" class="btn btn-default hidden-xs"><i class="fa fa-cog"></i></a>-->
-        <!--</div>-->
+
+        </div>
     </div>
+
 </div>
 
 <div class="container-fluid">
@@ -32,40 +35,34 @@
 
             <div class="panel">
                 <div class="panel-heading">
-                    <h4>{{'organizations.actions.search' | translate }}</h4>
+                    <h4>{{'mainEvents.actions.search' | translate }}</h4>
                 </div>
-                <div class="panel-body" entity-list-handler="organizations">
+                <div class="panel-body" entity-list-handler="mainEvents">
                     <div class="search-classic">
                         <form action="#">
                             <div class="input-group well w100">
                                 <input type="text" ng-model="query" placeholder="{{'global.actions.placeHolderSearch' | translate }}" class="form-control"/>
-                                  <span class="input-group-btn">
+                                  <span ng-click="querySended = true" class="input-group-btn">
                                     <button ng-click="sendQuery(query)" type="button" class="btn btn-primary">
-                                        <i class="fa fa-search"></i> {{'global.actions.search' | translate }}
+                                        <i class="fa fa-search"></i><span class="visible-sm-inline visible-lg-inline visible-md-inline"> {{'global.actions.search' | translate }}</span>
                                     </button>
                                   </span>
                             </div>
                         </form>
                         <h3 ng-if="count==0"> {{'global.labels.search.no_result' | translate }}</h3>
                         <hr>
-                        <div class="search-result" ng-repeat-start="organization in entities  track by $index" infinite-scroll='load()' infinite-scroll-disabled='busy' infinite-scroll-distance='0.5'>
-                            <div class="row" ng-include="GLOBAL_CONFIG.app.modules.organizations.urls.partials+'views/organizations-views-row-lg.html'"></div>
+                        <div class="search-result" ng-repeat="mainEvent in entities  track by $index" infinite-scroll='load()' infinite-scroll-disabled='busy' infinite-scroll-distance='0.5'>
+                            <div ng-include="GLOBAL_CONFIG.app.modules.mainEvents.urls.partials+'views/main-events-list-lg.html'"></div>
                         </div>
-                        <hr ng-repeat-end="">
-
                     </div>
                 </div>
+
             </div>
-
+            <!-- col-md-12 -->
         </div>
-        <!-- col-md-12 -->
-    </div>
-    <!-- row -->
-</div> <!-- container -->
+        <!-- row -->
+    </div> <!-- container -->
 </div>
-
-
-
 
 
 

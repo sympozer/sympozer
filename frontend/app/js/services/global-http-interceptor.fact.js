@@ -9,77 +9,14 @@
 angular.module('sympozerApp').factory('globalHttpInterceptor', ['$q', '$rootScope', 'pinesNotifications', 'translateFilter', 'progressLoader', function ($q, $rootScope, pinesNotifications, translateFilter, progressLoader)
 {
 
-    /**
-     * recursive function used to clean at a depth given by maxDepth
-     *  clean
-     * @param object
-     * @param depth
-     * @returns true the entity has to be deleted
-     */
-    var cleanEntityDepth = function (entity, maxDepth)
-    {
-        maxDepth = maxDepth || 2;
-        recursiveClean(entity);
-        return entity;
-
-
-        function recursiveClean(object, depth)
-        {
-            delete object["acl"];
-            delete object["dtype"];
-
-            depth = depth || 0;
-            var currentDepth = depth;
-            if (currentDepth > maxDepth)
-            {
-                return true;
-            }
-            else
-            {
-                for (var property in object)
-                {
-                    if ((object[property])instanceof Date)
-                    { //don't clean Date
-                        break;
-                    }
-                    else if ((object[property]) instanceof Array)
-                    { //clean arrays
-                        recursiveClean(object[property], currentDepth + 1);
-//                            if (object[property].length == 0)
-//                            {
-//                                delete object[property];
-//                            }
-                    }
-                    else if ((object[property]) instanceof Object)
-                    { //clean objects
-                        if (recursiveClean(object[property], currentDepth))
-                        {
-                            delete object[property];
-                        }
-                    }
-                }
-            }
-        }
-
-    };
-
 
     //Interceptor configurations
     return {
 
-
         //Executed whenever a request is made by the client
         'request'      : function (config)
         {
-            // console.log('start: ', $location.path());
             progressLoader.start();
-            if (["POST", "PUT", "PATCH"].indexOf(config.method) >= 0)
-            {
-                {
-                    //Clean data to reduce network usage
-                    config.data = cleanEntityDepth(config.data);
-                }
-            }
             progressLoader.set(50);
             return config;
         },

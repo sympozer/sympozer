@@ -137,6 +137,13 @@ var globalConfig = {
                     base    : "modules/import/",
                     partials: "modules/import/partials/"
                 }
+            },
+
+            locations: {
+                urls: {
+                    base    : "modules/locations/",
+                    partials: "modules/locations/partials/"
+                }
             }
         }
     },

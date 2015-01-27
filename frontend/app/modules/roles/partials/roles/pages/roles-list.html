@@ -1,65 +1,53 @@
 <div id="page-heading">
 
-  <div ng-include="GLOBAL_CONFIG.app.urls.partials+'navigation/breadcrumb.html'"></div>
+    <div ng-include="GLOBAL_CONFIG.app.urls.partials+'navigation/breadcrumb.html'"></div>
 
-  <h1>{{'roles.links.roles' | translate }}</h1>
+    <h1>{{'roles.links.roles' | translate }}</h1>
 
-  <div class="options">
-    <div class="btn-toolbar">
+    <div class="options">
+        <div class="btn-toolbar">
 
-      <div ng-include="GLOBAL_CONFIG.app.modules.roles.urls.partials+'views/roles-actions.html'"></div>
+            <div ng-include="GLOBAL_CONFIG.app.modules.roles.urls.partials+'views/roles-actions.html'"></div>
 
+        </div>
     </div>
-  </div>
 </div>
 <div class="container-fluid">
 
-  <div class="row">
-    <div class="col-md-12">
-      <div class="panel">
-        <div class="panel-body" entity-list-handler="roles">
-          <div class="search-classic">
-            <form ng-submit="sendQuery(query)">
-              <div class="input-group well w100">
-                <input type="text" ng-model="query" placeholder="{{'global.actions.placeHolderSearch' | translate }}" class="form-control"/>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel">
+                <div class="panel-body" entity-list-handler="roles">
+                    <div class="search-classic">
+                        <form ng-submit="sendQuery(query)">
+                            <div class="input-group well w100">
+                                <input type="text" ng-model="query" placeholder="{{'global.actions.placeHolderSearch' | translate }}" class="form-control"/>
                                   <span class="input-group-btn">
                                     <button role="submit" type="submit" class="btn btn-primary">
-                                      <i class="fa fa-search"></i>
+                                        <i class="fa fa-search"></i>
                                     </button>
                                   </span>
-              </div>
-            </form>
-            <h3 ng-if="query">{{'global.labels.search.displaying' | translate }} '{{query}}'</h3>
-            <hr/>
+                            </div>
+                        </form>
+                        <h3 ng-if="count==0"> {{'global.labels.search.no_result' | translate }}</h3>
+                        <hr/>
 
-            <div class="row">
-                <div ng-include="GLOBAL_CONFIG.app.modules.roleLabels.urls.partials+'views/roleLabels-filters.html'"></div>
+                        <div class="row">
+                            <div ng-include="GLOBAL_CONFIG.app.modules.roleLabels.urls.partials+'views/roleLabels-filters.html'"></div>
+                        </div>
+                        <hr/>
+
+                        <div ng-if="count!=0" class="search-result">
+                            <div class="row" ng-include="GLOBAL_CONFIG.app.modules.roles.urls.partials+'views/roles-entity-list-md.html'"></div>
+                        </div>
+                        <hr ng-repeat-end="">
+
+                    </div>
+
+
+                </div>
             </div>
-            <hr/>
-
-            <div class="search-result">
-              <div class="row" ng-include="GLOBAL_CONFIG.app.modules.roles.urls.partials+'views/roles-entity-list-md.html'"></div>
-            </div>
-            <hr ng-repeat-end="">
-
-          </div>
-
-          <!--<ul class="nav nav-pills">-->
-          <!--<li class="active" ng-repeat="roleLabel in roleLabels track by $index">-->
-          <!--<a href="javascript:void(0)" filter="roleLabelIds" ng-click="addRoleLabelsFilter(roleLabel.id)">-->
-          <!--<span class="badge pull-right">{{roleLabel.roles.length}}</span>-->
-          <!--{{ roleLabel.label }}-->
-          <!--</a>-->
-          <!--</li>-->
-          <!--<li>-->
-          <!---->
-          <!--</li>-->
-          <!--</ul>-->
-
-
         </div>
-      </div>
     </div>
-  </div>
 </div>
 </div> <!-- container -->

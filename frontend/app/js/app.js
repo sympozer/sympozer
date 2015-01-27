@@ -27,6 +27,7 @@ angular.module('mainEventsApp', ['socialsApp']);
 angular.module('angularTranslateApp', ['pascalprecht.translate']);
 angular.module('authenticationApp', ['ngCookies', 'personsApp']);
 angular.module('socialsApp', []);
+angular.module('positionsApp', []);
 angular.module('importApp', []);
 angular.module('angulartics', []);
 angular.module('angulartics.google.analytics', []);
@@ -80,6 +81,7 @@ var sympozerApp = angular.module('sympozerApp', [
     'angulartics',
     'angulartics.google.analytics',
     'flow',
+    'positionsApp'
 ]);
 
 

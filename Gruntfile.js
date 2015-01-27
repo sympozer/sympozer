@@ -691,22 +691,7 @@ module.exports = function (grunt)
             }
         },
 
-        //Insert all import tag for theme files if exists into the import.less file
-        unfold       : {
-            options: {
-                types: {
-                    'less': {
-                        template: '<link href="$PATH$" rel="stylesheet/less" media="all">'
-                    }
-                }
 
-            },
-
-            files: {
-                src: '<%= yeoman.app %>/index.html'
-
-            }
-        }
 
     });
 
@@ -735,11 +720,11 @@ module.exports = function (grunt)
     grunt.registerTask('update_db', ['chmod:cache_log', 'sf2-console:database_update', 'cache_clear']);
 
 
-    grunt.registerTask('update_dependencies', ['bower-install-simple', 'bowerInstall', 'unfold', 'cache_clear']);
+    grunt.registerTask('update_dependencies', ['bower-install-simple', 'bowerInstall', 'cache_clear', 'sf2-console:copy_ws_config']);
 
     grunt.registerTask('dev', ['reset_db', 'update_dependencies', 'watch', 'open:devserver']);
 
-    grunt.registerTask('update', ['update_db', 'update_dependencies', 'sf2-console:copy_ws_config']);
+    grunt.registerTask('update', ['update_db', 'update_dependencies']);
 
 
     /** PRODUCTION **/

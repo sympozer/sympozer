@@ -4,8 +4,8 @@
  * @type {controller}
  */
 angular.module('personsApp').controller('personsEditCtrl', [
-    '$scope', '$q', '$filter', '$rootScope', '$modal', 'GLOBAL_CONFIG', '$routeParams', '$location', 'personsFact', 'organizationsFact', 'papersFact', 'pinesNotifications', 'translateFilter', 'authenticationFact',
-    function ($scope, $q, $filter, $rootScope, $modal, GLOBAL_CONFIG, $routeParams, $location, personsFact, organizationsFact, papersFact, pinesNotifications, translateFilter, authenticationFact)
+    '$scope', '$q', '$filter', '$rootScope', '$modal', 'GLOBAL_CONFIG', '$routeParams', '$location', 'personsFact', 'organizationsFact', 'papersFact', 'pinesNotifications', 'translateFilter', 'authenticationFact', 'positionsFact',
+    function ($scope, $q, $filter, $rootScope, $modal, GLOBAL_CONFIG, $routeParams, $location, personsFact, organizationsFact, papersFact, pinesNotifications, translateFilter, authenticationFact, positionsFact)
     {
         //Fetch person info
         $scope.person = personsFact.get({id: $routeParams.personId});
@@ -80,27 +80,34 @@ angular.module('personsApp').controller('personsEditCtrl', [
         $scope.getOrganizations = function (val)
         {
             //Fetch organization filter by the query and resolve the promise when results comes back
-            var promise = organizationsFact.all({query: val}).$promise;
-            promise.then(function (organizations)
+            var deferred = $q.defer();
+            organizationsFact.all({query: val}, function (organizations)
             {
-                return organizations.results;
+                deferred.resolve(organizations.results);
             });
-            return promise;
-
+            return deferred.promise;
         }
 
-
+        //Persist a new position for the person
         $scope.addPosition = function (position)
         {
+            //Verify that both fields are setted
             if (position.position && position.organization)
             {
-                $scope.addRelationship('positions', {
-//                    person      : $scope.person.id,
-                    organization: position.organization.id ? position.organization.id : { label: position.organization },
-                    position    : position.position
-                });
+                position.person = $scope.person;
+                positionsFact.create(positionsFact.serialize(position), function(position){
+                }, error);
+                $scope.person.positions.push(position);
+
+
             }
         };
+
+        //Remove a specific position
+        $scope.deletePosition = function(position, $index){
+            positionsFact.delete(positionsFact.serialize(position), success, error);
+            $scope.person.positions.splice($index,1);
+        }
 
 
         $scope.setLocalization = function (formattedLocalization)

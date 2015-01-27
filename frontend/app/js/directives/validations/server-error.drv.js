@@ -36,6 +36,7 @@ angular.module('sympozerApp').directive('input',
 
 /**
  * TODO : comment
+ * @see : formValidation.fact.js
  */
 angular.module('sympozerApp').directive('sympozerAutocomplete',
     ['formValidation', function (formValidation)
@@ -53,6 +54,7 @@ angular.module('sympozerApp').directive('sympozerAutocomplete',
 
 /**
  * TODO : comment
+ * @see : formValidation.fact.js
  */
 angular.module('sympozerApp').directive('form',
     ['formValidation', function (formValidation)

@@ -35,12 +35,9 @@
                               </span>
                             </div>
                         </form>
+                        <h3 ng-if="count==0"> {{'global.labels.search.no_result' | translate }}</h3>
                         <hr>
-
-
-                        <div class="row" ng-include="GLOBAL_CONFIG.app.modules.events.urls.partials+'views/events-entity-list-md.html'"></div>
-
-
+                        <div ng-if="count!=0" class="row" ng-include="GLOBAL_CONFIG.app.modules.events.urls.partials+'views/events-entity-list-md.html'"></div>
                     </div>
                 </div>
             </div>

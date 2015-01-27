@@ -135,7 +135,7 @@ angular.module('sympozerApp').factory('formValidation', [
                 formFieldElement = formFieldElement.parent();
             }
             //remove old errors
-            formFieldElement.siblings(".help-block").remove();
+            formFieldElement.next(".help-block").remove();
             formFieldElement.removeClass("ng-invalid")
                 .addClass("ng-valid");
 
@@ -145,12 +145,12 @@ angular.module('sympozerApp').factory('formValidation', [
                 //add new errors
                 formFieldElement.find(".form-control").addClass("ng-invalid").addClass("ng-dirty")
                     .removeClass("ng-valid");
-
-                var template = '';
+                var template = '<span class="help-block" >';
                 for (var i in newValue)
                 {
-                    template += '<span class="help-block">{{ "' + newValue[i] + '" | translate }}</span>';
+                    template += "<p> {{ '" + newValue[i] + "' | translate }} </p>";
                 }
+                template += "</span>";
 
                 //do the translation
                 var compiledTmpl = $compile(template)($scope);
