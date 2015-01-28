@@ -5,10 +5,53 @@
  */
 
 angular.module('eventsApp').controller('eventsNewCtrl', [
-    '$scope', '$rootScope', '$window', 'GLOBAL_CONFIG', '$routeParams', '$rootScope', '$location', 'eventsFact', 'categoriesFact', 'topicsFact', 'locationsFact', 'papersFact', '$modal', 'formValidation', '$filter', 'pinesNotifications', 'translateFilter',
-    function ($scope, $rootScope, $window, GLOBAL_CONFIG, $routeParams, $rootScope, $location, eventsFact, categoriesFact, topicsFact, locationsFact, papersFact, $modal, formValidation, $filter, pinesNotifications, translateFilter)
+    '$scope', '$rootScope', '$window', 'GLOBAL_CONFIG', '$routeParams', '$location', 'eventsFact', 'categoriesFact', 'topicsFact', 'locationsFact', 'papersFact', '$modal', 'formValidation', '$filter', 'pinesNotifications', 'translateFilter',
+    function ($scope, $rootScope, $window, GLOBAL_CONFIG, $routeParams, $location, eventsFact, categoriesFact, topicsFact, locationsFact, papersFact, $modal, formValidation, $filter, pinesNotifications, translateFilter)
     {
-        $scope.event = new eventsFact;
+
+        /**
+         * Initialize all dates input
+         */
+        var initialize = function ()
+        {
+
+            //Test if event has a start date
+            if ($scope.event.startAt)
+            {
+                //Initialize the day dropdown with the value
+                $scope.event.selectedDay = new moment($scope.event.startAt).format('dd DD MMM YYYY');
+                //Initialize the timer for start time
+                $scope.event.timeStart = new Date($scope.event.startAt);
+            }
+            else
+            {
+                $scope.event.selectedDay = new moment($rootScope.currentMainEvent.startAt).format('dd DD MMM YYYY');
+                //Initialize the timer for start time
+                $scope.event.timeStart = new Date().setHours('12');
+            }
+
+            //Initialize the day dropdown value and time inputs
+            if ($scope.event.endAt)
+            {
+                //Initialize the timer for end time
+                $scope.event.timeEnd = new Date($scope.event.endAt);
+            }
+            else
+            {
+                //Initialize the timer for end time
+                $scope.event.timeEnd = new Date().setHours('13');
+            }
+        };
+
+        if(!$scope.newEvent){
+            $scope.event = new eventsFact;
+        }else{
+            $scope.event = $scope.newEvent;
+        }
+
+        initialize();
+
+
         $scope.dateRange = "";
         //Initialize date pickers visibility
         $scope.endAtOpened = false;
@@ -56,12 +99,6 @@ angular.module('eventsApp').controller('eventsNewCtrl', [
             }
         };
 
-        //Initialize the day dropdown value
-        $scope.event.selectedDay = new Date($rootScope.currentMainEvent.startAt);
-        //Initialize the timer for start time
-        $scope.event.timeStart = new Date($rootScope.currentMainEvent.startAt);
-        //Initialize the timer for end time
-        $scope.event.timeEnd = new Date($rootScope.currentMainEvent.endAt);
 
         /**
          * Convert the selected day + selected and time and selected start time to actual dates.

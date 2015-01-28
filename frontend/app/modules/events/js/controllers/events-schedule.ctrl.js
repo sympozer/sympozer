@@ -59,39 +59,29 @@ angular.module('eventsApp').controller('eventsScheduleCtrl', ['$scope', '$templa
                 //resize();
             },
             eventMouseover: $scope.onMouseOver,
-
-
+            select : $scope.onDurationSelection,
             eventMouseout: function(calEvent, jsEvent) {
                 $(this).css('z-index', 8);
                 $('.tooltipevent').remove();
             },
         })
-
-        //From demo
-//        function resize(option) {
-//            var individualSize = 170;
-//            var width = Math.max(element.width(), individualSize * $('.fc-day-header').length);
-//            $('.fc-view').width(width);
-//            $('.fc-scroller').perfectScrollbar(option);
-//            $('.fc-view-container')
-//                .perfectScrollbar(option)
-//                .scroll(function () {
-//                    // for the left column
-//                    var scrollLeft = $(this).scrollLeft()-1;
-//                    $(this).find('.fc-slats .fc-axis').css('left', scrollLeft);
-//                })
-//                .scroll(function () {
-//                    // for the vertical scrollbar
-//                    var scrollbar = $('.fc-scroller .ps-scrollbar-y-rail');
-//                    var scrollLeft = Math.min( $(this).scrollLeft() + $(this).width(), $(this).children('.fc-view').width());
-//                    scrollbar.css('left', scrollLeft -(scrollbar.outerWidth()+2));
-//                })
-//                .triggerHandler('scroll');
-//        }
-
-
     }
 
+    /**
+     * Find an oject in an array by value of a specific property
+     * @param property, the property to look the value of
+     * @param value, the value to look for
+     * @param array, the array containing the object look
+     * @returns false if nothing found, the js object if found
+     */
+    var findObjectByProp = function(property, value, array){
+        for(i=0; i < array.length; i++){
+            if(array[i][property] == value){
+                return array[i];
+            }
+        }
+        return false;
+    }
 
     /**
      * Convert a sympozer event to a fullcalendar compatible event
@@ -115,8 +105,6 @@ angular.module('eventsApp').controller('eventsScheduleCtrl', ['$scope', '$templa
         calEvent.start     = new moment(sympozerEvent.startAt) || new moment();
         calEvent.end       = new moment(sympozerEvent.endAt)   || new moment();
         calEvent.resources = resourcesTab;
-
-
 
         return calEvent;
     }
@@ -142,10 +130,9 @@ angular.module('eventsApp').controller('eventsScheduleCtrl', ['$scope', '$templa
      */
     var locationToCalResource   = function(sympozerLocation, calResource){
         if(calResource == undefined){
-            var calResource = {};
+            var calResource = angular.copy(sympozerLocation);
         }
         calResource.name = sympozerLocation.label || "";
-        calResource.id    = sympozerLocation.id || "";
         return calResource;
     }
 
@@ -240,15 +227,59 @@ angular.module('eventsApp').controller('eventsScheduleCtrl', ['$scope', '$templa
             calEvent.allDay = false;
         }
 
+        //Set location according to the resource tab value
+        if(calEvent.resources[0] != 0){
+            calEvent.location = findObjectByProp('id', calEvent.resources[0], $scope.locations);
+        }else{
+            //Delete the location if the event had been dragged into the no_location (id=0) resource
+            delete(calEvent.location);
+        }
 
+        //Send event update query on the server
         eventsFact.update(eventsFact.serialize(calEvent));
     };
 
-    /* alert on Resize */
+    /* Update the event if resized */
     $scope.onEventResize = function(calEvent, delta, revertFunc, jsEvent, ui, view ){
         calEvent.endAt = moment(calEvent.endAt).add(delta).format();
         eventsFact.update(eventsFact.serialize(calEvent));
     };
+
+    /* New event directly in the calendar */
+    $scope.onDurationSelection = function( start, end, jsEvent, view, resources ){
+
+        //Initialize new event
+        $scope.newEvent = {};
+        $scope.newEvent.startAt = $scope.newEvent.start = start;
+        $scope.newEvent.endAt = $scope.newEvent.end = end;
+
+        //Add location property according to the selected resource (resources[0])
+        if(resources && resources[0]!= 0){
+            $scope.newEvent.location = findObjectByProp('id', resources[0], $scope.locations);
+        }
+
+        //Open a modal with the current scope containing the new event
+        var modalInstance = $modal.open({
+            templateUrl: GLOBAL_CONFIG.app.modules.events.urls.partials + 'modals/events-modal-form.html',
+            controller : 'eventsNewCtrl',
+            size       : "large",
+            scope: $scope
+        });
+
+        //When the modal is closed and the event created
+        modalInstance.result.then(function (sympozerEvent)
+        {
+            //Reconvert incoming event to calevent
+            $scope.calEvent = eventToCalEvent(sympozerEvent, $scope.newEvent);
+
+            //Refresh  calendar
+            $scope.calendarEl.fullCalendar( 'renderEvent',  $scope.newEvent );
+
+            //Clean current newEvent
+            delete($scope.newEvent);
+        })
+    }
+
 
     /* add custom event*/
     $scope.addEvent = function() {
@@ -291,6 +322,8 @@ angular.module('eventsApp').controller('eventsScheduleCtrl', ['$scope', '$templa
 //        $(this).css('border', '1px solid black');
 
     }
+
+
 
 
 

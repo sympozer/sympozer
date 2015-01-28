@@ -12,7 +12,7 @@
     else {
         factory(jQuery, moment);
     }
-})//Spac added by FLO
+})//Space added by FLO
 (function($, moment) {
 
     ;;

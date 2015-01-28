@@ -10,7 +10,6 @@ angular.module('eventsApp').controller('eventsEditCtrl', [
     '$window',
     'GLOBAL_CONFIG',
     '$routeParams',
-    '$rootScope',
     '$location',
     'eventsFact',
     'categoriesFact',
@@ -20,7 +19,7 @@ angular.module('eventsApp').controller('eventsEditCtrl', [
     '$modal',
     'pinesNotifications',
     'translateFilter',
-    function ($scope, $rootScope, $filter, $window, GLOBAL_CONFIG, $routeParams, $rootScope, $location, eventsFact, categoriesFact, topicsFact, locationsFact, papersFact, $modal, pinesNotifications, translateFilter)
+    function ($scope, $rootScope, $filter, $window, GLOBAL_CONFIG, $routeParams, $location, eventsFact, categoriesFact, topicsFact, locationsFact, papersFact, $modal, pinesNotifications, translateFilter)
     {
 
 

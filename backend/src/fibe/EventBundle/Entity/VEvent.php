@@ -257,6 +257,7 @@ abstract class VEvent
     /**
      * Locations for the event
      * @Expose
+     * @Groups({"list"})
      * @ORM\ManyToOne(targetEntity="fibe\ContentBundle\Entity\Location", inversedBy="events")
      * @ORM\JoinTable(name="vevent_location",
      *     joinColumns={@ORM\JoinColumn(name="event_id", referencedColumnName="id")},
