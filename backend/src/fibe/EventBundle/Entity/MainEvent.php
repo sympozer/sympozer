@@ -71,36 +71,18 @@ class MainEvent extends VEvent
      * @Expose
      */
     private $roles;
-
-    /**
-     * @return mixed
-     */
-    public function getStartAt()
-    {
-        return $this->startAt;
-    }
-
-    /**
-     * @param mixed $startAt
-     */
-    public function setStartAt($startAt)
-    {
-        $this->startAt = $startAt;
-    }
     /**
      * dtstart
      *
      * This property specifies when the calendar component begins.
      *
      * @ORM\Column(type="datetime", name="start_at")
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(message = "{'field' : 'startAts', 'msg' : 'mainEvents.validations.start_date_required'}")
      * @SerializedName("startAt")
      * @Expose
      * @Groups({"list"})
      */
     private $startAt;
-
-
     /**
      * dtend
      *
@@ -108,13 +90,12 @@ class MainEvent extends VEvent
      * component ends.
      *
      * @ORM\Column(type="datetime", name="end_at")
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(message = "{'field' : 'endAts', 'msg' : 'mainEvents.validations.end_date_required'}")
      * @SerializedName("endAt")
      * @Expose
      * @Groups({"list"})
      */
     private $endAt;
-
     /**
      * Team
      *
@@ -127,7 +108,6 @@ class MainEvent extends VEvent
      * @ORM\OneToOne(targetEntity="fibe\EventBundle\Entity\MainEventSettings", mappedBy="mainEvent", cascade={"all"})
      */
     private $setting;
-
     /**
      * @ORM\Column(type="string", length=256, nullable=true)
      * @Expose
@@ -138,13 +118,11 @@ class MainEvent extends VEvent
      * @ORM\Column(type="string", length=256, nullable=true)
      */
     private $slug;
-
     /**
      *
      * @ORM\Column(type="string", length=128, nullable=true)
      */
     private $acronym;
-
     /**
      * @ORM\OneToMany(targetEntity="fibe\ContentBundle\Entity\Location", mappedBy="mainEvent",cascade={"persist", "remove"})
      * @MaxDepth(2)
@@ -169,6 +147,22 @@ class MainEvent extends VEvent
         $this->topics = new ArrayCollection();
         $this->sponsors = new ArrayCollection();
         $this->organizations = new ArrayCollection();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getStartAt()
+    {
+        return $this->startAt;
+    }
+
+    /**
+     * @param mixed $startAt
+     */
+    public function setStartAt($startAt)
+    {
+        $this->startAt = $startAt;
     }
 
     /**
@@ -413,8 +407,6 @@ class MainEvent extends VEvent
     }
 
 
-
-
     /**
      * @return mixed
      */
@@ -478,7 +470,7 @@ class MainEvent extends VEvent
     /**
      * Validates start is before end
      *  don't perform the check if one date is missing
-     * @Assert\True(message = "{'field' : 'endAt', 'msg' : 'mainEvents.validations.end_date_after_start'}")
+     * @Assert\True(message = "{'field' : 'endAts', 'msg' : 'mainEvents.validations.end_date_after_start'}")
      *
      * @return bool
      */
@@ -491,7 +483,6 @@ class MainEvent extends VEvent
 
         return true;
     }
-
 
 
     /**

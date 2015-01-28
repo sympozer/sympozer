@@ -2,7 +2,7 @@
 <h3 class="modal-title">{{ entityLbl.toLowerCase() + 's.actions.import' | translate}}</h3>
 </div>
 <div class="modal-body">
-  <form action="#" data-wizard="{select:changeStep}" class="form-horizontal ng-scope ng-isolate-scope ng-pristine ng-valid">
+  <form action="#" data-wizard="{select:changeStep}" class="form-horizontal">
 
     <fieldset title="Step 1">
       <legend>{{'import.select_file' | translate}}</legend>
@@ -59,7 +59,7 @@
         <span><strong>Well done!</strong>{{ results.length }} {{ entityLbl }}s are ready to be imported!</span>
       </alert>
       <alert type="warning" ng-show="!busy && validationError && !error">
-        <span> There's errors. Cannot {{'import.send_to_server' | translate  | lowercase}}</span></alert>
+        <span> There are errors. Cannot {{'import.send_to_server' | translate  | lowercase}}</span></alert>
 
       <table class="table table-responsive table-striped ">
         <thead>
@@ -74,11 +74,11 @@
         <tr ng-repeat="entity in results track by $index"
             ng-init="lineNb = $index">
           <td ng-repeat="field in entity track by $index"
-              ng-class="importResults.errors[lineNb + 1][$index + 1] ? 'warning' : ''">
+              ng-class="importResults.errors[lineNb + 1][$index + 1] ? 'import-warning' : ''">
             <div popover-trigger="mouseenter"
                  popover="{{ importResults.errors[lineNb + 1][$index + 1].msg }}"
                  popover-title="error">
-              {{ field }}
+              <span>{{ field }}</span>
             </div>
           </td>
           <td>
@@ -102,7 +102,7 @@
       </alert>
 
       <alert type="danger" ng-show="!busy && error">
-        <a ng-click="retrySend(2)" class="btn btn-sm alert-danger pull-right" style="margin-top: -0.5em;" href="javascript:void(0)"><i class="fa fa-refresh"></i> Retry</a>
+        <a ng-click="retrySend(3)" class="btn btn-sm alert-danger pull-right" style="margin-top: -0.5em;" href="javascript:void(0)"><i class="fa fa-refresh"></i> Retry</a>
         <span><strong>Oh snap!</strong> Something bad happened!</span>
       </alert>
 
@@ -110,7 +110,7 @@
         <span><strong>Well done!</strong>{{ results.length }} {{ entityLbl }} were correctly imported!</span>
       </alert>
       <alert type="warning" ng-show="!busy && validationError && !error">
-        <span> There's errors. Cannot {{'import.send_to_server' | translate  | lowercase}}</span></alert>
+        <span> There are errors. Cannot {{'import.send_to_server' | translate  | lowercase}}</span></alert>
       <!--todo : indclude dynamic tempalte-->
       <div ng-repeat="role in importResults.entities  track by $index" class="col-sm-5 col-md-5 col-lg-5">
         <div sympozer-with-locals locals-role="role" locals-edit="true" ng-include="GLOBAL_CONFIG.app.modules.roles.urls.partials+'views/roles-tile-sm.html'"></div>

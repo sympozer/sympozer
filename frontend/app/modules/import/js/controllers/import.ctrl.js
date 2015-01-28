@@ -8,8 +8,10 @@ angular.module('importApp').controller('importCtrl', [
     'importService',
     function ($scope, GLOBAL_CONFIG, $modal, importService)
     {
-        var csvsAsArrays,
+        var csvsAsArrays = [],
             fileIsParsed = false,
+            fileIsValidated = false,
+            fileIsImported = false,
 
             csvRowSeparator = '\n',
             csvFieldSeparator = ';',
@@ -17,9 +19,9 @@ angular.module('importApp').controller('importCtrl', [
             csvCollectionSeparator = '|',
             csvHasHeader = true,
 
+            selectFileStep = 1,
             validationStep = 2,
-            importStep = 3,
-            validated = 3
+            importStep = 3
             ;
 
         $scope.busy = false;
@@ -43,6 +45,13 @@ angular.module('importApp').controller('importCtrl', [
         //on wizard step change
         $scope.changeStep = function (stepNb)
         {
+            //goto first step if no file is selected
+            if (stepNb != selectFileStep && csvsAsArrays.length < 1)
+            {
+                $scope.wizard.step(selectFileStep, true);
+                return;
+            }
+
             switch (stepNb)
             {
                 case validationStep:
@@ -61,57 +70,39 @@ angular.module('importApp').controller('importCtrl', [
                     {
                         importFile();
                     }
-                    else
-                    {
-                        return false;
-                    }
+
                     break;
             }
+        };
 
-            function parseFile()
+        function parseFile()
+        {
+            if (!fileIsParsed)
             {
-                if (!fileIsParsed)
-                {
-                    $scope.results = importService.processImport(csvsAsArrays);
-                    fileIsParsed = true;
-                    validated = false;
-                    $scope.validationError = true;
-                }
+                $scope.results = importService.processImport(csvsAsArrays);
+                fileIsParsed = true;
+                fileIsValidated = false;
+                $scope.validationError = true;
             }
+        }
 
-            function validateFile()
-            {
-                //validate
-                if (!validated)
-                {
-                    $scope.busy = true;
-                    validated = true;
-                    importService.send($scope.results, $scope.$root.currentMainEvent ? $scope.$root.currentMainEvent.id : undefined, "false", function (importResults)
-                    {
-                        $scope.importResults = importResults;
-                        $scope.error = false;
-                        $scope.busy = false;
-                        if (_.size($scope.importResults.errors) == 0)
-                        {
-                            $scope.validationError = false;
-                        }
-
-                    }, function ()
-                    {
-                        $scope.error = true;
-                        $scope.busy = false;
-                    });
-                }
-            }
-
-            function importFile()
+        function validateFile()
+        {
+            //validate
+            if (!fileIsValidated)
             {
                 $scope.busy = true;
-                importService.send($scope.results, $scope.$root.currentMainEvent ? $scope.$root.currentMainEvent.id : undefined, "true", function (importResults)
+                fileIsValidated = true;
+                importService.send($scope.results, $scope.$root.currentMainEvent ? $scope.$root.currentMainEvent.id : undefined, "false", function (importResults)
                 {
                     $scope.importResults = importResults;
                     $scope.error = false;
                     $scope.busy = false;
+                    if (_.size($scope.importResults.errors) == 0)
+                    {
+                        $scope.validationError = false;
+                        fileIsImported = false;
+                    }
 
                 }, function ()
                 {
@@ -119,15 +110,42 @@ angular.module('importApp').controller('importCtrl', [
                     $scope.busy = false;
                 });
             }
-        };
+            else
+            {
+                $scope.busy = false;
+            }
+        }
 
-        //parses csvs into arrays and put in csvsAsArrays
-        // called when files were drop or selected
+        function importFile()
+        {
+            if (!fileIsImported)
+            {
+                $scope.busy = true;
+                importService.send($scope.results, $scope.$root.currentMainEvent ? $scope.$root.currentMainEvent.id : undefined, "true", function (importResults)
+                {
+                    $scope.importResults = importResults;
+                    $scope.error = false;
+                    $scope.busy = false;
+                    fileIsImported = true;
+
+                }, function ()
+                {
+                    $scope.error = true;
+                    $scope.busy = false;
+                    fileIsImported = true;
+                });
+            }
+
+        }
+
+//parses csvs into arrays and put in csvsAsArrays
+// called when files were drop or selected
         $scope.fileChanged = function (isRemoved)
         {
             csvsAsArrays = [];
             fileIsParsed = $scope.busy = false;
             this.$flow.upload();//just update ui
+
             var i = 0,
                 reader = new FileReader(),
                 files = this.$flow.files;
@@ -163,7 +181,7 @@ angular.module('importApp').controller('importCtrl', [
         $scope.retrySend = function (step)
         {
             $scope.busy = true;
-            $scope.changeStep(step || importStep);
+            $scope.wizard.step(step);
         };
 
     }])

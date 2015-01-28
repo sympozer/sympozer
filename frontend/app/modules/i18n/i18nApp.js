@@ -24,16 +24,16 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
         //Global
         global: {
             actions    : {
-                go_home: 'Go back to home',
-                actions: 'Actions',
-                lang   : 'Language',
-                save   : 'Save',
-                ok     : 'Ok',
-                cancel : 'Cancel',
-                details: 'View details &raquo;',
-                show   : 'Show',
-                edit   : 'Edit',
-                search : 'Search',
+                go_home          : 'Go back to home',
+                actions          : 'Actions',
+                lang             : 'Language',
+                save             : 'Save',
+                ok               : 'Ok',
+                cancel           : 'Cancel',
+                details          : 'View details &raquo;',
+                show             : 'Show',
+                edit             : 'Edit',
+                search           : 'Search',
                 placeHolderSearch: 'Search...'
             },
             labels     : {
@@ -60,39 +60,39 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
 
             },
             constants  : {
-              editable_field       : 'Click here to edit this field'
+                editable_field: 'Click here to edit this field'
             }
         },
 
 
         navleft       : {
-            home        : 'Home',
-            overview    : 'Overview',
-            analytics   : 'Analytics',
-            informations: 'Informations',
-            settings    : 'Settings',
-            appearance  : 'Appearance',
-            directory   : 'Directory',
-            community   : 'Community',
-            powered_by  : 'Powered by sympozer.com',
-            help        : 'Help',
-            infos       : 'Infos',
-            import      : 'Import',
-            resource    : 'Resouces',
-            highlights  : 'Highlights',
+            home             : 'Home',
+            overview         : 'Overview',
+            analytics        : 'Analytics',
+            informations     : 'Informations',
+            settings         : 'Settings',
+            appearance       : 'Appearance',
+            directory        : 'Directory',
+            community        : 'Community',
+            powered_by       : 'Powered by sympozer.com',
+            help             : 'Help',
+            infos            : 'Infos',
+            import           : 'Import',
+            resource         : 'Resouces',
+            highlights       : 'Highlights',
             embedded_calendar: 'Embedded calendar',
-            ticket_page : 'Ticket page',
-            mobile_app  : 'Mobile app',
-            widgets     : 'Widgets',
-            slides      : 'Slides'
+            ticket_page      : 'Ticket page',
+            mobile_app       : 'Mobile app',
+            widgets          : 'Widgets',
+            slides           : 'Slides'
         },
 
 
         //Authentication
         authentication: {
             actions    : {
-                signin: 'Sign In',
-                signup: 'Sign Up',
+                signin : 'Sign In',
+                signup : 'Sign Up',
                 signout: 'Sign Out'
             },
             validations: {
@@ -132,27 +132,27 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 authentication: 'Authentication'
             },
             labels     : {
-                username          : 'Username',
-                password          : 'Password',
-                email             : 'Email',
-                profile           : 'Profile',
-                forgotten_pwd     : 'Forgotten password ?',
-                remember_me       : 'Remember me ',
-                current_pwd       : 'Current password',
-                change_pwd        : 'Change my password',
-                new_pwd           : 'New password',
-                pwd_check         : 'Password check',
-                reset_pwd         : 'Reset my password',
-                pwd_verification  : 'Verification',
-                enrich_with       : 'Enrich profile with ',
-                enrich_profile    : 'Enrich your profile ',
-                signin_with       : 'Sign in with ',
-                signin_get_started: 'Sign In to get started or ',
-                account           : 'Account',
-                agreement         : 'User Agreement',
+                username            : 'Username',
+                password            : 'Password',
+                email               : 'Email',
+                profile             : 'Profile',
+                forgotten_pwd       : 'Forgotten password ?',
+                remember_me         : 'Remember me ',
+                current_pwd         : 'Current password',
+                change_pwd          : 'Change my password',
+                new_pwd             : 'New password',
+                pwd_check           : 'Password check',
+                reset_pwd           : 'Reset my password',
+                pwd_verification    : 'Verification',
+                enrich_with         : 'Enrich profile with ',
+                enrich_profile      : 'Enrich your profile ',
+                signin_with         : 'Sign in with ',
+                signin_get_started  : 'Sign In to get started or ',
+                account             : 'Account',
+                agreement           : 'User Agreement',
                 agreement_acceptance: 'I accept the ',
-                username_or_email : 'Username or email',
-                settings          : 'Settings'
+                username_or_email   : 'Username or email',
+                settings            : 'Settings'
 
             }
         },
@@ -161,35 +161,35 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
         //mainEvent
         mainEvents    : {
             actions    : {
-                search  : 'Search a conference',
-                new     : 'New conference',
-                add     : 'Add a conference',
-                edit    : 'Edit the conference',
-                import  : 'Import conference',
-                export  : 'Export conference',
-                print   : 'Print conference',
-                view    : 'View the conference',
-                add_logo: 'Add a logo',
+                search     : 'Search a conference',
+                new        : 'New conference',
+                add        : 'Add a conference',
+                edit       : 'Edit the conference',
+                import     : 'Import conference',
+                export     : 'Export conference',
+                print      : 'Print conference',
+                view       : 'View the conference',
+                add_logo   : 'Add a logo',
                 choose_logo: 'Choose a logo'
 
             },
             labels     : {
-                general_info: 'General informations',
+                general_info     : 'General informations',
                 time_localization: 'Time & localization',
-                to          : 'To',
-                from        : 'From'
+                to               : 'To',
+                from             : 'From'
             },
             links      : {
                 mainEvents: 'Conferences',
-                mainEvent: 'Conference'
+                mainEvent : 'Conference'
             },
             validations: {
                 'EventFormValidation_start_is_after_end_error': 'the start date must not be after the end date.',
-                'Label_already_used'   : 'A main event with the same label already exists.',
-                'end_date_after_start' : 'The end date must be after the start date',
-                'start_date_before_end': 'The start date must be before the end date',
-                'created'              : 'The conference has been saved',
-                'not_created'          : 'Sorry, the conference has not been saved'
+                'Label_already_used'                          : 'A main event with the same label already exists.',
+                'end_date_after_start'                        : 'The end date must be after the start date',
+                'start_date_before_end'                       : 'The start date must be before the end date',
+                'created'                                     : 'The conference has been saved',
+                'not_created'                                 : 'Sorry, the conference has not been saved'
 
             },
             messages   : {
@@ -197,16 +197,16 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 no_description: 'The conference doesn\'t have a decritpion yet'
             },
             model      : {
-                country: 'Country',
-                city   : 'City',
-                label  : 'Label',
-                startAt: 'Start at',
-                endAt  : 'End at',
+                country    : 'Country',
+                city       : 'City',
+                label      : 'Label',
+                startAt    : 'Start at',
+                endAt      : 'End at',
                 description: 'Description',
-                logo   : 'Logo',
-                'url'  : 'Url',
-                'twitter' : 'Twitter',
-                'share' : 'Share'
+                logo       : 'Logo',
+                'url'      : 'Url',
+                'twitter'  : 'Twitter',
+                'share'    : 'Share'
             }
         },
 
@@ -214,16 +214,16 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
         events        : {
             actions    : {
                 search: 'Search an event',
-                new  : 'New event',
-                add  : 'Add a event',
-                edit : 'Edit the event',
+                new   : 'New event',
+                add   : 'Add a event',
+                edit  : 'Edit the event',
                 import: 'Import events',
                 export: 'Export events',
-                print: 'Print events'
+                print : 'Print events'
             },
             links      : {
-                events: 'Events',
-                event : 'Event',
+                events  : 'Events',
+                event   : 'Event',
                 schedule: 'Schedule',
                 calendar: 'Calendar'
             },
@@ -246,15 +246,15 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 delete_confirm: 'Are you sure you want to delete this event ?'
             },
             model      : {
-                label   : 'Label',
+                label      : 'Label',
                 description: 'Description',
-                url     : 'Url',
-                day     : 'Day',
-                startAt : 'Start at',
-                endAt   : 'End at',
-                sessions: 'Sessions',
-                twitter : 'Twitter',
-                share   : 'Share'
+                url        : 'Url',
+                day        : 'Day',
+                startAt    : 'Start at',
+                endAt      : 'End at',
+                sessions   : 'Sessions',
+                twitter    : 'Twitter',
+                share      : 'Share'
 
             }
         },
@@ -263,43 +263,43 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
         papers        : {
             actions    : {
                 search: 'Search a paper',
-                new  : 'New paper',
-                add  : 'Add a paper',
-                edit : 'Edit the paper',
+                new   : 'New paper',
+                add   : 'Add a paper',
+                edit  : 'Edit the paper',
                 import: 'Import paper',
                 export: 'Export paper',
-                print: 'Print paper',
-                view : 'Paper details',
-                index: {
+                print : 'Print paper',
+                view  : 'Paper details',
+                index : {
                     subtitle: 'Search papers'
                 }
             },
             links      : {
                 papers: 'Papers',
-                paper: 'Paper'
+                paper : 'Paper'
             },
             validations: {
-                created    : 'The paper has been saved',
-                not_created: 'Sorry, the paper has not been saved',
+                created         : 'The paper has been saved',
+                not_created     : 'Sorry, the paper has not been saved',
                 deletion_success: 'Paper deleted',
                 deletion_error  : 'Sorry, we couldn\'nt delete this Paper'
             },
             messages   : {
                 delete_confirm: 'Are you sure you want to delete this paper ?',
-                no_abstract: 'This paper has no abstract.'
+                no_abstract   : 'This paper has no abstract.'
             },
             model      : {
-                label    : 'Label',
-                abstract : 'abstract',
-                publisher: 'Publisher',
+                label       : 'Label',
+                abstract    : 'abstract',
+                publisher   : 'Publisher',
                 publish_date: 'Publish date',
-                url      : 'url',
-                authors  : 'Authors'
+                url         : 'url',
+                authors     : 'Authors'
             },
             labels     : {
                 publishedBy: 'Published by',
-                authors: 'Authors:',
-                author : 'Author:'
+                authors    : 'Authors:',
+                author     : 'Author:'
             }
         },
 
@@ -307,13 +307,13 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
         teammates     : {
             actions    : {
                 search: 'Search a teammate',
-                new  : 'New teammate',
-                add  : 'Add a teammate',
-                edit : 'Edit the teammate',
+                new   : 'New teammate',
+                add   : 'Add a teammate',
+                edit  : 'Edit the teammate',
                 import: 'Import teammate',
                 export: 'Export teammate',
-                print: 'Print teammate',
-                index: {
+                print : 'Print teammate',
+                index : {
                     subtitle: 'Search in the team'
                 }
             },
@@ -324,8 +324,8 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 teammate: 'Teammate'
             },
             validations: {
-                'created': 'The teammate has been saved',
-                'deleted': 'The teammate has been deleted',
+                'created'    : 'The teammate has been saved',
+                'deleted'    : 'The teammate has been deleted',
                 'not_created': 'Sorry, the teammate has not been saved'
             },
             messages   : {
@@ -340,20 +340,20 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
         topics        : {
             actions    : {
                 search: 'Search a topic',
-                new  : 'New topic',
-                add  : 'Add a topic',
-                edit : 'Edit the topic',
+                new   : 'New topic',
+                add   : 'Add a topic',
+                edit  : 'Edit the topic',
                 import: 'Import topics',
                 export: 'Export topics',
-                print: 'Print topics'
+                print : 'Print topics'
             },
             links      : {
                 topics: 'Topics',
-                topic: 'Topic'
+                topic : 'Topic'
             },
             labels     : {},
             validations: {
-                'created': 'The topic has been saved',
+                'created'    : 'The topic has been saved',
                 'not_created': 'Sorry, the topic has not been saved'
             },
             messages   : {

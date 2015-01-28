@@ -51,14 +51,22 @@ class SympozerEntityTypeTransformer extends AbstractSympozerTypeTransformer
             return null;
         }
 
+
+        //resolve entity
         $entityClassName = $this->getEntityClassName($this->options['type']);
         $entity = $this->getOrCreateEntity($input, $entityClassName);
-
         if (null === $entity)
         {
             throw new EntityNotFoundException($entityClassName);
         }
 
+        //if required and not cascaded the linked entity must have an id
+        if (!$this->options['cascade_persist'] && $this->options['required'] && null == $entity->getId())
+        {
+            return null;
+        }
+
+        //cascades form on linked entity
         if ($this->options['cascade_persist'] && is_array($input))
         {
             //call entity setter from given input
@@ -69,6 +77,7 @@ class SympozerEntityTypeTransformer extends AbstractSympozerTypeTransformer
             }
         }
 
+        //create linked entity
         if (null == $entity->getId())
         {
             if (isset($input['id']) && count($input) == 1)
@@ -77,6 +86,7 @@ class SympozerEntityTypeTransformer extends AbstractSympozerTypeTransformer
             }
             $this->em->persist($entity);
         }
+        //update linked entity
         else
         {
             $this->em->merge($entity);

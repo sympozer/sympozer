@@ -29,9 +29,18 @@ angular.module('sympozerApp').directive('wizard', ['translateFilter', function (
 
             //expose step functions
             scope.$parent.wizard = {
-                step: function (step)
+                step   : function (step, force)
                 {
-                    return element.stepy('step', step);
+                    element.stepy('step', step);
+                    if (force)
+                    { // force should be used while already changing page
+                        element.children("fieldset").stop().hide();
+                    }
+                    return element;
+                },
+                getForm: function ()
+                {
+                    return element;
                 }
             };
         }
