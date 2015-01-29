@@ -29,7 +29,7 @@ class Event extends VEvent
 {
     /**
      * Category
-     *
+     * @Expose
      * @ORM\ManyToOne(targetEntity="Category", inversedBy="events")
      * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
      * @Groups({"list"})
