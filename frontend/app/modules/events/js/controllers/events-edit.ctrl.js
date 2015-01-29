@@ -197,7 +197,7 @@ angular.module('eventsApp').controller('eventsEditCtrl', [
             }
             else
             {
-                $scope.event.category = category;
+                $scope.event.category = categoryModel;
             }
         };
 
