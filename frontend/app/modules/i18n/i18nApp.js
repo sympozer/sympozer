@@ -44,6 +44,7 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 days  : 'Days',
                 to    : 'To',
                 from  : 'From',
+                see_more : 'See more ...',
                 search: {
                     displaying: 'Displaying results for',
                     no_result: 'No results found',
@@ -243,7 +244,9 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 deletion_error  : 'Sorry, we couldn\'nt delete this event'
             },
             messages   : {
-                delete_confirm: 'Are you sure you want to delete this event ?'
+                delete_confirm: 'Are you sure you want to delete this event ?',
+                no_description: 'No description available'
+
             },
             model      : {
                 label      : 'Label',
@@ -648,6 +651,7 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 to    : 'Jusq\'à',
                 day   : 'jour',
                 days  : 'Jours',
+                see_more : 'Details ...',
                 searchResult: 'Résultat pour',
                 search: {
                     displaying: 'Résultat pour',
@@ -846,7 +850,8 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 deletion_error  : 'Désolé,  nous n\'avons pas pu supprimer l\'évènement'
             },
             messages   : {
-                delete_confirm: 'Etes-vous sur de vouloir supprimer cet évènement ?'
+                delete_confirm: 'Etes-vous sur de vouloir supprimer cet évènement ?',
+                no_description: 'Aucune description pour le moment'
             },
             model      : {
                 label   : 'Label',

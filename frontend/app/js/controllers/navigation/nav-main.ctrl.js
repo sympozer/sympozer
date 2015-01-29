@@ -7,12 +7,10 @@
 angular.module('sympozerApp').controller('navMainCtrl', ['$scope', '$rootScope', '$location', '$timeout', '$uiConfig', function ($scope, $rootScope, $location, $timeout, $uiConfig)
 {
 
-
     //Array containing the open nodes (nodes clicked)
     $scope.openNodes = [];
     //Array containing the open nodes (nodes clicked)
     $scope.selectedNodes = [];
-
 
     /**
      * This menu is always present

@@ -166,9 +166,10 @@ angular.module('eventsApp').controller('eventsScheduleCtrl', ['$scope', '$templa
         });
         modalInstance.result.then(function (sympozerEvent)
         {
-            calEvent = eventToCalEvent(sympozerEvent,calEvent);
+            calEvent = eventToCalEvent(sympozerEvent);
 //            uiCalendarConfig.calendars[calendar].fullCalendar( 'renderEvent', event )
             $scope.calendarEl.fullCalendar( 'updateEvent', calEvent);
+            $scope.currentCalEvent = calEvent;
         })
     }
 
@@ -198,17 +199,17 @@ angular.module('eventsApp').controller('eventsScheduleCtrl', ['$scope', '$templa
     /* alert on eventClick */
     $scope.onEventClick = function( calEvent, jsEvent, view){
         console.log(calEvent.title + ' was clicked ');
-        $scope.currentCalEvent = calEvent;
-        var fnLink = $compile($templateCache.get("event-popover-lg.html"));
-        var options = {
-            content : $compile(fnLink($scope))($scope),
-            placement: calEvent.start.hours()>12?'top':'bottom',
-            html:true,
-        };
-
-        $(this).popover(options);
-        // change the border color just for fun
-        $(this).css('border', '1px solid black');
+//        $scope.currentCalEvent = calEvent;
+//        var fnLink = $compile($templateCache.get("event-popover-lg.html"));
+//        var options = {
+//            content : $compile(fnLink($scope))($scope),
+//            placement: calEvent.start.hours()>12?'top':'bottom',
+//            html:true,
+//        };
+//
+//        $(this).popover(options);
+//        // change the border color just for fun
+//        $(this).css('border', '1px solid black');
     };
 
     /* alert on Drop */
@@ -307,6 +308,28 @@ angular.module('eventsApp').controller('eventsScheduleCtrl', ['$scope', '$templa
 
     /* Render Tooltip */
     $scope.eventRender = function( calEvent, element, view ) {
+
+
+        element.click(function(){
+
+            $('.popover').hide();
+            //Fetch the event with all its fields
+            $scope.currentCalEvent = eventsFact.get({ 'id' : calEvent.id}, function(event){
+                //Calculate difference between start and end
+                var currentDuration = moment.duration(calEvent.end - calEvent.start);
+                //Create an understanable string to express the duration
+                $scope.currentCalEvent.duration = currentDuration.humanize();
+            });
+
+            var options = {
+                content : $compile($templateCache.get("event-popover-lg.html"))($scope),
+                placement: calEvent.start.hours()>12?'top':'bottom',
+                html:true
+            };
+
+            $(this).popover(options);
+        })
+
 
     };
 
