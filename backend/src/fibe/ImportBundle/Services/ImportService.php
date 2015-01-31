@@ -74,13 +74,20 @@ class ImportService
                     if (null != $linkedEntityClassName = $fieldConfig->targetEntity)
                     { //its a linked entity!
 
-                        //create the linked entity
-                        //                    $linkedEntity = new $linkedEntityClassName();
-                        //                    $setter = "set" . ucwords($uniqField);
-                        //                    $linkedEntity->$setter($value);
 
                         //get the linked entity
                         $linkedEntity = $em->getRepository($linkedEntityClassName)->findOneBy(array($fieldConfig->uniqField => $value));
+
+                        //or create if configured for
+                        if (!$linkedEntity && $fieldConfig->create)
+                        {
+                            $linkedEntity = new $linkedEntityClassName();
+                            $setter = "set" . ucwords($fieldConfig->uniqField);
+                            $linkedEntity->$setter($value);
+                            $return["entities"][] = $linkedEntity;
+                            $return["imported"]++;
+                        }
+
                         if (!$linkedEntity)
                         {
                             if ($fieldConfig->optional)

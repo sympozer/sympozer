@@ -39,6 +39,7 @@ class Agent
      */
     protected $id;
 
+
     /**
      * Url of the website
      *
@@ -128,7 +129,8 @@ class Agent
                 $em->getClassMetadata(get_class($this->getLocalization())),
                 $this->getLocalization()
             );
-        } catch (\RuntimeException $e)
+        }
+        catch (\RuntimeException $e)
         {
             //append in sonata admin bundle
         }

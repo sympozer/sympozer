@@ -65,14 +65,18 @@ angular.module('importApp').controller('importCtrl', [
 
                     validateFile();
 
-                    //import
-                    if (!$scope.validationError)
-                    {
-                        importFile();
-                    }
+                    importFile();
 
                     break;
             }
+        };
+
+        $scope.retrySend = function (step)
+        {
+            fileIsValidated = true;
+            fileIsImported = false;
+            $scope.busy = true;
+            $scope.wizard.step(step);
         };
 
         function parseFile()
@@ -118,7 +122,8 @@ angular.module('importApp').controller('importCtrl', [
 
         function importFile()
         {
-            if (!fileIsImported)
+
+            if (!fileIsImported && !$scope.validationError)
             {
                 $scope.busy = true;
                 importService.send($scope.results, $scope.$root.currentMainEvent ? $scope.$root.currentMainEvent.id : undefined, "true", function (importResults)
@@ -135,11 +140,10 @@ angular.module('importApp').controller('importCtrl', [
                     fileIsImported = true;
                 });
             }
-
         }
 
-//parses csvs into arrays and put in csvsAsArrays
-// called when files were drop or selected
+        //parses csvs into arrays and put in csvsAsArrays
+        // called when files were drop or selected
         $scope.fileChanged = function (isRemoved)
         {
             csvsAsArrays = [];
@@ -176,12 +180,6 @@ angular.module('importApp').controller('importCtrl', [
                 }
 
             }
-        };
-
-        $scope.retrySend = function (step)
-        {
-            $scope.busy = true;
-            $scope.wizard.step(step);
         };
 
     }])

@@ -25,6 +25,12 @@ class Importer
     public $targetEntity;
 
     /**
+     * can the linked entity be created?
+     * @var bool
+     */
+    public $create = false;
+
+    /**
      * @var bool
      */
     public $optional = false;
@@ -42,6 +48,11 @@ class Importer
         if ($this->optional)
         {
             $options .= "[optional=true]";
+        }
+
+        if ($this->create)
+        {
+            $options .= "[create=true]";
         }
 
         return sprintf("%s(%s)%s",

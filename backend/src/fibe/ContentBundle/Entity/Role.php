@@ -92,7 +92,7 @@ class Role
      * @Groups({"list"})
      * @MaxDepth(2)
      *
-     * @Importer(uniqField="label", targetEntity="fibe\ContentBundle\Entity\RoleLabel")
+     * @Importer(uniqField="label",create=true, targetEntity="fibe\ContentBundle\Entity\RoleLabel")
      */
     private $roleLabel;
 
