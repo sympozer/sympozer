@@ -17,22 +17,27 @@ use Symfony\Component\Security\Core\SecurityContextInterface;
 class ImportService
 {
     const IMPORT_ALL = "all";
+    const COLLECTION_SEPARATOR = ",";
 
-    function __construct(SecurityContextInterface $security, Reader $reader)
+    protected $reader;
+    protected $security;
+    protected $em;
+
+    function __construct(SecurityContextInterface $security, Reader $reader, EntityManagerInterface $em)
     {
         $this->reader = $reader;
         $this->security = $security;
+        $this->em = $em;
     }
 
     /**
      * @param array $datas
      * @param $shortClassName
      * @param \fibe\EventBundle\Entity\MainEvent $mainEvent
-     * @param \Doctrine\ORM\EntityManagerInterface $em
      * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
      * @return array
      */
-    public function importEntities(array $datas, $shortClassName, MainEvent $mainEvent, EntityManagerInterface $em)
+    public function importEntities(array $datas, $shortClassName, MainEvent $mainEvent)
     {
 
         $entityClassName = $this->getClassNameFromShortClassName($shortClassName);
@@ -73,40 +78,27 @@ class ImportService
 
                     if (null != $linkedEntityClassName = $fieldConfig->targetEntity)
                     { //its a linked entity!
-
-
-                        //get the linked entity
-                        $linkedEntity = $em->getRepository($linkedEntityClassName)->findOneBy(array($fieldConfig->uniqField => $value));
-
-                        //or create if configured for
-                        if (!$linkedEntity && $fieldConfig->create)
-                        {
-                            $linkedEntity = new $linkedEntityClassName();
-                            $setter = "set" . ucwords($fieldConfig->uniqField);
-                            $linkedEntity->$setter($value);
-                            $return["entities"][] = $linkedEntity;
-                            $return["imported"]++;
+                        if ($fieldConfig->collection)
+                        { //its a collection of linked entity
+                            $values = explode(self::COLLECTION_SEPARATOR, $value);
+                            $value = array();
+                            for ($k = 0; $k < count($values); $k++)
+                            {
+                                if (false == $linkedEntity = $this->getOrCreateLinkedEntity($linkedEntityClassName, $fieldConfig, $values[$k], $i, $j))
+                                {
+                                    break; //break the for loop
+                                }
+                                $value[] = $linkedEntity;
+                            }
                         }
-
-                        if (!$linkedEntity)
+                        else
                         {
-                            if ($fieldConfig->optional)
+                            if (false == $linkedEntity = $this->getOrCreateLinkedEntity($linkedEntityClassName, $fieldConfig, $value, $i, $j))
                             {
                                 break; //break the for loop
                             }
-                            throw new SympozerImportErrorException(
-                                sprintf("%s with field '%s' = '%s' was not found and is mandatory.",
-                                    $fieldConfig->getTargetEntityShortClassName(),
-                                    $fieldConfig->uniqField,
-                                    $value
-                                ),
-                                $i + 1,
-                                $j + 1,
-                                (string) $fieldConfig,
-                                $value);
+                            $value = $linkedEntity;
                         }
-
-                        $value = $linkedEntity;
                     }
 
                     //call the setter
@@ -124,11 +116,11 @@ class ImportService
                     $return["errors"][$ex->getLine()] = array();
                 }
                 $return["errors"][$ex->getLine()][$ex->getColumnNb()] = array(
-                    "line"   => $ex->getLine(),
-                    "column" => $ex->getColumn(),
+                    "line"     => $ex->getLine(),
+                    "column"   => $ex->getColumn(),
                     "columnNb" => $ex->getColumnNb(),
-                    "value"  => $ex->getValue(),
-                    "msg"    => $ex->getMessage()
+                    "value"    => $ex->getValue(),
+                    "msg"      => $ex->getMessage()
                 );
             }
         }
@@ -154,6 +146,12 @@ class ImportService
         return $importFields;
     }
 
+    /**
+     * @param $entityClassName
+     * @param Reader $reader
+     * @param $asString
+     * @return array
+     */
     protected function getImportConfig($entityClassName, Reader $reader, $asString)
     {
         $importFields = [];
@@ -180,5 +178,51 @@ class ImportService
         }
 
         return $importFields;
+    }
+
+    /**
+     * @param string $linkedEntityClassName the classname
+     * @param Importer $fieldConfig the configuration
+     * @param string $value the input value
+     * @param int $i current line of parsed datas
+     * @param int $j current field of parsed datas
+     * @return bool|object                      the entity | false if the field is provided and isn't required
+     * @throws SympozerImportErrorException     if the field is mandatory & not configured to be created & not found
+     */
+    function getOrCreateLinkedEntity($linkedEntityClassName, Importer $fieldConfig, $value, $i, $j)
+    {
+        //get the linked entity
+        $linkedEntity = $this->em->getRepository($linkedEntityClassName)->findOneBy(array($fieldConfig->uniqField => $value));
+
+        //or create if configured for
+        if (!$linkedEntity && $fieldConfig->create)
+        {
+            $linkedEntity = new $linkedEntityClassName();
+            $setter = "set" . ucwords($fieldConfig->uniqField);
+            $linkedEntity->$setter($value);
+            $this->em->persist($linkedEntity);
+//            $return["entities"][] = $linkedEntity;
+//            $return["imported"]++;
+        }
+
+        if (!$linkedEntity)
+        {
+            if ($fieldConfig->optional)
+            {
+                return false; //break the for loop
+            }
+            throw new SympozerImportErrorException(
+                sprintf("%s with field '%s' = '%s' was not found and is mandatory.",
+                    $fieldConfig->getTargetEntityShortClassName(),
+                    $fieldConfig->uniqField,
+                    $value
+                ),
+                $i + 1,
+                $j + 1,
+                (string) $fieldConfig,
+                $value);
+        }
+
+        return $linkedEntity;
     }
 }

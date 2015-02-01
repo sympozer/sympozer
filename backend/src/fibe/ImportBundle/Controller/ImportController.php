@@ -94,7 +94,7 @@ class ImportController extends FOSRestController
         $mainEvent = $this->getMainEventByid($mainEventId);
         $setMainEventSetter = 'setMainEvent';
 
-        $return = $this->get('fibe_import.import_service')->importEntities($datas, $entityLabel, $mainEvent, $em);
+        $return = $this->get('fibe_import.import_service')->importEntities($datas, $entityLabel, $mainEvent);
 
         if (count($return["errors"]) > 0)
         {
@@ -123,7 +123,6 @@ class ImportController extends FOSRestController
         return $return;
     }
 
-    //TODO : put this in ACLHelper
     /**
      * shortcut to get mainEvent by id
      * @param $mainEventId

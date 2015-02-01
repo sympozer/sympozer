@@ -8,6 +8,7 @@ use fibe\CommunityBundle\Entity\Person;
 use fibe\ContentBundle\Util\StringTools;
 use fibe\EventBundle\Entity\Event;
 use fibe\EventBundle\Entity\MainEvent;
+use fibe\ImportBundle\Annotation\Importer;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
 use JMS\Serializer\Annotation\Groups;
@@ -36,13 +37,14 @@ class Paper
     private $id;
 
 
-
     /**
      * label (or title of the paper)
      *
      * @ORM\Column(type="string")
      * @Expose
      * @Groups({"list"})
+     *
+     * @Importer
      */
     private $label;
 
@@ -54,6 +56,7 @@ class Paper
      * @Expose
      * @Groups({"list"})
      *
+     * @Importer
      */
     private $abstract;
 
@@ -63,6 +66,8 @@ class Paper
      * @ORM\Column(type="string", nullable=true)
      * @Expose
      * @Groups({"list"})
+     *
+     * @Importer
      */
     private $url;
 
@@ -76,6 +81,8 @@ class Paper
      * @Expose
      * @MaxDepth(2)
      * @Groups({"list"})
+     *
+     * @Importer(uniqField="email", collection=true, targetEntity="fibe\CommunityBundle\Entity\Person")
      */
     private $authors;
 
@@ -85,6 +92,8 @@ class Paper
      * @ORM\Column(type="string", nullable=true, name="publisher")
      * @Expose
      * @Groups({"list"})
+     *
+     * @Importer
      */
     private $publisher;
 
@@ -95,6 +104,8 @@ class Paper
      * @SerializedName("publishDate")
      * @Expose
      * @Groups({"list"})
+     *
+     * @Importer
      */
     private $publishDate;
 
@@ -106,6 +117,8 @@ class Paper
      *     joinColumns={@ORM\JoinColumn(name="paper_id", referencedColumnName="id", onDelete="Cascade")},
      *     inverseJoinColumns={@ORM\JoinColumn(name="topic_id", referencedColumnName="id", onDelete="Cascade")})
      * @Expose
+     *
+     * @Importer(uniqField="label", collection=true, create=true, targetEntity="fibe\ContentBundle\Entity\Topic")
      */
     private $topics;
 
@@ -182,6 +195,14 @@ class Paper
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @param mixed $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
     }
 
     /**
@@ -408,6 +429,14 @@ class Paper
     }
 
     /**
+     * @param mixed $topics
+     */
+    public function setTopics($topics)
+    {
+        $this->topics = $topics;
+    }
+
+    /**
      * Add events
      *
      * @param Event $events
@@ -442,6 +471,14 @@ class Paper
     }
 
     /**
+     * @param mixed $events
+     */
+    public function setEvents($events)
+    {
+        $this->events = $events;
+    }
+
+    /**
      * Get mainEvent
      *
      * @return MainEvent
@@ -463,29 +500,5 @@ class Paper
         $this->mainEvent = $mainEvent;
 
         return $this;
-    }
-
-    /**
-     * @param mixed $id
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
-
-    /**
-     * @param mixed $events
-     */
-    public function setEvents($events)
-    {
-        $this->events = $events;
-    }
-
-    /**
-     * @param mixed $topics
-     */
-    public function setTopics($topics)
-    {
-        $this->topics = $topics;
     }
 }

@@ -1,5 +1,5 @@
 <div class="modal-header" xmlns="http://www.w3.org/1999/html">
-<h3 class="modal-title">{{ entityLbl.toLowerCase() + 's.actions.import' | translate}}</h3>
+  <h3 class="modal-title">{{ entityLbl.toLowerCase() + 's.actions.import' | translate}}</h3>
 </div>
 <div class="modal-body">
   <form action="#" data-wizard="{select:changeStep}" class="form-horizontal">
@@ -111,9 +111,14 @@
       </alert>
       <alert type="warning" ng-show="!busy && validationError && !error">
         <span> There are errors. Cannot {{'import.send_to_server' | translate  | lowercase}}</span></alert>
-      <!--todo : indclude dynamic tempalte-->
-      <div ng-repeat="role in importResults.entities  track by $index" class="col-sm-5 col-md-5 col-lg-5">
-        <div sympozer-with-locals locals-role="role" locals-edit="true" ng-include="GLOBAL_CONFIG.app.modules.roles.urls.partials+'views/roles-tile-sm.html'"></div>
+      <!--todo : include dynamic template-->
+      <div ng-repeat="entity in importResults.entities  track by $index" class="col-sm-5 col-md-5 col-lg-5">
+        <div sympozer-with-locals
+             ng-init="dynamicvar = ( entityLbl | lowercase ); tplUrl = GLOBAL_CONFIG.app.modules[( entityLbl | lowercase ) + 's'].urls.partials+'views/' + ( entityLbl | lowercase ) + 's-tile-sm.html'"
+             locals-dynamicvar="entity"
+             locals-edit="true"
+             ng-include="tplUrl"
+            ></div>
       </div>
 
     </fieldset>

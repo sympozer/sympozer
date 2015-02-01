@@ -13,6 +13,7 @@ use fibe\SecurityBundle\Entity\User;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
 use JMS\Serializer\Annotation\Groups;
+use JMS\Serializer\Annotation\MaxDepth;
 use JMS\Serializer\Annotation\SerializedName;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -75,6 +76,7 @@ class Person extends Agent
     /**
      * Paper made by this person
      * @Expose
+     * @MaxDepth(1)
      * @ORM\ManyToMany(targetEntity="fibe\ContentBundle\Entity\Paper",  mappedBy="authors", cascade={"all"})
      */
     protected $papers;

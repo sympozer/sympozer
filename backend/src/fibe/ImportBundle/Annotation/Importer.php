@@ -31,6 +31,12 @@ class Importer
     public $create = false;
 
     /**
+     * is it a collection?
+     * @var bool
+     */
+    public $collection = false;
+
+    /**
      * @var bool
      */
     public $optional = false;
@@ -43,23 +49,29 @@ class Importer
 
     public function __toString()
     {
-        $options = "";
+        $rtn = $this->propertyName;
 
-        if ($this->optional)
+        if ($this->targetEntity)
         {
-            $options .= "[optional=true]";
+            $rtn .= "($this->uniqField)";
         }
 
         if ($this->create)
         {
-            $options .= "[create=true]";
+            $rtn .= "[create=true]";
         }
 
-        return sprintf("%s(%s)%s",
-            $this->propertyName,
-            $this->uniqField,
-            $options
-        );
+        if ($this->collection)
+        {
+            $rtn .= "[collection=true]";
+        }
+
+        if ($this->optional)
+        {
+            $rtn .= "[optional=true]";
+        }
+
+        return $rtn;
     }
 
     public function getTargetEntityShortClassName()

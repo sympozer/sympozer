@@ -8,6 +8,7 @@
     <service id="fibe_import.import_service" class="fibe\ImportBundle\Services\ImportService">
       <argument type="service" id="security.context"/>
       <argument type="service" id="annotations.reader"/>
+      <argument type="service" id="doctrine.orm.entity_manager"/>
     </service>
   </services>
 </container>

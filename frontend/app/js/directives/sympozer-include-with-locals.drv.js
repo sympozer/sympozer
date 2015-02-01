@@ -10,12 +10,30 @@
  *      ng-include="GLOBAL_CONFIG.app.modules.persons.urls.partials+'views/persons-entity-row-lg.html'"
  *      sympozer-with-locals locals-person="teammate.person"
  *      ></div>
- *  in example to access the "teammate.person" as {{ person }} in this directive scope
+ *  this injects "teammate.person" from parent scope as {{ person }} in the child scope
+ *
+ *
+ *  This directive also handle dynamic var naming. Use an alias to give var thanks to ng-init drv.
+ *
+ *  use it like (here, "dynamicvar" is used to store the dynamic value):
+ * <div sympozer-with-locals
+ *      ng-init="dynamicvar = ( entityLbl | lowercase );"
+ *      locals-dynamicvar="entity"
+ * ></div>
+ *
+ *  this injects "entity" from parent scope as {{ paper }} in the child scope
+ *
  */
-angular.module('sympozerApp').directive('sympozerWithLocals', function ($parse)
+angular.module('sympozerApp').directive('sympozerWithLocals', function ($parse, $compile)
 {
+    $ngParse = $parse;
     return {
-        scope  : true,
+        scope: true,
+
+        link   : function (scope, element, attrs)
+        {
+            console.log("sympozerWithLocals link")
+        },
         compile: function (element, attributes, transclusion)
         {
             // for each attribute that matches locals-* (camelcased to locals[A-Z0-9]),
@@ -24,7 +42,7 @@ angular.module('sympozerApp').directive('sympozerWithLocals', function ($parse)
             var mapLocalsToParentExp = {};
             for (attr in attributes)
             {
-                if (attributes.hasOwnProperty(attr) && /^locals[A-Z0-9]/.test(attr))
+                if (attributes.hasOwnProperty(attr) && /^locals.*$/.test(attr))
                 {
                     var localKey = attr.slice(6);
                     localKey = localKey[0].toLowerCase() + localKey.slice(1);
@@ -55,15 +73,22 @@ angular.module('sympozerApp').directive('sympozerWithLocals', function ($parse)
                     $scope.locals = {};
                     for (localKey in mapLocalsToParentExp)
                     {
+                        //dynamic var naming
+                        var toWatch = mapLocalsToParentExp[localKey];
+                        if ($scope.$parent.$parent[localKey] && $scope.$parent.$parent[toWatch])
+                        {
+                            $scope[$scope.$parent.$parent[localKey]] = $scope.$parent.$parent[toWatch];
+                            toWatch = $scope.$parent.$parent[localKey];
+                        }
 
                         // For each local key, $watch the provided expression and update
                         // the $scope.locals hash (i.e. attribute `locals-cars` has key
                         // `cars` and the $watch()ed value maps to `$scope.locals.cars`)
                         $scope.$watch(
-                            mapLocalsToParentExp[localKey],
+                            toWatch,
                             function (localKey)
                             {
-                                return function (newValue, oldValue)
+                                return function (newValue, oldValue, $scope)
                                 {
                                     $scope[localKey] = newValue;
                                 };

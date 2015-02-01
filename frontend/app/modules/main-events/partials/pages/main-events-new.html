@@ -1,38 +1,34 @@
 <div id="page-heading">
 
-    <div ng-include="GLOBAL_CONFIG.app.urls.partials+'navigation/breadcrumb.html'"></div>
+  <div ng-include="GLOBAL_CONFIG.app.urls.partials+'navigation/breadcrumb.html'"></div>
 
-    <h1>{{'mainEvents.actions.new' | translate }}</h1>
+  <h1>{{'mainEvents.actions.new' | translate }}</h1>
 
-    <!--Options bar containing possible actions-->
-    <div class="options">
-        <div class="btn-toolbar">
-            <a sympozer-acl-show="mainEvent" class="btn btn-info" href="#/home/mainEvents/edit/{{mainEvent.id}}" role="button">
-                <i class="fa fa-edit fa-1x"></i> {{ 'persons.actions.edit_profile' | translate}}
-            </a>
-
-        </div>
+  <!--Options bar containing possible actions-->
+  <div class="options">
+    <div class="btn-toolbar">
     </div>
+  </div>
 </div>
 <!--Page content-->
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="panel panel-gray">
-                <div class="panel-body">
-                    <div class="row">
-                        <form name="conferenceForm" class="form-horizontal" role="form" ng-submit="create(conferenceForm)">
-                            <div ng-include="GLOBAL_CONFIG.app.modules.mainEvents.urls.partials+'views/main-events-form.html'"></div>
-                            <div class="form-group">
-                                <div  class="col-sm-3 control-label"></div>
-                                <div class="col-sm-6">
-                                    <button type="submit" ng-disabled="conferenceForm.$invalid" class="btn btn-success">{{ 'global.actions.save' | translate}}</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="panel panel-gray">
+        <div class="panel-body">
+          <div class="row">
+            <form name="conferenceForm" class="form-horizontal" role="form" ng-submit="create(conferenceForm)">
+              <div ng-include="GLOBAL_CONFIG.app.modules.mainEvents.urls.partials+'views/main-events-form.html'"></div>
+              <div class="form-group">
+                <div class="col-sm-3 control-label"></div>
+                <div class="col-sm-6">
+                  <button type="submit" ng-disabled="conferenceForm.$invalid" class="btn btn-success">{{ 'global.actions.save' | translate}}</button>
                 </div>
-            </div>
+              </div>
+            </form>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </div>

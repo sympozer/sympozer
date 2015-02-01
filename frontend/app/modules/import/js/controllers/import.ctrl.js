@@ -73,8 +73,7 @@ angular.module('importApp').controller('importCtrl', [
 
         $scope.retrySend = function (step)
         {
-            fileIsValidated = true;
-            fileIsImported = false;
+            fileIsImported = fileIsValidated = false;
             $scope.busy = true;
             $scope.wizard.step(step);
         };
@@ -139,6 +138,10 @@ angular.module('importApp').controller('importCtrl', [
                     $scope.busy = false;
                     fileIsImported = true;
                 });
+            }
+            else
+            {
+                $scope.busy = false;
             }
         }
 
