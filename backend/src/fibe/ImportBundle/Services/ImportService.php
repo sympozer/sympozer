@@ -58,7 +58,7 @@ class ImportService
             );
         }
         $header = $this->getImportConfigFromShortClassName($shortClassName);
-
+//        \Doctrine\Common\Util\Debug::dump($header);
         $return = array("errors" => array(), "imported" => 0);
         //loop over received rows
         for ($i = 0; $i < count($datas); $i++)
@@ -141,18 +141,18 @@ class ImportService
     {
         $className = $this->getClassNameFromShortClassName($shortClassName);
 
-        $importFields = $this->getImportConfig($className, $this->reader, $asString);
+        $importFields = $this->getImportConfig($className, $asString);
 
         return $importFields;
     }
 
     /**
+     * Parses Importer annotation and return the whole import config for $entityClassName
      * @param $entityClassName
-     * @param Reader $reader
      * @param $asString
      * @return array
      */
-    protected function getImportConfig($entityClassName, Reader $reader, $asString)
+    protected function getImportConfig($entityClassName, $asString)
     {
         $importFields = [];
         $importerAnnotationClass = get_class(new Importer());
@@ -161,7 +161,7 @@ class ImportService
         foreach ($reflectionObject->getProperties() as $reflectionProperty)
         {
             /** @var Importer $importerAnnot */
-            $importerAnnot = $reader->getPropertyAnnotation($reflectionProperty, $importerAnnotationClass);
+            $importerAnnot = $this->reader->getPropertyAnnotation($reflectionProperty, $importerAnnotationClass);
             if (null !== $importerAnnot)
             {
                 $importerAnnot->propertyName = $reflectionProperty->getName();
@@ -201,8 +201,6 @@ class ImportService
             $setter = "set" . ucwords($fieldConfig->uniqField);
             $linkedEntity->$setter($value);
             $this->em->persist($linkedEntity);
-//            $return["entities"][] = $linkedEntity;
-//            $return["imported"]++;
         }
 
         if (!$linkedEntity)

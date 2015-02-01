@@ -1,10 +1,10 @@
 <a class="btn btn-info" sympozer-acl-show="currentMainEvent" href="#/home/conference/{{currentMainEvent.id}}/events/new/" title="{{ 'events.actions.add' | translate }}">
   <i class="fa fa-plus"></i><span class="visible-sm-inline visible-lg-inline visible-md-inline"> {{ 'events.actions.new' | translate }}</span>
 </a>
-<a class="btn btn-info" sympozer-acl-show="currentMainEvent" href="#conference/:confId/events/import/" title="{{ 'events.actions.import' | translate }}" disabled="disabled">
+<button ng-controller="importCtrl" class="btn btn-info" sympozer-acl-show="currentMainEvent" ng-click="startImport('Event')" title="{{ 'events.actions.import' | translate }}" disabled="disabled">
   <i class="fa fa-caret-square-o-down"></i>
   <span class="visible-sm-inline visible-lg-inline visible-md-inline"> {{ 'events.actions.import' | translate }}</span>
-</a>
+</button>
 
 <a class="btn btn-info" sympozer-acl-show="currentMainEvent" href="#conference/:confId/events/export/" title="{{ 'events.actions.export' | translate }}" disabled="disabled">
   <i class="fa fa-caret-square-o-up"></i><span class="visible-sm-inline visible-lg-inline  visible-md-inline "> {{ 'events.actions.export' | translate }}</span>

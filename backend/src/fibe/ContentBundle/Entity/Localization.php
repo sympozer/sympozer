@@ -3,6 +3,7 @@
 namespace fibe\ContentBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use fibe\ImportBundle\Annotation\Importer;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
 use JMS\Serializer\Annotation\Groups;
@@ -40,6 +41,8 @@ class Localization
    * @ORM\Column(type="string", length=255)
    * @Expose
    * @Groups({"list"})
+   *
+   * @Importer()
    */
   protected $label;
   /**

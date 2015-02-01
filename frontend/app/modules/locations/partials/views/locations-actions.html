@@ -2,10 +2,10 @@
   <i class="fa fa-plus"></i><span class="visible-sm-inline visible-lg-inline visible-md-inline"> {{ 'locations.actions.new' | translate }}</span>
 </a>
 
-<a class="btn btn-info" sympozer-acl-show="currentMainEvent" disabled="disabled" href="#/home/conference/{{currentMainEvent.id}}/locations/import/" title="{{ 'locations.actions.import' | translate }}" disabled="disabled">
-  <i class="fa fa-caret-square-o-down"></i>
+<button ng-controller="importCtrl" class="btn btn-info" sympozer-acl-show="currentMainEvent" ng-click="startImport('Location')" title="{{ 'locations.actions.import' | translate }}">
+<i class="fa fa-caret-square-o-down"></i>
   <span class="visible-sm-inline visible-lg-inline visible-md-inline"> {{ 'locations.actions.import' | translate }}</span>
-</a>
+</button>
 
 <a class="btn btn-info" sympozer-acl-show="currentMainEvent" disabled="disabled" href="#/home/conference/{{currentMainEvent.id}}/locations/export/" title=" {{ 'locations.actions.export' | translate }}" disabled="disabled">
   <i class="fa fa-caret-square-o-up"></i><span class="visible-sm-inline visible-lg-inline  visible-md-inline ">  {{ 'locations.actions.export' | translate }}</span>

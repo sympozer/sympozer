@@ -4,6 +4,7 @@ namespace fibe\ContentBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use fibe\ImportBundle\Annotation\Importer;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
 use JMS\Serializer\Annotation\Groups;
@@ -32,11 +33,13 @@ class Location extends Localization
      */
     protected $id;
     /**
-     * Capacity to welcome atendees
+     * Capacity to welcome attendees
      *
      * @ORM\Column(type="integer", nullable=true)
      * @Expose
      * @Groups({"list"})
+     *
+     * @Importer()
      */
     protected $capacity;
     /**
@@ -44,6 +47,8 @@ class Location extends Localization
      * @ORM\ManyToMany(targetEntity="fibe\ContentBundle\Entity\Equipment",  cascade={"all"})
      * @Expose
      * @Groups({"list"})
+     *
+     * @Importer(uniqField="label", collection=true, create=true, targetEntity="fibe\ContentBundle\Entity\Equipment")
      */
     protected $equipments;
     /**
@@ -52,6 +57,8 @@ class Location extends Localization
      * @ORM\Column(type="text", nullable=true)
      * @Expose
      * @Groups({"list"})
+     *
+     * @Importer()
      */
     protected $description;
     /**
@@ -60,6 +67,8 @@ class Location extends Localization
      * @ORM\Column(type="text", nullable=true)
      * @Expose
      * @Groups({"list"})
+     *
+     * @Importer()
      */
     protected $accesibility;
     /**
