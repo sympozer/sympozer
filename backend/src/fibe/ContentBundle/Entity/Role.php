@@ -63,7 +63,7 @@ class Role
      * @Groups({"list"})
      * @MaxDepth(2)
      *
-     * @Importer(uniqField="email", targetEntity="fibe\CommunityBundle\Entity\Person")
+     * @Importer(optional=false, uniqField="email", targetEntity="fibe\CommunityBundle\Entity\Person")
      */
     private $person;
 
@@ -92,7 +92,7 @@ class Role
      * @Groups({"list"})
      * @MaxDepth(2)
      *
-     * @Importer(uniqField="label", create=true, targetEntity="fibe\ContentBundle\Entity\RoleLabel")
+     * @Importer(optional=false, uniqField="label", create=true, targetEntity="fibe\ContentBundle\Entity\RoleLabel")
      */
     private $roleLabel;
 
@@ -103,7 +103,7 @@ class Role
      * @Groups({"list"})
      * @MaxDepth(1)
      *
-     * @Importer(targetEntity="fibe\EventBundle\Entity\Event", optional=true)
+     * @Importer(targetEntity="fibe\EventBundle\Entity\Event")
      */
     private $event;
 

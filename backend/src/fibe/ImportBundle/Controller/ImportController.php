@@ -15,6 +15,8 @@ class ImportController extends FOSRestController
     const IMPORT_ALL = "all";
     const IMPORTER_ANNOTATION = 'fibe\\ContentBundle\\Annotation\\Importer';
 
+    const CSV_DELIMITER = ";";
+
     //return results label
     const IMPORT_ERROR = "error";
     const IMPORT_DONE_COMMIT = "done(commit)";
@@ -44,7 +46,7 @@ class ImportController extends FOSRestController
 
         $handle = fopen('php://memory', 'r+');
 
-        fputcsv($handle, $header);
+        fputcsv($handle, $header, self::CSV_DELIMITER);
 
         rewind($handle);
         $content = stream_get_contents($handle);

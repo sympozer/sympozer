@@ -72,9 +72,29 @@ class ImportService
                 //loop over importable properties
                 for ($j = 0; $j < count($header); $j++)
                 {
-                    $value = $row[$j];
                     /** @var Importer $fieldConfig */
                     $fieldConfig = $header[$j];
+
+                    //if data
+                    if (!isset($row[$j]))
+                    {
+                        if (!$fieldConfig->optional)
+                        {
+                            throw new SympozerImportErrorException(
+                                sprintf("field '%s' is mandatory.",
+                                    $fieldConfig->propertyName
+                                ),
+                                $i + 1,
+                                $j + 1,
+                                (string) $fieldConfig,
+                                $value);
+                        }
+                        else
+                        {
+                            continue;
+                        }
+                    }
+                    $value = $row[$j];
 
                     if (null != $linkedEntityClassName = $fieldConfig->targetEntity)
                     { //its a linked entity!

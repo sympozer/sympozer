@@ -44,7 +44,7 @@ class Paper
      * @Expose
      * @Groups({"list"})
      *
-     * @Importer
+     * @Importer(optional=false)
      */
     private $label;
 

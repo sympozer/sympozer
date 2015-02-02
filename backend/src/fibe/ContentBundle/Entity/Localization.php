@@ -42,7 +42,7 @@ class Localization
    * @Expose
    * @Groups({"list"})
    *
-   * @Importer()
+   * @Importer(optional=false)
    */
   protected $label;
   /**

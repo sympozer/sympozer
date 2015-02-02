@@ -37,7 +37,7 @@ angular.module('importApp').controller('importCtrl', [
             var modalInstance = $modal.open({
                 templateUrl: GLOBAL_CONFIG.app.modules.import.urls.partials + 'modals/import.html',
                 controller : 'importCtrl',
-                size       : "large",
+                size       : "lg",
                 scope      : $scope
             });
         };

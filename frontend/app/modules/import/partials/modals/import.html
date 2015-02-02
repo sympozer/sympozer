@@ -74,11 +74,11 @@
         <tr ng-repeat="entity in results track by $index"
             ng-init="lineNb = $index">
           <td ng-repeat="field in entity track by $index"
-              ng-class="importResults.errors[lineNb + 1][$index + 1] ? 'import-warning' : ''">
+              ng-class="importResults.errors[lineNb][$index] ? 'import-warning' : ''">
             <div popover-trigger="mouseenter"
-                 popover="{{ importResults.errors[lineNb + 1][$index + 1].msg }}"
+                 popover="{{ importResults.errors[lineNb][$index].msg }}"
                  popover-title="error">
-              <span>{{ field }}</span>
+              <span ng-show="field">{{ field  || "empty"}}</span>
             </div>
           </td>
           <td>

@@ -39,7 +39,7 @@ class Importer
     /**
      * @var bool
      */
-    public $optional = false;
+    public $optional = true;
 
     /**
      * The pty this annotation is bound with
@@ -50,6 +50,11 @@ class Importer
     public function __toString()
     {
         $rtn = $this->propertyName;
+
+        if (!$this->optional)
+        {
+            $rtn .= "*";
+        }
 
         if ($this->targetEntity)
         {
@@ -64,11 +69,6 @@ class Importer
         if ($this->collection)
         {
             $rtn .= "[collection=true]";
-        }
-
-        if ($this->optional)
-        {
-            $rtn .= "[optional=true]";
         }
 
         return $rtn;

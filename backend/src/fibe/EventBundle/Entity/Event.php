@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use fibe\ContentBundle\Entity\Paper;
 use fibe\ContentBundle\Util\StringTools;
+use fibe\ImportBundle\Annotation\Importer;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
 use JMS\Serializer\Annotation\Groups;
@@ -28,14 +29,6 @@ use JMS\Serializer\Annotation\SerializedName;
 class Event extends VEvent
 {
     /**
-     * Category
-     * @Expose
-     * @ORM\ManyToOne(targetEntity="Category", inversedBy="events")
-     * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
-     * @Groups({"list"})
-     */
-    protected $category;
-    /**
      * label -> summary
      *
      * This property defines a short summary or subject for the
@@ -43,8 +36,20 @@ class Event extends VEvent
      * @ORM\Column(type="string", length=255, unique=false, nullable=false)
      * @Expose
      * @Groups({"list"})
+     *
+     * @Importer(optional=false)
      */
     protected $label;
+    /**
+     * Category
+     * @Expose
+     * @ORM\ManyToOne(targetEntity="Category", inversedBy="events")
+     * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
+     * @Groups({"list"})
+     *
+     * @Importer(uniqField="label", create=true, targetEntity="fibe\Eventbundle\Entity\Category")
+     */
+    protected $category;
     /**
      * The parent of the event
      *
@@ -67,6 +72,8 @@ class Event extends VEvent
      * @SerializedName("startAt")
      * @Expose
      * @Groups({"list"})
+     *
+     * @Importer()
      */
     protected $startAt;
     /**
@@ -79,6 +86,8 @@ class Event extends VEvent
      * @SerializedName("endAt")
      * @Expose
      * @Groups({"list"})
+     *
+     * @Importer
      */
     protected $endAt;
 
@@ -93,10 +102,12 @@ class Event extends VEvent
      * @Groups({"list"})
      */
     protected $mainEvent;
+
     /**
      * @ORM\Column(type="string", length=128, nullable=true)
      */
     protected $slug;
+
     /**
      * Papers presented at an event
      *
@@ -105,6 +116,8 @@ class Event extends VEvent
      *     joinColumns={@ORM\JoinColumn(name="event_id", referencedColumnName="id")},
      *     inverseJoinColumns={@ORM\JoinColumn(name="paper_id", referencedColumnName="id")})
      * @MaxDepth(1)
+     *
+     * @Importer(collection=true, targetEntity="fibe\ContentBundle\Entity\Paper")
      */
     protected $papers;
 
@@ -126,6 +139,8 @@ class Event extends VEvent
      * @Expose
      * @Groups({"list"})
      * @MaxDepth(3)
+     *
+     * @Importer(collection=true, targetEntity="fibe\ContentBundle\Entity\Paper")
      */
     protected $roles;
 
@@ -168,8 +183,6 @@ class Event extends VEvent
      */
     protected function slugify()
     {
-        echo $this->getLabel();
-//        throw new \Exception("slug event");
         $this->setSlug(StringTools::slugify(hash('sha256', uniqid(mt_rand(), true), true) . $this->getLabel()));
     }
 
