@@ -2,7 +2,7 @@
 
 /**
  * Navigation main controller. Handles the configuration of the nav bars and search system
- * @TODO : replace code
+ * @TODO : theme replace
  */
 angular.module('sympozerApp').controller('navMainCtrl', ['$scope', '$rootScope', '$location', '$timeout', '$uiConfig', function ($scope, $rootScope, $location, $timeout, $uiConfig)
 {

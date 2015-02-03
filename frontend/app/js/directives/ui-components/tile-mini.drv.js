@@ -1,6 +1,7 @@
 /**
  * tile mini directive
  * use to handle tile mini component rendering
+ * @TODO : theme replace
  */
 angular.module('sympozerApp').directive('tileMini', [ 'GLOBAL_CONFIG', function (GLOBAL_CONFIG)
 {

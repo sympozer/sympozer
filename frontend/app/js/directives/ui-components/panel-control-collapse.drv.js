@@ -1,6 +1,7 @@
 /**
  * panelControlCollapse directive
  * use to handle collapsible open/close events
+ * @TODO : theme replace
  */
 angular.module('sympozerApp').directive('panelControlCollapse', function ()
 {

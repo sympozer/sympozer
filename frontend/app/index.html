@@ -46,16 +46,17 @@
 
   <!-- build:css assets/css/vendor.css -->
   <!-- bower:css -->
-  <link rel="stylesheet" href="bower/angular-toggle-switch/angular-toggle-switch.css"/>
-  <link rel="stylesheet" href="bower/angular-xeditable/dist/css/xeditable.css"/>
-  <link rel="stylesheet" href="bower/select2/select2.css"/>
-  <link rel="stylesheet" href="bower/font-awesome/css/font-awesome.css"/>
-  <link rel="stylesheet" href="bower/jScrollPane/style/jquery.jscrollpane.css"/>
-  <link rel="stylesheet" href="bower/pnotify/pnotify.core.css"/>
-  <link rel="stylesheet" href="bower/pnotify/pnotify.buttons.css"/>
-  <link rel="stylesheet" href="bower/pnotify/pnotify.history.css"/>
-  <link rel="stylesheet" href="bower/bootstrap-social/bootstrap-social.css"/>
-  <link rel="stylesheet" href="bower/bootstrap-tags/dist/css/bootstrap-tags.css"/>
+  <link rel="stylesheet" href="bower/angular-toggle-switch/angular-toggle-switch.css" />
+  <link rel="stylesheet" href="bower/angular-xeditable/dist/css/xeditable.css" />
+  <link rel="stylesheet" href="bower/select2/select2.css" />
+  <link rel="stylesheet" href="bower/font-awesome/css/font-awesome.css" />
+  <link rel="stylesheet" href="bower/jScrollPane/style/jquery.jscrollpane.css" />
+  <link rel="stylesheet" href="bower/pnotify/pnotify.core.css" />
+  <link rel="stylesheet" href="bower/pnotify/pnotify.buttons.css" />
+  <link rel="stylesheet" href="bower/pnotify/pnotify.history.css" />
+  <link rel="stylesheet" href="bower/bootstrap-social/bootstrap-social.css" />
+  <link rel="stylesheet" href="bower/bootstrap-tags/dist/css/bootstrap-tags.css" />
+  <link rel="stylesheet" href="bower/stepy/lib/jquery.stepy.css" />
   <!-- endbower -->
 
   <link rel='stylesheet' type='text/css' href='assets/plugins/icheck/all.css'/>
@@ -236,7 +237,6 @@
 <script src="bower/jquery.easing/js/jquery.easing.js"></script>
 <script src="bower/jquery-autosize/jquery.autosize.js"></script>
 <script src="bower/jquery-validation/dist/jquery.validate.js"></script>
-<script src="bower/jquery.pulsate/jquery.pulsate.min.js"></script>
 <script src="bower/bootstrap/dist/js/bootstrap.js"></script>
 <script src="bower/seiyria-bootstrap-slider/js/bootstrap-slider.js"></script>
 <script src="bower/gmaps/gmaps.js"></script>
@@ -255,7 +255,7 @@
 <script src="bower/placeholdr/placeholdr.js"></script>
 <script src="bower/iCheck/icheck.min.js"></script>
 <script src="bower/bootstrap-tags/dist/js/bootstrap-tags.js"></script>
-<script src="bower/stepy/lib/jquery.stepy.js"></script>
+<script src="bower/stepy/lib/jquery.stepy.min.js"></script>
 <script src="bower/flow.js/dist/flow.js"></script>
 <script src="bower/ng-flow/dist/ng-flow.js"></script>
 <!-- endbower -->
@@ -303,7 +303,6 @@
 
 <!--DIRECTIVES-->
 <script src="js/directives/dates/datetime-format.drv.js"></script>
-<script src="js/directives/dates/daterangepicker.drv.js"></script>
 <script src="js/directives/dates/sympozer-event-days-dropdown.drv.js"></script>
 
 <script src="js/directives/ui-components/icheck.drv.js"></script>
@@ -316,6 +315,7 @@
 <script src="js/directives/ui-components/tile-large.drv.js"></script>
 <script src="js/directives/ui-components/tile-mini.drv.js"></script>
 <script src="js/directives/ui-components/sideboxright.drv.js"></script>
+<script src="js/directives/ui-components/fullcalendar.drv.js"></script>
 
 
 <script src="js/directives/lists/entity-list-handler.drv.js"></script>
@@ -357,6 +357,7 @@
 <script src="js/services/search.fact.js"></script>
 <script src="js/services/gmaps.fact.js"></script>
 <script src="js/services/uiConfig.fact.js"></script>
+<script src="js/services/date-days-difference.fact.js"></script>
 
 
 <!-- SYMPOZER AUTHENTICATION APP -->
@@ -512,7 +513,6 @@
 <script src="modules/events/js/controllers/events-new.ctrl.js"></script>
 <script src="modules/events/js/controllers/events-schedule.ctrl.js"></script>
 <script src="modules/events/js/controllers/events-show.ctrl.js"></script>
-<script src="modules/events/js/controllers/events-filters.ctrl.js"></script>
 <!-- SERVICES -->
 <script src="modules/events/js/services/events.fact.js"></script>
 

@@ -1,6 +1,7 @@
 /**
  * progress loader service
  * Handles the loading bar
+ * @TODO : theme replace
  */
 angular.module('sympozerApp').factory('progressLoader', function ()
 {

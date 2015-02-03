@@ -11,7 +11,7 @@ angular.module('sympozerApp').directive('sideboxright',['GLOBAL_CONFIG', functio
 {
     return {
         restrict: 'EA',
-        template: '<div ng-include="templateUrl" ></div>',
+        template: '<div ng-include="templateUrl"  ></div>',
         link: function (scope, element, attr) {
 
             //Set templateUrl to be used in the "template" property of the directive
