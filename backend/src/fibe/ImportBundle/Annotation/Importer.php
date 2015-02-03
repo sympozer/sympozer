@@ -43,9 +43,17 @@ class Importer
 
     /**
      * The pty this annotation is bound with
+     * this pty is set in ImprotService
      * @var string
      */
     public $propertyName;
+
+    /**
+     * the dateFormat, null if not a date
+     * this pty is set in ImprotService
+     * @var string
+     */
+    public $dateFormat;
 
     public function __toString()
     {
@@ -69,6 +77,11 @@ class Importer
         if ($this->collection)
         {
             $rtn .= "[collection=true]";
+        }
+
+        if ($this->dateFormat)
+        {
+            $rtn .= "[dateFormat=" . $this->dateFormat . "]";
         }
 
         return $rtn;

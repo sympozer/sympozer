@@ -1,8 +1,10 @@
 <?php
 namespace fibe\ImportBundle\Services;
 
+use DateTime;
 use Doctrine\Common\Annotations\Reader;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Mapping\Column;
 use fibe\EventBundle\Entity\MainEvent;
 use fibe\ImportBundle\Annotation\Importer;
 use fibe\ImportBundle\Exception\SympozerImportErrorException;
@@ -18,6 +20,8 @@ class ImportService
 {
     const IMPORT_ALL = "all";
     const COLLECTION_SEPARATOR = ",";
+    const DATE_FORMAT = 'Y-m-d';
+    const DATETIME_FORMAT = 'Y-m-d H:i';
 
     protected $reader;
     protected $security;
@@ -31,6 +35,7 @@ class ImportService
     }
 
     /**
+     * Do the unserialization between incoming datas to entities
      * @param array $datas
      * @param $shortClassName
      * @param \fibe\EventBundle\Entity\MainEvent $mainEvent
@@ -75,9 +80,9 @@ class ImportService
                     /** @var Importer $fieldConfig */
                     $fieldConfig = $header[$j];
 
-                    //if data
-                    if (!isset($row[$j]))
-                    {
+                    //check empty / mandatory
+                    if (!isset($row[$j]) || empty($row[$j]))
+                    { //no data sent for this field
                         if (!$fieldConfig->optional)
                         {
                             throw new SympozerImportErrorException(
@@ -87,7 +92,7 @@ class ImportService
                                 $i + 1,
                                 $j + 1,
                                 (string) $fieldConfig,
-                                $value);
+                                "empty");
                         }
                         else
                         {
@@ -96,6 +101,7 @@ class ImportService
                     }
                     $value = $row[$j];
 
+                    //check linked entity/collection
                     if (null != $linkedEntityClassName = $fieldConfig->targetEntity)
                     { //its a linked entity!
                         if ($fieldConfig->collection)
@@ -119,6 +125,24 @@ class ImportService
                             }
                             $value = $linkedEntity;
                         }
+                    }
+
+                    //check date/datetime format
+                    if (null != $dateFormat = $fieldConfig->dateFormat)
+                    { //its a date/datetime entity!
+                        if (!$date = DateTime::createFromFormat($dateFormat, $value))
+                        {
+                            throw new SympozerImportErrorException(
+                                sprintf("Date '%s' is not well formatted: format is %s",
+                                    $fieldConfig->propertyName,
+                                    $dateFormat
+                                ),
+                                $i + 1,
+                                $j + 1,
+                                (string) $fieldConfig,
+                                $value);
+                        }
+                        $value = $date;
                     }
 
                     //call the setter
@@ -148,7 +172,7 @@ class ImportService
         return $return;
     }
 
-    function getClassNameFromShortClassName($shortClassName)
+    protected function getClassNameFromShortClassName($shortClassName)
     {
         if (isset(ACLHelper::$ACLEntityNameArray[$shortClassName]))
         {
@@ -176,15 +200,30 @@ class ImportService
     {
         $importFields = [];
         $importerAnnotationClass = get_class(new Importer());
+        $columnAnnotationClass = get_class(new Column());
 
         $reflectionObject = new \ReflectionObject(new $entityClassName());
         foreach ($reflectionObject->getProperties() as $reflectionProperty)
         {
             /** @var Importer $importerAnnot */
-            $importerAnnot = $this->reader->getPropertyAnnotation($reflectionProperty, $importerAnnotationClass);
-            if (null !== $importerAnnot)
+            if (null !== $importerAnnot = $this->reader->getPropertyAnnotation($reflectionProperty, $importerAnnotationClass))
             {
                 $importerAnnot->propertyName = $reflectionProperty->getName();
+
+                /** @var Column $columnAnnot */
+                if (null !== $columnAnnot = $this->reader->getPropertyAnnotation($reflectionProperty, $columnAnnotationClass))
+                {
+                    switch ($columnAnnot->type)
+                    {
+                        case "datetime":
+                            $importerAnnot->dateFormat = self::DATETIME_FORMAT;
+                            break;
+                        case "date":
+                            $importerAnnot->dateFormat = self::DATE_FORMAT;
+                            break;
+                    }
+                }
+
                 if ($asString)
                 {
                     $fieldName = (string) $importerAnnot; //call __toString()
@@ -206,7 +245,7 @@ class ImportService
      * @param string $value the input value
      * @param int $i current line of parsed datas
      * @param int $j current field of parsed datas
-     * @return bool|object                      the entity | false if the field is provided and isn't required
+     * @return false|object                      the entity | false if the field isn't provided and isn't required
      * @throws SympozerImportErrorException     if the field is mandatory & not configured to be created & not found
      */
     function getOrCreateLinkedEntity($linkedEntityClassName, Importer $fieldConfig, $value, $i, $j)

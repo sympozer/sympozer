@@ -42,7 +42,7 @@ class MainEvent extends VEvent
      *
      * This property defines a short summary or subject for the
      * calendar component.
-     * @ORM\Column(type="string", length=255, unique=true, nullable=false)
+     * @ORM\Column(type="string", length=255, nullable=false)
      * @Expose
      * @Groups({"list"})
      */
@@ -483,27 +483,6 @@ class MainEvent extends VEvent
 
         return true;
     }
-
-
-    /**
-     * computeEndAt
-     *
-     * @ORM\PrePersist()
-     * @ORM\PreUpdate()
-     */
-    public function computeEndAt()
-    {
-        /*if (!$this->getEndAt() && $this->getStartAt()) {
-            $endAt = clone $this->getStartAt();
-            $endAt->modify(self::DEFAULT_EVENT_DURATION);
-            $this->setEndAt($endAt);
-        } else if (!$this->getStartAt()) {
-            $this->setEndAt((new \DateTime("now"))->modify(self::DEFAULT_EVENT_DURATION));
-            $this->setStartAt(new \DateTime("now"));
-
-        }*/
-    }
-
 
     /**
      * @return mixed

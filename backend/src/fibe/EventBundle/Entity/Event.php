@@ -73,7 +73,7 @@ class Event extends VEvent
      * @Expose
      * @Groups({"list"})
      *
-     * @Importer()
+     * @Importer
      */
     protected $startAt;
     /**
@@ -163,6 +163,15 @@ class Event extends VEvent
     public function onUpdate()
     {
         $this->slugify();
+
+        /*        if (!$this->getEndAt() && $this->getStartAt()) {
+                    $endAt = clone $this->getStartAt();
+                    $endAt->modify(self::DEFAULT_EVENT_DURATION);
+                    $this->setEndAt($endAt);
+                } else if (!$this->getStartAt()) {
+                    $this->setEndAt((new \DateTime("now"))->modify(self::DEFAULT_EVENT_DURATION));
+                    $this->setStartAt(new \DateTime("now"));
+                }*/
         //$this->setIsInstant($this->getEndAt()->format('U') == $this->getStartAt()->format('U'));
 
         //ensure main conf has correct properties
