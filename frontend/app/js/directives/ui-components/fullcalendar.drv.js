@@ -32,10 +32,7 @@ angular.module('sympozerApp').directive('fullcalendar',[ 'GLOBAL_CONFIG', '$comp
                     defaultTimedEventDuration :   moment.duration(15, 'minutes'),
                     resources : resources,
                     resourceFilter: function (resource) {
-                        var active = $("input").map(function(){
-                            return this.checked ? this.name : null;
-                        }).get();
-                        return $.inArray(resource.id, active) > -1;
+                        return $.inArray(resource, scope.resources) > -1;
                     },
                     events : function(start, end, timezone, callback) {
                         //Fetch events and call callback to render
@@ -155,6 +152,7 @@ angular.module('sympozerApp').directive('fullcalendar',[ 'GLOBAL_CONFIG', '$comp
                     var calResource = angular.copy(sympozerLocation);
                 }
                 calResource.name = sympozerLocation.label || "";
+                calResource.className = [];
                 return calResource;
             }
 
@@ -295,15 +293,21 @@ angular.module('sympozerApp').directive('fullcalendar',[ 'GLOBAL_CONFIG', '$comp
             }
 
 
-            /* add custom event*/
-            scope.addEvent = function() {
-                scope.events.push({
-                    title: 'Open Sesame',
-                    start: new Date(y, m, 28),
-                    end: new Date(y, m, 29),
-                    className: ['openSesame']
-                });
+            /* add a resource to resource array */
+            scope.addResource = function(location) {
+                scope.resources.push(locationToCalResource(location));
+                scope.renderCalendar();
+
             };
+
+            /* add a resource to resource array */
+            scope.removeResource = function(index) {
+                scope.resources.splice(index, 1);
+                scope.renderCalendar();
+            };
+
+
+
             /* remove event */
             scope.remove = function(index) {
                 scope.events.splice(index,1);
@@ -320,6 +324,10 @@ angular.module('sympozerApp').directive('fullcalendar',[ 'GLOBAL_CONFIG', '$comp
             scope.renderCalendar = function(calendar) {
                 scope.calendarEl.fullCalendar('render', true);
             };
+
+            scope.refetchEvents = function(){
+                scope.calendarEl.fullCalendar( 'refetchEvents' );
+            }
 
             /* Render Tooltip */
             scope.eventRender = function( calEvent, element, view ) {
@@ -372,6 +380,9 @@ angular.module('sympozerApp').directive('fullcalendar',[ 'GLOBAL_CONFIG', '$comp
                 scope.calendarEl.fullCalendar('gotoDate', date);
             }
 
+           scope.refreshEvents = function(){
+               scope.renderCalendar();
+           }
         }
 
     }

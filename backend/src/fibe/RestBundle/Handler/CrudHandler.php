@@ -42,10 +42,10 @@ class CrudHandler
      */
     public function getAll($entityClassName, ParamFetcherInterface $paramFetcher, $routeParams = null)
     {
-        $offset = $paramFetcher->get('offset');
-        $limit = $paramFetcher->get('limit');
-        $order = $paramFetcher->get('order');
-        $query = $paramFetcher->get('query');
+        $offset  = $paramFetcher->get('offset');
+        $limit   = $paramFetcher->get('limit');
+        $order   = $paramFetcher->get('order');
+        $query   = $paramFetcher->get('query');
         $filters = $paramFetcher->get('filters');
 
         if (!empty($routeParams))

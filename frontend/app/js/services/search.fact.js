@@ -6,13 +6,14 @@ angular.module('sympozerApp').factory('searchService', [
     '$timeout', function ($timeout)
     {
         var searchTimeout;
-        return {
+        var self = this;
 
-            /**
-             * Send a request to the backend according to a configuration passed in parameters
-             * @param arg callback to execute when responses comes back from the server
-             * @param searchConfig JSON object containing :
-             *   searchService.doSearch({
+
+        /**
+         * Send a request to the backend according to a configuration passed in parameters
+         * @param arg callback to execute when responses comes back from the server
+         * @param searchConfig JSON object containing :
+         *   searchService.doSearch({
              *      entitiesLbl: childEntityLbl,
              *      callback: callback
              *  }, {
@@ -25,67 +26,89 @@ angular.module('sympozerApp').factory('searchService', [
              *       routeParams: the route parameters,
              *       orderSide: the side to order on (ASC / DESC)
              *   });
-             *
-             */
-            doSearch: function (arg, searchConfig)
+         *
+         */
+        this.doSearch = function (arg, searchConfig)
+        {
+            //avoid too many queries
+            $timeout.cancel(searchTimeout);
+            searchTimeout = $timeout(doSearch, 500);
+
+            //Serialize the request and send
+            function doSearch()
             {
-                //avoid too many queries
-                $timeout.cancel(searchTimeout);
-                searchTimeout = $timeout(doSearch, 500);
+                //Initialize request parameters
+                var requestParams = {
+                    query : searchConfig.query,
+                    offset: searchConfig.offset,
+                    limit : searchConfig.limit
+                };
 
-                //Serialize the request and send
-                function doSearch()
+                //Serialize the order param
+                requestParams["order[" + searchConfig.orderBy + "]"] = searchConfig.orderSide || null;
+
+                //Add route parameters to request parameters
+                for (var param in searchConfig.routeParams)
                 {
-                    //Initialize request parameters
-                    var requestParams = {
-                        query : searchConfig.query,
-                        offset: searchConfig.offset,
-                        limit : searchConfig.limit
-                    };
-
-                    //Serialize the order param
-                    requestParams["order[" + searchConfig.orderBy + "]"] = searchConfig.orderSide || null;
-
-                    //Add route parameters to request parameters
-                    for (var param in searchConfig.routeParams)
-                    {
-                        requestParams[param] = searchConfig.routeParams[param];
-                    }
+                    requestParams[param] = searchConfig.routeParams[param];
+                }
 
 
-                    //Serialize filters
-                    for (var i in searchConfig.filters)
-                    {
-                        var currentFilter = searchConfig.filters[i];
-                        if (currentFilter instanceof Array)
-                        {
-                            requestParams["filters[" + i + "]"] = [];
-                            for (var value in currentFilter)
-                            {
-                                requestParams["filters[" + i + "]"].push(currentFilter[value]);
-                            }
-                        }
-                        else
-                        {
-                            requestParams["filters[" + i + "]"] = searchConfig.filters[i];
-                        }
-                    }
+                self.serializeFilters(searchConfig.filters, requestParams);
+                //Serialize filters
+//                    for (var i in searchConfig.filters)
+//                    {
+//                        var currentFilter = searchConfig.filters[i];
+//                        if (currentFilter instanceof Array)
+//                        {
+//                            requestParams["filters[" + i + "]"] = [];
+//                            for (var value in currentFilter)
+//                            {
+//                                requestParams["filters[" + i + "]"].push(currentFilter[value]);
+//                            }
+//                        }
+//                        else
+//                        {
+//                            requestParams["filters[" + i + "]"] = searchConfig.filters[i];
+//                        }
+//                    }
 
-                    //queryNb++;
+                //queryNb++;
 
-                    //Send request to server
-                    searchConfig.request(requestParams, success);
+                //Send request to server
+                searchConfig.request(requestParams, success);
 
-                    //When response from the server, trigger the callback
-                    function success(data)
-                    {
-//                        var isFirstQuery = firstQueryNb == queryDone;
-//                        queryDone++;
-                        arg.callback(data);
-                    }
+                //When response from the server, trigger the callback
+                function success(data)
+                {
+                    arg.callback(data);
                 }
             }
-        };
+        }
+
+        this.serializeFilters = function(filters,  serializedFilters){
+
+            for (var i in filters)
+            {
+                var currentFilter = filters[i];
+                if (currentFilter instanceof Array)
+                {
+                    serializedFilters["filters[" + i + "]"] = [];
+                    for (var value in currentFilter)
+                    {
+                        serializedFilters["filters[" + i + "]"].push(currentFilter[value]);
+                    }
+                }
+                else
+                {
+                    serializedFilters["filters[" + i + "]"] = filters[i];
+                }
+            }
+
+            return serializedFilters;
+        }
+
+        return this;
     }
 ]);
 
