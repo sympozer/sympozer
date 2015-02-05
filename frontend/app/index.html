@@ -22,7 +22,7 @@
   <link rel="icon" type="image/png" sizes="32x32" href="favicon.ico">
 
 
-  <!-- prochtml:remove:dist -->
+  <!-- prochtml:remove -->
   <link href="assets/less/import.less" rel="stylesheet/less" media="all">
   <!-- /prochtml -->
 
@@ -72,7 +72,7 @@
   <!-- Sympozer styles -->
   <!--<link rel='stylesheet' type='text/css' href="assets/css/styles.css"/>-->
 
-  <!-- prochtml:remove:dist -->
+  <!-- prochtml:remove -->
   <script type="text/javascript">less = {};
   less.env = 'development';</script>
   <script type="text/javascript" src="assets/plugins/misc/less.js"></script>
@@ -279,7 +279,7 @@
   Sympozer Angular scripts
 -->
 
-<!-- build:js js/sympozer-scripts.js -->
+<!-- build:js js/scripts.js -->
 <!-- SYMPOZER GLOBAL FILES -->
 <script src="js/ws-config.js"></script>
 <script src="js/app.js"></script>
@@ -572,11 +572,11 @@
 <script src="modules/import/js/services/import-service.fact.js"></script>
 <script src="modules/import/js/services/import.fact.js"></script>
 
+
+<!-- endbuild -->
 <script type="text/javascript" id="views/template-main.html">
-  // Remplacer ici la clé 'UA-XXXXXXXX-X' par la clé du compte Google Analytics que vous souhaitez suivre
-  // avec grunt ? <%= yeoman.local_config.gaToken %>
-  var gaToken = ""
+    // Remplacer ici la clé 'UA-XXXXXXXX-X' par la clé du compte Google Analytics que vous souhaitez suivre
+    var gaToken = ""
 </script>
-<!-- /build -->
 </body>
 </html>

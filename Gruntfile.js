@@ -227,24 +227,6 @@ module.exports = function (grunt)
                 autoWatch : false,
                 singleRun : true
             }
-//            unit_auto: {
-//                configFile: '<%= yeoman.test %>'+'/karma-unit.conf.js',
-//                autoWatch: true,
-//                singleRun: false
-//            },
-//            unit_coverage: {
-//                configFile: '<%= yeoman.test %>'+'/karma-unit.conf.js',
-//                autoWatch: false,
-//                singleRun: true,
-//                reporters: ['progress', 'coverage'],
-//                preprocessors: {
-//                    'app/scripts/*.js': ['coverage']
-//                },
-//                coverageReporter: {
-//                    type : 'html',
-//                    dir : 'coverage/'
-//                }
-//            }
         },
 
 
@@ -336,6 +318,12 @@ module.exports = function (grunt)
                         '<%= yeoman.dist %>/styles/fonts/*'
                     ]
                 }
+            }
+        },
+
+        concat: {
+            options: {
+                separator: ';'
             }
         },
 
@@ -476,8 +464,8 @@ module.exports = function (grunt)
                             'images/{,*/}*.{webp}',
                             'fonts/*',
                             'assets/**',
-                            'bower/font-awesome/fonts/*',
-                            'bower/bootstrap/fonts/*'
+                            'bower/font-awesome/**',
+                            'bower/bootstrap/**'
                         ]
                     },
                     {
@@ -598,7 +586,6 @@ module.exports = function (grunt)
 
         processhtml: {
             options: {
-                commentMarker: 'prochtml',
                 process      : true
             },
             dist   : {
@@ -754,7 +741,7 @@ module.exports = function (grunt)
         'useminPrepare',
         'concurrent:dist',
         'less:dist',
-        'autoprefixer',
+//        'autoprefixer',
         'concat',
         'ngmin',
         'copy:dist',
