@@ -1,7 +1,7 @@
 /**
  * slideOutNav directive
  * effect of left nav collapsible
- * @TODO : Define a proper animation, not a simple directive
+ * @TODO : Theme replace
  */
 angular.module('sympozerApp').directive('slideOutNav', ['$timeout', function ($t)
 {

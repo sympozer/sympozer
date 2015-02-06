@@ -1,5 +1,6 @@
 /**
  * panel control directive
+ * @TODO : theme replace
  */
 angular.module('sympozerApp').directive('panelControls', [function ()
 {

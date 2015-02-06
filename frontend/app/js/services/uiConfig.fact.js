@@ -1,6 +1,7 @@
 /**
  * $uiConfig service
  * Manage colors and change style event
+ * @TODO : theme replace
  * @type {service}
  */
 angular.module('sympozerApp').service('$uiConfig', ['$rootScope', '$document', '$window', function ($rootScope, $document, $window)

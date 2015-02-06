@@ -1,351 +1,119 @@
 /**
- * List events controller
- *
+ * events schedule controller
  * @type {controller}
  */
-angular.module('eventsApp').controller('eventsScheduleCtrl', ['$scope', '$templateCache', 'categoriesFact', '$routeParams', 'GLOBAL_CONFIG', '$rootScope', 'eventsFact', '$compile', '$modal', 'moment', 'locationsFact', function ($scope, $templateCache, categoriesFact, $routeParams, GLOBAL_CONFIG, $rootScope, eventsFact, $compile, $modal, moment, locationsFact)
-{
+angular.module('eventsApp').controller('eventsScheduleCtrl', ['$scope', '$templateCache', 'categoriesFact', '$routeParams', 'GLOBAL_CONFIG', '$rootScope', 'eventsFact', '$compile', '$modal', 'moment', 'locationsFact', 'dateDaysDifferenceFact', 'searchService', function ($scope, $templateCache, categoriesFact, $routeParams, GLOBAL_CONFIG, $rootScope, eventsFact, $compile, $modal, moment, locationsFact, dateDaysDifferenceFact, searchService) {
 
-    //Context change
-    //$rootScope.$broadcast('contextCtrl:changeContext', {mainEventId:$routeParams.mainEventId});
+    /************ FULLCALENDAR DRV CONTROL ******************/
 
-    $scope.calendarEl = $('#calendar');
-    var initCalendar = function(locations){
+    //Initialize filter list for locations and events
+    $scope.filters = {
+        'mainEventId': $routeParams.mainEventId,
+        'day'        : $rootScope.currentMainEvent.startAt
+    };
 
-        //Prepare a default location
-        var defaultLocation = {
-            id   : '0',
-            name : "no location"
+    //Get locations according to the current filters and execute callback with response
+    var fetchLocations = function (callback) {
+        locationsFact.allByConference({'mainEventId': $routeParams.mainEventId}, function (response) {
+            callback(response.results);
+        });
+    }
+
+    //Get events according to the current filters and execute callback with response
+    var fetchEvents = function (callback) {
+        var serializedFilters = {};
+       // searchService.serializeFilters($scope.filters, serializedFilters)
+        eventsFact.allByConference($scope.filters, function (response) {
+            callback(response.results);
+        });
+    }
+
+    //link fullcalendar directive fetching function to local functions
+    $scope.getEvents = fetchEvents;
+    $scope.getResources = fetchLocations;
+    $scope.initialDate = new moment($rootScope.currentMainEvent.startAt);
+
+
+    /************ FILTERS CONTROL ******************/
+
+        //Initilize open variable for accordions in filter box
+    $scope.filterboxAccordionsShowOne = false;
+    $scope.filterboxAccordions = [
+        {open: false},
+        {open: false},
+        {open: false},
+        {open: false},
+        {open: false}
+    ];
+
+    //Fetch categories
+    $scope.categories = categoriesFact.allByConference({'mainEventId': $routeParams.mainEventId});
+
+    //Fetch locations
+    $scope.locations = locationsFact.allByConference({'mainEventId': $routeParams.mainEventId});
+
+    //Get current main event day list
+    $scope.days = dateDaysDifferenceFact.getDaysDifference($rootScope.currentMainEvent.startAt, $rootScope.currentMainEvent.endAt);
+    $scope.days[0].active = true;
+
+
+
+    //Add to filter list
+    $scope.addFilter = function (filter, value) {
+        var filterIndex;
+
+        //test if the filter is already in the filters
+        if (!$scope.filters[filter]) {
+            filterIndex = -1;
+        } else {
+            filterIndex = $scope.filters[filter].indexOf(value);
         }
 
-        //Add the default location to the location list
-        locations.push(defaultLocation)
+        //If no, add it
+        if (filterIndex == -1) {
+            $scope.filters[filter] = value;
+        }
+        //If yes remove it
+        else {
+//            $scope.filters[filter].splice(filterIndex , 1);
+            delete($scope.filters[filter]);
+        }
 
-        //Declare new fullcalendar instance with the locations
-        $scope.calendarEl.fullCalendar({
-            height: 600,
-            editable: true,
-            droppable: true,
-            minTime : moment.duration(6, 'hours'),
-            maxTime : moment.duration(21, 'hours'),
-            defaultView : 'resourceDay',
-            defaultTimedEventDuration :   moment.duration(15, 'minutes'),
-            resources : locations,
-            events : function(start, end, timezone, callback) {
-                //Fetch events and call callback to render
-                eventsFact.allByConference({'mainEventId' :$routeParams.mainEventId, 'limit' : 40}, function(response) {
-                    $scope.event = response.results;
-                    var source = {}
-                    source.events = eventsToCalEvents($scope.event);
+        //Trigger the entity-list-handler filter function to send request
+        $scope.filter();
+    };
 
-                    callback(source.events);
-                })
-            },
-            complete : function(){
-                return;
-            },
-            header:{
-                left: 'resourceDay',
-                center: 'title',
-                right: 'today prev,next'
-            },
-            eventClick: $scope.onEventClick,
-            eventDrop: $scope.onEventDrop,
-            eventResize: $scope.onEventResize,
-            eventRender: $scope.eventRender,
-            selectable: true,
-            selectHelper: true,
-            eventAfterAllRender: function(){
-                //resize();
-            },
-            eventMouseover: $scope.onMouseOver,
-            select : $scope.onDurationSelection,
-            eventMouseout: function(calEvent, jsEvent) {
-                $(this).css('z-index', 8);
-                $('.tooltipevent').remove();
-            },
-        })
+    $scope.filter = function () {
+        $scope.refetchEvents();
+    }
+
+    $scope.addDaysFilter = function (index, day) {
+        $scope.addFilter('day', day.date.format('yyyy-MM-ddTHH:mmZ'));
+        $scope.goToDate(day.date);
     }
 
     /**
-     * Find an oject in an array by value of a specific property
-     * @param property, the property to look the value of
-     * @param value, the value to look for
-     * @param array, the array containing the object look
-     * @returns false if nothing found, the js object if found
+     * Add or remove a specific location in calendar view according to filters clicks
+     * @param index, the index of the clicked location in the location tab
+     * @param location, the location clicked
      */
-    var findObjectByProp = function(property, value, array){
-        for(i=0; i < array.length; i++){
-            if(array[i][property] == value){
-                return array[i];
+    $scope.addLocationsFilter = function (index, location) {
+        var inFilterArray = false;
+
+        //Verify if the clicked location is already displayed (in the fullcalendar resource tab)
+        for (var i = 0; i < $scope.resources.length; i++) {
+            if ($scope.resources[i].id == location.id) {
+                //If yes, remove it
+                $scope.removeResource(i);
+                inFilterArray = true;
             }
         }
-        return false;
-    }
 
-    /**
-     * Convert a sympozer event to a fullcalendar compatible event
-     * @param sympozerEvent, the event to convert
-     * @returns {{}}
-     */
-    var eventToCalEvent   = function(sympozerEvent, calEvent){
-        if(calEvent == undefined){
-            var calEvent = angular.copy(sympozerEvent);
+        //If the location clicked is not used then add it to the tab
+        if(!inFilterArray){
+            $scope.addResource(location);
         }
-
-        //Add location link if defined or link to "no location" otherwise
-        var resourcesTab = [];
-        if(sympozerEvent.location){
-            resourcesTab.push(sympozerEvent.location.id);
-        }else{
-            resourcesTab.push('0');
-        }
-
-        calEvent.title     = sympozerEvent.label || "";
-        calEvent.start     = new moment(sympozerEvent.startAt) || new moment();
-        calEvent.end       = new moment(sympozerEvent.endAt)   || new moment();
-        calEvent.resources = resourcesTab;
-
-        return calEvent;
     }
-
-
-    /**
-     * Convert an array of sympozer event to an array of fullcalendar compatible events
-     * @param sympozerEvents, the array to convert
-     * @returns {Array}
-     */
-    var eventsToCalEvents = function(sympozerEvents){
-        var calEvents = [];
-        for(i=0; i<sympozerEvents.length; i++){
-            calEvents.push(eventToCalEvent(sympozerEvents[i]));
-        }
-        return calEvents;
-    }
-
-    /**
-     * Convert a sympozer location to a fullcalendar compatible resource
-     * @param sympozerLocation, the location to convert
-     * @returns {{}}
-     */
-    var locationToCalResource   = function(sympozerLocation, calResource){
-        if(calResource == undefined){
-            var calResource = angular.copy(sympozerLocation);
-        }
-        calResource.name = sympozerLocation.label || "";
-        return calResource;
-    }
-
-    /**
-     * Convert an array of sympozer event to an array of fullcalendar compatible events
-     * @param sympozerEvents, the array to convert
-     * @returns {Array}
-     */
-    var locationsToCalResources = function(sympozerLocations){
-        var calResources = [];
-        for(i=0; i<sympozerLocations.length; i++){
-            calResources.push(locationToCalResource(sympozerLocations[i]));
-        }
-        return calResources;
-    }
-
-    /**
-     * Open a modal with the edit form of a specific event related to calEvent
-     * @param date
-     * @param jsEvent, the calEvent to edit
-     * @param view
-     */
-    $scope.editCalEvent = function (calEvent, jsEvent, view)
-    {
-        $scope.eventId = calEvent.id;
-        var modalInstance = $modal.open({
-            templateUrl: GLOBAL_CONFIG.app.modules.events.urls.partials + 'modals/events-modal-form.html',
-            controller : 'eventsEditCtrl',
-            size       : "large",
-            scope: $scope
-        });
-        modalInstance.result.then(function (sympozerEvent)
-        {
-            calEvent = eventToCalEvent(sympozerEvent);
-//            uiCalendarConfig.calendars[calendar].fullCalendar( 'renderEvent', event )
-            $scope.calendarEl.fullCalendar( 'updateEvent', calEvent);
-            $scope.currentCalEvent = calEvent;
-        })
-    }
-
-
-    $scope.events = []
-    $scope.locations = [];
-
-
-
-
-    locationsFact.allByConference({'mainEventId' :$routeParams.mainEventId}, function(response) {
-        $scope.locations = locationsToCalResources(response.results);
-        initCalendar($scope.locations);
-    })
-
-
-    /*
-     * Directive from : https://github.com/angular-ui/ui-calendar
-     * https://angular-ui.github.io/ui-calendar/
-     */
-    var date = new Date();
-    var d = date.getDate();
-    var m = date.getMonth();
-    var y = date.getFullYear();
-
-
-    /* alert on eventClick */
-    $scope.onEventClick = function( calEvent, jsEvent, view){
-        console.log(calEvent.title + ' was clicked ');
-//        $scope.currentCalEvent = calEvent;
-//        var fnLink = $compile($templateCache.get("event-popover-lg.html"));
-//        var options = {
-//            content : $compile(fnLink($scope))($scope),
-//            placement: calEvent.start.hours()>12?'top':'bottom',
-//            html:true,
-//        };
-//
-//        $(this).popover(options);
-//        // change the border color just for fun
-//        $(this).css('border', '1px solid black');
-    };
-
-    /* alert on Drop */
-    $scope.onEventDrop = function(calEvent, delta, revertFunc, jsEvent, ui, view){
-
-        //The event has been dropped in the "AllDay" box
-        if(!calEvent.start.hasTime()){
-            calEvent.allDay = true;
-        }else{
-            if(!calEvent.allDay) {
-                calEvent.startAt = moment(calEvent.startAt).add(delta).format();
-                calEvent.endAt = moment(calEvent.endAt).add(delta).format();
-            }else{
-                calEvent.startAt = moment(delta).format();
-            }
-            calEvent.allDay = false;
-        }
-
-        //Set location according to the resource tab value
-        if(calEvent.resources[0] != 0){
-            calEvent.location = findObjectByProp('id', calEvent.resources[0], $scope.locations);
-        }else{
-            //Delete the location if the event had been dragged into the no_location (id=0) resource
-            delete(calEvent.location);
-        }
-
-        //Send event update query on the server
-        eventsFact.update(eventsFact.serialize(calEvent));
-    };
-
-    /* Update the event if resized */
-    $scope.onEventResize = function(calEvent, delta, revertFunc, jsEvent, ui, view ){
-        calEvent.endAt = moment(calEvent.endAt).add(delta).format();
-        eventsFact.update(eventsFact.serialize(calEvent));
-    };
-
-    /* New event directly in the calendar */
-    $scope.onDurationSelection = function( start, end, jsEvent, view, resources ){
-
-        //Initialize new event
-        $scope.newEvent = {};
-        $scope.newEvent.startAt = $scope.newEvent.start = start;
-        $scope.newEvent.endAt = $scope.newEvent.end = end;
-
-        //Add location property according to the selected resource (resources[0])
-        if(resources && resources[0]!= 0){
-            $scope.newEvent.location = findObjectByProp('id', resources[0], $scope.locations);
-        }
-
-        //Open a modal with the current scope containing the new event
-        var modalInstance = $modal.open({
-            templateUrl: GLOBAL_CONFIG.app.modules.events.urls.partials + 'modals/events-modal-form.html',
-            controller : 'eventsNewCtrl',
-            size       : "large",
-            scope: $scope
-        });
-
-        //When the modal is closed and the event created
-        modalInstance.result.then(function (sympozerEvent)
-        {
-            //Reconvert incoming event to calevent
-            $scope.calEvent = eventToCalEvent(sympozerEvent, $scope.newEvent);
-
-            //Refresh  calendar
-            $scope.calendarEl.fullCalendar( 'renderEvent',  $scope.newEvent );
-
-            //Clean current newEvent
-            delete($scope.newEvent);
-        })
-    }
-
-
-    /* add custom event*/
-    $scope.addEvent = function() {
-        $scope.events.push({
-            title: 'Open Sesame',
-            start: new Date(y, m, 28),
-            end: new Date(y, m, 29),
-            className: ['openSesame']
-        });
-    };
-    /* remove event */
-    $scope.remove = function(index) {
-        $scope.events.splice(index,1);
-    };
-
-    /* Change View */
-    $scope.changeView = function(view,calendar) {
-        $scope.calendarEl.fullCalendar('changeView',view);
-    };
-
-    /* Change View */
-    $scope.renderCalendar = function(calendar) {
-        $scope.calendarEl.fullCalendar('render', true);
-    };
-
-    /* Render Tooltip */
-    $scope.eventRender = function( calEvent, element, view ) {
-
-
-        element.click(function(){
-
-            $('.popover').hide();
-            //Fetch the event with all its fields
-            $scope.currentCalEvent = eventsFact.get({ 'id' : calEvent.id}, function(event){
-                //Calculate difference between start and end
-                var currentDuration = moment.duration(calEvent.end - calEvent.start);
-                //Create an understanable string to express the duration
-                $scope.currentCalEvent.duration = currentDuration.humanize();
-            });
-
-            var options = {
-                content : $compile($templateCache.get("event-popover-lg.html"))($scope),
-                placement: calEvent.start.hours()>12?'top':'bottom',
-                html:true
-            };
-
-            $(this).popover(options);
-        })
-
-
-    };
-
-    $scope.onMouseOver =  function(calEvent, jsEvent, view) {
-//        $(this).popover({
-//            title: "My Title",
-//            placement:calEvent.start.hours()>12?'top':'bottom',
-//            html:true,
-//            content: calEvent.msg
-//        });
-//
-//        // change the border color just for fun
-//        $(this).css('border', '1px solid black');
-
-    }
-
 
 
 

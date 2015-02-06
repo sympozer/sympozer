@@ -1,6 +1,7 @@
 /**
  * tile directive
  * use to handle tile component rendering
+ * @TODO : theme replace
  */
 angular.module('sympozerApp').directive('tile',[ 'GLOBAL_CONFIG' ,function (GLOBAL_CONFIG)
 {

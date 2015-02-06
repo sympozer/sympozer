@@ -25,7 +25,7 @@
     "grunt-newer": "~0.6.1",
     "grunt-ngmin": "~0.0.2",
     "grunt-open": "~0.2.2",
-    "grunt-processhtml": "^0.3.3",
+    "grunt-processhtml": "^0.3.7",
     "grunt-protractor-runner": "^1.1.4",
     "grunt-rev": "~0.1.0",
     "grunt-shell": "~0.4.0",

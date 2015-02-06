@@ -19,12 +19,13 @@
 <div class="container-fluid">
     <div class="row">
         <button class="btn-success btn btn-large" ng-click="showSideboxRight=!showSideboxRight" ng-init="showSideboxRight=false">Filters</button>
-        <div id="calendar" class="calendar"></div>
+        <div id="calendar" fullcalendar class="calendar"></div>
     </div>
 </div>
 
+
 <!-- FILTERS SIDEBOX -->
-<div sideboxright="" show-sidebox-right="showFilterBar" inner-template-url="{{GLOBAL_CONFIG.app.modules.events.urls.partials}}pages/events-filters.html" ng-controller="eventsFiltersCtrl"></div>
+<div sideboxright="" show-sidebox-right="showFilterBar" inner-template-url="{{GLOBAL_CONFIG.app.modules.events.urls.partials}}pages/events-filters.html" ></div>
 
 
 
@@ -37,11 +38,14 @@
                     <i class="fa fa-plus"></i> Add to cal
                 </a>
             </div>
-            <div style="float:right" class="col-xs-2">
+
+            <div class="col-xs-3 pull-right">
                 <a class="btn btn-success btn-sm" sympozer-acl-show="currentCalEvent" ng-click="editCalEvent(currentCalEvent)">
                     <i class="fa fa-edit"></i> {{ 'global.actions.edit' | translate }}
                 </a>
+                <i ng-click="closePopovers()" class="fa fa-close" style="margin-left:5px"></i>
             </div>
+
         </div>
         <div class="event-popover-content">
             <div class="row">

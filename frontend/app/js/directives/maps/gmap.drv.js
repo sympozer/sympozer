@@ -7,6 +7,7 @@
  * Directive for gmap plugin interaction
  * @example :  <div gmap options="{ lat: -12.043333,lng: -77.028333}" instance="geoCodingMapInstance"></div>
  * @type {directive}
+ * @TODO : theme replace
  */
 angular.module('sympozerApp') .directive('gmap', ['$timeout', 'GMaps', function ($timeout, GMaps)
 {

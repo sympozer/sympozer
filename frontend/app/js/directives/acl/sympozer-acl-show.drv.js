@@ -116,7 +116,7 @@ angular.module('sympozerApp').directive('sympozerAclShow', [
                             //if the user has just logged in, make it pulsate!
                             if (justLoggedIn)
                             {
-                                $(element).pulsate({repeat: 2});
+                                //$(element).pulsate({repeat: 2});
                                 //wait before all other directive are processed to change this shared value.
                                 setTimeout(function ()
                                 {

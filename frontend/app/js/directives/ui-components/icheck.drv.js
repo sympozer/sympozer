@@ -1,6 +1,7 @@
 /**
  * icheck directive
  * use to handle i check plugin for checkboxes
+ * @TODO : theme replace
  */
 angular.module('sympozerApp').directive('icheck', function ($timeout, $parse)
 {

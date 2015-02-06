@@ -14,34 +14,44 @@ class EventRepository extends EntityRepository
 {
 
 
-  /**
-   * filtering with all parameters defined
-   * @param $qb , query builder to add the filter to
-   * @param $params , the field to filter on
-   * @return $qb, modified query builder
-   */
-  public function filter($qb, $params)
-  {
-    if (isset($params['mainEventId']))
+    /**
+     * filtering with all parameters defined
+     * @param $qb , query builder to add the filter to
+     * @param $params , the field to filter on
+     * @return $qb, modified query builder
+     */
+    public function filter($qb, $params)
     {
-      $qb->andWhere('qb.mainEvent = :mainEventId');
-      $qb->setParameter('mainEventId', $params['mainEventId']);
-    }
+        if (isset($params['mainEventId']))
+        {
+            $qb->andWhere('qb.mainEvent = :mainEventId');
+            $qb->setParameter('mainEventId', $params['mainEventId']);
+        }
 
-    if (isset($params['id']))
-    {
-      $qb
-        ->andWhere('qb.id = :id')
-        ->setParameter('id', $params['id']);
-    }
+        if (isset($params['id']))
+        {
+            $qb
+                ->andWhere('qb.id = :id')
+                ->setParameter('id', $params['id']);
+        }
 
-    if (isset($params['categoryVersionId']))
-    {
-      $qb->leftJoin('qb.category', 'c')
-        ->andWhere('c.id = :categoryId')
-        ->setParameter('categoryId', $params['categoryId']);
+        if (isset($params['day']))
+        {
+            $dayAfter = date('Y-m-d', strtotime($params['day']. ' + 1 days'));
+            $qb
+                ->andWhere('qb.da > :day')
+                ->andWhere('qb.da < :dayAfter')
+                ->setParameter('day', $params['day']->format('Y-m-d'))
+                ->setParameter('dayAfter',$dayAfter->format('Y-m-d'));
+        }
+
+        if (isset($params['categoryVersionId']))
+        {
+            $qb->leftJoin('qb.category', 'c')
+                ->andWhere('c.id = :categoryId')
+                ->setParameter('categoryId', $params['categoryId']);
+        }
+        return $qb;
     }
-    return $qb;
-  }
 
 }

@@ -1,10 +1,6 @@
 'use strict';
 
 /**
- * Global filters
- */
-
-/**
  * dateToISO filter
  * format dates from db in this format:
  *

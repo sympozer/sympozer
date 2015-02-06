@@ -47,6 +47,10 @@ class MainEventService extends AbstractBusinessService
             $mainEvent->setEndAt(clone $mainEvent->getStartAt()->add(new \DateInterval('P2D')));
         }
 
+        if ($mainEvent->getLocation()){
+            $mainEvent->getLocation()->setMainEvent($mainEvent);
+        }
+
         if(!is_object($user)){
             throw new UnauthorizedHttpException('negotiate', 'You must be logged in');
         }

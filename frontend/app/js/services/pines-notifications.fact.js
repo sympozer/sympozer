@@ -1,7 +1,7 @@
 /**
  * pines notification service
  * Handles success/infos/warning/error alerts for every controllers
- *
+ * @TODO : theme replace
  * @see http://sciactive.github.io/pnotify/#demos-modules
  */
 angular.module('sympozerApp').factory('pinesNotifications', function ()
