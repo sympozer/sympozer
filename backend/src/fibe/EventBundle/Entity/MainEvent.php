@@ -54,7 +54,7 @@ class MainEvent extends VEvent
      * @MaxDepth(2)
      * @Expose
      */
-    private $events;
+    protected $events;
     /**
      * Papers
      *
@@ -62,7 +62,7 @@ class MainEvent extends VEvent
      * @MaxDepth(2)
      * @Expose
      */
-    private $papers;
+    protected $papers;
     /**
      * Roles
      *
@@ -70,7 +70,7 @@ class MainEvent extends VEvent
      * @MaxDepth(2)
      * @Expose
      */
-    private $roles;
+    protected $roles;
     /**
      * dtstart
      *
@@ -82,7 +82,7 @@ class MainEvent extends VEvent
      * @Expose
      * @Groups({"list"})
      */
-    private $startAt;
+    protected $startAt;
     /**
      * dtend
      *
@@ -95,41 +95,40 @@ class MainEvent extends VEvent
      * @Expose
      * @Groups({"list"})
      */
-    private $endAt;
     /**
      * Team
      *
      * @ORM\OneToOne(targetEntity="fibe\SecurityBundle\Entity\Team", mappedBy="mainEvent", cascade={"all"})
      * @Expose
      */
-    private $team;
+    protected $team;
     /**
      * mappingFiles
      * @ORM\OneToOne(targetEntity="fibe\EventBundle\Entity\MainEventSettings", mappedBy="mainEvent", cascade={"all"})
      */
-    private $setting;
+    protected $setting;
     /**
      * @ORM\Column(type="string", length=256, nullable=true)
      * @Expose
      * @Groups({"list"})
      */
-    private $logo;
+    protected $logo;
     /**
      * @ORM\Column(type="string", length=256, nullable=true)
      */
-    private $slug;
+    protected $slug;
     /**
      *
      * @ORM\Column(type="string", length=128, nullable=true)
      */
-    private $acronym;
+    protected $acronym;
     /**
      * @ORM\OneToMany(targetEntity="fibe\ContentBundle\Entity\Location", mappedBy="mainEvent",cascade={"persist", "remove"})
      * @MaxDepth(2)
      * @Expose
      * @SerializedName("eventLocations")
      */
-    private $eventLocations;
+    protected $eventLocations;
 
     /**
      * Constructor

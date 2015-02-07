@@ -53,6 +53,10 @@ abstract class VEvent
      */
     protected $id;
 
+
+    protected $startAt;
+    protected $label;
+
     /**
      * description
      *
@@ -271,6 +275,7 @@ abstract class VEvent
     public function __construct()
     {
         $this->topics = new ArrayCollection();
+        $this->sponsors = new ArrayCollection();
         $this->createdAt = new \DateTime();
         $this->lastModifiedAt = new \DateTime();
         $this->status = self::STATUS_EVENT_CONFIRMED;
@@ -315,6 +320,22 @@ abstract class VEvent
             isset($startAt) ? $startAt->format('Y-m-d') : null,
             $this->getLabel()
         );
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getStartAt()
+    {
+        return $this->startAt;
+    }
+
+    /**
+     * @param mixed $startAt
+     */
+    public function setStartAt($startAt)
+    {
+        $this->startAt = $startAt;
     }
 
     /**
@@ -387,6 +408,23 @@ abstract class VEvent
 
         return false;
     }*/
+
+    /**
+     * @return mixed
+     */
+    public function getLabel()
+    {
+        return $this->label;
+    }
+
+    /**
+     * @param mixed $label
+     */
+    public function setLabel($label)
+    {
+        $this->label = $label;
+    }
+
     /**
      * onCreation
      *
@@ -409,6 +447,12 @@ abstract class VEvent
         $now = new \DateTime('now');
         $this->setLastModifiedAt($now);
     }
+
+    /**
+     * Get createdAt
+     *
+     * @return \DateTime
+     */
 
     /**
      * uid
