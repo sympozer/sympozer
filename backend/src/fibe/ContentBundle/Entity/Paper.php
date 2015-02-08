@@ -38,6 +38,13 @@ class Paper
 
 
     /**
+     * importCode used to easily make link between entities during data import
+     * @ORM\Column(type="string", nullable=true)
+     * @Importer
+     */
+    private $importCode;
+
+    /**
      * label (or title of the paper)
      *
      * @ORM\Column(type="string")
@@ -133,7 +140,7 @@ class Paper
      *  MainEvent associated to this paper
      *
      * @ORM\ManyToOne(targetEntity="fibe\EventBundle\Entity\MainEvent", inversedBy="papers")
-     * @ORM\JoinColumn(name="main_event_id", referencedColumnName="id")
+     * @ORM\JoinColumn(referencedColumnName="id")
      * @SerializedName("mainEvent")
      * @Expose
      * @Groups({"list"})
@@ -500,5 +507,21 @@ class Paper
         $this->mainEvent = $mainEvent;
 
         return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getImportCode()
+    {
+        return $this->importCode;
+    }
+
+    /**
+     * @param mixed $importCode
+     */
+    public function setImportCode($importCode)
+    {
+        $this->importCode = $importCode;
     }
 }

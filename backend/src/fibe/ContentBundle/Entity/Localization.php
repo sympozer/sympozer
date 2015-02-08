@@ -25,11 +25,11 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Localization
 {
-  /**
+    /**
    * fix an issue with jms-serializer and form validation when applied to a doctrine InheritanceType("SINGLE_TABLE")
    */
   public $dtype;
-  /**
+    /**
    * @ORM\Id
    * @ORM\Column(type="integer")
    * @ORM\GeneratedValue(strategy="AUTO")
@@ -37,7 +37,8 @@ class Localization
    * @Groups({"list"})
    */
   protected $id;
-  /**
+
+    /**
    * @ORM\Column(type="string", length=255)
    * @Expose
    * @Groups({"list"})
@@ -45,7 +46,7 @@ class Localization
    * @Importer(optional=false)
    */
   protected $label;
-  /**
+    /**
    * @ORM\Column(type="decimal", precision=10, scale=6, nullable=true)
    *
    * @Assert\Length(
@@ -58,7 +59,7 @@ class Localization
    * @Groups({"list"})
    */
   protected $latitude;
-  /**
+    /**
    * @ORM\Column(type="decimal", precision=10, scale=6, nullable=true)
    * @Assert\Length(
    *      min = "-180",
@@ -70,7 +71,7 @@ class Localization
    * @Groups({"list"})
    */
   protected $longitude;
-  /**
+    /**
    * address
    * The fully formatted address line containing street number, street, city, state, country
    * @ORM\Column(type="string", nullable=true)
@@ -78,7 +79,7 @@ class Localization
    * @Groups({"list"})
    */
   protected $address;
-  /**
+    /**
    * street
    *
    * @ORM\Column(type="string", nullable=true)
@@ -86,7 +87,7 @@ class Localization
    * @Groups({"list"})
    */
   protected $street;
-  /**
+    /**
    * street number
    *
    * @ORM\Column(type="integer", nullable=true)
@@ -95,7 +96,7 @@ class Localization
    * @Groups({"list"})
    */
   protected $streetNumber;
-  /**
+    /**
    * city
    *
    * @ORM\Column(type="string", nullable=true)
@@ -103,7 +104,7 @@ class Localization
    * @Groups({"list"})
    */
   protected $city;
-  /**
+    /**
    * state
    *
    * @ORM\Column(type="string", nullable=true)
@@ -111,13 +112,13 @@ class Localization
    * @Groups({"list"})
    */
   protected $state;
-  /**
+    /**
    * country
    * @ORM\Column(type="string", nullable=true)
    * @Expose
    */
   protected $country;
-  /**
+    /**
    * country code
    * @ORM\Column(type="string", nullable=true)
    * @SerializedName("countryCode")
@@ -125,7 +126,7 @@ class Localization
    * @Groups({"list"})
    */
   protected $countryCode;
-  /**
+    /**
    * postalCode code
    * @ORM\Column(type="string", nullable=true)
    * @SerializedName("postalCode")
@@ -133,7 +134,8 @@ class Localization
    * @Groups({"list"})
    */
   protected $postalCode;
-  /**
+
+    /**
    * @ORM\OneToOne(targetEntity="fibe\CommunityBundle\Entity\Person", cascade={"all"})
    * @ORM\JoinColumn(name="uid", referencedColumnName="id", onDelete="cascade")
    * @Expose

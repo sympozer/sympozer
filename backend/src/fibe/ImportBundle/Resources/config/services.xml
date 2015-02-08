@@ -9,6 +9,7 @@
       <argument type="service" id="security.context"/>
       <argument type="service" id="annotations.reader"/>
       <argument type="service" id="doctrine.orm.entity_manager"/>
+      <argument type="service" id="monolog.logger"/>
     </service>
   </services>
 </container>

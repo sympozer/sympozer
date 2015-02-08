@@ -42,7 +42,6 @@ class Role
      */
     private $id;
 
-
     /**
      * label
      * @ORM\Column(type="string", name="label", nullable=false)
@@ -51,6 +50,14 @@ class Role
      * @Groups({"list"})
      */
     private $label;
+
+
+    /**
+     * importCode used to easily make link between entities during data import
+     * @ORM\Column(type="string", nullable=true)
+     * @Importer
+     */
+    private $importCode;
 
     /**
      * Person : the person who has this role
@@ -71,7 +78,7 @@ class Role
      * The mainEvent associated
      *
      * @ORM\ManyToOne(targetEntity="fibe\EventBundle\Entity\MainEvent", inversedBy="roles", cascade={"persist"})
-     * @ORM\JoinColumn(name="main_event_id", referencedColumnName="id")
+     * @ORM\JoinColumn(referencedColumnName="id")
      * @Assert\NotNull(message = "{'field' : 'mainEvents', 'msg' : 'roles.validations.main_event_required'}")
      *
      * @Expose
@@ -256,5 +263,15 @@ class Role
     public function setId($id)
     {
         $this->id = $id;
+    }
+
+    public function getImportCode()
+    {
+        return $this->importCode;
+    }
+
+    public function setImportCode($code)
+    {
+        $this->importCode = $code;
     }
 }

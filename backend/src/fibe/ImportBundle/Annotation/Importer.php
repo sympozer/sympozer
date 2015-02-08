@@ -17,7 +17,7 @@ class Importer
     /**
      * @var string
      */
-    public $uniqField = "id";
+    public $uniqField = "importCode";
 
     /**
      * @var string
@@ -46,7 +46,7 @@ class Importer
      * this pty is set in ImprotService
      * @var string
      */
-    public $propertyName;
+    public $name;
 
     /**
      * the dateFormat, null if not a date
@@ -57,7 +57,7 @@ class Importer
 
     public function __toString()
     {
-        $rtn = $this->propertyName;
+        $rtn = $this->name;
 
         if (!$this->optional)
         {

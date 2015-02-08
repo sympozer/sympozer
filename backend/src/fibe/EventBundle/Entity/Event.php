@@ -90,24 +90,20 @@ class Event extends VEvent
      * @Importer
      */
     protected $endAt;
-
-
     /**
      * Main Event
      *
      * @ORM\ManyToOne(targetEntity="fibe\EventBundle\Entity\MainEvent", inversedBy="events", cascade={"persist"})
-     * @ORM\JoinColumn(name="mainevent_id", referencedColumnName="id")
+     * @ORM\JoinColumn(referencedColumnName="id")
      * @Expose
      * @SerializedName("mainEvent")
      * @Groups({"list"})
      */
     protected $mainEvent;
-
     /**
      * @ORM\Column(type="string", length=128, nullable=true)
      */
     protected $slug;
-
     /**
      * Papers presented at an event
      *
@@ -120,7 +116,6 @@ class Event extends VEvent
      * @Importer(collection=true, targetEntity="fibe\ContentBundle\Entity\Paper")
      */
     protected $papers;
-
     /**
      * Is an all day event
      * Used for ui representation in the calendar view
@@ -131,8 +126,6 @@ class Event extends VEvent
      * @Groups({"list"})
      */
     protected $allDay;
-
-
     /**
      * Roles for the event
      * @ORM\OneToMany(targetEntity="fibe\ContentBundle\Entity\Role", mappedBy="event", cascade={"persist"})
@@ -143,6 +136,12 @@ class Event extends VEvent
      * @Importer(collection=true, targetEntity="fibe\ContentBundle\Entity\Paper")
      */
     protected $roles;
+    /**
+     * importCode used to easily make link between entities during data import
+     * @ORM\Column(type="string", nullable=true)
+     * @Importer
+     */
+    private $importCode;
 
     /**
      * Constructor
@@ -493,5 +492,19 @@ class Event extends VEvent
         $this->startAt = $startAt;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getImportCode()
+    {
+        return $this->importCode;
+    }
 
+    /**
+     * @param mixed $importCode
+     */
+    public function setImportCode($importCode)
+    {
+        $this->importCode = $importCode;
+    }
 }

@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use fibe\ContentBundle\Entity\Location;
 use fibe\ContentBundle\Entity\Sponsor;
 use fibe\ContentBundle\Entity\Topic;
+use fibe\ImportBundle\Annotation\Importer;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
 use JMS\Serializer\Annotation\Groups;
@@ -55,6 +56,7 @@ abstract class VEvent
 
 
     protected $startAt;
+    protected $endAt;
     protected $label;
 
     /**
@@ -266,6 +268,8 @@ abstract class VEvent
      * @ORM\JoinTable(name="vevent_location",
      *     joinColumns={@ORM\JoinColumn(name="event_id", referencedColumnName="id")},
      *     inverseJoinColumns={@ORM\JoinColumn(name="location_id", referencedColumnName="id")})
+     *
+     * @Importer(targetEntity="fibe\ContentBundle\Entity\Location")
      */
     protected $location;
 

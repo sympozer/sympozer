@@ -15,7 +15,7 @@ class SympozerImportErrorException extends \RunTimeException
      * @param string $msg
      * @param int $line
      * @param string $column
-     * @param $columnNb
+     * @param int $columnNb
      * @param string $value
      */
     public function __construct($msg, $line, $columnNb, $column, $value)
@@ -50,6 +50,4 @@ class SympozerImportErrorException extends \RunTimeException
     {
         return $this->value;
     }
-
-
 }

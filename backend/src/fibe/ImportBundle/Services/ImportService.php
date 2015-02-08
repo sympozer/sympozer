@@ -8,7 +8,9 @@ use Doctrine\ORM\Mapping\Column;
 use fibe\EventBundle\Entity\MainEvent;
 use fibe\ImportBundle\Annotation\Importer;
 use fibe\ImportBundle\Exception\SympozerImportErrorException;
+use fibe\ImportBundle\Exception\SympozerNotImportableException;
 use fibe\SecurityBundle\Services\Acl\ACLHelper;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 
@@ -26,12 +28,14 @@ class ImportService
     protected $reader;
     protected $security;
     protected $em;
+    protected $log;
 
-    function __construct(SecurityContextInterface $security, Reader $reader, EntityManagerInterface $em)
+    function __construct(SecurityContextInterface $security, Reader $reader, EntityManagerInterface $em, LoggerInterface $log)
     {
         $this->reader = $reader;
         $this->security = $security;
         $this->em = $em;
+        $this->log = $log;
     }
 
     /**
@@ -45,24 +49,8 @@ class ImportService
     public function importEntities(array $datas, $shortClassName, MainEvent $mainEvent)
     {
 
-        $entityClassName = $this->getClassNameFromShortClassName($shortClassName);
-
-        //create a new entity
-        $entity = new $entityClassName();
-        $entity->setMainEvent($mainEvent);
-
-        //perform acl check
-        $right = "CREATE";
-        if (false === $this->security->isGranted($right, $entity))
-        {
-            throw new AccessDeniedException(
-                sprintf('You don\'t have the authorization to perform %s on %s',
-                    $right,
-                    '#' . $entity->getId()
-                )
-            );
-        }
         $header = $this->getImportConfigFromShortClassName($shortClassName);
+        $entity = $this->checkACL($shortClassName, $mainEvent);
 //        \Doctrine\Common\Util\Debug::dump($header);
         $return = array("errors" => array(), "imported" => 0);
         //loop over received rows
@@ -70,7 +58,7 @@ class ImportService
         {
             $row = $datas[$i];
 
-            $entityInstance = clone $entity;
+            $entityInstance = $this->getOrCreateEntity($row, $entity);
 
             try // catch SympozerImportErrorException
             {
@@ -87,7 +75,7 @@ class ImportService
                         {
                             throw new SympozerImportErrorException(
                                 sprintf("field '%s' is mandatory.",
-                                    $fieldConfig->propertyName
+                                    $fieldConfig->name
                                 ),
                                 $i + 1,
                                 $j + 1,
@@ -134,7 +122,7 @@ class ImportService
                         {
                             throw new SympozerImportErrorException(
                                 sprintf("Date '%s' is not well formatted: format is %s",
-                                    $fieldConfig->propertyName,
+                                    $fieldConfig->name,
                                     $dateFormat
                                 ),
                                 $i + 1,
@@ -145,8 +133,10 @@ class ImportService
                         $value = $date;
                     }
 
+
                     //call the setter
-                    $setter = "set" . ucwords($fieldConfig->propertyName);
+                    $setter = "set" . ucwords($fieldConfig->name);
+
                     $entityInstance->$setter($value);
                 }
 
@@ -160,25 +150,16 @@ class ImportService
                     $return["errors"][$ex->getLine()] = array();
                 }
                 $return["errors"][$ex->getLine()][$ex->getColumnNb()] = array(
-                    "line"     => $ex->getLine(),
-                    "column"   => $ex->getColumn(),
+                    "line" => $ex->getLine(),
+                    "column" => $ex->getColumn(),
                     "columnNb" => $ex->getColumnNb(),
-                    "value"    => $ex->getValue(),
-                    "msg"      => $ex->getMessage()
+                    "value" => $ex->getValue(),
+                    "msg" => $ex->getMessage()
                 );
             }
         }
 
         return $return;
-    }
-
-    protected function getClassNameFromShortClassName($shortClassName)
-    {
-        if (isset(ACLHelper::$ACLEntityNameArray[$shortClassName]))
-        {
-            return ACLHelper::$ACLEntityNameArray[$shortClassName]["classpath"] . "\\" . $shortClassName;
-        }
-        throw new \Exception("$shortClassName' is not configured to be imported");
     }
 
     public function getImportConfigFromShortClassName($shortClassName, $asString = false)
@@ -190,25 +171,44 @@ class ImportService
         return $importFields;
     }
 
+    protected function getClassNameFromShortClassName($shortClassName)
+    {
+        if (isset(ACLHelper::$ACLEntityNameArray[$shortClassName]))
+        {
+            return ACLHelper::$ACLEntityNameArray[$shortClassName]["classpath"] . "\\" . $shortClassName;
+        }
+        throw new \Exception("$shortClassName' is not configured to be imported");
+    }
+
     /**
+     * getImportConfig
+     *
      * Parses Importer annotation and return the whole import config for $entityClassName
+     *
      * @param $entityClassName
      * @param $asString
      * @return array
      */
     protected function getImportConfig($entityClassName, $asString)
     {
+
+        $entity = new $entityClassName();
+
         $importFields = [];
         $importerAnnotationClass = get_class(new Importer());
         $columnAnnotationClass = get_class(new Column());
 
-        $reflectionObject = new \ReflectionObject(new $entityClassName());
+        $reflectionObject = new \ReflectionObject($entity);
+
         foreach ($reflectionObject->getProperties() as $reflectionProperty)
         {
             /** @var Importer $importerAnnot */
             if (null !== $importerAnnot = $this->reader->getPropertyAnnotation($reflectionProperty, $importerAnnotationClass))
             {
-                $importerAnnot->propertyName = $reflectionProperty->getName();
+                if (empty($importerAnnot->name))
+                {
+                    $importerAnnot->name = $reflectionProperty->getName();
+                }
 
                 /** @var Column $columnAnnot */
                 if (null !== $columnAnnot = $this->reader->getPropertyAnnotation($reflectionProperty, $columnAnnotationClass))
@@ -226,20 +226,84 @@ class ImportService
 
                 if ($asString)
                 {
-                    $fieldName = (string) $importerAnnot; //call __toString()
+                    $field = (string) $importerAnnot; //call __toString()
                 }
                 else
                 {
-                    $fieldName = $importerAnnot;
+                    $field = $importerAnnot;
                 }
-                $importFields[] = $fieldName;
+                $importFields[] = $field;
             }
+        }
+
+        if (isset($importFields[0]) && (string) $importFields[0] != 'importCode')
+        {
+            throw new SympozerNotImportableException("Cannot import $entityClassName because the property 'importCode' property must be the first one annotated with @Importer in $entityClassName.");
         }
 
         return $importFields;
     }
 
     /**
+     * checkACL
+     * @param $shortClassName
+     * @param MainEvent $mainEvent
+     * @return
+     * @throws AccessDeniedException
+     */
+    protected function checkACL($shortClassName, MainEvent $mainEvent)
+    {
+        $entityClassName = $this->getClassNameFromShortClassName($shortClassName);
+
+        //create a new entity
+        $entity = new $entityClassName();
+        $entity->setMainEvent($mainEvent);
+
+        //perform acl check
+        $right = "OPERATOR";
+        if (false === $this->security->isGranted($right, $entity))
+        {
+            throw new AccessDeniedException(
+                sprintf('You don\'t have the authorization to perform %s on %s',
+                    $right,
+                    '#' . $entity->getId()
+                )
+            );
+        }
+        return $entity;
+    }
+
+    private function getOrCreateEntity($row, $entityTpl)
+    {
+        //create if no importCode provided
+        if (!isset($row[0]) || empty($row[0]))
+        {
+            $this->log->debug("[ImportService] INSERT : no importCode provided");
+            return clone $entityTpl;
+        }
+        $importCode = $row[0];
+
+        //get if no importCode is registered for this mainEvent
+        if (null != $entity = $this->em->getRepository(get_class($entityTpl))->findOneBy(array(
+                "importCode" => $importCode,
+                "mainEvent" => $entityTpl->getMainEvent()
+            ))
+        )
+        {
+            $this->log->debug("[ImportService] UPDATE : importCode $importCode is registered for mainEvent '" . $entityTpl->getMainEvent()->getId() . "'.");
+            return $entity;
+        }
+        else
+        { //create if no importCode is unregistered for this mainEvent
+
+            $this->log->debug("[ImportService] INSERT : importCode $importCode is not registered for mainEvent '" . $entityTpl->getMainEvent()->getId() . "'.");
+            return clone $entityTpl;
+        }
+    }
+
+    /**
+     * getOrCreateLinkedEntity
+     *
      * @param string $linkedEntityClassName the classname
      * @param Importer $fieldConfig the configuration
      * @param string $value the input value
@@ -248,11 +312,10 @@ class ImportService
      * @return false|object                      the entity | false if the field isn't provided and isn't required
      * @throws SympozerImportErrorException     if the field is mandatory & not configured to be created & not found
      */
-    function getOrCreateLinkedEntity($linkedEntityClassName, Importer $fieldConfig, $value, $i, $j)
+    protected function getOrCreateLinkedEntity($linkedEntityClassName, Importer $fieldConfig, $value, $i, $j)
     {
         //get the linked entity
         $linkedEntity = $this->em->getRepository($linkedEntityClassName)->findOneBy(array($fieldConfig->uniqField => $value));
-
         //or create if configured for
         if (!$linkedEntity && $fieldConfig->create)
         {

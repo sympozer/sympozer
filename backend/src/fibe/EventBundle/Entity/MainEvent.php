@@ -37,6 +37,7 @@ class MainEvent extends VEvent
      * @ORM\ManyToOne(targetEntity="fibe\CommunityBundle\Entity\Person",  inversedBy="ownMainEvents")
      */
     protected $owner;
+
     /**
      * label -> summary
      *
@@ -47,6 +48,7 @@ class MainEvent extends VEvent
      * @Groups({"list"})
      */
     protected $label;
+
     /**
      * Events
      *
@@ -55,6 +57,7 @@ class MainEvent extends VEvent
      * @Expose
      */
     protected $events;
+
     /**
      * Papers
      *
@@ -63,6 +66,7 @@ class MainEvent extends VEvent
      * @Expose
      */
     protected $papers;
+
     /**
      * Roles
      *
@@ -71,6 +75,7 @@ class MainEvent extends VEvent
      * @Expose
      */
     protected $roles;
+
     /**
      * dtstart
      *
@@ -83,6 +88,7 @@ class MainEvent extends VEvent
      * @Groups({"list"})
      */
     protected $startAt;
+
     /**
      * dtend
      *
@@ -95,6 +101,8 @@ class MainEvent extends VEvent
      * @Expose
      * @Groups({"list"})
      */
+    protected $endAt;
+
     /**
      * Team
      *
@@ -102,26 +110,31 @@ class MainEvent extends VEvent
      * @Expose
      */
     protected $team;
+
     /**
      * mappingFiles
      * @ORM\OneToOne(targetEntity="fibe\EventBundle\Entity\MainEventSettings", mappedBy="mainEvent", cascade={"all"})
      */
     protected $setting;
+
     /**
      * @ORM\Column(type="string", length=256, nullable=true)
      * @Expose
      * @Groups({"list"})
      */
     protected $logo;
+
     /**
      * @ORM\Column(type="string", length=256, nullable=true)
      */
     protected $slug;
+
     /**
      *
      * @ORM\Column(type="string", length=128, nullable=true)
      */
     protected $acronym;
+
     /**
      * @ORM\OneToMany(targetEntity="fibe\ContentBundle\Entity\Location", mappedBy="mainEvent",cascade={"persist", "remove"})
      * @MaxDepth(2)
