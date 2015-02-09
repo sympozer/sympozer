@@ -1,6 +1,8 @@
 <?php
 namespace fibe\ImportBundle\Annotation;
 
+use Doctrine\ORM\Mapping\Annotation;
+
 /**
  * Importer annotation.
  *
@@ -55,6 +57,10 @@ class Importer
      */
     public $dateFormat;
 
+    /**
+     * serialize import config for the current annotated property.
+     * @return string
+     */
     public function __toString()
     {
         $rtn = $this->name;

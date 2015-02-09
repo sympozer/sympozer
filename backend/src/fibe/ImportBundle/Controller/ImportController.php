@@ -30,7 +30,7 @@ class ImportController extends FOSRestController
      * @Rest\Get("/import", name="content_import_get_header")
      * @Rest\View
      */
-    public function importAction(Request $request, $shortClassName)
+    public function importAction(Request $request)
     {
     }
 
@@ -38,22 +38,35 @@ class ImportController extends FOSRestController
      * Get a sample csv file to download.
      * The sample is got from Importer annotations for the given entity provided by $entityLabel
      *
+     * comment first line by adding a #
+     *
      * @Rest\Get("/import/{entityLabel}-sample.csv", defaults={"entityLabel" = "all"})
      */
     public function getImportSampleAction(Request $request, $entityLabel)
     {
-        $header = $this->get('fibe_import.import_service')->getImportConfigFromShortClassName($entityLabel, true);
+        $header = $this->get('fibe_import.import_config_service')->fromShortClassName($entityLabel, true);
 
         $handle = fopen('php://memory', 'r+');
 
-        fputcsv($handle, $header, self::CSV_DELIMITER);
-
+        if ($entityLabel == "all")
+        {
+            foreach ($header as $entityHeader)
+            {
+                $entityHeader[0] = "#" . $entityHeader[0];
+                fputcsv($handle, $entityHeader, self::CSV_DELIMITER);
+            }
+        }
+        else
+        {
+            $header[0] = "#" . $header[0];
+            fputcsv($handle, $header, self::CSV_DELIMITER);
+        }
         rewind($handle);
         $content = stream_get_contents($handle);
         fclose($handle);
 
         return new Response($content, 200, array(
-            'Content-Type'        => 'application/force-download',
+            'Content-Type' => 'application/force-download',
             'Content-Disposition' => 'attachment; filename="import-' . strtolower($entityLabel) . '-sample.csv"'
         ));
     }
@@ -66,7 +79,7 @@ class ImportController extends FOSRestController
      */
     public function getImportHeaderAction(Request $request, $entityLabel)
     {
-        $header = $this->get('fibe_import.import_service')->getImportConfigFromShortClassName($entityLabel, true);
+        $header = $this->get('fibe_import.import_config_service')->fromShortClassName($entityLabel, true);
 
         return array(
             "header" => $header,
@@ -96,7 +109,7 @@ class ImportController extends FOSRestController
         $mainEvent = $this->getMainEventByid($mainEventId);
         $setMainEventSetter = 'setMainEvent';
 
-        $return = $this->get('fibe_import.import_service')->importEntities($datas, $entityLabel, $mainEvent);
+        $return = $this->get('fibe_import.import_service')->importEntities($datas, $mainEvent, $entityLabel);
 
         if (count($return["errors"]) > 0)
         {

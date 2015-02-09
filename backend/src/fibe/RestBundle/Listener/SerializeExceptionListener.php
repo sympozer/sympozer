@@ -39,7 +39,10 @@ class SerializeExceptionListener
         }
 
         //TODO : do it only in app_dev mode!
-        $datas = array('error' => $error->getMessage(), 'stack_trace' => explode("\n", $error->getTraceAsString()));
+        $datas = array(
+            'error' => (new \ReflectionClass($error))->getShortName() . ' : ' . $error->getMessage(),
+            'stack_trace' => explode("\n", $error->getTraceAsString())
+        );
 
         // $datas[] = array('stacktrace' => $error->getTrace()); // <== NEVER DO THIS! it's causing awkward errors like doctrine annotation not imported o_O
         $content = $this->getSerializer()->serialize($datas, $format);

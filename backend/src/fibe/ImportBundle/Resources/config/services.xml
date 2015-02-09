@@ -6,9 +6,13 @@
 
   <services>
     <service id="fibe_import.import_service" class="fibe\ImportBundle\Services\ImportService">
+      <argument type="service" id="fibe_import.import_config_service"/>
       <argument type="service" id="security.context"/>
-      <argument type="service" id="annotations.reader"/>
       <argument type="service" id="doctrine.orm.entity_manager"/>
+      <argument type="service" id="monolog.logger"/>
+    </service>
+    <service id="fibe_import.import_config_service" class="fibe\ImportBundle\Services\ImportConfigService">
+      <argument type="service" id="annotations.reader"/>
       <argument type="service" id="monolog.logger"/>
     </service>
   </services>
