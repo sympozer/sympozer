@@ -6,7 +6,6 @@ use Doctrine\ORM\EntityManagerInterface;
 use fibe\EventBundle\Entity\MainEvent;
 use fibe\ImportBundle\Annotation\Importer;
 use fibe\ImportBundle\Exception\SympozerImportErrorException;
-use fibe\SecurityBundle\Services\Acl\ACLHelper;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\SecurityContextInterface;
@@ -48,8 +47,8 @@ class ImportService
         for ($i = 0; $i < count($datas); $i++)
         {
             $row = $datas[$i];
-
-            $entityInstance = $this->getOrCreateEntity($row, $mainEvent, $shortClassName);
+            $entityShortClassName = $shortClassName == ImportConfigService::IMPORT_ALL ? $row[0] : $shortClassName;
+            $entityInstance = $this->getOrCreateEntity($row, $mainEvent, $entityShortClassName);
             $header = $this->importConfig->fromClassName(get_class($entityInstance));
 
             try // catch SympozerImportErrorException
@@ -224,7 +223,7 @@ class ImportService
      */
     protected function checkACL($shortClassName, MainEvent $mainEvent)
     {
-        $entityClassName = ACLHelper::getClassNameFromShortClassName($shortClassName);
+        $entityClassName = ImportHelper::getClassNameFromShortClassName($shortClassName);
 
         //create a new entity
         $entity = new $entityClassName();

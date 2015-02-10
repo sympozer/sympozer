@@ -5,7 +5,6 @@ use Doctrine\Common\Annotations\Reader;
 use Doctrine\ORM\Mapping\Column;
 use fibe\ImportBundle\Annotation\Importer;
 use fibe\ImportBundle\Exception\SympozerNotImportableException;
-use fibe\SecurityBundle\Services\Acl\ACLHelper;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -28,10 +27,10 @@ class ImportConfigService
     }
 
     /**
-     * @param $shortClassName
+     * @param $className
      * @param bool $asString
      * @return array
-     * @throws \Exception
+     * @internal param $shortClassName
      */
     public function fromClassName($className, $asString = false)
     {
@@ -49,7 +48,7 @@ class ImportConfigService
         if ($shortClassName == self::IMPORT_ALL)
         {
             $return = array();
-            foreach (ACLHelper::$ACLEntityNameArray as $shortClassName => $aclEntity)
+            foreach (ImportHelper::$entityConfig as $shortClassName => $aclEntity)
             {
                 try
                 {
@@ -86,7 +85,7 @@ class ImportConfigService
     protected function getImportConfig($shortClassName, $asString)
     {
 
-        $entityClassName = ACLHelper::getClassNameFromShortClassName($shortClassName);
+        $entityClassName = ImportHelper::getClassNameFromShortClassName($shortClassName);
         $entity = new $entityClassName();
 
         $importFields = [];

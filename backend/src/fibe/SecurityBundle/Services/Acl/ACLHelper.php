@@ -7,6 +7,11 @@ use Symfony\Component\Security\Acl\Dbal\MutableAclProvider;
 use Symfony\Component\Security\Acl\Exception\AclNotFoundException;
 use Symfony\Component\Security\Acl\Permission\MaskBuilder;
 
+/**
+ * util class to be extended when dealing with ACL
+ * Class ACLHelper
+ * @package fibe\SecurityBundle\Services\Acl
+ */
 abstract class ACLHelper
 {
     /**
@@ -184,7 +189,7 @@ abstract class ACLHelper
         $this->entityManager = $entityManager;
     }
 
-    /*****************************           setter service injector             **********************************/
+    /**************** inject ********************/
 
     /**
      * inject service
