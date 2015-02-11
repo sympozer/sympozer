@@ -118,4 +118,4 @@ services:
 
     fibe_security.twitter:
         class: fibe\SecurityBundle\Services\TwitterAPI
-        arguments: [ %twitter.client_id%, %twitter.client_secret%, %twitter.access_token%, %twitter.access_token_secret%, %twitter.api_url% ]
+        arguments: [ %twitter.client_id%, %twitter.client_secret%, %twitter.access_token%, %twitter.access_token_secret%, %twitter.api_url% , @sympozer_proxy_aware_curl]

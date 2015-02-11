@@ -1,20 +1,19 @@
 <?php
 
-  namespace fibe\SecurityBundle\Services;
-   
-  use Symfony\Component\Routing\RouterInterface;
-  use FOS\UserBundle\Model\UserInterface;
-  use FOS\UserBundle\Mailer\MailerInterface; 
-  use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-  use Endroid\Twitter\Twitter;
-	use Buzz\Browser;
-	use Buzz\Client\Curl;
+namespace fibe\SecurityBundle\Services;
 
-  /**
-   * @author Benoit ddlp @see FOS\UserBundle\Mailer\Mailer.php
-   */
-  class TwitterAPI
-  { 
+use Symfony\Component\DependencyInjection\ContainerAware;
+use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Endroid\Twitter\Twitter;
+use Buzz\Browser;
+use Buzz\Client\Curl;
+
+/**
+ * @author Benoit ddlp @see FOS\UserBundle\Mailer\Mailer.php
+ */
+class TwitterAPI extends ContainerAware
+{
     /**
      * @var string
      */
@@ -40,7 +39,7 @@
      */
     protected $accessTokenSecret;
 
-    public function __construct($consumerKey, $consumerSecret, $accessToken, $accessTokenSecret, $apiUrl = null)
+    public function __construct($consumerKey, $consumerSecret, $accessToken, $accessTokenSecret, $apiUrl = null,  $curlClient)
     {
         $this->consumerKey = $consumerKey;
         $this->consumerSecret = $consumerSecret;
@@ -50,27 +49,27 @@
         if ($apiUrl) {
             $this->apiUrl = $apiUrl;
         }
-
-        $this->browser = new Browser(new Curl());
+        $client = $curlClient;
+        $this->browser = new Browser($client);
     }
 
     public function setUser($user)
     {
-    	if($user)
-      	$this->setAccessToken($user->getTwitterAccessToken());
-      // $twitter->setAccessToken("2566837897-7BQDoyNx2OV0I8lFfMkzQfkeF6ZbuC0N8ekHoD6");
-      // $twitter->setAccessTokenSecret("WPON6RSScVrc6riEuHE96al7NUI8QVDENli4N3ICBkUfM");
+        if($user)
+            $this->setAccessToken($user->getTwitterAccessToken());
+        // $twitter->setAccessToken("2566837897-7BQDoyNx2OV0I8lFfMkzQfkeF6ZbuC0N8ekHoD6");
+        // $twitter->setAccessTokenSecret("WPON6RSScVrc6riEuHE96al7NUI8QVDENli4N3ICBkUfM");
     }
-        
 
-		public function setAccessToken($accessToken)
-		{
-			$this->accessToken = $accessToken;
-		}
-		public function setAccessTokenSecret($accessTokenSecret)
-		{
-			$this->accessTokenSecret = $accessTokenSecret;
-		} 
+
+    public function setAccessToken($accessToken)
+    {
+        $this->accessToken = $accessToken;
+    }
+    public function setAccessTokenSecret($accessTokenSecret)
+    {
+        $this->accessTokenSecret = $accessTokenSecret;
+    }
 
     /**
      * Performs a query to the Twitter API.

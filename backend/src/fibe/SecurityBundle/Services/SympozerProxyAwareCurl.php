@@ -11,26 +11,20 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 class SympozerProxyAwareCurl extends Curl
 {
-    const PROXY_PARAM = 'curl_proxy.address';
+    const PROXY_ADDRESS_PARAM = 'curl_proxy.address';
     const PROXY_PORT_PARAM = 'curl_proxy.port';
     protected $proxyParams = array();
 
     function __construct(ContainerInterface $container)
     {
-        if ($container->hasParameter(self::PROXY_PARAM))
+        if ($container->hasParameter(self::PROXY_ADDRESS_PARAM) && $container->hasParameter(self::PROXY_PORT_PARAM))
         {
-            $proxy = $container->getParameter(self::PROXY_PARAM);
-            if (!empty($proxy))
-            {
-                $this->proxyParams[CURLOPT_PROXY] = $proxy;
-            }
-        }
-        if ($container->hasParameter(self::PROXY_PORT_PARAM))
-        {
+            $address = $container->getParameter(self::PROXY_ADDRESS_PARAM);
             $port = $container->getParameter(self::PROXY_PORT_PARAM);
-            if (!empty($port))
+
+            if (!empty($address) && !empty($port))
             {
-                $this->proxyParams[CURLOPT_PROXYPORT] = $port;
+                $this->setProxy($address.$port);
             }
         }
     }
