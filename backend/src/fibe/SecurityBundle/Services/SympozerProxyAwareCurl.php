@@ -24,7 +24,7 @@ class SympozerProxyAwareCurl extends Curl
 
             if (!empty($address) && !empty($port))
             {
-                $this->setProxy($address.$port);
+                $this->setProxy($address.':'.$port);
             }
         }
     }
