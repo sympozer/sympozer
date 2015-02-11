@@ -41,7 +41,6 @@
         "iCheck"          : "~1.0.2",
         "bootstrap-social": "~4.8.0",
         "bootstrap-tags"  : "~1.1.5",
-        "stepy"           : "*",
         "ng-flow"         : "~2"
 
     },

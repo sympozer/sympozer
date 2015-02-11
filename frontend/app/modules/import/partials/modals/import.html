@@ -60,35 +60,36 @@
       </alert>
       <alert type="warning" ng-show="!busy && validationError && !error">
         <span> There are errors. Cannot {{'import.send_to_server' | translate  | lowercase}}</span></alert>
-
-      <table class="table table-responsive table-striped ">
-        <thead>
-        <tr>
-          <th ng-repeat="field in header.header">
-            {{field}}
-          </th>
-          <th>errors</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr ng-repeat="entity in results track by $index"
-            ng-init="lineNb = $index">
-          <td ng-repeat="field in entity track by $index"
-              ng-class="importResults.errors[lineNb + 1][$index + 1] ? 'import-warning' : ''">
-            <div popover-trigger="mouseenter"
-                 popover="{{ importResults.errors[lineNb + 1][$index + 1].msg }}"
-                 popover-title="error">
-              <span>{{ field }}</span>
-            </div>
-          </td>
-          <td>
-            <p ng-repeat="error in importResults.errors[$index + 1] track by $index">
-              {{error.msg}}
-            </p>
-          </td>
-        </tr>
-        </tbody>
-      </table>
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+          <tr>
+            <th ng-repeat="field in header.header">
+              {{field}}
+            </th>
+            <th>errors</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr ng-repeat="entity in results track by $index"
+              ng-init="lineNb = $index">
+            <td ng-repeat="field in entity track by $index"
+                ng-class="importResults.errors[lineNb + 1][$index + 1] ? 'import-warning' : ''">
+              <div popover-trigger="mouseenter"
+                   popover="{{ importResults.errors[lineNb + 1][$index + 1].msg }}"
+                   popover-title="error">
+                <span ng-show="field">{{ field  || "empty"}}</span>
+              </div>
+            </td>
+            <td>
+              <p ng-repeat="error in importResults.errors[$index + 1] track by $index">
+                {{error.msg}}
+              </p>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
     </fieldset>
 
 
@@ -118,7 +119,7 @@
              locals-dynamicvar="entity"
              locals-edit="true"
              ng-include="tplUrl"
-            ></div>
+          ></div>
       </div>
 
     </fieldset>

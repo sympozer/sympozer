@@ -33,6 +33,12 @@ class Location extends Localization
      */
     protected $id;
     /**
+     * importCode used to easily make link between entities during data import
+     * @ORM\Column(type="string", nullable=true)
+     * @Importer
+     */
+    protected $importCode;
+    /**
      * Capacity to welcome attendees
      *
      * @ORM\Column(type="integer", nullable=true)
@@ -76,13 +82,14 @@ class Location extends Localization
      * mainEvent
      *
      * @ORM\ManyToOne(targetEntity="fibe\EventBundle\Entity\MainEvent", inversedBy="eventLocations")
-     * @ORM\JoinColumn(name="main_event_id", referencedColumnName="id")
+     * @ORM\JoinColumn(referencedColumnName="id")
      * @Expose
      * @Groups({"list"})
      * @MaxDepth(1)
      * @SerializedName("mainEvent")
      */
     protected $mainEvent;
+
     /**
      * Events
      *
@@ -307,6 +314,22 @@ class Location extends Localization
         $this->equipments[] = $equipments;
 
         return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getImportCode()
+    {
+        return $this->importCode;
+    }
+
+    /**
+     * @param mixed $importCode
+     */
+    public function setImportCode($importCode)
+    {
+        $this->importCode = $importCode;
     }
 
 }

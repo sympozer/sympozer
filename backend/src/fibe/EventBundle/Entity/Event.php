@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use fibe\ContentBundle\Entity\Paper;
 use fibe\ContentBundle\Util\StringTools;
+use fibe\ImportBundle\Annotation\Importer;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
 use JMS\Serializer\Annotation\Groups;
@@ -28,14 +29,6 @@ use JMS\Serializer\Annotation\SerializedName;
 class Event extends VEvent
 {
     /**
-     * Category
-     * @Expose
-     * @ORM\ManyToOne(targetEntity="Category", inversedBy="events")
-     * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
-     * @Groups({"list"})
-     */
-    protected $category;
-    /**
      * label -> summary
      *
      * This property defines a short summary or subject for the
@@ -43,8 +36,20 @@ class Event extends VEvent
      * @ORM\Column(type="string", length=255, unique=false, nullable=false)
      * @Expose
      * @Groups({"list"})
+     *
+     * @Importer(optional=false)
      */
     protected $label;
+    /**
+     * Category
+     * @Expose
+     * @ORM\ManyToOne(targetEntity="Category", inversedBy="events")
+     * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
+     * @Groups({"list"})
+     *
+     * @Importer(uniqField="label", create=true, targetEntity="fibe\Eventbundle\Entity\Category")
+     */
+    protected $category;
     /**
      * The parent of the event
      *
@@ -67,6 +72,8 @@ class Event extends VEvent
      * @SerializedName("startAt")
      * @Expose
      * @Groups({"list"})
+     *
+     * @Importer
      */
     protected $startAt;
     /**
@@ -79,15 +86,15 @@ class Event extends VEvent
      * @SerializedName("endAt")
      * @Expose
      * @Groups({"list"})
+     *
+     * @Importer
      */
     protected $endAt;
-
-
     /**
      * Main Event
      *
      * @ORM\ManyToOne(targetEntity="fibe\EventBundle\Entity\MainEvent", inversedBy="events", cascade={"persist"})
-     * @ORM\JoinColumn(name="mainevent_id", referencedColumnName="id")
+     * @ORM\JoinColumn(referencedColumnName="id")
      * @Expose
      * @SerializedName("mainEvent")
      * @Groups({"list"})
@@ -105,9 +112,10 @@ class Event extends VEvent
      *     joinColumns={@ORM\JoinColumn(name="event_id", referencedColumnName="id")},
      *     inverseJoinColumns={@ORM\JoinColumn(name="paper_id", referencedColumnName="id")})
      * @MaxDepth(1)
+     *
+     * @Importer(collection=true, targetEntity="fibe\ContentBundle\Entity\Paper")
      */
     protected $papers;
-
     /**
      * Is an all day event
      * Used for ui representation in the calendar view
@@ -118,16 +126,22 @@ class Event extends VEvent
      * @Groups({"list"})
      */
     protected $allDay;
-
-
     /**
      * Roles for the event
      * @ORM\OneToMany(targetEntity="fibe\ContentBundle\Entity\Role", mappedBy="event", cascade={"persist"})
      * @Expose
      * @Groups({"list"})
      * @MaxDepth(3)
+     *
+     * @Importer(collection=true, targetEntity="fibe\ContentBundle\Entity\Paper")
      */
     protected $roles;
+    /**
+     * importCode used to easily make link between entities during data import
+     * @ORM\Column(type="string", nullable=true)
+     * @Importer
+     */
+    private $importCode;
 
     /**
      * Constructor
@@ -148,6 +162,15 @@ class Event extends VEvent
     public function onUpdate()
     {
         $this->slugify();
+
+        /*        if (!$this->getEndAt() && $this->getStartAt()) {
+                    $endAt = clone $this->getStartAt();
+                    $endAt->modify(self::DEFAULT_EVENT_DURATION);
+                    $this->setEndAt($endAt);
+                } else if (!$this->getStartAt()) {
+                    $this->setEndAt((new \DateTime("now"))->modify(self::DEFAULT_EVENT_DURATION));
+                    $this->setStartAt(new \DateTime("now"));
+                }*/
         //$this->setIsInstant($this->getEndAt()->format('U') == $this->getStartAt()->format('U'));
 
         //ensure main conf has correct properties
@@ -168,8 +191,6 @@ class Event extends VEvent
      */
     protected function slugify()
     {
-        echo $this->getLabel();
-//        throw new \Exception("slug event");
         $this->setSlug(StringTools::slugify(hash('sha256', uniqid(mt_rand(), true), true) . $this->getLabel()));
     }
 
@@ -471,5 +492,19 @@ class Event extends VEvent
         $this->startAt = $startAt;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getImportCode()
+    {
+        return $this->importCode;
+    }
 
+    /**
+     * @param mixed $importCode
+     */
+    public function setImportCode($importCode)
+    {
+        $this->importCode = $importCode;
+    }
 }

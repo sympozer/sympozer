@@ -37,16 +37,18 @@ class MainEvent extends VEvent
      * @ORM\ManyToOne(targetEntity="fibe\CommunityBundle\Entity\Person",  inversedBy="ownMainEvents")
      */
     protected $owner;
+
     /**
      * label -> summary
      *
      * This property defines a short summary or subject for the
      * calendar component.
-     * @ORM\Column(type="string", length=255, unique=true, nullable=false)
+     * @ORM\Column(type="string", length=255, nullable=false)
      * @Expose
      * @Groups({"list"})
      */
     protected $label;
+
     /**
      * Events
      *
@@ -54,7 +56,8 @@ class MainEvent extends VEvent
      * @MaxDepth(2)
      * @Expose
      */
-    private $events;
+    protected $events;
+
     /**
      * Papers
      *
@@ -62,7 +65,8 @@ class MainEvent extends VEvent
      * @MaxDepth(2)
      * @Expose
      */
-    private $papers;
+    protected $papers;
+
     /**
      * Roles
      *
@@ -70,7 +74,8 @@ class MainEvent extends VEvent
      * @MaxDepth(2)
      * @Expose
      */
-    private $roles;
+    protected $roles;
+
     /**
      * dtstart
      *
@@ -82,7 +87,8 @@ class MainEvent extends VEvent
      * @Expose
      * @Groups({"list"})
      */
-    private $startAt;
+    protected $startAt;
+
     /**
      * dtend
      *
@@ -95,41 +101,47 @@ class MainEvent extends VEvent
      * @Expose
      * @Groups({"list"})
      */
-    private $endAt;
+    protected $endAt;
+
     /**
      * Team
      *
      * @ORM\OneToOne(targetEntity="fibe\SecurityBundle\Entity\Team", mappedBy="mainEvent", cascade={"all"})
      * @Expose
      */
-    private $team;
+    protected $team;
+
     /**
      * mappingFiles
      * @ORM\OneToOne(targetEntity="fibe\EventBundle\Entity\MainEventSettings", mappedBy="mainEvent", cascade={"all"})
      */
-    private $setting;
+    protected $setting;
+
     /**
      * @ORM\Column(type="string", length=256, nullable=true)
      * @Expose
      * @Groups({"list"})
      */
-    private $logo;
+    protected $logo;
+
     /**
      * @ORM\Column(type="string", length=256, nullable=true)
      */
-    private $slug;
+    protected $slug;
+
     /**
      *
      * @ORM\Column(type="string", length=128, nullable=true)
      */
-    private $acronym;
+    protected $acronym;
+
     /**
      * @ORM\OneToMany(targetEntity="fibe\ContentBundle\Entity\Location", mappedBy="mainEvent",cascade={"persist", "remove"})
      * @MaxDepth(2)
      * @Expose
      * @SerializedName("eventLocations")
      */
-    private $eventLocations;
+    protected $eventLocations;
 
     /**
      * Constructor
@@ -483,27 +495,6 @@ class MainEvent extends VEvent
 
         return true;
     }
-
-
-    /**
-     * computeEndAt
-     *
-     * @ORM\PrePersist()
-     * @ORM\PreUpdate()
-     */
-    public function computeEndAt()
-    {
-        /*if (!$this->getEndAt() && $this->getStartAt()) {
-            $endAt = clone $this->getStartAt();
-            $endAt->modify(self::DEFAULT_EVENT_DURATION);
-            $this->setEndAt($endAt);
-        } else if (!$this->getStartAt()) {
-            $this->setEndAt((new \DateTime("now"))->modify(self::DEFAULT_EVENT_DURATION));
-            $this->setStartAt(new \DateTime("now"));
-
-        }*/
-    }
-
 
     /**
      * @return mixed

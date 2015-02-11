@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use fibe\ContentBundle\Entity\Location;
 use fibe\ContentBundle\Entity\Sponsor;
 use fibe\ContentBundle\Entity\Topic;
+use fibe\ImportBundle\Annotation\Importer;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
 use JMS\Serializer\Annotation\Groups;
@@ -52,6 +53,11 @@ abstract class VEvent
      * @Groups({"list"})
      */
     protected $id;
+
+
+    protected $startAt;
+    protected $endAt;
+    protected $label;
 
     /**
      * description
@@ -262,6 +268,8 @@ abstract class VEvent
      * @ORM\JoinTable(name="vevent_location",
      *     joinColumns={@ORM\JoinColumn(name="event_id", referencedColumnName="id")},
      *     inverseJoinColumns={@ORM\JoinColumn(name="location_id", referencedColumnName="id")})
+     *
+     * @Importer(targetEntity="fibe\ContentBundle\Entity\Location")
      */
     protected $location;
 
@@ -271,6 +279,7 @@ abstract class VEvent
     public function __construct()
     {
         $this->topics = new ArrayCollection();
+        $this->sponsors = new ArrayCollection();
         $this->createdAt = new \DateTime();
         $this->lastModifiedAt = new \DateTime();
         $this->status = self::STATUS_EVENT_CONFIRMED;
@@ -317,6 +326,21 @@ abstract class VEvent
         );
     }
 
+    /**
+     * @return mixed
+     */
+    public function getStartAt()
+    {
+        return $this->startAt;
+    }
+
+    /**
+     * @param mixed $startAt
+     */
+    public function setStartAt($startAt)
+    {
+        $this->startAt = $startAt;
+    }
 
     /**
      * Get id
@@ -337,6 +361,59 @@ abstract class VEvent
     }
 
     /**
+     * Modify start & end in order to fit to events' children.
+     * Do nothing if the event doesn't have children.
+     * Add one day if the children are all instant and on the same moment.
+     *
+     * @return bool
+     */
+
+    /**
+     * Get createdAt
+     *
+     * @return \DateTime
+     */
+
+    /*public function fitChildrenDate()
+    {
+        $earliestStart = new \DateTime('6000-10-10');
+        $latestEnd = new \DateTime('1000-10-10');
+        foreach ($this->getChildren() as $child)
+        {
+            // @var Event $child
+            if ($child->getIsInstant())
+            {
+                continue;
+            }
+            if ($child->getStartAt() < $earliestStart)
+            {
+                $earliestStart = $child->getStartAt();
+            }
+            if ($child->getEndAt() > $latestEnd)
+            {
+                $latestEnd = $child->getEndAt();
+            }
+        }
+        //if $earliestStart && $latestEnd were changed
+        if ($earliestStart != new \DateTime('6000-10-10') && $latestEnd != new \DateTime('1000-10-10'))
+        {
+            if ($earliestStart == $latestEnd)
+            {
+                $latestEnd->add(new \DateInterval('P1D'));
+            }
+            if ($earliestStart->getTimestamp() != $this->getStartAt()->getTimestamp() || $latestEnd->getTimestamp() != $this->getEndAt()->getTimestamp())
+            {
+                $this->setStartAt($earliestStart);
+                $this->setEndAt($latestEnd);
+
+                return true;
+            }
+        }
+
+        return false;
+    }*/
+
+    /**
      * @return mixed
      */
     public function getLabel()
@@ -344,6 +421,13 @@ abstract class VEvent
         return $this->label;
     }
 
+    /**
+     * @param mixed $label
+     */
+    public function setLabel($label)
+    {
+        $this->label = $label;
+    }
 
     /**
      * onCreation
@@ -367,6 +451,12 @@ abstract class VEvent
         $now = new \DateTime('now');
         $this->setLastModifiedAt($now);
     }
+
+    /**
+     * Get createdAt
+     *
+     * @return \DateTime
+     */
 
     /**
      * uid
@@ -422,66 +512,7 @@ abstract class VEvent
         return $dt->format($format);
     }
 
-    /**
-     * Modify start & end in order to fit to events' children.
-     * Do nothing if the event doesn't have children.
-     * Add one day if the children are all instant and on the same moment.
-     *
-     * @return bool
-     */
-    /*public function fitChildrenDate()
-    {
-        $earliestStart = new \DateTime('6000-10-10');
-        $latestEnd = new \DateTime('1000-10-10');
-        foreach ($this->getChildren() as $child)
-        {
-            // @var Event $child
-            if ($child->getIsInstant())
-            {
-                continue;
-            }
-            if ($child->getStartAt() < $earliestStart)
-            {
-                $earliestStart = $child->getStartAt();
-            }
-            if ($child->getEndAt() > $latestEnd)
-            {
-                $latestEnd = $child->getEndAt();
-            }
-        }
-        //if $earliestStart && $latestEnd were changed
-        if ($earliestStart != new \DateTime('6000-10-10') && $latestEnd != new \DateTime('1000-10-10'))
-        {
-            if ($earliestStart == $latestEnd)
-            {
-                $latestEnd->add(new \DateInterval('P1D'));
-            }
-            if ($earliestStart->getTimestamp() != $this->getStartAt()->getTimestamp() || $latestEnd->getTimestamp() != $this->getEndAt()->getTimestamp())
-            {
-                $this->setStartAt($earliestStart);
-                $this->setEndAt($latestEnd);
 
-                return true;
-            }
-        }
-
-        return false;
-    }*/
-
-
-    /**
-     * @param mixed $label
-     */
-    public function setLabel($label)
-    {
-        $this->label = $label;
-    }
-
-    /**
-     * Get createdAt
-     *
-     * @return \DateTime
-     */
     public function getCreatedAt()
     {
         return $this->createdAt;
@@ -573,7 +604,6 @@ abstract class VEvent
         return $this;
     }
 
-
     /**
      * Get url
      *
@@ -621,39 +651,6 @@ abstract class VEvent
 
         return $this;
     }
-//  /**
-//   * Add roles
-//   *
-//   * @param Role $role
-//   *
-//   * @return $this
-//   */
-//  public function addRole(Role $role)
-//  {
-//    $this->roles[] = $role;
-//
-//    return $this;
-//  }
-//
-//  /**
-//   * Remove roles
-//   *
-//   * @param Role $role
-//   */
-//  public function removeRole(Role $role)
-//  {
-//    $this->roles->removeElement($role);
-//  }
-//
-//  /**
-//   * Get roles
-//   *
-//   * @return \Doctrine\Common\Collections\Collection
-//   */
-//  public function getRoles()
-//  {
-//    return $this->roles;
-//  }
 
     /**
      * Get location
@@ -777,7 +774,6 @@ abstract class VEvent
         $this->topics = $topics;
     }
 
-
     /**
      * @return mixed
      */
@@ -841,7 +837,6 @@ abstract class VEvent
     {
         $this->youtube = $youtube;
     }
-
 
     /**
      * auto persist of embedded data

@@ -7,14 +7,13 @@ use Symfony\Component\Security\Acl\Dbal\MutableAclProvider;
 use Symfony\Component\Security\Acl\Exception\AclNotFoundException;
 use Symfony\Component\Security\Acl\Permission\MaskBuilder;
 
+/**
+ * util class to be extended when dealing with ACL
+ * Class ACLHelper
+ * @package fibe\SecurityBundle\Services\Acl
+ */
 abstract class ACLHelper
 {
-
-    /*
-     * first %s is entityType and second is id
-     */
-    const CANNOT_FIND_ENTITY_LABEL = 'Cannot find %s %s';
-
     /**
      * get label from code
      * @const
@@ -29,19 +28,20 @@ abstract class ACLHelper
         'M' => 'MASTER',
         'N' => 'OWNER'
     );
+
     /**
      * get Description from label
      * @const
      */
     public static $MASK_LABELS = array(
-        'VIEW'     => '[View]',
-        'EDIT'     => '[Edit]',
+        'VIEW' => '[View]',
+        'EDIT' => '[Edit]',
         // 'CREATE' => 'CREATE',
         // 'DELETE' => 'DELETE',
         // 'UNDELETE' => 'UNDELETE',
         'OPERATOR' => '[OPERATOR] Edit/Create/Delete',
-        'MASTER'   => '[MASTER] Master can give those permissions to others',
-        'OWNER'    => '[OWNER] Owner can promote/demote the Master status and delete the mainEvent'
+        'MASTER' => '[MASTER] Master can give those permissions to others',
+        'OWNER' => '[OWNER] Owner can promote/demote the Master status and delete the mainEvent'
     );
 
 
@@ -54,58 +54,50 @@ abstract class ACLHelper
      * @const
      */
     public static $ACLEntityNameArray = array(
-        'MainEvent'           => array(
-            'classpath'        => 'fibe\\EventBundle\\Entity',
+        'MainEvent' => array(
+            'classpath' => 'fibe\\EventBundle\\Entity',
             'repositoryBundle' => 'fibeEventBundle'
         ),
-        'Team'                => array(
-            'parent'    => 'getMainEvent',
+        'Team' => array(
+            'parent' => 'getMainEvent',
             'classpath' => 'fibe\\SecurityBundle\\Entity',
         ),
-        'Teammate'            => array(
-            'parent'    => 'getTeam',
+        'Teammate' => array(
+            'parent' => 'getTeam',
             'classpath' => 'fibe\\SecurityBundle\\Entity',
         ),
-        'Event'               => array(
-            'parent'           => 'getMainEvent',
-            'classpath'        => 'fibe\\EventBundle\\Entity',
+        'Event' => array(
+            'parent' => 'getMainEvent',
+            'classpath' => 'fibe\\EventBundle\\Entity',
             'repositoryBundle' => 'fibeEventBundle'
         ),
-        'Location'            => array(
-            'parent'    => 'getMainEvent',
+        'Location' => array(
+            'parent' => 'getMainEvent',
             'classpath' => 'fibe\\ContentBundle\\Entity',
         ),
-        'Paper'               => array(
-            'parent'    => 'getMainEvent',
+        'Paper' => array(
+            'parent' => 'getMainEvent',
             'classpath' => 'fibe\\ContentBundle\\Entity',
         ),
-        'Person'              => array(
+        'Person' => array(
             'classpath' => 'fibe\\CommunityBundle\\Entity',
         ),
-        'Role'                => array(
-            'parent'    => 'getMainEvent',
+        'Role' => array(
+            'parent' => 'getMainEvent',
             'classpath' => 'fibe\\ContentBundle\\Entity',
         ),
-        'OrganizationVersion' => array(
-            'parent'    => 'getOrganizationVersionOwner',
-            'classpath' => 'fibe\\CommunityBundle\\Entity',
-        ),
-//        'RoleLabel'           => array(
-//            'parent'    => 'getRoles',
-//            'classpath' => 'fibe\\ContentBundle\\Entity',
-//        ),
+        //        'RoleLabel'           => array(
+        //            'parent'    => 'getRoles',
+        //            'classpath' => 'fibe\\ContentBundle\\Entity',
+        //        ),
         //    'Topic' => array(
         //      'parent' => 'getMainEvent',
         //      'classpath' => 'fibe\\ContentBundle\\Entity',
         //      'repositoryBundle' => 'fibeContentBundle'
         //    ),
-        'Sponsor'             => array(
-            'parent'    => 'getMainEvent',
+        'Sponsor' => array(
+            'parent' => 'getMainEvent',
             'classpath' => 'fibe\\ContentBundle\\Entity',
-        ),
-        'CategoryVersion'     => array(
-            'parent'    => 'getMainEvent',
-            'classpath' => 'fibe\\EventBundle\\Entity',
         ),
         //    'Equipment' => array(
         //      'parent' => 'getMainEvent',
@@ -144,6 +136,7 @@ abstract class ACLHelper
     }
 
     /**
+     * get $ACLEntityNameArray value for the giver classname
      * @param $classname
      * @return array | false
      */
@@ -156,11 +149,12 @@ abstract class ACLHelper
         {
             try
             {
-                if (isset(ACLHelper::$ACLEntityNameArray[$class->getShortName()]))
+                if (isset(self::$ACLEntityNameArray[$class->getShortName()]))
                 {
-                    return ACLHelper::$ACLEntityNameArray[$class->getShortName()];
+                    return self::$ACLEntityNameArray[$class->getShortName()];
                 }
-            } catch (AclNotFoundException $e)
+            }
+            catch (AclNotFoundException $e)
             {
                 //return false if the entity is not managed with acl
             }
@@ -169,15 +163,16 @@ abstract class ACLHelper
         return false;
     }
 
-    /**
-     * @param LoggerInterface $logger
-     */
-    public function setLogger($logger)
+    static function getClassNameFromShortClassName($shortClassName)
     {
-        $this->logger = $logger;
+        if (isset(self::$ACLEntityNameArray[$shortClassName]))
+        {
+            return self::$ACLEntityNameArray[$shortClassName]["classpath"] . "\\" . $shortClassName;
+        }
+        throw new \Exception("'$shortClassName' is not configured to be imported");
     }
 
-    /**
+    /** inject service
      * @param MutableAclProvider $aclProvider
      */
     public function setAclProvider(MutableAclProvider $aclProvider)
@@ -186,11 +181,23 @@ abstract class ACLHelper
     }
 
     /**
+     * inject service
      * @param EntityManager $entityManager
      */
     public function setEntityManager(EntityManager $entityManager)
     {
         $this->entityManager = $entityManager;
+    }
+
+    /**************** inject ********************/
+
+    /**
+     * inject service
+     * @param LoggerInterface $logger
+     */
+    public function setLogger($logger)
+    {
+        $this->logger = $logger;
     }
 
     protected function getMask($action)

@@ -19,18 +19,18 @@ angular.module('sympozerApp').controller('mainCtrl', ['$scope', '$rootScope', '$
     {
         if ($rootScope.ui_isSmallScreen)
         {
-            return $uiConfig.set('navLeftShown', !$uiConfig.get('navLeftShown'));
+            return $uiConfig.set('navLeftShown', !$rootScope.ui_navLeftShown);
         }
-        $uiConfig.set('navLeftCollapsed', !$uiConfig.get('navLeftCollapsed'));
+        $uiConfig.set('navLeftCollapsed', !$rootScope.ui_navLeftCollapsed);
     };
 
     /**
      * Event triggered whenever a global change of layout append
      * (usually when the user click somewhere on the app)
      */
-    $scope.$on('uiConfig:change', function (event, newVal)
+    $rootScope.$on('uiConfig:change', function (event, newVal)
     {
-        $scope['ui_' + newVal.key] = newVal.value;
+        $rootScope['ui_' + newVal.key] = $scope['ui_' + newVal.key] = newVal.value;
     });
 
     $scope.$on('uiConfig:maxWidth767', function (event, newVal)

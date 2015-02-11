@@ -7,7 +7,7 @@
   <!--Options bar containing possible actions-->
   <div class="options">
     <div class="btn-toolbar">
-      <button ng-controller="importCtrl" disabled="disabled" sympozer-acl-show="mainEvent" ng-click="startImport()" class="btn btn-info" title="{{ 'import.import' | translate}}">
+      <button ng-controller="importCtrl" sympozer-acl-show="mainEvent" ng-click="startImport('all')" class="btn btn-info" title="{{ 'import.import' | translate}}">
       <i class="fa fa-caret-square-o-down"></i>
         <span class="visible-sm-inline visible-lg-inline visible-md-inline"> {{ 'import.import' | translate}}</span>
       </button>
@@ -159,5 +159,5 @@
 
 
 <span class="ng-social-facebook"></span>
-     
+
 

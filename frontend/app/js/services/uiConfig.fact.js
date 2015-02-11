@@ -24,6 +24,7 @@ angular.module('sympozerApp').service('$uiConfig', ['$rootScope', '$document', '
     {
         this.settings[key] = value;
         $rootScope.$broadcast('uiConfig:change', {key: key, value: this.settings[key]});
+        $rootScope.$broadcast('uiConfig:changed:' + key, this.settings[key]);
     };
 
     $document.ready(function ()
@@ -38,6 +39,7 @@ angular.module('sympozerApp').service('$uiConfig', ['$rootScope', '$document', '
                 $rootScope.$broadcast('uiConfig:maxWidth767', false);
             }
         });
+        $rootScope.$broadcast('uiConfig:maxWidth767', true);
     });
 
 }])

@@ -436,7 +436,8 @@ class Person extends Agent
         $this->positions[] = $position;
 
         $position->setPerson($this);
-        echo "addPosition to :" . $position->getPerson()->getLabel();
+
+//        echo "addPosition to :" . $position->getPerson()->getLabel();
 
         return $this;
     }

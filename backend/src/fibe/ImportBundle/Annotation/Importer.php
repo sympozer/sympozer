@@ -1,6 +1,8 @@
 <?php
 namespace fibe\ImportBundle\Annotation;
 
+use Doctrine\ORM\Mapping\Annotation;
+
 /**
  * Importer annotation.
  *
@@ -17,7 +19,7 @@ class Importer
     /**
      * @var string
      */
-    public $uniqField = "id";
+    public $uniqField = "importCode";
 
     /**
      * @var string
@@ -39,17 +41,34 @@ class Importer
     /**
      * @var bool
      */
-    public $optional = false;
+    public $optional = true;
 
     /**
      * The pty this annotation is bound with
+     * this pty is set in ImprotService
      * @var string
      */
-    public $propertyName;
+    public $name;
 
+    /**
+     * the dateFormat, null if not a date
+     * this pty is set in ImprotService
+     * @var string
+     */
+    public $dateFormat;
+
+    /**
+     * serialize import config for the current annotated property.
+     * @return string
+     */
     public function __toString()
     {
-        $rtn = $this->propertyName;
+        $rtn = $this->name;
+
+        if (!$this->optional)
+        {
+            $rtn .= "*";
+        }
 
         if ($this->targetEntity)
         {
@@ -66,9 +85,9 @@ class Importer
             $rtn .= "[collection=true]";
         }
 
-        if ($this->optional)
+        if ($this->dateFormat)
         {
-            $rtn .= "[optional=true]";
+            $rtn .= "[dateFormat=" . $this->dateFormat . "]";
         }
 
         return $rtn;
