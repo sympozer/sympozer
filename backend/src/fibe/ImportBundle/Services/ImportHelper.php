@@ -4,6 +4,7 @@ namespace fibe\ImportBundle\Services;
 /**
  * util class ImportHelper
  * Class ImportHelper
+ * contains the list to
  * @package fibe\ImportBundle\Services
  */
 class ImportHelper
