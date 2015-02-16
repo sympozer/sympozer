@@ -1,1 +1,1 @@
-<label class="btn btn-default ellipsis" ng-click="addDaysFilter($index, day)"  ng-init="day.active=false" ng-model="day.active" > {{ day.label }} </label>
+<label ng-class="{'active': day.active}" class="btn btn-default ellipsis" ng-click="addDaysFilter($index, day)"  ng-init="day.active=false" ng-model="day.active" > {{ day.label }} </label>

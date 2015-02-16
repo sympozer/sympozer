@@ -2,6 +2,7 @@
 
 namespace fibe\EventBundle\Repository;
 
+use DateTime;
 use Doctrine\ORM\EntityRepository;
 
 /**
@@ -35,21 +36,31 @@ class EventRepository extends EntityRepository
                 ->setParameter('id', $params['id']);
         }
 
-        if (isset($params['day']))
+        if (isset($params['start']) && isset($params['end']))
         {
-            $dayAfter = date('Y-m-d', strtotime($params['day']. ' + 1 days'));
+            $start = new DateTime($params['start']);
+            $end = new DateTime($params['end']);
+
             $qb
-                ->andWhere('qb.da > :day')
-                ->andWhere('qb.da < :dayAfter')
-                ->setParameter('day', $params['day']->format('Y-m-d'))
-                ->setParameter('dayAfter',$dayAfter->format('Y-m-d'));
+                ->andWhere('qb.startAt BETWEEN :start AND :end')
+                ->andWhere('qb.endAt BETWEEN :start AND :end')
+                ->setParameter('start', $start)
+                ->setParameter('end',  $end);
         }
 
-        if (isset($params['categoryVersionId']))
+        if (isset($params['categoryId']))
         {
             $qb->leftJoin('qb.category', 'c')
                 ->andWhere('c.id = :categoryId')
                 ->setParameter('categoryId', $params['categoryId']);
+        }
+
+
+        if (isset($params['topicId']))
+        {
+            $qb->leftJoin('qb.topics', 'topic')
+                ->andWhere('topic.id = :topicId')
+                ->setParameter('topicId', $params['topicId']);
         }
         return $qb;
     }

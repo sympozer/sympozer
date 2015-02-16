@@ -1,48 +1,56 @@
 <!-- Filter Right bar -->
 <div sticky-scroll="40" filterbox-right-position="style_layoutBoxed">
-    <h2 style="color:red">In construction</h2>
+
+    <!--<h1>{{showSideboxRight}}</h1>-->
+    <button class="btn btn-primary btn-xs" ng-click="showSideboxRight=!showSideboxRight">
+        <i class="fa fa-caret-square-o-right"></i>
+    </button>
     <div class="input-group well w100">
-        <input type="text" ng-model="query" placeholder="{{'global.actions.placeHolderSearch' | translate }}" class="form-control"/>
+
+
+        <input type="text" ng-model="query.label" ng-init="query" placeholder="{{'global.actions.placeHolderSearch' | translate }}" class="form-control"/>
          <span class="input-group-btn">
-            <button role="submit" type="submit" class="btn btn-primary">
+            <button type="submit" class="btn btn-primary" ng-click="addLabelFilter(query)">
                 <i class="fa fa-search"></i>
             </button>
-          </span>
+         </span>
     </div>
+    <div>
+        <button ng-show="filters.categoryId" class="btn btn-default" ng-click="clearFilters('categoryId')">category <i class="fa fa-close"></i>
+        </button>
+        <button ng-show="filters.topicId" class="btn btn-default" ng-click="clearFilters('topicId')">topic <i class="fa fa-close"></i></button>
+        <button ng-show="query.label != '' && query.sended == true" class="btn btn-default" ng-click="clearFilters('query')">"{{query.label}}" <i class="fa fa-close"></i></button>
+    </div>
+
     <accordion close-others="filterboxAccordionsShowOne">
         <accordion-group is-open="filterboxAccordions[0].open" ng-class="{open:filterboxAccordions[0].open}">
             <accordion-heading>
                 {{'global.labels.days' | translate }}
             </accordion-heading>
             <div ng-repeat="day in days" ng-include="GLOBAL_CONFIG.app.modules.mainEvents.urls.partials+'views/main-events-days-checkbox.html'"/>
-
         </accordion-group>
 
         <accordion-group is-open="filterboxAccordions[1].open" ng-class="{open:filterboxAccordions[1].open}">
             <accordion-heading>
                 {{'locations.links.locations' | translate }}
             </accordion-heading>
-            <div ng-repeat="location in locations.results" ng-include="GLOBAL_CONFIG.app.modules.locations.urls.partials+'views/locations-checkbox.html'">
+            <div ng-repeat="location in locations" ng-include="GLOBAL_CONFIG.app.modules.locations.urls.partials+'views/locations-checkbox.html'">
             </div>
         </accordion-group>
 
-        <accordion-group is-open="filterboxAccordions[3].open" ng-class="{open:filterboxAccordions[3].open}">
+        <accordion-group is-open="filterboxAccordions[2].open" ng-class="{open:filterboxAccordions[3].open}">
             <accordion-heading>
                 {{'categories.links.categories' | translate }}
             </accordion-heading>
-            <div ng-repeat="category in categories.results" ng-include="GLOBAL_CONFIG.app.modules.categories.urls.partials+'views/categories-checkbox.html'">
+            <div ng-repeat="category in categories" ng-include="GLOBAL_CONFIG.app.modules.categories.urls.partials+'views/categories-checkbox.html'">
             </div>
 
         </accordion-group>
-        <!--<accordion-group is-open="filterboxAccordions[4].open" ng-class="{open:filterboxAccordions[4].open}">-->
-            <!--<accordion-heading>-->
-                <!--{{'events.labels.unscheduled_Event' | translate }}-->
-            <!--</accordion-heading>-->
-            <!--<div ng-repeat="event in events.results" ng-include="GLOBAL_CONFIG.app.modules.events.urls.partials+'views/event-tile-sm.html'">-->
-            <!--</div>-->
-
-        <!--</accordion-group>-->
-
-
+        <accordion-group is-open="filterboxAccordions[3].open" ng-class="{open:filterboxAccordions[3].open}">
+            <accordion-heading>
+                {{'topics.links.topics' | translate }}
+            </accordion-heading>
+            <div ng-repeat="topic in topics" ng-include="GLOBAL_CONFIG.app.modules.topics.urls.partials+'views/topics-checkbox.html'"></div>
+        </accordion-group>
     </accordion>
 </div>

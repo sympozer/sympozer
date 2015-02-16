@@ -2,15 +2,19 @@
  * events schedule controller
  * @type {controller}
  */
-angular.module('eventsApp').controller('eventsScheduleCtrl', ['$scope', '$templateCache', 'categoriesFact', '$routeParams', 'GLOBAL_CONFIG', '$rootScope', 'eventsFact', '$compile', '$modal', 'moment', 'locationsFact', 'dateDaysDifferenceFact', 'searchService', function ($scope, $templateCache, categoriesFact, $routeParams, GLOBAL_CONFIG, $rootScope, eventsFact, $compile, $modal, moment, locationsFact, dateDaysDifferenceFact, searchService) {
+angular.module('eventsApp').controller('eventsScheduleCtrl', ['$scope', '$templateCache', 'categoriesFact', '$routeParams', 'GLOBAL_CONFIG', '$rootScope', 'eventsFact', '$compile', '$modal', 'moment', 'locationsFact', 'dateDaysDifferenceFact', 'searchService', 'topicsFact', function ($scope, $templateCache, categoriesFact, $routeParams, GLOBAL_CONFIG, $rootScope, eventsFact, $compile, $modal, moment, locationsFact, dateDaysDifferenceFact, searchService, topicsFact) {
 
     /************ FULLCALENDAR DRV CONTROL ******************/
+
+        //Initialize query for label search
+    $scope.query = {};
 
     //Initialize filter list for locations and events
     $scope.filters = {
         'mainEventId': $routeParams.mainEventId,
-        'day'        : $rootScope.currentMainEvent.startAt
+        'query': $scope.query.label
     };
+
 
     //Get locations according to the current filters and execute callback with response
     var fetchLocations = function (callback) {
@@ -22,8 +26,15 @@ angular.module('eventsApp').controller('eventsScheduleCtrl', ['$scope', '$templa
     //Get events according to the current filters and execute callback with response
     var fetchEvents = function (callback) {
         var serializedFilters = {};
-       // searchService.serializeFilters($scope.filters, serializedFilters)
-        eventsFact.allByConference($scope.filters, function (response) {
+
+        //Serialize filters according to backend format
+        searchService.serializeFilters($scope.filters, serializedFilters);
+
+        //Add the mainEvent id for the backend url resolving
+        serializedFilters.mainEventId = $routeParams.mainEventId;
+
+        //Request events according to serialized filters
+        eventsFact.allByConference(serializedFilters, {}, function (response) {
             callback(response.results);
         });
     }
@@ -47,10 +58,19 @@ angular.module('eventsApp').controller('eventsScheduleCtrl', ['$scope', '$templa
     ];
 
     //Fetch categories
-    $scope.categories = categoriesFact.allByConference({'mainEventId': $routeParams.mainEventId});
+    categoriesFact.allByConference({'mainEventId': $routeParams.mainEventId}, function(response){
+        $scope.categories = response.results;
+    });
 
     //Fetch locations
-    $scope.locations = locationsFact.allByConference({'mainEventId': $routeParams.mainEventId});
+    locationsFact.allByConference({'mainEventId': $routeParams.mainEventId}, function(response){
+        $scope.locations = response.results;
+    });
+
+    //Fetch topics
+    topicsFact.allByConference({'mainEventId': $routeParams.mainEventId}, function(response){
+        $scope.topics = response.results;
+    });
 
     //Get current main event day list
     $scope.days = dateDaysDifferenceFact.getDaysDifference($rootScope.currentMainEvent.startAt, $rootScope.currentMainEvent.endAt);
@@ -66,7 +86,7 @@ angular.module('eventsApp').controller('eventsScheduleCtrl', ['$scope', '$templa
         if (!$scope.filters[filter]) {
             filterIndex = -1;
         } else {
-            filterIndex = $scope.filters[filter].indexOf(value);
+//            filterIndex = $scope.filters[filter].indexOf(value);
         }
 
         //If no, add it
@@ -76,20 +96,57 @@ angular.module('eventsApp').controller('eventsScheduleCtrl', ['$scope', '$templa
         //If yes remove it
         else {
 //            $scope.filters[filter].splice(filterIndex , 1);
-            delete($scope.filters[filter]);
+            //delete($scope.filters[filter]);
         }
-
-        //Trigger the entity-list-handler filter function to send request
-        $scope.filter();
     };
 
     $scope.filter = function () {
         $scope.refetchEvents();
     }
 
+    $scope.clearFilters = function(filterId){
+        delete($scope.filters[filterId]);
+        $scope.refetchEvents();
+    }
+
+    /**
+     *
+     * @param arrayOfData
+     * @param filterId
+     */
+    $scope.removeFilters = function(arrayOfData, filterId){
+
+    }
+
     $scope.addDaysFilter = function (index, day) {
-        $scope.addFilter('day', day.date.format('yyyy-MM-ddTHH:mmZ'));
-        $scope.goToDate(day.date);
+
+        //Define the beginning of the selected day
+        var dayStart = new moment(day.date);
+        dayStart.hours(0);
+        dayStart.minutes(0);
+
+        //Define the end of the selected day
+        var dayEnd = new moment(day.date);
+        dayEnd.hours(23);
+        dayEnd.minutes(59);
+
+        //Add a date interval filter
+        $scope.addFilter('start', dayStart.format());
+        $scope.addFilter('end', dayEnd.format());
+
+        //Call fullcalendar directive to change day
+        $scope.goToDate(dayStart);
+
+        //Remove active property on all other days
+        for(var i=0; i<$scope.days.length; i++){
+            $scope.days[i].active = false;
+        }
+        //the day clicked is now "active"
+        $scope.days[index].active = true;
+
+
+        //Trigger the entity-list-handler filter function to send request
+        $scope.filter();
     }
 
     /**
@@ -113,8 +170,64 @@ angular.module('eventsApp').controller('eventsScheduleCtrl', ['$scope', '$templa
         if(!inFilterArray){
             $scope.addResource(location);
         }
+
+        //Trigger the entity-list-handler filter function to send request
+        $scope.filter();
     }
 
+    /**
+     * Add a filter on the selected category
+     * @param index, the index of the clicked category in the category tab
+     * @param category, the category clicked
+     */
+    $scope.addCategoriesFilter = function (index, category) {
+
+
+        $scope.addFilter('categoryId', category.id);
+
+        //Remove active property on all other categories
+        for(var i=0; i<$scope.categories.length; i++){
+            $scope.categories[i].active = false;
+        }
+
+        //the category clicked is now "active"
+        $scope.categories[index].active = true;
+
+        //Trigger the entity-list-handler filter function to send request
+        $scope.filter();
+
+    }
+
+
+    /**
+     * Add a filter on the selected topic
+     * @param index, the index of the clicked topic in the topic tab
+     * @param topic, the topic clicked
+     */
+    $scope.addTopicsFilter = function (index, topic) {
+        $scope.addFilter('topicId', topic.id);
+
+        //Remove active property on all other topics
+        for(var i=0; i<$scope.topics.length; i++){
+            $scope.topics[i].active = false;
+        }
+
+        //the topic clicked is now "active"
+        $scope.topics[index].active = true;
+
+        //Trigger the entity-list-handler filter function to send request
+        $scope.filter();
+
+    }
+
+    $scope.addLabelFilter = function(){
+
+//        $scope.addFilter('query', $scope.query.label);
+        $scope.query.sended = true;
+
+        //Trigger the entity-list-handler filter function to send request
+        $scope.filter();
+    }
 
 
 
