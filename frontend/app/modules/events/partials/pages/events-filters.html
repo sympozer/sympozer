@@ -16,10 +16,10 @@
          </span>
     </div>
     <div>
-        <button ng-show="filters.categoryId" class="btn btn-default" ng-click="clearFilters('categoryId')">category <i class="fa fa-close"></i>
+        <button ng-show="filters.categoryId" class="btn btn-default" ng-click="removeFilter('categoryId', 'categories')">category <i class="fa fa-close"></i>
         </button>
-        <button ng-show="filters.topicId" class="btn btn-default" ng-click="clearFilters('topicId')">topic <i class="fa fa-close"></i></button>
-        <button ng-show="query.label != '' && query.sended == true" class="btn btn-default" ng-click="clearFilters('query')">"{{query.label}}" <i class="fa fa-close"></i></button>
+        <button ng-show="filters.topicId" class="btn btn-default" ng-click="removeFilter('topicId', 'topics')">topic <i class="fa fa-close"></i></button>
+        <button ng-show="query.label != '' && query.sended == true" class="btn btn-default" ng-click="removeFilter('query')">"{{query.label}}" <i class="fa fa-close"></i></button>
     </div>
 
     <accordion close-others="filterboxAccordionsShowOne">

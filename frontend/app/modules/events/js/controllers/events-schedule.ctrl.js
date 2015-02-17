@@ -14,7 +14,6 @@ angular.module('eventsApp').controller('eventsScheduleCtrl', ['$scope', '$templa
     //Initialize filter list for locations and events
     $scope.filters = {
         'mainEventId': $routeParams.mainEventId,
-        'query': $scope.query.label
     };
 
     //Open / close the sidebox with filters
@@ -39,6 +38,9 @@ angular.module('eventsApp').controller('eventsScheduleCtrl', ['$scope', '$templa
 
         //Add the mainEvent id for the backend url resolving
         serializedFilters.mainEventId = $routeParams.mainEventId;
+
+        //Add the current query
+        serializedFilters.query= $scope.querySended;
 
         //Request events according to serialized filters
         eventsFact.allByConference(serializedFilters, {}, function (response) {
@@ -87,42 +89,41 @@ angular.module('eventsApp').controller('eventsScheduleCtrl', ['$scope', '$templa
 
     //Add to filter list
     $scope.addFilter = function (filter, value) {
-        var filterIndex;
 
-        //test if the filter is already in the filters
-        if (!$scope.filters[filter]) {
-            filterIndex = -1;
-        } else {
-//            filterIndex = $scope.filters[filter].indexOf(value);
-        }
+        $scope.filters[filter] = value;
 
-        //If no, add it
-        if (filterIndex == -1) {
-            $scope.filters[filter] = value;
-        }
-        //If yes remove it
-        else {
-//            $scope.filters[filter].splice(filterIndex , 1);
-            //delete($scope.filters[filter]);
-        }
     };
-
-    $scope.filter = function () {
-        $scope.refetchEvents();
-    }
-
-    $scope.clearFilters = function(filterId){
-        delete($scope.filters[filterId]);
-        $scope.refetchEvents();
-    }
 
     /**
      *
      * @param arrayOfData
      * @param filterId
      */
-    $scope.removeFilters = function(arrayOfData, filterId){
+    $scope.removeFilter = function(filterId, arrayOfData){
 
+        if($scope.filters[filterId]){
+            delete($scope.filters[filterId]);
+        }
+
+        if(arrayOfData){
+            //Reset active property all the filters choices related to "filterId"
+            for(var i=0; i<$scope[arrayOfData].length; i++){
+                $scope[arrayOfData][i].active = true;
+            }
+        }
+
+        if(filterId == "query"){
+            delete($scope.querySended);
+            $scope.query.sended = false;
+            $scope.query.label = null;
+        }
+
+
+        $scope.filter();
+    }
+
+    $scope.filter = function () {
+        $scope.refetchEvents();
     }
 
     $scope.addDaysFilter = function (index, day) {
@@ -231,6 +232,8 @@ angular.module('eventsApp').controller('eventsScheduleCtrl', ['$scope', '$templa
 
 //        $scope.addFilter('query', $scope.query.label);
         $scope.query.sended = true;
+
+        $scope.querySended = $scope.query.label;
 
         //Trigger the entity-list-handler filter function to send request
         $scope.filter();
