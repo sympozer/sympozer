@@ -6,14 +6,21 @@ angular.module('eventsApp').controller('eventsScheduleCtrl', ['$scope', '$templa
 
     /************ FULLCALENDAR DRV CONTROL ******************/
 
-        //Initialize query for label search
+    //Initialize query for label search
     $scope.query = {};
+
+    $scope.showSideboxRight = false;
 
     //Initialize filter list for locations and events
     $scope.filters = {
         'mainEventId': $routeParams.mainEventId,
         'query': $scope.query.label
     };
+
+    //Open / close the sidebox with filters
+    $scope.toggleSideboxRight = function(){
+        $scope.showSideboxRight=!$scope.showSideboxRight;
+    }
 
 
     //Get locations according to the current filters and execute callback with response

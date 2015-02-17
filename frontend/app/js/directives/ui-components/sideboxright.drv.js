@@ -20,8 +20,7 @@ angular.module('sympozerApp').directive('sideboxright',['GLOBAL_CONFIG', functio
             //Set the template to load inside the sidebox
             scope.innerTemplateUrl = attr.innerTemplateUrl || "";
             //Watch for visibility value changes
-            scope.$watch('showSideboxRight', function (newVal, oldVal) {
-                debugger;
+            scope.$watch(function() { return scope.showSideboxRight; }, function (newVal, oldVal) {
                 if (newVal) {
                     //Add class to the parent and make the ".sideboxright" visible
                     element.addClass("show-sideboxright");
