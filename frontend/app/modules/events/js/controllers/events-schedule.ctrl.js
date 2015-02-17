@@ -56,7 +56,7 @@ angular.module('eventsApp').controller('eventsScheduleCtrl', ['$scope', '$templa
 
     /************ FILTERS CONTROL ******************/
 
-        //Initilize open variable for accordions in filter box
+    //Initilize open variable for accordions in filter box
     $scope.filterboxAccordionsShowOne = false;
     $scope.filterboxAccordions = [
         {open: false},
@@ -95,16 +95,18 @@ angular.module('eventsApp').controller('eventsScheduleCtrl', ['$scope', '$templa
     };
 
     /**
-     *
-     * @param arrayOfData
-     * @param filterId
+     * Delete a specific filter from scope.filters and reset "active" property on all possible choices for the filter
+     * @param filterId, the id of the filter to remove in  scope.filters
+     * @param arrayOfChoices, the array containing the choices for the filterId
      */
-    $scope.removeFilter = function(filterId, arrayOfData){
+    $scope.removeFilter = function(filterId, arrayOfChoices){
 
+        //If filter exist, delete it
         if($scope.filters[filterId]){
             delete($scope.filters[filterId]);
         }
 
+        //If array of choices exist
         if(arrayOfData){
             //Reset active property all the filters choices related to "filterId"
             for(var i=0; i<$scope[arrayOfData].length; i++){
@@ -112,20 +114,27 @@ angular.module('eventsApp').controller('eventsScheduleCtrl', ['$scope', '$templa
             }
         }
 
+        //Reset query if the filter to remove is query
         if(filterId == "query"){
             delete($scope.querySended);
             $scope.query.sended = false;
             $scope.query.label = null;
         }
 
-
+        //Trigger the refetch events
         $scope.filter();
     }
 
+    //Send a new request with the current filters
     $scope.filter = function () {
         $scope.refetchEvents();
     }
 
+    /**
+     * Filter event according to a specific day
+     * @param index, the index of the selected day in the days array
+     * @param day, a string respresenting the date of the selected day
+     */
     $scope.addDaysFilter = function (index, day) {
 
         //Define the beginning of the selected day
@@ -206,11 +215,10 @@ angular.module('eventsApp').controller('eventsScheduleCtrl', ['$scope', '$templa
 
     }
 
-
     /**
      * Add a filter on the selected topic
      * @param index, the index of the clicked topic in the topic tab
-     * @param topic, the topic clicked
+     * @param topic, the topic to filter on
      */
     $scope.addTopicsFilter = function (index, topic) {
         $scope.addFilter('topicId', topic.id);
@@ -228,15 +236,24 @@ angular.module('eventsApp').controller('eventsScheduleCtrl', ['$scope', '$templa
 
     }
 
+    /**
+     * Add a query to the request to filter the events on a specific label
+     * The current $scope.query is used to determine what label to filter on
+     */
     $scope.addLabelFilter = function(){
 
-//        $scope.addFilter('query', $scope.query.label);
-        $scope.query.sended = true;
+        if($scope.query.label){
 
-        $scope.querySended = $scope.query.label;
+            //set the current query
+            $scope.querySended = $scope.query.label;
 
-        //Trigger the entity-list-handler filter function to send request
-        $scope.filter();
+            //Trigger the entity-list-handler filter function to send request
+            $scope.filter();
+
+            //Flag the query as "sended" to display it in filter area
+            $scope.query.sended = true;
+        }
+
     }
 
 

@@ -984,7 +984,7 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
             },
             links      : {
                 categories: 'Catégories',
-                category: 'Catégory'
+                category: 'Catégorie'
             },
             validations: {
                 'created': 'La catégorie a été enregistré',
