@@ -98,7 +98,7 @@ class CrudHandler
             $this->em->flush($entity);
 
             //Return only a string to avoid network overload
-            if('POST' !== $method){
+            if('POST' !== $method && 'PATCH' !== $method){
                 return  "";
             }
             return  $entity;

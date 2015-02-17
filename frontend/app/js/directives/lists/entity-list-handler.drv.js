@@ -110,6 +110,7 @@ angular.module('sympozerApp').directive('entityListHandler', ['GLOBAL_CONFIG', '
                 //param specifying if results set has to be cleared when new data received
                 reset = resetResults;
 
+
                 //a request is now pending, infinite-scroll stops listening on scroll event
                 scope.busy = true;
 
@@ -146,7 +147,9 @@ angular.module('sympozerApp').directive('entityListHandler', ['GLOBAL_CONFIG', '
                 }
                 else
                 {
-                    angular.extend(scope.entities, items);
+                    for(var i=0; i < items.length; i++){
+                        scope.entities.push(items[i]);
+                    }
                 }
 
                 if(items.length > 0){
