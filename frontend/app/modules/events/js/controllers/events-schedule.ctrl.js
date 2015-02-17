@@ -4,6 +4,33 @@
  */
 angular.module('eventsApp').controller('eventsScheduleCtrl', ['$scope', '$templateCache', 'categoriesFact', '$routeParams', 'GLOBAL_CONFIG', '$rootScope', 'eventsFact', '$compile', '$modal', 'moment', 'locationsFact', 'dateDaysDifferenceFact', 'searchService', 'topicsFact', function ($scope, $templateCache, categoriesFact, $routeParams, GLOBAL_CONFIG, $rootScope, eventsFact, $compile, $modal, moment, locationsFact, dateDaysDifferenceFact, searchService, topicsFact) {
 
+    /************ UTILS ******************/
+
+    /**
+     * Create a moment binded on the very beginning of the day string given
+     * @param day, the day we want the start from
+     * @returns {moment}
+     */
+    var getDayStart = function(day){
+
+        var dayStart = new moment(day);
+        dayStart.hours(0);
+        dayStart.minutes(0);
+        return dayStart;
+    }
+
+    /**
+     * Create a moment binded on the very end of the day string given
+     * @param day, the day we want the end from
+     * @returns {moment}
+     */
+    var getDayEnd = function(day){
+        var dayEnd = new moment(day);
+        dayEnd.hours(23);
+        dayEnd.minutes(59);
+        return dayEnd;
+    }
+
     /************ FULLCALENDAR DRV CONTROL ******************/
 
     //Initialize query for label search
@@ -11,9 +38,11 @@ angular.module('eventsApp').controller('eventsScheduleCtrl', ['$scope', '$templa
 
     $scope.showSideboxRight = false;
 
-    //Initialize filter list for locations and events
+    //Initialize filter list with the current main event at the first day
     $scope.filters = {
         'mainEventId': $routeParams.mainEventId,
+        'start' : getDayStart($rootScope.currentMainEvent.startAt).format(),
+        'end' : getDayEnd($rootScope.currentMainEvent.startAt).format()
     };
 
     //Open / close the sidebox with filters
@@ -41,6 +70,9 @@ angular.module('eventsApp').controller('eventsScheduleCtrl', ['$scope', '$templa
 
         //Add the current query
         serializedFilters.query= $scope.querySended;
+
+        //Increase the limit
+        serializedFilters.limit= 100;
 
         //Request events according to serialized filters
         eventsFact.allByConference(serializedFilters, {}, function (response) {
@@ -107,10 +139,10 @@ angular.module('eventsApp').controller('eventsScheduleCtrl', ['$scope', '$templa
         }
 
         //If array of choices exist
-        if(arrayOfData){
+        if(arrayOfChoices){
             //Reset active property all the filters choices related to "filterId"
-            for(var i=0; i<$scope[arrayOfData].length; i++){
-                $scope[arrayOfData][i].active = true;
+            for(var i=0; i<$scope[arrayOfChoices].length; i++){
+                $scope[arrayOfChoices][i].active = true;
             }
         }
 
@@ -130,6 +162,7 @@ angular.module('eventsApp').controller('eventsScheduleCtrl', ['$scope', '$templa
         $scope.refetchEvents();
     }
 
+
     /**
      * Filter event according to a specific day
      * @param index, the index of the selected day in the days array
@@ -138,14 +171,10 @@ angular.module('eventsApp').controller('eventsScheduleCtrl', ['$scope', '$templa
     $scope.addDaysFilter = function (index, day) {
 
         //Define the beginning of the selected day
-        var dayStart = new moment(day.date);
-        dayStart.hours(0);
-        dayStart.minutes(0);
+        var dayStart = getDayStart(day.date);
 
         //Define the end of the selected day
-        var dayEnd = new moment(day.date);
-        dayEnd.hours(23);
-        dayEnd.minutes(59);
+        var dayEnd = getDayEnd(day.date);
 
         //Add a date interval filter
         $scope.addFilter('start', dayStart.format());
