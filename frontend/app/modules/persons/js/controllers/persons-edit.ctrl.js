@@ -32,6 +32,7 @@ angular.module('personsApp').controller('personsEditCtrl', [
 //                type : 'success'
 //            });
 
+            debugger;
             authenticationFact.updatePerson(response);
         }
 
@@ -74,7 +75,6 @@ angular.module('personsApp').controller('personsEditCtrl', [
             //Persist changes
             $scope.updatePerson(key, $scope.person[key]);
         }
-
 
         //Promise needed by the typeahead directive, resolved when something is selected
         $scope.getOrganizations = function (val)
