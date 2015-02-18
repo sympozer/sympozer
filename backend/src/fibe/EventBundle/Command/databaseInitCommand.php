@@ -4,7 +4,6 @@ namespace fibe\EventBundle\Command;
 use DateTime;
 use fibe\CommunityBundle\Entity\Person;
 use fibe\ContentBundle\Entity\Equipment;
-use fibe\ContentBundle\Entity\Localization;
 use fibe\ContentBundle\Entity\Location;
 use fibe\ContentBundle\Entity\Role;
 use fibe\ContentBundle\Entity\RoleLabel;
@@ -15,7 +14,7 @@ use fibe\EventBundle\Entity\MainEvent;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Validator\Constraints\Date;
+use Symfony\Component\Security\Acl\Permission\MaskBuilder;
 
 /**
  * Initialization command for the DataBase
@@ -1061,7 +1060,11 @@ Thématiques abordées (+ exemple)
 
         $em->flush();
 
+        //give right to admin
+        /** @var \fibe\SecurityBundle\Entity\User $admin */
+        $admin = $this->getContainer()->get("fos_user.user_manager")->findUserByUsername("admin");
+        $this->getContainer()->get('fibe_security.acl_user_permission_helper')->performUpdateUserACL($admin, MaskBuilder::MASK_OWNER, $conferenceBlend);
 
-        $output->writeln("rows inserted successfully");
+        $output->writeln("conferenceBlend inserted successfully");
     }
 }
