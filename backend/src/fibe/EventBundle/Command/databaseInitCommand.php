@@ -108,6 +108,8 @@ class databaseInitCommand extends ContainerAwareCommand
         $conferenceBlend->setLocation($conferenceLocation);
         $em->persist($conferenceBlend);
 
+        $conferenceLocation->setMainEvent($conferenceBlend);
+        $em->persist($conferenceLocation);
 
         /***** Role labels *******/
         $intervenant = new RoleLabel();
@@ -182,19 +184,7 @@ class databaseInitCommand extends ContainerAwareCommand
         $salonGratteCiel->setEquipments([$microphone,$screen,$computer]);
         $em->persist($salonGratteCiel);
 
-        $salleGratteCiel12 = new Location();
-       // $salleGratteCiel12->setMainEvent($conferenceBlend);
-        $salleGratteCiel12->setLabel("Salle Gratte Ciel 1&2");
-        $salleGratteCiel12->setCapacity(100);
-        $salleGratteCiel12->setEquipments([$microphone,$screen,$computer]);
-        $em->persist($salleGratteCiel12);
 
-        $salleGratteCiel3 = new Location();
-        //$salleGratteCiel3->setMainEvent($conferenceBlend);
-        $salleGratteCiel3->setLabel("Salle Gratte Ciel 3");
-        $salleGratteCiel3->setCapacity(200);
-        $salleGratteCiel3->setEquipments([$microphone,$screen,$computer]);
-        $em->persist($salleGratteCiel3);
 
         $salleTeteDor1 = new Location();
         $salleTeteDor1->setMainEvent($conferenceBlend);
@@ -204,12 +194,6 @@ class databaseInitCommand extends ContainerAwareCommand
         $em->persist($salleTeteDor1);
 
 
-        $salleTeteDor2 = new Location();
-       // $salleTeteDor2->setMainEvent($conferenceBlend);
-        $salleTeteDor2->setLabel("Salle Tête d’Or 2 (sponsor)");
-        $salleTeteDor2->setCapacity(200);
-        $salleTeteDor2->setEquipments([$microphone,$computer]);
-        $em->persist($salleTeteDor2);
 
 
 
@@ -233,8 +217,8 @@ Objectif : Gagner quotidiennement en productivité et en souplesse de travail.")
         $christophe_porteneuve_talk->setCategory($TalkEvent);
         $christophe_porteneuve_talk->setLocation($auditorium);
         $christophe_porteneuve_talk->setTopics([$tech]);
-        $christophe_porteneuve_talk->setStartAt(new DateTime("2015-10-28T14:30:00+0100"));
-        $christophe_porteneuve_talk->setEndAt(new DateTime("2015-10-28T15:30:00+0100"));
+        $christophe_porteneuve_talk->setStartAt(new DateTime("2015-10-28T13:30:00+0100"));
+        $christophe_porteneuve_talk->setEndAt(new DateTime("2015-10-28T14:00:00+0100"));
         $christophe_porteneuve_talk->setMainEvent($conferenceBlend);
         $em->persist($christophe_porteneuve_talk);
 
@@ -656,8 +640,8 @@ Le design de service fait partie de ces innovations qui méritent que l’on s�
 Cette conférence se propose d’illustrer simplement comment intégrer le Service Design à ses projets et comment bien accompagner les équipes commerciales, dirigeantes, designers… pour en maîtriser la puissance et gagner en compétitivité.");
         $bertrand_cochet_talk->setCategory($TalkEvent);
         $bertrand_cochet_talk->setTopics([$design]);
-        $bertrand_cochet_talk->setStartAt(new DateTime("2015-10-28T16:30:00+0100"));
-        $bertrand_cochet_talk->setEndAt(new DateTime("2015-10-28T17:30:00+0100"));
+        $bertrand_cochet_talk->setStartAt(new DateTime("2015-10-28T15:30:00+0100"));
+        $bertrand_cochet_talk->setEndAt(new DateTime("2015-10-28T17:00:00+0100"));
         $bertrand_cochet_talk->setLocation($salonGratteCiel);
         $bertrand_cochet_talk->setMainEvent($conferenceBlend);
         $em->persist($bertrand_cochet_talk);
@@ -1052,28 +1036,6 @@ Thématiques abordées (+ exemple)
         $pause_dejeuner_audit->setLocation($auditorium);
         $em->persist($pause_dejeuner_audit);
 
-
-        $pause_dejeuner_gratte_ciel_12 = new Event();
-        $pause_dejeuner_gratte_ciel_12->setLabel("Pause gouter");
-        $pause_dejeuner_gratte_ciel_12->setDescription("On fait une pause et on discute");
-        $pause_dejeuner_gratte_ciel_12->setCategory($BreakEvent);
-        $pause_dejeuner_gratte_ciel_12->setStartAt(new DateTime("2015-10-28T12:30:00+0100"));
-        $pause_dejeuner_gratte_ciel_12->setEndAt(new DateTime("2015-10-28T13:30:00+0100"));
-        $pause_dejeuner_gratte_ciel_12->setMainEvent($conferenceBlend);
-        $pause_dejeuner_gratte_ciel_12->setLocation($salleGratteCiel12);
-        $em->persist($pause_dejeuner_gratte_ciel_12);
-
-
-        $pause_dejeuner_gratte_ciel_3 = new Event();
-        $pause_dejeuner_gratte_ciel_3->setLabel("Pause gouter");
-        $pause_dejeuner_gratte_ciel_3->setDescription("On fait une pause et on discute");
-        $pause_dejeuner_gratte_ciel_3->setCategory($BreakEvent);
-        $pause_dejeuner_gratte_ciel_3->setStartAt(new DateTime("2015-10-28T12:30:00+0100"));
-        $pause_dejeuner_gratte_ciel_3->setEndAt(new DateTime("2015-10-28T13:30:00+0100"));
-        $pause_dejeuner_gratte_ciel_3->setMainEvent($conferenceBlend);
-        $pause_dejeuner_gratte_ciel_3->setLocation($salleGratteCiel3);
-        $em->persist($pause_dejeuner_gratte_ciel_3);
-
         $pause_dejeuner_tete_or_1 = new Event();
         $pause_dejeuner_tete_or_1->setLabel("Pause gouter");
         $pause_dejeuner_tete_or_1->setDescription("On fait une pause et on discute");
@@ -1084,16 +1046,16 @@ Thématiques abordées (+ exemple)
         $pause_dejeuner_tete_or_1->setLocation($salleTeteDor1);
         $em->persist($pause_dejeuner_tete_or_1);
 
+        $pause_dejeuner_salon = new Event();
+        $pause_dejeuner_salon->setLabel("Pause gouter");
+        $pause_dejeuner_salon->setDescription("On fait une pause et on discute");
+        $pause_dejeuner_salon->setCategory($BreakEvent);
+        $pause_dejeuner_salon->setStartAt(new DateTime("2015-10-28T12:30:00+0100"));
+        $pause_dejeuner_salon->setEndAt(new DateTime("2015-10-28T13:30:00+0100"));
+        $pause_dejeuner_salon->setMainEvent($conferenceBlend);
+        $pause_dejeuner_salon->setLocation($salonGratteCiel);
+        $em->persist($pause_dejeuner_salon);
 
-        $pause_dejeuner_tete_or_2 = new Event();
-        $pause_dejeuner_tete_or_2->setLabel("Pause gouter");
-        $pause_dejeuner_tete_or_2->setDescription("On fait une pause et on discute");
-        $pause_dejeuner_tete_or_2->setCategory($BreakEvent);
-        $pause_dejeuner_tete_or_2->setStartAt(new DateTime("2015-10-28T12:30:00+0100"));
-        $pause_dejeuner_tete_or_2->setEndAt(new DateTime("2015-10-28T13:30:00+0100"));
-        $pause_dejeuner_tete_or_2->setMainEvent($conferenceBlend);
-        $pause_dejeuner_tete_or_2->setLocation($salleTeteDor2);
-        $em->persist($pause_dejeuner_tete_or_2);
 
 
 
