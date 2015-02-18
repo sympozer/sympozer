@@ -60,6 +60,7 @@ class CategoryRESTController extends FOSRestController
 
     /**
      * @Rest\Get("/categories/{id}", name="schedule_category_get")
+     * @Rest\View(serializerEnableMaxDepthChecks=true)
      **/
     public function getCategoryAction($id)
     {

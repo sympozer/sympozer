@@ -16,10 +16,12 @@ angular.module('eventsApp').controller('eventsEditCtrl', [
     'topicsFact',
     'locationsFact',
     'papersFact',
+    'personsFact',
+    'roleLabelsFact',
     '$modal',
     'pinesNotifications',
     'translateFilter',
-    function ($scope, $rootScope, $filter, $window, GLOBAL_CONFIG, $routeParams, $location, eventsFact, categoriesFact, topicsFact, locationsFact, papersFact, $modal, pinesNotifications, translateFilter)
+    function ($scope, $rootScope, $filter, $window, GLOBAL_CONFIG, $routeParams, $location, eventsFact, categoriesFact, topicsFact, locationsFact, papersFact, personsFact, roleLabelsFact, $modal, pinesNotifications, translateFilter)
     {
 
 
@@ -286,6 +288,65 @@ angular.module('eventsApp').controller('eventsEditCtrl', [
         };
 
 
+      /*    role list     */
+
+      //a role to use for input
+      $scope.role = {};
+
+      //Autocomplete and add person workflow
+      $scope.getPersons = personsFact.all;
+      $scope.addPerson = function (personModel)
+      {
+        if (!personModel.id)
+        {
+          var modalInstance = $modal.open({
+            templateUrl: GLOBAL_CONFIG.app.modules.persons.urls.partials + 'modals/persons-modal-form.html',
+            controller : 'personsNewCtrl',
+            size       : "large",
+            resolve    : {}
+          });
+          modalInstance.result.then(function (newPerson)
+          {
+            $scope.role.person = newPerson;
+          }, function ()
+          {
+            //$log.info('Modal dismissed at: ' + new Date());
+          });
+        }
+        else
+        {
+          $scope.role.person = personModel;
+        }
+      };
+
+
+      //Autocomplete and add rolelabel workflow
+      $scope.searchRoleLabels = roleLabelsFact.allByConference;
+      $scope.addRoleLabel = function (roleLabelModel)
+      {
+        if (!roleLabelModel.id)
+        {
+          //If topic doesn't exist, create it
+          roleLabelsFact.create(roleLabelsFact.serialize({label: roleLabelModel}), function (roleLabel)
+          {
+            $scope.role.roleLabel = roleLabel;
+          }, function (error)
+          {
+            //Notify of the creation action error
+            pinesNotifications.notify({
+              title: translateFilter('global.validations.error'),
+              text : translateFilter('roleLabels.validations.not_created'),
+              type : 'error'
+            });
+          });
+        }
+        else
+        {
+          $scope.role.roleLabel = roleLabelModel;
+        }
+      };
+
+      /*
         //Autocomplete and add role workflow
         $scope.event.roles = [];
         $scope.addRole = function ()
@@ -311,6 +372,7 @@ angular.module('eventsApp').controller('eventsEditCtrl', [
                 //$log.info('Modal dismissed at: ' + new Date());
             });
         };
+       */
 
         //Remove a role from the event role list by index
         $scope.deleteRole = function (index)

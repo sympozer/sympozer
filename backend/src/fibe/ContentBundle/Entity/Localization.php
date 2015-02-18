@@ -139,7 +139,7 @@ class Localization
    * @ORM\OneToOne(targetEntity="fibe\CommunityBundle\Entity\Person", cascade={"all"})
    * @ORM\JoinColumn(name="uid", referencedColumnName="id", onDelete="cascade")
    * @Expose
-   * @MaxDepth(1)
+     * @MaxDepth(2)
    */
   protected $person;
 

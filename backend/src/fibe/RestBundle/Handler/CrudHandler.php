@@ -42,10 +42,10 @@ class CrudHandler
      */
     public function getAll($entityClassName, ParamFetcherInterface $paramFetcher, $routeParams = null)
     {
-        $offset  = $paramFetcher->get('offset');
-        $limit   = $paramFetcher->get('limit');
-        $order   = $paramFetcher->get('order');
-        $query   = $paramFetcher->get('query');
+        $offset = $paramFetcher->get('offset');
+        $limit = $paramFetcher->get('limit');
+        $order = $paramFetcher->get('order');
+        $query = $paramFetcher->get('query');
         $filters = $paramFetcher->get('filters');
 
         if (!empty($routeParams))
@@ -87,6 +87,7 @@ class CrudHandler
         $form = $this->container->get("form.factory")->create(new $formClassName(), $entity, array('method' => $method));
         $form->submit($formData, 'PATCH' !== $method);
 
+        \Doctrine\Common\Util\Debug::dump($entity);
         //perform acl check
         $this->validateAction($method, $entity);
 
@@ -97,18 +98,22 @@ class CrudHandler
             $this->em->persist($entity);
             $this->em->flush($entity);
 
-            //Return only a string to avoid network overload
-            if('POST' !== $method && 'PATCH' !== $method){
-                return  "";
+            //Return an empty string for speed improvement
+            //TODO : only post should need at least the id as response?
+            if ('POST' == $method)
+            {
+                return array("id" => $entity->getId());
             }
-            return  $entity;
+            else
+            {
+                return "";
+            }
         }
 
         return array(
             'form' => $form,
         );
     }
-
 
     protected function validateAction($method, $entity)
     {
@@ -129,7 +134,7 @@ class CrudHandler
                 $right = "DELETE";
                 break;
             default:
-                throw new \RuntimeException("method : $method is not mapped in CrudHandler!");
+                throw new \RuntimeException("[$method] is not allowed!");
         }
         //perform acl check
         if (false === $this->container->get("security.context")->isGranted($right, $entity))
@@ -161,7 +166,8 @@ class CrudHandler
                     $entityService->$method($entity, $entityClassName);
                 }
             }
-        } catch (ServiceNotFoundException $e)
+        }
+        catch (ServiceNotFoundException $e)
         {
             //no business service defined, just do nothing
         }

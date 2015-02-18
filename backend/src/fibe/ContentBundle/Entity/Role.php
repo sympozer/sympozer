@@ -80,11 +80,6 @@ class Role
      * @ORM\ManyToOne(targetEntity="fibe\EventBundle\Entity\MainEvent", inversedBy="roles", cascade={"persist"})
      * @ORM\JoinColumn(referencedColumnName="id")
      * @Assert\NotNull(message = "{'field' : 'mainEvents', 'msg' : 'roles.validations.main_event_required'}")
-     *
-     * @Expose
-     * @SerializedName("mainEvent")
-     * @Groups({"list"})
-     * @MaxDepth(1)
      */
     private $mainEvent;
 
@@ -108,7 +103,7 @@ class Role
      *
      * @Expose
      * @Groups({"list"})
-     * @MaxDepth(1)
+     * @MaxDepth(2)
      *
      * @Importer(targetEntity="fibe\EventBundle\Entity\Event")
      */

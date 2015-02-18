@@ -2,6 +2,7 @@
 namespace fibe\EventBundle\Command;
 
 use DateTime;
+use Doctrine\ORM\EntityManagerInterface;
 use fibe\CommunityBundle\Entity\Person;
 use fibe\ContentBundle\Entity\Equipment;
 use fibe\ContentBundle\Entity\Location;
@@ -11,6 +12,8 @@ use fibe\ContentBundle\Entity\Topic;
 use fibe\EventBundle\Entity\Category;
 use fibe\EventBundle\Entity\Event;
 use fibe\EventBundle\Entity\MainEvent;
+use fibe\SecurityBundle\Entity\Team;
+use fibe\SecurityBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -50,39 +53,67 @@ class databaseInitCommand extends ContainerAwareCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        /** @var \fibe\SecurityBundle\Entity\User $admin */
+        $admin = $this->getContainer()->get("fos_user.user_manager")->findUserByUsername("admin");
+        $aclHelper = $this->getContainer()->get('fibe_security.acl_user_permission_helper');
 
         $em = $this->getContainer()->get('doctrine')->getManager('default');
 
-
         //Equipments
+        $equipments = [];
         $computer = new Equipment();
         $computer->setLabel("Computer")->setIcon("laptop");
         $em->persist($computer);
+        $equipments['computer'] = $computer;
 
         $speaker = new Equipment();
         $speaker->setLabel("Speaker")
             ->setIcon("volume-up");
         $em->persist($speaker);
+        $equipments['speaker'] = $speaker;
 
         $wifi = new Equipment();
         $wifi->setLabel("Wifi")
             ->setIcon("rss");
         $em->persist($wifi);
+        $equipments['wifi'] = $wifi;
 
         $screen = new Equipment();
         $screen->setLabel("Screen")
             ->setIcon("film");
         $em->persist($screen);
+        $equipments['screen'] = $screen;
 
         $ohp = new Equipment();
         $ohp->setLabel("OHP")
             ->setIcon("video-camera");
         $em->persist($ohp);
+        $equipments['ohp'] = $ohp;
 
         $microphone = new Equipment();
         $microphone->setLabel("Microphone")
             ->setIcon("microphone");
         $em->persist($microphone);
+        $equipments['microphone'] = $microphone;
+
+        $conferenceBlend = $this->createBlendConference($em, $admin, $equipments);
+
+
+        $em->flush();
+        //give right to admin
+        $aclHelper->performUpdateUserACL($admin, MaskBuilder::MASK_OWNER, $conferenceBlend);
+
+        $output->writeln("conferenceBlend inserted successfully");
+    }
+
+    /**
+     * @param EntityManagerInterface $em
+     * @param User $owner
+     * @param array $equipments
+     * @return MainEvent
+     */
+    private function createBlendConference(EntityManagerInterface $em, User $owner, array $equipments)
+    {
 
 
         /***** Conference definition *******/
@@ -105,16 +136,20 @@ class databaseInitCommand extends ContainerAwareCommand
         $conferenceBlend->setYoutube("https://www.youtube.com/channel/UCVA4ZOoyUyLB_LS6flBjhRg");
         $conferenceBlend->setUrl("http://www.blendwebmix.com/");
         $conferenceBlend->setLocation($conferenceLocation);
+        $conferenceBlend->setOwner($owner->getPerson());
         $em->persist($conferenceBlend);
 
         $conferenceLocation->setMainEvent($conferenceBlend);
         $em->persist($conferenceLocation);
 
+        $conferenceTeam = new Team();
+        $conferenceTeam->setMainEvent($conferenceBlend);
+        $em->persist($conferenceTeam);
+
         /***** Role labels *******/
         $intervenant = new RoleLabel();
         $intervenant->setLabel("Intervenant");
         $em->persist($intervenant);
-
 
 
         /***** Topics *******/
@@ -173,27 +208,25 @@ class databaseInitCommand extends ContainerAwareCommand
         $auditorium->setLabel("Auditorium");
         $auditorium->setMainEvent($conferenceBlend);
         $auditorium->setCapacity(1000);
-        $auditorium->setEquipments([$microphone,$ohp,$screen,$computer]);
+        $auditorium->setEquipments([
+            $equipments['microphone'], $equipments['ohp'], $equipments['screen'], $equipments['computer']
+        ]);
         $em->persist($auditorium);
 
         $salonGratteCiel = new Location();
         $salonGratteCiel->setMainEvent($conferenceBlend);
         $salonGratteCiel->setLabel("Grand Salon Gratte Ciel");
         $salonGratteCiel->setCapacity(200);
-        $salonGratteCiel->setEquipments([$microphone,$screen,$computer]);
+        $salonGratteCiel->setEquipments([$equipments['microphone'], $equipments['screen'], $equipments['computer']]);
         $em->persist($salonGratteCiel);
-
 
 
         $salleTeteDor1 = new Location();
         $salleTeteDor1->setMainEvent($conferenceBlend);
         $salleTeteDor1->setLabel("Salle Tête d’Or 1");
         $salleTeteDor1->setCapacity(240);
-        $salleTeteDor1->setEquipments([$microphone,$screen,$computer]);
+        $salleTeteDor1->setEquipments([$equipments['microphone'], $equipments['screen'], $equipments['computer']]);
         $em->persist($salleTeteDor1);
-
-
-
 
 
         /***** Speakers + events *******/
@@ -524,9 +557,8 @@ Et enfin je conclurai par une invitation à les mettre en place dès le lundi ma
         $em->persist($brice_favre_role);
 
 
-
         //Jean philippe cabaroc
-        $jean_philippe_cabaroc= new Person();
+        $jean_philippe_cabaroc = new Person();
         $jean_philippe_cabaroc->setFamilyName("Cabaroc");
         $jean_philippe_cabaroc->setFirstName("Jean-Philippe");
         $jean_philippe_cabaroc->setDescription("Designer et directeur artistique, Jean-Philippe Cabaroc aime les designs qui racontent une histoire. Il a fondé son studio de création graphique en 2009 après avoir travaillé 5 ans en agence de communication. Spécialisé dans la conception d’identités visuelles, Cabaroc taille sur mesure l'image des entreprises pour le décliner de l'imprimé au numérique en passant par les supports vidéos.");
@@ -557,7 +589,7 @@ Nous allons voir comment certaines entreprises grandes ou petites arrivent à ga
 
 
         //LAURENCE BRICTEUX
-        $laurence_bricteux= new Person();
+        $laurence_bricteux = new Person();
         $laurence_bricteux->setFamilyName("Bricteux");
         $laurence_bricteux->setFirstName("Laurence");
         $laurence_bricteux->setDescription("A la tête des Ateliers-Goûters du Code lancés en mars 2014, chargée de cours de stratégie digitale dans une école à Marseille, coach de startups en incubation à Kedge Business Nursery et StartupWE, représentante de Girls In Tech à Marseille, j'ai acquis mon expérience des nouvelles technologies au sein d'Apple EMEA à Paris et Londres, où j'ai été chargée pendant 10 ans (soit du 1er imac au second iPhone en langue Apple) de la communication produits, et ensuite du marketing du marché de l’Education.");
@@ -589,7 +621,7 @@ Mise en perspective des perspectives des débouchés proposés par cet apprentis
 
 
         //SÉBASTIEN CHARRIER
-        $sebastien_charrier= new Person();
+        $sebastien_charrier = new Person();
         $sebastien_charrier->setFamilyName("Charrier");
         $sebastien_charrier->setFirstName("Sébastien");
         $sebastien_charrier->setDescription("Après quelques années d'études dans l'informatique, Sébastien était convaincu que développeur n'était pas un vrai boulot, qu'il lui fallait être au moins chef de projet pour réussir sa vie. Il est donc passé par des postes de consultant, chef de produit, chef de projet, directeur technique avant de revenir à ses premières amours : le développement.");
@@ -686,7 +718,6 @@ Cette conférence se propose d’illustrer simplement comment intégrer le Servi
         $em->persist($benjamin_durand_role);
 
 
-
         //XAVIER BLOT
         $xavier_blot = new Person();
         $xavier_blot->setFamilyName("Blot");
@@ -772,9 +803,7 @@ Nous mettons cela en oeuvre au sein de BeyondLab pour les rapprocher et lancer l
         $em->persist($franck_verrot_role);
 
 
-
-
-         //CHRISTOPHE GAGIN
+        //CHRISTOPHE GAGIN
         $christophe_gagin = new Person();
         $christophe_gagin->setFamilyName("Gagin");
         $christophe_gagin->setFirstName("Christophe");
@@ -855,7 +884,6 @@ Thématiques abordées (+ exemple)
         $em->persist($jerome_mazurel_role);
 
 
-
         //GOEFFREY DORNE
         $geoffrey_dorne = new Person();
         $geoffrey_dorne->setFamilyName("Dorne");
@@ -874,7 +902,6 @@ Thématiques abordées (+ exemple)
         $em->persist($geoffrey_dorne_role);
 
 
-
         //ALAIN REGNIER
         $alain_regnier = new Person();
         $alain_regnier->setFamilyName("Regnier");
@@ -891,8 +918,6 @@ Thématiques abordées (+ exemple)
         $alain_regnier_role->setRoleLabel($intervenant);
         $alain_regnier_role->setMainEvent($conferenceBlend);
         $em->persist($alain_regnier_role);
-
-
 
 
         //OLIVIA LOR
@@ -928,7 +953,6 @@ Thématiques abordées (+ exemple)
         $em->persist($francis_chouquet_role);
 
 
-
         //NICOLAS COHEN
         $nicolas_cohen = new Person();
         $nicolas_cohen->setFamilyName("Cohen");
@@ -944,7 +968,6 @@ Thématiques abordées (+ exemple)
         $nicolas_cohen_role->setRoleLabel($intervenant);
         $nicolas_cohen_role->setMainEvent($conferenceBlend);
         $em->persist($nicolas_cohen_role);
-
 
 
         //HENRI LEPIC
@@ -964,8 +987,6 @@ Thématiques abordées (+ exemple)
         $em->persist($henri_lepic_role);
 
 
-
-
         //FRANCOIS LE PICHON
         $francois_le_pichon = new Person();
         $francois_le_pichon->setFamilyName("Le Pichon");
@@ -981,7 +1002,6 @@ Thématiques abordées (+ exemple)
         $francois_le_pichon_role->setRoleLabel($intervenant);
         $francois_le_pichon_role->setMainEvent($conferenceBlend);
         $em->persist($francois_le_pichon_role);
-
 
 
         //MAXIME PRADES
@@ -1018,11 +1038,6 @@ Thématiques abordées (+ exemple)
         $em->persist($olivier_combe_role);
 
 
-
-
-
-
-
         /***** EVENTS ****/
 
         $pause_dejeuner_audit = new Event();
@@ -1055,16 +1070,6 @@ Thématiques abordées (+ exemple)
         $pause_dejeuner_salon->setLocation($salonGratteCiel);
         $em->persist($pause_dejeuner_salon);
 
-
-
-
-        $em->flush();
-
-        //give right to admin
-        /** @var \fibe\SecurityBundle\Entity\User $admin */
-        $admin = $this->getContainer()->get("fos_user.user_manager")->findUserByUsername("admin");
-        $this->getContainer()->get('fibe_security.acl_user_permission_helper')->performUpdateUserACL($admin, MaskBuilder::MASK_OWNER, $conferenceBlend);
-
-        $output->writeln("conferenceBlend inserted successfully");
+        return $conferenceBlend;
     }
 }

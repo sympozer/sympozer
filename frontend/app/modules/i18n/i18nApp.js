@@ -44,6 +44,7 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 days  : 'Days',
                 to    : 'To',
                 from  : 'From',
+              as_a: 'as a',
                 see_more : 'See more ...',
                 search: {
                     displaying: 'Displaying results for',
@@ -649,6 +650,7 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 at    : 'à',
                 from  : 'De',
                 to    : 'Jusq\'à',
+              as_a: 'en tant que',
                 day   : 'jour',
                 days  : 'Jours',
                 see_more : 'Details ...',

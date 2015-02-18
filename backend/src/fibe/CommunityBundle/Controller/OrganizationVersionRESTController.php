@@ -3,10 +3,9 @@
 namespace fibe\CommunityBundle\Controller;
 
 use FOS\RestBundle\Controller\Annotations as Rest;
+use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Request\ParamFetcherInterface;
 use Symfony\Component\HttpFoundation\Request;
-
-use FOS\RestBundle\Controller\FOSRestController;
 
 /**
  * Organization person version rest controller.
@@ -21,7 +20,7 @@ class OrganizationVersionRESTController extends FOSRestController
     /**
      * Lists all organization person versions entities filtered by conference.
      * @Rest\Get("/mainEvents/{mainEventId}/organizationVersions", name="schedule_organization_versions_all_by_conference")
-     * @Rest\View
+     * @Rest\View(serializerEnableMaxDepthChecks=true, serializerGroups={"list"})
      * @Rest\QueryParam(name="offset", requirements="\d+", nullable=true, description="Offset from which to start listing pages.")
      * @Rest\QueryParam(name="limit", requirements="\d+", default="10", description="How many entity to return.")
      * @Rest\QueryParam(name="query", requirements=".{1,128}", nullable=true, description="the query to search.")
@@ -43,7 +42,7 @@ class OrganizationVersionRESTController extends FOSRestController
     /**
      * Lists all Organization person versions entities.
      * @Rest\Get("/organizationVersions", name="community_organization_versions_all")
-     * @Rest\View
+     * @Rest\View(serializerEnableMaxDepthChecks=true, serializerGroups={"list"})
      * @Rest\QueryParam(name="offset", requirements="\d+", nullable=true, description="Offset from which to start listing pages.")
      * @Rest\QueryParam(name="limit", requirements="\d+", default="70", description="How many entity to return.")
      * @Rest\QueryParam(name="query", requirements=".{1,64}", nullable=true, description="the query to search.")
@@ -60,6 +59,7 @@ class OrganizationVersionRESTController extends FOSRestController
 
     /**
      * @Rest\Get("/organizationVersions/{id}", name="community_organization_versions_get")
+     * @Rest\View(serializerEnableMaxDepthChecks=true)
      **/
     public function getOrganizationVersionAction($id)
     {

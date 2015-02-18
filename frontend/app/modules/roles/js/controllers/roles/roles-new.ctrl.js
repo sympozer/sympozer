@@ -93,7 +93,7 @@ angular.module('rolesApp').controller('rolesNewCtrl',
               {
                   $scope.role.person = personModel;
               }
-          }
+          };
 
 
           //Autocomplete and add rolelabel workflow

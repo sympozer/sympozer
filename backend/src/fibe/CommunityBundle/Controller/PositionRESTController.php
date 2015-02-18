@@ -4,7 +4,6 @@ namespace fibe\CommunityBundle\Controller;
 
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Controller\FOSRestController;
-use FOS\RestBundle\Request\ParamFetcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 
@@ -22,6 +21,7 @@ class PositionRESTController extends FOSRestController
 
     /**
      * @Rest\Get("/positions/{id}", name="community_positions_get")
+     * @Rest\View(serializerEnableMaxDepthChecks=true)
      **/
     public function getPositionAction($id)
     {

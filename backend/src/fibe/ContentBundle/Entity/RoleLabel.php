@@ -47,8 +47,6 @@ class RoleLabel
     /**
      * Categories
      * @ORM\OneToMany(targetEntity="Role", mappedBy="roleLabel")
-     * @Expose
-     * @Groups({"list"})
      */
     private $roles;
 

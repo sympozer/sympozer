@@ -95,9 +95,7 @@ class Event extends VEvent
      *
      * @ORM\ManyToOne(targetEntity="fibe\EventBundle\Entity\MainEvent", inversedBy="events", cascade={"persist"})
      * @ORM\JoinColumn(referencedColumnName="id")
-     * @Expose
      * @SerializedName("mainEvent")
-     * @Groups({"list"})
      */
     protected $mainEvent;
     /**
@@ -130,10 +128,9 @@ class Event extends VEvent
      * Roles for the event
      * @ORM\OneToMany(targetEntity="fibe\ContentBundle\Entity\Role", mappedBy="event", cascade={"persist"})
      * @Expose
-     * @Groups({"list"})
      * @MaxDepth(3)
      *
-     * @Importer(collection=true, targetEntity="fibe\ContentBundle\Entity\Paper")
+     * @Importer(collection=true, targetEntity="fibe\ContentBundle\Entity\Role")
      */
     protected $roles;
     /**

@@ -92,6 +92,7 @@ class Person extends Agent
      * @ORM\OneToMany(targetEntity="fibe\ContentBundle\Entity\Role",  mappedBy="person")
      * @ORM\JoinColumn(onDelete="CASCADE")
      * @Expose
+     * @MaxDepth(3)
      */
     protected $roles;
 

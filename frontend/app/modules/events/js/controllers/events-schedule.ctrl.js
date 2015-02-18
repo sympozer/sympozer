@@ -17,11 +17,10 @@ angular.module('eventsApp').controller('eventsScheduleCtrl', ['$scope', '$templa
         dayStart.hours(0);
         dayStart.minutes(0);
         return dayStart;
-    }
+    };
 
     /**
      * Create a moment binded on the very end of the day string given
-     * @param day, the day we want the end from
      * @returns {moment}
      */
     var getDayEnd = function(day){
@@ -29,7 +28,7 @@ angular.module('eventsApp').controller('eventsScheduleCtrl', ['$scope', '$templa
         dayEnd.hours(23);
         dayEnd.minutes(59);
         return dayEnd;
-    }
+    };
 
     /************ FULLCALENDAR DRV CONTROL ******************/
 
@@ -48,7 +47,7 @@ angular.module('eventsApp').controller('eventsScheduleCtrl', ['$scope', '$templa
     //Open / close the sidebox with filters
     $scope.toggleSideboxRight = function(){
         $scope.showSideboxRight=!$scope.showSideboxRight;
-    }
+    };
 
 
     //Get locations according to the current filters and execute callback with response
@@ -56,7 +55,7 @@ angular.module('eventsApp').controller('eventsScheduleCtrl', ['$scope', '$templa
         locationsFact.allByConference({'mainEventId': $routeParams.mainEventId}, function (response) {
             callback(response.results);
         });
-    }
+    };
 
     //Get events according to the current filters and execute callback with response
     var fetchEvents = function (callback) {
@@ -78,7 +77,7 @@ angular.module('eventsApp').controller('eventsScheduleCtrl', ['$scope', '$templa
         eventsFact.allByConference(serializedFilters, {}, function (response) {
             callback(response.results);
         });
-    }
+    };
 
     //link fullcalendar directive fetching function to local functions
     $scope.getEvents = fetchEvents;

@@ -108,12 +108,14 @@ class MainEvent extends VEvent
      *
      * @ORM\OneToOne(targetEntity="fibe\SecurityBundle\Entity\Team", mappedBy="mainEvent", cascade={"all"})
      * @Expose
+     * @MaxDepth(2)
      */
     protected $team;
 
     /**
      * mappingFiles
      * @ORM\OneToOne(targetEntity="fibe\EventBundle\Entity\MainEventSettings", mappedBy="mainEvent", cascade={"all"})
+     * @MaxDepth(2)
      */
     protected $setting;
 

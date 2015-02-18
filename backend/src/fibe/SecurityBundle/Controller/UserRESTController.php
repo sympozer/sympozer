@@ -157,7 +157,7 @@ class UserRESTController extends Controller
      * Receive the confirmation token from the front end
      *  => authenticate the user and prompt him to change his password
      * @Rest\Post("/user/confirm", name="security_confirm")
-     * @Rest\View
+     * @Rest\View(serializerEnableMaxDepthChecks=true)
      */
     public function confirmAction(Request $request)
     {
@@ -298,7 +298,7 @@ class UserRESTController extends Controller
     /**
      * Redirect to the frontend api confirmation page.
      * @Rest\Post("/reset_pwd", name="security_resetpwd")
-     * @Rest\View
+     * @Rest\View(serializerEnableMaxDepthChecks=true, serializerGroups={"list"})
      */
     public function resetAction(Request $request)
     {

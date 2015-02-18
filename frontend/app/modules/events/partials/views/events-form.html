@@ -2,26 +2,27 @@
 
 
 <div class="form-group">
-    <label class="col-sm-3 control-label" for="inputLabel">{{ 'events.model.label' | translate }}</label>
+  <label class="col-sm-3 control-label" for="inputLabel">{{ 'events.model.label' | translate }}</label>
 
-    <div class="col-sm-6">
-        <input type="text" class="form-control" id="inputLabel" required placeholder="{{ 'events.model.label' | translate }}" ng-model="event.label">
-    </div>
+  <div class="col-sm-6">
+    <input type="text" class="form-control" id="inputLabel" required placeholder="{{ 'events.model.label' | translate }}" ng-model="event.label">
+  </div>
 </div>
 <div class="form-group">
-    <label class="col-sm-3 control-label" for="inputDescription">{{ 'events.model.description' | translate }}</label>
+  <label class="col-sm-3 control-label" for="inputDescription">{{ 'events.model.description' | translate }}</label>
 
-    <div class="col-sm-6">
+  <div class="col-sm-6">
         <textarea class="form-control" autosize id="inputDesc" name="description" placeholder="{{ 'events.model.description' | translate}}" ng-model="event.description">
         </textarea>
-    </div>
+  </div>
 </div>
 
 <div class="form-group">
-    <label class="col-sm-3 control-label" for="inputUrl">{{ 'events.model.url' | translate }}</label>
-    <div class="col-sm-6">
-        <input type="url" class="form-control" id="inputUrl" placeholder="http://..." ng-model="event.url">
-    </div>
+  <label class="col-sm-3 control-label" for="inputUrl">{{ 'events.model.url' | translate }}</label>
+
+  <div class="col-sm-6">
+    <input type="url" class="form-control" id="inputUrl" placeholder="http://..." ng-model="event.url">
+  </div>
 </div>
 <div class="form-group">
   <label class="col-sm-3 control-label" for="inputTwitter">{{ 'events.model.twitter' | translate}}</label>
@@ -33,6 +34,7 @@
 <div class="form-group">
   <div class="checkbox block">
     <label class="col-sm-3 control-label" for="inputShare">{{ 'events.model.share' | translate}}</label>
+
     <div class="icheckbox_minimal-blue">
       <input id="inputShare" icheck="" type="checkbox" ng-model="event.share"/>
       <ins class="iCheck-helper">
@@ -42,74 +44,166 @@
 </div>
 
 <div class="form-group">
-    <label class="col-sm-3 control-label">{{ 'categories.links.category' | translate }}</label>
-    <div class="col-sm-6">
-        <div sympozer-autocomplete="categories" on-select="addCategory" on-keyup="searchCategories"></div>
-        <div ng-show="event.category" sympozer-with-locals locals-category="event.category" ng-include="GLOBAL_CONFIG.app.modules.categories.urls.partials+'views/categories-thumbnail-xs.html'"></div>
-    </div>
+  <label class="col-sm-3 control-label">{{ 'categories.links.category' | translate }}</label>
+
+  <div class="col-sm-6">
+    <div sympozer-autocomplete="categories" on-select="addCategory" on-keyup="searchCategories"></div>
+    <div ng-show="event.category" sympozer-with-locals locals-category="event.category" ng-include="GLOBAL_CONFIG.app.modules.categories.urls.partials+'views/categories-thumbnail-xs.html'"></div>
+  </div>
 </div>
 
 <div class="form-group">
-    <label class="col-sm-3 control-label">{{ 'topics.links.topics' | translate }}</label>
-    <div class="col-sm-6">
-        <div sympozer-autocomplete="topics" on-select="addTopic" on-keyup="searchTopics"></div>
-        <div ng-show="event.topics.length > 0" sympozer-with-locals locals-edit="true" locals-topics="event.topics" ng-include="GLOBAL_CONFIG.app.modules.topics.urls.partials+'views/topics-list-thumbnail-xs.html'"></div>
-    </div>
+  <label class="col-sm-3 control-label">{{ 'topics.links.topics' | translate }}</label>
+
+  <div class="col-sm-6">
+    <div sympozer-autocomplete="topics" on-select="addTopic" on-keyup="searchTopics"></div>
+    <div ng-show="event.topics.length > 0" sympozer-with-locals locals-edit="true" locals-topics="event.topics" ng-include="GLOBAL_CONFIG.app.modules.topics.urls.partials+'views/topics-list-thumbnail-xs.html'"></div>
+  </div>
 </div>
 
 
 <h2>{{ 'events.labels.time_localization' | translate }}</h2>
 <!--<div class="form-group">-->
-    <!--<label class="col-sm-3 control-label">{{ 'events.model.startAt' | translate }} & {{ 'events.model.endAt' | translate }}</label>-->
+<!--<label class="col-sm-3 control-label">{{ 'events.model.startAt' | translate }} & {{ 'events.model.endAt' | translate }}</label>-->
 
-    <!--<div class="col-sm-6">-->
-        <!--<div class="input-group">-->
-            <!--<input type="text" class="form-control" required="" id="dateRange" name="dateRange" sympozer-error-field="endAt" daterangepicker="{ timePicker: true, timePickerIncrement: 15, format: 'MM/DD/YYYY h:mm A' }">-->
-            <!--<span name="daterangepicker3" class="input-group-addon"><i class="fa fa-calendar"></i></span>-->
-        <!--</div>-->
-    <!--</div>-->
+<!--<div class="col-sm-6">-->
+<!--<div class="input-group">-->
+<!--<input type="text" class="form-control" required="" id="dateRange" name="dateRange" sympozer-error-field="endAt" daterangepicker="{ timePicker: true, timePickerIncrement: 15, format: 'MM/DD/YYYY h:mm A' }">-->
+<!--<span name="daterangepicker3" class="input-group-addon"><i class="fa fa-calendar"></i></span>-->
+<!--</div>-->
+<!--</div>-->
 <!--</div>-->
 
 <div class="form-group">
-    <label class="col-sm-3 control-label">{{ 'events.model.day' | translate }}</label>
+  <label class="col-sm-3 control-label">{{ 'events.model.day' | translate }}</label>
 
-    <div class="col-sm-6" sympozer-event-days-dropdown start="{{currentMainEvent.startAt}}" end="{{currentMainEvent.endAt}}" sympozer-error-field="endAt" model="event.selectedDay">
+  <div class="col-sm-6" sympozer-event-days-dropdown start="{{currentMainEvent.startAt}}" end="{{currentMainEvent.endAt}}" sympozer-error-field="endAt" model="event.selectedDay">
 
-    </div>
+  </div>
 </div>
 
- <div class="form-group">
-            <label class="col-sm-3 control-label">{{ 'global.labels.from' | translate }}</label>
-            <div class="col-sm-3">
-                <timepicker ng-model="event.timeStart" hour-step="1" minute-step="15" show-meridian="false" class="timepicker"></timepicker>
-            </div>            <label class="col-sm-1 control-label">{{ 'global.labels.to' | translate }}</label>
+<div class="form-group">
+  <label class="col-sm-3 control-label">{{ 'global.labels.from' | translate }}</label>
 
-     <div class="col-sm-3">                <timepicker ng-model="event.timeEnd" hour-step="1" minute-step="15" show-meridian="false" class="timepicker"></timepicker>
-     </div>        <div ng-show="event.timeStart > event.timeEnd" sympozer-with-locals locals-edit="true" locals-topics="event.topics" ng-include="GLOBAL_CONFIG.app.modules.topics.urls.partials+'views/topics-list-thumbnail-xs.html'"></div>
+  <div class="col-sm-3">
+    <timepicker ng-model="event.timeStart" hour-step="1" minute-step="15" show-meridian="false" class="timepicker"></timepicker>
+  </div>
+  <label class="col-sm-1 control-label">{{ 'global.labels.to' | translate }}</label>
 
- </div>
+  <div class="col-sm-3">
+    <timepicker ng-model="event.timeEnd" hour-step="1" minute-step="15" show-meridian="false" class="timepicker"></timepicker>
+  </div>
+  <div ng-show="event.timeStart > event.timeEnd" sympozer-with-locals locals-edit="true" locals-topics="event.topics" ng-include="GLOBAL_CONFIG.app.modules.topics.urls.partials+'views/topics-list-thumbnail-xs.html'"></div>
+
+</div>
 
 
 <div class="form-group">
-    <label class="col-sm-3 control-label">{{ 'locations.links.location' | translate }}</label>
+  <label class="col-sm-3 control-label">{{ 'locations.links.location' | translate }}</label>
 
-    <div class="col-sm-6">
-        <div sympozer-autocomplete="locations" on-select="addLocation" on-keyup="searchLocations"></div>
-        <div ng-show="event.location" sympozer-with-locals locals-location="event.location" ng-include="GLOBAL_CONFIG.app.modules.locations.urls.partials+'views/locations-thumbnail-xs.html'"></div>
-    </div>
+  <div class="col-sm-6">
+    <div sympozer-autocomplete="locations" on-select="addLocation" on-keyup="searchLocations"></div>
+    <div ng-show="event.location" sympozer-with-locals locals-location="event.location" ng-include="GLOBAL_CONFIG.app.modules.locations.urls.partials+'views/locations-thumbnail-xs.html'"></div>
+  </div>
 
 </div>
+
+
+<h2>{{ 'roles.links.roles' | translate }}</h2>
+<div class="form-group">
+  <label class="col-sm-3 control-label">{{ 'roles.links.roles' | translate }}</label>
+
+  <div class="col-sm-6">
+    <div class="table-responsible">
+      <input type="text" ng-model="role.person" typeahead-template-url="persons-typeahead.html" typeahead-on-select="select($item, $model)" placeholder="{{ 'persons.actions.search' | translate }} ..." typeahead-wait-ms="500" typeahead="person as person.label  for person in getPersons($viewValue)" typeahead-loading="loading" class="form-control">
+      <i ng-show="loading" class="fa fa-spinner fa-spin"></i>
+      <script type="text/ng-template" id="persons-typeahead.html">
+        <div class="row">
+          <div class="col-xs-3">
+            <img class="img-responsive inline" no-image ng-src="{{ match.model.img }}"/>
+          </div>
+          <div class="col-xs-6">
+            <span bind-html-unsafe="match.label | typeaheadHighlight:query"></span>
+          </div>
+        </div>
+      </script>
+      <span>{{'global.labels.at' | translate }}</span>
+
+      <input type="text" ng-model="role.roleLabel" typeahead-template-url="roleLabels-typeahead.html" typeahead-on-select="select($item, $model)" placeholder="{{ 'roleLabels.actions.search' | translate }} ..." typeahead-wait-ms="500" typeahead="roleLabel as roleLabel.label  for roleLabel in getRoleLabels($viewValue)" typeahead-loading="loading" class="form-control">
+      <script type="text/ng-template" id="roleLabels-typeahead.html">
+        <div class="row">
+          <div class="col-xs-3">
+            <img class="img-responsive inline" no-image ng-src="{{ match.model.img }}"/>
+          </div>
+          <div class="col-xs-6">
+            <span bind-html-unsafe="match.label | typeaheadHighlight:query"></span>
+          </div>
+        </div>
+      </script>
+
+      <!--<table class="table table-hover">
+        <tbody>
+        <tr>
+          <td style="width:30%">
+            <input type="text" class="form-control" ng-required ng-model="role." class="form-control" placeholder="CEO/developer...">
+          </td>
+          <td style="width:5%">
+            <span>{{'global.labels.at' | translate }}</span>
+          </td>
+          <td style="width:30%">
+            <input type="text" ng-model="position.organization" typeahead-template-url="organizations-typeahead.html" typeahead-on-select="select($item, $model)" placeholder="{{ 'organizations.actions.search' | translate }} ..." typeahead-wait-ms="500" typeahead="organization as organization.label  for organization in getOrganizations($viewValue)" typeahead-loading="loading" class="form-control">
+            <i ng-show="loading" class="fa fa-spinner fa-spin"></i>
+            <script type="text/ng-template" id="organizations-typeahead.html">
+              <div class="row">
+                <div class="col-xs-3">
+                  <img class="img-responsive inline" no-image ng-src="{{ match.model.img }}"/>
+                </div>
+                <div class="col-xs-6">
+                  <span bind-html-unsafe="match.label | typeaheadHighlight:query"></span>
+                </div>
+              </div>
+            </script>
+
+          </td>
+          <td style="width:5%">
+            <button ng-disabled="!position.organization || !position.position" ng-click="addPosition(position)" type="button" class="btn btn-success">
+              <i class="fa fa-plus"></i>
+            </button>
+          </td>
+        </tr>
+
+        <tr ng-repeat="position in person.positions track by $index">
+          <td style="width:30%">
+            <span class="ellipsis"> {{position.position}}</span>
+          </td>
+          <td style="width:5%">
+            <span>{{'global.labels.at' | translate }}</span>
+          </td>
+          <td style="width:30%" class="elipsis">
+            <span> {{position.organization.label}}</span>
+          </td>
+          <td style="width:5%">
+            <button style="float:right" ng-click="deletePosition(position, $index)" type="button" class="btn btn-danger">
+              <i class="fa fa-trash-o"></i>
+            </button>
+          </td>
+        </tr>
+      </table>-->
+    </div>
+  </div>
+</div>
+
 
 <h2>{{ 'papers.links.papers' | translate }}</h2>
 <div class="form-group">
-    <label class="col-sm-3 control-label">{{ 'papers.links.papers' | translate }}</label>
+  <label class="col-sm-3 control-label">{{ 'papers.links.papers' | translate }}</label>
 
-    <div class="col-sm-6">
-        <div sympozer-autocomplete="papers" on-select="addPaper" on-keyup="searchPapers"></div>
-        <div ng-repeat="paper in event.papers  track by $index" class="col-sm-5 col-md-5 col-lg-5">
-            <div sympozer-with-locals locals-paper="paper" locals-edit="true" ng-include="GLOBAL_CONFIG.app.modules.papers.urls.partials+'views/papers-tile-sm.html'"></div>
-        </div>
+  <div class="col-sm-6">
+    <div sympozer-autocomplete="papers" on-select="addPaper" on-keyup="searchPapers"></div>
+    <div ng-repeat="paper in event.papers  track by $index" class="col-sm-5 col-md-5 col-lg-5">
+      <div sympozer-with-locals locals-paper="paper" locals-edit="true" ng-include="GLOBAL_CONFIG.app.modules.papers.urls.partials+'views/papers-tile-sm.html'"></div>
     </div>
+  </div>
 
 </div>
 

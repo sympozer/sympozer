@@ -20,7 +20,7 @@ class AdditionalInformationsRESTController extends FOSRestController
   /**
    * Lists all AdditionalInformationsControl entities.
    * @Rest\Get("/additionalInformationsControls")
-   * @Rest\View
+   * @Rest\View(serializerEnableMaxDepthChecks=true, serializerGroups={"list"})
    * @Rest\QueryParam(name="offset", requirements="\d+", nullable=true, description="Offset from which to start listing pages.")
    * @Rest\QueryParam(name="limit", requirements="\d+", default="10", description="How many entity to return.")
    * @Rest\QueryParam(name="query", requirements=".{1,128}", nullable=true, description="the query to search.")
@@ -38,6 +38,7 @@ class AdditionalInformationsRESTController extends FOSRestController
 
   /**
    * @Rest\Get("/additionalInformationsControls/{id}")
+   * @Rest\View(serializerEnableMaxDepthChecks=true)
    **/
   public function getAdditionalInformationsControlAction($id)
   {

@@ -39,6 +39,7 @@ class LocalizationRESTController extends FOSRestController
 
     /**
      * @Rest\Get("/localizations/{id}",name="content_localizations_get")
+     * @Rest\View(serializerEnableMaxDepthChecks=true)
      **/
     public function getLocalizationsByIdAction($id)
     {

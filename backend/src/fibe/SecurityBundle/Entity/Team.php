@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use fibe\EventBundle\Entity\MainEvent;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
+use JMS\Serializer\Annotation\MaxDepth;
 
 /**
  * This entity define a team
@@ -41,6 +42,7 @@ class Team
    *
    * @ORM\OneToMany(targetEntity="fibe\SecurityBundle\Entity\Teammate", mappedBy="team", cascade={"all"})
    * @Expose
+   * @MaxDepth(2)
    */
   private $teammates;
 

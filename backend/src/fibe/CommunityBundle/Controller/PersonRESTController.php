@@ -41,7 +41,7 @@ class PersonRESTController extends FOSRestController
     /**
      * Lists all Persons entities filtered by conference.
      * @Rest\Get("/mainEvents/{confId}/persons", name="community_persons_all_by_conference")
-     * @Rest\View
+     * @Rest\View(serializerEnableMaxDepthChecks=true, serializerGroups={"list"})
      * @Rest\QueryParam(name="offset", requirements="\d+", nullable=true, description="Offset from which to start listing pages.")
      * @Rest\QueryParam(name="limit", requirements="\d+", default="10", description="How many entity to return.")
      * @Rest\QueryParam(name="query", requirements=".{1,128}", nullable=true, description="the query to search.")
@@ -58,6 +58,7 @@ class PersonRESTController extends FOSRestController
     }
     /**
      * @Rest\Get("/persons/{id}", name="community_persons_get")
+     * @Rest\View(serializerEnableMaxDepthChecks=true)
      **/
     public function getPersonAction($id)
     {

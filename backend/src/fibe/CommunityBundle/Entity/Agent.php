@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
 use JMS\Serializer\Annotation\Groups;
+use JMS\Serializer\Annotation\MaxDepth;
 use JMS\Serializer\Annotation\SerializedName;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -101,6 +102,7 @@ class Agent
      * Localization is a geographic point and geocoding information that indicate where the person/organization resides
      * @ORM\OneToOne(targetEntity="fibe\ContentBundle\Entity\Localization")
      * @Expose
+     * @MaxDepth(2)
      */
     protected $localization;
 

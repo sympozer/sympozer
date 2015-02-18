@@ -59,6 +59,7 @@ class RoleRESTController extends FOSRestController
 
     /**
      * @Rest\Get("/roles/{id}", name="content_roles_get")
+     * @Rest\View(serializerEnableMaxDepthChecks=true)
      **/
     public function getRoleAction($id)
     {

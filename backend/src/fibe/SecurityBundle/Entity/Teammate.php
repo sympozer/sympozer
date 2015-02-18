@@ -6,6 +6,8 @@ use Doctrine\ORM\Mapping as ORM;
 use fibe\CommunityBundle\Entity\Person;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
+use JMS\Serializer\Annotation\Groups;
+use JMS\Serializer\Annotation\MaxDepth;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -27,6 +29,7 @@ class Teammate
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue()
      * @Expose
+     * @Groups({"list"})
      */
     protected $id;
 
@@ -34,7 +37,10 @@ class Teammate
      * @ORM\ManyToOne(targetEntity="fibe\CommunityBundle\Entity\Person", inversedBy="teammates")
      * @ORM\JoinColumn(name="person_id", referencedColumnName="id", onDelete="Set Null")
      * @Assert\NotBlank(message = "{'field' : 'persons', 'msg' : 'teammates.validations.person_required'}")
+     *
      * @Expose
+     * @MaxDepth(3)
+     * @Groups({"list"})
      */
     protected $person;
 
@@ -42,7 +48,6 @@ class Teammate
      * @ORM\ManyToOne(targetEntity="Team", inversedBy="teammates")
      * @ORM\JoinColumn(onDelete="Set Null")
      * @Assert\NotBlank(message = "{'field' : 'teams', 'msg' : 'teammates.validations.team_required'}")
-     * @Expose
      */
     protected $team;
 
