@@ -1,5 +1,5 @@
 <div class="row" ng-controller="twitterTimelineCtrl">
-  <h4 class="timeline-month"><i class="fa fa-twitter"></i><span>Timeline</span></h4>
+  <!--<h4 class="timeline-month"><i class="fa fa-twitter"></i><span>Timeline</span></h4>-->
 
   <div class="row" ng-repeat="t in tweets track by $index">
 
@@ -15,7 +15,7 @@
                   {{ t.user.name }} wrotes at <span class="date">{{ t.created_at | dateToISO | date:"EEEE, MMMM d,y hh:mm:ss a" }}</span>:
                 </span>
             <b>@{{ t.user.screen_name }}</b>
-            <h4 ng-bind-html="t.text | highlightQuery: tweets.search_metadata.query"></h4>
+            <h5 ng-bind-html="t.text | highlightQuery: tweets.search_metadata.query"></h5>
           </div>
         </div>
       </li>

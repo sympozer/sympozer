@@ -650,10 +650,10 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 at    : 'à',
                 from  : 'De',
                 to    : 'Jusq\'à',
-              as_a: 'en tant que',
+                as_a: 'en tant que',
                 day   : 'jour',
                 days  : 'Jours',
-                see_more : 'Details ...',
+                see_more : 'Voir plus ...',
                 searchResult: 'Résultat pour',
                 search: {
                     displaying: 'Résultat pour',
