@@ -51,9 +51,9 @@ angular.module('sympozerApp').directive('fullcalendar',[ 'GLOBAL_CONFIG', '$comp
                     },
                     lang : currentLocal,
                     header:{
-                        left: 'resourceDay',
+                        left: 'today',
                         center: 'title',
-                        right: 'today prev,next'
+                        right: 'prev,next'
                     },
                     eventClick: scope.onEventClick,
                     eventDrop: scope.onEventDrop,
