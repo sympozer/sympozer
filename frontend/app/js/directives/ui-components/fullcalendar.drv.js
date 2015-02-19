@@ -2,7 +2,7 @@
  * fullcalendar directive
  * use to handle a full calendar instance manipulation
  */
-angular.module('sympozerApp').directive('fullcalendar',[ 'GLOBAL_CONFIG', '$compile', 'eventsFact' , '$templateCache', '$modal',function (GLOBAL_CONFIG, $compile, eventsFact, $templateCache, $modal)
+angular.module('sympozerApp').directive('fullcalendar',[ 'GLOBAL_CONFIG', '$compile', 'eventsFact' , '$templateCache', '$modal', 'i18nSrv',function (GLOBAL_CONFIG, $compile, eventsFact, $templateCache, $modal, i18nSrv)
 {
     return {
         restrict: 'EA',
@@ -17,6 +17,8 @@ angular.module('sympozerApp').directive('fullcalendar',[ 'GLOBAL_CONFIG', '$comp
                     id   : '0',
                     name : "no location"
                 }
+
+                var currentLocal = i18nSrv.getCurrentLocalCode().split('_')[0];
 
                 //Add the default location to the resource list
                 resources.push(defaultLocation)
@@ -47,6 +49,7 @@ angular.module('sympozerApp').directive('fullcalendar',[ 'GLOBAL_CONFIG', '$comp
                     complete : function(){
                         scope.goToDate(scope.initialDate);
                     },
+                    lang : currentLocal,
                     header:{
                         left: 'resourceDay',
                         center: 'title',

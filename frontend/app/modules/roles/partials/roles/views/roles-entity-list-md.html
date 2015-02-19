@@ -13,11 +13,10 @@
     <tr ng-repeat="role in entities  track by $index">
 
       <td>
-        <img ng-src="{{role.person.img}}" class="img-responsive" no-image="" style="max-height:50px"/>
+        <img ng-src="{{role.person.img}}" class="img-responsive" tooltip="{{role.person.label}}" no-image="" style="max-height:50px"/>
       </td>
       <td>
-        {{ role.person.label }} -
-        {{ role.person.organizationVersion.label}}
+        <a ng-href="#/home/persons/show/{{role.person.id}}">{{ role.person.label }}</a>
       </td>
       <td>{{ role.roleLabel.label }}</td>
       <td>{{ role.event.label }}</td>

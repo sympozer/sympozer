@@ -701,7 +701,7 @@ module.exports = function (grunt)
 
     /** DEVELOPMENT **/
     grunt.registerTask('reset_db', ['chmod:cache_log', 'sf2-console:database_drop', 'sf2-console:database_create', 'sf2-console:database_update',
-                                    'sf2-console:database_init', 'sf2-console:admin_create', 'cache_clear']);
+        'sf2-console:admin_create', 'sf2-console:database_init', 'cache_clear']);
 
     /** DEVELOPMENT **/
     grunt.registerTask('update_db', ['chmod:cache_log', 'sf2-console:database_update', 'cache_clear']);

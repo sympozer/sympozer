@@ -101,7 +101,7 @@
                                 </panel-controls>
                                 <div class="row">
                                     <div ng-repeat="role in mainEvent.roles | limitTo:30 track by $index" class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                                        <a href="#home/persons/show/{{role.person.id}}"><img ng-src="{{role.person.img}}" alt="{{role.person.label}}" no-image class="img-responsive"></a>
+                                        <a href="#home/persons/show/{{role.person.id}}"><img ng-src="{{role.person.img}}" alt="{{role.person.label}}" no-image tooltip="{{role.person.label}}" class="img-responsive"></a>
                                     </div>
 
                                 </div>

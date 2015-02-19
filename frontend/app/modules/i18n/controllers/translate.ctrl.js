@@ -3,47 +3,32 @@
  * Handles the local changes
  * @type {controller}
  */
-angular.module('i18nApp').controller('translateCtrl', [ '$scope', '$rootScope', '$translate', '$window', 'GLOBAL_CONFIG', function ($scope, $rootScope, $translate, $window, GLOBAL_CONFIG)
+angular.module('i18nApp').controller('translateCtrl', [ '$scope', '$window', 'i18nSrv', '$location', function ($scope, $window, i18nSrv, $location)
 {
-    /**
-     * Mocked list of locals
-     * @TODO : use a real list of locals
-     */
-    $scope.locals = [
-        { label: 'English', code: 'en_US', src: GLOBAL_CONFIG.app.urls.img + '/english-flag.png'},
-        { label: 'Français', code: 'fr_FR', src: GLOBAL_CONFIG.app.urls.img + '/french-flag.png'}
-    ];
 
-    //works IE/SAFARI/CHROME/FF : get the preffered langage for the user
-    if (typeof String.prototype.startsWith != 'function') {
-      String.prototype.startsWith = function (str){
-        return this.slice(0, str.length) == str;
-      };
-    }
-    var language = window.navigator.userLanguage || window.navigator.language;
-    if (language.startsWith('fr')) {
-      language = $scope.locals[1];
-    } else {
-      language = $scope.locals[0];
-    }
+    var language = i18nSrv.initializeLocal();
+
+    $scope.locals = i18nSrv.locals;
 
     // Initialize the local language
     $scope.currentLocal = language;
-    $translate.use(language.code);
 
     /**
-     * Changes on local
+     * Trigger change local on the dedicated i18n local service
      */
     $scope.changeLocal = function (local)
     {
-        //Configure the translate plugin
-        $translate.use(local.code);
+        i18nSrv.changeLocal(local);
 
         //Set the current local in root scope for display
         $scope.currentLocal = local;
 
         //Return to the page the user was before changing the local
-        $window.history.back();
+        var currentUrl =  $location.url();
+        $location.url('/test');
+        $location.url(currentUrl);
+
+       //$window.history.back();
 
         return local;
     };

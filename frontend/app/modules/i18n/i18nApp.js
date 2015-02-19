@@ -15,7 +15,7 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
 
 
     //Intialization of the translate provider
-    $translateProvider.preferredLanguage('en_US');
+    $translateProvider.preferredLanguage('en');
 
 
     //Register translation table as object hash for US language
