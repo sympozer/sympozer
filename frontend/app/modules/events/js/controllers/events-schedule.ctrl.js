@@ -230,6 +230,9 @@ angular.module('eventsApp').controller('eventsScheduleCtrl', ['$scope', '$templa
 
         $scope.addFilter('categoryId', category.id);
 
+        //the category clicked is now "active"
+        $scope.categories[index].active = true;
+
         //Remove active property on all other categories
         for(var i=0; i<$scope.categories.length; i++){
             $scope.categories[i].active = false;
@@ -237,8 +240,9 @@ angular.module('eventsApp').controller('eventsScheduleCtrl', ['$scope', '$templa
 
         //the category clicked is now "active"
         $scope.categories[index].active = true;
-
-        //Trigger the entity-list-handler filter function to send request
+        $scope.$apply();
+        debugger;
+        //Trigger the filter function to send request with
         $scope.filter();
 
     }
