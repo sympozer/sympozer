@@ -1,132 +1,131 @@
 <div id="page-heading">
 
-  <div ng-include="GLOBAL_CONFIG.app.urls.partials+'navigation/breadcrumb.html'"></div>
+    <div ng-include="GLOBAL_CONFIG.app.urls.partials+'navigation/breadcrumb.html'"></div>
 
-  <h1>{{'authentication.labels.profile' | translate }}</h1>
+    <h1>{{'authentication.labels.profile' | translate }}</h1>
 
-  <div class="options">
-    <div class="btn-toolbar">
-      <a class="btn btn-info" sympozer-acl-show="person" sympozer-acl-show="person" href="#/home/persons/edit/{{person.id}}" role="button">
-        <i class="fa fa-edit fa-1x"></i> {{ 'persons.actions.edit_profile' | translate}}
-      </a>
+    <div class="options">
+        <div class="btn-toolbar">
+            <a class="btn btn-info" sympozer-acl-show="person" sympozer-acl-show="person" href="#/home/persons/edit/{{person.id}}" role="button">
+                <i class="fa fa-edit fa-1x"></i> {{ 'persons.actions.edit_profile' | translate}}
+            </a>
 
+        </div>
     </div>
-  </div>
 </div>
 <div class="container-fluid">
 
-  <div class="row">
-    <div class="col-md-12">
-      <div class="panel">
-        <div class="panel-body">
-          <panel panel-class="panel panel-gray" heading="{{person.firstName || '???'}} {{person.familyName || '???'}}">
-            <div class="row">
-              <div class="col-xs-5 col-sm-4 col-md-3 col-lg-2">
-                <img no-image ng-src="{{ person.img }}" alt="" class="pull-left img-responsive img-circle" style="margin: 0 20px 20px 0">
-              </div>
-              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-10">
-                <h3>{{'persons.labels.about' | translate }}</h3>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel">
+                <div class="panel-body">
+                    <panel panel-class="panel panel-gray" heading="{{person.firstName || '???'}} {{person.familyName || '???'}}">
+                        <div class="row">
+                            <div class="col-xs-5 col-sm-4 col-md-3 col-lg-2">
+                                <img no-image ng-src="{{ person.img }}" alt="" class="pull-left img-responsive img-circle" style="margin: 0 20px 20px 0">
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-10">
+                                <h3>{{'persons.labels.about' | translate }}</h3>
 
-                <p>{{person.description || '????'}}</p>
-              </div>
-              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <div class="table-responsive">
-                  <table class="table table-condensed">
-                    <tbody>
-                    <tr>
-                      <td>{{'persons.model.city' | translate }}</td>
-                      <td><span>{{person.localization.city}}</span></td>
-                    </tr>
-                    <tr>
-                      <td>{{'persons.model.country' | translate }}</td>
-                      <td><span>{{person.localization.country}}</span></td>
-                    </tr>
+                                <p>{{person.description || '????'}}</p>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                <div class="table-responsive">
+                                    <table class="table table-condensed">
+                                        <tbody>
+                                        <tr>
+                                            <td>{{'persons.model.city' | translate }}</td>
+                                            <td><span>{{person.localization.city}}</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>{{'persons.model.country' | translate }}</td>
+                                            <td><span>{{person.localization.country}}</span></td>
+                                        </tr>
 
-                    <tr>
-                      <td>{{'persons.model.website' | translate }}</td>
-                      <td><a href="{{person.website}}">{{person.website || ''}}</a></td>
-                    </tr>
-                    <tr>
-                      <td>{{'persons.model.email' | translate }}</td>
-                      <td><a href="mailTo:{{person.email}}">{{person.email || ''}}</a></td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <span>{{ 'persons.model.positions' | translate}}</span>
-                      </td>
-                      <td>
+                                        <tr>
+                                            <td>{{'persons.model.website' | translate }}</td>
+                                            <td><a href="{{person.website}}">{{person.website || ''}}</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td>{{'persons.model.email' | translate }}</td>
+                                            <td><a href="mailTo:{{person.email}}">{{person.email || ''}}</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <span>{{ 'persons.model.positions' | translate}}</span>
+                                            </td>
+                                            <td>
                                                 <span ng-repeat="position in person.positions track by $index">
                                                     {{position.position}} {{'global.labels.at' | translate }} {{position.organization.label}}{{$last ? '' : ', '}} </br>
                                                 </span>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>{{'persons.labels.social' | translate }}</td>
-                      <td>
-                        <!--<a href="#" class="btn btn-xs"><i class="fa fa-skype"></i></a>-->
-                        <a href="#" class="btn btn-xs"><i class="fa fa-facebook"></i>{{person.facebook || ''}}</a>
-                        <a href="#" class="btn btn-xs"><i class="fa fa-twitter"></i>{{person.twitter}}</a>
-                        <!--<a href="#" class="btn btn-xs"><i class="fa fa-dribbble"></i></a>-->
-                        <!--<a href="#" class="btn btn-xs"><i class="fa fa-tumblr"></i></a>-->
-                        <a href="#" class="btn btn-xs"><i class="fa fa-linkedin"></i>{{person.linkedIn || ''}}</a>
-                      </td>
-                    </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>{{'persons.labels.social' | translate }}</td>
+                                            <td>
+                                                <!--<a href="#" class="btn btn-xs"><i class="fa fa-skype"></i></a>-->
+                                                <a href="#" class="btn btn-xs"><i class="fa fa-facebook"></i>{{person.facebook || ''}}</a>
+                                                <a href="#" class="btn btn-xs"><i class="fa fa-twitter"></i>{{person.twitter}}</a>
+                                                <!--<a href="#" class="btn btn-xs"><i class="fa fa-dribbble"></i></a>-->
+                                                <!--<a href="#" class="btn btn-xs"><i class="fa fa-tumblr"></i></a>-->
+                                                <a href="#" class="btn btn-xs"><i class="fa fa-linkedin"></i>{{person.linkedIn || ''}}</a>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
 
-            </div>
+                        </div>
 
-          </panel>
-          <hr>
-          <div class="row">
-            <div class="col-md-6">
-
-              <panel panel-class="panel panel-gray" heading="{{person.roles.length}} {{'events.links.events' | translate }}">
-                <panel-controls>
-                  <a href="">
-                    <panel-control-collapse class="fa fa-chevron-down"></panel-control-collapse>
-                  </a>
-                </panel-controls>
-                <div class="row">
-
-                  <div ng-repeat="role in person.roles  track by $index" class="col-xs-6 col-sm-6 col-md-6 col-lg-6" ng-if="person.roles">
-                    <div sympozer-with-locals locals-role="role" ng-include="GLOBAL_CONFIG.app.modules.roles.urls.partials+'views/roles-tile-sm.html'"></div>
-                  </div>
-                </div>
-
-              </panel>
-                <panel panel-class="panel panel-gray" heading="{{person.papers.length}} {{'papers.links.papers' | translate }}">
-                    <panel-controls>
-                        <a href="">
-                            <panel-control-collapse class="fa fa-chevron-down"></panel-control-collapse>
-                        </a>
-                    </panel-controls>
+                    </panel>
+                    <hr>
                     <div class="row">
-                        <div ng-repeat="paper in person.papers track by $index" ng-show="person.papers" class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                            <div sympozer-with-locals locals-paper="paper" ng-include="GLOBAL_CONFIG.app.modules.papers.urls.partials+'views/papers-tile-sm.html'"></div>
+                        <div class="col-md-6">
+
+                            <panel panel-class="panel panel-gray" heading="{{person.roles.length}} {{'events.links.events' | translate }}">
+                                <panel-controls>
+                                    <a href="">
+                                        <panel-control-collapse class="fa fa-chevron-down"></panel-control-collapse>
+                                    </a>
+                                </panel-controls>
+                                <div class="row">
+                                    <div ng-repeat="role in person.roles  track by $index" class="col-xs-6 col-sm-6 col-md-6 col-lg-6" ng-if="person.roles">
+                                        <div sympozer-with-locals locals-role="role" ng-include="GLOBAL_CONFIG.app.modules.roles.urls.partials+'views/roles-tile-sm.html'"></div>
+                                    </div>
+                                </div>
+
+                            </panel>
+                            <panel panel-class="panel panel-gray" heading="{{person.papers.length}} {{'papers.links.papers' | translate }}">
+                                <panel-controls>
+                                    <a href="">
+                                        <panel-control-collapse class="fa fa-chevron-down"></panel-control-collapse>
+                                    </a>
+                                </panel-controls>
+                                <div class="row">
+                                    <div ng-repeat="paper in person.papers track by $index" ng-show="person.papers" class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                        <div sympozer-with-locals locals-paper="paper" ng-include="GLOBAL_CONFIG.app.modules.papers.urls.partials+'views/papers-tile-sm.html'"></div>
+                                    </div>
+                                </div>
+                            </panel>
+
+                        </div>
+                        <div class="col-md-6">
+                            <panel panel-class="panel panel-gray" heading="{{ 'timeline' | translate}}">
+                                <panel-controls>
+                                    <a href="">
+                                        <panel-control-collapse class="fa fa-chevron-down"></panel-control-collapse>
+                                    </a>
+                                </panel-controls>
+                                <!-- Appel de la timeline correspondant a l'identifiant Twitter (# ou @) -->
+                                <div ng-show="person.twitter"
+                                     ng-include="GLOBAL_CONFIG.app.modules.socials.urls.partials + 'twitterTimeline-show.html'"/>
+                            </panel>
                         </div>
                     </div>
-                </panel>
-
+                </div>
             </div>
-            <div class="col-md-6">
-                <panel panel-class="panel panel-gray" heading="{{ 'timeline' | translate}}">
-                    <panel-controls>
-                        <a href="">
-                            <panel-control-collapse class="fa fa-chevron-down"></panel-control-collapse>
-                        </a>
-                    </panel-controls>
-                    <!-- Appel de la timeline correspondant a l'identifiant Twitter (# ou @) -->
-                    <div ng-show="person.twitter"
-                         ng-include="GLOBAL_CONFIG.app.modules.socials.urls.partials + 'twitterTimeline-show.html'"/>
-                </panel>
-            </div>
-          </div>
         </div>
-      </div>
     </div>
-  </div>
 
 </div> <!-- container -->

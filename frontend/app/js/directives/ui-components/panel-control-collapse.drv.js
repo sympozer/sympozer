@@ -15,6 +15,7 @@ angular.module('sympozerApp').directive('panelControlCollapse', function ()
                 $(element).closest(".panel").find('.panel-body').slideToggle({duration: 200});
                 $(element).closest(".panel-heading").toggleClass('rounded-bottom');
             })
+
             return false;
         }
     };
