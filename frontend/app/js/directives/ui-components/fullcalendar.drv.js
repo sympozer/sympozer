@@ -34,7 +34,7 @@ angular.module('sympozerApp').directive('fullcalendar',[ 'GLOBAL_CONFIG', '$comp
                     defaultTimedEventDuration :   moment.duration(15, 'minutes'),
                     resources : resources,
                     resourceFilter: function (resource) {
-                        return $.inArray(resource, scope.resources) > -1;
+                        return findObjectByProp('id', resource.id, scope.resources);
                     },
                     events : function(start, end, timezone, callback) {
                         //Fetch events and call callback to render
@@ -303,7 +303,7 @@ angular.module('sympozerApp').directive('fullcalendar',[ 'GLOBAL_CONFIG', '$comp
 
             };
 
-            /* add a resource to resource array */
+            /* Remove a resource to resource array */
             scope.removeResource = function(index) {
                 scope.resources.splice(index, 1);
                 scope.renderCalendar();
