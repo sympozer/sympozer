@@ -1135,7 +1135,7 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
             actions    : {
                 search: 'Ajouter un rôle',
                 new  : 'Nouveau rôle',
-                add  : 'ajouter a rôle',
+                add  : 'ajouter un rôle',
                 edit : 'Editer le rôle',
                 import: 'Importer rôles',
                 export: 'Exporter rôles',
