@@ -847,7 +847,7 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 start_before_end: 'La date de fin doit être après la date de début',
                 end_after_start : 'La date de début doit être avant la date de fin',
                 'created'       : 'L\'évènement a été enregistrée',
-                'not_created'   : 'Désolé, l\'évènement n\'a pas été sauvegardée',
+                'not_created'   : 'Désolé, l\'évènement n\'a pas été sauvegardé',
                 deletion_success: 'Event supprimé',
                 deletion_error  : 'Désolé,  nous n\'avons pas pu supprimer l\'évènement'
             },
