@@ -495,7 +495,8 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 city       : 'City',
                 website    : 'Website',
                 img        : 'Image',
-                description: 'Description'
+                description: 'Description',
+                email      : 'Email'
             }
         },
 
@@ -1098,7 +1099,8 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 city       : 'Ville',
                 website    : 'Site web',
                 img        : 'Image',
-                description: 'Description'
+                description: 'Description',
+                email      : 'Email'
             }
         },
 
