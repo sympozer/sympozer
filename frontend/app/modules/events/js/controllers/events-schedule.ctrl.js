@@ -240,8 +240,6 @@ angular.module('eventsApp').controller('eventsScheduleCtrl', ['$scope', '$templa
 
         //the category clicked is now "active"
         $scope.categories[index].active = true;
-        $scope.$apply();
-        debugger;
         //Trigger the filter function to send request with
         $scope.filter();
 
