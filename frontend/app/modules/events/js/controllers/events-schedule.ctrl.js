@@ -286,6 +286,7 @@ angular.module('eventsApp').controller('eventsScheduleCtrl', ['$scope', '$templa
 
     }
 
+    /************ UNSCHEDULED EVENT HANDLING ******************/
 
 
 }]);

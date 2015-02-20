@@ -234,7 +234,8 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 time_localization: 'Time & localization',
                 to               : 'To',
                 from             : 'From',
-                unscheduled_Event: 'Unscheduled events'
+                unscheduled_Event: 'Unscheduled events',
+                filters          : 'Filters'
             },
             validations: {
                 start_before_end: 'The start date must be before the end date',
@@ -841,8 +842,8 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 time_localization: 'Durée & localisation',
                 to               : 'Jusqu\'à',
                 from             : 'Depuis',
-                unscheduled_Event: 'Non plannifié'
-
+                unscheduled_Event: 'Non plannifié',
+                filters          : 'Filtres'
             },
             validations: {
                 start_before_end: 'La date de fin doit être après la date de début',
