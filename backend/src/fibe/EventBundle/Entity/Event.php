@@ -96,6 +96,8 @@ class Event extends VEvent
      * @ORM\ManyToOne(targetEntity="fibe\EventBundle\Entity\MainEvent", inversedBy="events", cascade={"persist"})
      * @ORM\JoinColumn(referencedColumnName="id")
      * @SerializedName("mainEvent")
+     * @Groups({"list"})
+     * @MaxDepth(1)
      * @Expose
      */
     protected $mainEvent;
