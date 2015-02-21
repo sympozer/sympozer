@@ -113,8 +113,8 @@
 <div class="form-group">
   <label class="col-sm-3 control-label">{{ 'roles.links.roles' | translate }}</label>
 
-  <div class="col-sm-6">
-    <div class="table-responsible">
+  <div>
+    <div class="col-sm-3">
       <input type="text" ng-model="role.person" typeahead-template-url="persons-typeahead.html" typeahead-on-select="select($item, $model)" placeholder="{{ 'persons.actions.search' | translate }} ..." typeahead-wait-ms="500" typeahead="person as person.label  for person in getPersons($viewValue)" typeahead-loading="loading" class="form-control">
       <i ng-show="loading" class="fa fa-spinner fa-spin"></i>
       <script type="text/ng-template" id="persons-typeahead.html">
@@ -127,8 +127,13 @@
           </div>
         </div>
       </script>
-      <span>{{'global.labels.at' | translate }}</span>
+    </div>
 
+    <div class="col-sm-1">
+      <span>{{'global.labels.at' | translate }}</span>
+    </div>
+
+    <div class="col-sm-3">
       <input type="text" ng-model="role.roleLabel" typeahead-template-url="roleLabels-typeahead.html" typeahead-on-select="select($item, $model)" placeholder="{{ 'roleLabels.actions.search' | translate }} ..." typeahead-wait-ms="500" typeahead="roleLabel as roleLabel.label  for roleLabel in getRoleLabels($viewValue)" typeahead-loading="loading" class="form-control">
       <script type="text/ng-template" id="roleLabels-typeahead.html">
         <div class="row">
@@ -140,7 +145,10 @@
           </div>
         </div>
       </script>
+    </div>
 
+    <div class="col-sm-1">
+      <a ng-click="addRole(role)" class="btn btn-success ng-binding"><i class="fa fa-plus"></i></a>
       <!--<table class="table table-hover">
         <tbody>
         <tr>

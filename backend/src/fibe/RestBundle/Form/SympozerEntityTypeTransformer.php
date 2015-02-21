@@ -14,7 +14,7 @@ class SympozerEntityTypeTransformer extends AbstractSympozerTypeTransformer
 {
 
     /**
-     * transform old model to view (entity to array (only the id in our rest case)
+     * transform old model to view : entity to array (only the id in our rest case))
      * @param object $input
      * @return string
      */
@@ -44,8 +44,6 @@ class SympozerEntityTypeTransformer extends AbstractSympozerTypeTransformer
     public function reverseTransform($input)
     {
 //        echo "\n\nentity reverseTransform";
-//        \Doctrine\Common\Util\Debug::dump($this->options['type']);
-//        \Doctrine\Common\Util\Debug::dump($input);
         if ($input == null || (isset($input['id']) && $input['id'] == SympozerExtractIdFormListener::TO_IGNORE))
         {
             return null;
@@ -72,8 +70,13 @@ class SympozerEntityTypeTransformer extends AbstractSympozerTypeTransformer
             //call entity setter from given input
             foreach ($input as $field => $value)
             {
+                if (null != $value)
+                {
+
                 $setter = "set" . ucwords($field);
                 $entity->$setter($value);
+
+                }
             }
         }
 

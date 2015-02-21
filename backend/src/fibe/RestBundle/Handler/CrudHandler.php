@@ -87,7 +87,6 @@ class CrudHandler
         $form = $this->container->get("form.factory")->create(new $formClassName(), $entity, array('method' => $method));
         $form->submit($formData, 'PATCH' !== $method);
 
-        \Doctrine\Common\Util\Debug::dump($entity);
         //perform acl check
         $this->validateAction($method, $entity);
 

@@ -43,7 +43,6 @@ class RoleType extends AbstractType
             ->add('mainEvent', 'sympozer_entity_type', array(
                 'type'               => new MainEventType(),
                 'cascade_persist'    => false,
-                'allow_extra_fields' => true,
             ));
     }
 

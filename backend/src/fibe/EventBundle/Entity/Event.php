@@ -5,6 +5,7 @@ namespace fibe\EventBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use fibe\ContentBundle\Entity\Paper;
+use fibe\ContentBundle\Entity\Role;
 use fibe\ContentBundle\Util\StringTools;
 use fibe\ImportBundle\Annotation\Importer;
 use JMS\Serializer\Annotation\ExclusionPolicy;
@@ -129,7 +130,7 @@ class Event extends VEvent
     protected $allDay;
     /**
      * Roles for the event
-     * @ORM\OneToMany(targetEntity="fibe\ContentBundle\Entity\Role", mappedBy="event", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="fibe\ContentBundle\Entity\Role", mappedBy="event")
      * @Expose
      * @MaxDepth(3)
      *
@@ -150,6 +151,7 @@ class Event extends VEvent
     {
         parent::__construct();
         $this->papers = new ArrayCollection();
+        $this->roles = new ArrayCollection();
         $this->children = new ArrayCollection();
     }
 
@@ -417,7 +419,17 @@ class Event extends VEvent
      */
     public function setRoles($roles)
     {
-        $this->roles = $roles;
+        $this->roles = new ArrayCollection();
+        foreach ($roles as $role)
+        {
+            $this->addRole($role);
+        }
+    }
+
+    public function addRole(Role $role)
+    {
+        $this->roles[] = $role;
+        $role->setEvent($this);
     }
 
     /**

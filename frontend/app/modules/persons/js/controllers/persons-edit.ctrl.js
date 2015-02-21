@@ -86,7 +86,7 @@ angular.module('personsApp').controller('personsEditCtrl', [
                 deferred.resolve(organizations.results);
             });
             return deferred.promise;
-        }
+        };
 
         //Persist a new position for the person
         $scope.addPosition = function (position)

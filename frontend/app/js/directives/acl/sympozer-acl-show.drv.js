@@ -31,7 +31,7 @@ angular.module('sympozerApp').directive('sympozerAclShow', [
             {
                 if (!scope.resource)
                 {
-                    return console.error('Cannot get ' + scope.resourceName + ' from parent scope in "sympozer-acl-show". Thus, cannot refresh rights');
+                  return console.warn('Cannot get ' + scope.resourceName + ' from parent scope in "sympozer-acl-show". Thus, cannot refresh rights');
                 }
 //                if (scope.resourceNameOverride)
 //                {

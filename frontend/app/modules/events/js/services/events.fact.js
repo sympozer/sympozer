@@ -61,7 +61,11 @@ angular.module('eventsApp').factory('eventsFact',
             if(object.roles){
                 for (var i = 0; i < object.roles.length; i++)
                 {
-                    DTObject.roles.push({id: object.roles[i].id});
+                  DTObject.roles.push({
+                    person   : object.roles[i].person.id,
+                    roleLabel: object.roles[i].roleLabel.id,
+                    mainEvent: DTObject.mainEvent
+                  });
                 }
             }
 

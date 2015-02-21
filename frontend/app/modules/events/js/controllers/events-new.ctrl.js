@@ -5,9 +5,29 @@
  */
 
 angular.module('eventsApp').controller('eventsNewCtrl', [
-    '$scope', '$rootScope', '$window', 'GLOBAL_CONFIG', '$routeParams', '$location', 'eventsFact', 'categoriesFact', 'topicsFact', 'locationsFact', 'papersFact', '$modal', 'formValidation', '$filter', 'pinesNotifications', 'translateFilter',
-    function ($scope, $rootScope, $window, GLOBAL_CONFIG, $routeParams, $location, eventsFact, categoriesFact, topicsFact, locationsFact, papersFact, $modal, formValidation, $filter, pinesNotifications, translateFilter)
+  '$scope',
+  '$q',
+  '$rootScope',
+  '$window',
+  'GLOBAL_CONFIG',
+  '$routeParams',
+  '$location',
+  'eventsFact',
+  'categoriesFact',
+  'topicsFact',
+  'locationsFact',
+  'papersFact',
+  'personsFact',
+  'roleLabelsFact',
+  '$modal',
+  'formValidation',
+  '$filter',
+  'pinesNotifications',
+  'translateFilter',
+  function ($scope, $q, $rootScope, $window, GLOBAL_CONFIG, $routeParams, $location, eventsFact, categoriesFact, topicsFact, locationsFact, papersFact, personsFact, roleLabelsFact, $modal, formValidation, $filter, pinesNotifications, translateFilter)
     {
+
+      var dateFormat = "dd DD MMM YYYY";
 
         /**
          * Initialize all dates input
@@ -19,16 +39,17 @@ angular.module('eventsApp').controller('eventsNewCtrl', [
             if ($scope.event.startAt)
             {
                 //Initialize the day dropdown with the value
-                $scope.event.selectedDay = new moment($scope.event.startAt).format('dd DD MMM YYYY');
+              $scope.event.selectedDay = moment($scope.event.startAt).format(dateFormat);
                 //Initialize the timer for start time
                 $scope.event.timeStart = new Date($scope.event.startAt);
             }
             else
             {
-                $scope.event.selectedDay = new moment($rootScope.currentMainEvent.startAt).format('dd DD MMM YYYY');
+              $scope.event.selectedDay = moment($rootScope.currentMainEvent.startAt).format(dateFormat);
                 //Initialize the timer for start time
                 $scope.event.timeStart = new Date();
                 $scope.event.timeStart.setHours('12');
+              $scope.event.timeStart.setMinutes('0');
             }
 
             //Initialize the day dropdown value and time inputs
@@ -42,6 +63,7 @@ angular.module('eventsApp').controller('eventsNewCtrl', [
                 //Initialize the timer for end time
                 $scope.event.timeEnd = new Date();
                 $scope.event.timeEnd.setHours('13');
+              $scope.event.timeStart.setMinutes('0');
             }
         };
 
@@ -111,21 +133,21 @@ angular.module('eventsApp').controller('eventsNewCtrl', [
         {
             if($scope.event.selectedDay){
                 //Initialize start date from the selected day
-                $scope.event.startAt = new Date($scope.event.selectedDay);
+              $scope.event.startAt = moment($scope.event.selectedDay, dateFormat);
                 //Set hours from timer for start value
-                $scope.event.startAt.setHours($scope.event.timeStart.getHours());
+              $scope.event.startAt.set("h", $scope.event.timeStart.getHours());
                 //Set minutes from timer for start value
-                $scope.event.startAt.setMinutes($scope.event.timeStart.getMinutes());
+              $scope.event.startAt.set("m", $scope.event.timeStart.getMinutes());
 
                 //Initialize end date from the selected day
-                $scope.event.endAt = new Date($scope.event.selectedDay);
+              $scope.event.endAt = moment($scope.event.selectedDay, dateFormat);
                 //Set hours from timer for end value
-                $scope.event.endAt.setHours($scope.event.timeEnd.getHours());
+              $scope.event.endAt.set("h", $scope.event.timeEnd.getHours());
                 //Set minutes from timer for end value
-                $scope.event.endAt.setMinutes($scope.event.timeEnd.getMinutes());
+              $scope.event.endAt.set("m", $scope.event.timeEnd.getMinutes());
 
                 //Validate start < end date
-                return $scope.event.startAt <= $scope.event.endAt;
+              return $scope.event.startAt.isBefore($scope.event.endAt);
             }
            return true;
 
@@ -280,37 +302,47 @@ angular.module('eventsApp').controller('eventsNewCtrl', [
 
         //Autocomplete and add role workflow
         $scope.event.roles = [];
-        $scope.addRole = function ()
+      $scope.addRole = function (role)
         {
-            var modalInstance = $modal.open({
-                templateUrl: GLOBAL_CONFIG.app.modules.roles.urls.partials + 'modals/roles-modal-form.html',
-                controller : 'rolesNewCtrl',
-                size       : "large",
-                resolve    : {
-                    modalInstanceParent: modalInstance
-                }
-            });
-            modalInstance.result.then(function (newRole)
-            {
-                $scope.addRelationship('roles', newRole);
-            }, function ()
-            {
-                //$log.info('Modal dismissed at: ' + new Date());
-            });
-
+          $scope.event.roles.push(role);
         };
+
+
+      //Promise needed by the typeahead directive, resolved when something is selected
+      $scope.getPersons = function (val)
+      {
+        //Fetch organization filter by the query and resolve the promise when results comes back
+        var deferred = $q.defer();
+        personsFact.all({query: val}, function (persons)
+        {
+          deferred.resolve(persons.results);
+        });
+        return deferred.promise;
+        };
+
+      //Promise needed by the typeahead directive, resolved when something is selected
+      $scope.getRoleLabels = function (val)
+      {
+        //Fetch organization filter by the query and resolve the promise when results comes back
+        var deferred = $q.defer();
+        roleLabelsFact.all({query: val}, function (roleLabel)
+        {
+          deferred.resolve(roleLabel.results);
+        });
+        return deferred.promise;
+      };
 
         //Delete the location of the event
         $scope.deleteLocation = function ()
         {
             delete $scope.event.location;
-        }
+        };
 
         //Delete the category of the event
         $scope.deleteCategory = function ()
         {
             delete $scope.event.category;
-        }
+        };
 
         //Delete a paper from the event paper list using its index
         $scope.deletePaper = function (index)
