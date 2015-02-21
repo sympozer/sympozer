@@ -7,7 +7,7 @@
  * @param end, a String object reprensenting the last day
  * @parem model, the model to update when a day is selected in the generated dropdown
  */
-angular.module('sympozerApp').directive('sympozerEventDaysDropdown',['dateDaysDifferenceFact', function (dateDaysDifferenceFact)
+angular.module('sympozerApp').directive('sympozerEventDaysDropdown',['dateDaysDifferenceFact', 'translateFilter', function (dateDaysDifferenceFact, translateFilter)
 {
     return {
         restrict: 'AE',
@@ -23,7 +23,12 @@ angular.module('sympozerApp').directive('sympozerEventDaysDropdown',['dateDaysDi
                 return console.error('missing mandatory field in "sympozerEventDaysDropdown" directive (see doc above)');
             }
 
+            //Get an array of all day from the start day to end day
             scope.items = dateDaysDifferenceFact.getDaysDifference(attrs.start, attrs.end);
+
+            //Add a no date item
+            scope.items.push({ 'date' : null, 'label' : translateFilter( 'global.labels.undefined'), 'id' : -1});
+
 
         }
     }

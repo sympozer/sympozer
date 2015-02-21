@@ -44,7 +44,7 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 days  : 'Days',
                 to    : 'To',
                 from  : 'From',
-              as_a: 'as a',
+                as_a: 'as a',
                 see_more : 'See more ...',
                 search: {
                     displaying: 'Displaying results for',
@@ -52,7 +52,8 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                     results  : 'Results'
                 },
                 list  : 'List',
-                http  : 'http://...'
+                http  : 'http://...',
+                undefined  : 'Not defined'
 
             },
             validations: {
@@ -663,7 +664,9 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                     results  : 'Résultats'
                 },
                 on    : 'le',
-                list  : 'Liste'
+                list  : 'Liste',
+                undefined  : 'Non defini'
+
 
             },
             validations: {
@@ -672,7 +675,7 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 modifications_saved: 'Modifications sauvegardées'
             },
             constants  : {
-              editable_field       : 'Cliquez ici pour éditer ce champ'
+                editable_field       : 'Cliquez ici pour éditer ce champ'
             }
         },
 

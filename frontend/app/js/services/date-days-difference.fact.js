@@ -25,7 +25,7 @@ angular.module('sympozerApp').factory('dateDaysDifferenceFact', [ 'moment', 'tra
 
                 var items = []
                 //Iterate day by day and create day number entries
-                for(i=1; i <= daysInterval; i++){
+                for(i=1; i <= daysInterval+1; i++){
                     //Initialize new day item
                     var item   = {};
 

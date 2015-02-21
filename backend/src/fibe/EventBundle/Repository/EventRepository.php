@@ -44,6 +44,7 @@ class EventRepository extends EntityRepository
             $qb
                 ->andWhere('qb.startAt BETWEEN :start AND :end')
                 ->andWhere('qb.endAt BETWEEN :start AND :end')
+                ->orWhere('qb.startAt IS NULL')
                 ->setParameter('start', $start)
                 ->setParameter('end',  $end);
         }

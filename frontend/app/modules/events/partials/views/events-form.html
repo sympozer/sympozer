@@ -81,8 +81,8 @@
 
   </div>
 </div>
-
-<div class="form-group">
+<!-- Show timer only if the selected day is not the "no date" day-->
+<div class="form-group" ng-if="event.selectedDay">
   <label class="col-sm-3 control-label">{{ 'global.labels.from' | translate }}</label>
 
   <div class="col-sm-3">

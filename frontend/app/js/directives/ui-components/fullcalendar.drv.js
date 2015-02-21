@@ -39,10 +39,9 @@ angular.module('sympozerApp').directive('fullcalendar',[ 'GLOBAL_CONFIG', '$comp
                     events : function(start, end, timezone, callback) {
                         //Fetch events and call callback to render
                         scope.getEvents(function(response) {
-                            scope.event = response;
+                            scope.events = response;
                             var source = {}
-                            source.events = eventsToCalEvents(scope.event);
-
+                            source.events = eventsToCalEvents(scope.events);
                             callback(source.events);
                         })
                     },
@@ -309,12 +308,6 @@ angular.module('sympozerApp').directive('fullcalendar',[ 'GLOBAL_CONFIG', '$comp
                 scope.renderCalendar();
             };
 
-
-
-            /* remove event */
-            scope.remove = function(index) {
-                scope.events.splice(index,1);
-            };
 
             /* Change View */
             scope.changeView = function(view,calendar) {

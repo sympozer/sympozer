@@ -109,22 +109,25 @@ angular.module('eventsApp').controller('eventsNewCtrl', [
          */
         var setStartEndDates = function ()
         {
-            //Initialize start date from the selected day
-            $scope.event.startAt = new Date($scope.event.selectedDay);
-            //Set hours from timer for start value
-            $scope.event.startAt.setHours($scope.event.timeStart.getHours());
-            //Set minutes from timer for start value
-            $scope.event.startAt.setMinutes($scope.event.timeStart.getMinutes());
+            if($scope.event.selectedDay){
+                //Initialize start date from the selected day
+                $scope.event.startAt = new Date($scope.event.selectedDay);
+                //Set hours from timer for start value
+                $scope.event.startAt.setHours($scope.event.timeStart.getHours());
+                //Set minutes from timer for start value
+                $scope.event.startAt.setMinutes($scope.event.timeStart.getMinutes());
 
-            //Initialize end date from the selected day
-            $scope.event.endAt = new Date($scope.event.selectedDay);
-            //Set hours from timer for end value
-            $scope.event.endAt.setHours($scope.event.timeEnd.getHours());
-            //Set minutes from timer for end value
-            $scope.event.endAt.setMinutes($scope.event.timeEnd.getMinutes());
+                //Initialize end date from the selected day
+                $scope.event.endAt = new Date($scope.event.selectedDay);
+                //Set hours from timer for end value
+                $scope.event.endAt.setHours($scope.event.timeEnd.getHours());
+                //Set minutes from timer for end value
+                $scope.event.endAt.setMinutes($scope.event.timeEnd.getMinutes());
 
-            //Validate start < end date
-            return $scope.event.startAt <= $scope.event.endAt;
+                //Validate start < end date
+                return $scope.event.startAt <= $scope.event.endAt;
+            }
+           return true;
 
         };
 
