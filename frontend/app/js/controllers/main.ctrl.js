@@ -12,7 +12,7 @@ angular.module('sympozerApp').controller('mainCtrl', ['$scope', '$rootScope', '$
     $rootScope.ui_navRightCollapsed = $uiConfig.get('navRightCollapsed');
     $rootScope.ui_searchCollapsed = $uiConfig.get('searchCollapsed');
     $rootScope.ui_eventsFilterBarCollapsed = $uiConfig.get('eventsFilterBarCollapsed');
-    $rootScope.ui_isSmallScreen = false;
+//    $rootScope.ui_isSmallScreen = false;
 
 
     $scope.toggleNavLeft = function ()
