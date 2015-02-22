@@ -149,56 +149,15 @@
 
     <div class="col-sm-1">
       <a ng-click="addRole(role)" class="btn btn-success ng-binding"><i class="fa fa-plus"></i></a>
-      <!--<table class="table table-hover">
-        <tbody>
-        <tr>
-          <td style="width:30%">
-            <input type="text" class="form-control" ng-required ng-model="role." class="form-control" placeholder="CEO/developer...">
-          </td>
-          <td style="width:5%">
-            <span>{{'global.labels.at' | translate }}</span>
-          </td>
-          <td style="width:30%">
-            <input type="text" ng-model="position.organization" typeahead-template-url="organizations-typeahead.html" typeahead-on-select="select($item, $model)" placeholder="{{ 'organizations.actions.search' | translate }} ..." typeahead-wait-ms="500" typeahead="organization as organization.label  for organization in getOrganizations($viewValue)" typeahead-loading="loading" class="form-control">
-            <i ng-show="loading" class="fa fa-spinner fa-spin"></i>
-            <script type="text/ng-template" id="organizations-typeahead.html">
-              <div class="row">
-                <div class="col-xs-3">
-                  <img class="img-responsive inline" no-image ng-src="{{ match.model.img }}"/>
-                </div>
-                <div class="col-xs-6">
-                  <span bind-html-unsafe="match.label | typeaheadHighlight:query"></span>
-                </div>
-              </div>
-            </script>
-
-          </td>
-          <td style="width:5%">
-            <button ng-disabled="!position.organization || !position.position" ng-click="addPosition(position)" type="button" class="btn btn-success">
-              <i class="fa fa-plus"></i>
-            </button>
-          </td>
-        </tr>
-
-        <tr ng-repeat="position in person.positions track by $index">
-          <td style="width:30%">
-            <span class="ellipsis"> {{position.position}}</span>
-          </td>
-          <td style="width:5%">
-            <span>{{'global.labels.at' | translate }}</span>
-          </td>
-          <td style="width:30%" class="elipsis">
-            <span> {{position.organization.label}}</span>
-          </td>
-          <td style="width:5%">
-            <button style="float:right" ng-click="deletePosition(position, $index)" type="button" class="btn btn-danger">
-              <i class="fa fa-trash-o"></i>
-            </button>
-          </td>
-        </tr>
-      </table>-->
     </div>
   </div>
+
+
+  <div ng-repeat="role in event.roles  track by $index" class="col-sm-3">
+    <div sympozer-with-locals locals-role="role" locals-edit="true"
+         ng-include="GLOBAL_CONFIG.app.modules.roles.urls.partials+'views/roles-tile-sm.html'"></div>
+  </div>
+
 </div>
 
 

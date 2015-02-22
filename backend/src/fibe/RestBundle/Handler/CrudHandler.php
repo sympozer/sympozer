@@ -68,7 +68,7 @@ class CrudHandler
      * @param String $id
      *
      * @throws \RuntimeException in case the http method is not mapped
-     * @return mixed  $entity|form validation errors
+     * @return mixed  id | form validation errors | no content
      */
     public function processForm(Request $request, $entityClassName, $formClassName, $method, $id = null)
     {
@@ -105,7 +105,7 @@ class CrudHandler
             }
             else
             {
-                return "";
+              return null;
             }
         }
 
