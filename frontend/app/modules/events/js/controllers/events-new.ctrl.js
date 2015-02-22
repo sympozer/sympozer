@@ -28,7 +28,10 @@ angular.module('eventsApp').controller('eventsNewCtrl', [
                 $scope.event.selectedDay = new moment($rootScope.currentMainEvent.startAt).format('dd DD MMM YYYY');
                 //Initialize the timer for start time
                 $scope.event.timeStart = new Date();
-                $scope.event.timeStart.setHours('12');
+                // Default value to 6 AM
+                $scope.event.timeStart.setHours('6');
+                $scope.event.timeStart.setMinutes('0');
+                $scope.event.timeStart.setSeconds('0');
             }
 
             //Initialize the day dropdown value and time inputs
@@ -41,7 +44,10 @@ angular.module('eventsApp').controller('eventsNewCtrl', [
             {
                 //Initialize the timer for end time
                 $scope.event.timeEnd = new Date();
-                $scope.event.timeEnd.setHours('13');
+                // Default value to 8 AM
+                $scope.event.timeEnd.setHours('8');
+                $scope.event.timeEnd.setMinutes('0');
+                $scope.event.timeEnd.setSeconds('0');
             }
         };
 

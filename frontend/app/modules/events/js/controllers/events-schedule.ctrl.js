@@ -255,7 +255,7 @@ angular.module('eventsApp').controller('eventsScheduleCtrl',
              */
             $scope.addTopicsFilter = function (index, topic) {
                 $scope.addFilter('topicId', topic.id);
-        
+
                 //Remove active property on all other topics
                 for(var i=0; i<$scope.topics.length; i++){
                     $scope.topics[i].active = false;
