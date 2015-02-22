@@ -86,12 +86,12 @@
   <label class="col-sm-3 control-label">{{ 'global.labels.from' | translate }}</label>
 
   <div class="col-sm-3">
-    <timepicker ng-model="event.timeStart" hour-step="1" minute-step="15" show-meridian="false" class="timepicker"></timepicker>
+    <timepicker ng-model="event.timeStart" hour-step="1" minute-step="GLOBAL_CONFIG.app.modules.schedule.constants.event_minutes_step" show-meridian="false" class="timepicker"></timepicker>
   </div>
   <label class="col-sm-1 control-label">{{ 'global.labels.to' | translate }}</label>
 
   <div class="col-sm-3">
-    <timepicker ng-model="event.timeEnd" hour-step="1" minute-step="15" show-meridian="false" class="timepicker"></timepicker>
+    <timepicker ng-model="event.timeEnd" hour-step="1" minute-step="GLOBAL_CONFIG.app.modules.schedule.constants.event_minutes_step" show-meridian="false" class="timepicker"></timepicker>
   </div>
   <div ng-show="event.timeStart > event.timeEnd" sympozer-with-locals locals-edit="true" locals-topics="event.topics" ng-include="GLOBAL_CONFIG.app.modules.topics.urls.partials+'views/topics-list-thumbnail-xs.html'"></div>
 
