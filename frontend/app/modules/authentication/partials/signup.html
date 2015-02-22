@@ -5,14 +5,14 @@
         <a href="#/"><img ng-src="{{GLOBAL_CONFIG.app.urls.img}}logo.png" alt="Logo" class="brand"/></a>
     </div>
     <div class="modal-body">
-        <h4 class="text-center" style="margin-bottom: 25px;">{{ 'authentication.actions.signup' | translate }}</h4>
+        <h4 class="text-center" style="margin-bottom: 25px;">{{ 'authentication.labels.signup_title' | translate }}</h4>
 
         <form name="signupForm" class="form-horizontal" role="form" ng-submit="signupAction(signupForm)" novalidate="">
             <div class="form-group">
                 <div class="col-sm-12">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                        <input type="text" required="" server-error="serverError" name="username" class="form-control" id="inputUsername" placeholder="{{ 'authentication.labels.username' | translate }}" ng-model="user.username" ng-minlength="5" ng-maxlength="128" required ng-pattern=/^[\S]*$/>
+                        <input type="text" required="" server-error="serverError" name="username" class="form-control" id="inputUsername" placeholder="{{ 'authentication.labels.username_create' | translate }}" ng-model="user.username" ng-minlength="5" ng-maxlength="128" required ng-pattern=/^[\S]*$/>
                     </div>
                     <span class="help-block" ng-show="signupForm.username.$error.minlength">{{ 'authentication.validations.username_too_short' | translate }}</span>
                     <span class="help-block" ng-show="signupForm.username.$error.maxlength">{{ 'authentication.validations.username_too_long' | translate }}</span>
@@ -31,7 +31,7 @@
                 <div class="col-sm-12">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-lock"></i></span>
-                        <input type="password" required="" name="password" id="inputPassword" class="form-control" placeholder="{{ 'authentication.labels.password' | translate }}" ng-model="user.plainPassword.first" ng-minlength="5"
+                        <input type="password" required="" name="password" id="inputPassword" class="form-control" placeholder="{{ 'authentication.labels.create_pwd' | translate }}" ng-model="user.plainPassword.first" ng-minlength="5"
                                ng-maxlength="20" ng-pattern=/(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z].*[a-z].*[a-z])(?=.*[\S])/ required/>
                     </div>
                     <span class="help-block" ng-show="signupForm.password.$error.minlength">{{ 'authentication.validations.pwd_too_short' | translate }}</span>
@@ -67,7 +67,7 @@
         <div class="modal-footer">
             <div class="pull-right">
                 <a href="" class="btn btn-default" ng-click="$dismiss('cancel')">{{ 'global.actions.cancel' | translate }}</a>
-                <a href="" class="btn btn-success" ng-disabled="signupForm.$invalid" ng-click="signupAction(signupForm)">{{ 'authentication.actions.signup' | translate }}</a>
+                <a href="" class="btn btn-success" ng-disabled="signupForm.$invalid" ng-click="signupAction(signupForm)">{{ 'authentication.labels.signup_button' | translate }}</a>
             </div>
         </div>
     </div>

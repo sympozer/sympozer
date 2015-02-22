@@ -117,7 +117,6 @@ var globalConfig = {
                     img     : "modules/notifications/img/"
                 }
             },
-
             analytics: {
                 urls: {
                     base    : "modules/analytics/",
@@ -131,18 +130,18 @@ var globalConfig = {
                     partials: "modules/socials/partials/"
                 }
             },
-
             import: {
                 urls: {
                     base    : "modules/import/",
                     partials: "modules/import/partials/"
                 }
             },
-
-            locations: {
-                urls: {
-                    base    : "modules/locations/",
-                    partials: "modules/locations/partials/"
+            schedule: {
+                constants: {
+                    calendar_start_hour : moment.duration(6, 'hours'),
+                    calendar_end_hour : moment.duration(21, 'hours'),
+                    calendar_default_time_event_durantion : moment.duration(15, 'minutes'),
+                    event_minutes_step : 15 // Same value as calendar_default_time_event_durantion
                 }
             }
         }

@@ -136,26 +136,30 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
             },
             labels     : {
                 username            : 'Username',
+                username_create     : 'Choose your username',
                 password            : 'Password',
-                email               : 'Email',
-                profile             : 'Profile',
+                email               : 'Your email address',
+                profile             : 'My profile',
                 forgotten_pwd       : 'Forgotten password ?',
                 remember_me         : 'Remember me ',
+                signup_title        : 'Sign Up',
+                signup_button       : 'Sign Up',
+                create_pwd          : 'Create a password',
                 current_pwd         : 'Current password',
                 change_pwd          : 'Change my password',
                 new_pwd             : 'New password',
-                pwd_check           : 'Password check',
+                pwd_check           : 'Confirm your password',
                 reset_pwd           : 'Reset my password',
                 pwd_verification    : 'Verification',
                 enrich_with         : 'Enrich profile with ',
                 enrich_profile      : 'Enrich your profile ',
                 signin_with         : 'Sign in with ',
                 signin_get_started  : 'Sign In to get started or ',
-                account             : 'Account',
+                account             : 'Account settings',
                 agreement           : 'User Agreement',
                 agreement_acceptance: 'I accept the ',
                 username_or_email   : 'Username or email',
-                settings            : 'Settings'
+                settings            : 'Other parameters'
 
             }
         },
@@ -707,7 +711,7 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
         authentication: {
             actions    : {
                 signin: 'Connexion',
-                signup: 'Inscription',
+                signup: 'créer votre compte',
                 signout: 'Déconnexion'
             },
             validations: {
@@ -746,27 +750,31 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 authentication: 'Authentification'
             },
             labels     : {
-                username          : 'Utilisateur',
+                username          : 'Nom d\'utilisateur',
+                username_create   : 'Choisissez votre nom d\'utilisateur',
                 password          : 'Mot de passe',
-                email             : 'Email',
-                profile           : 'Profile',
+                email             : 'Votre adresse e-mail',
+                profile           : 'Mon profil',
                 forgotten_pwd     : 'Mot de passe oublié ?',
                 remember_me       : 'Se souvenir de moi ',
+                signup_title      : 'Créer votre compte',
+                signup_button     : 'Créer mon compte',
+                create_pwd        : 'Créez un mot de passe',
                 current_pwd       : 'Votre mot de passe',
                 change_pwd        : 'Changer mon mot de passe',
                 new_pwd           : 'Nouveau mot de passe',
-                pwd_check         : 'Confirmation mot de passe',
+                pwd_check         : 'Confirmez votre mot de passe',
                 reset_pwd         : 'Reinitialiser mon mot de passe',
                 pwd_verification  : 'Vérification',
                 enrich_with       : 'Enrichir mon profile avec',
                 enrich_profile    : 'Enrichir mon profile avec',
                 signin_with       : 'Connexion avec ',
                 signin_get_started: 'Se connecter ou ',
-                account           : 'Compte',
-                agreement         : 'Convention d\'utilisation',
-                agreement_acceptance: 'J\'accepte les termes',
+                account           : 'Paramètres du compte',
+                agreement         : 'termes et conditions d\'utilisation',
+                agreement_acceptance: 'J\'accepte les ',
                 username_or_email : 'Nom d\'utilisateur ou email',
-                settings          : 'Parametres'
+                settings          : 'Autres paramètres'
             }
         },
 
@@ -789,7 +797,7 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
             },
             labels     : {
                 general_info: 'Informations générales',
-                time_localization: 'Durée & localisation',
+                time_localization: 'Durée et localisation',
                 to          : 'Jusqu\'à',
                 from        : 'Depuis'
             },
@@ -842,7 +850,7 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
             },
             labels     : {
                 general_info     : 'Informations générales',
-                time_localization: 'Durée & localisation',
+                time_localization: 'Durée et localisation',
                 to               : 'Jusqu\'à',
                 from             : 'Depuis',
                 unscheduled_Event: 'Non plannifié',

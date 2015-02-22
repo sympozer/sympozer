@@ -28,10 +28,10 @@ angular.module('sympozerApp').directive('fullcalendar',[ 'GLOBAL_CONFIG', '$comp
                     height: 600,
                     editable: true,
                     droppable: true,
-                    minTime : moment.duration(6, 'hours'),
-                    maxTime : moment.duration(21, 'hours'),
+                    minTime : globalConfig.app.modules.schedule.constants.calendar_start_hour,
+                    maxTime : globalConfig.app.modules.schedule.constants.calendar_end_hour,
                     defaultView : 'resourceDay',
-                    defaultTimedEventDuration :   moment.duration(15, 'minutes'),
+                    defaultTimedEventDuration : globalConfig.app.modules.schedule.constants.calendar_default_time_event_durantion,
                     resources : resources,
                     resourceFilter: function (resource) {
                         return findObjectByProp('id', resource.id, scope.resources);
