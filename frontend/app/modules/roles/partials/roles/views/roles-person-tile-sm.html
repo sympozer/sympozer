@@ -1,0 +1,25 @@
+<tile type="midnightblue">
+  <tile-heading>
+    <div class="row">
+      <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+        <span class="ellipsis">{{ role.roleLabel.label }}</span>
+
+      </div>
+      <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+        <a ng-if="edit" ng-click="deleteRole(index)" class="btn btn-danger btn-xs"><i class="fa fa-trash fa-1x"></i></a>
+      </div>
+    </div>
+    </button>
+  </tile-heading>
+  <div class="row">
+    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+      <img class="img-responsive" no-image ng-src="{{role.person.img}}">
+    </div>
+
+    <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+      <p class="ellipsis">{{ role.person.label}} </p>
+    </div>
+  </div>
+</tile>
+
+

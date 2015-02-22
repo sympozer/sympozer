@@ -91,7 +91,8 @@
                                 </panel-controls>
                                 <div class="row">
                                     <div ng-repeat="role in person.roles  track by $index" class="col-xs-6 col-sm-6 col-md-6 col-lg-6" ng-if="person.roles">
-                                        <div sympozer-with-locals locals-role="role" ng-include="GLOBAL_CONFIG.app.modules.roles.urls.partials+'views/roles-tile-sm.html'"></div>
+                                      <div sympozer-with-locals locals-role="role"
+                                           ng-include="GLOBAL_CONFIG.app.modules.roles.urls.partials+'views/roles-event-tile-sm.html'"></div>
                                     </div>
                                 </div>
 
