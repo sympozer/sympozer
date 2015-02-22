@@ -31,23 +31,27 @@ angular.module('eventsApp').controller('eventsEditCtrl', [
     {
 
       //Initialize the day dropdown value and time inputs
-      if (event.startAt) {
+      if (event.startAt)
+      {
         $scope.event.selectedDay = new moment(event.startAt).format(dateFormat);
         //Initialize the timer for start time
         $scope.event.timeStart = new Date(event.startAt);
       }
-      else {
+      else
+      {
         $scope.event.selectedDay = new moment($rootScope.currentMainEvent.startAt).format(dateFormat);
         //Initialize the timer for start time
         $scope.event.timeStart = new Date().setHours('12');
       }
 
       //Initialize the day dropdown value and time inputs
-      if (event.endAt) {
+      if (event.endAt)
+      {
         //Initialize the timer for end time
         $scope.event.timeEnd = new Date(event.endAt);
       }
-      else {
+      else
+      {
         //Initialize the timer for end time
         $scope.event.timeEnd = new Date().setHours('13');
       }
@@ -56,11 +60,13 @@ angular.module('eventsApp').controller('eventsEditCtrl', [
     };
 
     //Get the event from id in the route or directly in injected id (in case of a modal view)
-    if ($scope.eventId) {
+    if ($scope.eventId)
+    {
       $scope.event = eventsFact.get({id: $scope.eventId}, fetchSuccess);
       $scope.modalTitle = 'events.actions.edit';
     }
-    else {
+    else
+    {
       $scope.event = eventsFact.get({id: $routeParams.eventId}, fetchSuccess);
     }
 
@@ -86,10 +92,12 @@ angular.module('eventsApp').controller('eventsEditCtrl', [
 //                type: 'success'
 //            });
       //If view is a modal instance then close (resolve promise with new role)
-      if ($scope.$close) {
+      if ($scope.$close)
+      {
         $scope.$close($scope.event);
       }
-      else {
+      else
+      {
         //If view is a page, go back to previous page
         $window.history.back();
       }
@@ -103,7 +111,8 @@ angular.module('eventsApp').controller('eventsEditCtrl', [
      */
     var setStartEndDates = function ()
     {
-      if ($scope.event.selectedDay) {
+      if ($scope.event.selectedDay)
+      {
         //Initialize start date from the selected day
         $scope.event.startAt = moment($scope.event.selectedDay, dateFormat);
         //Set hours from timer for start value
@@ -129,7 +138,8 @@ angular.module('eventsApp').controller('eventsEditCtrl', [
     $scope.save = function (form)
     {
       //Verify form validity
-      if (form.$valid && setStartEndDates()) {
+      if (form.$valid && setStartEndDates())
+      {
         eventsFact.update(eventsFact.serialize($scope.event), success, error);
       }
     };
@@ -138,12 +148,14 @@ angular.module('eventsApp').controller('eventsEditCtrl', [
     $scope.addRelationship = function (key, model)
     {
       //Check if array available for the linked entity
-      if (!$scope.event[key]) {
+      if (!$scope.event[key])
+      {
         $scope.event[key] = [];
       }
 
       //Stop if the object selected is already in array (avoid duplicates)
-      if (!$filter('inArray')('id', model.id, $scope.event[key])) {
+      if (!$filter('inArray')('id', model.id, $scope.event[key]))
+      {
         //If no duplicate add the selected object to the specified array
         $scope.event[key].push(model);
       }
@@ -174,7 +186,8 @@ angular.module('eventsApp').controller('eventsEditCtrl', [
     $scope.searchCategories = categoriesFact.allByConference;
     $scope.addCategory = function (categoryModel)
     {
-      if (!categoryModel.id) {
+      if (!categoryModel.id)
+      {
         //If topic doesn't exist, create it
         categoriesFact.create(categoriesFact.serialize({label: categoryModel}), function (category)
         {
@@ -190,7 +203,8 @@ angular.module('eventsApp').controller('eventsEditCtrl', [
           });
         });
       }
-      else {
+      else
+      {
         $scope.event.category = categoryModel;
       }
     };
@@ -199,7 +213,8 @@ angular.module('eventsApp').controller('eventsEditCtrl', [
     $scope.searchTopics = topicsFact.all;
     $scope.addTopic = function (topicModel)
     {
-      if (!topicModel.id) {
+      if (!topicModel.id)
+      {
         //If topic doesn't exist, create it
         topicsFact.create(topicsFact.serialize({label: topicModel}), function (topic)
         {
@@ -215,7 +230,8 @@ angular.module('eventsApp').controller('eventsEditCtrl', [
           });
         });
       }
-      else {
+      else
+      {
         $scope.addRelationship('topics', topicModel)
       }
     };
@@ -224,7 +240,8 @@ angular.module('eventsApp').controller('eventsEditCtrl', [
     $scope.searchLocations = locationsFact.allByConference;
     $scope.addLocation = function (locationModel)
     {
-      if (!locationModel.id) {
+      if (!locationModel.id)
+      {
         var modalInstance = $modal.open({
           templateUrl: GLOBAL_CONFIG.app.modules.locations.urls.partials + 'modals/locations-modal-form.html',
           controller: 'locationsNewCtrl',
@@ -239,7 +256,8 @@ angular.module('eventsApp').controller('eventsEditCtrl', [
           //$log.info('Modal dismissed at: ' + new Date());
         });
       }
-      else {
+      else
+      {
         $scope.event.location = locationModel;
       }
     };
@@ -250,7 +268,8 @@ angular.module('eventsApp').controller('eventsEditCtrl', [
     $scope.event.papers = [];
     $scope.addPaper = function (paperModel)
     {
-      if (!paperModel.id) {
+      if (!paperModel.id)
+      {
         var modalInstance = $modal.open({
           templateUrl: GLOBAL_CONFIG.app.modules.papers.urls.partials + 'modals/papers-modal-form.html',
           controller: 'papersNewCtrl',
@@ -265,7 +284,8 @@ angular.module('eventsApp').controller('eventsEditCtrl', [
           //$log.info('Modal dismissed at: ' + new Date());
         });
       }
-      else {
+      else
+      {
         $scope.addRelationship('papers', paperModel);
 
       }
