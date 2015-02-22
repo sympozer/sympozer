@@ -797,7 +797,7 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
             },
             labels     : {
                 general_info: 'Informations générales',
-                time_localization: 'Durée & localisation',
+                time_localization: 'Durée et localisation',
                 to          : 'Jusqu\'à',
                 from        : 'Depuis'
             },
@@ -850,7 +850,7 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
             },
             labels     : {
                 general_info     : 'Informations générales',
-                time_localization: 'Durée & localisation',
+                time_localization: 'Durée et localisation',
                 to               : 'Jusqu\'à',
                 from             : 'Depuis',
                 unscheduled_Event: 'Non plannifié',
