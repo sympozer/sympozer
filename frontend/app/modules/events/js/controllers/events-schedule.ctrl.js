@@ -19,6 +19,7 @@ angular.module('eventsApp').controller('eventsScheduleCtrl',
                 var dayStart = new moment(day);
                 dayStart.hours(0);
                 dayStart.minutes(0);
+                dayStart.seconds(0);
                 return dayStart;
             };
 
@@ -30,6 +31,7 @@ angular.module('eventsApp').controller('eventsScheduleCtrl',
                 var dayEnd = new moment(day);
                 dayEnd.hours(23);
                 dayEnd.minutes(59);
+                dayEnd.seconds(59);
                 return dayEnd;
             };
 
