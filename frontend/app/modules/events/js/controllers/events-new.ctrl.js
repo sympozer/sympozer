@@ -145,6 +145,10 @@ angular.module('eventsApp').controller('eventsNewCtrl', [
             {
                 eventsFact.create(eventsFact.serialize($scope.event), success, error);
             }
+            else
+            {
+              console.error('The form is not valid, perhaps the dates of the event are not set correctly ?')
+            }
         };
 
         $scope.cancel = function ()

@@ -139,7 +139,8 @@ var globalConfig = {
             schedule: {
                 constants: {
                     calendar_start_hour : moment.duration(6, 'hours'),
-                    calendar_end_hour : moment.duration(21, 'hours')
+                    calendar_end_hour : moment.duration(21, 'hours'),
+                    calendar_default_time_event_durantion : moment.duration(15, 'minutes')
                 }
             }
         }
