@@ -138,7 +138,7 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 username            : 'Username',
                 password            : 'Password',
                 email               : 'Email',
-                profile             : 'Profile',
+                profile             : 'My profile',
                 forgotten_pwd       : 'Forgotten password ?',
                 remember_me         : 'Remember me ',
                 current_pwd         : 'Current password',
@@ -151,11 +151,11 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 enrich_profile      : 'Enrich your profile ',
                 signin_with         : 'Sign in with ',
                 signin_get_started  : 'Sign In to get started or ',
-                account             : 'Account',
+                account             : 'Account settings',
                 agreement           : 'User Agreement',
                 agreement_acceptance: 'I accept the ',
                 username_or_email   : 'Username or email',
-                settings            : 'Settings'
+                settings            : 'Other parameters'
 
             }
         },
@@ -749,7 +749,7 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 username          : 'Utilisateur',
                 password          : 'Mot de passe',
                 email             : 'Email',
-                profile           : 'Profile',
+                profile           : 'Mon profil',
                 forgotten_pwd     : 'Mot de passe oublié ?',
                 remember_me       : 'Se souvenir de moi ',
                 current_pwd       : 'Votre mot de passe',
@@ -762,11 +762,11 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 enrich_profile    : 'Enrichir mon profile avec',
                 signin_with       : 'Connexion avec ',
                 signin_get_started: 'Se connecter ou ',
-                account           : 'Compte',
+                account           : 'Paramètres du compte',
                 agreement         : 'Convention d\'utilisation',
                 agreement_acceptance: 'J\'accepte les termes',
                 username_or_email : 'Nom d\'utilisateur ou email',
-                settings          : 'Parametres'
+                settings          : 'Autres paramètres'
             }
         },
 
