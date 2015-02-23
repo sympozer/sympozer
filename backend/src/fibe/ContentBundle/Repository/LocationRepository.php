@@ -30,6 +30,7 @@ class LocationRepository extends EntityRepository
         if (isset($params['mainEventId'])) {
             $qb->leftJoin('qb.mainEvent', 'ev');
             $qb->andWhere('ev.id = (:MainEventId)');
+            $qb->andWhere('ev.location != qb.id');
             $qb->setParameter('MainEventId', $params['mainEventId']);
 
         }
