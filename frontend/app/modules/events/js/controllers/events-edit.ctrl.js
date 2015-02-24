@@ -129,8 +129,12 @@ angular.module('eventsApp').controller('eventsEditCtrl', [
 
         //Validate start < end date
         return $scope.event.startAt.isBefore($scope.event.endAt);
+      }else{
+          //Reset dates
+          delete($scope.event.endAt);
+          delete($scope.event.startAt);
+          return true;
       }
-      return true;
 
     };
 

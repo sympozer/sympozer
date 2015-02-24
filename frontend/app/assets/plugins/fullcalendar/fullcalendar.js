@@ -5034,11 +5034,12 @@
             var segs = this.rangeToSegs(start, end);
             var view = this.view;
 
-            if(view.name === "resourceDay") {
-                segs = $.grep(segs, function(seg) {
-                    return view.hasResource(sourceSeg.event, view.resources()[seg.leftCol]);
-                });
-            }
+            //Commented by flo
+//            if(view.name === "resourceDay") {
+//                segs = $.grep(segs, function(seg) {
+//                    return view.hasResource(sourceSeg.event, view.resources()[seg.leftCol]);
+//                });
+//            }
 
             this.renderFill('highlight', segs);
         },

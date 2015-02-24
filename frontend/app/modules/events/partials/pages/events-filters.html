@@ -58,9 +58,13 @@
         <accordion-group is-open="filterboxAccordions[4].open" ng-class="{open:filterboxAccordions[4].open}">
             <accordion-heading>
                 <i class="fa fa-calendar"></i>
-                {{'events.labels.unscheduled_Event' | translate }}
+                 {{'events.labels.unscheduled_Event' | translate }}
             </accordion-heading>
-            <div ng-repeat="event in events |  filter:{startAt: '!'}" >{{event.label}}</div>
+            <div id="unscheduled-events-box" droppable over="dropOverUnscheduledEventBox(e,ui)" out="dropOutUnscheduledEventBox(e,ui)">
+                <ul class="list-group">
+                    <li draggable dragstart="dragstart(e, ui, event)" dragstop="dragstop(e, ui)" class="unscheduled-event list-group-item" ng-repeat="event in events |  filter:{startAt: '!'}" ng-model="event">{{event.label}}</li>
+                </ul>
+            </div>
         </accordion-group>
 
     </accordion>

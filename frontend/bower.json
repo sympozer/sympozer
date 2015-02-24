@@ -62,6 +62,7 @@
                 "ui/jquery.ui.widget.js",
                 "ui/jquery.ui.mouse.js",
                 "ui/jquery.ui.draggable.js",
+                "ui/jquery.ui.droppable.js",
                 "ui/jquery.ui.resizable.js"
             ]
         },

@@ -37,7 +37,7 @@ angular.module('eventsApp').controller('eventsScheduleCtrl',
 
             /************ FULLCALENDAR DRV CONTROL ******************/
 
-            //Initialize query for label search
+                //Initialize query for label search
             $scope.query = {};
 
             $scope.showSideboxRight = false;
@@ -92,7 +92,7 @@ angular.module('eventsApp').controller('eventsScheduleCtrl',
 
             /************ FILTERS CONTROL ******************/
 
-            //Initilize open variable for accordions in filter box
+                //Initilize open variable for accordions in filter box
             $scope.filterboxAccordionsShowOne = false;
             $scope.filterboxAccordions = [
                 {open: false},
@@ -293,6 +293,44 @@ angular.module('eventsApp').controller('eventsScheduleCtrl',
 
             /************ UNSCHEDULED EVENT HANDLING ******************/
 
+            var unscheduledEventsBoxEl = $('#unscheduled-events-box');
+            var unscheduledEventsElement = $('.unscheduled-event');
 
-}]);
+
+//            unscheduledEventsBoxEl.on('drop', function (e)
+//            {
+//
+//                $(this).css('border', '2px dotted #0B85A1');
+//                e.preventDefault();
+//                delete($scope.dragged.startAt);
+//                delete($scope.dragged.endAt);
+//            });
+
+
+
+            $scope.dragstart =  function(e, ui, draggedEvent) {
+                $scope.draggedEvent = draggedEvent;
+                $(this).css('opacity', '0.5');
+
+            }
+
+            $scope.dragstop = function() {
+                $(this).css('opacity', '1');
+            }
+
+
+            $scope.dropOverUnscheduledEventBox = function(e, ui){
+                $(this).css('border', '2px solid red');
+                $(this).append( $(ui.draggable).clone().css({'float':'left','display':'block'}) );
+
+            }
+
+            $scope.dropOutUnscheduledEventBox = function(e, ui){
+                $(this).css('border', 'none');
+
+            }
+
+
+
+        }]);
 

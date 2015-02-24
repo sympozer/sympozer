@@ -670,8 +670,6 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 on    : 'le',
                 list  : 'Liste',
                 undefined  : 'Non defini'
-
-
             },
             validations: {
                 error              : 'Erreur',
@@ -853,7 +851,7 @@ i18nApp.config(['$translateProvider', function ($translateProvider)
                 time_localization: 'Durée et localisation',
                 to               : 'Jusqu\'à',
                 from             : 'Depuis',
-                unscheduled_Event: 'Non plannifié',
+                unscheduled_Event: 'Evenenement(s) non plannifié(s)',
                 filters          : 'Filtres'
             },
             validations: {
