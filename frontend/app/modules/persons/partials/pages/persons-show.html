@@ -2,7 +2,7 @@
 
     <div ng-include="GLOBAL_CONFIG.app.urls.partials+'navigation/breadcrumb.html'"></div>
 
-    <h1>{{'authentication.labels.profile' | translate }}</h1>
+    <h1 ng-if="currentUser.person.id == person.id">{{'authentication.labels.my_profile' | translate }}</h1>
 
     <div class="options">
         <div class="btn-toolbar">
@@ -19,7 +19,7 @@
         <div class="col-md-12">
             <div class="panel">
                 <div class="panel-body">
-                    <panel panel-class="panel panel-gray" heading="{{person.firstName || '???'}} {{person.familyName || '???'}}">
+                    <panel panel-class="panel panel-gray" heading="{{person.firstName}} {{person.familyName}}">
                         <div class="row">
                             <div class="col-xs-5 col-sm-4 col-md-3 col-lg-2">
                                 <img no-image ng-src="{{ person.img }}" alt="" class="pull-left img-responsive img-circle" style="margin: 0 20px 20px 0">
@@ -90,12 +90,12 @@
                                     </a>
                                 </panel-controls>
                                 <div class="row">
-                                    <div ng-repeat="role in person.roles  track by $index" class="col-xs-6 col-sm-6 col-md-6 col-lg-6" ng-if="person.roles">
+                                    <div ng-repeat="role in roles  track by $index" class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                                       <div sympozer-with-locals locals-role="role"
                                            ng-include="GLOBAL_CONFIG.app.modules.roles.urls.partials+'views/roles-event-tile-sm.html'"></div>
                                     </div>
                                 </div>
-
+                                <i ng-show="!rolesLoaded" class="fa fa-spinner fa-spin"></i>
                             </panel>
                             <panel panel-class="panel panel-gray" heading="{{person.papers.length}} {{'papers.links.papers' | translate }}">
                                 <panel-controls>
