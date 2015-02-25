@@ -2,7 +2,7 @@
 
     <div ng-include="GLOBAL_CONFIG.app.urls.partials+'navigation/breadcrumb.html'"></div>
 
-    <h1>{{'locations.links.locations' | translate }}</h1>
+    <h1>{{'locations.actions.search' | translate }}</h1>
 
     <div class="options">
         <div class="btn-toolbar">
@@ -17,10 +17,8 @@
     <div class="row">
         <div class="col-md-12">
 
-            <div class="panel">
-                <div class="panel-heading">
-                    <h4>{{'locations.actions.search' | translate }}</h4>
-                </div>
+            <div class="panel panel-gray">
+
                 <div class="panel-body" entity-list-handler="locations">
                     <div class="search-classic">
                         <form ng-submit="sendQuery(query)">

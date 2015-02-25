@@ -10,24 +10,29 @@
     </div>
 </div>
 <div class="container-fluid">
+    <div class="panel panel-gray">
 
-    <div ng-if="currentUser.random_pwd">
-        <div class="alert alert-warning" role="alert">{{ 'authentication.messages.pwd_not_set' | translate }}</div>
-        <div ng-include="GLOBAL_CONFIG.app.modules.authentication.urls.partials+'change-pwd.html'"></div>
+        <div class="panel-body">
+            <div ng-if="currentUser.random_pwd">
+                <div class="alert alert-warning" role="alert">{{ 'authentication.messages.pwd_not_set' | translate }}</div>
+                <div ng-include="GLOBAL_CONFIG.app.modules.authentication.urls.partials+'change-pwd.html'"></div>
+            </div>
+            <!--<h2>{{ 'authentication.labels.profile' | translate }}</h2>-->
+            <!--<h4>{{ 'authentication.labels.enrich_profile' | translate }}</h4>-->
+            <!--<a ng-repeat="socialnetwork in GLOBAL_CONFIG.api.urls.socialnetworks track by $index"-->
+            <!--class="btn btn-social btn-{{ socialnetwork.name }}{{ socialnetwork.name == 'google' ? '-plus' : '' }}"-->
+            <!--href="{{ socialnetwork.urls.enrich }}">-->
+            <!--&lt;!&ndash;ng-click="socialSignInAction(socialnetwork.url)">&ndash;&gt;-->
+            <!--<i class="fa fa-{{ socialnetwork.name }}{{ socialnetwork.name == 'google' ? '-plus' : '' }}"></i> {{ 'authentication.labels.enrich_with' | translate }} {{ socialnetwork.name | titleize }}-->
+            <!--</a>-->
+
+
+            <div ng-if="!currentUser.random_pwd">
+                <hr/>
+                <h4>{{ 'authentication.labels.change_pwd' | translate }}</h4>
+                <div ng-include="GLOBAL_CONFIG.app.modules.authentication.urls.partials+'change-pwd.html'"></div>
+            </div>
+        </div>
     </div>
-    <!--<h2>{{ 'authentication.labels.profile' | translate }}</h2>-->
-    <!--<h4>{{ 'authentication.labels.enrich_profile' | translate }}</h4>-->
-    <!--<a ng-repeat="socialnetwork in GLOBAL_CONFIG.api.urls.socialnetworks track by $index"-->
-    <!--class="btn btn-social btn-{{ socialnetwork.name }}{{ socialnetwork.name == 'google' ? '-plus' : '' }}"-->
-    <!--href="{{ socialnetwork.urls.enrich }}">-->
-    <!--&lt;!&ndash;ng-click="socialSignInAction(socialnetwork.url)">&ndash;&gt;-->
-    <!--<i class="fa fa-{{ socialnetwork.name }}{{ socialnetwork.name == 'google' ? '-plus' : '' }}"></i> {{ 'authentication.labels.enrich_with' | translate }} {{ socialnetwork.name | titleize }}-->
-    <!--</a>-->
 
-
-    <div ng-if="!currentUser.random_pwd">
-        <hr/>
-        <h4>{{ 'authentication.labels.change_pwd' | translate }}</h4>
-        <div ng-include="GLOBAL_CONFIG.app.modules.authentication.urls.partials+'change-pwd.html'"></div>
-    </div>
 </div>

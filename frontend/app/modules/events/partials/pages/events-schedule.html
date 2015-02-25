@@ -18,8 +18,12 @@
 
 <div class="container-fluid">
     <div class="row">
-        <button class="pull-right btn-warning btn btn-large" ng-click="toggleSideboxRight()" ng-init="showSideboxRight=false">{{ 'events.labels.filters' | translate}}</button>
-        <div id="calendar" fullcalendar class="calendar"></div>
+        <div class="panel panel-gray">
+            <div class="panel-body">
+                <button class="pull-right btn-warning btn btn-large" ng-click="toggleSideboxRight()" ng-init="showSideboxRight=false">{{ 'events.labels.filters' | translate}}</button>
+                <div id="calendar" fullcalendar class="calendar"></div>
+            </div>
+        </div>
     </div>
 </div>
 

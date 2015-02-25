@@ -2,7 +2,6 @@
 
     <div ng-include="GLOBAL_CONFIG.app.urls.partials+'navigation/breadcrumb.html'"></div>
 
-    <h1>{{'papers.actions.new' | translate }}</h1>
 
     <div class="options">
         <div class="btn-toolbar">
@@ -16,6 +15,10 @@
     <div class="row">
         <div class="col-md-12">
             <div class="panel panel-gray">
+                <div class="panel-heading">
+                    <h4>{{'papers.actions.new' | translate }}</h4>
+                </div>
+
                 <div class="panel-body">
                     <form name="paperForm" class="form-horizontal" role="form" ng-submit="create(paperForm)">
                         <div ng-include="GLOBAL_CONFIG.app.modules.papers.urls.partials+'views/papers-form.html'"></div>
