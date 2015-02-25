@@ -20,21 +20,31 @@
             <div class="panel panel-gray">
                 <div class="panel-body">
 
-                    <div class="col-xs-5 col-sm-3 col-md-3 col-lg-3">
-                        <div class="img-container-lg">
-                            <i class="fa fa-calendar fa-5x"></i>
+                    <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2">
+                        <div class="row">
+                            <div class="col-xs-4 col-sm-4 col-md-12 col-lg-12">
+                                <div class="img-container-lg">
+                                    <i class="fa fa-calendar fa-5x"></i>
+                                </div>
+                            </div>
+                            <div class="col-xs-8 col-sm-8 col-md-12 col-lg-12">
+                                <div class="pull-right">
+                                    <span><i class="fa fa-clock-o"></i>{{event.startAt | date:'MMM d, h:mm a'}} - {{event.duration}}</span>
+                                    <span ng-show="event.category"> - {{event.category.label}}</span>
+                                    <span ng-show="event.location"> - <i class="fa fa-map-marker"></i> {{event.location.label}}</span>
+
+                                    <a class="btn btn-info" sympozer-acl-show="event" href="#/home/conference/{{event.mainEvent.id}}/events/edit/{{event.id}}" role="button">
+                                        <i class="fa fa-edit fa-1x"></i>
+                                        <!--<span class="visible-sm-inline visible-lg-inline visible-md-inline">-->
+                                        <!--{{ 'events.actions.edit' | translate }}-->
+                                        <!--</span>-->
+                                    </a>
+                                </div>
+                            </div>
                         </div>
-                      <a class="btn btn-info" sympozer-acl-show="event" href="#/home/conference/{{event.mainEvent.id}}/events/edit/{{event.id}}" role="button">
-                      <i class="fa fa-edit fa-1x"></i>
-                             <span class="visible-sm-inline visible-lg-inline visible-md-inline">
-                                 {{ 'events.actions.edit' | translate }}
-                                 </span>
-                        </a>
                     </div>
-                    <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">
+                    <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
                         <h2>{{event.label}}</h2> </br>
-                        <h3>{{event.category.label}}</h3>
-                        <p>{{ 'events.labels.from' | translate }} {{event.startAt | date:short}} {{ 'events.labels.to' | translate }} {{event.endAt | date:short}} in {{event.location.label || '?'}}</p>
                         <p>{{event.description}}</p>
                         <p>{{event.comment}}</p>
 
@@ -59,7 +69,7 @@
                             <a href=""><panel-control-collapse class="fa fa-chevron-down"></panel-control-collapse></a>
                         </panel-controls>
                         <div  ng-repeat="role in event.roles  track by $index" class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                            <a href="#home/persons/show/{{role.person.id}}"><img ng-src="{{role.person.img}}" alt="{{role.person.label}}" no-image class="img-responsive"></a>
+                            <div sympozer-with-locals locals-person="role.person" ng-include="GLOBAL_CONFIG.app.modules.persons.urls.partials+'views/persons-img-xs.html'"></div>
                         </div>
                     </panel>
                 </div>
@@ -85,7 +95,7 @@
     </div>
     <!-- Appel de la timeline correspondant a l'identifiant Twitter (# ou @) -->
     <div class="well" ng-show="event.twitter"
-     ng-include="GLOBAL_CONFIG.app.modules.socials.urls.partials + 'twitterTimeline-show.html'"/>
+         ng-include="GLOBAL_CONFIG.app.modules.socials.urls.partials + 'twitterTimeline-show.html'"/>
 </div>
 
 
