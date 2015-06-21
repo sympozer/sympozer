@@ -73,7 +73,7 @@ After that, save and add this file to : app/config
 
 ##Step  8: install the theme (only if needed)
 
-     sudo git clone https://github.com/E-Conference/sympozer-theme.git /frontend/app/assets/less/theme
+     Put all Forza theme files in /frontend/app/assets/less/theme. Those files couldn't be shared publicly, the files can be found in the sympozer drive : Sympozer\Technique\sympozer-theme.zip
  
 
 ##Step  9 : Run the backend symfony server in background
